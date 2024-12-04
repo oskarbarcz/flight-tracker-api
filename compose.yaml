@@ -1,0 +1,36 @@
+services:
+  app:
+    depends_on:
+      database:
+        condition: service_healthy
+    image: ghcr.io/oskar-barcz/flight-tracker-api:0.1.0
+    build:
+      context: .
+      target: development
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - ./node_modules:/app/node_modules
+    ports:
+      - '80:3000'
+    healthcheck:
+      test: "curl --fail http://localhost:3000 || exit 1"
+      interval: 1s
+      retries: 20
+      start_period: 5s
+      timeout: 1s
+
+  database:
+    image: postgres:16.2
+    environment:
+      POSTGRES_USER: 'user'
+      POSTGRES_PASSWORD: 'pass'
+      POSTGRES_DB: 'app'
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: "pg_isready -U user"
+      interval: 1s
+      timeout: 500ms
+      retries: 30

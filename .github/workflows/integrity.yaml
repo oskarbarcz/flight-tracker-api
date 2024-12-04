@@ -1,0 +1,31 @@
+name: 'integrity'
+
+on:
+  pull_request:
+    paths: [ '**', '!**.md' ]
+
+jobs:
+  version:
+    runs-on: 'ubuntu-24-04'
+    steps:
+      - name: 'Checkout repository'
+        uses: 'actions/checkout@v4'
+        with:
+          fetch-depth: 0
+      - name: 'Check if image version is available to publish'
+        run: './docker/ci/check_version_is_free "$(jq -r ''.version'' package.json)"'
+  code:
+    runs-on: 'ubuntu-24-04'
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v4
+      - name: 'Copy environment variables'
+        run: 'cp .env.dist .env'
+      - name: 'Run docker compose environment'
+        run: 'docker compose up -d --build'
+      - name: 'Check code formatting'
+        run: 'sleep 15 && docker compose exec app npm run lint'
+      - name: 'Run unit tests'
+        run: 'docker compose exec app npm run test'
+      - name: 'Run end-to-end tests'
+        run: 'docker compose exec app npm run test:e2e'
