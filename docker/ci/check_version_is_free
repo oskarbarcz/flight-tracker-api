@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ "$(git tag -l "$1")" ]; then
+    echo "Image version '$1' is already in use and cannot be used as next release version"
+    exit 1
+else
+    echo "Image version '$1' can be used as next release version"
+    exit 0
+fi
