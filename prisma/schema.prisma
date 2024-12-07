@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Aircraft {
+  id           String   @id @db.Uuid
+  icaoCode     String   @unique @db.VarChar(4)
+  shortName    String
+  fullName     String
+  registration String   @unique
+  selcal       String
+  livery       String
+  Flight       Flight[]
+
+  @@map("aircraft")
+}
+
+model Airport {
+  id                String              @id @db.Uuid
+  icaoCode          String              @unique @db.VarChar(4)
+  name              String
+  country           String
+  timezone          String
+  AirportsOnFlights AirportsOnFlights[]
+
+  @@map("airport")
+}
+
+model Operator {
+  id        String @id @db.Uuid
+  icaoCode  String @db.VarChar(4)
+  shortName String
+  fullName  String
+  callsign  String
+
+  @@map("operator")
+}
+
+model Flight {
+  id           String              @id @db.Uuid
+  flightNumber String
+  callsign     String
+  status       String
+  aircraft     Aircraft            @relation(fields: [aircraftId], references: [id])
+  aircraftId   String              @db.Uuid
+  airports     AirportsOnFlights[]
+  timesheet    Json
+
+  @@map("flight")
+}
+
+model AirportsOnFlights {
+  airport     Airport @relation(fields: [airportId], references: [id])
+  airportId   String  @db.Uuid
+  flight      Flight  @relation(fields: [flightId], references: [id])
+  flightId    String  @db.Uuid
+  airportType String
+
+  @@id([airportId, flightId])
+  @@map("airport_flight")
+}
