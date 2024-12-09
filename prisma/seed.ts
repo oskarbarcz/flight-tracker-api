@@ -217,22 +217,22 @@ async function loadFlights(): Promise<void> {
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B773
     timesheet: {
       scheduled: {
-        offBlockTime: '',
-        takeoffTime: '',
-        arrivalTime: '',
-        onBlockTime: '',
+        offBlockTime: '2024-01-01 12:00',
+        takeoffTime: '2024-01-01 12:15',
+        arrivalTime: '2024-01-01 21:00',
+        onBlockTime: '2024-01-01 21:10',
       },
       estimated: {
-        offBlockTime: '',
-        takeoffTime: '',
-        arrivalTime: '',
-        onBlockTime: '',
+        offBlockTime: '2024-01-01 12:00',
+        takeoffTime: '2024-01-01 12:15',
+        arrivalTime: '2024-01-01 21:00',
+        onBlockTime: '2024-01-01 21:10',
       },
       actual: {
-        offBlockTime: '',
-        takeoffTime: '',
-        arrivalTime: '',
-        onBlockTime: '',
+        offBlockTime: '2024-01-01 12:00',
+        takeoffTime: '2024-01-01 12:15',
+        arrivalTime: '2024-01-01 21:00',
+        onBlockTime: '2024-01-01 21:10',
       },
     } as Prisma.InputJsonValue,
   };

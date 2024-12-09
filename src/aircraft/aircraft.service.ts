@@ -1,26 +1,76 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateAircraftDto } from './dto/create-aircraft.dto';
 import { UpdateAircraftDto } from './dto/update-aircraft.dto';
+import { PrismaService } from '../prisma/prisma.service';
+import { v4 } from 'uuid';
+import { Aircraft } from '@prisma/client';
 
 @Injectable()
 export class AircraftService {
-  create(createAircraftDto: CreateAircraftDto) {
-    return 'This action adds a new aircraft';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(data: CreateAircraftDto): Promise<Aircraft> {
+    const aircraft: Aircraft | null = await this.findOneBy({
+      registration: data.registration,
+    });
+
+    if (aircraft) {
+      throw new BadRequestException(
+        'Aircraft with given registration already exists.',
+      );
+    }
+
+    return this.prisma.aircraft.create({ data: { id: v4(), ...data } });
   }
 
-  findAll() {
-    return `This action returns all aircraft`;
+  async findAll(): Promise<Aircraft[]> {
+    return this.prisma.aircraft.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} aircraft`;
+  async findOne(id: string): Promise<Aircraft> {
+    const aircraft: Aircraft | null = await this.findOneBy({ id });
+
+    if (!aircraft) {
+      throw new NotFoundException('Aircraft with id does not exist.');
+    }
+
+    return aircraft;
   }
 
-  update(id: number, updateAircraftDto: UpdateAircraftDto) {
-    return `This action updates a #${id} aircraft`;
+  async findOneBy(
+    criteria: Partial<Record<keyof Aircraft, any>>,
+  ): Promise<Aircraft | null> {
+    return this.prisma.aircraft.findFirst({
+      where: criteria,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} aircraft`;
+  async update(id: string, data: UpdateAircraftDto): Promise<Aircraft> {
+    const aircraft: Aircraft | null = await this.findOneBy({ id });
+
+    if (!aircraft) {
+      throw new BadRequestException(
+        'Aircraft with given registration already exists.',
+      );
+    }
+
+    return this.prisma.aircraft.update({
+      where: { id },
+      data: data,
+    });
+  }
+
+  async remove(id: string): Promise<void> {
+    const aircraft: Aircraft | null = await this.findOneBy({ id });
+
+    if (!aircraft) {
+      throw new NotFoundException('Aircraft with given id does not exist.');
+    }
+
+    await this.prisma.aircraft.delete({ where: { id } });
   }
 }

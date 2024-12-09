@@ -4,9 +4,9 @@
 if [ ! -d "node_modules" ] || [ -z "$(ls -A node_modules 2>/dev/null)" ]; then
     echo "node_modules directory is missing or empty, recreating..."
     npm install # install dependencies
-#    npx prisma generate # generate database schema
+    npx prisma generate # generate database schema
 fi
 
-#npm run database:migrate # execute database schema migrations
-#npm run database:seed # load example data to database
+npm run database:migrate # execute database schema migrations
+npm run database:seed # load example data to database
 npm run start:dev # start app in dev mode
