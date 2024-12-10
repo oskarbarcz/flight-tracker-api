@@ -6,16 +6,45 @@ import {
   Patch,
   Param,
   Delete,
+  HttpStatus,
+  HttpCode,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { AircraftService } from './aircraft.service';
 import { CreateAircraftDto } from './dto/create-aircraft.dto';
 import { UpdateAircraftDto } from './dto/update-aircraft.dto';
 import { Aircraft } from './entities/aircraft.entity';
+import {
+  ApiBadRequestResponse,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
+import { GenericBadRequestResponse } from '../common/dto/bad-request.dto';
 
+@ApiTags('aircraft')
 @Controller('/api/v1/aircraft')
 export class AircraftController {
   constructor(private readonly aircraftService: AircraftService) {}
 
+  @ApiOperation({ summary: 'Create new aircraft' })
+  @ApiBody({
+    description: 'Aircraft data',
+    type: CreateAircraftDto,
+  })
+  @ApiCreatedResponse({
+    description: 'Aircraft was created successfully',
+    type: Aircraft,
+  })
+  @ApiBadRequestResponse({
+    description: 'Request validation failed',
+    type: GenericBadRequestResponse,
+  })
   @Post()
   async create(
     @Body() createAircraftDto: CreateAircraftDto,
@@ -23,26 +52,78 @@ export class AircraftController {
     return await this.aircraftService.create(createAircraftDto);
   }
 
+  @ApiOperation({ summary: 'Retrieve all aircraft' })
+  @ApiOkResponse({
+    description: 'Aircraft list',
+    type: Aircraft,
+  })
   @Get()
   async findAll(): Promise<Aircraft[]> {
     return this.aircraftService.findAll();
   }
 
+  @ApiOperation({ summary: 'Retrieve one aircraft' })
+  @ApiParam({
+    name: 'id',
+    description: 'Aircraft unique identifier',
+  })
+  @ApiOkResponse({
+    description: 'Aircraft was created successfully',
+    type: Aircraft,
+  })
+  @ApiNotFoundResponse({
+    description: 'Aircraft with given it does not exist',
+    type: GenericBadRequestResponse,
+  })
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Aircraft> {
+  async findOne(@Param(ParseUUIDPipe) id: string): Promise<Aircraft> {
     return this.aircraftService.findOne(id);
   }
 
+  @ApiOperation({ summary: 'Update aircraft' })
+  @ApiParam({
+    name: 'id',
+    description: 'Aircraft unique identifier',
+  })
+  @ApiBody({
+    description: 'Aircraft data',
+    type: UpdateAircraftDto,
+  })
+  @ApiOkResponse({
+    description: 'Aircraft was updated successfully',
+    type: Aircraft,
+  })
+  @ApiBadRequestResponse({
+    description: 'Request validation failed',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Aircraft with given it does not exist',
+    type: GenericBadRequestResponse,
+  })
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param(ParseUUIDPipe) id: string,
     @Body() updateAircraftDto: UpdateAircraftDto,
   ): Promise<Aircraft> {
     return this.aircraftService.update(id, updateAircraftDto);
   }
 
+  @ApiOperation({ summary: 'Remove aircraft' })
+  @ApiParam({
+    name: 'id',
+    description: 'Aircraft unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'Aircraft was removed successfully',
+  })
+  @ApiNotFoundResponse({
+    description: 'Aircraft with given it does not exist',
+    type: GenericBadRequestResponse,
+  })
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<void> {
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async remove(@Param(ParseUUIDPipe) id: string): Promise<void> {
     await this.aircraftService.remove(id);
   }
 }
