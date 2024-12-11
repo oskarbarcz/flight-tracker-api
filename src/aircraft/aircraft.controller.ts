@@ -123,7 +123,7 @@ export class AircraftController {
   })
   @ApiNotFoundResponse({
     description: 'Aircraft with given it does not exist',
-    type: GenericBadRequestResponse,
+    type: GenericNotFoundResponse,
   })
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
