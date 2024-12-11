@@ -25,7 +25,9 @@ jobs:
         run: 'docker compose up -d --build'
       - name: 'Check code formatting'
         run: 'sleep 15 && docker compose exec app npm run lint'
-      - name: 'Run unit tests'
-        run: 'docker compose exec app npm run test'
-      - name: 'Run end-to-end tests'
-        run: 'docker compose exec app npm run test:e2e'
+#      - name: 'Run unit tests' // uncomment when unit tests will be required for some code
+#        run: 'docker compose exec app npm run test'
+      - name: 'Run functional tests'
+        run: 'docker compose exec app npm run test:functional'
+#      - name: 'Run end-to-end tests' // uncomment when e2e tests will be required for some code
+#        run: 'docker compose exec app npm run test:e2e'
