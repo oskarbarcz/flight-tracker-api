@@ -27,5 +27,7 @@ jobs:
         run: 'sleep 15 && docker compose exec app npm run lint'
       - name: 'Run unit tests'
         run: 'docker compose exec app npm run test'
+      - name: 'Run functional tests'
+        run: 'docker compose exec app npm run test:functional'
       - name: 'Run end-to-end tests'
         run: 'docker compose exec app npm run test:e2e'

@@ -35,27 +35,17 @@ export class AircraftService {
     const aircraft: Aircraft | null = await this.findOneBy({ id });
 
     if (!aircraft) {
-      throw new NotFoundException('Aircraft with id does not exist.');
+      throw new NotFoundException('Aircraft with given id does not exist.');
     }
 
     return aircraft;
-  }
-
-  async findOneBy(
-    criteria: Partial<Record<keyof Aircraft, any>>,
-  ): Promise<Aircraft | null> {
-    return this.prisma.aircraft.findFirst({
-      where: criteria,
-    });
   }
 
   async update(id: string, data: UpdateAircraftDto): Promise<Aircraft> {
     const aircraft: Aircraft | null = await this.findOneBy({ id });
 
     if (!aircraft) {
-      throw new BadRequestException(
-        'Aircraft with given registration already exists.',
-      );
+      throw new NotFoundException('Aircraft with given id does not exist.');
     }
 
     return this.prisma.aircraft.update({
@@ -72,5 +62,13 @@ export class AircraftService {
     }
 
     await this.prisma.aircraft.delete({ where: { id } });
+  }
+
+  private async findOneBy(
+    criteria: Partial<Record<keyof Aircraft, any>>,
+  ): Promise<Aircraft | null> {
+    return this.prisma.aircraft.findFirst({
+      where: criteria,
+    });
   }
 }

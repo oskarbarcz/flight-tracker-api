@@ -4,11 +4,9 @@ import {
   Post,
   Body,
   Patch,
-  Param,
   Delete,
   HttpStatus,
   HttpCode,
-  ParseUUIDPipe,
 } from '@nestjs/common';
 import { AircraftService } from './aircraft.service';
 import { CreateAircraftDto } from './dto/create-aircraft.dto';
@@ -26,6 +24,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { GenericBadRequestResponse } from '../common/dto/bad-request.dto';
+import { uuid } from '../common/validation/uuid.param';
 
 @ApiTags('aircraft')
 @Controller('/api/v1/aircraft')
@@ -76,7 +75,7 @@ export class AircraftController {
     type: GenericBadRequestResponse,
   })
   @Get(':id')
-  async findOne(@Param(ParseUUIDPipe) id: string): Promise<Aircraft> {
+  async findOne(@uuid('id') id: string): Promise<Aircraft> {
     return this.aircraftService.findOne(id);
   }
 
@@ -103,7 +102,7 @@ export class AircraftController {
   })
   @Patch(':id')
   async update(
-    @Param(ParseUUIDPipe) id: string,
+    @uuid('id') id: string,
     @Body() updateAircraftDto: UpdateAircraftDto,
   ): Promise<Aircraft> {
     return this.aircraftService.update(id, updateAircraftDto);
@@ -123,7 +122,7 @@ export class AircraftController {
   })
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async remove(@Param(ParseUUIDPipe) id: string): Promise<void> {
+  async remove(@uuid('id') id: string): Promise<void> {
     await this.aircraftService.remove(id);
   }
 }

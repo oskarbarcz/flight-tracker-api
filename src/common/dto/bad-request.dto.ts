@@ -1,21 +1,27 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class GenericBadRequestResponse {
+export class GenericBadRequestResponse<RequestObj> {
   @ApiProperty({
     description: 'Detailed message what went wrong',
-    example: 'Resource with given id does not exist.',
+    example: 'Request validation failed.',
   })
   message: string;
 
   @ApiProperty({
     description: 'HTTP status message',
-    example: 'Not Found',
+    example: 'Bad Request',
   })
-  error: 'Not Found';
+  error: 'Bad Request';
+
+  @ApiProperty({
+    description: 'HTTP status message',
+    example: 'Bad Request',
+  })
+  violations: Record<keyof RequestObj, string[]>;
 
   @ApiProperty({
     description: 'HTTP status code',
-    example: 404,
+    example: 400,
   })
-  statusCode: 404;
+  statusCode: 400;
 }
