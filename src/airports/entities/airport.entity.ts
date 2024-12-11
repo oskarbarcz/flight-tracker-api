@@ -33,8 +33,8 @@ export class Airport {
   country: string;
 
   @ApiProperty({
-    description: 'Airport timezone',
-    example: 'IANA standard timezone',
+    description: 'IANA standard timezone',
+    example: 'Europe/Berlin',
   })
   @IsString()
   @IsTimeZone()
