@@ -15,7 +15,9 @@ export class GenericBadRequestResponse<RequestObj> {
 
   @ApiProperty({
     description: 'HTTP status message',
-    example: 'Bad Request',
+    example: {
+      registration: ['Registration must be unique'],
+    },
   })
   violations: Record<keyof RequestObj, string[]>;
 

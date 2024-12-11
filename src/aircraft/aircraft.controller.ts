@@ -25,6 +25,7 @@ import {
 } from '@nestjs/swagger';
 import { GenericBadRequestResponse } from '../common/dto/bad-request.dto';
 import { uuid } from '../common/validation/uuid.param';
+import { GenericNotFoundResponse } from '../common/dto/not-found.dto';
 
 @ApiTags('aircraft')
 @Controller('/api/v1/aircraft')
@@ -42,7 +43,7 @@ export class AircraftController {
   })
   @ApiBadRequestResponse({
     description: 'Request validation failed',
-    type: GenericBadRequestResponse,
+    type: GenericBadRequestResponse<CreateAircraftDto>,
   })
   @Post()
   async create(
@@ -72,7 +73,7 @@ export class AircraftController {
   })
   @ApiNotFoundResponse({
     description: 'Aircraft with given it does not exist',
-    type: GenericBadRequestResponse,
+    type: GenericNotFoundResponse,
   })
   @Get(':id')
   async findOne(@uuid('id') id: string): Promise<Aircraft> {
@@ -94,11 +95,11 @@ export class AircraftController {
   })
   @ApiBadRequestResponse({
     description: 'Request validation failed',
-    type: GenericBadRequestResponse,
+    type: GenericBadRequestResponse<CreateAircraftDto>,
   })
   @ApiNotFoundResponse({
     description: 'Aircraft with given it does not exist',
-    type: GenericBadRequestResponse,
+    type: GenericNotFoundResponse,
   })
   @Patch(':id')
   async update(
@@ -115,6 +116,10 @@ export class AircraftController {
   })
   @ApiNoContentResponse({
     description: 'Aircraft was removed successfully',
+  })
+  @ApiBadRequestResponse({
+    description: 'Aircraft id is not valid uuid v4',
+    type: GenericBadRequestResponse,
   })
   @ApiNotFoundResponse({
     description: 'Aircraft with given it does not exist',
