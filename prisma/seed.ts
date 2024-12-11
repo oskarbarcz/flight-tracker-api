@@ -1,4 +1,10 @@
-import { Aircraft, Airport, Flight, Operator, Prisma, PrismaClient } from "@prisma/client";
+import {
+  Aircraft,
+  Airport,
+  Operator,
+  Prisma,
+  PrismaClient,
+} from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -14,7 +20,7 @@ async function loadAirports(): Promise<void> {
     icaoCode: 'EDDF',
     name: 'Frankfurt Rhein/Main',
     country: 'Germany',
-    timezone: 'GMT+1',
+    timezone: 'Europe/Berlin',
   };
 
   const warsaw: Airport = {
@@ -22,7 +28,7 @@ async function loadAirports(): Promise<void> {
     icaoCode: 'EPWA',
     name: 'Warsaw Chopin',
     country: 'Poland',
-    timezone: 'GMT+1',
+    timezone: 'Europe/Warsaw',
   };
 
   const newYork: Airport = {
@@ -30,7 +36,7 @@ async function loadAirports(): Promise<void> {
     icaoCode: 'KJFK',
     name: 'New York JFK',
     country: 'United States of America',
-    timezone: 'GMT-5',
+    timezone: 'America/New_York',
   };
 
   const paris: Airport = {
@@ -38,7 +44,7 @@ async function loadAirports(): Promise<void> {
     icaoCode: 'LFPG',
     name: 'Paris Charles de Gaulle',
     country: 'France',
-    timezone: 'GMT+1',
+    timezone: 'Europe/Paris',
   };
 
   const gooseBay: Airport = {
@@ -46,7 +52,7 @@ async function loadAirports(): Promise<void> {
     icaoCode: 'CYYR',
     name: 'Goose Bay Intl',
     country: 'Canada',
-    timezone: 'GMT-4',
+    timezone: 'America/Goose_Bay',
   };
 
   const reykjavik: Airport = {
@@ -99,13 +105,13 @@ async function loadAirports(): Promise<void> {
     stJohns,
     philadelphia,
     boston,
-    bremen
+    bremen,
   ]) {
     await prisma.airport.create({ data: airport });
   }
 }
 
-async function loadOperators():Promise<void> {
+async function loadOperators(): Promise<void> {
   const condor: Operator = {
     id: '5c649579-22eb-4c07-a96c-b74a77f53871',
     icaoCode: 'CDG',
@@ -146,13 +152,7 @@ async function loadOperators():Promise<void> {
     callsign: 'SPEEDBIRD',
   };
 
-  for (const operator of [
-    condor,
-    lufthansa,
-    lot,
-    american,
-    british
-  ]) {
+  for (const operator of [condor, lufthansa, lot, american, british]) {
     await prisma.operator.create({ data: operator });
   }
 }
@@ -165,8 +165,8 @@ async function loadAircraft(): Promise<void> {
     fullName: 'Airbus A330-900 neo',
     registration: 'D-AIMC',
     selcal: 'LR-CK',
-    livery: 'Fanhansa (2024)'
-  }
+    livery: 'Fanhansa (2024)',
+  };
 
   const a321: Aircraft = {
     id: '7d27a031-5abb-415f-bde5-1aa563ad394e',
@@ -175,8 +175,8 @@ async function loadAircraft(): Promise<void> {
     fullName: 'Airbus A331-251 SL ACT-2',
     registration: 'D-AIDA',
     selcal: 'SK-PK',
-    livery: 'Sunshine (2024)'
-  }
+    livery: 'Sunshine (2024)',
+  };
 
   const a319: Aircraft = {
     id: '3f34bc59-c9c3-4ad0-88fa-2cc570298602',
@@ -185,8 +185,8 @@ async function loadAircraft(): Promise<void> {
     fullName: 'Airbus A319-200(neo)',
     registration: 'D-AIDK',
     selcal: 'MS-KL',
-    livery: 'Water (2024)'
-  }
+    livery: 'Water (2024)',
+  };
 
   const b773: Aircraft = {
     id: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98',
@@ -195,15 +195,10 @@ async function loadAircraft(): Promise<void> {
     fullName: 'Boeing 777-300ER',
     registration: 'N78881',
     selcal: 'KY-JO',
-    livery: 'Team USA (2023)'
-  }
+    livery: 'Team USA (2023)',
+  };
 
-  for (const aircraft of [
-    a330,
-    a321,
-    a319,
-    b773,
-  ]) {
+  for (const aircraft of [a330, a321, a319, b773]) {
     await prisma.aircraft.create({ data: aircraft });
   }
 }
@@ -237,7 +232,7 @@ async function loadFlights(): Promise<void> {
     } as Prisma.InputJsonValue,
   };
 
-  await prisma.flight.create({data: dlh450});
+  await prisma.flight.create({ data: dlh450 });
 }
 
 main()
@@ -249,4 +244,3 @@ main()
     await prisma.$disconnect();
     process.exit(1);
   });
-

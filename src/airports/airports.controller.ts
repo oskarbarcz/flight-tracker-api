@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Delete,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 import { AirportsService } from './airports.service';
 import { CreateAirportDto } from './dto/create-airport.dto';
 import { UpdateAirportDto } from './dto/update-airport.dto';
@@ -20,7 +29,7 @@ export class AirportsController {
   }
 
   @Get(':id')
-  async findOne(@uuid('id') id: string) {
+  async findOne(@uuid('id') id: string): Promise<Airport> {
     return this.airportsService.findOne(id);
   }
 
@@ -33,6 +42,7 @@ export class AirportsController {
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@uuid('id') id: string): Promise<void> {
     return this.airportsService.remove(id);
   }

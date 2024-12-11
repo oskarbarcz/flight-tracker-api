@@ -1,4 +1,4 @@
-Feature: Create aircraft resource
+Feature: Create airport resource
 
   Scenario: Create airport with correct data
     Given I use seed data
@@ -23,13 +23,12 @@ Feature: Create aircraft resource
     }
     """
 
-  Scenario: Create aircraft with incorrect data
-    When I send a "POST" request to "/api/v1/aircraft" with body:
+  Scenario: Create airport with incorrect data
+    When I send a "POST" request to "/api/v1/airport" with body:
     """json
     {
-      "icaoCode": "B748",
-      "fullName": "Boeing 747-8 Intercontinental",
-      "livery": "Sunshine"
+      "icaoCode": "KMIA",
+      "name": "Miami Intl"
     }
     """
     Then the response status should be 400
@@ -40,17 +39,14 @@ Feature: Create aircraft resource
       "error": "Bad Request",
       "statusCode": 400,
       "violations": {
-        "registration": [
-          "registration should not be empty",
-           "registration must be a string"
+        "country": [
+          "country should not be empty",
+          "country must be a string"
         ],
-        "selcal": [
-          "selcal should not be empty",
-          "selcal must be a string"
-        ],
-        "shortName": [
-          "shortName should not be empty",
-          "shortName must be a string"
+        "timezone": [
+          "timezone should not be empty",
+          "timezone must be a valid IANA time-zone",
+          "timezone must be a string"
         ]
       }
     }

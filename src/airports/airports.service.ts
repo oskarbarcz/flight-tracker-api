@@ -31,8 +31,14 @@ export class AirportsService {
     return this.prisma.airport.findMany();
   }
 
-  async findOne(id: string): Promise<Airport | null> {
-    return this.findOneBy({ id: id });
+  async findOne(id: string): Promise<Airport> {
+    const airport: Airport | null = await this.findOneBy({ id });
+
+    if (!airport) {
+      throw new NotFoundException('Airport with given id does not exist.');
+    }
+
+    return airport;
   }
 
   async update(id: string, data: UpdateAirportDto) {
@@ -49,7 +55,13 @@ export class AirportsService {
   }
 
   async remove(id: string): Promise<void> {
-    this.prisma.airport.delete({ where: { id } });
+    const airport: Airport | null = await this.findOneBy({ id });
+
+    if (!airport) {
+      throw new NotFoundException('Airport with given id does not exist.');
+    }
+
+    await this.prisma.airport.delete({ where: { id } });
   }
 
   private async findOneBy(
