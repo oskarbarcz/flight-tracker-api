@@ -1,4 +1,4 @@
-Feature: Create aircraft resource
+Feature: Update aircraft resource
 
   Scenario: Update aircraft with correct data
     Given I use seed data

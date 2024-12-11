@@ -56,6 +56,7 @@ export class AircraftController {
   @ApiOkResponse({
     description: 'Aircraft list',
     type: Aircraft,
+    isArray: true,
   })
   @Get()
   async findAll(): Promise<Aircraft[]> {
@@ -70,6 +71,10 @@ export class AircraftController {
   @ApiOkResponse({
     description: 'Aircraft was created successfully',
     type: Aircraft,
+  })
+  @ApiBadRequestResponse({
+    description: 'Aircraft id is not valid uuid v4',
+    type: GenericBadRequestResponse,
   })
   @ApiNotFoundResponse({
     description: 'Aircraft with given it does not exist',
