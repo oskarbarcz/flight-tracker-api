@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class Operator {
   @ApiProperty({
@@ -11,17 +12,31 @@ export class Operator {
     description: 'Operator ICAO code',
     example: 'CDG',
   })
+  @IsString()
+  @IsNotEmpty()
   icaoCode: string;
 
   @ApiProperty({
     description: 'Operator name',
     example: 'Condor',
   })
+  @IsString()
+  @IsNotEmpty()
   shortName: string;
 
   @ApiProperty({
     description: 'Full operator company name',
     example: 'Condor Flugdienst GmbH',
   })
-  companyRegistryName: string;
+  @IsString()
+  @IsNotEmpty()
+  fullName: string;
+
+  @ApiProperty({
+    description: 'Callsign used by air traffic control services',
+    example: 'Condor',
+  })
+  @IsString()
+  @IsNotEmpty()
+  callsign: string;
 }
