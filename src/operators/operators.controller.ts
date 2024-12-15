@@ -12,7 +12,7 @@ import { OperatorsService } from './operators.service';
 import { CreateOperatorDto } from './dto/create-operator.dto';
 import { UpdateOperatorDto } from './dto/update-operator.dto';
 import { uuid } from '../common/validation/uuid.param';
-import { ApiTags, PartialType } from "@nestjs/swagger";
+import { ApiTags, PartialType } from '@nestjs/swagger';
 import { Operator } from './entities/operator.entity';
 import {
   ApiBadRequestResponse,
