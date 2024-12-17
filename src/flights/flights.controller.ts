@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { FlightsService } from './flights.service';
@@ -23,6 +24,7 @@ import { GenericNotFoundResponse } from '../common/dto/not-found.dto';
 import { uuid } from '../common/validation/uuid.param';
 import { Flight } from './entities/flight.entity';
 import { CreateFlightRequest } from './dto/create-flight.dto';
+import { Schedule } from './entities/timesheet.entity';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -107,7 +109,7 @@ export class FlightsController {
     description: 'Flight unique identifier',
   })
   @ApiNoContentResponse({
-    description: 'Flight was marked as ready successfully.',
+    description: 'Flight was marked as ready successfully',
   })
   @ApiBadRequestResponse({
     description:
@@ -122,5 +124,39 @@ export class FlightsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   async markAsReady(@uuid('id') id: string): Promise<void> {
     await this.flightsService.markAsReady(id);
+  }
+
+  @ApiOperation({
+    summary: 'Update flight scheduled timesheet',
+    description:
+      '**NOTE:** This action is only allowed for flights in created status.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiBody({
+    description: 'New scheduled timesheet',
+    type: Schedule,
+  })
+  @ApiNoContentResponse({
+    description: 'Flight schedule was updated successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
+  @Patch('/:id/timesheet/scheduled')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async updateScheduledTimesheet(
+    @uuid('id') id: string,
+    @Body() schedule: Schedule,
+  ): Promise<void> {
+    await this.flightsService.updateScheduledTimesheet(id, schedule);
   }
 }

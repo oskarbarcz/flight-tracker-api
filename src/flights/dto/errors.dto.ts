@@ -39,3 +39,9 @@ export const InvalidStatusToMarkAsReadyError = {
   error: 'Unprocessable Content',
   message: 'Cannot mark flight as ready. Flight is not in created status.',
 };
+
+export const InvalidStatusToChangeScheduleError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message: 'Cannot change flight schedule, because flight was marked as ready.',
+};
