@@ -5,7 +5,6 @@ Feature: Mark flight as ready
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
     Then the response status should be 200
-    And I dump response
     And the response body should contain:
     """json
     {
