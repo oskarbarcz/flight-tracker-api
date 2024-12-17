@@ -21,3 +21,15 @@ export const DestinationAirportSameAsDepartureAirportError = {
   error: 'Bad Request',
   message: 'Departure and destination airports must be different.',
 };
+
+export const FlightDoesNotExistError = {
+  statusCode: 404,
+  error: 'Not Found',
+  message: 'Flight with given id does not exist.',
+};
+
+export const ScheduledFlightCannotBeRemoved = {
+  statusCode: 400,
+  error: 'Bad Request',
+  message: 'Flight that has been scheduled cannot be removed.',
+};

@@ -1,8 +1,17 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 import { FlightsService } from './flights.service';
 import {
   ApiBadRequestResponse,
   ApiBody,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -50,8 +59,42 @@ export class FlightsController {
     description: 'Flight was created',
     type: Flight,
   })
+  @ApiBadRequestResponse({
+    description: 'Validation failed',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Airports or aircraft does not exist',
+    type: GenericNotFoundResponse,
+  })
   @Post()
   async create(@Body() input: CreateFlightRequest) {
     return this.flightsService.create(input);
+  }
+
+  @ApiOperation({
+    summary: 'Remove a flight',
+    description: '**NOTE:** Flight that has been scheduled cannot be removed.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'Flight was removed successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or flight has been scheduled and cannot be removed',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async remove(@uuid('id') id: string): Promise<void> {
+    await this.flightsService.remove(id);
   }
 }

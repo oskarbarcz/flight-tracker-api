@@ -18,7 +18,9 @@ import {
   DepartureAirportNotFoundError,
   DestinationAirportNotFoundError,
   DestinationAirportSameAsDepartureAirportError,
-} from './dto/create-flight-error';
+  FlightDoesNotExistError,
+  ScheduledFlightCannotBeRemoved,
+} from './dto/create-flight-error.dto';
 
 @Injectable()
 export class FlightsService {
@@ -33,7 +35,7 @@ export class FlightsService {
     });
 
     if (!flight) {
-      throw new NotFoundException('Flight with given id does not exist.');
+      throw new NotFoundException(FlightDoesNotExistError);
     }
 
     return {
@@ -87,5 +89,19 @@ export class FlightsService {
         }),
       ),
     };
+  }
+
+  async remove(id: string): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.Created) {
+      throw new BadRequestException(ScheduledFlightCannotBeRemoved);
+    }
+
+    await this.flightsRepository.remove(id);
   }
 }
