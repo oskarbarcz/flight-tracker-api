@@ -1,34 +1,24 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
-import {
-  Flight,
-  Flight as FlightModel,
-} from '../flights/entities/flight.entity';
-import { PrismaService } from '../prisma/prisma.service';
+import { Flight } from './entities/flight.entity';
 import { CreateFlightRequest } from './dto/create-flight.dto';
-import { v4 } from 'uuid';
 import {
   AirportType,
   AirportWithType,
 } from '../airports/entities/airport.entity';
 import { FullTimesheet } from './entities/timesheet.entity';
-
-type FlightWithAircraftAndAirports = Prisma.FlightGetPayload<{
-  include: {
-    aircraft: true;
-    airports: {
-      include: {
-        airport: true;
-      };
-    };
-  };
-}>;
+import { AirportsService } from '../airports/airports.service';
+import { FlightsRepository } from './flights.repository';
+import { AircraftService } from '../aircraft/aircraft.service';
 
 @Injectable()
 export class FlightsService {
-  constructor(private readonly prisma: PrismaService) {}
-  async findOne(id: string): Promise<Flight> {
-    const flight: FlightWithAircraftAndAirports | null = await this.findOneBy({
+  constructor(
+    private readonly airportsService: AirportsService,
+    private readonly aircraftService: AircraftService,
+    private readonly flightsRepository: FlightsRepository,
+  ) {}
+  async find(id: string): Promise<Flight> {
+    const flight = await this.flightsRepository.findOneBy({
       id,
     });
 
@@ -53,55 +43,22 @@ export class FlightsService {
   }
 
   async create(input: CreateFlightRequest) {
+    if (!(await this.aircraftService.exists(input.aircraftId))) {
+      throw new Error('Aircraft assigned to this flight does not exist.');
+    }
+
     if (input.departureAirportId === input.destinationAirportId) {
       throw new Error('Departure and destination airports must be different.');
     }
 
-    const flightId = v4();
+    if (!(await this.airportsService.exists(input.departureAirportId))) {
+      throw new Error('Departure airport does not exist.');
+    }
 
-    await this.prisma.flight.create({
-      data: {
-        id: flightId,
-        flightNumber: input.flightNumber,
-        callsign: input.callsign,
-        aircraftId: input.aircraftId,
-        status: 'ready',
-        timesheet: JSON.parse(JSON.stringify(input.timesheet)),
-      },
-    });
+    if (!(await this.airportsService.exists(input.destinationAirportId))) {
+      throw new Error('Destination airport does not exist.');
+    }
 
-    await this.prisma.airportsOnFlights.create({
-      data: {
-        airportId: input.departureAirportId,
-        flightId: flightId,
-        airportType: 'departure',
-      },
-    });
-
-    await this.prisma.airportsOnFlights.create({
-      data: {
-        airportId: input.destinationAirportId,
-        flightId: flightId,
-        airportType: 'destination',
-      },
-    });
-
-    return this.findOne(flightId);
-  }
-
-  private async findOneBy(
-    criteria: Partial<Record<keyof FlightModel, any>>,
-  ): Promise<FlightWithAircraftAndAirports | null> {
-    return this.prisma.flight.findFirst({
-      where: criteria,
-      include: {
-        aircraft: true,
-        airports: {
-          include: {
-            airport: true,
-          },
-        },
-      },
-    });
+    return this.flightsRepository.create(input);
   }
 }

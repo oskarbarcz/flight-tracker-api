@@ -39,7 +39,7 @@ export class FlightsController {
   })
   @Get(':id')
   findOne(@uuid('id') id: string) {
-    return this.flightsService.findOne(id);
+    return this.flightsService.find(id);
   }
 
   @ApiOperation({ summary: 'Create a flight' })

@@ -64,6 +64,14 @@ export class AircraftService {
     await this.prisma.aircraft.delete({ where: { id } });
   }
 
+  async exists(id: string): Promise<boolean> {
+    const count = await this.prisma.aircraft.count({
+      where: { id },
+    });
+
+    return count === 1;
+  }
+
   private async findOneBy(
     criteria: Partial<Record<keyof Aircraft, any>>,
   ): Promise<Aircraft | null> {
