@@ -8,6 +8,7 @@ import { UpdateAirportDto } from './dto/update-airport.dto';
 import { v4 } from 'uuid';
 import { PrismaService } from '../prisma/prisma.service';
 import { Airport } from '@prisma/client';
+import { AirportInUseError } from './dto/errors.dto';
 
 @Injectable()
 export class AirportsService {
@@ -61,7 +62,23 @@ export class AirportsService {
       throw new NotFoundException('Airport with given id does not exist.');
     }
 
+    const connectedAirports = await this.prisma.airportsOnFlights.count({
+      where: { airportId: id },
+    });
+
+    if (connectedAirports > 0) {
+      throw new BadRequestException(AirportInUseError);
+    }
+
     await this.prisma.airport.delete({ where: { id } });
+  }
+
+  async exists(id: string): Promise<boolean> {
+    const count = await this.prisma.airport.count({
+      where: { id },
+    });
+
+    return count === 1;
   }
 
   private async findOneBy(

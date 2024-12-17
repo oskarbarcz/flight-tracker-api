@@ -41,3 +41,19 @@ export class Airport {
   @IsNotEmpty()
   timezone: string;
 }
+
+export enum AirportType {
+  Departure = 'departure',
+  Destination = 'destination',
+  EtopsAlternate = 'etops_alternate',
+  DestinationAlternate = 'destination_alternate',
+}
+
+export class AirportWithType extends Airport {
+  @ApiProperty({
+    description: 'Airport type',
+    example: 'departure',
+    enum: AirportType,
+  })
+  type: AirportType;
+}

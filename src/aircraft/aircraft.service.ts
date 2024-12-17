@@ -8,6 +8,7 @@ import { UpdateAircraftDto } from './dto/update-aircraft.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { v4 } from 'uuid';
 import { Aircraft } from '@prisma/client';
+import { AircraftInUseError } from './dto/errors.dto';
 
 @Injectable()
 export class AircraftService {
@@ -61,7 +62,23 @@ export class AircraftService {
       throw new NotFoundException('Aircraft with given id does not exist.');
     }
 
+    const connectedFlights = await this.prisma.flight.count({
+      where: { aircraftId: id },
+    });
+
+    if (connectedFlights > 0) {
+      throw new BadRequestException(AircraftInUseError);
+    }
+
     await this.prisma.aircraft.delete({ where: { id } });
+  }
+
+  async exists(id: string): Promise<boolean> {
+    const count = await this.prisma.aircraft.count({
+      where: { id },
+    });
+
+    return count === 1;
   }
 
   private async findOneBy(
