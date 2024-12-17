@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Flight, FlightStatus } from './entities/flight.entity';
 import { CreateFlightRequest } from './dto/create-flight.dto';
 import {
@@ -9,6 +13,12 @@ import { FullTimesheet } from './entities/timesheet.entity';
 import { AirportsService } from '../airports/airports.service';
 import { FlightsRepository } from './flights.repository';
 import { AircraftService } from '../aircraft/aircraft.service';
+import {
+  AircraftNotFoundError,
+  DepartureAirportNotFoundError,
+  DestinationAirportNotFoundError,
+  DestinationAirportSameAsDepartureAirportError,
+} from './dto/create-flight-error';
 
 @Injectable()
 export class FlightsService {
@@ -42,21 +52,23 @@ export class FlightsService {
     };
   }
 
-  async create(input: CreateFlightRequest) {
-    if (!(await this.aircraftService.exists(input.aircraftId))) {
-      throw new Error('Aircraft assigned to this flight does not exist.');
+  async create(input: CreateFlightRequest): Promise<Flight> {
+    if (input.departureAirportId === input.destinationAirportId) {
+      throw new BadRequestException(
+        DestinationAirportSameAsDepartureAirportError,
+      );
     }
 
-    if (input.departureAirportId === input.destinationAirportId) {
-      throw new Error('Departure and destination airports must be different.');
+    if (!(await this.aircraftService.exists(input.aircraftId))) {
+      throw new NotFoundException(AircraftNotFoundError);
     }
 
     if (!(await this.airportsService.exists(input.departureAirportId))) {
-      throw new Error('Departure airport does not exist.');
+      throw new NotFoundException(DepartureAirportNotFoundError);
     }
 
     if (!(await this.airportsService.exists(input.destinationAirportId))) {
-      throw new Error('Destination airport does not exist.');
+      throw new NotFoundException(DestinationAirportNotFoundError);
     }
 
     const flight = await this.flightsRepository.create(input);
@@ -65,7 +77,7 @@ export class FlightsService {
       id: flight.id,
       flightNumber: flight.flightNumber,
       callsign: flight.callsign,
-      status: flight.status,
+      status: flight.status as FlightStatus,
       timesheet: flight.timesheet as FullTimesheet,
       aircraft: flight.aircraft,
       airports: flight.airports.map(

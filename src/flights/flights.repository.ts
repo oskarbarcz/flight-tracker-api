@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { Flight, FlightStatus } from "./entities/flight.entity";
+import { Flight, FlightStatus } from './entities/flight.entity';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateFlightRequest } from './dto/create-flight.dto';
 import { v4 } from 'uuid';

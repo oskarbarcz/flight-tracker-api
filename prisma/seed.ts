@@ -5,8 +5,8 @@ import {
   Prisma,
   PrismaClient,
 } from '@prisma/client';
-import { FlightStatus } from "../src/flights/entities/flight.entity";
-import { AirportType } from "../src/airports/entities/airport.entity";
+import { FlightStatus } from '../src/flights/entities/flight.entity';
+import { AirportType } from '../src/airports/entities/airport.entity';
 const prisma = new PrismaClient();
 
 async function main() {
