@@ -3,6 +3,21 @@ import { AirportWithType } from '../../airports/entities/airport.entity';
 import { Aircraft } from '../../aircraft/entities/aircraft.entity';
 import { FullTimesheet } from './timesheet.entity';
 
+export enum FlightStatus {
+  Created = 'created',
+  Ready = 'ready',
+  CheckedIn = 'checked_in',
+  BoardingStarted = 'boarding_started',
+  BoardingEnded = 'boarding_ended',
+  TaxiingOut = 'taxiing_out',
+  InCruise = 'in_cruise',
+  TaxiingIn = 'taxiing_in',
+  OnBlock = 'on_block',
+  DeboardingStarted = 'deboarding_started',
+  DeboardingFinished = 'deboarding_finished',
+  Closed = 'closed',
+}
+
 export class Flight {
   @ApiProperty({
     description: 'Flight unique system identifier',
@@ -24,9 +39,10 @@ export class Flight {
 
   @ApiProperty({
     description: 'Flight status',
-    example: 'ready',
+    example: FlightStatus.Created,
+    enum: FlightStatus,
   })
-  status: string;
+  status: FlightStatus;
 
   @ApiProperty({
     description: 'Aircraft reported for flight',

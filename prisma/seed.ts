@@ -5,6 +5,8 @@ import {
   Prisma,
   PrismaClient,
 } from '@prisma/client';
+import { FlightStatus } from "../src/flights/entities/flight.entity";
+import { AirportType } from "../src/airports/entities/airport.entity";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -208,7 +210,7 @@ async function loadFlights(): Promise<void> {
     id: '3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05',
     flightNumber: 'LH 450',
     callsign: 'DLH 450',
-    status: 'ready',
+    status: FlightStatus.Created,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B773
     timesheet: {
       scheduled: {
@@ -262,7 +264,7 @@ async function loadFlights(): Promise<void> {
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: 'departure',
+      airportType: AirportType.Departure,
     },
   });
 
@@ -270,7 +272,7 @@ async function loadFlights(): Promise<void> {
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: 'destination',
+      airportType: AirportType.Destination,
     },
   });
 
@@ -278,7 +280,7 @@ async function loadFlights(): Promise<void> {
     data: {
       airport: { connect: { id: firstAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: 'destination_alternate',
+      airportType: AirportType.DestinationAlternate,
     },
   });
 
@@ -286,7 +288,7 @@ async function loadFlights(): Promise<void> {
     data: {
       airport: { connect: { id: secondAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: 'destination_alternate',
+      airportType: AirportType.DestinationAlternate,
     },
   });
 
@@ -294,7 +296,7 @@ async function loadFlights(): Promise<void> {
     data: {
       airport: { connect: { id: etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: 'etops_alternate',
+      airportType: AirportType.EtopsAlternate,
     },
   });
 }

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Flight } from './entities/flight.entity';
+import { Flight, FlightStatus } from './entities/flight.entity';
 import { CreateFlightRequest } from './dto/create-flight.dto';
 import {
   AirportType,
@@ -30,7 +30,7 @@ export class FlightsService {
       id: flight.id,
       flightNumber: flight.flightNumber,
       callsign: flight.callsign,
-      status: flight.status,
+      status: flight.status as FlightStatus,
       timesheet: flight.timesheet as FullTimesheet,
       aircraft: flight.aircraft,
       airports: flight.airports.map(
@@ -59,6 +59,21 @@ export class FlightsService {
       throw new Error('Destination airport does not exist.');
     }
 
-    return this.flightsRepository.create(input);
+    const flight = await this.flightsRepository.create(input);
+
+    return {
+      id: flight.id,
+      flightNumber: flight.flightNumber,
+      callsign: flight.callsign,
+      status: flight.status,
+      timesheet: flight.timesheet as FullTimesheet,
+      aircraft: flight.aircraft,
+      airports: flight.airports.map(
+        (airportOnFlight): AirportWithType => ({
+          ...airportOnFlight.airport,
+          type: airportOnFlight.airportType as AirportType,
+        }),
+      ),
+    };
   }
 }
