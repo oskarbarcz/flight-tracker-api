@@ -17,12 +17,12 @@ Feature: Delete aircraft resource
 
   Scenario: Delete aircraft that is already in use
     Given I use seed data
-    When I send a "DELETE" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f"
+    When I send a "DELETE" request to "/api/v1/aircraft/a10c21e3-3ac1-4265-9d12-da9baefa2d98"
     Then the response status should be 400
     And the response body should contain:
     """json
     {
-      "message": "Aircraft with given id does not exist.",
+      "message": "Cannot remove aircraft that is used by any of flights.",
       "error": "Bad Request",
       "statusCode": 400
     }
