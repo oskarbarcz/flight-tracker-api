@@ -1,7 +1,7 @@
 import {
   BadRequestException,
   Injectable,
-  NotFoundException,
+  NotFoundException, UnprocessableEntityException,
 } from '@nestjs/common';
 import { Flight, FlightStatus } from './entities/flight.entity';
 import { CreateFlightRequest } from './dto/create-flight.dto';
@@ -18,7 +18,7 @@ import {
   DepartureAirportNotFoundError,
   DestinationAirportNotFoundError,
   DestinationAirportSameAsDepartureAirportError,
-  FlightDoesNotExistError,
+  FlightDoesNotExistError, InvalidStatusToMarkAsReadyError,
   ScheduledFlightCannotBeRemoved,
 } from './dto/create-flight-error.dto';
 
@@ -103,5 +103,19 @@ export class FlightsService {
     }
 
     await this.flightsRepository.remove(id);
+  }
+
+  async markAsReady(id: string) {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.Created) {
+      throw new UnprocessableEntityException(InvalidStatusToMarkAsReadyError);
+    }
+
+    await this.flightsRepository.updateStatus(id, FlightStatus.Ready);
   }
 }

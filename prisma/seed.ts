@@ -219,18 +219,6 @@ async function loadFlights(): Promise<void> {
         arrivalTime: new Date('2024-01-01 21:00'),
         onBlockTime: new Date('2024-01-01 21:10'),
       },
-      estimated: {
-        offBlockTime: new Date('2024-01-01 12:00'),
-        takeoffTime: new Date('2024-01-01 12:15'),
-        arrivalTime: new Date('2024-01-01 21:00'),
-        onBlockTime: new Date('2024-01-01 21:10'),
-      },
-      actual: {
-        offBlockTime: new Date('2024-01-01 12:00'),
-        takeoffTime: new Date('2024-01-01 12:15'),
-        arrivalTime: new Date('2024-01-01 21:00'),
-        onBlockTime: new Date('2024-01-01 21:10'),
-      },
     } as Prisma.InputJsonValue,
   };
 

@@ -33,3 +33,9 @@ export const ScheduledFlightCannotBeRemoved = {
   error: 'Bad Request',
   message: 'Flight that has been scheduled cannot be removed.',
 };
+
+export const InvalidStatusToMarkAsReadyError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message: 'Cannot mark flight as ready. Flight is not in created status.',
+};

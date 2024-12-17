@@ -1,6 +1,8 @@
-Feature: Get flight resource
-  Scenario: Get one flight
+Feature: Mark flight as ready
+  Scenario: Mark flight as ready
     Given I use seed data
+    When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/mark-as-ready"
+    Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
     Then the response status should be 200
     And the response body should contain:
@@ -9,7 +11,7 @@ Feature: Get flight resource
       "id": "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05",
       "flightNumber": "LH 450",
       "callsign": "DLH 450",
-      "status": "created",
+      "status": "ready",
       "timesheet": {
         "scheduled": {
           "arrivalTime": "2024-01-01T21:00:00.000Z",
@@ -72,9 +74,24 @@ Feature: Get flight resource
     }
     """
 
-  Scenario: Get flight that does not exist
+  Scenario: Mark flight as ready twice
     Given I use seed data
-    When I send a "GET" request to "/api/v1/flight/ef95408a-bb6e-4f4e-9d87-6403164cb4df"
+    When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/mark-as-ready"
+    Then the response status should be 204
+    When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/mark-as-ready"
+    Then the response status should be 422
+    And the response body should contain:
+    """json
+    {
+      "message": "Cannot mark flight as ready. Flight is not in created status.",
+      "error": "Unprocessable Content",
+      "statusCode": 422
+    }
+    """
+
+  Scenario: Mark as ready flight that does not exist
+    Given I use seed data
+    When I send a "POST" request to "/api/v1/flight/141a2f56-708d-4cc9-b967-64dc0c2b20c4/mark-as-ready"
     Then the response status should be 404
     And the response body should contain:
     """json
@@ -85,8 +102,8 @@ Feature: Get flight resource
     }
     """
 
-  Scenario: Get flight with incorrect uuid
-    When I send a "GET" request to "/api/v1/flight/incorrect-uuid"
+  Scenario: Mark as ready flight with incorrect uuid
+    When I send a "POST" request to "/api/v1/flight/incorrect-uuid/mark-as-ready"
     Then the response status should be 400
     And the response body should contain:
     """json

@@ -97,4 +97,30 @@ export class FlightsController {
   async remove(@uuid('id') id: string): Promise<void> {
     await this.flightsService.remove(id);
   }
+
+  @ApiOperation({
+    summary: 'Mark flight as ready',
+    description: 'This action will allow pilot to start flight.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'Flight was marked as ready successfully.',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
+  @Post('/:id/mark-as-ready')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async markAsReady(@uuid('id') id: string): Promise<void> {
+    await this.flightsService.markAsReady(id);
+  }
 }

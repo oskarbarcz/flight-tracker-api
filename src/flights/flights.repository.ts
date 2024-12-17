@@ -81,4 +81,11 @@ export class FlightsRepository {
     await this.prisma.airportsOnFlights.deleteMany({ where: { flightId: id } });
     await this.prisma.flight.delete({ where: { id } });
   }
+
+  async updateStatus(id: string, status: FlightStatus) {
+    await this.prisma.flight.update({
+      where: { id },
+      data: { status },
+    });
+  }
 }
