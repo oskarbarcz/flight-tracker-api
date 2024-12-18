@@ -21,7 +21,10 @@ import {
   DestinationAirportSameAsDepartureAirportError,
   FlightDoesNotExistError,
   InvalidStatusToChangeScheduleError,
+  InvalidStatusToCheckInError,
+  InvalidStatusToFinishBoardingError,
   InvalidStatusToMarkAsReadyError,
+  InvalidStatusToStartBoardingError,
   ScheduledFlightCannotBeRemoved,
 } from './dto/errors.dto';
 
@@ -138,6 +141,58 @@ export class FlightsService {
       );
     }
 
-    await this.flightsRepository.updateScheduleTimesheet(id, schedule);
+    const timesheet: FullTimesheet = { scheduled: schedule };
+    await this.flightsRepository.updateTimesheet(id, timesheet);
+  }
+
+  async checkInPilot(id: string, estimatedSchedule: Schedule): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.Ready) {
+      throw new UnprocessableEntityException(InvalidStatusToCheckInError);
+    }
+
+    const timesheet = flight.timesheet;
+    timesheet.estimated = estimatedSchedule;
+
+    await this.flightsRepository.updateStatus(id, FlightStatus.CheckedIn);
+    await this.flightsRepository.updateTimesheet(id, timesheet);
+  }
+
+  async startBoarding(id: string): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.CheckedIn) {
+      throw new UnprocessableEntityException(InvalidStatusToStartBoardingError);
+    }
+
+    await this.flightsRepository.updateStatus(id, FlightStatus.BoardingStarted);
+  }
+
+  async finishBoarding(id: string): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.BoardingStarted) {
+      throw new UnprocessableEntityException(
+        InvalidStatusToFinishBoardingError,
+      );
+    }
+
+    await this.flightsRepository.updateStatus(
+      id,
+      FlightStatus.BoardingFinished,
+    );
   }
 }

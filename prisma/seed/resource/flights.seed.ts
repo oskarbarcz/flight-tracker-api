@@ -7,7 +7,7 @@ import { AirportType } from '../../../src/airports/entities/airport.entity';
  * Frankfurt Rhein/Main (EDDF) -> New York JFK (KJFK)
  * status: Created
  */
-async function loadDlh450(prisma: PrismaClient): Promise<void> {
+async function loadDLH450(prisma: PrismaClient): Promise<void> {
   const dlh450 = {
     id: '3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05',
     flightNumber: 'LH 450',
@@ -92,11 +92,11 @@ async function loadDlh450(prisma: PrismaClient): Promise<void> {
 }
 
 /**
- * UAL 4905 | 23da8bc9-a21b-4678-b2e9-1151d3bd15ab
+ * AAL 4905 | 23da8bc9-a21b-4678-b2e9-1151d3bd15ab
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Closed
  */
-async function loadUal4905(prisma: PrismaClient): Promise<void> {
+async function loadAAL4905(prisma: PrismaClient): Promise<void> {
   const ual4905 = {
     id: '23da8bc9-a21b-4678-b2e9-1151d3bd15ab',
     flightNumber: 'AA 4905',
@@ -168,11 +168,11 @@ async function loadUal4905(prisma: PrismaClient): Promise<void> {
 }
 
 /**
- * UAL 4906 | 23952e79-6b38-49ed-a1db-bd4d9b3cedab
+ * AAL 4906 | 23952e79-6b38-49ed-a1db-bd4d9b3cedab
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Ready
  */
-async function loadUal4906(prisma: PrismaClient): Promise<void> {
+async function loadAAL4906(prisma: PrismaClient): Promise<void> {
   const ual4906 = {
     id: '23952e79-6b38-49ed-a1db-bd4d9b3cedab',
     flightNumber: 'AA 4906',
@@ -232,11 +232,11 @@ async function loadUal4906(prisma: PrismaClient): Promise<void> {
 }
 
 /**
- * UAL 4907 | e91e13a9-09d8-48bf-8453-283cef467b88
+ * AAL 4907 | e91e13a9-09d8-48bf-8453-283cef467b88
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Created
  */
-async function loadUal4907(prisma: PrismaClient): Promise<void> {
+async function loadAAL4907(prisma: PrismaClient): Promise<void> {
   const ual4907 = {
     id: 'e91e13a9-09d8-48bf-8453-283cef467b88',
     flightNumber: 'AA 4907',
@@ -296,11 +296,11 @@ async function loadUal4907(prisma: PrismaClient): Promise<void> {
 }
 
 /**
- * UAL 4908 | b3899775-278e-4496-add1-21385a13d93e
+ * AAL 4908 | b3899775-278e-4496-add1-21385a13d93e
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Checked in
  */
-async function loadUal4908(prisma: PrismaClient): Promise<void> {
+async function loadAAL4908(prisma: PrismaClient): Promise<void> {
   const data = {
     id: 'b3899775-278e-4496-add1-21385a13d93e',
     flightNumber: 'AA 4908',
@@ -317,8 +317,8 @@ async function loadUal4908(prisma: PrismaClient): Promise<void> {
       estimated: {
         offBlockTime: new Date('2024-01-01 13:00'),
         takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        arrivalTime: new Date('2024-01-01 15:50'),
+        onBlockTime: new Date('2024-01-01 16:08'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -366,11 +366,11 @@ async function loadUal4908(prisma: PrismaClient): Promise<void> {
 }
 
 /**
- * UAL 4909 | 05986dd3-ff01-4112-ad35-ecd85db05c77
+ * AAL 4909 | 05986dd3-ff01-4112-ad35-ecd85db05c77
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Boarding started
  */
-async function loadUal4909(prisma: PrismaClient): Promise<void> {
+async function loadAAL4909(prisma: PrismaClient): Promise<void> {
   const data = {
     id: '05986dd3-ff01-4112-ad35-ecd85db05c77',
     flightNumber: 'AA 4909',
@@ -387,8 +387,8 @@ async function loadUal4909(prisma: PrismaClient): Promise<void> {
       estimated: {
         offBlockTime: new Date('2024-01-01 13:00'),
         takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        arrivalTime: new Date('2024-01-01 15:50'),
+        onBlockTime: new Date('2024-01-01 16:08'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -436,11 +436,11 @@ async function loadUal4909(prisma: PrismaClient): Promise<void> {
 }
 
 /**
- * UAL 4910 | f14a2141-4737-4622-a387-40513ff3baf1
+ * AAL 4910 | f14a2141-4737-4622-a387-40513ff3baf1
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Boarding finished
  */
-async function loadUal4910(prisma: PrismaClient): Promise<void> {
+async function loadAAL4910(prisma: PrismaClient): Promise<void> {
   const data = {
     id: 'f14a2141-4737-4622-a387-40513ff3baf1',
     flightNumber: 'AA 4910',
@@ -457,8 +457,8 @@ async function loadUal4910(prisma: PrismaClient): Promise<void> {
       estimated: {
         offBlockTime: new Date('2024-01-01 13:00'),
         takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        arrivalTime: new Date('2024-01-01 15:50'),
+        onBlockTime: new Date('2024-01-01 16:08'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -506,11 +506,11 @@ async function loadUal4910(prisma: PrismaClient): Promise<void> {
 }
 
 export async function loadFlights(prisma: PrismaClient): Promise<void> {
-  await loadDlh450(prisma);
-  await loadUal4905(prisma);
-  await loadUal4906(prisma);
-  await loadUal4907(prisma);
-  await loadUal4908(prisma);
-  await loadUal4909(prisma);
-  await loadUal4910(prisma);
+  await loadDLH450(prisma);
+  await loadAAL4905(prisma);
+  await loadAAL4906(prisma);
+  await loadAAL4907(prisma);
+  await loadAAL4908(prisma);
+  await loadAAL4909(prisma);
+  await loadAAL4910(prisma);
 }

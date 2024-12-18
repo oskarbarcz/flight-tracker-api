@@ -4,7 +4,7 @@ import { Flight, FlightStatus } from './entities/flight.entity';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateFlightRequest } from './dto/create-flight.dto';
 import { v4 } from 'uuid';
-import { Schedule, ScheduledTimesheet } from './entities/timesheet.entity';
+import { FullTimesheet } from './entities/timesheet.entity';
 
 type FlightWithAircraftAndAirports = Prisma.FlightGetPayload<{
   include: {
@@ -90,9 +90,7 @@ export class FlightsRepository {
     });
   }
 
-  async updateScheduleTimesheet(id: string, schedule: Schedule): Promise<void> {
-    const timesheet: ScheduledTimesheet = { scheduled: schedule };
-
+  async updateTimesheet(id: string, timesheet: FullTimesheet): Promise<void> {
     await this.prisma.flight.update({
       where: { id },
       data: {

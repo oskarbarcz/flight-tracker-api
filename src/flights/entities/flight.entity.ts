@@ -8,7 +8,7 @@ export enum FlightStatus {
   Ready = 'ready',
   CheckedIn = 'checked_in',
   BoardingStarted = 'boarding_started',
-  BoardingEnded = 'boarding_ended',
+  BoardingFinished = 'boarding_finished',
   TaxiingOut = 'taxiing_out',
   InCruise = 'in_cruise',
   TaxiingIn = 'taxiing_in',
