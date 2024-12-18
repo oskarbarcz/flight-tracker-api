@@ -92,7 +92,6 @@ Feature: Mark flight as ready
   Scenario: Mark as ready flight that does not exist
     Given I use seed data
     When I send a "POST" request to "/api/v1/flight/141a2f56-708d-4cc9-b967-64dc0c2b20c4/mark-as-ready"
-    And I dump response
     Then the response status should be 404
     And the response body should contain:
     """json
