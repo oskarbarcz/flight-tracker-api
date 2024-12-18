@@ -1,215 +1,13 @@
-import {
-  Aircraft,
-  Airport,
-  Operator,
-  Prisma,
-  PrismaClient,
-} from '@prisma/client';
-import { FlightStatus } from '../src/flights/entities/flight.entity';
-import { AirportType } from '../src/airports/entities/airport.entity';
-const prisma = new PrismaClient();
+import { FlightStatus } from '../../../src/flights/entities/flight.entity';
+import { Prisma, PrismaClient } from '@prisma/client';
+import { AirportType } from '../../../src/airports/entities/airport.entity';
 
-async function main() {
-  await loadAirports();
-  await loadOperators();
-  await loadAircraft();
-  await loadFlights();
-}
-
-async function loadAirports(): Promise<void> {
-  const frankfurt: Airport = {
-    id: 'f35c094a-bec5-4803-be32-bd80a14b441a',
-    icaoCode: 'EDDF',
-    name: 'Frankfurt Rhein/Main',
-    country: 'Germany',
-    timezone: 'Europe/Berlin',
-  };
-
-  const warsaw: Airport = {
-    id: '616cbdd7-ccfc-4687-8cf6-1e7236435046',
-    icaoCode: 'EPWA',
-    name: 'Warsaw Chopin',
-    country: 'Poland',
-    timezone: 'Europe/Warsaw',
-  };
-
-  const newYork: Airport = {
-    id: '3c721cc6-c653-4fad-be43-dc9d6a149383',
-    icaoCode: 'KJFK',
-    name: 'New York JFK',
-    country: 'United States of America',
-    timezone: 'America/New_York',
-  };
-
-  const paris: Airport = {
-    id: '79b8f884-f67d-4585-b540-36b0be7f551e',
-    icaoCode: 'LFPG',
-    name: 'Paris Charles de Gaulle',
-    country: 'France',
-    timezone: 'Europe/Paris',
-  };
-
-  const gooseBay: Airport = {
-    id: 'fa8ee2e9-fb94-4416-9ed0-4811efd488ae',
-    icaoCode: 'CYYR',
-    name: 'Goose Bay Intl',
-    country: 'Canada',
-    timezone: 'America/Goose_Bay',
-  };
-
-  const reykjavik: Airport = {
-    id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a',
-    icaoCode: 'BIRK',
-    name: 'Reykjavik Keflavik',
-    country: 'Iceland',
-    timezone: 'GMT',
-  };
-
-  const stJohns: Airport = {
-    id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97',
-    icaoCode: 'CYYT',
-    name: 'St. Johns Intl',
-    country: 'Canada',
-    timezone: 'GMT-3:30',
-  };
-
-  const philadelphia: Airport = {
-    id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
-    icaoCode: 'KPHL',
-    name: 'Philadelphia Intl',
-    country: 'United States of America',
-    timezone: 'GMT-5',
-  };
-
-  const boston: Airport = {
-    id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
-    icaoCode: 'KBOS',
-    name: 'Boston Logan Intl',
-    country: 'United States of America',
-    timezone: 'GMT-5',
-  };
-
-  const bremen: Airport = {
-    id: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf',
-    icaoCode: 'EDDW',
-    name: 'Bremen',
-    country: 'Germany',
-    timezone: 'GMT+1',
-  };
-
-  for (const airport of [
-    frankfurt,
-    warsaw,
-    newYork,
-    paris,
-    gooseBay,
-    reykjavik,
-    stJohns,
-    philadelphia,
-    boston,
-    bremen,
-  ]) {
-    await prisma.airport.create({ data: airport });
-  }
-}
-
-async function loadOperators(): Promise<void> {
-  const condor: Operator = {
-    id: '5c649579-22eb-4c07-a96c-b74a77f53871',
-    icaoCode: 'CDG',
-    shortName: 'Condor',
-    fullName: 'Condor Flugdienst',
-    callsign: 'CONDOR',
-  };
-
-  const lufthansa: Operator = {
-    id: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d',
-    icaoCode: 'DLH',
-    shortName: 'Lufthansa',
-    fullName: 'Deutsche Lufthansa AG',
-    callsign: 'Lufthansa',
-  };
-
-  const lot: Operator = {
-    id: '1d85d597-c3a1-43cf-b888-10d674ea7a46',
-    icaoCode: 'LOT',
-    shortName: 'LOT',
-    fullName: 'Polskie Linie Lotnicze LOT',
-    callsign: 'LOT',
-  };
-
-  const american: Operator = {
-    id: '1f630d38-ad24-47cc-950b-3783e71bbd10',
-    icaoCode: 'AAL',
-    shortName: 'American Airlines',
-    fullName: 'American Airlines, Inc.',
-    callsign: 'AMERICAN',
-  };
-
-  const british: Operator = {
-    id: '5c00f71c-287c-4bca-a738-caf7e2669c65',
-    icaoCode: 'BAW',
-    shortName: 'British Airways',
-    fullName: 'British Airways plc',
-    callsign: 'SPEEDBIRD',
-  };
-
-  for (const operator of [condor, lufthansa, lot, american, british]) {
-    await prisma.operator.create({ data: operator });
-  }
-}
-
-async function loadAircraft(): Promise<void> {
-  const a330: Aircraft = {
-    id: '9f5da1a4-f09e-4961-8299-82d688337d1f',
-    icaoCode: 'A339',
-    shortName: 'A330-900',
-    fullName: 'Airbus A330-900 neo',
-    registration: 'D-AIMC',
-    selcal: 'LR-CK',
-    livery: 'Fanhansa (2024)',
-  };
-
-  const a321: Aircraft = {
-    id: '7d27a031-5abb-415f-bde5-1aa563ad394e',
-    icaoCode: 'A321',
-    shortName: 'A321-251',
-    fullName: 'Airbus A331-251 SL ACT-2',
-    registration: 'D-AIDA',
-    selcal: 'SK-PK',
-    livery: 'Sunshine (2024)',
-  };
-
-  const a319: Aircraft = {
-    id: '3f34bc59-c9c3-4ad0-88fa-2cc570298602',
-    icaoCode: 'A319',
-    shortName: 'A319-200',
-    fullName: 'Airbus A319-200(neo)',
-    registration: 'D-AIDK',
-    selcal: 'MS-KL',
-    livery: 'Water (2024)',
-  };
-
-  const b773: Aircraft = {
-    id: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98',
-    icaoCode: 'B773',
-    shortName: 'B777-300ER',
-    fullName: 'Boeing 777-300ER',
-    registration: 'N78881',
-    selcal: 'KY-JO',
-    livery: 'Team USA (2023)',
-  };
-
-  for (const aircraft of [a330, a321, a319, b773]) {
-    await prisma.aircraft.create({ data: aircraft });
-  }
-}
-
-async function loadFlights(): Promise<void> {
-  /*
-   * LH 450
-   * Frankfurt Rhein/Main (EDDF) -> New York JFK (KJFK)
-   */
+/**
+ * DLH 450 | 3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05
+ * Frankfurt Rhein/Main (EDDF) -> New York JFK (KJFK)
+ * status: Created
+ */
+async function loadDlh450(prisma: PrismaClient): Promise<void> {
   const dlh450 = {
     id: '3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05',
     flightNumber: 'LH 450',
@@ -291,11 +89,14 @@ async function loadFlights(): Promise<void> {
       airportType: AirportType.EtopsAlternate,
     },
   });
+}
 
-  /*
-   * UAL 4905
-   * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
-   */
+/**
+ * UAL 4905 | 23da8bc9-a21b-4678-b2e9-1151d3bd15ab
+ * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
+ * status: Closed
+ */
+async function loadUal4905(prisma: PrismaClient): Promise<void> {
   const ual4905 = {
     id: '23da8bc9-a21b-4678-b2e9-1151d3bd15ab',
     flightNumber: 'AA 4905',
@@ -364,11 +165,14 @@ async function loadFlights(): Promise<void> {
       airportType: AirportType.DestinationAlternate,
     },
   });
+}
 
-  /*
-   * UAL 4906
-   * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
-   */
+/**
+ * UAL 4906 | 23952e79-6b38-49ed-a1db-bd4d9b3cedab
+ * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
+ * status: Ready
+ */
+async function loadUal4906(prisma: PrismaClient): Promise<void> {
   const ual4906 = {
     id: '23952e79-6b38-49ed-a1db-bd4d9b3cedab',
     flightNumber: 'AA 4906',
@@ -425,11 +229,14 @@ async function loadFlights(): Promise<void> {
       airportType: AirportType.DestinationAlternate,
     },
   });
+}
 
-  /*
-   * UAL 4907
-   * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
-   */
+/**
+ * UAL 4907 | e91e13a9-09d8-48bf-8453-283cef467b88
+ * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
+ * status: Created
+ */
+async function loadUal4907(prisma: PrismaClient): Promise<void> {
   const ual4907 = {
     id: 'e91e13a9-09d8-48bf-8453-283cef467b88',
     flightNumber: 'AA 4907',
@@ -488,12 +295,222 @@ async function loadFlights(): Promise<void> {
   });
 }
 
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
+/**
+ * UAL 4908 | b3899775-278e-4496-add1-21385a13d93e
+ * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
+ * status: Checked in
+ */
+async function loadUal4908(prisma: PrismaClient): Promise<void> {
+  const data = {
+    id: 'b3899775-278e-4496-add1-21385a13d93e',
+    flightNumber: 'AA 4908',
+    callsign: 'AAL 4908',
+    status: FlightStatus.CheckedIn,
+    aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    timesheet: {
+      scheduled: {
+        offBlockTime: new Date('2024-01-01 13:00'),
+        takeoffTime: new Date('2024-01-01 13:15'),
+        arrivalTime: new Date('2024-01-01 16:00'),
+        onBlockTime: new Date('2024-01-01 16:18'),
+      },
+      estimated: {
+        offBlockTime: new Date('2024-01-01 13:00'),
+        takeoffTime: new Date('2024-01-01 13:15'),
+        arrivalTime: new Date('2024-01-01 16:00'),
+        onBlockTime: new Date('2024-01-01 16:18'),
+      },
+    } as Prisma.InputJsonValue,
+  };
+
+  const departureAirport = await prisma.airport.findFirstOrThrow({
+    // Boston Logan
+    where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
+
+  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+    // Philadelphia
+    where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
+  });
+
+  const alternateAirport = await prisma.airport.findFirstOrThrow({
+    // New York JFK
+    where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
+  });
+
+  const flight = await prisma.flight.create({ data: data });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: departureAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Departure,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: arrivalAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Destination,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: alternateAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.DestinationAlternate,
+    },
+  });
+}
+
+/**
+ * UAL 4909 | 05986dd3-ff01-4112-ad35-ecd85db05c77
+ * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
+ * status: Boarding started
+ */
+async function loadUal4909(prisma: PrismaClient): Promise<void> {
+  const data = {
+    id: '05986dd3-ff01-4112-ad35-ecd85db05c77',
+    flightNumber: 'AA 4909',
+    callsign: 'AAL 4909',
+    status: FlightStatus.BoardingStarted,
+    aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    timesheet: {
+      scheduled: {
+        offBlockTime: new Date('2024-01-01 13:00'),
+        takeoffTime: new Date('2024-01-01 13:15'),
+        arrivalTime: new Date('2024-01-01 16:00'),
+        onBlockTime: new Date('2024-01-01 16:18'),
+      },
+      estimated: {
+        offBlockTime: new Date('2024-01-01 13:00'),
+        takeoffTime: new Date('2024-01-01 13:15'),
+        arrivalTime: new Date('2024-01-01 16:00'),
+        onBlockTime: new Date('2024-01-01 16:18'),
+      },
+    } as Prisma.InputJsonValue,
+  };
+
+  const departureAirport = await prisma.airport.findFirstOrThrow({
+    // Boston Logan
+    where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
+  });
+
+  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+    // Philadelphia
+    where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
+  });
+
+  const alternateAirport = await prisma.airport.findFirstOrThrow({
+    // New York JFK
+    where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
+  });
+
+  const flight = await prisma.flight.create({ data: data });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: departureAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Departure,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: arrivalAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Destination,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: alternateAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.DestinationAlternate,
+    },
+  });
+}
+
+/**
+ * UAL 4910 | f14a2141-4737-4622-a387-40513ff3baf1
+ * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
+ * status: Boarding finished
+ */
+async function loadUal4910(prisma: PrismaClient): Promise<void> {
+  const data = {
+    id: 'f14a2141-4737-4622-a387-40513ff3baf1',
+    flightNumber: 'AA 4910',
+    callsign: 'AAL 4920',
+    status: FlightStatus.BoardingFinished,
+    aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    timesheet: {
+      scheduled: {
+        offBlockTime: new Date('2024-01-01 13:00'),
+        takeoffTime: new Date('2024-01-01 13:15'),
+        arrivalTime: new Date('2024-01-01 16:00'),
+        onBlockTime: new Date('2024-01-01 16:18'),
+      },
+      estimated: {
+        offBlockTime: new Date('2024-01-01 13:00'),
+        takeoffTime: new Date('2024-01-01 13:15'),
+        arrivalTime: new Date('2024-01-01 16:00'),
+        onBlockTime: new Date('2024-01-01 16:18'),
+      },
+    } as Prisma.InputJsonValue,
+  };
+
+  const departureAirport = await prisma.airport.findFirstOrThrow({
+    // Boston Logan
+    where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
+  });
+
+  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+    // Philadelphia
+    where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
+  });
+
+  const alternateAirport = await prisma.airport.findFirstOrThrow({
+    // New York JFK
+    where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
+  });
+
+  const flight = await prisma.flight.create({ data: data });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: departureAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Departure,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: arrivalAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Destination,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: alternateAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.DestinationAlternate,
+    },
+  });
+}
+
+export async function loadFlights(prisma: PrismaClient): Promise<void> {
+  await loadDlh450(prisma);
+  await loadUal4905(prisma);
+  await loadUal4906(prisma);
+  await loadUal4907(prisma);
+  await loadUal4908(prisma);
+  await loadUal4909(prisma);
+  await loadUal4910(prisma);
+}
