@@ -19,6 +19,7 @@ export class Schedule {
     example: '2021-07-01T12:00:00Z',
   })
   @IsNotEmpty()
+  @IsDate()
   @Type(() => Date)
   onBlockTime: Date;
 
@@ -29,6 +30,7 @@ export class Schedule {
   })
   @Type(() => Date)
   @IsNotEmpty()
+  @IsDate()
   takeoffTime: Date;
 
   @ApiProperty({
@@ -38,6 +40,7 @@ export class Schedule {
   })
   @IsNotEmpty()
   @Type(() => Date)
+  @IsDate()
   offBlockTime: Date;
 }
 

@@ -66,5 +66,5 @@ Then('the response body should contain:', async function (docString: string) {
 });
 
 Then('I dump response', () => {
-  console.log(apiResponse.data);
+  console.log(JSON.stringify(apiResponse.data));
 });
