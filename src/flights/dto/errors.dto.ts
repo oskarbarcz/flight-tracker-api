@@ -45,3 +45,22 @@ export const InvalidStatusToChangeScheduleError = {
   error: 'Unprocessable Content',
   message: 'Cannot change flight schedule, because flight was marked as ready.',
 };
+
+export const InvalidStatusToCheckInError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message: 'Cannot check in for flight, because flight is not ready.',
+};
+
+export const InvalidStatusToStartBoardingError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message: 'Cannot start boarding for flight, because flight is checked in.',
+};
+
+export const InvalidStatusToFinishBoardingError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message:
+    'Cannot finish boarding for flight, because flight has not started boarding.',
+};

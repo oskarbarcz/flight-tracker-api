@@ -159,4 +159,92 @@ export class FlightsController {
   ): Promise<void> {
     await this.flightsService.updateScheduledTimesheet(id, schedule);
   }
+
+  @ApiOperation({
+    summary: 'Check in pilot and set estimated timesheet',
+    description:
+      '**NOTE:** This action is only allowed for flights in ready status.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiBody({
+    description: 'Estimated timesheet',
+    type: Schedule,
+  })
+  @ApiNoContentResponse({
+    description: 'Pilot checked in successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
+  @Post('/:id/check-in')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async checkInPilot(
+    @uuid('id') id: string,
+    @Body() schedule: Schedule,
+  ): Promise<void> {
+    await this.flightsService.checkInPilot(id, schedule);
+  }
+
+  @ApiOperation({
+    summary: 'Report flight boarding has started',
+    description:
+      '**NOTE:** This action is only allowed for flights in checked-in status.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'Boarding started successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
+  @Post('/:id/start-boarding')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async startBoarding(@uuid('id') id: string): Promise<void> {
+    await this.flightsService.startBoarding(id);
+  }
+
+  @ApiOperation({
+    summary: 'Report flight boarding has finished',
+    description:
+      '**NOTE:** This action is only allowed for flights in boarding status.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'Boarding finished successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
+  @Post('/:id/finish-boarding')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async finishBoarding(@uuid('id') id: string): Promise<void> {
+    await this.flightsService.finishBoarding(id);
+  }
 }
