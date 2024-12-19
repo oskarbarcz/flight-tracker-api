@@ -253,6 +253,22 @@ export class FlightsController {
     description:
       '**NOTE:** This action is only allowed when boarding is finished.',
   })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'Off block reported successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
   @Post('/:id/report-off-block')
   @HttpCode(HttpStatus.NO_CONTENT)
   async reportOffBlock(@uuid('id') id: string): Promise<void> {
@@ -263,6 +279,22 @@ export class FlightsController {
     summary: 'Report flight taken off',
     description:
       '**NOTE:** This action is only allowed when off-block was reported.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'Takeoff reported successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
   })
   @Post('/:id/report-takeoff')
   @HttpCode(HttpStatus.NO_CONTENT)
@@ -275,6 +307,22 @@ export class FlightsController {
     description:
       '**NOTE:** This action is only allowed when aircraft has taken off.',
   })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'Arrival reported successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
   @Post('/:id/report-arrival')
   @HttpCode(HttpStatus.NO_CONTENT)
   async reportArrival(@uuid('id') id: string): Promise<void> {
@@ -285,6 +333,22 @@ export class FlightsController {
     summary: 'Report flight has arrived on block',
     description:
       '**NOTE:** This action is only allowed when aircraft has landed.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'On block reported successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
   })
   @Post('/:id/report-on-block')
   @HttpCode(HttpStatus.NO_CONTENT)
