@@ -24,6 +24,10 @@ import {
   InvalidStatusToCheckInError,
   InvalidStatusToFinishBoardingError,
   InvalidStatusToMarkAsReadyError,
+  InvalidStatusToReportArrivedError,
+  InvalidStatusToReportOffBlockError,
+  InvalidStatusToReportOnBlockError,
+  InvalidStatusToReportTakenOffError,
   InvalidStatusToStartBoardingError,
   ScheduledFlightCannotBeRemoved,
 } from './dto/errors.dto';
@@ -194,5 +198,86 @@ export class FlightsService {
       id,
       FlightStatus.BoardingFinished,
     );
+  }
+
+  async reportOffBlock(id: string): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.BoardingFinished) {
+      throw new UnprocessableEntityException(
+        InvalidStatusToReportOffBlockError,
+      );
+    }
+
+    const timesheet = flight.timesheet;
+    timesheet.actual = {
+      offBlockTime: new Date(),
+      takeoffTime: null,
+      arrivalTime: null,
+      onBlockTime: null,
+    };
+
+    await this.flightsRepository.updateStatus(id, FlightStatus.TaxiingOut);
+    await this.flightsRepository.updateTimesheet(id, timesheet);
+  }
+
+  async reportTakeoff(id: string): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.TaxiingOut) {
+      throw new UnprocessableEntityException(
+        InvalidStatusToReportTakenOffError,
+      );
+    }
+
+    const timesheet = flight.timesheet as { actual: Schedule };
+    timesheet.actual.takeoffTime = new Date();
+
+    await this.flightsRepository.updateStatus(id, FlightStatus.InCruise);
+    await this.flightsRepository.updateTimesheet(id, timesheet);
+  }
+
+  async reportArrival(id: string): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.InCruise) {
+      throw new UnprocessableEntityException(InvalidStatusToReportArrivedError);
+    }
+
+    const timesheet = flight.timesheet as { actual: Schedule };
+    timesheet.actual.arrivalTime = new Date();
+
+    await this.flightsRepository.updateStatus(id, FlightStatus.TaxiingIn);
+    await this.flightsRepository.updateTimesheet(id, timesheet);
+  }
+
+  async reportOnBlock(id: string): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.TaxiingIn) {
+      throw new UnprocessableEntityException(InvalidStatusToReportOnBlockError);
+    }
+
+    const timesheet = flight.timesheet as { actual: Schedule };
+    timesheet.actual.onBlockTime = new Date();
+
+    await this.flightsRepository.updateStatus(id, FlightStatus.OnBlock);
+    await this.flightsRepository.updateTimesheet(id, timesheet);
   }
 }
