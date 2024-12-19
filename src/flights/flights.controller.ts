@@ -247,4 +247,48 @@ export class FlightsController {
   async finishBoarding(@uuid('id') id: string): Promise<void> {
     await this.flightsService.finishBoarding(id);
   }
+
+  @ApiOperation({
+    summary: 'Report flight taxiing out has started',
+    description:
+      '**NOTE:** This action is only allowed when boarding is finished.',
+  })
+  @Post('/:id/report-off-block')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async reportOffBlock(@uuid('id') id: string): Promise<void> {
+    await this.flightsService.reportOffBlock(id);
+  }
+
+  @ApiOperation({
+    summary: 'Report flight taken off',
+    description:
+      '**NOTE:** This action is only allowed when off-block was reported.',
+  })
+  @Post('/:id/report-takeoff')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async reportTakeoff(@uuid('id') id: string): Promise<void> {
+    await this.flightsService.reportTakeoff(id);
+  }
+
+  @ApiOperation({
+    summary: 'Report flight has landed',
+    description:
+      '**NOTE:** This action is only allowed when aircraft has taken off.',
+  })
+  @Post('/:id/report-arrival')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async reportArrival(@uuid('id') id: string): Promise<void> {
+    await this.flightsService.reportArrival(id);
+  }
+
+  @ApiOperation({
+    summary: 'Report flight has arrived on block',
+    description:
+      '**NOTE:** This action is only allowed when aircraft has landed.',
+  })
+  @Post('/:id/report-on-block')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async reportOnBlock(@uuid('id') id: string): Promise<void> {
+    await this.flightsService.reportOnBlock(id);
+  }
 }

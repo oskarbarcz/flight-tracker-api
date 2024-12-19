@@ -11,7 +11,7 @@ export class Schedule {
   @IsNotEmpty()
   @Type(() => Date)
   @IsDate()
-  arrivalTime: Date;
+  arrivalTime: Date | null;
 
   @ApiProperty({
     description: 'Time when aircraft parks at the gate',
@@ -21,7 +21,7 @@ export class Schedule {
   @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
-  onBlockTime: Date;
+  onBlockTime: Date | null;
 
   @ApiProperty({
     description: 'Time when the aircraft takes off',
@@ -31,7 +31,7 @@ export class Schedule {
   @Type(() => Date)
   @IsNotEmpty()
   @IsDate()
-  takeoffTime: Date;
+  takeoffTime: Date | null;
 
   @ApiProperty({
     description: 'Time when the aircraft leaves the gate',
@@ -41,7 +41,7 @@ export class Schedule {
   @IsNotEmpty()
   @Type(() => Date)
   @IsDate()
-  offBlockTime: Date;
+  offBlockTime: Date | null;
 }
 
 export class ScheduledTimesheet {
