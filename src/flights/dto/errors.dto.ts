@@ -64,3 +64,27 @@ export const InvalidStatusToFinishBoardingError = {
   message:
     'Cannot finish boarding for flight, because flight has not started boarding.',
 };
+
+export const InvalidStatusToReportOffBlockError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message: 'Cannot report off-block for flight that not finished boarding.',
+};
+
+export const InvalidStatusToReportTakenOffError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message: 'Cannot report takeoff for flight that is not taxiing out.',
+};
+
+export const InvalidStatusToReportArrivedError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message: 'Cannot report arrival for flight that is not in cruise.',
+};
+
+export const InvalidStatusToReportOnBlockError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message: 'Cannot report on-block for flight that is not taxiing in.',
+};

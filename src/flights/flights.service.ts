@@ -24,6 +24,10 @@ import {
   InvalidStatusToCheckInError,
   InvalidStatusToFinishBoardingError,
   InvalidStatusToMarkAsReadyError,
+  InvalidStatusToReportArrivedError,
+  InvalidStatusToReportOffBlockError,
+  InvalidStatusToReportOnBlockError,
+  InvalidStatusToReportTakenOffError,
   InvalidStatusToStartBoardingError,
   ScheduledFlightCannotBeRemoved,
 } from './dto/errors.dto';
@@ -203,8 +207,10 @@ export class FlightsService {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    if (flight.status !== FlightStatus.Ready) {
-      throw new UnprocessableEntityException(InvalidStatusToCheckInError);
+    if (flight.status !== FlightStatus.BoardingFinished) {
+      throw new UnprocessableEntityException(
+        InvalidStatusToReportOffBlockError,
+      );
     }
 
     const timesheet = flight.timesheet;
@@ -226,8 +232,10 @@ export class FlightsService {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    if (flight.status !== FlightStatus.Ready) {
-      throw new UnprocessableEntityException(InvalidStatusToCheckInError);
+    if (flight.status !== FlightStatus.TaxiingOut) {
+      throw new UnprocessableEntityException(
+        InvalidStatusToReportTakenOffError,
+      );
     }
 
     const timesheet = flight.timesheet as { actual: Schedule };
@@ -244,8 +252,8 @@ export class FlightsService {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    if (flight.status !== FlightStatus.Ready) {
-      throw new UnprocessableEntityException(InvalidStatusToCheckInError);
+    if (flight.status !== FlightStatus.InCruise) {
+      throw new UnprocessableEntityException(InvalidStatusToReportArrivedError);
     }
 
     const timesheet = flight.timesheet as { actual: Schedule };
@@ -262,8 +270,8 @@ export class FlightsService {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    if (flight.status !== FlightStatus.Ready) {
-      throw new UnprocessableEntityException(InvalidStatusToCheckInError);
+    if (flight.status !== FlightStatus.TaxiingIn) {
+      throw new UnprocessableEntityException(InvalidStatusToReportOnBlockError);
     }
 
     const timesheet = flight.timesheet as { actual: Schedule };
