@@ -530,6 +530,12 @@ async function loadAAL4911(prisma: PrismaClient): Promise<void> {
         arrivalTime: new Date('2024-01-01 15:50'),
         onBlockTime: new Date('2024-01-01 16:08'),
       },
+      actual: {
+        offBlockTime: new Date('2024-01-01 13:10'),
+        takeoffTime: null,
+        arrivalTime: null,
+        onBlockTime: null,
+      },
     } as Prisma.InputJsonValue,
   };
 
@@ -599,6 +605,12 @@ async function loadAAL4912(prisma: PrismaClient): Promise<void> {
         takeoffTime: new Date('2024-01-01 13:15'),
         arrivalTime: new Date('2024-01-01 15:50'),
         onBlockTime: new Date('2024-01-01 16:08'),
+      },
+      actual: {
+        offBlockTime: new Date('2024-01-01 13:10'),
+        takeoffTime: new Date('2024-01-01 13:25'),
+        arrivalTime: null,
+        onBlockTime: null,
       },
     } as Prisma.InputJsonValue,
   };
@@ -670,6 +682,12 @@ async function loadAAL4913(prisma: PrismaClient): Promise<void> {
         arrivalTime: new Date('2024-01-01 15:50'),
         onBlockTime: new Date('2024-01-01 16:08'),
       },
+      actual: {
+        offBlockTime: new Date('2024-01-01 13:10'),
+        takeoffTime: new Date('2024-01-01 13:25'),
+        arrivalTime: new Date('2024-01-01 16:10'),
+        onBlockTime: null,
+      },
     } as Prisma.InputJsonValue,
   };
 
@@ -739,6 +757,12 @@ async function loadAAL4914(prisma: PrismaClient): Promise<void> {
         takeoffTime: new Date('2024-01-01 13:15'),
         arrivalTime: new Date('2024-01-01 15:50'),
         onBlockTime: new Date('2024-01-01 16:08'),
+      },
+      actual: {
+        offBlockTime: new Date('2024-01-01 13:10'),
+        takeoffTime: new Date('2024-01-01 13:25'),
+        arrivalTime: new Date('2024-01-01 16:10'),
+        onBlockTime: new Date('2024-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
   };

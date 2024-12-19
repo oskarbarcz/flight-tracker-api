@@ -1,18 +1,14 @@
 import { When, Then, Given } from '@cucumber/cucumber';
 import axios, { AxiosResponse } from 'axios';
-import { validate as isUuid } from 'uuid';
 import expect from 'expect';
 import { execSync } from 'child_process';
+import { deepCompare } from '../_helper/deep-compare';
 
 const apiBaseUrl = 'http://localhost:3000';
 let apiResponse: AxiosResponse;
 
 Given('I use seed data', () => {
-  execSync(
-    'npx prisma migrate reset --force --skip-generate --skip-seed > /dev/null',
-    { stdio: 'inherit' },
-  );
-  execSync('npx prisma db seed > /dev/null', { stdio: 'inherit' });
+  execSync('npx prisma migrate reset --force --skip-generate > /dev/null');
 });
 
 When(
@@ -55,14 +51,7 @@ Then('the response body should contain:', async function (docString: string) {
   const expected = JSON.parse(docString);
   const actual = apiResponse.data;
 
-  for (const [key, value] of Object.entries(expected)) {
-    expect(actual).toHaveProperty(key);
-    if (value === '@uuid') {
-      expect(isUuid(actual[key]));
-    } else {
-      expect(actual[key]).toStrictEqual(expected[key]);
-    }
-  }
+  deepCompare(actual, expected);
 });
 
 Then('I dump response', () => {
