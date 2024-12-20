@@ -355,4 +355,22 @@ export class FlightsController {
   async reportOnBlock(@uuid('id') id: string): Promise<void> {
     await this.flightsService.reportOnBlock(id);
   }
+
+  @Post('/:id/report-offboarding-started')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async reportOffboardingStarted(@uuid('id') id: string): Promise<void> {
+    await this.flightsService.reportOffboardingStarted(id);
+  }
+
+  @Post('/:id/report-offboarding-finished')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async reportOffboardingFinished(@uuid('id') id: string): Promise<void> {
+    await this.flightsService.reportOffboardingFinished(id);
+  }
+
+  @Post('/:id/close')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async closeFlightPlan(@uuid('id') id: string): Promise<void> {
+    await this.flightsService.close(id);
+  }
 }

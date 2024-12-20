@@ -88,3 +88,20 @@ export const InvalidStatusToReportOnBlockError = {
   error: 'Unprocessable Content',
   message: 'Cannot report on-block for flight that is not taxiing in.',
 };
+
+export const InvalidStatusToStartOffboardingError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message: 'Cannot start offboarding for flight that is not reported on block.',
+};
+export const InvalidStatusToFinishOffboardingError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message:
+    'Cannot finish offboarding for flight that has not started offboarding.',
+};
+export const InvalidStatusToCloseFlight = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message: 'Cannot close flight that is not off boarded.',
+};
