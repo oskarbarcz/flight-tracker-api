@@ -4,13 +4,22 @@ import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from '../users/users.module';
 import * as process from 'node:process';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth.guard';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
   imports: [
     UsersModule,
     JwtModule.register({
+      global: true,
       privateKey: process.env.JWT_PRIVATE_KEY,
       publicKey: process.env.JWT_PUBLIC_KEY,
       signOptions: {
@@ -19,5 +28,6 @@ import * as process from 'node:process';
       },
     }),
   ],
+  exports: [AuthService],
 })
 export class AuthModule {}

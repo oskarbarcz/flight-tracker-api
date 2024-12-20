@@ -13,7 +13,7 @@ import { GetUserDto } from './dto/get-user.dto';
 
 @Injectable()
 export class UsersService {
-  BCRYPT_SALT_ROUNDS = 10;
+  BCRYPT_SALT_ROUNDS = 12;
 
   constructor(private readonly prisma: PrismaService) {}
 
