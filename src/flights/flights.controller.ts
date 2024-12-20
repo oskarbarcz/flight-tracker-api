@@ -330,9 +330,9 @@ export class FlightsController {
   }
 
   @ApiOperation({
-    summary: 'Report flight has arrived on block',
+    summary: 'Report that offboarding has been finished.',
     description:
-      '**NOTE:** This action is only allowed when aircraft has landed.',
+      '**NOTE:** This action is only allowed when aircraft is offboarding passengers.',
   })
   @ApiParam({
     name: 'id',
@@ -356,18 +356,81 @@ export class FlightsController {
     await this.flightsService.reportOnBlock(id);
   }
 
+  @ApiOperation({
+    summary: 'Start offboarding passengers',
+    description:
+      '**NOTE:** This action is only allowed if aircraft is on block.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'Offboarding start reported successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
   @Post('/:id/report-offboarding-started')
   @HttpCode(HttpStatus.NO_CONTENT)
   async reportOffboardingStarted(@uuid('id') id: string): Promise<void> {
     await this.flightsService.reportOffboardingStarted(id);
   }
 
+  @ApiOperation({
+    summary: 'Finish offboarding passengers',
+    description:
+      '**NOTE:** This action is only allowed if offboarding was started.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'Offboarding finish reported successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
   @Post('/:id/report-offboarding-finished')
   @HttpCode(HttpStatus.NO_CONTENT)
   async reportOffboardingFinished(@uuid('id') id: string): Promise<void> {
     await this.flightsService.reportOffboardingFinished(id);
   }
 
+  @ApiOperation({
+    summary: 'Close flight plan',
+    description:
+      '**NOTE:** This action is only allowed when offboarding has been finished.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'Flight plan is closed successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
   @Post('/:id/close')
   @HttpCode(HttpStatus.NO_CONTENT)
   async closeFlightPlan(@uuid('id') id: string): Promise<void> {
