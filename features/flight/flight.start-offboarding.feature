@@ -1,17 +1,17 @@
-Feature: Report on-block for flight that reported taxiing
-  Scenario: Report on-block for flight that reported taxiing
+Feature: Start offboarding for flight that reported on-block
+  Scenario: Report on-block for flight that reported on-block
     Given I use seed data
-    When I send a "POST" request to "/api/v1/flight/04be266c-df78-4bec-9f50-281cc02ce7f2/report-on-block"
+    When I send a "POST" request to "/api/v1/flight/17d2f703-957d-4ad1-a620-3c187a70c26a/start-offboarding"
     Then the response status should be 204
-    When I send a "GET" request to "/api/v1/flight/04be266c-df78-4bec-9f50-281cc02ce7f2"
+    When I send a "GET" request to "/api/v1/flight/17d2f703-957d-4ad1-a620-3c187a70c26a"
     Then the response status should be 200
     And the response body should contain:
     """json
     {
-      "id": "04be266c-df78-4bec-9f50-281cc02ce7f2",
-      "flightNumber": "AA 4913",
-      "callsign": "AAL 4913",
-      "status": "on_block",
+      "id": "17d2f703-957d-4ad1-a620-3c187a70c26a",
+      "flightNumber": "AA 4914",
+      "callsign": "AAL 4914",
+      "status": "offboarding_started",
       "timesheet": {
         "scheduled": {
           "arrivalTime": "2024-01-01T16:00:00.000Z",
@@ -27,7 +27,7 @@ Feature: Report on-block for flight that reported taxiing
         },
         "actual": {
           "arrivalTime": "2024-01-01T16:10:00.000Z",
-          "onBlockTime": "@date('within 1 minute from now')",
+          "onBlockTime": "2024-01-01T16:28:00.000Z",
           "takeoffTime": "2024-01-01T13:25:00.000Z",
           "offBlockTime": "2024-01-01T13:10:00.000Z"
         }
@@ -70,37 +70,37 @@ Feature: Report on-block for flight that reported taxiing
     }
     """
 
-  Scenario: Report on-block for flight twice
+  Scenario: Start offboarding for flight twice
     Given I use seed data
-    When I send a "POST" request to "/api/v1/flight/04be266c-df78-4bec-9f50-281cc02ce7f2/report-on-block"
+    When I send a "POST" request to "/api/v1/flight/17d2f703-957d-4ad1-a620-3c187a70c26a/start-offboarding"
     Then the response status should be 204
-    When I send a "POST" request to "/api/v1/flight/04be266c-df78-4bec-9f50-281cc02ce7f2/report-on-block"
+    When I send a "POST" request to "/api/v1/flight/17d2f703-957d-4ad1-a620-3c187a70c26a/start-offboarding"
     Then the response status should be 422
     And the response body should contain:
     """json
     {
-      "message": "Cannot report on-block for flight that is not taxiing in.",
+      "message": "Cannot start offboarding for flight that is not reported on block.",
       "error": "Unprocessable Content",
       "statusCode": 422
     }
     """
 
-    Scenario: Report on-block for flight that not reported off-block
+    Scenario: Start offboarding for flight that not reported on-block
     Given I use seed data
-    When I send a "POST" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/report-on-block"
+    When I send a "POST" request to "/api/v1/flight/04be266c-df78-4bec-9f50-281cc02ce7f2/start-offboarding"
     Then the response status should be 422
     And the response body should contain:
     """json
     {
-      "message": "Cannot report on-block for flight that is not taxiing in.",
+      "message": "Cannot start offboarding for flight that is not reported on block.",
       "error": "Unprocessable Content",
       "statusCode": 422
     }
     """
 
-  Scenario: Report on-block for flight that does not exist
+  Scenario: Start offboarding for flight that does not exist
     Given I use seed data
-    When I send a "POST" request to "/api/v1/flight/c0ee4dec-b1fd-44aa-822c-28a7ead0191a/report-on-block"
+    When I send a "POST" request to "/api/v1/flight/c0ee4dec-b1fd-44aa-822c-28a7ead0191a/start-offboarding"
     Then the response status should be 404
     And the response body should contain:
     """json
@@ -111,8 +111,8 @@ Feature: Report on-block for flight that reported taxiing
     }
     """
 
-  Scenario: Report on-block for flight with incorrect uuid
-    When I send a "POST" request to "/api/v1/flight/invalid-uuid/report-on-block"
+  Scenario: Start offboarding for flight with incorrect uuid
+    When I send a "POST" request to "/api/v1/flight/invalid-uuid/start-offboarding"
     Then the response status should be 400
     And the response body should contain:
     """json

@@ -22,13 +22,16 @@ import {
   FlightDoesNotExistError,
   InvalidStatusToChangeScheduleError,
   InvalidStatusToCheckInError,
+  InvalidStatusToCloseFlight,
   InvalidStatusToFinishBoardingError,
+  InvalidStatusToFinishOffboardingError,
   InvalidStatusToMarkAsReadyError,
   InvalidStatusToReportArrivedError,
   InvalidStatusToReportOffBlockError,
   InvalidStatusToReportOnBlockError,
   InvalidStatusToReportTakenOffError,
   InvalidStatusToStartBoardingError,
+  InvalidStatusToStartOffboardingError,
   ScheduledFlightCannotBeRemoved,
 } from './dto/errors.dto';
 
@@ -279,5 +282,57 @@ export class FlightsService {
 
     await this.flightsRepository.updateStatus(id, FlightStatus.OnBlock);
     await this.flightsRepository.updateTimesheet(id, timesheet);
+  }
+
+  async reportOffboardingStarted(id: string): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.OnBlock) {
+      throw new UnprocessableEntityException(
+        InvalidStatusToStartOffboardingError,
+      );
+    }
+
+    await this.flightsRepository.updateStatus(
+      id,
+      FlightStatus.OffboardingStarted,
+    );
+  }
+
+  async reportOffboardingFinished(id: string): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.OffboardingStarted) {
+      throw new UnprocessableEntityException(
+        InvalidStatusToFinishOffboardingError,
+      );
+    }
+
+    await this.flightsRepository.updateStatus(
+      id,
+      FlightStatus.OffboardingFinished,
+    );
+  }
+
+  async close(id: string): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(InvalidStatusToCloseFlight);
+    }
+
+    if (flight.status !== FlightStatus.OffboardingFinished) {
+      throw new UnprocessableEntityException(InvalidStatusToCloseFlight);
+    }
+
+    await this.flightsRepository.updateStatus(id, FlightStatus.Closed);
   }
 }
