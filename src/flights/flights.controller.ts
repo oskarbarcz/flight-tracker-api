@@ -377,7 +377,7 @@ export class FlightsController {
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
-  @Post('/:id/report-offboarding-started')
+  @Post('/:id/start-offboarding')
   @HttpCode(HttpStatus.NO_CONTENT)
   async reportOffboardingStarted(@uuid('id') id: string): Promise<void> {
     await this.flightsService.reportOffboardingStarted(id);
@@ -404,7 +404,7 @@ export class FlightsController {
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
-  @Post('/:id/report-offboarding-finished')
+  @Post('/:id/finish-offboarding')
   @HttpCode(HttpStatus.NO_CONTENT)
   async reportOffboardingFinished(@uuid('id') id: string): Promise<void> {
     await this.flightsService.reportOffboardingFinished(id);

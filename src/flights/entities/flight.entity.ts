@@ -13,8 +13,8 @@ export enum FlightStatus {
   InCruise = 'in_cruise',
   TaxiingIn = 'taxiing_in',
   OnBlock = 'on_block',
-  OffboardingStarted = 'deboarding_started',
-  OffboardingFinished = 'deboarding_finished',
+  OffboardingStarted = 'offboarding_started',
+  OffboardingFinished = 'offboarding_finished',
   Closed = 'closed',
 }
 

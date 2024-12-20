@@ -330,7 +330,7 @@ export class FlightsService {
     }
 
     if (flight.status !== FlightStatus.OffboardingFinished) {
-      throw new UnprocessableEntityException(InvalidStatusToReportOnBlockError);
+      throw new UnprocessableEntityException(InvalidStatusToCloseFlight);
     }
 
     await this.flightsRepository.updateStatus(id, FlightStatus.Closed);
