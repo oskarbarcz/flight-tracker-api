@@ -64,3 +64,19 @@ model AirportsOnFlights {
   @@id([airportId, flightId])
   @@map("airport_flight")
 }
+
+model User {
+  id       String   @id @db.Uuid
+  name     String
+  email    String   @unique
+  password String
+  role     UserRole
+
+  @@map("user")
+}
+
+enum UserRole {
+  CabinCrew
+  Operations
+  Admin
+}
