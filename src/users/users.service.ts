@@ -58,6 +58,21 @@ export class UsersService {
     return this.returnWithoutPassword(user);
   }
 
+  async findByCredentials(
+    email: string,
+    password: string,
+  ): Promise<GetUserDto | null> {
+    const user = await this.findOneBy({ email });
+
+    if (!user) {
+      return null;
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    return !isMatch ? null : this.returnWithoutPassword(user);
+  }
+
   async update(id: string, data: UpdateUserDto): Promise<GetUserDto> {
     const user: User | null = await this.findOneBy({ id });
 
