@@ -3,7 +3,7 @@ services:
     depends_on:
       database:
         condition: service_healthy
-    image: ghcr.io/oskarbarcz/flight-tracker-api:0.9.0
+    image: ghcr.io/oskarbarcz/flight-tracker-api:0.10.0
     build:
       context: .
       target: development
