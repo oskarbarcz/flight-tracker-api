@@ -19,8 +19,8 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { GenericBadRequestResponse } from '../common/dto/bad-request.dto';
-import { GenericNotFoundResponse } from '../common/dto/not-found.dto';
+import { GenericBadRequestResponse } from '../common/response/bad-request.response';
+import { GenericNotFoundResponse } from '../common/response/not-found.response';
 import { uuid } from '../common/validation/uuid.param';
 import { Flight } from './entities/flight.entity';
 import { CreateFlightRequest } from './dto/create-flight.dto';

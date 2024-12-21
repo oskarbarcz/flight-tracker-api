@@ -23,9 +23,9 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { GenericBadRequestResponse } from '../common/dto/bad-request.dto';
+import { GenericBadRequestResponse } from '../common/response/bad-request.response';
 import { uuid } from '../common/validation/uuid.param';
-import { GenericNotFoundResponse } from '../common/dto/not-found.dto';
+import { GenericNotFoundResponse } from '../common/response/not-found.response';
 
 @ApiTags('aircraft')
 @Controller('/api/v1/aircraft')

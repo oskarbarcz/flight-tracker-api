@@ -24,8 +24,8 @@ import {
   ApiOperation,
   ApiParam,
 } from '@nestjs/swagger';
-import { GenericBadRequestResponse } from '../common/dto/bad-request.dto';
-import { GenericNotFoundResponse } from '../common/dto/not-found.dto';
+import { GenericBadRequestResponse } from '../common/response/bad-request.response';
+import { GenericNotFoundResponse } from '../common/response/not-found.response';
 
 @ApiTags('operator')
 @Controller('/api/v1/operator')

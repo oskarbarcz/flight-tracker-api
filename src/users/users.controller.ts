@@ -13,9 +13,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { uuid } from '../common/validation/uuid.param';
-import { GenericBadRequestResponse } from '../common/dto/bad-request.dto';
+import { GenericBadRequestResponse } from '../common/response/bad-request.response';
 import { CreateAircraftDto } from '../aircraft/dto/create-aircraft.dto';
-import { GenericNotFoundResponse } from '../common/dto/not-found.dto';
+import { GenericNotFoundResponse } from '../common/response/not-found.response';
 import { GetUserDto } from './dto/get-user.dto';
 import { UserRole } from '@prisma/client';
 import { Role } from '../auth/decorator/role.decorator';
