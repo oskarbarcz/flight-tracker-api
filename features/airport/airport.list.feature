@@ -81,7 +81,7 @@ Feature: List airports
     ]
     """
 
-  Scenario: As an operations I can list airports
+  Scenario: As operations I can list airports
     Given I use seed data
     And I am signed in as "operations"
     When I send a "GET" request to "/api/v1/airport"

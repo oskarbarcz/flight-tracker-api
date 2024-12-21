@@ -17,7 +17,7 @@ Feature: As a user I can send credentials and get JWT token
     }
     """
 
-    Scenario: As an operations I can sign in with valid credentials
+    Scenario: As operations I can sign in with valid credentials
     Given I use seed data
     When I send a "POST" request to "/api/v1/auth/sign-in" with body:
     """json

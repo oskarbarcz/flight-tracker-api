@@ -22,7 +22,7 @@ Feature: Create airport
     }
     """
 
-  Scenario: As an operations I can create airport
+  Scenario: As operations I can create airport
     Given I use seed data
     And I am signed in as "operations"
     When I send a "POST" request to "/api/v1/airport" with body:
@@ -68,7 +68,7 @@ Feature: Create airport
     }
     """
 
-  Scenario: As an operations I cannot create airport with incorrect data
+  Scenario: As operations I cannot create airport with incorrect data
     Given I use seed data
     And I am signed in as "operations"
     When I send a "POST" request to "/api/v1/airport" with body:

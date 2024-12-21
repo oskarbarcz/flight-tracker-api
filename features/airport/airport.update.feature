@@ -19,7 +19,7 @@ Feature: Update airport
     }
     """
 
-  Scenario: As an operations I cannot update airport with correct data
+  Scenario: As operations I cannot update airport with correct data
     Given I use seed data
     And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a" with body:
@@ -59,7 +59,7 @@ Feature: Update airport
     }
     """
 
-  Scenario: As an operations I cannot update airport with incorrect data
+  Scenario: As operations I cannot update airport with incorrect data
     Given I use seed data
     And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a" with body:
@@ -88,7 +88,7 @@ Feature: Update airport
     }
     """
 
-  Scenario: As an operations I cannot update airport that does not exist
+  Scenario: As operations I cannot update airport that does not exist
     Given I use seed data
     And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/airport/d02c2edf-0365-4d68-a027-ecacfb1fb605"
@@ -102,7 +102,7 @@ Feature: Update airport
     }
     """
 
-  Scenario: As an operations I cannot update airport with incorrect uuid
+  Scenario: As operations I cannot update airport with incorrect uuid
     Given I use seed data
     And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/airport/incorrect-uuid"

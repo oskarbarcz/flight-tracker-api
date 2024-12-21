@@ -14,7 +14,8 @@ import { UpdateAirportDto } from './dto/update-airport.dto';
 import { uuid } from '../common/validation/uuid.param';
 import { Airport } from './entities/airport.entity';
 import {
-  ApiBadRequestResponse, ApiBearerAuth,
+  ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiBody,
   ApiCreatedResponse,
   ApiForbiddenResponse,
@@ -41,7 +42,7 @@ export class AirportsController {
   @ApiOperation({
     summary: 'Create new airport',
     description:
-      '**NOTE:** This endpoint is only available for users with `operations` role',
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth()
   @ApiBody({ type: CreateAirportDto })
@@ -113,7 +114,7 @@ export class AirportsController {
   @ApiOperation({
     summary: 'Update airport',
     description:
-      '**NOTE:** This endpoint is only available for users with `operations` role',
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth()
   @ApiParam({

@@ -14,7 +14,7 @@ Feature: Delete airport
     }
     """
 
-  Scenario: As an operations I can delete airport
+  Scenario: As operations I can delete airport
     Given I use seed data
     And I am signed in as "operations"
     When I send a "DELETE" request to "/api/v1/airport/5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf"

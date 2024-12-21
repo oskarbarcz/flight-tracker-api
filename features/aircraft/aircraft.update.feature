@@ -1,7 +1,28 @@
-Feature: Update aircraft resource
+Feature: Update aircraft
 
-  Scenario: Update aircraft with correct data
+  Scenario: As an admin I cannot update aircraft with correct data
     Given I use seed data
+    And I am signed in as "admin"
+    When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
+    """json
+    {
+      "fullName": "Airbus A330-900 neo (CFM version)",
+      "livery": "Lufthansa Classic (2024)"
+    }
+    """
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I cannot update aircraft with correct data
+    Given I use seed data
+    And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
     """json
     {
@@ -23,8 +44,29 @@ Feature: Update aircraft resource
     }
     """
 
-  Scenario: Update aircraft with incorrect data
+  Scenario: As a cabin crew I cannot update aircraft with correct data
     Given I use seed data
+    And I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
+    """json
+    {
+      "fullName": "Airbus A330-900 neo (CFM version)",
+      "livery": "Lufthansa Classic (2024)"
+    }
+    """
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I cannot update aircraft with incorrect data
+    Given I use seed data
+    And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
     """json
     {
@@ -48,8 +90,9 @@ Feature: Update aircraft resource
     }
     """
 
-  Scenario: Update aircraft that does not exist
+  Scenario: As operations I cannot update aircraft that does not exist
     Given I use seed data
+    And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/aircraft/d02c2edf-0365-4d68-a027-ecacfb1fb605"
     Then the response status should be 404
     And the response body should contain:
@@ -61,7 +104,9 @@ Feature: Update aircraft resource
     }
     """
 
-  Scenario: Update aircraft with incorrect uuid
+  Scenario: As operations I cannot update aircraft with incorrect uuid
+    Given I use seed data
+    And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/aircraft/incorrect-uuid"
     Then the response status should be 400
     And the response body should contain:
@@ -70,5 +115,23 @@ Feature: Update aircraft resource
       "message": "Validation failed (uuid v 4 is expected)",
       "error": "Bad Request",
       "statusCode": 400
+    }
+    """
+
+  Scenario: As an unauthorized user I cannot update aircraft
+    Given I use seed data
+    When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
+    """json
+    {
+      "fullName": "Airbus A330-900 neo (CFM version)",
+      "livery": "Lufthansa Classic (2024)"
+    }
+    """
+    Then the response status should be 401
+    And the response body should contain:
+    """json
+    {
+      "message": "Unauthorized",
+      "statusCode": 401
     }
     """
