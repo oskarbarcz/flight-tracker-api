@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -17,6 +17,8 @@ import { GenericBadRequestResponse } from '../common/dto/bad-request.dto';
 import { CreateAircraftDto } from '../aircraft/dto/create-aircraft.dto';
 import { GenericNotFoundResponse } from '../common/dto/not-found.dto';
 import { GetUserDto } from './dto/get-user.dto';
+import { UserRole } from '@prisma/client';
+import { Role } from '../auth/decorator/role.decorator';
 
 @ApiTags('user')
 @Controller('/api/v1/user')
@@ -48,6 +50,7 @@ export class UsersController {
     isArray: true,
   })
   @Get()
+  @Role(UserRole.Admin)
   findAll(): Promise<GetUserDto[]> {
     return this.usersService.findAll();
   }

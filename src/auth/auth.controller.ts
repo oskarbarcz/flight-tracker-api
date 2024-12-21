@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInRequest } from './dto/sign-in.dto';
-import { SkipAuth } from './skip-auth.decorator';
+import { SkipAuth } from './decorator/skip-auth.decorator';
 
 @Controller('/api/v1/auth')
 export class AuthController {
