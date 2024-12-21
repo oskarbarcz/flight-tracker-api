@@ -8,6 +8,27 @@ export const deepCompare = (actual: any, expected: any) => {
     return;
   }
 
+  if (expected === '@jwt_token') {
+    expect(typeof actual).toBe('string');
+    expect(actual.split('.').length).toBe(3);
+
+    const payload = extractPayloadFromJwt(actual);
+
+    expect(Object.keys(payload)).toContain('sub');
+    expect(Object.keys(payload)).toContain('username');
+    expect(Object.keys(payload)).toContain('role');
+    expect(Object.keys(payload)).toContain('iat');
+    expect(Object.keys(payload)).toContain('exp');
+    expect(typeof payload.sub).toBe('string');
+    expect(typeof payload.username).toBe('string');
+    expect(typeof payload.role).toBe('string');
+    expect(typeof payload.iat).toBe('number');
+    expect(typeof payload.exp).toBe('number');
+    expect(Number(payload.exp) - Number(payload.iat)).toBe(3600);
+
+    return;
+  }
+
   if (expected === "@date('within 1 minute from now')") {
     const actualDate = new Date(actual);
     const now = new Date();
@@ -37,3 +58,7 @@ export const deepCompare = (actual: any, expected: any) => {
     deepCompare(actual[key], expected[key]);
   }
 };
+
+function extractPayloadFromJwt(token: string): Record<string, string> {
+  return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+}

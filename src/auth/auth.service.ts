@@ -22,8 +22,8 @@ export class AuthService {
       role: user.role.toLowerCase(),
     };
 
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
+    const token = await this.jwtService.signAsync(payload);
+
+    return { token };
   }
 }
