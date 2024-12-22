@@ -1,7 +1,8 @@
-Feature: Create user resource
+Feature: Create user
 
-  Scenario: Create user with correct data
+  Scenario: As an admin I can create user
     Given I use seed data
+    And I am signed in as "admin"
     When I send a "POST" request to "/api/v1/user" with body:
     """json
     {
@@ -22,7 +23,53 @@ Feature: Create user resource
     }
     """
 
-  Scenario: Create user with incorrect data
+  Scenario: As operations I cannot create user
+    Given I use seed data
+    And I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/user" with body:
+    """json
+    {
+      "name": "Anna Doe",
+      "email": "anna.doe@example.com",
+      "password": "P@$$w0rd",
+      "role": "Admin"
+    }
+    """
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As a cabin crew I cannot create user
+    Given I use seed data
+    And I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/user" with body:
+    """json
+    {
+      "name": "Anna Doe",
+      "email": "anna.doe@example.com",
+      "password": "P@$$w0rd",
+      "role": "Admin"
+    }
+    """
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As an admin I cannot create user with incorrect data
+    Given I use seed data
+    And I am signed in as "admin"
     When I send a "POST" request to "/api/v1/user" with body:
     """json
     {
@@ -54,8 +101,9 @@ Feature: Create user resource
     }
     """
 
-    Scenario: Create user with email that is actually registered
+    Scenario: As an admin I cannot create user with email that is actually registered
     Given I use seed data
+    And I am signed in as "admin"
     When I send a "POST" request to "/api/v1/user" with body:
     """json
     {
@@ -72,5 +120,25 @@ Feature: Create user resource
       "message": "User with given email already exists.",
       "error": "Bad Request",
       "statusCode": 400
+    }
+    """
+
+  Scenario: As an unauthorized user I cannot create user
+    Given I use seed data
+    When I send a "POST" request to "/api/v1/user" with body:
+    """json
+    {
+      "name": "Anna Doe",
+      "email": "anna.doe@example.com",
+      "password": "P@$$w0rd",
+      "role": "Admin"
+    }
+    """
+    Then the response status should be 401
+    And the response body should contain:
+    """json
+    {
+      "message": "Unauthorized",
+      "statusCode": 401
     }
     """
