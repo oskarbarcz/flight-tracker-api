@@ -1,7 +1,8 @@
-Feature: List operators resource
+Feature: List operators
 
-  Scenario: List operators
+  Scenario: As an admin I can list operators
     Given I use seed data
+    And I am signed in as "admin"
     When I send a "GET" request to "/api/v1/operator"
     Then the response status should be 200
     And the response body should contain:
@@ -43,4 +44,28 @@ Feature: List operators resource
         "callsign": "SPEEDBIRD"
       }
     ]
+    """
+
+  Scenario: As operations I can list operators
+    Given I use seed data
+    And I am signed in as "operations"
+    Given I use seed data
+    When I send a "GET" request to "/api/v1/operator"
+    Then the response status should be 200
+
+  Scenario: As a cabin crew I can list operators
+    Given I use seed data
+    And I am signed in as "cabin crew"
+    When I send a "GET" request to "/api/v1/operator"
+    Then the response status should be 200
+
+  Scenario: As an unauthorized user I cannot list operators
+    When I send a "GET" request to "/api/v1/operator"
+    Then the response status should be 401
+    And the response body should contain:
+    """json
+    {
+      "message": "Unauthorized",
+      "statusCode": 401
+    }
     """

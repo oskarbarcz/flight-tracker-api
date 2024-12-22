@@ -1,7 +1,30 @@
-Feature: Create operator resource
+Feature: Create operator
 
-  Scenario: Create operator with correct data
+  Scenario: As an admin I cannot create operator
     Given I use seed data
+    And I am signed in as "admin"
+    When I send a "POST" request to "/api/v1/operator" with body:
+    """json
+    {
+      "icaoCode": "UAL",
+      "shortName": "United",
+      "fullName": "United Airlines, Inc.",
+      "callsign": "UNITED"
+    }
+    """
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I cannot create operator
+    Given I use seed data
+    And I am signed in as "operations"
     When I send a "POST" request to "/api/v1/operator" with body:
     """json
     {
@@ -23,7 +46,31 @@ Feature: Create operator resource
     }
     """
 
-  Scenario: Create operator with incorrect data
+  Scenario: As a cabin crew I cannot create operator
+    Given I use seed data
+    And I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/operator" with body:
+    """json
+    {
+      "icaoCode": "UAL",
+      "shortName": "United",
+      "fullName": "United Airlines, Inc.",
+      "callsign": "UNITED"
+    }
+    """
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I cannot operator with incorrect data
+    Given I use seed data
+    And I am signed in as "operations"
     When I send a "POST" request to "/api/v1/operator" with body:
     """json
     {
@@ -48,5 +95,25 @@ Feature: Create operator resource
           "callsign must be a string"
         ]
       }
+    }
+    """
+
+    Scenario: As an unauthorized user I cannot create operator
+    Given I use seed data
+    When I send a "POST" request to "/api/v1/operator" with body:
+    """json
+    {
+      "icaoCode": "UAL",
+      "shortName": "United",
+      "fullName": "United Airlines, Inc.",
+      "callsign": "UNITED"
+    }
+    """
+    Then the response status should be 401
+    And the response body should contain:
+    """json
+    {
+      "message": "Unauthorized",
+      "statusCode": 401
     }
     """

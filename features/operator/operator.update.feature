@@ -1,7 +1,27 @@
-Feature: Update operator resource
+Feature: Update operator
 
-  Scenario: Update operator with correct data
+  Scenario: As an admin I cannot update operator
     Given I use seed data
+    And I am signed in as "admin"
+    When I send a "PATCH" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871" with body:
+    """json
+    {
+      "shortName": "Condor Regional"
+    }
+    """
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I can update operator
+    Given I use seed data
+    And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871" with body:
     """json
     {
@@ -20,8 +40,28 @@ Feature: Update operator resource
     }
     """
 
-  Scenario: Update operator with incorrect data
+  Scenario: As a cabin crew I cannot update operator
     Given I use seed data
+    And I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871" with body:
+    """json
+    {
+      "shortName": "Condor Regional"
+    }
+    """
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I cannot update operator with incorrect data
+    Given I use seed data
+    And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871" with body:
     """json
     {
@@ -48,8 +88,9 @@ Feature: Update operator resource
     }
     """
 
-  Scenario: Update operator that does not exist
+  Scenario: As operations I cannot update operator that does not exist
     Given I use seed data
+    And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/operator/4a13da08-1188-44bf-a5dd-7cb474e6017d"
     Then the response status should be 404
     And the response body should contain:
@@ -61,7 +102,9 @@ Feature: Update operator resource
     }
     """
 
-  Scenario: Update operator with incorrect uuid
+  Scenario: As operations I cannot update operator with incorrect uuid
+    Given I use seed data
+    And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/operator/incorrect-uuid"
     Then the response status should be 400
     And the response body should contain:
@@ -70,5 +113,24 @@ Feature: Update operator resource
       "message": "Validation failed (uuid v 4 is expected)",
       "error": "Bad Request",
       "statusCode": 400
+    }
+    """
+
+  Scenario: As an unauthorized user I cannot update operator
+    Given I use seed data
+    When I send a "PATCH" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871" with body:
+    """json
+    {
+      "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+      "shortName": "Condor Regional",
+      "unrecognized-field": "A339"
+    }
+    """
+    Then the response status should be 401
+    And the response body should contain:
+    """json
+    {
+      "message": "Unauthorized",
+      "statusCode": 401
     }
     """

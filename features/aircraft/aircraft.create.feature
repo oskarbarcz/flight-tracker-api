@@ -76,7 +76,7 @@ Feature: Create aircraft
     }
     """
 
-  Scenario: Create aircraft with incorrect data
+  Scenario: As operations I cannot create aircraft with incorrect data
     Given I use seed data
     And I am signed in as "operations"
     When I send a "POST" request to "/api/v1/aircraft" with body:

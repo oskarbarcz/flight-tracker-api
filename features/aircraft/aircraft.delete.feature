@@ -87,7 +87,6 @@ Feature: Delete aircraft
     """
 
   Scenario: As an unauthorized user I cannot delete aircraft
-    Given I use seed data
     When I send a "DELETE" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f"
     Then the response status should be 401
     And the response body should contain:
