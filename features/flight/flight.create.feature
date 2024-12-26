@@ -1,7 +1,39 @@
-Feature: Create flight
+Feature: Create a flight
 
-  Scenario: Create a flight
+  Scenario: As an admin I cannot create a flight
     Given I use seed data
+    Given I am signed in as "admin"
+    When I send a "POST" request to "/api/v1/flight/" with body:
+    """json
+    {
+      "flightNumber": "DLH990",
+      "callsign": "DLH990",
+      "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+      "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+      "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+      "timesheet": {
+        "scheduled": {
+          "offBlockTime": "2024-01-01 12:00",
+          "takeoffTime": "2024-01-01 12:15",
+          "arrivalTime": "2024-01-01 21:00",
+          "onBlockTime": "2024-01-01 21:10"
+        }
+      }
+    }
+    """
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I can create a flight
+    Given I use seed data
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
     """json
     {
@@ -66,8 +98,40 @@ Feature: Create flight
     }
     """
 
-  Scenario: Create a flight with non existing aircraft
+  Scenario: As a cabin crew I cannot create a flight
     Given I use seed data
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/" with body:
+    """json
+    {
+      "flightNumber": "DLH990",
+      "callsign": "DLH990",
+      "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+      "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+      "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+      "timesheet": {
+        "scheduled": {
+          "offBlockTime": "2024-01-01 12:00",
+          "takeoffTime": "2024-01-01 12:15",
+          "arrivalTime": "2024-01-01 21:00",
+          "onBlockTime": "2024-01-01 21:10"
+        }
+      }
+    }
+    """
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I cannot create a flight with non existing aircraft
+    Given I use seed data
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
     """json
     {
@@ -96,8 +160,9 @@ Feature: Create flight
     }
     """
 
-  Scenario: Create a flight with non existing departure airport
+  Scenario: As operations I cannot create a flight with non existing departure airport
     Given I use seed data
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
     """json
     {
@@ -126,8 +191,9 @@ Feature: Create flight
     }
     """
 
-  Scenario: Create a flight with non existing destination airport
+  Scenario: As operations I cannot create a flight with non existing destination airport
     Given I use seed data
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
     """json
     {
@@ -156,8 +222,9 @@ Feature: Create flight
     }
     """
 
-  Scenario: Create a flight with destination airport matching departure airport
+  Scenario: As operations I cannot create a flight with destination airport matching departure airport
     Given I use seed data
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
     """json
     {
@@ -186,7 +253,9 @@ Feature: Create flight
     }
     """
 
-  Scenario: Create a flight with incorrect payload
+  Scenario: As operations I cannot create a flight with incorrect payload
+    Given I use seed data
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
     """json
     {
@@ -227,5 +296,33 @@ Feature: Create flight
           "property status should not exist"
         ]
       }
+    }
+    """
+
+  Scenario: As an unauthorized user I cannot create a flight
+     When I send a "POST" request to "/api/v1/flight/" with body:
+    """json
+    {
+      "flightNumber": "DLH990",
+      "callsign": "DLH990",
+      "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+      "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+      "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+      "timesheet": {
+        "scheduled": {
+          "offBlockTime": "2024-01-01 12:00",
+          "takeoffTime": "2024-01-01 12:15",
+          "arrivalTime": "2024-01-01 21:00",
+          "onBlockTime": "2024-01-01 21:10"
+        }
+      }
+    }
+    """
+    Then the response status should be 401
+    And the response body should contain:
+    """json
+    {
+      "message": "Unauthorized",
+      "statusCode": 401
     }
     """
