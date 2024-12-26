@@ -20,7 +20,12 @@ const apiUsers = {
 };
 
 const apiBaseUrl = 'http://localhost:3000';
-let apiToken = '';
+let apiTokens = {
+  admin: '',
+  operations: '',
+  'cabin crew': '',
+  currentRole: 'admin',
+} as Record<string, string>;
 let apiResponse: AxiosResponse;
 
 Given('I use seed data', () => {
@@ -36,7 +41,8 @@ Given(
       token: string;
     }>;
 
-    apiToken = apiResponse.data.token;
+    apiTokens[role] = apiResponse.data.token;
+    apiTokens.currentRole = role;
   },
 );
 
@@ -48,7 +54,10 @@ When(
       method: method,
       url: url,
       validateStatus: () => true,
-      headers: apiToken === '' ? {} : { Authorization: `Bearer ${apiToken}` },
+      headers:
+        apiTokens[apiTokens.currentRole] === ''
+          ? {}
+          : { Authorization: `Bearer ${apiTokens[apiTokens.currentRole]}` },
     });
   },
 );
@@ -62,7 +71,10 @@ When(
       url: url,
       data: JSON.parse(body),
       validateStatus: () => true,
-      headers: apiToken === '' ? {} : { Authorization: `Bearer ${apiToken}` },
+      headers:
+        apiTokens[apiTokens.currentRole] === ''
+          ? {}
+          : { Authorization: `Bearer ${apiTokens[apiTokens.currentRole]}` },
     });
   },
 );
@@ -90,5 +102,10 @@ Then('I dump response', () => {
 });
 
 After(() => {
-  apiToken = '';
+  apiTokens = {
+    admin: '',
+    operations: '',
+    'cabin crew': '',
+    currentRole: 'admin',
+  };
 });
