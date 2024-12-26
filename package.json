@@ -1,6 +1,6 @@
 {
   "name": "flight-tracker-api",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "",
   "homepage": "https://flight-tracker.barcz.me",
   "author": "Oskar Barcz",
@@ -27,6 +27,7 @@
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
+    "@nestjs/jwt": "^10.2.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^8.1.0",

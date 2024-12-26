@@ -1,5 +1,5 @@
 import { ValidationError } from '@nestjs/common';
-import { GenericBadRequestResponse } from '../dto/bad-request.dto';
+import { GenericBadRequestResponse } from '../response/bad-request.response';
 
 export function createResponseFromErrorsList<T>(
   errors: ValidationError[],

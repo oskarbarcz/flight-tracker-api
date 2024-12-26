@@ -1,6 +1,8 @@
-Feature: Get flight resource
-  Scenario: Get one flight
+Feature: Get flight
+
+  Scenario: As an admin I can get flight
     Given I use seed data
+    And I am signed in as "admin"
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
     Then the response status should be 200
     And the response body should contain:
@@ -72,8 +74,21 @@ Feature: Get flight resource
     }
     """
 
-  Scenario: Get flight that does not exist
+  Scenario: As operations I can get flight
     Given I use seed data
+    And I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
+    Then the response status should be 200
+
+  Scenario: As a cabin crew I can get flight
+    Given I use seed data
+    And I am signed in as "cabin crew"
+    When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
+    Then the response status should be 200
+
+  Scenario: As a cabin crew I cannot get flight that does not exist
+    Given I use seed data
+    And I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight/ef95408a-bb6e-4f4e-9d87-6403164cb4df"
     Then the response status should be 404
     And the response body should contain:
@@ -85,7 +100,9 @@ Feature: Get flight resource
     }
     """
 
-  Scenario: Get flight with incorrect uuid
+  Scenario: As a cabin crew I cannot get flight with incorrect uuid
+    Given I use seed data
+    And I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight/incorrect-uuid"
     Then the response status should be 400
     And the response body should contain:
@@ -94,5 +111,17 @@ Feature: Get flight resource
       "message": "Validation failed (uuid v 4 is expected)",
       "error": "Bad Request",
       "statusCode": 400
+    }
+    """
+
+  Scenario: As an unauthorized user I cannot get flight
+    Given I use seed data
+    When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
+    Then the response status should be 401
+    And the response body should contain:
+    """json
+    {
+      "message": "Unauthorized",
+      "statusCode": 401
     }
     """

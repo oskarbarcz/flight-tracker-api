@@ -1,6 +1,36 @@
-Feature: Report off-block for flight that finished boarding
-  Scenario: Report off-block for flight that finished boarding
+Feature: Report off-block
+
+  Scenario: As an admin I can report off-block
     Given I use seed data
+    And I am signed in as "admin"
+    When I send a "POST" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1/report-off-block"
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I can report off-block
+    Given I use seed data
+    And I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1/report-off-block"
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As a cabin crew I can report off-block for flight that finished boarding
+    Given I use seed data
+    And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1/report-off-block"
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1"
@@ -70,8 +100,9 @@ Feature: Report off-block for flight that finished boarding
     }
     """
 
-  Scenario: Report off-block for flight twice
+  Scenario: As a cabin crew I cannot report off-block for flight twice
     Given I use seed data
+    And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1/report-off-block"
     Then the response status should be 204
     When I send a "POST" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1/report-off-block"
@@ -85,8 +116,9 @@ Feature: Report off-block for flight that finished boarding
     }
     """
 
-    Scenario: Report off-block for flight is not checked in
+  Scenario: As a cabin crew I cannot report off-block for flight is not checked in
     Given I use seed data
+    And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/report-off-block"
     Then the response status should be 422
     And the response body should contain:
@@ -98,8 +130,9 @@ Feature: Report off-block for flight that finished boarding
     }
     """
 
-  Scenario: Report off-block for flight that does not exist
+  Scenario: As a cabin crew I cannot report off-block for flight that does not exist
     Given I use seed data
+    And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/c0ee4dec-b1fd-44aa-822c-28a7ead0191a/report-off-block"
     Then the response status should be 404
     And the response body should contain:
@@ -111,7 +144,9 @@ Feature: Report off-block for flight that finished boarding
     }
     """
 
-  Scenario: Report off-block for flight with incorrect uuid
+  Scenario: As a cabin crew I cannot report off-block for flight with incorrect uuid
+    Given I use seed data
+    And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/invalid-uuid/report-off-block"
     Then the response status should be 400
     And the response body should contain:
@@ -120,5 +155,16 @@ Feature: Report off-block for flight that finished boarding
       "message": "Validation failed (uuid v 4 is expected)",
       "error": "Bad Request",
       "statusCode": 400
+    }
+    """
+
+  Scenario: As an unauthorized user I cannot report off-block
+    When I send a "POST" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1/report-off-block"
+    Then the response status should be 401
+    And the response body should contain:
+    """json
+    {
+      "message": "Unauthorized",
+      "statusCode": 401
     }
     """

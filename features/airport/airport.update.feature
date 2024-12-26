@@ -1,7 +1,27 @@
-Feature: Update airport resource
+Feature: Update airport
 
-  Scenario: Update airport with correct data
+  Scenario: As an admin I cannot update airport with correct data
     Given I use seed data
+    And I am signed in as "admin"
+    When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a" with body:
+    """json
+    {
+      "name": "Frankfurt am Main"
+    }
+    """
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I cannot update airport with correct data
+    Given I use seed data
+    And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a" with body:
     """json
     {
@@ -20,8 +40,28 @@ Feature: Update airport resource
     }
     """
 
-  Scenario: Update airport with incorrect data
+  Scenario: As an cabin crew I cannot update airport with correct data
     Given I use seed data
+    And I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a" with body:
+    """json
+    {
+      "name": "Frankfurt am Main"
+    }
+    """
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I cannot update airport with incorrect data
+    Given I use seed data
+    And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a" with body:
     """json
     {
@@ -48,8 +88,9 @@ Feature: Update airport resource
     }
     """
 
-  Scenario: Update airport that does not exist
+  Scenario: As operations I cannot update airport that does not exist
     Given I use seed data
+    And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/airport/d02c2edf-0365-4d68-a027-ecacfb1fb605"
     Then the response status should be 404
     And the response body should contain:
@@ -61,7 +102,9 @@ Feature: Update airport resource
     }
     """
 
-  Scenario: Update airport with incorrect uuid
+  Scenario: As operations I cannot update airport with incorrect uuid
+    Given I use seed data
+    And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/airport/incorrect-uuid"
     Then the response status should be 400
     And the response body should contain:
@@ -70,5 +113,22 @@ Feature: Update airport resource
       "message": "Validation failed (uuid v 4 is expected)",
       "error": "Bad Request",
       "statusCode": 400
+    }
+    """
+
+  Scenario: As an unauthorized user I cannot update airport
+    Given I use seed data
+    When I send a "POST" request to "/api/v1/airport" with body:
+    """json
+    {
+      "name": "Miami New Intl"
+    }
+    """
+    Then the response status should be 401
+    And the response body should contain:
+    """json
+    {
+      "message": "Unauthorized",
+      "statusCode": 401
     }
     """

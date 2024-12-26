@@ -1,6 +1,37 @@
-Feature: Start boarding in flight that is checked in
-  Scenario: Start boarding in flight that is checked in
+Feature: Start boarding
+
+  Scenario: As an admin I cannot start boarding
     Given I use seed data
+    And I am signed in as "admin"
+    When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/start-boarding"
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I cannot start boarding
+    Given I use seed data
+    And I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/start-boarding"
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+
+  Scenario: As a cabin crew I can start boarding in flight that is checked in
+    Given I use seed data
+    And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/start-boarding"
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e"
@@ -64,8 +95,9 @@ Feature: Start boarding in flight that is checked in
     }
     """
 
-  Scenario: Start boarding in flight twice
+  Scenario: As a cabin crew I cannot start boarding in flight twice
     Given I use seed data
+    And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/start-boarding"
     Then the response status should be 204
     When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/start-boarding"
@@ -79,8 +111,9 @@ Feature: Start boarding in flight that is checked in
     }
     """
 
-    Scenario: Start boarding when flight is not checked in
+  Scenario: As a cabin crew I cannot start boarding when flight is not checked in
     Given I use seed data
+    And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/start-boarding"
     Then the response status should be 422
     And the response body should contain:
@@ -92,8 +125,9 @@ Feature: Start boarding in flight that is checked in
     }
     """
 
-  Scenario: Start boarding in flight that does not exist
+  Scenario: As a cabin crew I cannot start boarding in flight that does not exist
     Given I use seed data
+    And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/c0ee4dec-b1fd-44aa-822c-28a7ead0191a/start-boarding"
     Then the response status should be 404
     And the response body should contain:
@@ -105,7 +139,9 @@ Feature: Start boarding in flight that is checked in
     }
     """
 
-  Scenario: Start boarding in flight with incorrect uuid
+  Scenario: As a cabin crew I cannot start boarding in flight with incorrect uuid
+    Given I use seed data
+    And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/invalid-uuid/start-boarding"
     Then the response status should be 400
     And the response body should contain:
@@ -114,5 +150,16 @@ Feature: Start boarding in flight that is checked in
       "message": "Validation failed (uuid v 4 is expected)",
       "error": "Bad Request",
       "statusCode": 400
+    }
+    """
+
+  Scenario: As an unauthorized user I cannot start boarding
+    When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/start-boarding"
+    Then the response status should be 401
+    And the response body should contain:
+    """json
+    {
+      "message": "Unauthorized",
+      "statusCode": 401
     }
     """

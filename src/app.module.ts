@@ -4,6 +4,8 @@ import { AirportsModule } from './airports/airports.module';
 import { OperatorsModule } from './operators/operators.module';
 import { FlightsModule } from './flights/flights.module';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -12,6 +14,8 @@ import { UsersModule } from './users/users.module';
     OperatorsModule,
     FlightsModule,
     UsersModule,
+    AuthModule,
+    JwtModule,
   ],
   controllers: [],
   providers: [],

@@ -13,7 +13,7 @@ import { GetUserDto } from './dto/get-user.dto';
 
 @Injectable()
 export class UsersService {
-  BCRYPT_SALT_ROUNDS = 10;
+  BCRYPT_SALT_ROUNDS = 12;
 
   constructor(private readonly prisma: PrismaService) {}
 
@@ -56,6 +56,21 @@ export class UsersService {
     }
 
     return this.returnWithoutPassword(user);
+  }
+
+  async findByCredentials(
+    email: string,
+    password: string,
+  ): Promise<GetUserDto | null> {
+    const user = await this.findOneBy({ email });
+
+    if (!user) {
+      return null;
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    return !isMatch ? null : this.returnWithoutPassword(user);
   }
 
   async update(id: string, data: UpdateUserDto): Promise<GetUserDto> {
