@@ -116,7 +116,7 @@ Feature: Report arrival
     }
     """
 
-    Scenario: As a cabin crew I cannot report arrival for flight that not reported takeoff
+  Scenario: As a cabin crew I cannot report arrival for flight that not reported takeoff
     Given I use seed data
     And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/report-arrival"

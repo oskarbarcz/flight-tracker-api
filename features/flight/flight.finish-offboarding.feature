@@ -14,7 +14,7 @@ Feature: Finish offboarding for flight that started onboarding
     }
     """
 
-    Scenario: As operations I cannot finish offboarding
+  Scenario: As operations I cannot finish offboarding
     Given I use seed data
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding"
@@ -116,7 +116,7 @@ Feature: Finish offboarding for flight that started onboarding
     }
     """
 
-    Scenario: As a cabin crew I cannot finish offboarding for flight that not started offboarding
+  Scenario: As a cabin crew I cannot finish offboarding for flight that not started offboarding
     Given I use seed data
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/17d2f703-957d-4ad1-a620-3c187a70c26a/finish-offboarding"
@@ -158,7 +158,7 @@ Feature: Finish offboarding for flight that started onboarding
     }
     """
 
-    Scenario: As an unauthorized user I cannot close flights
+  Scenario: As an unauthorized user I cannot close flights
     When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding"
     Then the response status should be 401
     And the response body should contain:

@@ -116,7 +116,7 @@ Feature: Report takeoff
     }
     """
 
-    Scenario: As a cabin crew I cannot report takeoff for flight that not reported off-block
+  Scenario: As a cabin crew I cannot report takeoff for flight that not reported off-block
     Given I use seed data
     And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1/report-takeoff"

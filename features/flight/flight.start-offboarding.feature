@@ -116,7 +116,7 @@ Feature: Start offboarding
     }
     """
 
-    Scenario: As a cabin crew I cannot start offboarding for flight that not reported on-block
+  Scenario: As a cabin crew I cannot start offboarding for flight that not reported on-block
     Given I use seed data
     And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/04be266c-df78-4bec-9f50-281cc02ce7f2/start-offboarding"

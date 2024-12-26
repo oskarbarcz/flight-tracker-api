@@ -32,7 +32,7 @@ Feature: Get operator resource
     }
     """
 
-    Scenario: As a cabin crew I can get one operator
+  Scenario: As a cabin crew I can get one operator
     Given I use seed data
     And I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871"
@@ -76,10 +76,10 @@ Feature: Get operator resource
     }
     """
 
-    Scenario: As as unauthorized user I can get one operator
+  Scenario: As as unauthorized user I can get one operator
     Given I use seed data
     When I send a "GET" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871"
-     Then the response status should be 401
+    Then the response status should be 401
     And the response body should contain:
     """json
     {

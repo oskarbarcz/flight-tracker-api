@@ -98,7 +98,7 @@ Feature: Create operator
     }
     """
 
-    Scenario: As an unauthorized user I cannot create operator
+  Scenario: As an unauthorized user I cannot create operator
     Given I use seed data
     When I send a "POST" request to "/api/v1/operator" with body:
     """json

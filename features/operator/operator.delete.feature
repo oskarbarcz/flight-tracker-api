@@ -14,7 +14,7 @@ Feature: Delete operator
     }
     """
 
-    Scenario: As operations I can delete operator
+  Scenario: As operations I can delete operator
     Given I use seed data
     And I am signed in as "operations"
     When I send a "DELETE" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871"

@@ -28,7 +28,7 @@ Feature: Start boarding
     }
     """
 
-  
+
   Scenario: As a cabin crew I can start boarding in flight that is checked in
     Given I use seed data
     And I am signed in as "cabin crew"
@@ -111,7 +111,7 @@ Feature: Start boarding
     }
     """
 
-    Scenario: As a cabin crew I cannot start boarding when flight is not checked in
+  Scenario: As a cabin crew I cannot start boarding when flight is not checked in
     Given I use seed data
     And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/start-boarding"

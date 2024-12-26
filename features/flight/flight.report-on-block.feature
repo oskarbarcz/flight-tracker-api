@@ -116,7 +116,7 @@ Feature: Report on-block
     }
     """
 
-    Scenario: As a cabin crew I cannot report on-block for flight that not reported off-block
+  Scenario: As a cabin crew I cannot report on-block for flight that not reported off-block
     Given I use seed data
     And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/report-on-block"

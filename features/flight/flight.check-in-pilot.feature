@@ -150,7 +150,7 @@ Feature: Check in pilot for flight
     }
     """
 
-    Scenario: As a cabin crew I cannot check in pilot when flight is not ready
+  Scenario: As a cabin crew I cannot check in pilot when flight is not ready
     Given I use seed data
     And I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/check-in" with body:

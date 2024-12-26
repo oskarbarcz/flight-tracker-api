@@ -110,7 +110,7 @@ Feature: Finish flight boarding
     }
     """
 
-    Scenario: As a cabin crew I cannot finish boarding when flight has not started boarding yet
+  Scenario: As a cabin crew I cannot finish boarding when flight has not started boarding yet
     Given I use seed data
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/finish-boarding"

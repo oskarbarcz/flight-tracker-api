@@ -116,7 +116,7 @@ Feature: Close flight
     }
     """
 
-    Scenario: As a cabin crew I cannot close flight that not finished offboarding
+  Scenario: As a cabin crew I cannot close flight that not finished offboarding
     Given I use seed data
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/close"

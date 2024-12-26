@@ -101,7 +101,7 @@ Feature: Create user
     }
     """
 
-    Scenario: As an admin I cannot create user with email that is actually registered
+  Scenario: As an admin I cannot create user with email that is actually registered
     Given I use seed data
     And I am signed in as "admin"
     When I send a "POST" request to "/api/v1/user" with body:

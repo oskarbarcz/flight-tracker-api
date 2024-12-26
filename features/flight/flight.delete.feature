@@ -1,4 +1,5 @@
 Feature: Delete flight
+
   Scenario: As an admin I cannot delete a flight
     Given I use seed data
     Given I am signed in as "admin"
