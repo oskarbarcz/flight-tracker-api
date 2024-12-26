@@ -11,13 +11,16 @@ import {
 import { FlightsService } from './flights.service';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiBody,
+  ApiForbiddenResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { GenericBadRequestResponse } from '../common/response/bad-request.response';
 import { GenericNotFoundResponse } from '../common/response/not-found.response';
@@ -25,6 +28,10 @@ import { uuid } from '../common/validation/uuid.param';
 import { Flight } from './entities/flight.entity';
 import { CreateFlightRequest } from './dto/create-flight.dto';
 import { Schedule } from './entities/timesheet.entity';
+import { UnauthorizedResponse } from '../common/response/unauthorized.response';
+import { ForbiddenRequest } from '../common/response/forbidden.response';
+import { Role } from '../auth/decorator/role.decorator';
+import { UserRole } from '@prisma/client';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -32,6 +39,7 @@ export class FlightsController {
   constructor(private readonly flightsService: FlightsService) {}
 
   @ApiOperation({ summary: 'Retrieve one flight' })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -44,6 +52,10 @@ export class FlightsController {
     description: 'Flight id is not valid uuid v4',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
@@ -53,10 +65,13 @@ export class FlightsController {
     return this.flightsService.find(id);
   }
 
-  @ApiOperation({ summary: 'Create a flight' })
-  @ApiBody({
-    type: CreateFlightRequest,
+  @ApiOperation({
+    summary: 'Create a flight',
+    description:
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateFlightRequest })
   @ApiOkResponse({
     description: 'Flight was created',
     type: Flight,
@@ -65,19 +80,31 @@ export class FlightsController {
     description: 'Validation failed',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Airports or aircraft does not exist',
     type: GenericNotFoundResponse,
   })
   @Post()
+  @Role(UserRole.Operations)
   async create(@Body() input: CreateFlightRequest) {
     return this.flightsService.create(input);
   }
 
   @ApiOperation({
     summary: 'Remove a flight',
-    description: '**NOTE:** Flight that has been scheduled cannot be removed.',
+    description:
+      '**NOTE:** Flight that has been scheduled cannot be removed. <br />' +
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -90,11 +117,20 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or flight has been scheduled and cannot be removed',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Delete(':id')
+  @Role(UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@uuid('id') id: string): Promise<void> {
     await this.flightsService.remove(id);
@@ -102,8 +138,12 @@ export class FlightsController {
 
   @ApiOperation({
     summary: 'Mark flight as ready',
-    description: 'This action will allow pilot to start flight.',
+    description:
+      'This action will allow pilot to start flight. <br />' +
+      '**NOTE:** This action is only allowed for flights in `scheduled` status. <br />' +
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -116,11 +156,20 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or domain logic error occurred',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Post('/:id/mark-as-ready')
+  @Role(UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)
   async markAsReady(@uuid('id') id: string): Promise<void> {
     await this.flightsService.markAsReady(id);
@@ -129,8 +178,10 @@ export class FlightsController {
   @ApiOperation({
     summary: 'Update flight scheduled timesheet',
     description:
-      '**NOTE:** This action is only allowed for flights in created status.',
+      '**NOTE:** This action is only allowed for flights in created status. <br />' +
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -147,12 +198,21 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or domain logic error occurred',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Patch('/:id/timesheet/scheduled')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.Operations)
   async updateScheduledTimesheet(
     @uuid('id') id: string,
     @Body() schedule: Schedule,
@@ -163,8 +223,10 @@ export class FlightsController {
   @ApiOperation({
     summary: 'Check in pilot and set estimated timesheet',
     description:
-      '**NOTE:** This action is only allowed for flights in ready status.',
+      '**NOTE:** This action is only allowed for flights in ready status. <br />' +
+      '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -181,12 +243,21 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or domain logic error occurred',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Post('/:id/check-in')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.CabinCrew)
   async checkInPilot(
     @uuid('id') id: string,
     @Body() schedule: Schedule,
@@ -197,8 +268,10 @@ export class FlightsController {
   @ApiOperation({
     summary: 'Report flight boarding has started',
     description:
-      '**NOTE:** This action is only allowed for flights in checked-in status.',
+      '**NOTE:** This action is only allowed for flights in checked-in status. <br />' +
+      '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -211,12 +284,21 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or domain logic error occurred',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Post('/:id/start-boarding')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.CabinCrew)
   async startBoarding(@uuid('id') id: string): Promise<void> {
     await this.flightsService.startBoarding(id);
   }
@@ -224,8 +306,10 @@ export class FlightsController {
   @ApiOperation({
     summary: 'Report flight boarding has finished',
     description:
-      '**NOTE:** This action is only allowed for flights in boarding status.',
+      '**NOTE:** This action is only allowed for flights in boarding status. <br />' +
+      '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -238,12 +322,21 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or domain logic error occurred',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Post('/:id/finish-boarding')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.CabinCrew)
   async finishBoarding(@uuid('id') id: string): Promise<void> {
     await this.flightsService.finishBoarding(id);
   }
@@ -251,8 +344,10 @@ export class FlightsController {
   @ApiOperation({
     summary: 'Report flight taxiing out has started',
     description:
-      '**NOTE:** This action is only allowed when boarding is finished.',
+      '**NOTE:** This action is only allowed when boarding is finished. <br />' +
+      '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -265,12 +360,21 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or domain logic error occurred',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Post('/:id/report-off-block')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.CabinCrew)
   async reportOffBlock(@uuid('id') id: string): Promise<void> {
     await this.flightsService.reportOffBlock(id);
   }
@@ -278,8 +382,10 @@ export class FlightsController {
   @ApiOperation({
     summary: 'Report flight taken off',
     description:
-      '**NOTE:** This action is only allowed when off-block was reported.',
+      '**NOTE:** This action is only allowed when off-block was reported. <br />' +
+      '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -292,12 +398,21 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or domain logic error occurred',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Post('/:id/report-takeoff')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.CabinCrew)
   async reportTakeoff(@uuid('id') id: string): Promise<void> {
     await this.flightsService.reportTakeoff(id);
   }
@@ -305,8 +420,10 @@ export class FlightsController {
   @ApiOperation({
     summary: 'Report flight has landed',
     description:
-      '**NOTE:** This action is only allowed when aircraft has taken off.',
+      '**NOTE:** This action is only allowed when aircraft has taken off. <br />' +
+      '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -319,12 +436,21 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or domain logic error occurred',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Post('/:id/report-arrival')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.CabinCrew)
   async reportArrival(@uuid('id') id: string): Promise<void> {
     await this.flightsService.reportArrival(id);
   }
@@ -332,8 +458,10 @@ export class FlightsController {
   @ApiOperation({
     summary: 'Report that offboarding has been finished.',
     description:
-      '**NOTE:** This action is only allowed when aircraft is offboarding passengers.',
+      '**NOTE:** This action is only allowed when aircraft is offboarding passengers. <br />' +
+      '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -346,12 +474,21 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or domain logic error occurred',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Post('/:id/report-on-block')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.CabinCrew)
   async reportOnBlock(@uuid('id') id: string): Promise<void> {
     await this.flightsService.reportOnBlock(id);
   }
@@ -359,8 +496,10 @@ export class FlightsController {
   @ApiOperation({
     summary: 'Start offboarding passengers',
     description:
-      '**NOTE:** This action is only allowed if aircraft is on block.',
+      '**NOTE:** This action is only allowed if aircraft is on block. <br />' +
+      '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -373,12 +512,21 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or domain logic error occurred',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Post('/:id/start-offboarding')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.CabinCrew)
   async reportOffboardingStarted(@uuid('id') id: string): Promise<void> {
     await this.flightsService.reportOffboardingStarted(id);
   }
@@ -386,8 +534,10 @@ export class FlightsController {
   @ApiOperation({
     summary: 'Finish offboarding passengers',
     description:
-      '**NOTE:** This action is only allowed if offboarding was started.',
+      '**NOTE:** This action is only allowed if offboarding was started. <br />' +
+      '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -400,12 +550,21 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or domain logic error occurred',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Post('/:id/finish-offboarding')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.CabinCrew)
   async reportOffboardingFinished(@uuid('id') id: string): Promise<void> {
     await this.flightsService.reportOffboardingFinished(id);
   }
@@ -413,8 +572,10 @@ export class FlightsController {
   @ApiOperation({
     summary: 'Close flight plan',
     description:
-      '**NOTE:** This action is only allowed when offboarding has been finished.',
+      '**NOTE:** This action is only allowed when offboarding has been finished. <br />' +
+      '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
+  @ApiBearerAuth()
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -427,12 +588,21 @@ export class FlightsController {
       'Flight id is not valid uuid v4 or domain logic error occurred',
     type: GenericBadRequestResponse,
   })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Post('/:id/close')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.CabinCrew)
   async closeFlightPlan(@uuid('id') id: string): Promise<void> {
     await this.flightsService.close(id);
   }

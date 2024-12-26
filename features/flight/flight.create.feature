@@ -1,4 +1,5 @@
-Feature: Create flight resource
+Feature: Create flight
+
   Scenario: Create a flight
     Given I use seed data
     When I send a "POST" request to "/api/v1/flight/" with body:

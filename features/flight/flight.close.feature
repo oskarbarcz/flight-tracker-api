@@ -1,6 +1,36 @@
-Feature: Close flight for flight that finished offboarding
-  Scenario: Close flight for flight that finished offboarding
+Feature: Close flight
+
+  Scenario: As an admin I cannot close flight for flight that finished offboarding
     Given I use seed data
+    Given I am signed in as "admin"
+    When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I cannot close flight for flight that finished offboarding
+    Given I use seed data
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
+    Then the response status should be 403
+    And the response body should contain:
+    """json
+    {
+      "message": "Forbidden resource",
+      "error": "Forbidden",
+      "statusCode": 403
+    }
+    """
+
+  Scenario: As a cabin crew I can close flight for flight that finished offboarding
+    Given I use seed data
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1"
@@ -70,8 +100,9 @@ Feature: Close flight for flight that finished offboarding
     }
     """
 
-  Scenario: Close flight plan for flight twice
+  Scenario: As a cabin crew I cannot close flight plan for flight twice
     Given I use seed data
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
     Then the response status should be 204
     When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
@@ -85,8 +116,9 @@ Feature: Close flight for flight that finished offboarding
     }
     """
 
-    Scenario: Close flight that not finished offboarding
+    Scenario: As a cabin crew I cannot close flight that not finished offboarding
     Given I use seed data
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/close"
     Then the response status should be 422
     And the response body should contain:
@@ -98,8 +130,9 @@ Feature: Close flight for flight that finished offboarding
     }
     """
 
-  Scenario: Close flight that does not exist
+  Scenario: As a cabin crew I cannot close flight that does not exist
     Given I use seed data
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/c0ee4dec-b1fd-44aa-822c-28a7ead0191a/close"
     Then the response status should be 404
     And the response body should contain:
@@ -111,7 +144,9 @@ Feature: Close flight for flight that finished offboarding
     }
     """
 
-  Scenario: Finish offboarding for flight with incorrect uuid
+  Scenario: As a cabin crew I cannot close flight with incorrect uuid
+    Given I use seed data
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/invalid-uuid/close"
     Then the response status should be 400
     And the response body should contain:
@@ -120,5 +155,16 @@ Feature: Close flight for flight that finished offboarding
       "message": "Validation failed (uuid v 4 is expected)",
       "error": "Bad Request",
       "statusCode": 400
+    }
+    """
+
+  Scenario: As an unauthorized user I cannot close a flight
+    When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
+    Then the response status should be 401
+    And the response body should contain:
+    """json
+    {
+      "message": "Unauthorized",
+      "statusCode": 401
     }
     """
