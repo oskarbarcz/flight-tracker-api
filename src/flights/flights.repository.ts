@@ -78,6 +78,19 @@ export class FlightsRepository {
     });
   }
 
+  async findAll(): Promise<FlightWithAircraftAndAirports[]> {
+    return this.prisma.flight.findMany({
+      include: {
+        aircraft: true,
+        airports: {
+          include: {
+            airport: true,
+          },
+        },
+      },
+    });
+  }
+
   async remove(id: string): Promise<void> {
     await this.prisma.airportsOnFlights.deleteMany({ where: { flightId: id } });
     await this.prisma.flight.delete({ where: { id } });
