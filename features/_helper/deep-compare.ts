@@ -15,12 +15,14 @@ export const deepCompare = (actual: any, expected: any) => {
     const payload = extractPayloadFromJwt(actual);
 
     expect(Object.keys(payload)).toContain('sub');
-    expect(Object.keys(payload)).toContain('username');
+    expect(Object.keys(payload)).toContain('name');
+    expect(Object.keys(payload)).toContain('email');
     expect(Object.keys(payload)).toContain('role');
     expect(Object.keys(payload)).toContain('iat');
     expect(Object.keys(payload)).toContain('exp');
     expect(typeof payload.sub).toBe('string');
-    expect(typeof payload.username).toBe('string');
+    expect(typeof payload.name).toBe('string');
+    expect(typeof payload.email).toBe('string');
     expect(typeof payload.role).toBe('string');
     expect(typeof payload.iat).toBe('number');
     expect(typeof payload.exp).toBe('number');
