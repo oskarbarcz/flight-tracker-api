@@ -71,7 +71,8 @@ export class FlightsService {
   async findAll(): Promise<Flight[]> {
     const flights = await this.flightsRepository.findAll();
 
-    return flights.map((flight): Flight => ({
+    return flights.map(
+      (flight): Flight => ({
         id: flight.id,
         flightNumber: flight.flightNumber,
         callsign: flight.callsign,
