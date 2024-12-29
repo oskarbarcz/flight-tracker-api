@@ -42,6 +42,7 @@ export class FlightsService {
     private readonly aircraftService: AircraftService,
     private readonly flightsRepository: FlightsRepository,
   ) {}
+
   async find(id: string): Promise<Flight> {
     const flight = await this.flightsRepository.findOneBy({
       id,
@@ -65,6 +66,27 @@ export class FlightsService {
         }),
       ),
     };
+  }
+
+  async findAll(): Promise<Flight[]> {
+    const flights = await this.flightsRepository.findAll();
+
+    return flights.map(
+      (flight): Flight => ({
+        id: flight.id,
+        flightNumber: flight.flightNumber,
+        callsign: flight.callsign,
+        status: flight.status as FlightStatus,
+        timesheet: flight.timesheet as FullTimesheet,
+        aircraft: flight.aircraft,
+        airports: flight.airports.map(
+          (airportOnFlight): AirportWithType => ({
+            ...airportOnFlight.airport,
+            type: airportOnFlight.airportType as AirportType,
+          }),
+        ),
+      }),
+    );
   }
 
   async create(input: CreateFlightRequest): Promise<Flight> {

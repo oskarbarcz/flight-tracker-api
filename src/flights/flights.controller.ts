@@ -38,6 +38,22 @@ import { UserRole } from '@prisma/client';
 export class FlightsController {
   constructor(private readonly flightsService: FlightsService) {}
 
+  @ApiOperation({ summary: 'Retrieve all flights' })
+  @ApiBearerAuth()
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiOkResponse({ type: Flight, isArray: true })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @Get()
+  findAll(): Promise<Flight[]> {
+    return this.flightsService.findAll();
+  }
+
   @ApiOperation({ summary: 'Retrieve one flight' })
   @ApiBearerAuth()
   @ApiParam({
