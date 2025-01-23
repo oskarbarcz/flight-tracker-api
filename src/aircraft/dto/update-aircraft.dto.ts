@@ -1,4 +1,10 @@
 import { PartialType } from '@nestjs/swagger';
-import { CreateAircraftDto } from './create-aircraft.dto';
+import {
+  CreateAircraftRequest,
+  CreateAircraftResponse,
+} from './create-aircraft.dto';
 
-export class UpdateAircraftDto extends PartialType(CreateAircraftDto) {}
+export class UpdateAircraftRequest extends PartialType(CreateAircraftRequest) {}
+export class UpdateAircraftResponse extends PartialType(
+  CreateAircraftResponse,
+) {}

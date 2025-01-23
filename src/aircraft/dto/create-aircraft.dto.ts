@@ -1,4 +1,12 @@
 import { Aircraft } from '../entities/aircraft.entity';
 import { OmitType } from '@nestjs/swagger';
 
-export class CreateAircraftDto extends OmitType(Aircraft, ['id'] as const) {}
+export class CreateAircraftRequest extends OmitType(Aircraft, [
+  'id',
+  'operator',
+] as const) {}
+
+export class CreateAircraftResponse extends OmitType(Aircraft, [
+  'id',
+  'operatorId',
+] as const) {}

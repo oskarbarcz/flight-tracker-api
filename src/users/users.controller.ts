@@ -17,7 +17,6 @@ import {
 } from '@nestjs/swagger';
 import { uuid } from '../common/validation/uuid.param';
 import { GenericBadRequestResponse } from '../common/response/bad-request.response';
-import { CreateAircraftDto } from '../aircraft/dto/create-aircraft.dto';
 import { GenericNotFoundResponse } from '../common/response/not-found.response';
 import { GetUserDto } from './dto/get-user.dto';
 import { UserRole } from '@prisma/client';
@@ -43,7 +42,7 @@ export class UsersController {
   })
   @ApiBadRequestResponse({
     description: 'Request validation failed',
-    type: GenericBadRequestResponse<CreateAircraftDto>,
+    type: GenericBadRequestResponse<CreateUserDto>,
   })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
