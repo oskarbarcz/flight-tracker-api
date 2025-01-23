@@ -15,7 +15,14 @@ Feature: List aircraft
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
         "selcal": "LR-CK",
-        "shortName": "A330-900"
+        "shortName": "A330-900",
+        "operator":{
+          "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+          "icaoCode": "DLH",
+          "shortName": "Lufthansa",
+          "fullName": "Deutsche Lufthansa AG",
+          "callsign": "Lufthansa"
+        }
       },
       {
         "fullName": "Airbus A331-251 SL ACT-2",
@@ -24,23 +31,46 @@ Feature: List aircraft
         "livery": "Sunshine (2024)",
         "registration": "D-AIDA",
         "selcal": "SK-PK",
-        "shortName": "A321-251"
-      }, {
+        "shortName": "A321-251",
+        "operator": {
+          "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
+          "icaoCode": "CDG",
+          "shortName": "Condor",
+          "fullName": "Condor Flugdienst",
+          "callsign": "CONDOR"
+        }
+      },
+      {
         "fullName": "Airbus A319-200(neo)",
         "icaoCode": "A319",
         "id": "3f34bc59-c9c3-4ad0-88fa-2cc570298602",
         "livery": "Water (2024)",
         "registration": "D-AIDK",
         "selcal": "MS-KL",
-        "shortName": "A319-200"
-      }, {
+        "shortName": "A319-200",
+        "operator":{
+          "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
+          "icaoCode": "CDG",
+          "shortName": "Condor",
+          "fullName": "Condor Flugdienst",
+          "callsign": "CONDOR"
+        }
+      },
+      {
         "fullName": "Boeing 777-300ER",
         "icaoCode": "B773",
         "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
         "livery": "Team USA (2023)",
         "registration": "N78881",
         "selcal": "KY-JO",
-        "shortName": "B777-300ER"
+        "shortName": "B777-300ER",
+        "operator": {
+          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+          "icaoCode": "AAL",
+          "shortName": "American Airlines",
+          "fullName": "American Airlines, Inc.",
+          "callsign": "AMERICAN"
+        }
       }
     ]
     """

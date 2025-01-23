@@ -20,14 +20,15 @@ Feature: Update aircraft
     }
     """
 
-  Scenario: As operations I cannot update aircraft with correct data
+  Scenario: As operations I can update aircraft with correct data
     Given I use seed data
     And I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
     """json
     {
       "fullName": "Airbus A330-900 neo (CFM version)",
-      "livery": "Lufthansa Classic (2024)"
+      "livery": "Lufthansa Classic (2024)",
+      "operatorId": "1d85d597-c3a1-43cf-b888-10d674ea7a46"
     }
     """
     Then the response status should be 200
@@ -40,7 +41,14 @@ Feature: Update aircraft
       "livery": "Lufthansa Classic (2024)",
       "registration": "D-AIMC",
       "selcal": "LR-CK",
-      "shortName": "A330-900"
+      "shortName": "A330-900",
+      "operator":{
+        "id": "1d85d597-c3a1-43cf-b888-10d674ea7a46",
+        "icaoCode": "LOT",
+        "shortName": "LOT",
+        "fullName": "Polskie Linie Lotnicze LOT",
+        "callsign": "LOT"
+      }
     }
     """
 
@@ -87,6 +95,25 @@ Feature: Update aircraft
           "property id should not exist"
         ]
       }
+    }
+    """
+
+  Scenario: As operations I cannot update aircraft with non-existing operator
+    Given I use seed data
+    And I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
+    """json
+    {
+      "operatorId": "5f61b6eb-6393-478c-88b5-56b29ec0a077"
+    }
+    """
+    Then the response status should be 404
+    And the response body should contain:
+    """json
+    {
+      "statusCode": 404,
+      "error": "Not Found",
+      "message": "Cannot find operator declared in the request."
     }
     """
 

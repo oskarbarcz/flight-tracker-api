@@ -9,8 +9,10 @@ import {
   HttpCode,
 } from '@nestjs/common';
 import { AircraftService } from './aircraft.service';
-import { CreateAircraftDto } from './dto/create-aircraft.dto';
-import { UpdateAircraftDto } from './dto/update-aircraft.dto';
+import {
+  UpdateAircraftRequest,
+  UpdateAircraftResponse,
+} from './dto/update-aircraft.dto';
 import { Aircraft } from './entities/aircraft.entity';
 import {
   ApiBadRequestResponse,
@@ -33,6 +35,10 @@ import { Role } from '../auth/decorator/role.decorator';
 import { UserRole } from '@prisma/client';
 import { UnauthorizedResponse } from '../common/response/unauthorized.response';
 import { ForbiddenRequest } from '../common/response/forbidden.response';
+import {
+  CreateAircraftRequest,
+  CreateAircraftResponse,
+} from './dto/create-aircraft.dto';
 
 @ApiTags('aircraft')
 @Controller('/api/v1/aircraft')
@@ -45,14 +51,14 @@ export class AircraftController {
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth()
-  @ApiBody({ type: CreateAircraftDto })
+  @ApiBody({ type: CreateAircraftRequest })
   @ApiCreatedResponse({
     description: 'Aircraft was created successfully',
-    type: Aircraft,
+    type: CreateAircraftResponse,
   })
   @ApiBadRequestResponse({
     description: 'Request validation failed',
-    type: GenericBadRequestResponse<CreateAircraftDto>,
+    type: GenericBadRequestResponse<CreateAircraftResponse>,
   })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
@@ -62,11 +68,15 @@ export class AircraftController {
     description: 'User is not allowed to perform this action',
     type: ForbiddenRequest,
   })
+  @ApiNotFoundResponse({
+    description: 'Operator with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
   @Post()
   @Role(UserRole.Operations)
   async create(
-    @Body() createAircraftDto: CreateAircraftDto,
-  ): Promise<Aircraft> {
+    @Body() createAircraftDto: CreateAircraftRequest,
+  ): Promise<CreateAircraftResponse> {
     return await this.aircraftService.create(createAircraftDto);
   }
 
@@ -74,7 +84,7 @@ export class AircraftController {
   @ApiBearerAuth()
   @ApiOkResponse({
     description: 'Aircraft list',
-    type: Aircraft,
+    type: CreateAircraftResponse,
     isArray: true,
   })
   @Get()
@@ -82,7 +92,7 @@ export class AircraftController {
     description: 'User is not authorized (token is missing)',
     type: UnauthorizedResponse,
   })
-  async findAll(): Promise<Aircraft[]> {
+  async findAll(): Promise<CreateAircraftResponse[]> {
     return this.aircraftService.findAll();
   }
 
@@ -94,7 +104,7 @@ export class AircraftController {
   })
   @ApiOkResponse({
     description: 'Aircraft was created successfully',
-    type: Aircraft,
+    type: CreateAircraftResponse,
   })
   @ApiBadRequestResponse({
     description: 'Aircraft id is not valid uuid v4',
@@ -109,7 +119,7 @@ export class AircraftController {
     type: GenericNotFoundResponse,
   })
   @Get(':id')
-  async findOne(@uuid('id') id: string): Promise<Aircraft> {
+  async findOne(@uuid('id') id: string): Promise<CreateAircraftResponse> {
     return this.aircraftService.findOne(id);
   }
 
@@ -123,14 +133,14 @@ export class AircraftController {
     name: 'id',
     description: 'Aircraft unique identifier',
   })
-  @ApiBody({ type: UpdateAircraftDto })
+  @ApiBody({ type: UpdateAircraftRequest })
   @ApiOkResponse({
     description: 'Aircraft was updated successfully',
     type: Aircraft,
   })
   @ApiBadRequestResponse({
     description: 'Request validation failed',
-    type: GenericBadRequestResponse<CreateAircraftDto>,
+    type: GenericBadRequestResponse<UpdateAircraftRequest>,
   })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
@@ -141,15 +151,15 @@ export class AircraftController {
     type: ForbiddenRequest,
   })
   @ApiNotFoundResponse({
-    description: 'Aircraft with given it does not exist',
+    description: 'Aircraft or operator with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Patch(':id')
   @Role(UserRole.Operations)
   async update(
     @uuid('id') id: string,
-    @Body() updateAircraftDto: UpdateAircraftDto,
-  ): Promise<Aircraft> {
+    @Body() updateAircraftDto: UpdateAircraftRequest,
+  ): Promise<UpdateAircraftResponse> {
     return this.aircraftService.update(id, updateAircraftDto);
   }
 

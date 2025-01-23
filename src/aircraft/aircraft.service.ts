@@ -3,19 +3,68 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateAircraftDto } from './dto/create-aircraft.dto';
-import { UpdateAircraftDto } from './dto/update-aircraft.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { v4 } from 'uuid';
-import { Aircraft } from '@prisma/client';
-import { AircraftInUseError } from './dto/errors.dto';
+import { Aircraft, Prisma } from '@prisma/client';
+import {
+  AircraftInUseError,
+  OperatorForAircraftNotFoundError,
+} from './dto/errors.dto';
+import { CreateAircraftRequest } from './dto/create-aircraft.dto';
+import { UpdateAircraftRequest } from './dto/update-aircraft.dto';
+import { OperatorsService } from '../operators/operators.service';
+
+type AircraftWithOperator = Prisma.AircraftGetPayload<{
+  select: {
+    id: true;
+    icaoCode: true;
+    shortName: true;
+    fullName: true;
+    registration: true;
+    selcal: true;
+    livery: true;
+    operator: {
+      select: {
+        id: true;
+        icaoCode: true;
+        shortName: true;
+        fullName: true;
+        callsign: true;
+      };
+    };
+    operatorId: false;
+  };
+}>;
+
+const aircraftWithOperatorFields = {
+  id: true,
+  icaoCode: true,
+  shortName: true,
+  fullName: true,
+  registration: true,
+  selcal: true,
+  livery: true,
+  operator: {
+    select: {
+      id: true,
+      icaoCode: true,
+      shortName: true,
+      fullName: true,
+      callsign: true,
+    },
+  },
+  operatorId: false,
+};
 
 @Injectable()
 export class AircraftService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly operatorService: OperatorsService,
+  ) {}
 
-  async create(data: CreateAircraftDto): Promise<Aircraft> {
-    const aircraft: Aircraft | null = await this.findOneBy({
+  async create(data: CreateAircraftRequest): Promise<AircraftWithOperator> {
+    const aircraft = await this.findOneBy({
       registration: data.registration,
     });
 
@@ -25,15 +74,26 @@ export class AircraftService {
       );
     }
 
-    return this.prisma.aircraft.create({ data: { id: v4(), ...data } });
+    const operatorExists = await this.operatorService.exists(data.operatorId);
+
+    if (!operatorExists) {
+      throw new NotFoundException(OperatorForAircraftNotFoundError);
+    }
+
+    return this.prisma.aircraft.create({
+      data: { id: v4(), ...data },
+      select: aircraftWithOperatorFields,
+    });
   }
 
-  async findAll(): Promise<Aircraft[]> {
-    return this.prisma.aircraft.findMany();
+  async findAll(): Promise<AircraftWithOperator[]> {
+    return this.prisma.aircraft.findMany({
+      select: aircraftWithOperatorFields,
+    });
   }
 
-  async findOne(id: string): Promise<Aircraft> {
-    const aircraft: Aircraft | null = await this.findOneBy({ id });
+  async findOne(id: string): Promise<AircraftWithOperator> {
+    const aircraft = await this.findOneBy({ id });
 
     if (!aircraft) {
       throw new NotFoundException('Aircraft with given id does not exist.');
@@ -42,21 +102,33 @@ export class AircraftService {
     return aircraft;
   }
 
-  async update(id: string, data: UpdateAircraftDto): Promise<Aircraft> {
-    const aircraft: Aircraft | null = await this.findOneBy({ id });
+  async update(
+    id: string,
+    data: UpdateAircraftRequest,
+  ): Promise<AircraftWithOperator> {
+    const aircraft = await this.findOneBy({ id });
 
     if (!aircraft) {
       throw new NotFoundException('Aircraft with given id does not exist.');
     }
 
+    if (data.operatorId !== undefined) {
+      const operatorExists = await this.operatorService.exists(data.operatorId);
+
+      if (!operatorExists) {
+        throw new NotFoundException(OperatorForAircraftNotFoundError);
+      }
+    }
+
     return this.prisma.aircraft.update({
       where: { id },
       data: data,
+      select: aircraftWithOperatorFields,
     });
   }
 
   async remove(id: string): Promise<void> {
-    const aircraft: Aircraft | null = await this.findOneBy({ id });
+    const aircraft = await this.findOneBy({ id });
 
     if (!aircraft) {
       throw new NotFoundException('Aircraft with given id does not exist.');
@@ -83,9 +155,10 @@ export class AircraftService {
 
   private async findOneBy(
     criteria: Partial<Record<keyof Aircraft, any>>,
-  ): Promise<Aircraft | null> {
+  ): Promise<AircraftWithOperator | null> {
     return this.prisma.aircraft.findFirst({
       where: criteria,
+      select: aircraftWithOperatorFields,
     });
   }
 }
