@@ -9,6 +9,8 @@ export async function loadAircraft(prisma: PrismaClient): Promise<void> {
     registration: 'D-AIMC',
     selcal: 'LR-CK',
     livery: 'Fanhansa (2024)',
+    // Lufthansa
+    operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d',
   };
 
   const a321: Aircraft = {
@@ -19,6 +21,8 @@ export async function loadAircraft(prisma: PrismaClient): Promise<void> {
     registration: 'D-AIDA',
     selcal: 'SK-PK',
     livery: 'Sunshine (2024)',
+    // Condor
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871',
   };
 
   const a319: Aircraft = {
@@ -29,6 +33,8 @@ export async function loadAircraft(prisma: PrismaClient): Promise<void> {
     registration: 'D-AIDK',
     selcal: 'MS-KL',
     livery: 'Water (2024)',
+    // Condor
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871',
   };
 
   const b773: Aircraft = {
@@ -39,6 +45,8 @@ export async function loadAircraft(prisma: PrismaClient): Promise<void> {
     registration: 'N78881',
     selcal: 'KY-JO',
     livery: 'Team USA (2023)',
+    // American Airlines
+    operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10',
   };
 
   for (const aircraft of [a330, a321, a319, b773]) {

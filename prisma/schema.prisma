@@ -8,14 +8,16 @@ datasource db {
 }
 
 model Aircraft {
-  id           String   @id @db.Uuid
-  icaoCode     String   @unique @db.VarChar(4)
+  id           String    @id @db.Uuid
+  icaoCode     String    @unique @db.VarChar(4)
   shortName    String
   fullName     String
-  registration String   @unique
+  registration String    @unique
   selcal       String
   livery       String
   Flight       Flight[]
+  operator     Operator? @relation(fields: [operatorId], references: [id])
+  operatorId   String?   @db.Uuid
 
   @@map("aircraft")
 }
@@ -32,11 +34,12 @@ model Airport {
 }
 
 model Operator {
-  id        String @id @db.Uuid
-  icaoCode  String @db.VarChar(4)
+  id        String     @id @db.Uuid
+  icaoCode  String     @db.VarChar(4)
   shortName String
   fullName  String
   callsign  String
+  aircrafts Aircraft[]
 
   @@map("operator")
 }
