@@ -87,7 +87,14 @@ Feature: Check in pilot for flight
         "fullName": "Airbus A331-251 SL ACT-2",
         "registration": "D-AIDA",
         "selcal": "SK-PK",
-        "livery": "Sunshine (2024)"
+        "livery": "Sunshine (2024)",
+        "operator": {
+          "id":"5c649579-22eb-4c07-a96c-b74a77f53871",
+          "icaoCode":"CDG",
+          "shortName":"Condor",
+          "fullName":"Condor Flugdienst",
+          "callsign":"CONDOR"
+        }
       },
       "airports": [
         {

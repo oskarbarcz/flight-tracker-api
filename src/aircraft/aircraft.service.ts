@@ -6,9 +6,13 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { v4 } from 'uuid';
 import { Aircraft, Prisma } from '@prisma/client';
-import { AircraftInUseError } from './dto/errors.dto';
+import {
+  AircraftInUseError,
+  OperatorForAircraftNotFoundError,
+} from './dto/errors.dto';
 import { CreateAircraftRequest } from './dto/create-aircraft.dto';
 import { UpdateAircraftRequest } from './dto/update-aircraft.dto';
+import { OperatorsService } from '../operators/operators.service';
 
 type AircraftWithOperator = Prisma.AircraftGetPayload<{
   select: {
@@ -54,7 +58,10 @@ const aircraftWithOperatorFields = {
 
 @Injectable()
 export class AircraftService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly operatorService: OperatorsService,
+  ) {}
 
   async create(data: CreateAircraftRequest): Promise<AircraftWithOperator> {
     const aircraft = await this.findOneBy({
@@ -65,6 +72,12 @@ export class AircraftService {
       throw new BadRequestException(
         'Aircraft with given registration already exists.',
       );
+    }
+
+    const operatorExists = await this.operatorService.exists(data.operatorId);
+
+    if (!operatorExists) {
+      throw new NotFoundException(OperatorForAircraftNotFoundError);
     }
 
     return this.prisma.aircraft.create({
@@ -97,6 +110,14 @@ export class AircraftService {
 
     if (!aircraft) {
       throw new NotFoundException('Aircraft with given id does not exist.');
+    }
+
+    if (data.operatorId !== undefined) {
+      const operatorExists = await this.operatorService.exists(data.operatorId);
+
+      if (!operatorExists) {
+        throw new NotFoundException(OperatorForAircraftNotFoundError);
+      }
     }
 
     return this.prisma.aircraft.update({

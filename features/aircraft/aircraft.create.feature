@@ -11,7 +11,8 @@ Feature: Create aircraft
       "selcal": "SL-PR",
       "fullName": "Boeing 747-8 Intercontinental",
       "registration": "SP-LRA",
-      "livery": "Sunshine"
+      "livery": "Sunshine",
+      "operatorId": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
     }
     """
     Then the response status should be 403
@@ -35,7 +36,8 @@ Feature: Create aircraft
       "selcal": "SL-PR",
       "fullName": "Boeing 747-8 Intercontinental",
       "registration": "SP-LRA",
-      "livery": "Sunshine"
+      "livery": "Sunshine",
+      "operatorId": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
     }
     """
     Then the response status should be 201
@@ -48,7 +50,14 @@ Feature: Create aircraft
       "selcal": "SL-PR",
       "fullName": "Boeing 747-8 Intercontinental",
       "registration": "SP-LRA",
-      "livery": "Sunshine"
+      "livery": "Sunshine",
+      "operator": {
+        "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+        "icaoCode": "DLH",
+        "shortName": "Lufthansa",
+        "fullName": "Deutsche Lufthansa AG",
+        "callsign": "Lufthansa"
+      }
     }
     """
 
@@ -63,7 +72,8 @@ Feature: Create aircraft
       "selcal": "SL-PR",
       "fullName": "Boeing 747-8 Intercontinental",
       "registration": "SP-LRA",
-      "livery": "Sunshine"
+      "livery": "Sunshine",
+      "operatorId": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
     }
     """
     Then the response status should be 403
@@ -89,7 +99,7 @@ Feature: Create aircraft
     """
     Then the response status should be 400
     And the response body should contain:
-    """
+    """json
     {
       "message": "Request validation failed.",
       "error": "Bad Request",
@@ -106,8 +116,37 @@ Feature: Create aircraft
         "shortName": [
           "shortName should not be empty",
           "shortName must be a string"
+        ],
+        "operatorId": [
+          "operatorId should not be empty",
+           "operatorId must be a string"
         ]
       }
+    }
+    """
+
+    Scenario: As operations I cannot create aircraft with non-existing operator
+    Given I use seed data
+    And I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/aircraft" with body:
+    """json
+    {
+      "icaoCode": "B748",
+      "shortName": "747-8i",
+      "selcal": "SL-PR",
+      "fullName": "Boeing 747-8 Intercontinental",
+      "registration": "SP-LRA",
+      "livery": "Sunshine",
+      "operatorId": "16b531c3-d817-4326-841c-2a4c243f9c1f"
+    }
+    """
+    Then the response status should be 404
+    And the response body should contain:
+    """json
+    {
+      "statusCode": 404,
+      "error": "Not Found",
+      "message": "Cannot find operator declared in the request."
     }
     """
 
@@ -121,7 +160,8 @@ Feature: Create aircraft
       "selcal": "SL-PR",
       "fullName": "Boeing 747-8 Intercontinental",
       "registration": "SP-LRA",
-      "livery": "Sunshine"
+      "livery": "Sunshine",
+      "operatorId": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
     }
     """
     Then the response status should be 401

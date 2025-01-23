@@ -68,6 +68,10 @@ export class AircraftController {
     description: 'User is not allowed to perform this action',
     type: ForbiddenRequest,
   })
+  @ApiNotFoundResponse({
+    description: 'Operator with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
   @Post()
   @Role(UserRole.Operations)
   async create(
@@ -147,7 +151,7 @@ export class AircraftController {
     type: ForbiddenRequest,
   })
   @ApiNotFoundResponse({
-    description: 'Aircraft with given it does not exist',
+    description: 'Aircraft or operator with given it does not exist',
     type: GenericNotFoundResponse,
   })
   @Patch(':id')

@@ -71,4 +71,8 @@ export class OperatorsService {
       where: criteria,
     });
   }
+
+  async exists(operatorId: string): Promise<boolean> {
+    return !!(await this.findOneBy({ id: operatorId }));
+  }
 }

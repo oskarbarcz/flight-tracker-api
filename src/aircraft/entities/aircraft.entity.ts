@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty } from 'class-validator';
 import { Operator } from '../../operators/entities/operator.entity';
-import { Type } from 'class-transformer';
 
 export class Aircraft {
   @ApiProperty({
@@ -62,7 +61,8 @@ export class Aircraft {
   @ApiProperty({
     description: 'Aircraft operator',
   })
-  @Type(() => Operator)
+  @IsString()
+  @IsNotEmpty()
   operatorId: string;
 
   @ApiProperty({

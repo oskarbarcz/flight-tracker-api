@@ -86,6 +86,7 @@ const flightWithAircraftAndAirportsFields = {
           icaoCode: true,
           name: true,
           country: true,
+          timezone: true,
         },
       },
       airportType: true,
