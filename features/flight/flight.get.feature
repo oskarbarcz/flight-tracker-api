@@ -29,11 +29,11 @@ Feature: Get flight
         "selcal": "KY-JO",
         "livery": "Team USA (2023)",
         "operator": {
-          "id":"1f630d38-ad24-47cc-950b-3783e71bbd10",
-          "icaoCode":"AAL",
-          "shortName":"American Airlines",
-          "fullName":"American Airlines, Inc.",
-          "callsign":"AMERICAN"
+          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+          "icaoCode": "AAL",
+          "shortName": "American Airlines",
+          "fullName": "American Airlines, Inc.",
+          "callsign": "AMERICAN"
         }
       },
       "airports": [

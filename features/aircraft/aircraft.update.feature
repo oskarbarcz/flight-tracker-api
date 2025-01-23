@@ -43,11 +43,11 @@ Feature: Update aircraft
       "selcal": "LR-CK",
       "shortName": "A330-900",
       "operator":{
-        "id":"1d85d597-c3a1-43cf-b888-10d674ea7a46",
-        "icaoCode":"LOT",
-        "shortName":"LOT",
-        "fullName":"Polskie Linie Lotnicze LOT",
-        "callsign":"LOT"
+        "id": "1d85d597-c3a1-43cf-b888-10d674ea7a46",
+        "icaoCode": "LOT",
+        "shortName": "LOT",
+        "fullName": "Polskie Linie Lotnicze LOT",
+        "callsign": "LOT"
       }
     }
     """

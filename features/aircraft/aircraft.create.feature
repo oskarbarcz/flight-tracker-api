@@ -125,7 +125,7 @@ Feature: Create aircraft
     }
     """
 
-    Scenario: As operations I cannot create aircraft with non-existing operator
+  Scenario: As operations I cannot create aircraft with non-existing operator
     Given I use seed data
     And I am signed in as "operations"
     When I send a "POST" request to "/api/v1/aircraft" with body:

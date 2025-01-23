@@ -17,11 +17,11 @@ Feature: List aircraft
         "selcal": "LR-CK",
         "shortName": "A330-900",
         "operator":{
-          "id":"40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
-          "icaoCode":"DLH",
-          "shortName":"Lufthansa",
-          "fullName":"Deutsche Lufthansa AG",
-          "callsign":"Lufthansa"
+          "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+          "icaoCode": "DLH",
+          "shortName": "Lufthansa",
+          "fullName": "Deutsche Lufthansa AG",
+          "callsign": "Lufthansa"
         }
       },
       {
@@ -33,11 +33,11 @@ Feature: List aircraft
         "selcal": "SK-PK",
         "shortName": "A321-251",
         "operator": {
-          "id":"5c649579-22eb-4c07-a96c-b74a77f53871",
-          "icaoCode":"CDG",
-          "shortName":"Condor",
-          "fullName":"Condor Flugdienst",
-          "callsign":"CONDOR"
+          "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
+          "icaoCode": "CDG",
+          "shortName": "Condor",
+          "fullName": "Condor Flugdienst",
+          "callsign": "CONDOR"
         }
       },
       {
@@ -49,11 +49,11 @@ Feature: List aircraft
         "selcal": "MS-KL",
         "shortName": "A319-200",
         "operator":{
-          "id":"5c649579-22eb-4c07-a96c-b74a77f53871",
-          "icaoCode":"CDG",
-          "shortName":"Condor",
-          "fullName":"Condor Flugdienst",
-          "callsign":"CONDOR"
+          "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
+          "icaoCode": "CDG",
+          "shortName": "Condor",
+          "fullName": "Condor Flugdienst",
+          "callsign": "CONDOR"
         }
       },
       {
@@ -65,11 +65,11 @@ Feature: List aircraft
         "selcal": "KY-JO",
         "shortName": "B777-300ER",
         "operator": {
-          "id":"1f630d38-ad24-47cc-950b-3783e71bbd10",
-          "icaoCode":"AAL",
-          "shortName":"American Airlines",
-          "fullName":"American Airlines, Inc.",
-          "callsign":"AMERICAN"
+          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+          "icaoCode": "AAL",
+          "shortName": "American Airlines",
+          "fullName": "American Airlines, Inc.",
+          "callsign": "AMERICAN"
         }
       }
     ]

@@ -65,11 +65,11 @@ Feature: Finish flight boarding
         "selcal": "SK-PK",
         "livery": "Sunshine (2024)",
         "operator": {
-          "id":"5c649579-22eb-4c07-a96c-b74a77f53871",
-          "icaoCode":"CDG",
-          "shortName":"Condor",
-          "fullName":"Condor Flugdienst",
-          "callsign":"CONDOR"
+          "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
+          "icaoCode": "CDG",
+          "shortName": "Condor",
+          "fullName": "Condor Flugdienst",
+          "callsign": "CONDOR"
         }
       },
       "airports": [
