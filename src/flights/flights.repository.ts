@@ -7,15 +7,91 @@ import { v4 } from 'uuid';
 import { FullTimesheet } from './entities/timesheet.entity';
 
 type FlightWithAircraftAndAirports = Prisma.FlightGetPayload<{
-  include: {
-    aircraft: true;
+  select: {
+    id: true;
+    flightNumber: true;
+    callsign: true;
+    aircraft: {
+      select: {
+        id: true;
+        icaoCode: true;
+        shortName: true;
+        fullName: true;
+        registration: true;
+        selcal: true;
+        livery: true;
+        operator: {
+          select: {
+            id: true;
+            icaoCode: true;
+            shortName: true;
+            fullName: true;
+            callsign: true;
+          };
+        };
+        operatorId: false;
+      };
+    };
+    status: true;
+    timesheet: true;
     airports: {
-      include: {
-        airport: true;
+      select: {
+        airport: {
+          select: {
+            id: true;
+            icaoCode: true;
+            name: true;
+            country: true;
+            timezone: true;
+          };
+        };
+        airportType: true;
       };
     };
   };
 }>;
+
+const flightWithAircraftAndAirportsFields = {
+  id: true,
+  flightNumber: true,
+  callsign: true,
+  aircraft: {
+    select: {
+      id: true,
+      icaoCode: true,
+      shortName: true,
+      fullName: true,
+      registration: true,
+      selcal: true,
+      livery: true,
+      operator: {
+        select: {
+          id: true,
+          icaoCode: true,
+          shortName: true,
+          fullName: true,
+          callsign: true,
+        },
+      },
+      operatorId: false,
+    },
+  },
+  status: true,
+  timesheet: true,
+  airports: {
+    select: {
+      airport: {
+        select: {
+          id: true,
+          icaoCode: true,
+          name: true,
+          country: true,
+        },
+      },
+      airportType: true,
+    },
+  },
+};
 
 @Injectable()
 export class FlightsRepository {
@@ -67,27 +143,13 @@ export class FlightsRepository {
   ): Promise<FlightWithAircraftAndAirports | null> {
     return this.prisma.flight.findFirst({
       where: criteria,
-      include: {
-        aircraft: true,
-        airports: {
-          include: {
-            airport: true,
-          },
-        },
-      },
+      select: flightWithAircraftAndAirportsFields,
     });
   }
 
   async findAll(): Promise<FlightWithAircraftAndAirports[]> {
     return this.prisma.flight.findMany({
-      include: {
-        aircraft: true,
-        airports: {
-          include: {
-            airport: true,
-          },
-        },
-      },
+      select: flightWithAircraftAndAirportsFields,
     });
   }
 

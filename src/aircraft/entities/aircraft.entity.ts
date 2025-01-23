@@ -67,7 +67,7 @@ export class Aircraft {
 
   @ApiProperty({
     description: 'Aircraft operator',
+    type: Operator,
   })
-  @Type(() => Operator)
   operator: Operator | null;
 }

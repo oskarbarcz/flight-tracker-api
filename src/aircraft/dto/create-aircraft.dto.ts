@@ -7,6 +7,5 @@ export class CreateAircraftRequest extends OmitType(Aircraft, [
 ] as const) {}
 
 export class CreateAircraftResponse extends OmitType(Aircraft, [
-  'id',
   'operatorId',
 ] as const) {}
