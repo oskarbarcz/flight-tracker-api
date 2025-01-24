@@ -168,7 +168,8 @@ export class OperatorsController {
     description: 'Operator was removed successfully',
   })
   @ApiBadRequestResponse({
-    description: 'Operator id is not valid uuid v4',
+    description:
+      'Operator id is not valid uuid v4, has flights assigned or has aircraft assigned',
     type: GenericBadRequestResponse,
   })
   @ApiUnauthorizedResponse({

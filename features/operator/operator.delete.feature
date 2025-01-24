@@ -3,7 +3,7 @@ Feature: Delete operator
   Scenario: As an admin I cannot delete operator
     Given I use seed data
     And I am signed in as "admin"
-    When I send a "DELETE" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871"
+    When I send a "DELETE" request to "/api/v1/operator/5c00f71c-287c-4bca-a738-caf7e2669c65"
     Then the response status should be 403
     And the response body should contain:
     """json
@@ -17,9 +17,9 @@ Feature: Delete operator
   Scenario: As operations I can delete operator
     Given I use seed data
     And I am signed in as "operations"
-    When I send a "DELETE" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871"
+    When I send a "DELETE" request to "/api/v1/operator/5c00f71c-287c-4bca-a738-caf7e2669c65"
     Then the response status should be 204
-    When I send a "GET" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871"
+    When I send a "GET" request to "/api/v1/operator/5c00f71c-287c-4bca-a738-caf7e2669c65"
     Then the response status should be 404
     And the response body should contain:
     """json
@@ -33,7 +33,7 @@ Feature: Delete operator
   Scenario: As a cabin crew I cannot delete operator
     Given I use seed data
     And I am signed in as "cabin crew"
-    When I send a "DELETE" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871"
+    When I send a "DELETE" request to "/api/v1/operator/5c00f71c-287c-4bca-a738-caf7e2669c65"
     Then the response status should be 403
     And the response body should contain:
     """json
@@ -41,6 +41,34 @@ Feature: Delete operator
       "message": "Forbidden resource",
       "error": "Forbidden",
       "statusCode": 403
+    }
+    """
+
+  Scenario: As operations I cannot delete operator that has flights scheduled
+    Given I use seed data
+    And I am signed in as "operations"
+    When I send a "DELETE" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871"
+    Then the response status should be 400
+    And the response body should contain:
+    """json
+    {
+      "statusCode": 400,
+      "error": "Bad Request",
+      "message": "Operator cannot be deleted because it has flights scheduled."
+    }
+    """
+
+  Scenario: As operations I cannot delete operator that has aircraft assigned
+    Given I use seed data
+    And I am signed in as "operations"
+    When I send a "DELETE" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
+    Then the response status should be 400
+    And the response body should contain:
+    """json
+    {
+      "statusCode": 400,
+      "error": "Bad Request",
+      "message": "Operator cannot be deleted because it has aircraft assigned."
     }
     """
 
@@ -74,7 +102,7 @@ Feature: Delete operator
 
   Scenario: As an unauthorized user I cannot delete operator
     Given I use seed data
-    When I send a "DELETE" request to "/api/v1/operator/incorrect-uuid"
+    When I send a "DELETE" request to "/api/v1/operator/5c00f71c-287c-4bca-a738-caf7e2669c65"
     Then the response status should be 401
     And the response body should contain:
     """json
