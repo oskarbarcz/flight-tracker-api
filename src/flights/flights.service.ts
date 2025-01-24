@@ -59,6 +59,7 @@ export class FlightsService {
       status: flight.status as FlightStatus,
       timesheet: flight.timesheet as FullTimesheet,
       aircraft: flight.aircraft,
+      operator: flight.operator,
       airports: flight.airports.map(
         (airportOnFlight): AirportWithType => ({
           ...airportOnFlight.airport,
@@ -79,6 +80,7 @@ export class FlightsService {
         status: flight.status as FlightStatus,
         timesheet: flight.timesheet as FullTimesheet,
         aircraft: flight.aircraft,
+        operator: flight.operator,
         airports: flight.airports.map(
           (airportOnFlight): AirportWithType => ({
             ...airportOnFlight.airport,
@@ -117,6 +119,7 @@ export class FlightsService {
       status: flight.status as FlightStatus,
       timesheet: flight.timesheet as FullTimesheet,
       aircraft: flight.aircraft,
+      operator: flight.operator,
       airports: flight.airports.map(
         (airportOnFlight): AirportWithType => ({
           ...airportOnFlight.airport,

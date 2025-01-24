@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { AirportWithType } from '../../airports/entities/airport.entity';
 import { FullTimesheet } from './timesheet.entity';
 import { CreateAircraftResponse } from '../../aircraft/dto/create-aircraft.dto';
+import { Operator } from '../../operators/entities/operator.entity';
 
 export enum FlightStatus {
   Created = 'created',
@@ -58,4 +59,10 @@ export class Flight {
     description: 'Timesheet',
   })
   timesheet: FullTimesheet;
+
+  @ApiProperty({
+    description: 'Flight operator',
+    type: Operator,
+  })
+  operator: Operator;
 }
