@@ -31,7 +31,8 @@ import {
   InvalidStatusToReportOnBlockError,
   InvalidStatusToReportTakenOffError,
   InvalidStatusToStartBoardingError,
-  InvalidStatusToStartOffboardingError, OperatorForAircraftNotFoundError,
+  InvalidStatusToStartOffboardingError,
+  OperatorForAircraftNotFoundError,
   ScheduledFlightCannotBeRemoved,
 } from './dto/errors.dto';
 import { OperatorsService } from '../operators/operators.service';
