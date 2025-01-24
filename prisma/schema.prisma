@@ -40,6 +40,7 @@ model Operator {
   fullName  String
   callsign  String
   aircrafts Aircraft[]
+  flights   Flight[]
 
   @@map("operator")
 }
@@ -53,6 +54,8 @@ model Flight {
   aircraftId   String              @db.Uuid
   airports     AirportsOnFlights[]
   timesheet    Json
+  operator     Operator            @relation(fields: [operatorId], references: [id])
+  operatorId   String              @db.Uuid
 
   @@map("flight")
 }

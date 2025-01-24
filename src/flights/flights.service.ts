@@ -32,8 +32,10 @@ import {
   InvalidStatusToReportTakenOffError,
   InvalidStatusToStartBoardingError,
   InvalidStatusToStartOffboardingError,
+  OperatorForAircraftNotFoundError,
   ScheduledFlightCannotBeRemoved,
 } from './dto/errors.dto';
+import { OperatorsService } from '../operators/operators.service';
 
 @Injectable()
 export class FlightsService {
@@ -41,6 +43,7 @@ export class FlightsService {
     private readonly airportsService: AirportsService,
     private readonly aircraftService: AircraftService,
     private readonly flightsRepository: FlightsRepository,
+    private readonly operatorsService: OperatorsService,
   ) {}
 
   async find(id: string): Promise<Flight> {
@@ -59,6 +62,7 @@ export class FlightsService {
       status: flight.status as FlightStatus,
       timesheet: flight.timesheet as FullTimesheet,
       aircraft: flight.aircraft,
+      operator: flight.operator,
       airports: flight.airports.map(
         (airportOnFlight): AirportWithType => ({
           ...airportOnFlight.airport,
@@ -79,6 +83,7 @@ export class FlightsService {
         status: flight.status as FlightStatus,
         timesheet: flight.timesheet as FullTimesheet,
         aircraft: flight.aircraft,
+        operator: flight.operator,
         airports: flight.airports.map(
           (airportOnFlight): AirportWithType => ({
             ...airportOnFlight.airport,
@@ -108,6 +113,10 @@ export class FlightsService {
       throw new NotFoundException(DestinationAirportNotFoundError);
     }
 
+    if (!(await this.operatorsService.exists(input.operatorId))) {
+      throw new NotFoundException(OperatorForAircraftNotFoundError);
+    }
+
     const flight = await this.flightsRepository.create(input);
 
     return {
@@ -117,6 +126,7 @@ export class FlightsService {
       status: flight.status as FlightStatus,
       timesheet: flight.timesheet as FullTimesheet,
       aircraft: flight.aircraft,
+      operator: flight.operator,
       airports: flight.airports.map(
         (airportOnFlight): AirportWithType => ({
           ...airportOnFlight.airport,

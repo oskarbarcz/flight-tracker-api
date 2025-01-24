@@ -78,6 +78,13 @@ Feature: Report arrival
           "callsign": "CONDOR"
         }
       },
+      "operator": {
+        "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
+        "icaoCode": "CDG",
+        "shortName": "Condor",
+        "fullName": "Condor Flugdienst",
+        "callsign": "CONDOR"
+      },
       "airports": [
         {
           "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",

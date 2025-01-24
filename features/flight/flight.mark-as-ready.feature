@@ -52,6 +52,13 @@ Feature: Mark flight as ready
           "callsign": "AMERICAN"
         }
       },
+      "operator": {
+        "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+        "icaoCode": "AAL",
+        "shortName": "American Airlines",
+        "fullName": "American Airlines, Inc.",
+        "callsign": "AMERICAN"
+      },
       "airports": [
         {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",

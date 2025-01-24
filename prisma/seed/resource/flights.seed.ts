@@ -13,6 +13,7 @@ async function loadDLH450(prisma: PrismaClient): Promise<void> {
     flightNumber: 'LH 450',
     callsign: 'DLH 450',
     status: FlightStatus.Created,
+    operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B773
     timesheet: {
       scheduled: {
@@ -103,6 +104,7 @@ async function loadAAL4905(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4905',
     status: FlightStatus.Closed,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),
@@ -179,6 +181,7 @@ async function loadAAL4906(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4906',
     status: FlightStatus.Ready,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),
@@ -243,6 +246,7 @@ async function loadAAL4907(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4907',
     status: FlightStatus.Created,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),
@@ -307,6 +311,7 @@ async function loadAAL4908(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4908',
     status: FlightStatus.CheckedIn,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),
@@ -377,6 +382,7 @@ async function loadAAL4909(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4909',
     status: FlightStatus.BoardingStarted,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),
@@ -447,6 +453,7 @@ async function loadAAL4910(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4910',
     status: FlightStatus.BoardingFinished,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),
@@ -517,6 +524,7 @@ async function loadAAL4911(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4911',
     status: FlightStatus.TaxiingOut,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),
@@ -593,6 +601,7 @@ async function loadAAL4912(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4912',
     status: FlightStatus.InCruise,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),
@@ -669,6 +678,7 @@ async function loadAAL4913(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4913',
     status: FlightStatus.TaxiingIn,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),
@@ -745,6 +755,7 @@ async function loadAAL4914(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4914',
     status: FlightStatus.OnBlock,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),
@@ -821,6 +832,7 @@ async function loadAAL4915(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4915',
     status: FlightStatus.OffboardingStarted,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),
@@ -897,6 +909,7 @@ async function loadAAL4916(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4916',
     status: FlightStatus.OffboardingFinished,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),
@@ -973,6 +986,7 @@ async function loadAAL4917(prisma: PrismaClient): Promise<void> {
     callsign: 'AAL 4917',
     status: FlightStatus.Closed,
     aircraftId: '7d27a031-5abb-415f-bde5-1aa563ad394e', // A321
+    operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 13:00'),

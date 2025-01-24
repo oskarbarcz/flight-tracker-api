@@ -1,6 +1,7 @@
 import { ScheduledTimesheet } from '../entities/timesheet.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { Operator } from '../../operators/entities/operator.entity';
 
 export class CreateFlightRequest {
   @ApiProperty({
@@ -52,4 +53,13 @@ export class CreateFlightRequest {
   })
   @IsNotEmpty()
   timesheet: ScheduledTimesheet;
+
+  @ApiProperty({
+    description: 'Flight operator',
+    type: Operator,
+  })
+  @IsUUID()
+  @IsString()
+  @IsNotEmpty()
+  operatorId: string;
 }

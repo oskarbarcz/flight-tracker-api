@@ -29,7 +29,15 @@ type FlightWithAircraftAndAirports = Prisma.FlightGetPayload<{
             callsign: true;
           };
         };
-        operatorId: false;
+      };
+    };
+    operator: {
+      select: {
+        id: true;
+        icaoCode: true;
+        shortName: true;
+        fullName: true;
+        callsign: true;
       };
     };
     status: true;
@@ -76,6 +84,15 @@ const flightWithAircraftAndAirportsFields = {
       operatorId: false,
     },
   },
+  operator: {
+    select: {
+      id: true,
+      icaoCode: true,
+      shortName: true,
+      fullName: true,
+      callsign: true,
+    },
+  },
   status: true,
   timesheet: true,
   airports: {
@@ -110,6 +127,7 @@ export class FlightsRepository {
         callsign: input.callsign,
         aircraftId: input.aircraftId,
         status: FlightStatus.Created,
+        operatorId: input.operatorId,
         timesheet: JSON.parse(JSON.stringify(input.timesheet)),
       },
     });

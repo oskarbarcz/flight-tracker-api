@@ -8,6 +8,12 @@ import { UpdateOperatorDto } from './dto/update-operator.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { Operator } from '@prisma/client';
 import { v4 } from 'uuid';
+import {
+  OperatorAlreadyExistsError,
+  OperatorContainsAircraftError,
+  OperatorContainsFlightsError,
+  OperatorDoesNotExistsError,
+} from './dto/errors';
 
 @Injectable()
 export class OperatorsService {
@@ -19,9 +25,7 @@ export class OperatorsService {
     });
 
     if (operator) {
-      throw new BadRequestException(
-        'Operator with given ICAO code already exists.',
-      );
+      throw new BadRequestException(OperatorAlreadyExistsError);
     }
 
     return this.prisma.operator.create({ data: { id: v4(), ...data } });
@@ -35,7 +39,7 @@ export class OperatorsService {
     const aircraft: Operator | null = await this.findOneBy({ id });
 
     if (!aircraft) {
-      throw new NotFoundException('Operator with given id does not exist.');
+      throw new NotFoundException(OperatorDoesNotExistsError);
     }
 
     return aircraft;
@@ -45,7 +49,7 @@ export class OperatorsService {
     const operator: Operator | null = await this.findOneBy({ id });
 
     if (!operator) {
-      throw new NotFoundException('Operator with given id does not exist.');
+      throw new NotFoundException(OperatorDoesNotExistsError);
     }
 
     return this.prisma.operator.update({
@@ -55,10 +59,26 @@ export class OperatorsService {
   }
 
   async remove(id: string): Promise<void> {
-    const aircraft: Operator | null = await this.findOneBy({ id });
+    const operator = await this.findOneBy({ id });
 
-    if (!aircraft) {
-      throw new NotFoundException('Operator with given id does not exist.');
+    if (!operator) {
+      throw new NotFoundException(OperatorDoesNotExistsError);
+    }
+
+    const flights = await this.prisma.flight.findMany({
+      where: { operatorId: id },
+    });
+
+    if (flights.length !== 0) {
+      throw new BadRequestException(OperatorContainsFlightsError);
+    }
+
+    const aircrafts = await this.prisma.aircraft.findMany({
+      where: { operatorId: id },
+    });
+
+    if (aircrafts.length !== 0) {
+      throw new BadRequestException(OperatorContainsAircraftError);
     }
 
     await this.prisma.operator.delete({ where: { id } });
