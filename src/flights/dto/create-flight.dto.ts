@@ -58,5 +58,8 @@ export class CreateFlightRequest {
     description: 'Flight operator',
     type: Operator,
   })
+  @IsUUID()
+  @IsString()
+  @IsNotEmpty()
   operatorId: string;
 }

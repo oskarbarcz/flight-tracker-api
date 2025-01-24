@@ -31,9 +31,10 @@ import {
   InvalidStatusToReportOnBlockError,
   InvalidStatusToReportTakenOffError,
   InvalidStatusToStartBoardingError,
-  InvalidStatusToStartOffboardingError,
+  InvalidStatusToStartOffboardingError, OperatorForAircraftNotFoundError,
   ScheduledFlightCannotBeRemoved,
 } from './dto/errors.dto';
+import { OperatorsService } from '../operators/operators.service';
 
 @Injectable()
 export class FlightsService {
@@ -41,6 +42,7 @@ export class FlightsService {
     private readonly airportsService: AirportsService,
     private readonly aircraftService: AircraftService,
     private readonly flightsRepository: FlightsRepository,
+    private readonly operatorsService: OperatorsService,
   ) {}
 
   async find(id: string): Promise<Flight> {
@@ -108,6 +110,10 @@ export class FlightsService {
 
     if (!(await this.airportsService.exists(input.destinationAirportId))) {
       throw new NotFoundException(DestinationAirportNotFoundError);
+    }
+
+    if (!(await this.operatorsService.exists(input.operatorId))) {
+      throw new NotFoundException(OperatorForAircraftNotFoundError);
     }
 
     const flight = await this.flightsRepository.create(input);

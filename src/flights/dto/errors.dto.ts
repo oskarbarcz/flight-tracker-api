@@ -105,3 +105,9 @@ export const InvalidStatusToCloseFlight = {
   error: 'Unprocessable Content',
   message: 'Cannot close flight that is not off boarded.',
 };
+
+export const OperatorForAircraftNotFoundError = {
+  statusCode: 404,
+  error: 'Not Found',
+  message: 'Cannot find operator declared in the request.',
+};
