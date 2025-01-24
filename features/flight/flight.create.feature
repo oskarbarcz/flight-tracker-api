@@ -11,6 +11,7 @@ Feature: Create a flight
       "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
       "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
       "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+      "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
           "offBlockTime": "2024-01-01 12:00",
@@ -42,6 +43,7 @@ Feature: Create a flight
       "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
       "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
       "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+      "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
           "offBlockTime": "2024-01-01 12:00",
@@ -84,6 +86,13 @@ Feature: Create a flight
           "callsign": "AMERICAN"
         }
       },
+      "operator": {
+        "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+        "icaoCode": "AAL",
+        "shortName": "American Airlines",
+        "fullName": "American Airlines, Inc.",
+        "callsign": "AMERICAN"
+      },
       "airports": [
         {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
@@ -116,6 +125,7 @@ Feature: Create a flight
       "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
       "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
       "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+      "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
           "offBlockTime": "2024-01-01 12:00",
@@ -147,6 +157,7 @@ Feature: Create a flight
       "aircraftId": "03a3b43c-8594-4c61-9eca-7b6ea4594d66",
       "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
       "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+      "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
           "offBlockTime": "2024-01-01 12:00",
@@ -178,6 +189,7 @@ Feature: Create a flight
       "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
       "departureAirportId": "5a709a4d-b688-47c0-b1ed-ce20629516a4",
       "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+      "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
           "offBlockTime": "2024-01-01 12:00",
@@ -209,6 +221,7 @@ Feature: Create a flight
       "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
       "departureAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
       "destinationAirportId": "5a709a4d-b688-47c0-b1ed-ce20629516a4",
+      "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
           "offBlockTime": "2024-01-01 12:00",
@@ -240,6 +253,7 @@ Feature: Create a flight
       "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
       "departureAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
       "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+      "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
           "offBlockTime": "2024-01-01 12:00",
@@ -257,6 +271,38 @@ Feature: Create a flight
       "statusCode": 400,
       "error": "Bad Request",
       "message": "Departure and destination airports must be different."
+    }
+    """
+
+    Scenario: As operations I cannot create a flight with operator that does not exist
+    Given I use seed data
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/" with body:
+    """json
+    {
+      "flightNumber": "DLH990",
+      "callsign": "DLH990",
+      "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+      "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+      "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+      "operatorId": "5f61b6eb-6393-478c-88b5-56b29ec0a077",
+      "timesheet": {
+        "scheduled": {
+          "offBlockTime": "2024-01-01 12:00",
+          "takeoffTime": "2024-01-01 12:15",
+          "arrivalTime": "2024-01-01 21:00",
+          "onBlockTime": "2024-01-01 21:10"
+        }
+      }
+    }
+    """
+    Then the response status should be 404
+    And the response body should contain:
+    """json
+    {
+      "statusCode": 404,
+      "error": "Not Found",
+      "message": "Cannot find operator declared in the request."
     }
     """
 
@@ -301,6 +347,11 @@ Feature: Create a flight
         ],
         "status": [
           "property status should not exist"
+        ],
+        "operatorId": [
+          "operatorId should not be empty",
+          "operatorId must be a string",
+          "operatorId must be a UUID"
         ]
       }
     }
@@ -315,6 +366,7 @@ Feature: Create a flight
       "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
       "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
       "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+      "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
           "offBlockTime": "2024-01-01 12:00",
