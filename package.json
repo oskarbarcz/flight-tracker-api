@@ -1,18 +1,18 @@
 {
   "name": "flight-tracker-api",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "",
   "homepage": "https://flight-tracker.barcz.me",
   "author": "Oskar Barcz",
   "private": true,
   "license": "Unlicense",
   "scripts": {
-    "build": "nest build",
+    "build": "npx nest build",
     "format": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main",
     "lint": "eslint '{src,features,prisma,test}/**/*.ts'",
     "lint:fix": "eslint '{src,features,prisma,test}/**/*.ts' --fix",
     "test": "jest",
@@ -22,7 +22,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:functional": "npx cucumber-js features/**/*.feature --require ./features/_context/**/*.ts --require-module ts-node/register",
     "database:reset": "npx prisma db push --force-reset && npx prisma db push",
-    "database:seed": "npx prisma db seed"
+    "database:seed": "npx prisma db seed",
+    "database:migrate": "npx prisma migrate deploy"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

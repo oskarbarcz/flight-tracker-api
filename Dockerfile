@@ -13,6 +13,7 @@ COPY --chown=node:node package*.json ./
 COPY --chown=node:node prisma ./prisma
 COPY --chown=node:node --from=development /app/node_modules ./node_modules
 COPY --chown=node:node . .
+RUN chmod -R a+x ./node_modules
 RUN npm run build
 ENV NODE_ENV="production"
 RUN npm ci --only=production && npm cache clean --force
