@@ -3,7 +3,6 @@ name: 'deploy'
 on:
   push:
     branches: [ 'main' ]
-    paths: [ '**', '!**.md' ]
 
 env:
   IMAGE_NAME: 'ghcr.io/oskarbarcz/flight-tracker-api'
@@ -30,3 +29,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Push docker image to ghcr.io'
         run: "docker push ${{ env.IMAGE_NAME }}:$(jq -r '.version' package.json)"
+  deploy:
+    runs-on: "ubuntu-22.04"
+    timeout-minutes: 5
+    steps:
+      - name: "Build and deploy on production"
+        uses: "digitalocean/app_action@v1.1.5"
+        with:
+          app_name: "flight-tracker-api"
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
