@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsTimeZone } from 'class-validator';
+import { IsNotEmpty, IsString, IsTimeZone, Length } from 'class-validator';
 
 export class Airport {
   @ApiProperty({
@@ -9,12 +9,22 @@ export class Airport {
   id: string;
 
   @ApiProperty({
-    description: 'Airport type ICAO code',
+    description: 'Airport ICAO code',
     example: 'EDDF',
   })
   @IsString()
   @IsNotEmpty()
+  @Length(4, 4)
   icaoCode: string;
+
+  @ApiProperty({
+    description: 'Airport IATA code',
+    example: 'FRA',
+  })
+  @IsString()
+  @IsNotEmpty()
+  @Length(3, 3)
+  iataCode: string;
 
   @ApiProperty({
     description: 'Airport name',
@@ -23,6 +33,14 @@ export class Airport {
   @IsString()
   @IsNotEmpty()
   name: string;
+
+  @ApiProperty({
+    description: 'City where airport is located',
+    example: 'Frankfurt',
+  })
+  @IsString()
+  @IsNotEmpty()
+  city: string;
 
   @ApiProperty({
     description: 'Country where airport is located',

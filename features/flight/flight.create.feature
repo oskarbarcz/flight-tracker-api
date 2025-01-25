@@ -97,6 +97,8 @@ Feature: Create a flight
         {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "icaoCode": "EDDF",
+          "iataCode": "FRA",
+          "city": "Frankfurt",
           "name": "Frankfurt Rhein/Main",
           "country": "Germany",
           "timezone": "Europe/Berlin",
@@ -105,6 +107,8 @@ Feature: Create a flight
         {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "icaoCode": "KJFK",
+          "iataCode": "JFK",
+          "city": "New York",
           "name": "New York JFK",
           "country": "United States of America",
           "timezone": "America/New_York",
