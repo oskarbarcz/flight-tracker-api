@@ -6,110 +6,63 @@ import { CreateFlightRequest } from './dto/create-flight.dto';
 import { v4 } from 'uuid';
 import { FullTimesheet } from './entities/timesheet.entity';
 
-type FlightWithAircraftAndAirports = Prisma.FlightGetPayload<{
-  select: {
-    id: true;
-    flightNumber: true;
-    callsign: true;
-    aircraft: {
-      select: {
-        id: true;
-        icaoCode: true;
-        shortName: true;
-        fullName: true;
-        registration: true;
-        selcal: true;
-        livery: true;
-        operator: {
-          select: {
-            id: true;
-            icaoCode: true;
-            shortName: true;
-            fullName: true;
-            callsign: true;
-          };
-        };
-      };
-    };
+export const flightWithAircraftAndAirportsFields =
+  Prisma.validator<Prisma.FlightSelect>()({
+    id: true,
+    flightNumber: true,
+    callsign: true,
+    status: true,
+    timesheet: true,
     operator: {
       select: {
-        id: true;
-        icaoCode: true;
-        shortName: true;
-        fullName: true;
-        callsign: true;
-      };
-    };
-    status: true;
-    timesheet: true;
+        id: true,
+        icaoCode: true,
+        shortName: true,
+        fullName: true,
+        callsign: true,
+      },
+    },
+    aircraft: {
+      select: {
+        id: true,
+        icaoCode: true,
+        shortName: true,
+        fullName: true,
+        registration: true,
+        selcal: true,
+        livery: true,
+        operator: {
+          select: {
+            id: true,
+            icaoCode: true,
+            shortName: true,
+            fullName: true,
+            callsign: true,
+          },
+        },
+      },
+    },
     airports: {
       select: {
+        airportType: true,
         airport: {
           select: {
-            id: true;
-            icaoCode: true;
-            name: true;
-            country: true;
-            timezone: true;
-          };
-        };
-        airportType: true;
-      };
-    };
-  };
-}>;
+            id: true,
+            icaoCode: true,
+            iataCode: true,
+            city: true,
+            name: true,
+            country: true,
+            timezone: true,
+          },
+        },
+      },
+    },
+  } as const);
 
-const flightWithAircraftAndAirportsFields = {
-  id: true,
-  flightNumber: true,
-  callsign: true,
-  aircraft: {
-    select: {
-      id: true,
-      icaoCode: true,
-      shortName: true,
-      fullName: true,
-      registration: true,
-      selcal: true,
-      livery: true,
-      operator: {
-        select: {
-          id: true,
-          icaoCode: true,
-          shortName: true,
-          fullName: true,
-          callsign: true,
-        },
-      },
-      operatorId: false,
-    },
-  },
-  operator: {
-    select: {
-      id: true,
-      icaoCode: true,
-      shortName: true,
-      fullName: true,
-      callsign: true,
-    },
-  },
-  status: true,
-  timesheet: true,
-  airports: {
-    select: {
-      airport: {
-        select: {
-          id: true,
-          icaoCode: true,
-          name: true,
-          country: true,
-          timezone: true,
-        },
-      },
-      airportType: true,
-    },
-  },
-};
+export type FlightWithAircraftAndAirports = Prisma.FlightGetPayload<{
+  select: typeof flightWithAircraftAndAirportsFields;
+}>;
 
 @Injectable()
 export class FlightsRepository {
