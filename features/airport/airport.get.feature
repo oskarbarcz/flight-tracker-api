@@ -10,6 +10,8 @@ Feature: Get airport
     {
       "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
       "icaoCode": "EDDF",
+      "iataCode": "FRA",
+      "city": "Frankfurt",
       "name": "Frankfurt Rhein/Main",
       "country": "Germany",
       "timezone": "Europe/Berlin"
@@ -26,6 +28,8 @@ Feature: Get airport
     {
       "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
       "icaoCode": "EDDF",
+      "iataCode": "FRA",
+      "city": "Frankfurt",
       "name": "Frankfurt Rhein/Main",
       "country": "Germany",
       "timezone": "Europe/Berlin"
@@ -42,6 +46,8 @@ Feature: Get airport
     {
       "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
       "icaoCode": "EDDF",
+      "iataCode": "FRA",
+      "city": "Frankfurt",
       "name": "Frankfurt Rhein/Main",
       "country": "Germany",
       "timezone": "Europe/Berlin"

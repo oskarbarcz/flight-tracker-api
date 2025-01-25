@@ -25,7 +25,9 @@ model Aircraft {
 model Airport {
   id                String              @id @db.Uuid
   icaoCode          String              @unique @db.VarChar(4)
+  iataCode          String              @unique @db.VarChar(3)
   name              String
+  city              String
   country           String
   timezone          String
   AirportsOnFlights AirportsOnFlights[]
