@@ -7,6 +7,8 @@ Feature: Create airport
     """json
     {
       "icaoCode": "KMIA",
+      "iataCode": "MIA",
+      "city": "Miami",
       "name": "Miami Intl",
       "country": "United States of America",
       "timezone": "America/New_York"
@@ -30,6 +32,8 @@ Feature: Create airport
     {
       "icaoCode": "KMIA",
       "name": "Miami Intl",
+      "iataCode": "MIA",
+      "city": "Miami",
       "country": "United States of America",
       "timezone": "America/New_York"
     }
@@ -40,6 +44,8 @@ Feature: Create airport
     {
       "id": "@uuid",
       "icaoCode": "KMIA",
+      "iataCode": "MIA",
+      "city": "Miami",
       "name": "Miami Intl",
       "country": "United States of America",
       "timezone": "America/New_York"
@@ -53,6 +59,8 @@ Feature: Create airport
     """json
     {
       "icaoCode": "KMIA",
+      "iataCode": "MIA",
+      "city": "Miami",
       "name": "Miami Intl",
       "country": "United States of America",
       "timezone": "America/New_York"
@@ -94,6 +102,15 @@ Feature: Create airport
           "timezone should not be empty",
           "timezone must be a valid IANA time-zone",
           "timezone must be a string"
+        ],
+        "iataCode": [
+          "iataCode must be longer than or equal to 3 characters",
+          "iataCode should not be empty",
+          "iataCode must be a string"
+        ],
+        "city": [
+          "city should not be empty",
+          "city must be a string"
         ]
       }
     }

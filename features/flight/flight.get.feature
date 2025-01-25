@@ -47,6 +47,8 @@ Feature: Get flight
         {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "icaoCode": "EDDF",
+          "iataCode": "FRA",
+          "city": "Frankfurt",
           "name": "Frankfurt Rhein/Main",
           "country": "Germany",
           "timezone": "Europe/Berlin",
@@ -55,6 +57,8 @@ Feature: Get flight
         {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "icaoCode": "KJFK",
+          "iataCode": "JFK",
+          "city": "New York",
           "name": "New York JFK",
           "country": "United States of America",
           "timezone": "America/New_York",
@@ -63,6 +67,8 @@ Feature: Get flight
         {
           "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
           "icaoCode": "KPHL",
+          "iataCode": "PHL",
+          "city": "Philadelphia",
           "name": "Philadelphia Intl",
           "country": "United States of America",
           "timezone": "GMT-5",
@@ -71,6 +77,8 @@ Feature: Get flight
         {
           "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
           "icaoCode": "KBOS",
+          "iataCode": "BOS",
+          "city": "Boston",
           "name": "Boston Logan Intl",
           "country": "United States of America",
           "timezone": "GMT-5",
@@ -79,6 +87,8 @@ Feature: Get flight
         {
           "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
           "icaoCode": "CYYT",
+          "iataCode": "YYT",
+          "city": "St. Johns",
           "name": "St. Johns Intl",
           "country": "Canada",
           "timezone": "GMT-3:30",
