@@ -1,4 +1,4 @@
-name: 'deploy'
+name: 'release'
 
 on:
   push:
@@ -32,6 +32,7 @@ jobs:
   deploy:
     runs-on: "ubuntu-22.04"
     timeout-minutes: 5
+    environment: production
     steps:
       - name: "Build and deploy on production"
         uses: "digitalocean/app_action@v1.1.5"
