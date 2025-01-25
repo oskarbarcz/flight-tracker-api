@@ -7,7 +7,6 @@ on:
 jobs:
   version:
     runs-on: 'ubuntu-24.04'
-    environment: production
     steps:
       - name: 'Checkout repository'
         uses: 'actions/checkout@v4'
@@ -17,6 +16,7 @@ jobs:
         run: './docker/ci/check_version_is_free "$(jq -r ''.version'' package.json)"'
   code:
     runs-on: 'ubuntu-24.04'
+    environment: ci
     steps:
       - name: 'Checkout repository'
         uses: 'actions/checkout@v4'
