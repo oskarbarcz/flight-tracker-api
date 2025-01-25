@@ -58,7 +58,7 @@ export async function loadAirports(prisma: PrismaClient): Promise<void> {
     city: 'Reykjavik',
     name: 'Reykjavik Keflavik',
     country: 'Iceland',
-    timezone: 'GMT',
+    timezone: 'Atlantic/Reykjavik',
   };
 
   const stJohns: Airport = {
@@ -68,7 +68,7 @@ export async function loadAirports(prisma: PrismaClient): Promise<void> {
     city: 'St. Johns',
     name: 'St. Johns Intl',
     country: 'Canada',
-    timezone: 'GMT-3:30',
+    timezone: 'America/St_Johns',
   };
 
   const philadelphia: Airport = {
@@ -78,7 +78,7 @@ export async function loadAirports(prisma: PrismaClient): Promise<void> {
     city: 'Philadelphia',
     name: 'Philadelphia Intl',
     country: 'United States of America',
-    timezone: 'GMT-5',
+    timezone: 'America/New_York',
   };
 
   const boston: Airport = {
@@ -88,7 +88,7 @@ export async function loadAirports(prisma: PrismaClient): Promise<void> {
     city: 'Boston',
     name: 'Boston Logan Intl',
     country: 'United States of America',
-    timezone: 'GMT-5',
+    timezone: 'America/New_York',
   };
 
   const bremen: Airport = {
@@ -98,7 +98,7 @@ export async function loadAirports(prisma: PrismaClient): Promise<void> {
     city: 'Bremen',
     name: 'Bremen',
     country: 'Germany',
-    timezone: 'GMT+1',
+    timezone: 'Europe/Berlin',
   };
 
   for (const airport of [

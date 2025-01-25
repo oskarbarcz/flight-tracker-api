@@ -88,7 +88,7 @@ Feature: Start boarding
           "city": "Boston",
           "name": "Boston Logan Intl",
           "country": "United States of America",
-          "timezone": "GMT-5",
+          "timezone": "America/New_York",
           "type": "departure"
         },
         {
@@ -98,7 +98,7 @@ Feature: Start boarding
           "city": "Philadelphia",
           "name": "Philadelphia Intl",
           "country": "United States of America",
-          "timezone": "GMT-5",
+          "timezone": "America/New_York",
           "type": "destination"
         },
         {

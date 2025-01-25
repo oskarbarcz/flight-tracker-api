@@ -60,7 +60,7 @@ Feature: List airports
         "city": "Reykjavik",
         "name": "Reykjavik Keflavik",
         "country": "Iceland",
-        "timezone": "GMT"
+        "timezone": "Atlantic/Reykjavik"
       },
       {
         "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
@@ -69,7 +69,7 @@ Feature: List airports
         "city": "St. Johns",
         "name": "St. Johns Intl",
         "country": "Canada",
-        "timezone": "GMT-3:30"
+        "timezone": "America/St_Johns"
       },
       {
         "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
@@ -78,7 +78,7 @@ Feature: List airports
         "city": "Philadelphia",
         "name": "Philadelphia Intl",
         "country": "United States of America",
-        "timezone": "GMT-5"
+        "timezone": "America/New_York"
       },
       {
         "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
@@ -87,7 +87,7 @@ Feature: List airports
         "city": "Boston",
         "name": "Boston Logan Intl",
         "country": "United States of America",
-        "timezone": "GMT-5"
+        "timezone": "America/New_York"
       },
       {
         "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
@@ -96,7 +96,7 @@ Feature: List airports
         "city": "Bremen",
         "name": "Bremen",
         "country": "Germany",
-        "timezone": "GMT+1"
+        "timezone": "Europe/Berlin"
       }
     ]
     """

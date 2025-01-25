@@ -71,7 +71,7 @@ Feature: Get flight
           "city": "Philadelphia",
           "name": "Philadelphia Intl",
           "country": "United States of America",
-          "timezone": "GMT-5",
+          "timezone": "America/New_York",
           "type": "destination_alternate"
         },
         {
@@ -81,7 +81,7 @@ Feature: Get flight
           "city": "Boston",
           "name": "Boston Logan Intl",
           "country": "United States of America",
-          "timezone": "GMT-5",
+          "timezone": "America/New_York",
           "type": "destination_alternate"
         },
         {
@@ -91,7 +91,7 @@ Feature: Get flight
           "city": "St. Johns",
           "name": "St. Johns Intl",
           "country": "Canada",
-          "timezone": "GMT-3:30",
+          "timezone": "America/St_Johns",
           "type": "etops_alternate"
         }
       ]
