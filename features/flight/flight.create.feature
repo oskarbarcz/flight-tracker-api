@@ -108,7 +108,7 @@ Feature: Create a flight
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "icaoCode": "KJFK",
           "iataCode": "JFK",
-          "city": "New York JFK",
+          "city": "New York",
           "name": "New York JFK",
           "country": "United States of America",
           "timezone": "America/New_York",
