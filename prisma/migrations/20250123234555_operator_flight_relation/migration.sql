@@ -1,9 +1,3 @@
-/*
-  Warnings:
-
-  - Added the required column `operatorId` to the `flight` table without a default value. This is not possible if the table is not empty.
-
-*/
 -- AlterTable
 ALTER TABLE "flight" ADD COLUMN     "operatorId" UUID NOT NULL;
 
