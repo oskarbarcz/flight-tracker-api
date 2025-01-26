@@ -19,7 +19,8 @@ Feature: Create user
       "id": "@uuid",
       "name": "Anna Doe",
       "email": "anna.doe@example.com",
-      "role": "Admin"
+      "role": "Admin",
+      "currentFlightId": null
     }
     """
 

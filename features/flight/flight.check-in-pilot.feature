@@ -137,6 +137,19 @@ Feature: Check in pilot for flight
       ]
     }
     """
+    Given I am signed in as "admin"
+    When I send a "GET" request to "/api/v1/user/fcf6f4bc-290d-43a9-843c-409cd47e143d"
+    Then the response status should be 200
+    And the response body should contain:
+    """json
+    {
+      "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+      "name": "Rick Doe",
+      "email": "cabin-crew@example.com",
+      "role": "CabinCrew",
+      "currentFlightId": "23952e79-6b38-49ed-a1db-bd4d9b3cedab"
+    }
+    """
 
   Scenario: As a cabin crew I cannot check in pilot for flight twice
     Given I use seed data
