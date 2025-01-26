@@ -37,6 +37,7 @@ export class UsersService {
       data: {
         id: v4(),
         ...data,
+        currentFlightId: null,
         password: hashedPassword,
       },
     });
@@ -124,6 +125,7 @@ export class UsersService {
       name: user.name,
       email: user.email,
       role: user.role,
+      currentFlightId: user.currentFlightId,
     };
   }
 }

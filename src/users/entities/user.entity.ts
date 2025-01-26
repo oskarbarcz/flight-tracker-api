@@ -42,4 +42,10 @@ export class User {
   @IsString()
   @IsNotEmpty()
   password: string;
+
+  @ApiProperty({
+    description: 'Current flight user is assigned to',
+    example: '3b75f824-84c1-4521-9373-a4f3c27bdd8a',
+  })
+  currentFlightId: string | null;
 }

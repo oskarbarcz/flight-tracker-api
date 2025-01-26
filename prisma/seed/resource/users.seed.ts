@@ -8,6 +8,7 @@ export async function loadUsers(prisma: PrismaClient): Promise<void> {
     role: UserRole.Admin,
     // password: 'P@$$w0rd' - bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
+    currentFlightId: null,
   };
 
   const alice: User = {
@@ -17,6 +18,7 @@ export async function loadUsers(prisma: PrismaClient): Promise<void> {
     role: UserRole.Operations,
     // password: 'P@$$w0rd' - bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
+    currentFlightId: null,
   };
 
   const rick: User = {
@@ -26,6 +28,7 @@ export async function loadUsers(prisma: PrismaClient): Promise<void> {
     role: UserRole.CabinCrew,
     // password: 'P@$$w0rd' - bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
+    currentFlightId: 'b3899775-278e-4496-add1-21385a13d93e',
   };
 
   for (const user of [john, alice, rick]) {

@@ -58,6 +58,7 @@ model Flight {
   timesheet    Json
   operator     Operator            @relation(fields: [operatorId], references: [id])
   operatorId   String              @db.Uuid
+  User         User?
 
   @@map("flight")
 }
@@ -74,11 +75,13 @@ model AirportsOnFlights {
 }
 
 model User {
-  id       String   @id @db.Uuid
-  name     String
-  email    String   @unique
-  password String
-  role     UserRole
+  id              String   @id @db.Uuid
+  name            String
+  email           String   @unique
+  password        String
+  role            UserRole
+  currentFlight   Flight?  @relation(fields: [currentFlightId], references: [id])
+  currentFlightId String?  @unique @db.Uuid
 
   @@map("user")
 }

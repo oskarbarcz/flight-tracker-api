@@ -2,7 +2,7 @@ export enum EventType {
   FlightWasCheckedIn = 'flight.check-in',
 }
 
-export type FlightWasCheckedInPayload ={
+export type FlightWasCheckedInPayload = {
   flightId: string;
   userId: string;
 };
