@@ -36,6 +36,8 @@ import {
   ScheduledFlightCannotBeRemoved,
 } from './dto/errors.dto';
 import { OperatorsService } from '../operators/operators.service';
+import { EventType, FlightWasCheckedInPayload } from '../common/events/event';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class FlightsService {
@@ -44,6 +46,7 @@ export class FlightsService {
     private readonly aircraftService: AircraftService,
     private readonly flightsRepository: FlightsRepository,
     private readonly operatorsService: OperatorsService,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async find(id: string): Promise<Flight> {
@@ -184,7 +187,11 @@ export class FlightsService {
     await this.flightsRepository.updateTimesheet(id, timesheet);
   }
 
-  async checkInPilot(id: string, estimatedSchedule: Schedule): Promise<void> {
+  async checkInPilot(
+    id: string,
+    estimatedSchedule: Schedule,
+    userId: string,
+  ): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -200,6 +207,9 @@ export class FlightsService {
 
     await this.flightsRepository.updateStatus(id, FlightStatus.CheckedIn);
     await this.flightsRepository.updateTimesheet(id, timesheet);
+
+    const event: FlightWasCheckedInPayload = { flightId: id, userId: userId };
+    this.eventEmitter.emit(EventType.FlightWasCheckedIn, event);
   }
 
   async startBoarding(id: string): Promise<void> {

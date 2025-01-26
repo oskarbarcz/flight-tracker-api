@@ -10,6 +10,8 @@ import { v4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { GetUserDto } from './dto/get-user.dto';
+import { OnEvent } from '@nestjs/event-emitter';
+import { EventType, FlightWasCheckedInPayload } from '../common/events/event';
 
 @Injectable()
 export class UsersService {
@@ -98,6 +100,14 @@ export class UsersService {
     }
 
     return this.returnWithoutPassword(updatedUser);
+  }
+
+  @OnEvent(EventType.FlightWasCheckedIn)
+  async onFlightCheckedIn(payload: FlightWasCheckedInPayload): Promise<void> {
+    // await this.prisma.user.update({
+    //   where: { userId },
+    //   data: { fl: flightId },
+    // });
   }
 
   private async findOneBy(
