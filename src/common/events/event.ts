@@ -1,5 +1,6 @@
 export enum EventType {
   FlightWasCheckedIn = 'flight.check-in',
+  FlightWasClosed = 'flight.close',
 }
 
 export type FlightWasCheckedInPayload = {
@@ -7,9 +8,6 @@ export type FlightWasCheckedInPayload = {
   userId: string;
 };
 
-type Payload = FlightWasCheckedInPayload;
-
-export type Event<T extends Payload> = {
-  type: EventType;
-  payload: T;
+export type FlightWasClosedPayload = {
+  userId: string;
 };

@@ -624,7 +624,10 @@ export class FlightsController {
   @Post('/:id/close')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async closeFlightPlan(@uuid('id') id: string): Promise<void> {
-    await this.flightsService.close(id);
+  async closeFlightPlan(
+    @uuid('id') id: string,
+    @Req() request: Request & { user: JwtUser },
+  ): Promise<void> {
+    await this.flightsService.close(id, request.user.sub);
   }
 }

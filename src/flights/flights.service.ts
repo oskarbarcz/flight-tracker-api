@@ -36,7 +36,11 @@ import {
   ScheduledFlightCannotBeRemoved,
 } from './dto/errors.dto';
 import { OperatorsService } from '../operators/operators.service';
-import { EventType, FlightWasCheckedInPayload } from '../common/events/event';
+import {
+  EventType,
+  FlightWasCheckedInPayload,
+  FlightWasClosedPayload,
+} from '../common/events/event';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
@@ -364,7 +368,7 @@ export class FlightsService {
     );
   }
 
-  async close(id: string): Promise<void> {
+  async close(id: string, userId: string): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -376,5 +380,8 @@ export class FlightsService {
     }
 
     await this.flightsRepository.updateStatus(id, FlightStatus.Closed);
+
+    const event: FlightWasClosedPayload = { userId };
+    this.eventEmitter.emit(EventType.FlightWasClosed, event);
   }
 }
