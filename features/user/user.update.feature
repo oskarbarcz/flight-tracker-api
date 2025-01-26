@@ -17,7 +17,8 @@ Feature: Update user
       "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
       "name": "John Alfred Doe",
       "email": "john.doe@example.com",
-      "role": "Admin"
+      "role": "Admin",
+      "currentFlightId": null
     }
     """
 
@@ -37,7 +38,8 @@ Feature: Update user
       "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
       "name": "John Doe",
       "email": "admin@example.com",
-      "role": "Admin"
+      "role": "Admin",
+      "currentFlightId": null
     }
     """
 
@@ -57,7 +59,8 @@ Feature: Update user
       "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
       "name": "John Doe",
       "email": "admin@example.com",
-      "role": "CabinCrew"
+      "role": "CabinCrew",
+      "currentFlightId": null
     }
     """
 

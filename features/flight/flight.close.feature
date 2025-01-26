@@ -119,6 +119,19 @@ Feature: Close flight
       ]
     }
     """
+    Given I am signed in as "admin"
+    When I send a "GET" request to "/api/v1/user/fcf6f4bc-290d-43a9-843c-409cd47e143d"
+    Then the response status should be 200
+    And the response body should contain:
+    """json
+    {
+      "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+      "name": "Rick Doe",
+      "email": "cabin-crew@example.com",
+      "role": "CabinCrew",
+      "currentFlightId": null
+    }
+    """
 
   Scenario: As a cabin crew I cannot close flight plan for flight twice
     Given I use seed data

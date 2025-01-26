@@ -11,7 +11,8 @@ Feature: Get user
       "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
       "name": "John Doe",
       "email": "admin@example.com",
-      "role": "Admin"
+      "role": "Admin",
+      "currentFlightId": null
     }
     """
 

@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Patch,
   Post,
+  Req,
 } from '@nestjs/common';
 import { FlightsService } from './flights.service';
 import {
@@ -32,6 +33,7 @@ import { UnauthorizedResponse } from '../common/response/unauthorized.response';
 import { ForbiddenRequest } from '../common/response/forbidden.response';
 import { Role } from '../auth/decorator/role.decorator';
 import { UserRole } from '@prisma/client';
+import { JwtUser } from '../auth/dto/jwt-user.dto';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -277,8 +279,11 @@ export class FlightsController {
   async checkInPilot(
     @uuid('id') id: string,
     @Body() schedule: Schedule,
+    @Req() request: Request & { user: JwtUser },
   ): Promise<void> {
-    await this.flightsService.checkInPilot(id, schedule);
+    const user = request.user;
+
+    await this.flightsService.checkInPilot(id, schedule, user.sub);
   }
 
   @ApiOperation({
@@ -619,7 +624,10 @@ export class FlightsController {
   @Post('/:id/close')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async closeFlightPlan(@uuid('id') id: string): Promise<void> {
-    await this.flightsService.close(id);
+  async closeFlightPlan(
+    @uuid('id') id: string,
+    @Req() request: Request & { user: JwtUser },
+  ): Promise<void> {
+    await this.flightsService.close(id, request.user.sub);
   }
 }

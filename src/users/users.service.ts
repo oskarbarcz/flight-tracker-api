@@ -10,6 +10,12 @@ import { v4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { GetUserDto } from './dto/get-user.dto';
+import { OnEvent } from '@nestjs/event-emitter';
+import {
+  EventType,
+  FlightWasCheckedInPayload,
+  FlightWasClosedPayload,
+} from '../common/events/event';
 
 @Injectable()
 export class UsersService {
@@ -35,6 +41,7 @@ export class UsersService {
       data: {
         id: v4(),
         ...data,
+        currentFlightId: null,
         password: hashedPassword,
       },
     });
@@ -100,6 +107,22 @@ export class UsersService {
     return this.returnWithoutPassword(updatedUser);
   }
 
+  @OnEvent(EventType.FlightWasCheckedIn)
+  async onFlightCheckedIn(payload: FlightWasCheckedInPayload): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: payload.userId },
+      data: { currentFlightId: payload.flightId },
+    });
+  }
+
+  @OnEvent(EventType.FlightWasClosed)
+  async onFlightClose(payload: FlightWasClosedPayload): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: payload.userId },
+      data: { currentFlightId: null },
+    });
+  }
+
   private async findOneBy(
     criteria: Partial<Record<keyof User, any>>,
   ): Promise<User | null> {
@@ -114,6 +137,7 @@ export class UsersService {
       name: user.name,
       email: user.email,
       role: user.role,
+      currentFlightId: user.currentFlightId,
     };
   }
 }
