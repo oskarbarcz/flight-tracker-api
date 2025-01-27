@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from 'axios';
 import expect from 'expect';
 import { execSync } from 'child_process';
 import { deepCompare } from '../_helper/deep-compare';
+import { SignInResponse } from '../../src/auth/dto/sign-in.dto';
 
 const apiUsers = {
   admin: {
@@ -35,13 +36,14 @@ Given('I use seed data', () => {
 Given(
   'I am signed in as {string}',
   async (role: 'admin' | 'operations' | 'cabin crew') => {
-    const user = apiUsers[role];
+    const credentials = apiUsers[role];
     const url = `${apiBaseUrl}/api/v1/auth/sign-in`;
-    apiResponse = (await axios.post(url, user)) as AxiosResponse<{
-      token: string;
-    }>;
+    apiResponse = (await axios.post(
+      url,
+      credentials,
+    )) as AxiosResponse<SignInResponse>;
 
-    apiTokens[role] = apiResponse.data.token;
+    apiTokens[role] = (apiResponse.data as SignInResponse).accessToken;
     apiTokens.currentRole = role;
   },
 );
