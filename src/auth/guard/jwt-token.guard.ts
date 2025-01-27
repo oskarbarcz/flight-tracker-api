@@ -8,9 +8,11 @@ import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorator/skip-auth.decorator';
+import { JwtTokenType, JwtUser } from '../dto/jwt-user.dto';
+import { CannotUseTokenTypeError } from '../dto/error.dto';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class JwtTokenGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
     private readonly reflector: Reflector,
@@ -35,13 +37,35 @@ export class AuthGuard implements CanActivate {
     try {
       // 💡 We're assigning the payload to the request object here
       // so that we can access it in our route handlers
-      request['user'] = await this.jwtService.verifyAsync(token, {
+      const payload = await this.jwtService.verifyAsync<JwtUser>(token, {
         publicKey: process.env.JWT_PUBLIC_KEY,
       });
-    } catch {
+
+      const isRefreshEndpoint = request.url === '/api/v1/auth/refresh';
+      console.log(isRefreshEndpoint);
+
+      if (!this.isCorrectType(payload.type, isRefreshEndpoint)) {
+        throw new CannotUseTokenTypeError(payload.type);
+      }
+
+      request['user'] = payload;
+    } catch (e: any) {
+      if (e instanceof CannotUseTokenTypeError) {
+        throw e;
+      }
+
       throw new UnauthorizedException();
     }
     return true;
+  }
+
+  private isCorrectType(
+    type: JwtTokenType,
+    isRefreshEndpoint: boolean,
+  ): boolean {
+    return isRefreshEndpoint
+      ? type === JwtTokenType.Refresh
+      : type === JwtTokenType.Access;
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {

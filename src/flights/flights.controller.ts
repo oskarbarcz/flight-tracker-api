@@ -33,7 +33,7 @@ import { UnauthorizedResponse } from '../common/response/unauthorized.response';
 import { ForbiddenRequest } from '../common/response/forbidden.response';
 import { Role } from '../auth/decorator/role.decorator';
 import { UserRole } from '@prisma/client';
-import { JwtUser } from '../auth/dto/jwt-user.dto';
+import { AuthorizedRequest } from '../common/request/authorized.request';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -279,11 +279,9 @@ export class FlightsController {
   async checkInPilot(
     @uuid('id') id: string,
     @Body() schedule: Schedule,
-    @Req() request: Request & { user: JwtUser },
+    @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    const user = request.user;
-
-    await this.flightsService.checkInPilot(id, schedule, user.sub);
+    await this.flightsService.checkInPilot(id, schedule, request.user.sub);
   }
 
   @ApiOperation({
@@ -626,7 +624,7 @@ export class FlightsController {
   @Role(UserRole.CabinCrew)
   async closeFlightPlan(
     @uuid('id') id: string,
-    @Req() request: Request & { user: JwtUser },
+    @Req() request: AuthorizedRequest,
   ): Promise<void> {
     await this.flightsService.close(id, request.user.sub);
   }
