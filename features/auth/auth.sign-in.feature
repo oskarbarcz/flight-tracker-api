@@ -1,4 +1,4 @@
-Feature: As a user I can send credentials and get JWT token
+Feature: As a user I can send credentials and get JWT access token and JWT refresh token
 
   Scenario: As an admin I can sign in with valid credentials
     Given I use seed data
@@ -13,7 +13,8 @@ Feature: As a user I can send credentials and get JWT token
     And the response body should contain:
     """json
     {
-      "token": "@jwt_token"
+      "accessToken": "@jwt_access_token",
+      "refreshToken": "@jwt_refresh_token"
     }
     """
 
@@ -30,7 +31,8 @@ Feature: As a user I can send credentials and get JWT token
     And the response body should contain:
     """json
     {
-      "token": "@jwt_token"
+      "accessToken": "@jwt_access_token",
+      "refreshToken": "@jwt_refresh_token"
     }
     """
 
@@ -47,7 +49,8 @@ Feature: As a user I can send credentials and get JWT token
     And the response body should contain:
     """json
     {
-      "token": "@jwt_token"
+      "accessToken": "@jwt_access_token",
+      "refreshToken": "@jwt_refresh_token"
     }
     """
 

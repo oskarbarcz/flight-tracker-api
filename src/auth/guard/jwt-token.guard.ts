@@ -42,7 +42,6 @@ export class JwtTokenGuard implements CanActivate {
       });
 
       const isRefreshEndpoint = request.url === '/api/v1/auth/refresh';
-      console.log(isRefreshEndpoint);
 
       if (!this.isCorrectType(payload.type, isRefreshEndpoint)) {
         throw new CannotUseTokenTypeError(payload.type);

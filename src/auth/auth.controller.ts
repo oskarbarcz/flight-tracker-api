@@ -75,6 +75,6 @@ export class AuthController {
   @Post('/sign-out')
   @HttpCode(HttpStatus.NO_CONTENT)
   async signOut(@Req() req: AuthorizedRequest): Promise<void> {
-    await this.authService.signOutFromSession(req.user.sub);
+    await this.authService.signOutFromSession(req.user.session);
   }
 }

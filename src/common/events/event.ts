@@ -1,7 +1,6 @@
 export enum EventType {
   FlightWasCheckedIn = 'flight.check-in',
   FlightWasClosed = 'flight.close',
-  RefreshTokenWasChanged = 'user.refresh-token-change',
 }
 
 export type FlightWasCheckedInPayload = {
@@ -11,9 +10,4 @@ export type FlightWasCheckedInPayload = {
 
 export type FlightWasClosedPayload = {
   userId: string;
-};
-
-export type RefreshTokenWasChangedPayload = {
-  userId: string;
-  refreshToken: string | null;
 };
