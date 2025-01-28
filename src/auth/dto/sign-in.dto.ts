@@ -13,7 +13,7 @@ export class SignInRequest {
 
   @ApiProperty({
     description: 'User password',
-    example: 'P@$$w0rd',
+    example: 'P@$$$$w0rd',
   })
   @IsNotEmpty()
   @IsString()
@@ -25,10 +25,17 @@ export class SignInResponse {
     description:
       'JWT authorization token containing fields:<br />' +
       '`sub` - user unique system identifier,<br />' +
+      '`session` - session unique system identifier,<br />' +
       '`name` - user name and surname,<br />' +
       '`email` - user email address,<br />' +
       '`role` - role that is assigned to user',
     example: 'eyJhbGci...',
   })
-  token: string;
+  accessToken: string;
+
+  @ApiProperty({
+    description: 'JWT refresh token that can be used to refresh `accessToken`',
+    example: 'eyJhbGci...',
+  })
+  refreshToken: string;
 }

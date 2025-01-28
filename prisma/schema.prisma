@@ -75,15 +75,27 @@ model AirportsOnFlights {
 }
 
 model User {
-  id              String   @id @db.Uuid
+  id              String            @id @db.Uuid
   name            String
-  email           String   @unique
+  email           String            @unique
   password        String
   role            UserRole
-  currentFlight   Flight?  @relation(fields: [currentFlightId], references: [id])
-  currentFlightId String?  @unique @db.Uuid
+  currentFlight   Flight?           @relation(fields: [currentFlightId], references: [id])
+  currentFlightId String?           @unique @db.Uuid
+  JwtRefreshToken JwtRefreshToken[]
 
   @@map("user")
+}
+
+model JwtRefreshToken {
+  id        String   @id @db.Uuid
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.Uuid
+  token     String   @unique
+  createdAt DateTime
+  expiresAt DateTime
+
+  @@map("jwt_refresh_token")
 }
 
 enum UserRole {
