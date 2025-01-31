@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Req } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -23,6 +23,7 @@ import { UserRole } from '@prisma/client';
 import { Role } from '../auth/decorator/role.decorator';
 import { UnauthorizedResponse } from '../common/response/unauthorized.response';
 import { ForbiddenRequest } from '../common/response/forbidden.response';
+import { AuthorizedRequest } from '../common/request/authorized.request';
 
 @ApiTags('user')
 @Controller('/api/v1/user')
@@ -81,6 +82,22 @@ export class UsersController {
   @Role(UserRole.Admin)
   findAll(): Promise<GetUserDto[]> {
     return this.usersService.findAll();
+  }
+
+  @ApiOperation({
+    summary: 'Retrieve details of the current user',
+  })
+  @ApiBearerAuth()
+  @ApiOkResponse({
+    type: GetUserDto,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @Get('/me')
+  getMe(@Req() request: AuthorizedRequest): Promise<GetUserDto> {
+    return this.usersService.findOne(request.user.sub);
   }
 
   @ApiOperation({
