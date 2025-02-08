@@ -1,106 +1,101 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+![My Project Header](.github/image/header.png)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Flight Tracker
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+A comprehensive web app for scheduling and tracking flights in a flight simulator environment. Designed for virtual
+aviation enthusiasts, it enables seamless management of flights, aircraft, airports, crews, and passengers.
 
-## Description
+With this app, you can:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Plan & manage flights with detailed flight plans
+- Track flights step-by-step from departure to arrival
+- Generate timesheets & loadsheets for accurate record-keeping
+- Monitor aircraft status and optimize resource allocation
 
-## Project setup
+Take full control of your virtual airline operations with a realistic and structured workflow for flight simulation
 
-```bash
-$ npm install
+This is server part of the project. For client part, please visit
+[this repository](https://github.com/oskarbarcz/flight-tracker-app).
+
+## Repository contents
+
+Repository contains server code for [Flight Tracker](https://flights.barcz.me) app.
+
+Project is using **Node.js** and **TypeScript** in versions listed below:
+
+| Technology | Version |
+| ---------- |---------|
+| Node.js    | 22.9    |
+| TypeScript | ^5.7    |
+
+Main dependencies are **Nest.js** and **Prisma ORM** in versions listed below.
+
+| Vendor       | Version |
+|--------------|---------|
+| Nest.js      | ^10.4   |
+| Prisma       | ^6.3.1  |
+
+
+## Getting Started
+
+### Environment
+
+This app uses docker-based virtualization to run. In order to set up project, follow these steps:
+
+1. Clone project by running:
+
+```shell
+git@github.com:oskarbarcz/flight-tracker-api.git
 ```
 
-## Compile and run the project
+2. Prepare environment variable file by copying `.env.example` to `.env` and fill it with your data.
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```shell
+cd flight-tracker-api
+cp .env.dist .env
 ```
 
-## Run tests
+3. Use docker compose to set up the environment
 
-```bash
-# unit tests
-$ npm run test
+```shell
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+docker compose up -d --build
 ```
+Packages, database schema, seed data will be configured automatically.
 
-## Deployment
+4. Your project should be up and running. Open browser and go to [http://localhost/api](http://localhost/api) to see the
+api documentation.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Default credentials for the API are:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+| Role       | Username               | Password |
+|------------|------------------------|----------|
+| Cabin crew | cabin-crew@example.com | P@$$w0rd |
+| Operations | operations@example.com | P@$$w0rd |
+| Admin      | admin@example.com      | P@$$w0rd |
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
-
-## Generating certs:
+### Generating certs
+Application has by default configured EC certificates. However, if you want to create custom ones, use the command 
+below:
 
 ```shell
 openssl ecparam -genkey -name prime256v1 -noout -out private.key
 openssl ec -in private.key -pubout -out public.key
 ```
+
+## Build, Test and Deploy
+
+This project uses [semantic versioning](https://semver.org/spec/v2.0.0.html).
+
+This project has configured continuous integration and continuous deployment pipelines. It uses GitHub Actions to
+automatically build, test and deploy the app to the DigitalOcean. You can find the configuration in `.github/workflows`
+directory.
+
+## License
+
+This projects adapts UNLICENSE. For more information, please visit [UNLICENSE](UNLICENSE) file.
+
+## Disclaimer
+
+I am experienced software engineer, but I am not connected anyhow with airline industry. This project is created for
+educational purposes only and should not be used for real-world aviation operations.
