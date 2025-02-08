@@ -41,7 +41,7 @@ Feature: Update aircraft
       "livery": "Lufthansa Classic (2024)",
       "registration": "D-AIMC",
       "selcal": "LR-CK",
-      "shortName": "A330-900",
+      "shortName": "Airbus A330",
       "operator":{
         "id": "1d85d597-c3a1-43cf-b888-10d674ea7a46",
         "icaoCode": "LOT",

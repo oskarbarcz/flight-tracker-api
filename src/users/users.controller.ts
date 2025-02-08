@@ -15,7 +15,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { uuid } from '../common/validation/uuid.param';
+import { UuidParam } from '../common/validation/uuid.param';
 import { GenericBadRequestResponse } from '../common/response/bad-request.response';
 import { GenericNotFoundResponse } from '../common/response/not-found.response';
 import { GetUserDto } from './dto/get-user.dto';
@@ -132,7 +132,7 @@ export class UsersController {
   })
   @Get(':id')
   @Role(UserRole.Admin)
-  findOne(@uuid('id') id: string): Promise<GetUserDto> {
+  findOne(@UuidParam('id') id: string): Promise<GetUserDto> {
     return this.usersService.findOne(id);
   }
 
@@ -166,7 +166,7 @@ export class UsersController {
   @Patch(':id')
   @Role(UserRole.Admin)
   update(
-    @uuid('id') id: string,
+    @UuidParam('id') id: string,
     @Body() body: UpdateUserDto,
   ): Promise<GetUserDto> {
     return this.usersService.update(id, body);

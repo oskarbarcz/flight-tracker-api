@@ -44,46 +44,46 @@ Feature: Close flight
       "status": "closed",
       "timesheet": {
         "scheduled": {
-          "arrivalTime": "2024-01-01T16:00:00.000Z",
-          "onBlockTime": "2024-01-01T16:18:00.000Z",
-          "takeoffTime": "2024-01-01T13:15:00.000Z",
-          "offBlockTime": "2024-01-01T13:00:00.000Z"
+          "arrivalTime": "2025-01-01T16:00:00.000Z",
+          "onBlockTime": "2025-01-01T16:18:00.000Z",
+          "takeoffTime": "2025-01-01T13:15:00.000Z",
+          "offBlockTime": "2025-01-01T13:00:00.000Z"
         },
         "estimated": {
-          "arrivalTime": "2024-01-01T15:50:00.000Z",
-          "onBlockTime": "2024-01-01T16:08:00.000Z",
-          "takeoffTime": "2024-01-01T13:15:00.000Z",
-          "offBlockTime": "2024-01-01T13:00:00.000Z"
+          "arrivalTime": "2025-01-01T15:50:00.000Z",
+          "onBlockTime": "2025-01-01T16:08:00.000Z",
+          "takeoffTime": "2025-01-01T13:15:00.000Z",
+          "offBlockTime": "2025-01-01T13:00:00.000Z"
         },
         "actual": {
-          "arrivalTime": "2024-01-01T16:10:00.000Z",
-          "onBlockTime": "2024-01-01T16:28:00.000Z",
-          "takeoffTime": "2024-01-01T13:25:00.000Z",
-          "offBlockTime": "2024-01-01T13:10:00.000Z"
+          "arrivalTime": "2025-01-01T16:10:00.000Z",
+          "onBlockTime": "2025-01-01T16:28:00.000Z",
+          "takeoffTime": "2025-01-01T13:25:00.000Z",
+          "offBlockTime": "2025-01-01T13:10:00.000Z"
         }
       },
       "aircraft": {
-        "id": "7d27a031-5abb-415f-bde5-1aa563ad394e",
-        "icaoCode": "A321",
-        "shortName": "A321-251",
-        "fullName": "Airbus A331-251 SL ACT-2",
-        "registration": "D-AIDA",
-        "selcal": "SK-PK",
-        "livery": "Sunshine (2024)",
+        "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "icaoCode": "B773",
+        "shortName": "Boeing 777",
+        "fullName": "Boeing 777-300ER",
+        "registration": "N78881",
+        "selcal": "KY-JO",
+        "livery": "Team USA (2023)",
         "operator": {
-          "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
-          "icaoCode": "CDG",
-          "shortName": "Condor",
-          "fullName": "Condor Flugdienst",
-          "callsign": "CONDOR"
+          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+          "icaoCode": "AAL",
+          "shortName": "American Airlines",
+          "fullName": "American Airlines, Inc.",
+          "callsign": "AMERICAN"
         }
       },
       "operator": {
-        "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
-        "icaoCode": "CDG",
-        "shortName": "Condor",
-        "fullName": "Condor Flugdienst",
-        "callsign": "CONDOR"
+        "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+        "icaoCode": "AAL",
+        "shortName": "American Airlines",
+        "fullName": "American Airlines, Inc.",
+        "callsign": "AMERICAN"
       },
       "airports": [
         {

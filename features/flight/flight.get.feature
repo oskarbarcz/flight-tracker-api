@@ -14,34 +14,34 @@ Feature: Get flight
       "status": "created",
       "timesheet": {
         "scheduled": {
-          "arrivalTime": "2024-01-01T21:00:00.000Z",
-          "onBlockTime": "2024-01-01T21:10:00.000Z",
-          "takeoffTime": "2024-01-01T12:15:00.000Z",
-          "offBlockTime": "2024-01-01T12:00:00.000Z"
+          "arrivalTime": "2025-01-01T21:00:00.000Z",
+          "onBlockTime": "2025-01-01T21:10:00.000Z",
+          "takeoffTime": "2025-01-01T12:15:00.000Z",
+          "offBlockTime": "2025-01-01T12:00:00.000Z"
         }
       },
       "aircraft": {
-        "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
-        "icaoCode": "B773",
-        "shortName": "B777-300ER",
-        "fullName": "Boeing 777-300ER",
-        "registration": "N78881",
-        "selcal": "KY-JO",
-        "livery": "Team USA (2023)",
+        "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+        "icaoCode": "A339",
+        "shortName": "Airbus A330",
+        "fullName": "Airbus A330-900 neo",
+        "registration": "D-AIMC",
+        "selcal": "LR-CK",
+        "livery": "Fanhansa (2024)",
         "operator": {
-          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
-          "icaoCode": "AAL",
-          "shortName": "American Airlines",
-          "fullName": "American Airlines, Inc.",
-          "callsign": "AMERICAN"
+          "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+          "icaoCode": "DLH",
+          "shortName": "Lufthansa",
+          "fullName": "Deutsche Lufthansa AG",
+          "callsign": "LUFTHANSA"
         }
       },
       "operator": {
-        "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
-        "icaoCode": "AAL",
-        "shortName": "American Airlines",
-        "fullName": "American Airlines, Inc.",
-        "callsign": "AMERICAN"
+        "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+        "icaoCode": "DLH",
+        "shortName": "Lufthansa",
+        "fullName": "Deutsche Lufthansa AG",
+        "callsign": "LUFTHANSA"
       },
       "airports": [
         {

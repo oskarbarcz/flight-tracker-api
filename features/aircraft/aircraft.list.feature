@@ -15,13 +15,13 @@ Feature: List aircraft
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
         "selcal": "LR-CK",
-        "shortName": "A330-900",
+        "shortName": "Airbus A330",
         "operator":{
           "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
           "icaoCode": "DLH",
           "shortName": "Lufthansa",
           "fullName": "Deutsche Lufthansa AG",
-          "callsign": "Lufthansa"
+          "callsign": "LUFTHANSA"
         }
       },
       {
@@ -31,7 +31,7 @@ Feature: List aircraft
         "livery": "Sunshine (2024)",
         "registration": "D-AIDA",
         "selcal": "SK-PK",
-        "shortName": "A321-251",
+        "shortName": "Airbus A321",
         "operator": {
           "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
           "icaoCode": "CDG",
@@ -47,7 +47,7 @@ Feature: List aircraft
         "livery": "Water (2024)",
         "registration": "D-AIDK",
         "selcal": "MS-KL",
-        "shortName": "A319-200",
+        "shortName": "Airbus A319",
         "operator":{
           "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
           "icaoCode": "CDG",
@@ -63,7 +63,7 @@ Feature: List aircraft
         "livery": "Team USA (2023)",
         "registration": "N78881",
         "selcal": "KY-JO",
-        "shortName": "B777-300ER",
+        "shortName": "Boeing 777",
         "operator": {
           "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
           "icaoCode": "AAL",

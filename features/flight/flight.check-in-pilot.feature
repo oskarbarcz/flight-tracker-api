@@ -6,10 +6,10 @@ Feature: Check in pilot for flight
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
     """json
     {
-      "arrivalTime": "2024-01-01T15:50:00.000Z",
-      "onBlockTime": "2024-01-01T16:08:00.000Z",
-      "takeoffTime": "2024-01-01T13:15:00.000Z",
-      "offBlockTime": "2024-01-01T13:00:00.000Z"
+      "arrivalTime": "2025-01-01T15:50:00.000Z",
+      "onBlockTime": "2025-01-01T16:08:00.000Z",
+      "takeoffTime": "2025-01-01T13:15:00.000Z",
+      "offBlockTime": "2025-01-01T13:00:00.000Z"
     }
     """
     Then the response status should be 403
@@ -28,10 +28,10 @@ Feature: Check in pilot for flight
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
     """json
     {
-      "arrivalTime": "2024-01-01T15:50:00.000Z",
-      "onBlockTime": "2024-01-01T16:08:00.000Z",
-      "takeoffTime": "2024-01-01T13:15:00.000Z",
-      "offBlockTime": "2024-01-01T13:00:00.000Z"
+      "arrivalTime": "2025-01-01T15:50:00.000Z",
+      "onBlockTime": "2025-01-01T16:08:00.000Z",
+      "takeoffTime": "2025-01-01T13:15:00.000Z",
+      "offBlockTime": "2025-01-01T13:00:00.000Z"
     }
     """
     Then the response status should be 403
@@ -50,10 +50,10 @@ Feature: Check in pilot for flight
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
     """json
     {
-      "arrivalTime": "2024-01-01T15:50:00.000Z",
-      "onBlockTime": "2024-01-01T16:08:00.000Z",
-      "takeoffTime": "2024-01-01T13:15:00.000Z",
-      "offBlockTime": "2024-01-01T13:00:00.000Z"
+      "arrivalTime": "2025-01-01T15:50:00.000Z",
+      "onBlockTime": "2025-01-01T16:08:00.000Z",
+      "takeoffTime": "2025-01-01T13:15:00.000Z",
+      "offBlockTime": "2025-01-01T13:00:00.000Z"
     }
     """
     Then the response status should be 204
@@ -68,40 +68,40 @@ Feature: Check in pilot for flight
       "status": "checked_in",
       "timesheet": {
         "scheduled": {
-          "arrivalTime": "2024-01-01T16:00:00.000Z",
-          "onBlockTime": "2024-01-01T16:18:00.000Z",
-          "takeoffTime": "2024-01-01T13:15:00.000Z",
-          "offBlockTime": "2024-01-01T13:00:00.000Z"
+          "arrivalTime": "2025-01-01T16:00:00.000Z",
+          "onBlockTime": "2025-01-01T16:18:00.000Z",
+          "takeoffTime": "2025-01-01T13:15:00.000Z",
+          "offBlockTime": "2025-01-01T13:00:00.000Z"
         },
         "estimated": {
-          "arrivalTime": "2024-01-01T15:50:00.000Z",
-          "onBlockTime": "2024-01-01T16:08:00.000Z",
-          "takeoffTime": "2024-01-01T13:15:00.000Z",
-          "offBlockTime": "2024-01-01T13:00:00.000Z"
+          "arrivalTime": "2025-01-01T15:50:00.000Z",
+          "onBlockTime": "2025-01-01T16:08:00.000Z",
+          "takeoffTime": "2025-01-01T13:15:00.000Z",
+          "offBlockTime": "2025-01-01T13:00:00.000Z"
         }
       },
       "aircraft": {
-        "id": "7d27a031-5abb-415f-bde5-1aa563ad394e",
-        "icaoCode": "A321",
-        "shortName": "A321-251",
-        "fullName": "Airbus A331-251 SL ACT-2",
-        "registration": "D-AIDA",
-        "selcal": "SK-PK",
-        "livery": "Sunshine (2024)",
+        "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "icaoCode": "B773",
+        "shortName": "Boeing 777",
+        "fullName": "Boeing 777-300ER",
+        "registration": "N78881",
+        "selcal": "KY-JO",
+        "livery": "Team USA (2023)",
         "operator": {
-          "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
-          "icaoCode": "CDG",
-          "shortName": "Condor",
-          "fullName": "Condor Flugdienst",
-          "callsign": "CONDOR"
+          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+          "icaoCode": "AAL",
+          "shortName": "American Airlines",
+          "fullName": "American Airlines, Inc.",
+          "callsign": "AMERICAN"
         }
       },
       "operator": {
-        "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
-        "icaoCode": "CDG",
-        "shortName": "Condor",
-        "fullName": "Condor Flugdienst",
-        "callsign": "CONDOR"
+        "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+        "icaoCode": "AAL",
+        "shortName": "American Airlines",
+        "fullName": "American Airlines, Inc.",
+        "callsign": "AMERICAN"
       },
       "airports": [
         {
@@ -157,20 +157,20 @@ Feature: Check in pilot for flight
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
     """json
     {
-      "arrivalTime": "2024-01-01T15:50:00.000Z",
-      "onBlockTime": "2024-01-01T16:08:00.000Z",
-      "takeoffTime": "2024-01-01T13:15:00.000Z",
-      "offBlockTime": "2024-01-01T13:00:00.000Z"
+      "arrivalTime": "2025-01-01T15:50:00.000Z",
+      "onBlockTime": "2025-01-01T16:08:00.000Z",
+      "takeoffTime": "2025-01-01T13:15:00.000Z",
+      "offBlockTime": "2025-01-01T13:00:00.000Z"
     }
     """
     Then the response status should be 204
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
     """json
     {
-      "arrivalTime": "2024-01-01T15:50:00.000Z",
-      "onBlockTime": "2024-01-01T16:08:00.000Z",
-      "takeoffTime": "2024-01-01T13:15:00.000Z",
-      "offBlockTime": "2024-01-01T13:00:00.000Z"
+      "arrivalTime": "2025-01-01T15:50:00.000Z",
+      "onBlockTime": "2025-01-01T16:08:00.000Z",
+      "takeoffTime": "2025-01-01T13:15:00.000Z",
+      "offBlockTime": "2025-01-01T13:00:00.000Z"
     }
     """
     Then the response status should be 422
@@ -189,10 +189,10 @@ Feature: Check in pilot for flight
     When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/check-in" with body:
     """json
     {
-      "arrivalTime": "2024-01-01T15:50:00.000Z",
-      "onBlockTime": "2024-01-01T16:08:00.000Z",
-      "takeoffTime": "2024-01-01T13:15:00.000Z",
-      "offBlockTime": "2024-01-01T13:00:00.000Z"
+      "arrivalTime": "2025-01-01T15:50:00.000Z",
+      "onBlockTime": "2025-01-01T16:08:00.000Z",
+      "takeoffTime": "2025-01-01T13:15:00.000Z",
+      "offBlockTime": "2025-01-01T13:00:00.000Z"
     }
     """
     Then the response status should be 422
@@ -248,10 +248,10 @@ Feature: Check in pilot for flight
     When I send a "POST" request to "/api/v1/flight/141a2f56-708d-4cc9-b967-64dc0c2b20c4/check-in" with body:
     """json
     {
-      "arrivalTime": "2024-01-01T15:50:00.000Z",
-      "onBlockTime": "2024-01-01T16:08:00.000Z",
-      "takeoffTime": "2024-01-01T13:15:00.000Z",
-      "offBlockTime": "2024-01-01T13:00:00.000Z"
+      "arrivalTime": "2025-01-01T15:50:00.000Z",
+      "onBlockTime": "2025-01-01T16:08:00.000Z",
+      "takeoffTime": "2025-01-01T13:15:00.000Z",
+      "offBlockTime": "2025-01-01T13:00:00.000Z"
     }
     """
     Then the response status should be 404
@@ -270,10 +270,10 @@ Feature: Check in pilot for flight
     When I send a "POST" request to "/api/v1/flight/incorrect-uuid/check-in" with body:
     """json
     {
-      "arrivalTime": "2024-01-01T15:50:00.000Z",
-      "onBlockTime": "2024-01-01T16:08:00.000Z",
-      "takeoffTime": "2024-01-01T13:15:00.000Z",
-      "offBlockTime": "2024-01-01T13:00:00.000Z"
+      "arrivalTime": "2025-01-01T15:50:00.000Z",
+      "onBlockTime": "2025-01-01T16:08:00.000Z",
+      "takeoffTime": "2025-01-01T13:15:00.000Z",
+      "offBlockTime": "2025-01-01T13:00:00.000Z"
     }
     """
     Then the response status should be 400
@@ -290,10 +290,10 @@ Feature: Check in pilot for flight
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
     """json
     {
-      "arrivalTime": "2024-01-01T15:50:00.000Z",
-      "onBlockTime": "2024-01-01T16:08:00.000Z",
-      "takeoffTime": "2024-01-01T13:15:00.000Z",
-      "offBlockTime": "2024-01-01T13:00:00.000Z"
+      "arrivalTime": "2025-01-01T15:50:00.000Z",
+      "onBlockTime": "2025-01-01T16:08:00.000Z",
+      "takeoffTime": "2025-01-01T13:15:00.000Z",
+      "offBlockTime": "2025-01-01T13:00:00.000Z"
     }
     """
     Then the response status should be 401

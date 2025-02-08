@@ -19,7 +19,7 @@ export class Aircraft {
 
   @ApiProperty({
     description: 'Aircraft short name',
-    example: 'B777-300ER',
+    example: 'Boeing 777',
   })
   @IsString()
   @IsNotEmpty()
