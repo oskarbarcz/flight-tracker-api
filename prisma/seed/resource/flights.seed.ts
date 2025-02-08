@@ -14,7 +14,7 @@ async function loadDLH450(prisma: PrismaClient): Promise<void> {
     callsign: 'DLH 450',
     status: FlightStatus.Created,
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B773
+    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A339
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2024-01-01 12:00'),
