@@ -25,7 +25,7 @@ import {
 } from '@nestjs/swagger';
 import { GenericBadRequestResponse } from '../common/response/bad-request.response';
 import { GenericNotFoundResponse } from '../common/response/not-found.response';
-import { uuid } from '../common/validation/uuid.param';
+import { UuidParam } from '../common/validation/uuid.param';
 import { Flight } from './entities/flight.entity';
 import { CreateFlightRequest } from './dto/create-flight.dto';
 import { Schedule } from './entities/timesheet.entity';
@@ -79,7 +79,7 @@ export class FlightsController {
     type: GenericNotFoundResponse,
   })
   @Get(':id')
-  findOne(@uuid('id') id: string) {
+  findOne(@UuidParam('id') id: string) {
     return this.flightsService.find(id);
   }
 
@@ -150,7 +150,7 @@ export class FlightsController {
   @Delete(':id')
   @Role(UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)
-  async remove(@uuid('id') id: string): Promise<void> {
+  async remove(@UuidParam('id') id: string): Promise<void> {
     await this.flightsService.remove(id);
   }
 
@@ -189,7 +189,7 @@ export class FlightsController {
   @Post('/:id/mark-as-ready')
   @Role(UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)
-  async markAsReady(@uuid('id') id: string): Promise<void> {
+  async markAsReady(@UuidParam('id') id: string): Promise<void> {
     await this.flightsService.markAsReady(id);
   }
 
@@ -232,7 +232,7 @@ export class FlightsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.Operations)
   async updateScheduledTimesheet(
-    @uuid('id') id: string,
+    @UuidParam('id') id: string,
     @Body() schedule: Schedule,
   ): Promise<void> {
     await this.flightsService.updateScheduledTimesheet(id, schedule);
@@ -277,7 +277,7 @@ export class FlightsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
   async checkInPilot(
-    @uuid('id') id: string,
+    @UuidParam('id') id: string,
     @Body() schedule: Schedule,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
@@ -318,7 +318,7 @@ export class FlightsController {
   @Post('/:id/start-boarding')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async startBoarding(@uuid('id') id: string): Promise<void> {
+  async startBoarding(@UuidParam('id') id: string): Promise<void> {
     await this.flightsService.startBoarding(id);
   }
 
@@ -356,7 +356,7 @@ export class FlightsController {
   @Post('/:id/finish-boarding')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async finishBoarding(@uuid('id') id: string): Promise<void> {
+  async finishBoarding(@UuidParam('id') id: string): Promise<void> {
     await this.flightsService.finishBoarding(id);
   }
 
@@ -394,7 +394,7 @@ export class FlightsController {
   @Post('/:id/report-off-block')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async reportOffBlock(@uuid('id') id: string): Promise<void> {
+  async reportOffBlock(@UuidParam('id') id: string): Promise<void> {
     await this.flightsService.reportOffBlock(id);
   }
 
@@ -432,7 +432,7 @@ export class FlightsController {
   @Post('/:id/report-takeoff')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async reportTakeoff(@uuid('id') id: string): Promise<void> {
+  async reportTakeoff(@UuidParam('id') id: string): Promise<void> {
     await this.flightsService.reportTakeoff(id);
   }
 
@@ -470,7 +470,7 @@ export class FlightsController {
   @Post('/:id/report-arrival')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async reportArrival(@uuid('id') id: string): Promise<void> {
+  async reportArrival(@UuidParam('id') id: string): Promise<void> {
     await this.flightsService.reportArrival(id);
   }
 
@@ -508,7 +508,7 @@ export class FlightsController {
   @Post('/:id/report-on-block')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async reportOnBlock(@uuid('id') id: string): Promise<void> {
+  async reportOnBlock(@UuidParam('id') id: string): Promise<void> {
     await this.flightsService.reportOnBlock(id);
   }
 
@@ -546,7 +546,7 @@ export class FlightsController {
   @Post('/:id/start-offboarding')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async reportOffboardingStarted(@uuid('id') id: string): Promise<void> {
+  async reportOffboardingStarted(@UuidParam('id') id: string): Promise<void> {
     await this.flightsService.reportOffboardingStarted(id);
   }
 
@@ -584,7 +584,7 @@ export class FlightsController {
   @Post('/:id/finish-offboarding')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async reportOffboardingFinished(@uuid('id') id: string): Promise<void> {
+  async reportOffboardingFinished(@UuidParam('id') id: string): Promise<void> {
     await this.flightsService.reportOffboardingFinished(id);
   }
 
@@ -623,7 +623,7 @@ export class FlightsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
   async closeFlightPlan(
-    @uuid('id') id: string,
+    @UuidParam('id') id: string,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
     await this.flightsService.close(id, request.user.sub);

@@ -11,7 +11,7 @@ import {
 import { AirportsService } from './airports.service';
 import { CreateAirportDto } from './dto/create-airport.dto';
 import { UpdateAirportDto } from './dto/update-airport.dto';
-import { uuid } from '../common/validation/uuid.param';
+import { UuidParam } from '../common/validation/uuid.param';
 import { Airport } from './entities/airport.entity';
 import {
   ApiBadRequestResponse,
@@ -107,7 +107,7 @@ export class AirportsController {
     type: UnauthorizedResponse,
   })
   @Get(':id')
-  async findOne(@uuid('id') id: string): Promise<Airport> {
+  async findOne(@UuidParam('id') id: string): Promise<Airport> {
     return this.airportsService.findOne(id);
   }
 
@@ -145,7 +145,7 @@ export class AirportsController {
   @Patch(':id')
   @Role(UserRole.Operations)
   async update(
-    @uuid('id') id: string,
+    @UuidParam('id') id: string,
     @Body() updateAirportDto: UpdateAirportDto,
   ): Promise<Airport> {
     return this.airportsService.update(id, updateAirportDto);
@@ -183,7 +183,7 @@ export class AirportsController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.Operations)
-  async remove(@uuid('id') id: string): Promise<void> {
+  async remove(@UuidParam('id') id: string): Promise<void> {
     return this.airportsService.remove(id);
   }
 }

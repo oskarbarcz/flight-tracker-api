@@ -29,7 +29,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { GenericBadRequestResponse } from '../common/response/bad-request.response';
-import { uuid } from '../common/validation/uuid.param';
+import { UuidParam } from '../common/validation/uuid.param';
 import { GenericNotFoundResponse } from '../common/response/not-found.response';
 import { Role } from '../auth/decorator/role.decorator';
 import { UserRole } from '@prisma/client';
@@ -119,7 +119,7 @@ export class AircraftController {
     type: GenericNotFoundResponse,
   })
   @Get(':id')
-  async findOne(@uuid('id') id: string): Promise<CreateAircraftResponse> {
+  async findOne(@UuidParam('id') id: string): Promise<CreateAircraftResponse> {
     return this.aircraftService.findOne(id);
   }
 
@@ -157,7 +157,7 @@ export class AircraftController {
   @Patch(':id')
   @Role(UserRole.Operations)
   async update(
-    @uuid('id') id: string,
+    @UuidParam('id') id: string,
     @Body() updateAircraftDto: UpdateAircraftRequest,
   ): Promise<UpdateAircraftResponse> {
     return this.aircraftService.update(id, updateAircraftDto);
@@ -195,7 +195,7 @@ export class AircraftController {
   @Delete(':id')
   @Role(UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)
-  async remove(@uuid('id') id: string): Promise<void> {
+  async remove(@UuidParam('id') id: string): Promise<void> {
     await this.aircraftService.remove(id);
   }
 }

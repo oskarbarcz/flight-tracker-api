@@ -11,7 +11,7 @@ import {
 import { OperatorsService } from './operators.service';
 import { CreateOperatorDto } from './dto/create-operator.dto';
 import { UpdateOperatorDto } from './dto/update-operator.dto';
-import { uuid } from '../common/validation/uuid.param';
+import { UuidParam } from '../common/validation/uuid.param';
 import {
   ApiBearerAuth,
   ApiForbiddenResponse,
@@ -110,7 +110,7 @@ export class OperatorsController {
     type: GenericNotFoundResponse,
   })
   @Get(':id')
-  findOne(@uuid('id') id: string): Promise<Operator> {
+  findOne(@UuidParam('id') id: string): Promise<Operator> {
     return this.operatorsService.findOne(id);
   }
 
@@ -148,7 +148,7 @@ export class OperatorsController {
   @Patch(':id')
   @Role(UserRole.Operations)
   update(
-    @uuid('id') id: string,
+    @UuidParam('id') id: string,
     @Body() updateOperatorDto: UpdateOperatorDto,
   ): Promise<Operator> {
     return this.operatorsService.update(id, updateOperatorDto);
@@ -187,7 +187,7 @@ export class OperatorsController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.Operations)
-  remove(@uuid('id') id: string): Promise<void> {
+  remove(@UuidParam('id') id: string): Promise<void> {
     return this.operatorsService.remove(id);
   }
 }

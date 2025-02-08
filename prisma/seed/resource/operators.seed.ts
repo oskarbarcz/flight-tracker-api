@@ -14,7 +14,7 @@ export async function loadOperators(prisma: PrismaClient): Promise<void> {
     icaoCode: 'DLH',
     shortName: 'Lufthansa',
     fullName: 'Deutsche Lufthansa AG',
-    callsign: 'Lufthansa',
+    callsign: 'LUFTHANSA',
   };
 
   const lot: Operator = {

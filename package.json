@@ -22,7 +22,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:functional": "npx cucumber-js features/**/*.feature --require ./features/_context/**/*.ts --require-module ts-node/register",
     "database:reset": "npx prisma db push --force-reset",
-    "database:seed": "npx prisma db seed",
+    "database:seed": "npx prisma db push --force-reset && npx prisma db seed",
     "database:migrate": "npx prisma migrate deploy"
   },
   "dependencies": {
