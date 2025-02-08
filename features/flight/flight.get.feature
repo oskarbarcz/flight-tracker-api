@@ -14,10 +14,10 @@ Feature: Get flight
       "status": "created",
       "timesheet": {
         "scheduled": {
-          "arrivalTime": "2024-01-01T21:00:00.000Z",
-          "onBlockTime": "2024-01-01T21:10:00.000Z",
-          "takeoffTime": "2024-01-01T12:15:00.000Z",
-          "offBlockTime": "2024-01-01T12:00:00.000Z"
+          "arrivalTime": "2025-01-01T21:00:00.000Z",
+          "onBlockTime": "2025-01-01T21:10:00.000Z",
+          "takeoffTime": "2025-01-01T12:15:00.000Z",
+          "offBlockTime": "2025-01-01T12:00:00.000Z"
         }
       },
       "aircraft": {

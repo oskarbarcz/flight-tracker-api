@@ -14,10 +14,10 @@ Feature: Create a flight
       "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
-          "offBlockTime": "2024-01-01 12:00",
-          "takeoffTime": "2024-01-01 12:15",
-          "arrivalTime": "2024-01-01 21:00",
-          "onBlockTime": "2024-01-01 21:10"
+          "offBlockTime": "2025-01-01 12:00",
+          "takeoffTime": "2025-01-01 12:15",
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10"
         }
       }
     }
@@ -46,10 +46,10 @@ Feature: Create a flight
       "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
-          "offBlockTime": "2024-01-01 12:00",
-          "takeoffTime": "2024-01-01 12:15",
-          "arrivalTime": "2024-01-01 21:00",
-          "onBlockTime": "2024-01-01 21:10"
+          "offBlockTime": "2025-01-01 12:00",
+          "takeoffTime": "2025-01-01 12:15",
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10"
         }
       }
     }
@@ -64,10 +64,10 @@ Feature: Create a flight
       "status": "created",
       "timesheet": {
         "scheduled": {
-          "arrivalTime": "2024-01-01 21:00",
-          "onBlockTime": "2024-01-01 21:10",
-          "takeoffTime": "2024-01-01 12:15",
-          "offBlockTime": "2024-01-01 12:00"
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10",
+          "takeoffTime": "2025-01-01 12:15",
+          "offBlockTime": "2025-01-01 12:00"
         }
       },
       "aircraft": {
@@ -132,10 +132,10 @@ Feature: Create a flight
       "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
-          "offBlockTime": "2024-01-01 12:00",
-          "takeoffTime": "2024-01-01 12:15",
-          "arrivalTime": "2024-01-01 21:00",
-          "onBlockTime": "2024-01-01 21:10"
+          "offBlockTime": "2025-01-01 12:00",
+          "takeoffTime": "2025-01-01 12:15",
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10"
         }
       }
     }
@@ -164,10 +164,10 @@ Feature: Create a flight
       "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
-          "offBlockTime": "2024-01-01 12:00",
-          "takeoffTime": "2024-01-01 12:15",
-          "arrivalTime": "2024-01-01 21:00",
-          "onBlockTime": "2024-01-01 21:10"
+          "offBlockTime": "2025-01-01 12:00",
+          "takeoffTime": "2025-01-01 12:15",
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10"
         }
       }
     }
@@ -196,10 +196,10 @@ Feature: Create a flight
       "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
-          "offBlockTime": "2024-01-01 12:00",
-          "takeoffTime": "2024-01-01 12:15",
-          "arrivalTime": "2024-01-01 21:00",
-          "onBlockTime": "2024-01-01 21:10"
+          "offBlockTime": "2025-01-01 12:00",
+          "takeoffTime": "2025-01-01 12:15",
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10"
         }
       }
     }
@@ -228,10 +228,10 @@ Feature: Create a flight
       "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
-          "offBlockTime": "2024-01-01 12:00",
-          "takeoffTime": "2024-01-01 12:15",
-          "arrivalTime": "2024-01-01 21:00",
-          "onBlockTime": "2024-01-01 21:10"
+          "offBlockTime": "2025-01-01 12:00",
+          "takeoffTime": "2025-01-01 12:15",
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10"
         }
       }
     }
@@ -260,10 +260,10 @@ Feature: Create a flight
       "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
-          "offBlockTime": "2024-01-01 12:00",
-          "takeoffTime": "2024-01-01 12:15",
-          "arrivalTime": "2024-01-01 21:00",
-          "onBlockTime": "2024-01-01 21:10"
+          "offBlockTime": "2025-01-01 12:00",
+          "takeoffTime": "2025-01-01 12:15",
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10"
         }
       }
     }
@@ -292,10 +292,10 @@ Feature: Create a flight
       "operatorId": "5f61b6eb-6393-478c-88b5-56b29ec0a077",
       "timesheet": {
         "scheduled": {
-          "offBlockTime": "2024-01-01 12:00",
-          "takeoffTime": "2024-01-01 12:15",
-          "arrivalTime": "2024-01-01 21:00",
-          "onBlockTime": "2024-01-01 21:10"
+          "offBlockTime": "2025-01-01 12:00",
+          "takeoffTime": "2025-01-01 12:15",
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10"
         }
       }
     }
@@ -321,10 +321,10 @@ Feature: Create a flight
       "status": "taxiing_in",
       "timesheet": {
         "scheduled": {
-          "offBlockTime": "2024-01-01 12:00",
-          "takeoffTime": "2024-01-01 12:15",
-          "arrivalTime": "2024-01-01 21:00",
-          "onBlockTime": "2024-01-01 21:10"
+          "offBlockTime": "2025-01-01 12:00",
+          "takeoffTime": "2025-01-01 12:15",
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10"
         }
       }
     }
@@ -373,10 +373,10 @@ Feature: Create a flight
       "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
       "timesheet": {
         "scheduled": {
-          "offBlockTime": "2024-01-01 12:00",
-          "takeoffTime": "2024-01-01 12:15",
-          "arrivalTime": "2024-01-01 21:00",
-          "onBlockTime": "2024-01-01 21:10"
+          "offBlockTime": "2025-01-01 12:00",
+          "takeoffTime": "2025-01-01 12:15",
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10"
         }
       }
     }

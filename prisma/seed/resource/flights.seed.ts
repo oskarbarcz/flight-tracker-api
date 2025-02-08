@@ -17,10 +17,10 @@ async function loadDLH450(prisma: PrismaClient): Promise<void> {
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A339
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 12:00'),
-        takeoffTime: new Date('2024-01-01 12:15'),
-        arrivalTime: new Date('2024-01-01 21:00'),
-        onBlockTime: new Date('2024-01-01 21:10'),
+        offBlockTime: new Date('2025-01-01 12:00'),
+        takeoffTime: new Date('2025-01-01 12:15'),
+        arrivalTime: new Date('2025-01-01 21:00'),
+        onBlockTime: new Date('2025-01-01 21:10'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -107,22 +107,22 @@ async function loadAAL4905(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
       estimated: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
       actual: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -184,10 +184,10 @@ async function loadAAL4906(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -249,10 +249,10 @@ async function loadAAL4907(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -314,16 +314,16 @@ async function loadAAL4908(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
       estimated: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 15:50'),
-        onBlockTime: new Date('2024-01-01 16:08'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -385,16 +385,16 @@ async function loadAAL4909(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
       estimated: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 15:50'),
-        onBlockTime: new Date('2024-01-01 16:08'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -456,16 +456,16 @@ async function loadAAL4910(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
       estimated: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 15:50'),
-        onBlockTime: new Date('2024-01-01 16:08'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -527,19 +527,19 @@ async function loadAAL4911(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
       estimated: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 15:50'),
-        onBlockTime: new Date('2024-01-01 16:08'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
       },
       actual: {
-        offBlockTime: new Date('2024-01-01 13:10'),
+        offBlockTime: new Date('2025-01-01 13:10'),
         takeoffTime: null,
         arrivalTime: null,
         onBlockTime: null,
@@ -604,20 +604,20 @@ async function loadAAL4912(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
       estimated: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 15:50'),
-        onBlockTime: new Date('2024-01-01 16:08'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
       },
       actual: {
-        offBlockTime: new Date('2024-01-01 13:10'),
-        takeoffTime: new Date('2024-01-01 13:25'),
+        offBlockTime: new Date('2025-01-01 13:10'),
+        takeoffTime: new Date('2025-01-01 13:25'),
         arrivalTime: null,
         onBlockTime: null,
       },
@@ -681,21 +681,21 @@ async function loadAAL4913(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
       estimated: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 15:50'),
-        onBlockTime: new Date('2024-01-01 16:08'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
       },
       actual: {
-        offBlockTime: new Date('2024-01-01 13:10'),
-        takeoffTime: new Date('2024-01-01 13:25'),
-        arrivalTime: new Date('2024-01-01 16:10'),
+        offBlockTime: new Date('2025-01-01 13:10'),
+        takeoffTime: new Date('2025-01-01 13:25'),
+        arrivalTime: new Date('2025-01-01 16:10'),
         onBlockTime: null,
       },
     } as Prisma.InputJsonValue,
@@ -758,22 +758,22 @@ async function loadAAL4914(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
       estimated: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 15:50'),
-        onBlockTime: new Date('2024-01-01 16:08'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
       },
       actual: {
-        offBlockTime: new Date('2024-01-01 13:10'),
-        takeoffTime: new Date('2024-01-01 13:25'),
-        arrivalTime: new Date('2024-01-01 16:10'),
-        onBlockTime: new Date('2024-01-01 16:28'),
+        offBlockTime: new Date('2025-01-01 13:10'),
+        takeoffTime: new Date('2025-01-01 13:25'),
+        arrivalTime: new Date('2025-01-01 16:10'),
+        onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -835,22 +835,22 @@ async function loadAAL4915(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
       estimated: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 15:50'),
-        onBlockTime: new Date('2024-01-01 16:08'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
       },
       actual: {
-        offBlockTime: new Date('2024-01-01 13:10'),
-        takeoffTime: new Date('2024-01-01 13:25'),
-        arrivalTime: new Date('2024-01-01 16:10'),
-        onBlockTime: new Date('2024-01-01 16:28'),
+        offBlockTime: new Date('2025-01-01 13:10'),
+        takeoffTime: new Date('2025-01-01 13:25'),
+        arrivalTime: new Date('2025-01-01 16:10'),
+        onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -912,22 +912,22 @@ async function loadAAL4916(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
       estimated: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 15:50'),
-        onBlockTime: new Date('2024-01-01 16:08'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
       },
       actual: {
-        offBlockTime: new Date('2024-01-01 13:10'),
-        takeoffTime: new Date('2024-01-01 13:25'),
-        arrivalTime: new Date('2024-01-01 16:10'),
-        onBlockTime: new Date('2024-01-01 16:28'),
+        offBlockTime: new Date('2025-01-01 13:10'),
+        takeoffTime: new Date('2025-01-01 13:25'),
+        arrivalTime: new Date('2025-01-01 16:10'),
+        onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
   };
@@ -989,22 +989,22 @@ async function loadAAL4917(prisma: PrismaClient): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     timesheet: {
       scheduled: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 16:00'),
-        onBlockTime: new Date('2024-01-01 16:18'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
       },
       estimated: {
-        offBlockTime: new Date('2024-01-01 13:00'),
-        takeoffTime: new Date('2024-01-01 13:15'),
-        arrivalTime: new Date('2024-01-01 15:50'),
-        onBlockTime: new Date('2024-01-01 16:08'),
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
       },
       actual: {
-        offBlockTime: new Date('2024-01-01 13:10'),
-        takeoffTime: new Date('2024-01-01 13:25'),
-        arrivalTime: new Date('2024-01-01 16:10'),
-        onBlockTime: new Date('2024-01-01 16:28'),
+        offBlockTime: new Date('2025-01-01 13:10'),
+        takeoffTime: new Date('2025-01-01 13:25'),
+        arrivalTime: new Date('2025-01-01 16:10'),
+        onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
   };

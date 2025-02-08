@@ -44,22 +44,22 @@ Feature: Report takeoff
       "status": "in_cruise",
       "timesheet": {
         "scheduled": {
-          "arrivalTime": "2024-01-01T16:00:00.000Z",
-          "onBlockTime": "2024-01-01T16:18:00.000Z",
-          "takeoffTime": "2024-01-01T13:15:00.000Z",
-          "offBlockTime": "2024-01-01T13:00:00.000Z"
+          "arrivalTime": "2025-01-01T16:00:00.000Z",
+          "onBlockTime": "2025-01-01T16:18:00.000Z",
+          "takeoffTime": "2025-01-01T13:15:00.000Z",
+          "offBlockTime": "2025-01-01T13:00:00.000Z"
         },
         "estimated": {
-          "arrivalTime": "2024-01-01T15:50:00.000Z",
-          "onBlockTime": "2024-01-01T16:08:00.000Z",
-          "takeoffTime": "2024-01-01T13:15:00.000Z",
-          "offBlockTime": "2024-01-01T13:00:00.000Z"
+          "arrivalTime": "2025-01-01T15:50:00.000Z",
+          "onBlockTime": "2025-01-01T16:08:00.000Z",
+          "takeoffTime": "2025-01-01T13:15:00.000Z",
+          "offBlockTime": "2025-01-01T13:00:00.000Z"
         },
         "actual": {
           "arrivalTime": null,
           "onBlockTime": null,
           "takeoffTime": "@date('within 1 minute from now')",
-          "offBlockTime": "2024-01-01T13:10:00.000Z"
+          "offBlockTime": "2025-01-01T13:10:00.000Z"
         }
       },
       "aircraft": {
