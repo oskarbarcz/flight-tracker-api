@@ -1,6 +1,7 @@
 import { FlightStatus } from '../../../src/flights/entities/flight.entity';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { AirportType } from '../../../src/airports/entities/airport.entity';
+import { Loadsheets } from '../../../src/flights/entities/loadsheet.entity';
 
 /**
  * DLH 450 | 3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05
@@ -23,7 +24,10 @@ async function loadDLH450(prisma: PrismaClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 21:10'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {} as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: null,
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const dlh450departureAirport = await prisma.airport.findFirstOrThrow({
@@ -126,6 +130,21 @@ async function loadAAL4905(prisma: PrismaClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:18'),
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const ual4905departureAirport = await prisma.airport.findFirstOrThrow({
@@ -191,6 +210,21 @@ async function loadAAL4906(prisma: PrismaClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:18'),
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const ual4906departureAirport = await prisma.airport.findFirstOrThrow({
@@ -256,6 +290,21 @@ async function loadAAL4907(prisma: PrismaClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:18'),
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const ual4907departureAirport = await prisma.airport.findFirstOrThrow({
@@ -327,6 +376,21 @@ async function loadAAL4908(prisma: PrismaClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:08'),
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -398,6 +462,21 @@ async function loadAAL4909(prisma: PrismaClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:08'),
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -469,6 +548,21 @@ async function loadAAL4910(prisma: PrismaClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:08'),
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -546,6 +640,21 @@ async function loadAAL4911(prisma: PrismaClient): Promise<void> {
         onBlockTime: null,
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -623,6 +732,21 @@ async function loadAAL4912(prisma: PrismaClient): Promise<void> {
         onBlockTime: null,
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -700,6 +824,21 @@ async function loadAAL4913(prisma: PrismaClient): Promise<void> {
         onBlockTime: null,
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -777,6 +916,21 @@ async function loadAAL4914(prisma: PrismaClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -854,6 +1008,21 @@ async function loadAAL4915(prisma: PrismaClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -931,6 +1100,21 @@ async function loadAAL4916(prisma: PrismaClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1008,6 +1192,21 @@ async function loadAAL4917(prisma: PrismaClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 370,
+        payload: 40.3,
+        cargo: 8.5,
+        zeroFuelWeight: 208.9,
+        blockFuel: 12.7,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
