@@ -15,7 +15,7 @@ export async function loadAircraft(prisma: PrismaClient): Promise<void> {
   const a321: Aircraft = {
     id: '7d27a031-5abb-415f-bde5-1aa563ad394e',
     icaoCode: 'A321',
-    shortName: 'A321-251',
+    shortName: 'Airbus A321',
     fullName: 'Airbus A331-251 SL ACT-2',
     registration: 'D-AIDA',
     selcal: 'SK-PK',
@@ -26,7 +26,7 @@ export async function loadAircraft(prisma: PrismaClient): Promise<void> {
   const a319: Aircraft = {
     id: '3f34bc59-c9c3-4ad0-88fa-2cc570298602',
     icaoCode: 'A319',
-    shortName: 'A319-200',
+    shortName: 'Airbus A319',
     fullName: 'Airbus A319-200(neo)',
     registration: 'D-AIDK',
     selcal: 'MS-KL',
@@ -37,7 +37,7 @@ export async function loadAircraft(prisma: PrismaClient): Promise<void> {
   const b773: Aircraft = {
     id: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98',
     icaoCode: 'B773',
-    shortName: 'B777-300ER',
+    shortName: 'Boeing 777',
     fullName: 'Boeing 777-300ER',
     registration: 'N78881',
     selcal: 'KY-JO',
