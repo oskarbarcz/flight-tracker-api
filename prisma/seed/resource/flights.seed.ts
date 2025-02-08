@@ -561,7 +561,18 @@ async function loadAAL4910(prisma: PrismaClient): Promise<void> {
         zeroFuelWeight: 208.9,
         blockFuel: 12.7,
       },
-      final: null,
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 366,
+        payload: 28.3,
+        cargo: 8.9,
+        zeroFuelWeight: 202.9,
+        blockFuel: 11.9,
+      },
     } as Prisma.InputJsonValue & Loadsheets,
   };
 
@@ -653,7 +664,18 @@ async function loadAAL4911(prisma: PrismaClient): Promise<void> {
         zeroFuelWeight: 208.9,
         blockFuel: 12.7,
       },
-      final: null,
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 366,
+        payload: 28.3,
+        cargo: 8.9,
+        zeroFuelWeight: 202.9,
+        blockFuel: 11.9,
+      },
     } as Prisma.InputJsonValue & Loadsheets,
   };
 
@@ -745,7 +767,18 @@ async function loadAAL4912(prisma: PrismaClient): Promise<void> {
         zeroFuelWeight: 208.9,
         blockFuel: 12.7,
       },
-      final: null,
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 366,
+        payload: 28.3,
+        cargo: 8.9,
+        zeroFuelWeight: 202.9,
+        blockFuel: 11.9,
+      },
     } as Prisma.InputJsonValue & Loadsheets,
   };
 
@@ -837,7 +870,18 @@ async function loadAAL4913(prisma: PrismaClient): Promise<void> {
         zeroFuelWeight: 208.9,
         blockFuel: 12.7,
       },
-      final: null,
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 366,
+        payload: 28.3,
+        cargo: 8.9,
+        zeroFuelWeight: 202.9,
+        blockFuel: 11.9,
+      },
     } as Prisma.InputJsonValue & Loadsheets,
   };
 
@@ -929,7 +973,18 @@ async function loadAAL4914(prisma: PrismaClient): Promise<void> {
         zeroFuelWeight: 208.9,
         blockFuel: 12.7,
       },
-      final: null,
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 366,
+        payload: 28.3,
+        cargo: 8.9,
+        zeroFuelWeight: 202.9,
+        blockFuel: 11.9,
+      },
     } as Prisma.InputJsonValue & Loadsheets,
   };
 
@@ -1021,7 +1076,18 @@ async function loadAAL4915(prisma: PrismaClient): Promise<void> {
         zeroFuelWeight: 208.9,
         blockFuel: 12.7,
       },
-      final: null,
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 366,
+        payload: 28.3,
+        cargo: 8.9,
+        zeroFuelWeight: 202.9,
+        blockFuel: 11.9,
+      },
     } as Prisma.InputJsonValue & Loadsheets,
   };
 
@@ -1113,7 +1179,18 @@ async function loadAAL4916(prisma: PrismaClient): Promise<void> {
         zeroFuelWeight: 208.9,
         blockFuel: 12.7,
       },
-      final: null,
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 366,
+        payload: 28.3,
+        cargo: 8.9,
+        zeroFuelWeight: 202.9,
+        blockFuel: 11.9,
+      },
     } as Prisma.InputJsonValue & Loadsheets,
   };
 
@@ -1205,7 +1282,18 @@ async function loadAAL4917(prisma: PrismaClient): Promise<void> {
         zeroFuelWeight: 208.9,
         blockFuel: 12.7,
       },
-      final: null,
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 366,
+        payload: 28.3,
+        cargo: 8.9,
+        zeroFuelWeight: 202.9,
+        blockFuel: 11.9,
+      },
     } as Prisma.InputJsonValue & Loadsheets,
   };
 

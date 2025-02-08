@@ -95,5 +95,5 @@ export class Loadsheets {
     nullable: true,
     required: false,
   })
-  final: null;
+  final: Loadsheet | null;
 }
