@@ -23,6 +23,7 @@ async function loadDLH450(prisma: PrismaClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 21:10'),
       },
     } as Prisma.InputJsonValue,
+    loadsheets: {} as Prisma.InputJsonValue,
   };
 
   const dlh450departureAirport = await prisma.airport.findFirstOrThrow({

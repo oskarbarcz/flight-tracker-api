@@ -13,6 +13,7 @@ export const flightWithAircraftAndAirportsFields =
     callsign: true,
     status: true,
     timesheet: true,
+    loadsheets: true,
     operator: {
       select: {
         id: true,

@@ -42,6 +42,7 @@ import {
   FlightWasClosedPayload,
 } from '../common/events/event';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Loadsheets } from './entities/loadsheet.entity';
 
 @Injectable()
 export class FlightsService {
@@ -68,6 +69,7 @@ export class FlightsService {
       callsign: flight.callsign,
       status: flight.status as FlightStatus,
       timesheet: flight.timesheet as FullTimesheet,
+      loadsheets: flight.loadsheets as unknown as Loadsheets,
       aircraft: flight.aircraft,
       operator: flight.operator,
       airports: flight.airports.map(
@@ -89,6 +91,7 @@ export class FlightsService {
         callsign: flight.callsign,
         status: flight.status as FlightStatus,
         timesheet: flight.timesheet as FullTimesheet,
+        loadsheets: flight.loadsheets as unknown as Loadsheets,
         aircraft: flight.aircraft,
         operator: flight.operator,
         airports: flight.airports.map(
@@ -132,6 +135,7 @@ export class FlightsService {
       callsign: flight.callsign,
       status: flight.status as FlightStatus,
       timesheet: flight.timesheet as FullTimesheet,
+      loadsheets: flight.loadsheets as unknown as Loadsheets,
       aircraft: flight.aircraft,
       operator: flight.operator,
       airports: flight.airports.map(
