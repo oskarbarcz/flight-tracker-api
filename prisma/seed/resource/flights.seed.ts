@@ -13,7 +13,7 @@ async function loadDLH450(prisma: PrismaClient): Promise<void> {
     flightNumber: 'LH 450',
     callsign: 'DLH 450',
     status: FlightStatus.Created,
-    operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
+    operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B773
     timesheet: {
       scheduled: {

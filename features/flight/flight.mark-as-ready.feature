@@ -53,11 +53,11 @@ Feature: Mark flight as ready
         }
       },
       "operator": {
-        "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
-        "icaoCode": "AAL",
-        "shortName": "American Airlines",
-        "fullName": "American Airlines, Inc.",
-        "callsign": "AMERICAN"
+        "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+        "icaoCode": "DLH",
+        "shortName": "Lufthansa",
+        "fullName": "Deutsche Lufthansa AG",
+        "callsign": "LUFTHANSA"
       },
       "airports": [
         {
