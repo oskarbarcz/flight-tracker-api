@@ -54,7 +54,7 @@ Feature: Delete operator
     {
       "statusCode": 400,
       "error": "Bad Request",
-      "message": "Operator cannot be deleted because it has aircraft assigned."
+      "message": "Operator cannot be deleted because it has flights scheduled."
     }
     """
 
