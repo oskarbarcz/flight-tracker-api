@@ -20,7 +20,7 @@ Feature: List operators
         "icaoCode": "DLH",
         "shortName": "Lufthansa",
         "fullName": "Deutsche Lufthansa AG",
-        "callsign": "Lufthansa"
+        "callsign": "LUFTHANSA"
       },
       {
         "id": "1d85d597-c3a1-43cf-b888-10d674ea7a46",

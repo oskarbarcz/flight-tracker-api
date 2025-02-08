@@ -56,7 +56,7 @@ Feature: Create aircraft
         "icaoCode": "DLH",
         "shortName": "Lufthansa",
         "fullName": "Deutsche Lufthansa AG",
-        "callsign": "Lufthansa"
+        "callsign": "LUFTHANSA"
       }
     }
     """

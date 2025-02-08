@@ -15,13 +15,13 @@ Feature: List aircraft
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
         "selcal": "LR-CK",
-        "shortName": "A330-900",
+        "shortName": "Airbus A330",
         "operator":{
           "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
           "icaoCode": "DLH",
           "shortName": "Lufthansa",
           "fullName": "Deutsche Lufthansa AG",
-          "callsign": "Lufthansa"
+          "callsign": "LUFTHANSA"
         }
       },
       {
