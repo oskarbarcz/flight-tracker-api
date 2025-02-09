@@ -19,6 +19,9 @@ Feature: Create a flight
           "arrivalTime": "2025-01-01 21:00",
           "onBlockTime": "2025-01-01 21:10"
         }
+      },
+      "loadsheets": {
+        "preliminary": null
       }
     }
     """
@@ -51,6 +54,9 @@ Feature: Create a flight
           "arrivalTime": "2025-01-01 21:00",
           "onBlockTime": "2025-01-01 21:10"
         }
+      },
+      "loadsheets": {
+        "preliminary": null
       }
     }
     """
@@ -69,6 +75,10 @@ Feature: Create a flight
           "takeoffTime": "2025-01-01 12:15",
           "offBlockTime": "2025-01-01 12:00"
         }
+      },
+      "loadsheets": {
+        "preliminary": null,
+        "final": null
       },
       "aircraft": {
         "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
@@ -137,6 +147,9 @@ Feature: Create a flight
           "arrivalTime": "2025-01-01 21:00",
           "onBlockTime": "2025-01-01 21:10"
         }
+      },
+      "loadsheets": {
+        "preliminary": null
       }
     }
     """
@@ -149,6 +162,122 @@ Feature: Create a flight
       "statusCode": 403
     }
     """
+
+  Scenario: As operations I can create a flight with a preliminary loadsheet
+    Given I use seed data
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/" with body:
+    """json
+    {
+      "flightNumber": "DLH990",
+      "callsign": "DLH990",
+      "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+      "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+      "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+      "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+      "timesheet": {
+        "scheduled": {
+          "offBlockTime": "2025-01-01 12:00",
+          "takeoffTime": "2025-01-01 12:15",
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10"
+        }
+      },
+      "loadsheets": {
+        "preliminary": {
+          "flightCrew": {
+            "pilots": 2,
+            "reliefPilots": 0,
+            "cabinCrew": 6
+          },
+          "passengers": 370,
+          "payload": 40.3,
+          "cargo": 8.5,
+          "zeroFuelWeight": 208.9,
+          "blockFuel": 12.7
+        }
+      }
+    }
+    """
+    Then the response status should be 201
+    And the response body should contain:
+    """json
+    {
+      "id": "@uuid",
+      "flightNumber": "DLH990",
+      "callsign": "DLH990",
+      "status": "created",
+      "timesheet": {
+        "scheduled": {
+          "arrivalTime": "2025-01-01 21:00",
+          "onBlockTime": "2025-01-01 21:10",
+          "takeoffTime": "2025-01-01 12:15",
+          "offBlockTime": "2025-01-01 12:00"
+        }
+      },
+      "loadsheets": {
+        "preliminary": {
+          "flightCrew": {
+            "pilots": 2,
+            "reliefPilots": 0,
+            "cabinCrew": 6
+          },
+          "passengers": 370,
+          "payload": 40.3,
+          "cargo": 8.5,
+          "zeroFuelWeight": 208.9,
+          "blockFuel": 12.7
+        },
+        "final": null
+      },
+      "aircraft": {
+        "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "icaoCode": "B773",
+        "shortName": "Boeing 777",
+        "fullName": "Boeing 777-300ER",
+        "registration": "N78881",
+        "selcal": "KY-JO",
+        "livery": "Team USA (2023)",
+        "operator": {
+          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+          "icaoCode": "AAL",
+          "shortName": "American Airlines",
+          "fullName": "American Airlines, Inc.",
+          "callsign": "AMERICAN"
+        }
+      },
+      "operator": {
+        "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+        "icaoCode": "AAL",
+        "shortName": "American Airlines",
+        "fullName": "American Airlines, Inc.",
+        "callsign": "AMERICAN"
+      },
+      "airports": [
+        {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "icaoCode": "EDDF",
+          "iataCode": "FRA",
+          "city": "Frankfurt",
+          "name": "Frankfurt Rhein/Main",
+          "country": "Germany",
+          "timezone": "Europe/Berlin",
+          "type": "departure"
+        },
+        {
+          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "icaoCode": "KJFK",
+          "iataCode": "JFK",
+          "city": "New York",
+          "name": "New York JFK",
+          "country": "United States of America",
+          "timezone": "America/New_York",
+          "type": "destination"
+        }
+      ]
+    }
+    """
+
 
   Scenario: As operations I cannot create a flight with non existing aircraft
     Given I use seed data
@@ -169,6 +298,9 @@ Feature: Create a flight
           "arrivalTime": "2025-01-01 21:00",
           "onBlockTime": "2025-01-01 21:10"
         }
+      },
+      "loadsheets": {
+        "preliminary": null
       }
     }
     """
@@ -201,6 +333,9 @@ Feature: Create a flight
           "arrivalTime": "2025-01-01 21:00",
           "onBlockTime": "2025-01-01 21:10"
         }
+      },
+      "loadsheets": {
+        "preliminary": null
       }
     }
     """
@@ -233,6 +368,9 @@ Feature: Create a flight
           "arrivalTime": "2025-01-01 21:00",
           "onBlockTime": "2025-01-01 21:10"
         }
+      },
+      "loadsheets": {
+        "preliminary": null
       }
     }
     """
@@ -265,6 +403,9 @@ Feature: Create a flight
           "arrivalTime": "2025-01-01 21:00",
           "onBlockTime": "2025-01-01 21:10"
         }
+      },
+      "loadsheets": {
+        "preliminary": null
       }
     }
     """
@@ -297,6 +438,9 @@ Feature: Create a flight
           "arrivalTime": "2025-01-01 21:00",
           "onBlockTime": "2025-01-01 21:10"
         }
+      },
+      "loadsheets": {
+        "preliminary": null
       }
     }
     """
@@ -356,6 +500,9 @@ Feature: Create a flight
           "operatorId should not be empty",
           "operatorId must be a string",
           "operatorId must be a UUID"
+        ],
+        "loadsheets": [
+          "loadsheets should not be empty"
         ]
       }
     }
@@ -378,6 +525,9 @@ Feature: Create a flight
           "arrivalTime": "2025-01-01 21:00",
           "onBlockTime": "2025-01-01 21:10"
         }
+      },
+      "loadsheets": {
+        "preliminary": null
       }
     }
     """

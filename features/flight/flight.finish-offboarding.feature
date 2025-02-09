@@ -62,6 +62,32 @@ Feature: Finish offboarding for flight that started onboarding
           "offBlockTime": "2025-01-01T13:10:00.000Z"
         }
       },
+      "loadsheets": {
+        "preliminary": {
+          "flightCrew": {
+            "pilots": 2,
+            "reliefPilots": 0,
+            "cabinCrew": 6
+          },
+          "passengers": 370,
+          "payload": 40.3,
+          "cargo": 8.5,
+          "zeroFuelWeight": 208.9,
+          "blockFuel": 12.7
+        },
+        "final": {
+          "flightCrew": {
+            "pilots": 2,
+            "reliefPilots": 0,
+            "cabinCrew": 6
+          },
+          "passengers": 366,
+          "payload": 28.3,
+          "cargo": 8.9,
+          "zeroFuelWeight": 202.9,
+          "blockFuel": 11.9
+        }
+      },
       "aircraft": {
         "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
         "icaoCode": "B773",

@@ -84,7 +84,6 @@ export class Loadsheets {
     description: 'Loadsheet filled by operations team for pilots',
     type: Loadsheet,
     nullable: true,
-    required: false,
   })
   @Type(() => Loadsheet)
   preliminary: Loadsheet | null;
@@ -93,7 +92,6 @@ export class Loadsheets {
     description: 'INOP',
     type: Loadsheet,
     nullable: true,
-    required: false,
   })
   final: Loadsheet | null;
 }

@@ -52,6 +52,21 @@ Feature: Update flight scheduled timesheet
           "offBlockTime": "2022-02-02T15:35:00.000Z"
         }
       },
+      "loadsheets": {
+        "preliminary": {
+          "flightCrew": {
+            "pilots": 2,
+            "reliefPilots": 0,
+            "cabinCrew": 6
+          },
+          "passengers": 370,
+          "payload": 40.3,
+          "cargo": 8.5,
+          "zeroFuelWeight": 208.9,
+          "blockFuel": 12.7
+        },
+        "final": null
+      },
       "aircraft": {
         "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
         "icaoCode": "B773",

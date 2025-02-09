@@ -74,6 +74,11 @@ export class FlightsRepository {
   ): Promise<FlightWithAircraftAndAirports> {
     const flightId = v4();
 
+    const loadsheets = {
+      preliminary: input.loadsheets.preliminary,
+      final: null,
+    };
+
     await this.prisma.flight.create({
       data: {
         id: flightId,
@@ -83,6 +88,7 @@ export class FlightsRepository {
         status: FlightStatus.Created,
         operatorId: input.operatorId,
         timesheet: JSON.parse(JSON.stringify(input.timesheet)),
+        loadsheets: JSON.parse(JSON.stringify(loadsheets)),
       },
     });
 

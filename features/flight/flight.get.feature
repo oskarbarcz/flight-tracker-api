@@ -20,6 +20,10 @@ Feature: Get flight
           "offBlockTime": "2025-01-01T12:00:00.000Z"
         }
       },
+      "loadsheets": {
+        "preliminary": null,
+        "final": null
+      },
       "aircraft": {
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "icaoCode": "A339",
