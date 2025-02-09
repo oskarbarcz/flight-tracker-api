@@ -3,7 +3,7 @@ Feature: Mark flight as ready
   Scenario: As an admin I cannot mark flight as ready
     Given I use seed data
     And I am signed in as "admin"
-    When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/mark-as-ready"
+    When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
     Then the response status should be 403
     And the response body should contain:
     """json
@@ -17,72 +17,73 @@ Feature: Mark flight as ready
   Scenario: As operations I can mark flight as ready
     Given I use seed data
     And I am signed in as "operations"
-    When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/mark-as-ready"
+    When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
     Then the response status should be 204
-    When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
+    When I send a "GET" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88"
     Then the response status should be 200
     And the response body should contain:
     """json
     {
-      "id": "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05",
-      "flightNumber": "LH 450",
-      "callsign": "DLH 450",
+      "id": "e91e13a9-09d8-48bf-8453-283cef467b88",
+      "flightNumber": "AA 4907",
+      "callsign": "AAL 4907",
       "status": "ready",
       "timesheet": {
         "scheduled": {
-          "arrivalTime": "2025-01-01T21:00:00.000Z",
-          "onBlockTime": "2025-01-01T21:10:00.000Z",
-          "takeoffTime": "2025-01-01T12:15:00.000Z",
-          "offBlockTime": "2025-01-01T12:00:00.000Z"
+          "arrivalTime": "2025-01-01T16:00:00.000Z",
+          "onBlockTime": "2025-01-01T16:18:00.000Z",
+          "takeoffTime": "2025-01-01T13:15:00.000Z",
+          "offBlockTime": "2025-01-01T13:00:00.000Z"
         }
       },
       "loadsheets": {
-        "preliminary": null,
+        "preliminary": {
+          "flightCrew": {
+            "pilots": 2,
+            "reliefPilots": 0,
+            "cabinCrew": 6
+          },
+          "passengers": 370,
+          "payload": 40.3,
+          "cargo": 8.5,
+          "zeroFuelWeight": 208.9,
+          "blockFuel": 12.7
+        },
         "final": null
       },
       "aircraft": {
-        "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
-        "icaoCode": "A339",
-        "shortName": "Airbus A330",
-        "fullName": "Airbus A330-900 neo",
-        "registration": "D-AIMC",
-        "selcal": "LR-CK",
-        "livery": "Fanhansa (2024)",
+        "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "icaoCode": "B773",
+        "shortName": "Boeing 777",
+        "fullName": "Boeing 777-300ER",
+        "registration": "N78881",
+        "selcal": "KY-JO",
+        "livery": "Team USA (2023)",
         "operator": {
-          "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
-          "icaoCode": "DLH",
-          "shortName": "Lufthansa",
-          "fullName": "Deutsche Lufthansa AG",
-          "callsign": "LUFTHANSA"
+          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+          "icaoCode": "AAL",
+          "shortName": "American Airlines",
+          "fullName": "American Airlines, Inc.",
+          "callsign": "AMERICAN"
         }
       },
       "operator": {
-        "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
-        "icaoCode": "DLH",
-        "shortName": "Lufthansa",
-        "fullName": "Deutsche Lufthansa AG",
-        "callsign": "LUFTHANSA"
+        "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+        "icaoCode": "AAL",
+        "shortName": "American Airlines",
+        "fullName": "American Airlines, Inc.",
+        "callsign": "AMERICAN"
       },
       "airports": [
         {
-          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "icaoCode": "EDDF",
-          "iataCode": "FRA",
-          "city": "Frankfurt",
-          "name": "Frankfurt Rhein/Main",
-          "country": "Germany",
-          "timezone": "Europe/Berlin",
-          "type": "departure"
-        },
-        {
-          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-          "icaoCode": "KJFK",
-          "iataCode": "JFK",
-          "city": "New York",
-          "name": "New York JFK",
+          "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+          "icaoCode": "KBOS",
+          "iataCode": "BOS",
+          "city": "Boston",
+          "name": "Boston Logan Intl",
           "country": "United States of America",
           "timezone": "America/New_York",
-          "type": "destination"
+          "type": "departure"
         },
         {
           "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
@@ -92,27 +93,17 @@ Feature: Mark flight as ready
           "name": "Philadelphia Intl",
           "country": "United States of America",
           "timezone": "America/New_York",
-          "type": "destination_alternate"
+          "type": "destination"
         },
         {
-          "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
-          "icaoCode": "KBOS",
-          "iataCode": "BOS",
-          "city": "Boston",
-          "name": "Boston Logan Intl",
+          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "icaoCode": "KJFK",
+          "iataCode": "JFK",
+          "city": "New York",
+          "name": "New York JFK",
           "country": "United States of America",
           "timezone": "America/New_York",
           "type": "destination_alternate"
-        },
-        {
-          "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
-          "icaoCode": "CYYT",
-          "iataCode": "YYT",
-          "city": "St. Johns",
-          "name": "St. Johns Intl",
-          "country": "Canada",
-          "timezone": "America/St_Johns",
-          "type": "etops_alternate"
         }
       ]
     }
@@ -121,7 +112,7 @@ Feature: Mark flight as ready
   Scenario: As a cabin crew I cannot mark flight as ready
     Given I use seed data
     And I am signed in as "cabin crew"
-    When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/mark-as-ready"
+    When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
     Then the response status should be 403
     And the response body should contain:
     """json
@@ -135,14 +126,28 @@ Feature: Mark flight as ready
   Scenario: As operations I cannot mark flight as ready twice
     Given I use seed data
     And I am signed in as "operations"
-    When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/mark-as-ready"
+    When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
     Then the response status should be 204
-    When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/mark-as-ready"
+    When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
     Then the response status should be 422
     And the response body should contain:
     """json
     {
       "message": "Cannot mark flight as ready. Flight is not in created status.",
+      "error": "Unprocessable Content",
+      "statusCode": 422
+    }
+    """
+
+  Scenario: As operations I cannot mark flight without loadsheet as ready
+    Given I use seed data
+    And I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/mark-as-ready"
+    Then the response status should be 422
+    And the response body should contain:
+    """json
+    {
+      "message": "Cannot mark flight as ready. Preliminary loadsheet is mandatory.",
       "error": "Unprocessable Content",
       "statusCode": 422
     }
@@ -177,7 +182,7 @@ Feature: Mark flight as ready
     """
 
   Scenario: As an unauthorized user I cannot mark flight as ready
-    When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/mark-as-ready"
+    When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
     Then the response status should be 401
     And the response body should contain:
     """json

@@ -33,6 +33,7 @@ import {
   InvalidStatusToStartBoardingError,
   InvalidStatusToStartOffboardingError,
   OperatorForAircraftNotFoundError,
+  PreliminaryLoadsheetMissingError,
   ScheduledFlightCannotBeRemoved,
 } from './dto/errors.dto';
 import { OperatorsService } from '../operators/operators.service';
@@ -170,6 +171,10 @@ export class FlightsService {
 
     if (flight.status !== FlightStatus.Created) {
       throw new UnprocessableEntityException(InvalidStatusToMarkAsReadyError);
+    }
+
+    if (!flight.loadsheets.preliminary) {
+      throw new UnprocessableEntityException(PreliminaryLoadsheetMissingError);
     }
 
     await this.flightsRepository.updateStatus(id, FlightStatus.Ready);

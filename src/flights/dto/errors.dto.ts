@@ -40,6 +40,12 @@ export const InvalidStatusToMarkAsReadyError = {
   message: 'Cannot mark flight as ready. Flight is not in created status.',
 };
 
+export const PreliminaryLoadsheetMissingError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message: 'Cannot mark flight as ready. Preliminary loadsheet is mandatory.',
+};
+
 export const InvalidStatusToChangeScheduleError = {
   statusCode: 422,
   error: 'Unprocessable Content',
