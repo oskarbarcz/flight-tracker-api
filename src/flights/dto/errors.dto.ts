@@ -52,6 +52,13 @@ export const InvalidStatusToChangeScheduleError = {
   message: 'Cannot change flight schedule, because flight was marked as ready.',
 };
 
+export const InvalidStatusToUpdateLoadsheetError = {
+  statusCode: 422,
+  error: 'Unprocessable Content',
+  message:
+    'Cannot update preliminary loadsheet, because flight was marked as ready.',
+};
+
 export const InvalidStatusToCheckInError = {
   statusCode: 422,
   error: 'Unprocessable Content',

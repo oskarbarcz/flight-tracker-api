@@ -35,7 +35,6 @@ export class Loadsheet {
   })
   @IsNotEmpty()
   @Type(() => FlightCrew)
-  @IsDate()
   flightCrew: FlightCrew;
 
   @ApiProperty({
@@ -93,5 +92,6 @@ export class Loadsheets {
     type: Loadsheet,
     nullable: true,
   })
+  @Type(() => Loadsheet)
   final: Loadsheet | null;
 }

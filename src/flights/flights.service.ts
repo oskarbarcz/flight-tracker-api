@@ -31,7 +31,7 @@ import {
   InvalidStatusToReportOnBlockError,
   InvalidStatusToReportTakenOffError,
   InvalidStatusToStartBoardingError,
-  InvalidStatusToStartOffboardingError,
+  InvalidStatusToStartOffboardingError, InvalidStatusToUpdateLoadsheetError,
   OperatorForAircraftNotFoundError,
   PreliminaryLoadsheetMissingError,
   ScheduledFlightCannotBeRemoved,
@@ -43,7 +43,7 @@ import {
   FlightWasClosedPayload,
 } from '../common/events/event';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { Loadsheets } from './entities/loadsheet.entity';
+import { Loadsheet, Loadsheets } from './entities/loadsheet.entity';
 
 @Injectable()
 export class FlightsService {
@@ -178,6 +178,26 @@ export class FlightsService {
     }
 
     await this.flightsRepository.updateStatus(id, FlightStatus.Ready);
+  }
+
+  async updatePreliminaryLoadsheet(
+    id: string,
+    loadsheet: Loadsheet,
+  ): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.Created) {
+      throw new UnprocessableEntityException(
+        InvalidStatusToUpdateLoadsheetError,
+      );
+    }
+
+    const loadsheets: Loadsheets = { preliminary: loadsheet, final: null };
+    await this.flightsRepository.updateLoadsheets(id, loadsheets);
   }
 
   async updateScheduledTimesheet(
