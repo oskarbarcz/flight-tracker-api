@@ -34,6 +34,7 @@ import { ForbiddenRequest } from '../common/response/forbidden.response';
 import { Role } from '../auth/decorator/role.decorator';
 import { UserRole } from '@prisma/client';
 import { AuthorizedRequest } from '../common/request/authorized.request';
+import { Loadsheet } from './entities/loadsheet.entity';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -191,6 +192,51 @@ export class FlightsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   async markAsReady(@UuidParam('id') id: string): Promise<void> {
     await this.flightsService.markAsReady(id);
+  }
+
+  @ApiOperation({
+    summary: 'Update flight preliminary loadsheet',
+    description:
+      '**NOTE:** This action is only allowed for flights in created status. <br />' +
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
+  })
+  @ApiBearerAuth()
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiBody({
+    description: 'Updated preliminary loadsheet',
+    type: Loadsheet,
+  })
+  @ApiNoContentResponse({
+    description: 'Flight loadsheet was updated successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
+  @Patch('/:id/loadsheet/preliminary')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.Operations)
+  async updatePreliminaryLoadsheet(
+    @UuidParam('id') id: string,
+    @Body() loadsheet: Loadsheet,
+  ): Promise<void> {
+    await this.flightsService.updatePreliminaryLoadsheet(id, loadsheet);
   }
 
   @ApiOperation({

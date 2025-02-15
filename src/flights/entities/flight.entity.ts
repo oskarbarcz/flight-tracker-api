@@ -3,6 +3,7 @@ import { AirportWithType } from '../../airports/entities/airport.entity';
 import { FullTimesheet } from './timesheet.entity';
 import { CreateAircraftResponse } from '../../aircraft/dto/create-aircraft.dto';
 import { Operator } from '../../operators/entities/operator.entity';
+import { Loadsheets } from './loadsheet.entity';
 
 export enum FlightStatus {
   Created = 'created',
@@ -59,6 +60,12 @@ export class Flight {
     description: 'Timesheet',
   })
   timesheet: FullTimesheet;
+
+  @ApiProperty({
+    description: 'Loadsheets',
+    type: Loadsheets,
+  })
+  loadsheets: Loadsheets;
 
   @ApiProperty({
     description: 'Flight operator',

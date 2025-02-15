@@ -1,7 +1,11 @@
 import { ScheduledTimesheet } from '../entities/timesheet.entity';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, OmitType } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { Operator } from '../../operators/entities/operator.entity';
+import { Loadsheets } from '../entities/loadsheet.entity';
+import { Type } from 'class-transformer';
+
+class PreliminaryLoadsheetOnly extends OmitType(Loadsheets, ['final']) {}
 
 export class CreateFlightRequest {
   @ApiProperty({
@@ -53,6 +57,14 @@ export class CreateFlightRequest {
   })
   @IsNotEmpty()
   timesheet: ScheduledTimesheet;
+
+  @ApiProperty({
+    description: 'Initial loadsheet filled by operations team for pilots',
+    type: PreliminaryLoadsheetOnly,
+  })
+  @Type(() => PreliminaryLoadsheetOnly)
+  @IsNotEmpty()
+  loadsheets: PreliminaryLoadsheetOnly;
 
   @ApiProperty({
     description: 'Flight operator',

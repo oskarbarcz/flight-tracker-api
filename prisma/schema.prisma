@@ -56,6 +56,7 @@ model Flight {
   aircraftId   String              @db.Uuid
   airports     AirportsOnFlights[]
   timesheet    Json
+  loadsheets   Json                @default("{\"preliminary\":null,\"final\":null}")
   operator     Operator            @relation(fields: [operatorId], references: [id])
   operatorId   String              @db.Uuid
   User         User?

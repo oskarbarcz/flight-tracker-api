@@ -32,7 +32,9 @@ import {
   InvalidStatusToReportTakenOffError,
   InvalidStatusToStartBoardingError,
   InvalidStatusToStartOffboardingError,
+  InvalidStatusToUpdateLoadsheetError,
   OperatorForAircraftNotFoundError,
+  PreliminaryLoadsheetMissingError,
   ScheduledFlightCannotBeRemoved,
 } from './dto/errors.dto';
 import { OperatorsService } from '../operators/operators.service';
@@ -42,6 +44,7 @@ import {
   FlightWasClosedPayload,
 } from '../common/events/event';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Loadsheet, Loadsheets } from './entities/loadsheet.entity';
 
 @Injectable()
 export class FlightsService {
@@ -68,6 +71,7 @@ export class FlightsService {
       callsign: flight.callsign,
       status: flight.status as FlightStatus,
       timesheet: flight.timesheet as FullTimesheet,
+      loadsheets: flight.loadsheets as unknown as Loadsheets,
       aircraft: flight.aircraft,
       operator: flight.operator,
       airports: flight.airports.map(
@@ -89,6 +93,7 @@ export class FlightsService {
         callsign: flight.callsign,
         status: flight.status as FlightStatus,
         timesheet: flight.timesheet as FullTimesheet,
+        loadsheets: flight.loadsheets as unknown as Loadsheets,
         aircraft: flight.aircraft,
         operator: flight.operator,
         airports: flight.airports.map(
@@ -132,6 +137,7 @@ export class FlightsService {
       callsign: flight.callsign,
       status: flight.status as FlightStatus,
       timesheet: flight.timesheet as FullTimesheet,
+      loadsheets: flight.loadsheets as unknown as Loadsheets,
       aircraft: flight.aircraft,
       operator: flight.operator,
       airports: flight.airports.map(
@@ -168,7 +174,31 @@ export class FlightsService {
       throw new UnprocessableEntityException(InvalidStatusToMarkAsReadyError);
     }
 
+    if (!flight.loadsheets.preliminary) {
+      throw new UnprocessableEntityException(PreliminaryLoadsheetMissingError);
+    }
+
     await this.flightsRepository.updateStatus(id, FlightStatus.Ready);
+  }
+
+  async updatePreliminaryLoadsheet(
+    id: string,
+    loadsheet: Loadsheet,
+  ): Promise<void> {
+    const flight = await this.find(id);
+
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (flight.status !== FlightStatus.Created) {
+      throw new UnprocessableEntityException(
+        InvalidStatusToUpdateLoadsheetError,
+      );
+    }
+
+    const loadsheets: Loadsheets = { preliminary: loadsheet, final: null };
+    await this.flightsRepository.updateLoadsheets(id, loadsheets);
   }
 
   async updateScheduledTimesheet(

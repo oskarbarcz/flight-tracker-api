@@ -1,15 +1,21 @@
-Feature: Update flight scheduled timesheet
+Feature: Update flight preliminary loadsheet
 
-  Scenario: As an admin I cannot update flight scheduled timesheet
+  Scenario: As an admin I cannot update flight preliminary loadsheet
     Given I use seed data
     And I am signed in as "admin"
-    When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/timesheet/scheduled" with body:
+    When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/loadsheet/preliminary" with body:
     """json
     {
-      "arrivalTime": "2022-02-02T12:00:00.000Z",
-      "onBlockTime": "2022-02-02T12:22:00.000Z",
-      "takeoffTime": "2022-02-02T15:25:00.000Z",
-      "offBlockTime": "2022-02-02T15:35:00.000Z"
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 5
+      },
+      "passengers": 360,
+      "payload": 38.5,
+      "cargo": 7.5,
+      "zeroFuelWeight": 197.9,
+      "blockFuel": 12.7
     }
     """
     Then the response status should be 403
@@ -22,16 +28,22 @@ Feature: Update flight scheduled timesheet
     }
     """
 
-  Scenario: As operations I can update flight scheduled timesheet
+  Scenario: As operations I can update flight preliminary loadsheet
     Given I use seed data
     And I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/timesheet/scheduled" with body:
+    When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/loadsheet/preliminary" with body:
     """json
     {
-      "arrivalTime": "2022-02-02T12:00:00.000Z",
-      "onBlockTime": "2022-02-02T12:22:00.000Z",
-      "takeoffTime": "2022-02-02T15:25:00.000Z",
-      "offBlockTime": "2022-02-02T15:35:00.000Z"
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 5
+      },
+      "passengers": 360,
+      "payload": 38.5,
+      "cargo": 7.5,
+      "zeroFuelWeight": 197.9,
+      "blockFuel": 12.7
     }
     """
     Then the response status should be 204
@@ -46,10 +58,10 @@ Feature: Update flight scheduled timesheet
       "status": "created",
       "timesheet": {
         "scheduled": {
-          "arrivalTime": "2022-02-02T12:00:00.000Z",
-          "onBlockTime": "2022-02-02T12:22:00.000Z",
-          "takeoffTime": "2022-02-02T15:25:00.000Z",
-          "offBlockTime": "2022-02-02T15:35:00.000Z"
+          "arrivalTime": "2025-01-01T16:00:00.000Z",
+          "onBlockTime": "2025-01-01T16:18:00.000Z",
+          "takeoffTime": "2025-01-01T13:15:00.000Z",
+          "offBlockTime": "2025-01-01T13:00:00.000Z"
         }
       },
       "loadsheets": {
@@ -57,12 +69,12 @@ Feature: Update flight scheduled timesheet
           "flightCrew": {
             "pilots": 2,
             "reliefPilots": 0,
-            "cabinCrew": 6
+            "cabinCrew": 5
           },
-          "passengers": 370,
-          "payload": 40.3,
-          "cargo": 8.5,
-          "zeroFuelWeight": 208.9,
+          "passengers": 360,
+          "payload": 38.5,
+          "cargo": 7.5,
+          "zeroFuelWeight": 197.9,
           "blockFuel": 12.7
         },
         "final": null
@@ -125,16 +137,22 @@ Feature: Update flight scheduled timesheet
     }
     """
 
-  Scenario: As a cabin crew I cannot update flight scheduled timesheet
+  Scenario: As a cabin crew I cannot update flight preliminary loadsheet
     Given I use seed data
     And I am signed in as "cabin crew"
-    When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/timesheet/scheduled" with body:
+    When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/loadsheet/preliminary" with body:
     """json
     {
-      "arrivalTime": "2022-02-02T12:00:00.000Z",
-      "onBlockTime": "2022-02-02T12:22:00.000Z",
-      "takeoffTime": "2022-02-02T15:25:00.000Z",
-      "offBlockTime": "2022-02-02T15:35:00.000Z"
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 5
+      },
+      "passengers": 360,
+      "payload": 38.5,
+      "cargo": 7.5,
+      "zeroFuelWeight": 197.9,
+      "blockFuel": 12.7
     }
     """
     Then the response status should be 403
@@ -147,16 +165,22 @@ Feature: Update flight scheduled timesheet
     }
     """
 
-  Scenario: As operations I cannot update scheduled timesheet of flight with status other than created
+  Scenario: As operations I cannot update preliminary loadsheet of flight with status other than created
     Given I use seed data
     And I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/timesheet/scheduled" with body:
+    When I send a "PATCH" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/loadsheet/preliminary" with body:
     """json
     {
-      "arrivalTime": "2022-02-02T12:00:00.000Z",
-      "onBlockTime": "2022-02-02T12:22:00.000Z",
-      "takeoffTime": "2022-02-02T15:25:00.000Z",
-      "offBlockTime": "2022-02-02T15:35:00.000Z"
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 5
+      },
+      "passengers": 360,
+      "payload": 38.5,
+      "cargo": 7.5,
+      "zeroFuelWeight": 197.9,
+      "blockFuel": 12.7
     }
     """
     Then the response status should be 422
@@ -165,19 +189,24 @@ Feature: Update flight scheduled timesheet
     {
       "statusCode": 422,
       "error": "Unprocessable Content",
-      "message": "Cannot change flight schedule, because flight was marked as ready."
+      "message": "Cannot update preliminary loadsheet, because flight was marked as ready."
     }
     """
 
-  Scenario: As operations I cannot update flight scheduled timesheet with incorrect payload
+  Scenario: As operations I cannot update flight preliminary loadsheet with incorrect payload
     Given I use seed data
     And I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/timesheet/scheduled" with body:
+    When I send a "PATCH" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/loadsheet/preliminary" with body:
     """json
     {
-      "arrivalTime": "2022-02-02T12:00:00.000Z",
-      "offBlockTime": "some-non-existing-date",
-      "testTime": "2022-02-02T15:35:00.000Z"
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 5
+      },
+      "passengers": 360,
+      "zeroFuelWeight": 197.9,
+      "fuelBurn": 38.5
     }
     """
     Then the response status should be 400
@@ -188,34 +217,41 @@ Feature: Update flight scheduled timesheet
       "error": "Bad Request",
       "statusCode": 400,
       "violations": {
-        "onBlockTime": [
-          "onBlockTime must be a Date instance",
-          "onBlockTime should not be empty"
+        "payload": [
+          "payload must be a number conforming to the specified constraints",
+          "payload should not be empty"
         ],
-        "takeoffTime": [
-          "takeoffTime must be a Date instance",
-          "takeoffTime should not be empty"
+        "cargo": [
+          "cargo must be a number conforming to the specified constraints",
+          "cargo should not be empty"
         ],
-        "offBlockTime": [
-          "offBlockTime must be a Date instance"
+        "blockFuel": [
+          "blockFuel must be a number conforming to the specified constraints",
+          "blockFuel should not be empty"
         ],
-        "testTime": [
-          "property testTime should not exist"
+        "fuelBurn": [
+          "property fuelBurn should not exist"
         ]
       }
     }
     """
 
-  Scenario: As operations I cannot update scheduled timesheet of flight that does not exist
+  Scenario: As operations I cannot update preliminary loadsheet of flight that does not exist
     Given I use seed data
     And I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/732454c3-732e-4e1f-a075-d7fc61296449/timesheet/scheduled" with body:
+    When I send a "PATCH" request to "/api/v1/flight/732454c3-732e-4e1f-a075-d7fc61296449/loadsheet/preliminary" with body:
     """json
     {
-      "arrivalTime": "2022-02-02T12:00:00.000Z",
-      "onBlockTime": "2022-02-02T12:22:00.000Z",
-      "takeoffTime": "2022-02-02T15:25:00.000Z",
-      "offBlockTime": "2022-02-02T15:35:00.000Z"
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 5
+      },
+      "passengers": 360,
+      "payload": 38.5,
+      "cargo": 7.5,
+      "zeroFuelWeight": 197.9,
+      "blockFuel": 12.7
     }
     """
     Then the response status should be 404
@@ -231,13 +267,19 @@ Feature: Update flight scheduled timesheet
   Scenario: As operations I cannot update scheduled timesheet of flight with incorrect uuid
     Given I use seed data
     And I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/incorrect-uuid/timesheet/scheduled" with body:
+    When I send a "PATCH" request to "/api/v1/flight/incorrect-uuid/loadsheet/preliminary" with body:
     """json
     {
-      "arrivalTime": "2022-02-02T12:00:00.000Z",
-      "onBlockTime": "2022-02-02T12:22:00.000Z",
-      "takeoffTime": "2022-02-02T15:25:00.000Z",
-      "offBlockTime": "2022-02-02T15:35:00.000Z"
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 5
+      },
+      "passengers": 360,
+      "payload": 38.5,
+      "cargo": 7.5,
+      "zeroFuelWeight": 197.9,
+      "blockFuel": 12.7
     }
     """
     Then the response status should be 400
@@ -251,13 +293,19 @@ Feature: Update flight scheduled timesheet
     """
 
   Scenario: As an unauthorized user I cannot report arrival
-    When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/timesheet/scheduled" with body:
+    When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/loadsheet/preliminary" with body:
     """json
     {
-      "arrivalTime": "2022-02-02T12:00:00.000Z",
-      "onBlockTime": "2022-02-02T12:22:00.000Z",
-      "takeoffTime": "2022-02-02T15:25:00.000Z",
-      "offBlockTime": "2022-02-02T15:35:00.000Z"
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 5
+      },
+      "passengers": 360,
+      "payload": 38.5,
+      "cargo": 7.5,
+      "zeroFuelWeight": 197.9,
+      "blockFuel": 12.7
     }
     """
     Then the response status should be 401

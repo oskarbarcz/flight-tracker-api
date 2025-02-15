@@ -5,6 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateFlightRequest } from './dto/create-flight.dto';
 import { v4 } from 'uuid';
 import { FullTimesheet } from './entities/timesheet.entity';
+import { Loadsheets } from './entities/loadsheet.entity';
 
 export const flightWithAircraftAndAirportsFields =
   Prisma.validator<Prisma.FlightSelect>()({
@@ -13,6 +14,7 @@ export const flightWithAircraftAndAirportsFields =
     callsign: true,
     status: true,
     timesheet: true,
+    loadsheets: true,
     operator: {
       select: {
         id: true,
@@ -73,6 +75,11 @@ export class FlightsRepository {
   ): Promise<FlightWithAircraftAndAirports> {
     const flightId = v4();
 
+    const loadsheets = {
+      preliminary: input.loadsheets.preliminary,
+      final: null,
+    };
+
     await this.prisma.flight.create({
       data: {
         id: flightId,
@@ -82,6 +89,7 @@ export class FlightsRepository {
         status: FlightStatus.Created,
         operatorId: input.operatorId,
         timesheet: JSON.parse(JSON.stringify(input.timesheet)),
+        loadsheets: JSON.parse(JSON.stringify(loadsheets)),
       },
     });
 
@@ -134,6 +142,15 @@ export class FlightsRepository {
     await this.prisma.flight.update({
       where: { id },
       data: { status },
+    });
+  }
+
+  async updateLoadsheets(id: string, loadsheets: Loadsheets): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id },
+      data: {
+        loadsheets: JSON.parse(JSON.stringify(loadsheets)),
+      },
     });
   }
 
