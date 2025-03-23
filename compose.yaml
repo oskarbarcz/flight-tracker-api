@@ -3,7 +3,7 @@ services:
     depends_on:
       database:
         condition: service_healthy
-    image: ghcr.io/oskarbarcz/flight-tracker-api:0.22.0
+    image: ghcr.io/oskarbarcz/flight-tracker-api:0.23.0
     build:
       context: .
       target: development
@@ -15,7 +15,7 @@ services:
     ports:
       - '80:3000'
     healthcheck:
-      test: "curl --fail http://localhost:3000 || exit 1"
+      test: 'curl --fail http://localhost:3000 || exit 1'
       interval: 1s
       retries: 20
       start_period: 5s
@@ -30,7 +30,7 @@ services:
     ports:
       - '5432:5432'
     healthcheck:
-      test: "pg_isready -U user"
+      test: 'pg_isready -U user'
       interval: 1s
       timeout: 500ms
       retries: 30

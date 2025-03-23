@@ -260,7 +260,7 @@ export class FlightsService {
     await this.flightsRepository.updateStatus(id, FlightStatus.BoardingStarted);
   }
 
-  async finishBoarding(id: string): Promise<void> {
+  async finishBoarding(id: string, finalLoadsheet: Loadsheet): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -273,10 +273,16 @@ export class FlightsService {
       );
     }
 
-    await this.flightsRepository.updateStatus(
-      id,
-      FlightStatus.BoardingFinished,
-    );
+    await Promise.all([
+      await this.flightsRepository.updateLoadsheets(id, {
+        preliminary: flight.loadsheets.preliminary,
+        final: finalLoadsheet,
+      }),
+      await this.flightsRepository.updateStatus(
+        id,
+        FlightStatus.BoardingFinished,
+      ),
+    ]);
   }
 
   async reportOffBlock(id: string): Promise<void> {

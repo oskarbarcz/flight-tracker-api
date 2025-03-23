@@ -88,7 +88,7 @@ export class Loadsheets {
   preliminary: Loadsheet | null;
 
   @ApiProperty({
-    description: 'INOP',
+    description: 'Loadsheet filled by pilots when finished boarding',
     type: Loadsheet,
     nullable: true,
   })

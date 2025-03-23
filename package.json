@@ -1,6 +1,6 @@
 {
   "name": "flight-tracker-api",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "private": true,
   "homepage": "https://flights.barcz.me",
   "author": "Oskar Barcz",
@@ -8,7 +8,7 @@
   "description": "A comprehensive web app for scheduling and tracking flights in a flight simulator environment. Designed for virtual aviation enthusiasts, it enables seamless management of flights, aircraft, airports, crews, and passengers.",
   "scripts": {
     "build": "npx nest build",
-    "format": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
+    "format": "prettier --write .",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -20,7 +20,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "test:functional": "npx cucumber-js features/**/*.feature --require ./features/_context/**/*.ts --require-module ts-node/register --fail-fast",
+    "test:functional": "npx cucumber-js --require ./features/_context/**/*.ts --require-module ts-node/register --fail-fast",
     "database:reset": "npx prisma db push --force-reset",
     "database:seed": "npx prisma db push --force-reset && npx prisma db seed",
     "database:migrate": "npx prisma migrate deploy"

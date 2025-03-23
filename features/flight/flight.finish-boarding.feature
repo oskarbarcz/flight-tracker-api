@@ -31,7 +31,21 @@ Feature: Finish flight boarding
   Scenario: As a cabin crew I can finish boarding in flight that is checked in
     Given I use seed data
     Given I am signed in as "cabin crew"
-    When I send a "POST" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/finish-boarding"
+    When I send a "POST" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/finish-boarding" with body:
+    """json
+    {
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 6
+      },
+      "passengers": 366,
+      "payload": 28.3,
+      "cargo": 8.9,
+      "zeroFuelWeight": 202.9,
+      "blockFuel": 11.9
+    }
+    """
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77"
     Then the response status should be 200
@@ -69,7 +83,18 @@ Feature: Finish flight boarding
           "zeroFuelWeight": 208.9,
           "blockFuel": 12.7
         },
-        "final": null
+        "final": {
+          "flightCrew": {
+            "pilots": 2,
+            "reliefPilots": 0,
+            "cabinCrew": 6
+          },
+          "passengers": 366,
+          "payload": 28.3,
+          "cargo": 8.9,
+          "zeroFuelWeight": 202.9,
+          "blockFuel": 11.9
+        }
       },
       "aircraft": {
         "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
@@ -132,9 +157,37 @@ Feature: Finish flight boarding
   Scenario: As a cabin crew I cannot finish boarding in flight twice
     Given I use seed data
     Given I am signed in as "cabin crew"
-    When I send a "POST" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/finish-boarding"
+    When I send a "POST" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/finish-boarding" with body:
+    """json
+    {
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 6
+      },
+      "passengers": 366,
+      "payload": 28.3,
+      "cargo": 8.9,
+      "zeroFuelWeight": 202.9,
+      "blockFuel": 11.9
+    }
+    """
     Then the response status should be 204
-    When I send a "POST" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/finish-boarding"
+    When I send a "POST" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/finish-boarding" with body:
+    """json
+    {
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 6
+      },
+      "passengers": 366,
+      "payload": 28.3,
+      "cargo": 8.9,
+      "zeroFuelWeight": 202.9,
+      "blockFuel": 11.9
+    }
+    """
     Then the response status should be 422
     And the response body should contain:
     """json
@@ -148,7 +201,21 @@ Feature: Finish flight boarding
   Scenario: As a cabin crew I cannot finish boarding when flight has not started boarding yet
     Given I use seed data
     Given I am signed in as "cabin crew"
-    When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/finish-boarding"
+    When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/finish-boarding" with body:
+    """json
+    {
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 6
+      },
+      "passengers": 366,
+      "payload": 28.3,
+      "cargo": 8.9,
+      "zeroFuelWeight": 202.9,
+      "blockFuel": 11.9
+    }
+    """
     Then the response status should be 422
     And the response body should contain:
     """json
@@ -159,10 +226,58 @@ Feature: Finish flight boarding
     }
     """
 
+  Scenario: As a cabin crew I cannot finish boarding with invalid payload
+    Given I use seed data
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/finish-boarding" with body:
+    """json
+    {
+      "flightCrew": {
+        "pilots": 2
+      },
+      "passengers": 366,
+      "payload": 28.3,
+      "blockFuel": 11.9
+    }
+    """
+    Then the response status should be 400
+    And the response body should contain:
+    """json
+    {
+      "statusCode": 400,
+      "message": "Request validation failed.",
+      "error": "Bad Request",
+      "violations": {
+        "cargo": [
+          "cargo must be a number conforming to the specified constraints",
+          "cargo should not be empty"
+        ],
+        "zeroFuelWeight": [
+          "zeroFuelWeight must be a number conforming to the specified constraints",
+          "zeroFuelWeight should not be empty"
+        ]
+      }
+    }
+    """
+
   Scenario: As a cabin crew I cannot finish boarding in flight that does not exist
     Given I use seed data
     Given I am signed in as "cabin crew"
-    When I send a "POST" request to "/api/v1/flight/c0ee4dec-b1fd-44aa-822c-28a7ead0191a/finish-boarding"
+    When I send a "POST" request to "/api/v1/flight/c0ee4dec-b1fd-44aa-822c-28a7ead0191a/finish-boarding" with body:
+    """json
+    {
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 6
+      },
+      "passengers": 366,
+      "payload": 28.3,
+      "cargo": 8.9,
+      "zeroFuelWeight": 202.9,
+      "blockFuel": 11.9
+    }
+    """
     Then the response status should be 404
     And the response body should contain:
     """json
@@ -176,7 +291,21 @@ Feature: Finish flight boarding
   Scenario: As a cabin crew I cannot finish boarding in flight with incorrect uuid
     Given I use seed data
     Given I am signed in as "cabin crew"
-    When I send a "POST" request to "/api/v1/flight/invalid-uuid/finish-boarding"
+    When I send a "POST" request to "/api/v1/flight/invalid-uuid/finish-boarding" with body:
+    """json
+    {
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 6
+      },
+      "passengers": 366,
+      "payload": 28.3,
+      "cargo": 8.9,
+      "zeroFuelWeight": 202.9,
+      "blockFuel": 11.9
+    }
+    """
     Then the response status should be 400
     And the response body should contain:
     """json
@@ -188,7 +317,21 @@ Feature: Finish flight boarding
     """
 
   Scenario: As an unauthorized user I cannot finish boarding in flight
-    When I send a "POST" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/finish-boarding"
+    When I send a "POST" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/finish-boarding" with body:
+    """json
+    {
+      "flightCrew": {
+        "pilots": 2,
+        "reliefPilots": 0,
+        "cabinCrew": 6
+      },
+      "passengers": 366,
+      "payload": 28.3,
+      "cargo": 8.9,
+      "zeroFuelWeight": 202.9,
+      "blockFuel": 11.9
+    }
+    """
     Then the response status should be 401
     And the response body should contain:
     """json
