@@ -24,17 +24,16 @@ Repository contains server code for [Flight Tracker](https://flights.barcz.me) a
 Project is using **Node.js** and **TypeScript** in versions listed below:
 
 | Technology | Version |
-| ---------- |---------|
+| ---------- | ------- |
 | Node.js    | 22.9    |
 | TypeScript | ^5.7    |
 
 Main dependencies are **Nest.js** and **Prisma ORM** in versions listed below.
 
-| Vendor       | Version |
-|--------------|---------|
-| Nest.js      | ^10.4   |
-| Prisma       | ^6.3.1  |
-
+| Vendor  | Version |
+| ------- | ------- |
+| Nest.js | ^10.4   |
+| Prisma  | ^6.3.1  |
 
 ## Getting Started
 
@@ -61,21 +60,23 @@ cp .env.dist .env
 
 docker compose up -d --build
 ```
+
 Packages, database schema, seed data will be configured automatically.
 
 4. Your project should be up and running. Open browser and go to [http://localhost/api](http://localhost/api) to see the
-api documentation.
+   api documentation.
 
 Default credentials for the API are:
 
 | Role       | Username               | Password |
-|------------|------------------------|----------|
+| ---------- | ---------------------- | -------- |
 | Cabin crew | cabin-crew@example.com | P@$$w0rd |
 | Operations | operations@example.com | P@$$w0rd |
 | Admin      | admin@example.com      | P@$$w0rd |
 
 ### Generating certs
-Application has by default configured EC certificates. However, if you want to create custom ones, use the command 
+
+Application has by default configured EC certificates. However, if you want to create custom ones, use the command
 below:
 
 ```shell

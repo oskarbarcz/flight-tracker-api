@@ -143,7 +143,18 @@ async function loadAAL4905(prisma: PrismaClient): Promise<void> {
         zeroFuelWeight: 208.9,
         blockFuel: 12.7,
       },
-      final: null,
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 366,
+        payload: 28.3,
+        cargo: 8.9,
+        zeroFuelWeight: 202.9,
+        blockFuel: 11.9,
+      },
     } as Prisma.InputJsonValue & Loadsheets,
   };
 

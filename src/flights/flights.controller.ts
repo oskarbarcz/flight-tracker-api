@@ -379,6 +379,10 @@ export class FlightsController {
     name: 'id',
     description: 'Flight unique identifier',
   })
+  @ApiBody({
+    description: 'Final loadsheet',
+    type: Loadsheet,
+  })
   @ApiNoContentResponse({
     description: 'Boarding finished successfully',
   })
@@ -402,8 +406,11 @@ export class FlightsController {
   @Post('/:id/finish-boarding')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async finishBoarding(@UuidParam('id') id: string): Promise<void> {
-    await this.flightsService.finishBoarding(id);
+  async finishBoarding(
+    @UuidParam('id') id: string,
+    @Body() loadsheet: Loadsheet,
+  ): Promise<void> {
+    await this.flightsService.finishBoarding(id, loadsheet);
   }
 
   @ApiOperation({
