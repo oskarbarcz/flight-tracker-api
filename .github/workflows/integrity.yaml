@@ -23,12 +23,10 @@ jobs:
       - name: 'Copy environment variables'
         run: 'cp .env.dist .env'
       - name: 'Run docker compose environment'
-        run: 'docker compose up -d --build'
-      - name: 'Check code formatting'
-        run: 'sleep 15 && docker compose exec app npm run lint'
-      #      - name: 'Run unit tests' // uncomment when unit tests will be required for some code
-      #        run: 'docker compose exec app npm run test'
+        run: 'docker compose up -d --build --wait'
+      - name: 'Run code formatting check'
+        run: 'docker compose exec app npm run format'
+      - name: 'Run static code analysis'
+        run: 'docker compose exec app npm run lint'
       - name: 'Run functional tests'
         run: 'docker compose exec app npm run test:functional'
-#      - name: 'Run end-to-end tests' // uncomment when e2e tests will be required for some code
-#        run: 'docker compose exec app npm run test:e2e'
