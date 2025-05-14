@@ -4,9 +4,6 @@ on:
   push:
     branches: ['main']
 
-env:
-  IMAGE_NAME: 'ghcr.io/oskarbarcz/flight-tracker-api'
-
 jobs:
   tag:
     runs-on: 'ubuntu-24.04'
@@ -32,9 +29,9 @@ jobs:
       - name: 'Clone repository'
         uses: actions/checkout@v4
       - name: 'Build app docker image'
-        run: "docker build --target production -t ${{ env.IMAGE_NAME }}:$(jq -r '.version' package.json) ."
+        run: "docker build --target production -t ghcr.io/$(jq -r '.author' package.json)/$(jq -r '.name' package.json):$(jq -r '.version' package.json) ."
       - name: 'Push docker image to ghcr.io'
-        run: "docker push ${{ env.IMAGE_NAME }}:$(jq -r '.version' package.json)"
+        run: "docker push ghcr.io/$(jq -r '.author' package.json)/$(jq -r '.name' package.json):$(jq -r '.version' package.json)"
   release:
     runs-on: 'ubuntu-22.04'
     timeout-minutes: 5
