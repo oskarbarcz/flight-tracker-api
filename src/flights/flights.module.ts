@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { FlightsService } from './flights.service';
+import { FlightsService } from './service/flights.service';
 import { FlightsController } from './flights.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 import { AirportsModule } from '../airports/airports.module';

@@ -7,9 +7,10 @@ import {
   HttpStatus,
   Patch,
   Post,
+  Query,
   Req,
 } from '@nestjs/common';
-import { FlightsService } from './flights.service';
+import { FlightsService } from './service/flights.service';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -35,11 +36,46 @@ import { Role } from '../auth/decorator/role.decorator';
 import { UserRole } from '@prisma/client';
 import { AuthorizedRequest } from '../common/request/authorized.request';
 import { Loadsheet } from './entities/loadsheet.entity';
+import { SkipAuth } from '../auth/decorator/skip-auth.decorator';
+import * as https from 'node:https';
+import { parseStringPromise } from 'xml2js';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
 export class FlightsController {
   constructor(private readonly flightsService: FlightsService) {}
+
+  @SkipAuth()
+  @Get('/a/simbrief')
+  async simbrief(@Query() query: { id: string }) {
+    const url = `https://www.simbrief.com/api/xml.fetcher.php?userid=${query.id}`;
+
+    const xml = await this.fetchXml(url);
+
+    const json = await parseStringPromise(xml);
+
+    return json;
+  }
+
+  private fetchXml(url: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      https
+        .get(url, (response) => {
+          let data = '';
+
+          response.on('data', (chunk) => {
+            data += chunk;
+          });
+
+          response.on('end', () => {
+            resolve(data);
+          });
+
+          response.on('error', reject);
+        })
+        .on('error', reject);
+    });
+  }
 
   @ApiOperation({ summary: 'Retrieve all flights' })
   @ApiBearerAuth()
