@@ -1,7 +1,6 @@
 import { When, Then, Given, After } from '@cucumber/cucumber';
 import axios, { AxiosResponse } from 'axios';
 import expect from 'expect';
-import { execSync } from 'child_process';
 import { deepCompare } from '../_helper/deep-compare';
 import { SignInResponse } from '../../src/auth/dto/sign-in.dto';
 
@@ -28,10 +27,6 @@ let apiTokens = {
   currentRole: 'admin',
 } as Record<string, string>;
 let apiResponse: AxiosResponse;
-
-Given('I use seed data', () => {
-  execSync('npx prisma migrate reset --force --skip-generate > /dev/null');
-});
 
 Given(
   'I am signed in as {string}',
