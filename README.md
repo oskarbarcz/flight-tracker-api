@@ -25,8 +25,8 @@ Project is using **Node.js** and **TypeScript** in versions listed below:
 
 | Technology | Version |
 | ---------- | ------- |
-| Node.js    | 22.9    |
-| TypeScript | ^5.7    |
+| Node.js    | 24      |
+| TypeScript | ^5.8    |
 
 Main dependencies are **Nest.js** and **Prisma ORM** in versions listed below.
 
