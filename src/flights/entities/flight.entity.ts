@@ -4,6 +4,7 @@ import { FullTimesheet } from './timesheet.entity';
 import { CreateAircraftResponse } from '../../aircraft/dto/create-aircraft.dto';
 import { Operator } from '../../operators/entities/operator.entity';
 import { Loadsheets } from './loadsheet.entity';
+import { Rotation } from '../../rotations/entities/rotation.entity';
 
 export enum FlightStatus {
   Created = 'created',
@@ -72,4 +73,12 @@ export class Flight {
     type: Operator,
   })
   operator: Operator;
+
+  @ApiProperty({
+    description: 'Rotation this flight belongs to',
+    type: Rotation,
+    required: false,
+    nullable: true,
+  })
+  rotation?: Rotation;
 }

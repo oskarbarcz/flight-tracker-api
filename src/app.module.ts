@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { RotationsModule } from './rotations/rotations.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     UsersModule,
     AuthModule,
     JwtModule,
+    RotationsModule,
     EventEmitterModule.forRoot(),
   ],
   controllers: [],

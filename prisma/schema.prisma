@@ -60,6 +60,9 @@ model Flight {
   operator     Operator            @relation(fields: [operatorId], references: [id])
   operatorId   String              @db.Uuid
   User         User?
+  rotation     Rotation?           @relation(fields: [rotationId], references: [id])
+  rotationId   String?             @db.Uuid
+  createdAt    DateTime            @default(now())
 
   @@map("flight")
 }
@@ -76,16 +79,30 @@ model AirportsOnFlights {
 }
 
 model User {
-  id              String            @id @db.Uuid
-  name            String
-  email           String            @unique
-  password        String
-  role            UserRole
-  currentFlight   Flight?           @relation(fields: [currentFlightId], references: [id])
-  currentFlightId String?           @unique @db.Uuid
-  JwtRefreshToken JwtRefreshToken[]
+  id                String            @id @db.Uuid
+  name              String
+  email             String            @unique
+  password          String
+  role              UserRole
+  currentFlight     Flight?           @relation(fields: [currentFlightId], references: [id])
+  currentFlightId   String?           @unique @db.Uuid
+  JwtRefreshToken   JwtRefreshToken[]
+  currentRotationId String?           @unique @db.Uuid
+  rotations         Rotation[]
 
   @@map("user")
+}
+
+model Rotation {
+  id        String   @id @db.Uuid
+  name      String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.Uuid
+  createdAt DateTime
+  updatedAt DateTime
+  flights   Flight[]
+
+  @@map("rotation")
 }
 
 model JwtRefreshToken {
