@@ -15,8 +15,6 @@ import {
   EventType,
   FlightWasCheckedInPayload,
   FlightWasClosedPayload,
-  RotationWasSetAsCurrentPayload,
-  RotationWasClearedPayload,
 } from '../common/events/event';
 
 @Injectable()
@@ -125,22 +123,6 @@ export class UsersService {
     });
   }
 
-  @OnEvent(EventType.RotationWasSetAsCurrent)
-  async onRotationSetAsCurrent(payload: RotationWasSetAsCurrentPayload): Promise<void> {
-    await this.prisma.user.update({
-      where: { id: payload.userId },
-      data: { currentRotationId: payload.rotationId },
-    });
-  }
-
-  @OnEvent(EventType.RotationWasCleared)
-  async onRotationCleared(payload: RotationWasClearedPayload): Promise<void> {
-    await this.prisma.user.update({
-      where: { id: payload.userId },
-      data: { currentRotationId: null },
-    });
-  }
-
   private async findOneBy(
     criteria: Partial<Record<keyof User, any>>,
   ): Promise<User | null> {
@@ -156,7 +138,6 @@ export class UsersService {
       email: user.email,
       role: user.role,
       currentFlightId: user.currentFlightId,
-      currentRotationId: user.currentRotationId,
     };
   }
 }

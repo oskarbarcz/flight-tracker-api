@@ -48,10 +48,4 @@ export class User {
     example: '3b75f824-84c1-4521-9373-a4f3c27bdd8a',
   })
   currentFlightId: string | null;
-
-  @ApiProperty({
-    description: 'Current rotation user is assigned to',
-    example: '3b75f824-84c1-4521-9373-a4f3c27bdd8a',
-  })
-  currentRotationId: string | null;
 }

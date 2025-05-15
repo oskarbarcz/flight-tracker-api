@@ -1,175 +1,84 @@
-import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Rotation } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
+import {
+  CreateRotationRequest,
+  UpdateRotationRequest,
+} from './dto/create-rotation.dto';
 import { v4 } from 'uuid';
-import { CreateRotationDto } from './dto/create-rotation.dto';
-import { UpdateRotationDto } from './dto/update-rotation.dto';
-
-export const rotationWithFlightsAndUserFields = Prisma.validator<Prisma.RotationSelect>()({
-  id: true,
-  name: true,
-  userId: true,
-  createdAt: true,
-  updatedAt: true,
-  user: {
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-    },
-  },
-  flights: {
-    select: {
-      id: true,
-      flightNumber: true,
-      callsign: true,
-      status: true,
-      timesheet: true,
-      loadsheets: true,
-      operator: {
-        select: {
-          id: true,
-          icaoCode: true,
-          shortName: true,
-          fullName: true,
-          callsign: true,
-        },
-      },
-      aircraft: {
-        select: {
-          id: true,
-          icaoCode: true,
-          shortName: true,
-          fullName: true,
-          registration: true,
-          selcal: true,
-          livery: true,
-          operator: {
-            select: {
-              id: true,
-              icaoCode: true,
-              shortName: true,
-              fullName: true,
-              callsign: true,
-            },
-          },
-        },
-      },
-      airports: {
-        select: {
-          airportType: true,
-          airport: {
-            select: {
-              id: true,
-              icaoCode: true,
-              iataCode: true,
-              city: true,
-              name: true,
-              country: true,
-              timezone: true,
-            },
-          },
-        },
-      },
-    },
-  },
-});
-
-export type RotationWithFlightsAndUser = Prisma.RotationGetPayload<{
-  select: typeof rotationWithFlightsAndUserFields;
-}>;
+import { RotationId } from './entities/rotation.entity';
 
 @Injectable()
 export class RotationsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(
-    userId: string,
-    input: CreateRotationDto,
-  ): Promise<RotationWithFlightsAndUser> {
-    const rotationId = v4();
-    const now = new Date();
+  async create(request: CreateRotationRequest): Promise<Rotation> {
+    if (!(await this.pilotExists(request.pilotId))) {
+      throw new NotFoundException('Pilot with given ID does not exist');
+    }
 
-    const rotation = await this.prisma.rotation.create({
+    return this.prisma.rotation.create({
       data: {
-        id: rotationId,
-        name: input.name,
-        userId: userId,
-        createdAt: now,
-        updatedAt: now,
+        id: v4(),
+        name: request.name,
+        pilotId: request.pilotId,
       },
-      select: rotationWithFlightsAndUserFields,
     });
-
-    return rotation;
   }
 
-  async findOneBy(
-    criteria: Partial<Record<keyof Prisma.RotationWhereInput, any>>,
-  ): Promise<RotationWithFlightsAndUser | null> {
+  async findAll(): Promise<Rotation[]> {
+    return this.prisma.rotation.findMany();
+  }
+
+  async findOneById(id: RotationId): Promise<Rotation | null> {
     return this.prisma.rotation.findFirst({
-      where: criteria,
-      select: rotationWithFlightsAndUserFields,
-    });
-  }
-
-  async findAll(): Promise<RotationWithFlightsAndUser[]> {
-    return this.prisma.rotation.findMany({
-      select: rotationWithFlightsAndUserFields,
-    });
-  }
-
-  async findAllByUserId(userId: string): Promise<RotationWithFlightsAndUser[]> {
-    return this.prisma.rotation.findMany({
-      where: { userId },
-      select: rotationWithFlightsAndUserFields,
+      where: { id },
     });
   }
 
   async update(
-    id: string,
-    data: UpdateRotationDto,
-  ): Promise<RotationWithFlightsAndUser> {
+    id: RotationId,
+    request: UpdateRotationRequest,
+  ): Promise<Rotation> {
+    if (!(await this.rotationExists(id))) {
+      throw new NotFoundException('Rotation with given ID does not exist');
+    }
+
     return this.prisma.rotation.update({
       where: { id },
       data: {
-        ...data,
+        ...request,
         updatedAt: new Date(),
       },
-      select: rotationWithFlightsAndUserFields,
     });
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: RotationId): Promise<void> {
+    if (!(await this.rotationExists(id))) {
+      throw new NotFoundException('Rotation with given ID does not exist');
+    }
+
+    await this.prisma.flight.updateMany({
+      where: { rotationId: id },
+      data: { rotationId: null },
+    });
+
     await this.prisma.rotation.delete({ where: { id } });
   }
 
-  async addFlight(rotationId: string, flightId: string): Promise<void> {
-    await this.prisma.flight.update({
-      where: { id: flightId },
-      data: { rotationId },
+  private async pilotExists(pilotId: string): Promise<boolean> {
+    const pilot = await this.prisma.user.count({
+      where: { id: pilotId },
     });
+
+    return pilot > 0;
   }
 
-  async removeFlight(flightId: string): Promise<void> {
-    await this.prisma.flight.update({
-      where: { id: flightId },
-      data: { rotationId: null },
+  private async rotationExists(id: RotationId): Promise<boolean> {
+    const pilot = await this.prisma.user.count({
+      where: { id: id },
     });
-  }
 
-  async setCurrentRotation(userId: string, rotationId: string): Promise<void> {
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { currentRotationId: rotationId },
-    });
-  }
-
-  async clearCurrentRotation(userId: string): Promise<void> {
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { currentRotationId: null },
-    });
+    return pilot > 0;
   }
 }

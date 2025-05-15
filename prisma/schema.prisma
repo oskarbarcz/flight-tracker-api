@@ -79,27 +79,26 @@ model AirportsOnFlights {
 }
 
 model User {
-  id                String            @id @db.Uuid
-  name              String
-  email             String            @unique
-  password          String
-  role              UserRole
-  currentFlight     Flight?           @relation(fields: [currentFlightId], references: [id])
-  currentFlightId   String?           @unique @db.Uuid
-  JwtRefreshToken   JwtRefreshToken[]
-  currentRotationId String?           @unique @db.Uuid
-  rotations         Rotation[]
+  id              String            @id @db.Uuid
+  name            String
+  email           String            @unique
+  password        String
+  role            UserRole
+  currentFlight   Flight?           @relation(fields: [currentFlightId], references: [id])
+  currentFlightId String?           @unique @db.Uuid
+  JwtRefreshToken JwtRefreshToken[]
+  Rotation        Rotation[]
 
   @@map("user")
 }
 
 model Rotation {
-  id        String   @id @db.Uuid
+  id        String    @id @db.Uuid
   name      String
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String   @db.Uuid
-  createdAt DateTime
-  updatedAt DateTime
+  pilot     User      @relation(fields: [pilotId], references: [id])
+  pilotId   String    @db.Uuid
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
   flights   Flight[]
 
   @@map("rotation")

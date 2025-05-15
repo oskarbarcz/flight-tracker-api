@@ -1,44 +1,13 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { OmitType, PartialType, PickType } from '@nestjs/swagger';
+import { Rotation } from '../entities/rotation.entity';
 
-export class CreateRotationDto {
-  @ApiProperty({
-    description: 'Rotation name',
-    example: 'Morning Shift',
-  })
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-}
+export class CreateRotationRequest extends PickType(Rotation, [
+  'name',
+  'pilotId',
+]) {}
 
-export class CreateRotationResponse {
-  @ApiProperty({
-    description: 'Rotation unique system identifier',
-    example: 'bd8f2d64-a647-42da-be63-c6589915e6c9',
-  })
-  id: string;
+export class CreateRotationResponse extends OmitType(Rotation, ['flights']) {}
 
-  @ApiProperty({
-    description: 'Rotation name',
-    example: 'Morning Shift',
-  })
-  name: string;
-
-  @ApiProperty({
-    description: 'User ID who owns this rotation',
-    example: 'bd8f2d64-a647-42da-be63-c6589915e6c9',
-  })
-  userId: string;
-
-  @ApiProperty({
-    description: 'Creation timestamp',
-    example: '2025-04-28T18:21:04.000Z',
-  })
-  createdAt: Date;
-
-  @ApiProperty({
-    description: 'Last update timestamp',
-    example: '2025-04-28T18:21:04.000Z',
-  })
-  updatedAt: Date;
-}
+export class UpdateRotationRequest extends PartialType(
+  PickType(Rotation, ['name', 'pilotId']),
+) {}

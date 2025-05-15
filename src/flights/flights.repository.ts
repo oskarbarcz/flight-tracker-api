@@ -60,15 +60,6 @@ export const flightWithAircraftAndAirportsFields =
         },
       },
     },
-    rotation: {
-      select: {
-        id: true,
-        name: true,
-        userId: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    },
   } as const);
 
 export type FlightWithAircraftAndAirports = Prisma.FlightGetPayload<{
