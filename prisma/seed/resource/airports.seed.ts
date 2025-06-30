@@ -1,6 +1,6 @@
 import { Airport, PrismaClient } from '@prisma/client';
 
-export async function loadAirports(prisma: PrismaClient): Promise<void> {
+export async function loadAirports(): Promise<void> {
   const frankfurt: Airport = {
     id: 'f35c094a-bec5-4803-be32-bd80a14b441a',
     icaoCode: 'EDDF',
@@ -100,6 +100,8 @@ export async function loadAirports(prisma: PrismaClient): Promise<void> {
     country: 'Germany',
     timezone: 'Europe/Berlin',
   };
+
+  const prisma = new PrismaClient();
 
   for (const airport of [
     frankfurt,

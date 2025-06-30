@@ -4,15 +4,17 @@ import { loadOperators } from './resource/operators.seed';
 import { loadAirports } from './resource/airports.seed';
 import { loadFlights } from './resource/flights.seed';
 import { loadUsers } from './resource/users.seed';
+import { loadRotations } from './resource/rotations.seed';
 
 const prisma = new PrismaClient();
 
 async function main() {
-  await loadAirports(prisma);
-  await loadOperators(prisma);
-  await loadAircraft(prisma);
-  await loadFlights(prisma);
-  await loadUsers(prisma);
+  await loadAirports();
+  await loadOperators();
+  await loadAircraft();
+  await loadFlights();
+  await loadUsers();
+  await loadRotations();
 }
 
 main()
