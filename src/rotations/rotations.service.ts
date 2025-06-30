@@ -47,4 +47,12 @@ export class RotationsService {
   async remove(id: RotationId): Promise<void> {
     await this.rotationsRepository.remove(id);
   }
+
+  async addFlight(id: string, flightId: string): Promise<void> {
+    await this.rotationsRepository.addFlight(id, flightId);
+  }
+
+  async removeFlight(id: string, flightId: string): Promise<void> {
+    await this.rotationsRepository.removeFlight(id, flightId);
+  }
 }

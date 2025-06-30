@@ -77,6 +77,80 @@ export class RotationsController {
   }
 
   @ApiOperation({
+    summary: 'Assign a flight to a rotation',
+    description:
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
+  })
+  @ApiBearerAuth()
+  @ApiParam({ name: 'id', description: 'Rotation unique identifier' })
+  @ApiParam({ name: 'flightId', description: 'Flight unique identifier' })
+  @ApiNoContentResponse({
+    description: 'Flight was assigned to rotation successfully',
+  })
+  @ApiBadRequestResponse({
+    description: 'Validation failed or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight or rotation does not exist',
+    type: GenericNotFoundResponse,
+  })
+  @Post(':id/flight/:flightId')
+  @Role(UserRole.Operations)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async addFlightToRotation(
+    @UuidParam('id') id: string,
+    @UuidParam('flightId') flightId: string,
+  ): Promise<void> {
+    await this.rotationsService.addFlight(id, flightId);
+  }
+
+  @ApiOperation({
+    summary: 'Remove a flight from a rotation',
+    description:
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
+  })
+  @ApiBearerAuth()
+  @ApiParam({ name: 'id', description: 'Rotation unique identifier' })
+  @ApiParam({ name: 'flightId', description: 'Flight unique identifier' })
+  @ApiNoContentResponse({
+    description: 'Flight was removed from rotation successfully',
+  })
+  @ApiBadRequestResponse({
+    description: 'Validation failed or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenRequest,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight or rotation does not exist',
+    type: GenericNotFoundResponse,
+  })
+  @Delete(':id/flight/:flightId')
+  @Role(UserRole.Operations)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async removeFlightFromRotation(
+    @UuidParam('id') id: string,
+    @UuidParam('flightId') flightId: string,
+  ): Promise<void> {
+    await this.rotationsService.removeFlight(id, flightId);
+  }
+
+  @ApiOperation({
     summary: 'Retrieve all rotations',
   })
   @ApiBearerAuth()

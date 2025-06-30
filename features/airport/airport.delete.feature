@@ -17,9 +17,9 @@ Feature: Delete airport
   Scenario: As operations I can delete airport
     Given I use seed data
     And I am signed in as "operations"
-    When I send a "DELETE" request to "/api/v1/airport/5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf"
+    When I send a "DELETE" request to "/api/v1/airport/fa8ee2e9-fb94-4416-9ed0-4811efd488ae"
     Then the response status should be 204
-    When I send a "GET" request to "/api/v1/airport/5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf"
+    When I send a "GET" request to "/api/v1/airport/fa8ee2e9-fb94-4416-9ed0-4811efd488ae"
     Then the response status should be 404
     And the response body should contain:
       """json

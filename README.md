@@ -32,8 +32,8 @@ Main dependencies are **Nest.js** and **Prisma ORM** in versions listed below.
 
 | Vendor  | Version |
 | ------- | ------- |
-| Nest.js | ^10.4   |
-| Prisma  | ^6.3.1  |
+| Nest.js | ^11.1   |
+| Prisma  | ^6.10.1 |
 
 ## Getting Started
 

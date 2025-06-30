@@ -26,7 +26,7 @@ Feature: Create rotation
     When I send a "POST" request to "/api/v1/rotation" with body:
       """json
       {
-        "name": "Morning Shift",
+        "name": "2025-01",
         "pilotId": "fcf6f4bc-290d-43a9-843c-409cd47e143d"
       }
       """
@@ -35,7 +35,7 @@ Feature: Create rotation
       """json
       {
         "id": "@uuid",
-        "name": "Morning Shift",
+        "name": "2025-01",
         "pilotId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
         "createdAt": "@date('within 1 minute from now')",
         "updatedAt": null
@@ -89,7 +89,7 @@ Feature: Create rotation
     When I send a "POST" request to "/api/v1/rotation" with body:
       """json
       {
-        "name": "Morning Shift",
+        "name": "2025-01",
         "pilotId": "cb715c36-ecfb-4dfc-8700-3c262b52abac"
       }
       """
@@ -107,7 +107,7 @@ Feature: Create rotation
     When I send a "POST" request to "/api/v1/rotation/" with body:
       """json
       {
-        "name": "Morning Shift",
+        "name": "2025-01",
         "pilotId": "fcf6f4bc-290d-43a9-843c-409cd47e143d"
       }
       """

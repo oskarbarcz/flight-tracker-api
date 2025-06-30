@@ -14,7 +14,7 @@ export class Rotation {
 
   @ApiProperty({
     description: 'Rotation name',
-    example: 'Morning Shift',
+    example: '2025-01',
   })
   @IsString()
   @IsNotEmpty()
