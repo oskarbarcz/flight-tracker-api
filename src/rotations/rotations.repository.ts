@@ -44,6 +44,10 @@ export class RotationsRepository {
       throw new NotFoundException('Rotation with given ID does not exist');
     }
 
+    if (request.pilotId && !(await this.pilotExists(request.pilotId))) {
+      throw new NotFoundException('Pilot with given ID does not exist');
+    }
+
     return this.prisma.rotation.update({
       where: { id },
       data: {
@@ -67,18 +71,19 @@ export class RotationsRepository {
   }
 
   private async pilotExists(pilotId: string): Promise<boolean> {
-    const pilot = await this.prisma.user.count({
+    const count = await this.prisma.user.count({
       where: { id: pilotId },
     });
 
-    return pilot > 0;
+    return count > 0;
   }
 
   private async rotationExists(id: RotationId): Promise<boolean> {
-    const pilot = await this.prisma.user.count({
+    console.log(id);
+    const count = await this.prisma.rotation.count({
       where: { id: id },
     });
 
-    return pilot > 0;
+    return count > 0;
   }
 }

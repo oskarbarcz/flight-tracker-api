@@ -3,12 +3,14 @@ import { Prisma, PrismaClient } from '@prisma/client';
 import { AirportType } from '../../../src/airports/entities/airport.entity';
 import { Loadsheets } from '../../../src/flights/entities/loadsheet.entity';
 
+const prisma = new PrismaClient();
+
 /**
  * DLH 450 | 3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05
  * Frankfurt Rhein/Main (EDDF) -> New York JFK (KJFK)
  * status: Created
  */
-async function loadDLH450(prisma: PrismaClient): Promise<void> {
+async function loadDLH450(): Promise<void> {
   const dlh450 = {
     id: '3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05',
     flightNumber: 'LH 450',
@@ -102,7 +104,7 @@ async function loadDLH450(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Closed
  */
-async function loadAAL4905(prisma: PrismaClient): Promise<void> {
+async function loadAAL4905(): Promise<void> {
   const ual4905 = {
     id: '23da8bc9-a21b-4678-b2e9-1151d3bd15ab',
     flightNumber: 'AA 4905',
@@ -205,7 +207,7 @@ async function loadAAL4905(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Ready
  */
-async function loadAAL4906(prisma: PrismaClient): Promise<void> {
+async function loadAAL4906(): Promise<void> {
   const ual4906 = {
     id: '23952e79-6b38-49ed-a1db-bd4d9b3cedab',
     flightNumber: 'AA 4906',
@@ -285,7 +287,7 @@ async function loadAAL4906(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Created
  */
-async function loadAAL4907(prisma: PrismaClient): Promise<void> {
+async function loadAAL4907(): Promise<void> {
   const ual4907 = {
     id: 'e91e13a9-09d8-48bf-8453-283cef467b88',
     flightNumber: 'AA 4907',
@@ -365,7 +367,7 @@ async function loadAAL4907(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Checked in
  */
-async function loadAAL4908(prisma: PrismaClient): Promise<void> {
+async function loadAAL4908(): Promise<void> {
   const data = {
     id: 'b3899775-278e-4496-add1-21385a13d93e',
     flightNumber: 'AA 4908',
@@ -451,7 +453,7 @@ async function loadAAL4908(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Boarding started
  */
-async function loadAAL4909(prisma: PrismaClient): Promise<void> {
+async function loadAAL4909(): Promise<void> {
   const data = {
     id: '05986dd3-ff01-4112-ad35-ecd85db05c77',
     flightNumber: 'AA 4909',
@@ -537,7 +539,7 @@ async function loadAAL4909(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Boarding finished
  */
-async function loadAAL4910(prisma: PrismaClient): Promise<void> {
+async function loadAAL4910(): Promise<void> {
   const data = {
     id: 'f14a2141-4737-4622-a387-40513ff3baf1',
     flightNumber: 'AA 4910',
@@ -634,7 +636,7 @@ async function loadAAL4910(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Taxiing out
  */
-async function loadAAL4911(prisma: PrismaClient): Promise<void> {
+async function loadAAL4911(): Promise<void> {
   const data = {
     id: '7105891a-8008-4b47-b473-c81c97615ad7',
     flightNumber: 'AA 4911',
@@ -737,7 +739,7 @@ async function loadAAL4911(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: In cruise
  */
-async function loadAAL4912(prisma: PrismaClient): Promise<void> {
+async function loadAAL4912(): Promise<void> {
   const data = {
     id: '2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d',
     flightNumber: 'AA 4912',
@@ -840,7 +842,7 @@ async function loadAAL4912(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Taxiing in
  */
-async function loadAAL4913(prisma: PrismaClient): Promise<void> {
+async function loadAAL4913(): Promise<void> {
   const data = {
     id: '04be266c-df78-4bec-9f50-281cc02ce7f2',
     flightNumber: 'AA 4913',
@@ -943,7 +945,7 @@ async function loadAAL4913(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: On block
  */
-async function loadAAL4914(prisma: PrismaClient): Promise<void> {
+async function loadAAL4914(): Promise<void> {
   const data = {
     id: '17d2f703-957d-4ad1-a620-3c187a70c26a',
     flightNumber: 'AA 4914',
@@ -1046,7 +1048,7 @@ async function loadAAL4914(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Offboarding started
  */
-async function loadAAL4915(prisma: PrismaClient): Promise<void> {
+async function loadAAL4915(): Promise<void> {
   const data = {
     id: '5aada8ba-60c1-4e93-bcee-b59a7c555fdd',
     flightNumber: 'AA 4915',
@@ -1149,7 +1151,7 @@ async function loadAAL4915(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Offboarding finished
  */
-async function loadAAL4916(prisma: PrismaClient): Promise<void> {
+async function loadAAL4916(): Promise<void> {
   const data = {
     id: '38644393-deee-434d-bfd1-7242abdbc4e1',
     flightNumber: 'AA 4916',
@@ -1252,7 +1254,7 @@ async function loadAAL4916(prisma: PrismaClient): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Closed
  */
-async function loadAAL4917(prisma: PrismaClient): Promise<void> {
+async function loadAAL4917(): Promise<void> {
   const data = {
     id: 'd085c107-308d-48e6-9c93-beca6552a8a3',
     flightNumber: 'AA 4917',
@@ -1350,19 +1352,19 @@ async function loadAAL4917(prisma: PrismaClient): Promise<void> {
   });
 }
 
-export async function loadFlights(prisma: PrismaClient): Promise<void> {
-  await loadDLH450(prisma);
-  await loadAAL4905(prisma);
-  await loadAAL4906(prisma);
-  await loadAAL4907(prisma);
-  await loadAAL4908(prisma);
-  await loadAAL4909(prisma);
-  await loadAAL4910(prisma);
-  await loadAAL4911(prisma);
-  await loadAAL4912(prisma);
-  await loadAAL4913(prisma);
-  await loadAAL4914(prisma);
-  await loadAAL4915(prisma);
-  await loadAAL4916(prisma);
-  await loadAAL4917(prisma);
+export async function loadFlights(): Promise<void> {
+  await loadDLH450();
+  await loadAAL4905();
+  await loadAAL4906();
+  await loadAAL4907();
+  await loadAAL4908();
+  await loadAAL4909();
+  await loadAAL4910();
+  await loadAAL4911();
+  await loadAAL4912();
+  await loadAAL4913();
+  await loadAAL4914();
+  await loadAAL4915();
+  await loadAAL4916();
+  await loadAAL4917();
 }

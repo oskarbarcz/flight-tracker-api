@@ -8,6 +8,4 @@ export class CreateRotationRequest extends PickType(Rotation, [
 
 export class CreateRotationResponse extends OmitType(Rotation, ['flights']) {}
 
-export class UpdateRotationRequest extends PartialType(
-  PickType(Rotation, ['name', 'pilotId']),
-) {}
+export class UpdateRotationRequest extends PartialType(CreateRotationRequest) {}

@@ -153,12 +153,12 @@ export class RotationsController {
     type: GenericNotFoundResponse,
   })
   @Patch(':id')
-  @Role(UserRole.CabinCrew)
+  @Role(UserRole.Operations)
   update(
     @UuidParam('id') id: RotationId,
-    @Body() updateRotationDto: UpdateRotationRequest,
+    @Body() body: UpdateRotationRequest,
   ): Promise<CreateRotationResponse> {
-    return this.rotationsService.update(id, updateRotationDto);
+    return this.rotationsService.update(id, body);
   }
 
   @ApiOperation({

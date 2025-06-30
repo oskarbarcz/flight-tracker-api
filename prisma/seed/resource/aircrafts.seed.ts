@@ -1,6 +1,6 @@
 import { Aircraft, PrismaClient } from '@prisma/client';
 
-export async function loadAircraft(prisma: PrismaClient): Promise<void> {
+export async function loadAircraft(): Promise<void> {
   const a330: Aircraft = {
     id: '9f5da1a4-f09e-4961-8299-82d688337d1f',
     icaoCode: 'A339',
@@ -45,6 +45,7 @@ export async function loadAircraft(prisma: PrismaClient): Promise<void> {
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
   };
 
+  const prisma = new PrismaClient();
   for (const aircraft of [a330, a321, a319, b773]) {
     await prisma.aircraft.create({ data: aircraft });
   }

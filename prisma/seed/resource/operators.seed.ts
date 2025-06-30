@@ -1,6 +1,6 @@
 import { Operator, PrismaClient } from '@prisma/client';
 
-export async function loadOperators(prisma: PrismaClient): Promise<void> {
+export async function loadOperators(): Promise<void> {
   const condor: Operator = {
     id: '5c649579-22eb-4c07-a96c-b74a77f53871',
     icaoCode: 'CDG',
@@ -41,6 +41,7 @@ export async function loadOperators(prisma: PrismaClient): Promise<void> {
     callsign: 'SPEEDBIRD',
   };
 
+  const prisma = new PrismaClient();
   for (const operator of [condor, lufthansa, lot, american, british]) {
     await prisma.operator.create({ data: operator });
   }

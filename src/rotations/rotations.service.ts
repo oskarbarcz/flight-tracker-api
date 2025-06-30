@@ -44,7 +44,7 @@ export class RotationsService {
     return { ...rotation, id: rotation.id as RotationId };
   }
 
-  async remove(id: RotationId) {
+  async remove(id: RotationId): Promise<void> {
     await this.rotationsRepository.remove(id);
   }
 }

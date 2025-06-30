@@ -14,11 +14,5 @@ CREATE TABLE "rotation" (
     CONSTRAINT "rotation_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "user_currentRotationId_key" ON "user"("currentRotationId");
-
 -- AddForeignKey
 ALTER TABLE "flight" ADD CONSTRAINT "flight_rotationId_fkey" FOREIGN KEY ("rotationId") REFERENCES "rotation"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "rotation" ADD CONSTRAINT "rotation_userId_fkey" FOREIGN KEY ("pilotId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
