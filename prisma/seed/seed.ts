@@ -12,9 +12,9 @@ async function main() {
   await loadAirports();
   await loadOperators();
   await loadAircraft();
-  await loadFlights();
   await loadUsers();
   await loadRotations();
+  await loadFlights();
 }
 
 main()

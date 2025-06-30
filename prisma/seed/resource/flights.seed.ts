@@ -446,6 +446,11 @@ async function loadAAL4908(): Promise<void> {
       airportType: AirportType.DestinationAlternate,
     },
   });
+
+  await prisma.user.update({
+    where: { id: 'fcf6f4bc-290d-43a9-843c-409cd47e143d' }, // Rick Doe user
+    data: { currentFlightId: flight.id },
+  });
 }
 
 /**
@@ -1352,6 +1357,235 @@ async function loadAAL4917(): Promise<void> {
   });
 }
 
+/**
+ * DLH 40 | 48760636-9520-4863-b32f-f3618556feb7
+ * Rotation 2025-01
+ * Boston Frankfurt (EDDF) -> New York JFK (KJFK)
+ * status: Closed
+ */
+async function loadDLH40(): Promise<void> {
+  const data = {
+    id: '48760636-9520-4863-b32f-f3618556feb7',
+    flightNumber: 'LH 40',
+    callsign: 'DLH 40',
+    status: FlightStatus.Closed,
+    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
+    operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
+    rotationId: 'bd8f2d64-a647-42da-be63-c6589915e6c9', // 2025-01
+    timesheet: {
+      scheduled: {
+        offBlockTime: new Date('2025-01-01 17:40'),
+        takeoffTime: new Date('2025-01-01 18:00'),
+        arrivalTime: new Date('2025-01-02 02:00'),
+        onBlockTime: new Date('2025-01-02 02:15'),
+      },
+      estimated: {
+        offBlockTime: new Date('2025-01-01 17:40'),
+        takeoffTime: new Date('2025-01-01 18:00'),
+        arrivalTime: new Date('2025-01-02 02:30'),
+        onBlockTime: new Date('2025-01-02 02:45'),
+      },
+      actual: {
+        offBlockTime: new Date('2025-01-01 17:45'),
+        takeoffTime: new Date('2025-01-01 18:00'),
+        arrivalTime: new Date('2025-01-02 02:30'),
+        onBlockTime: new Date('2025-01-02 02:45'),
+      },
+    } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 1,
+          cabinCrew: 12,
+        },
+        passengers: 293,
+        payload: 30.6,
+        cargo: 7.3,
+        zeroFuelWeight: 157.9,
+        blockFuel: 53.0,
+      },
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 1,
+          cabinCrew: 12,
+        },
+        passengers: 293,
+        payload: 30.6,
+        cargo: 7.3,
+        zeroFuelWeight: 157.9,
+        blockFuel: 53.0,
+      },
+    } as Prisma.InputJsonValue & Loadsheets,
+  };
+
+  const departureAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
+  });
+
+  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' }, // New York JFK
+  });
+
+  const alternateAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' }, // Philadelphia
+  });
+
+  const etopsAlternateAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97' }, // St. John's
+  });
+
+  const etops2AlternateAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a' }, // Reykjavik
+  });
+
+  const flight = await prisma.flight.create({ data: data });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: departureAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Departure,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: arrivalAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Destination,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: alternateAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.DestinationAlternate,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: etopsAlternateAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.EtopsAlternate,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: etops2AlternateAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.EtopsAlternate,
+    },
+  });
+}
+
+/**
+ * DLH 41 | e8e17e59-67d7-4a6c-a0bd-425ffa6bed66
+ * Rotation 2025-01
+ * New York JFK (KJFK) -> Boston Frankfurt (EDDF)
+ * status: Created
+ */
+async function loadDLH41(): Promise<void> {
+  const data = {
+    id: 'e8e17e59-67d7-4a6c-a0bd-425ffa6bed66',
+    flightNumber: 'LH 41',
+    callsign: 'DLH 41',
+    status: FlightStatus.Created,
+    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
+    operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
+    rotationId: 'bd8f2d64-a647-42da-be63-c6589915e6c9', // 2025-01
+    timesheet: {
+      scheduled: {
+        offBlockTime: new Date('2025-01-02 04:00'),
+        takeoffTime: new Date('2025-01-02 04:20'),
+        arrivalTime: new Date('2025-01-02 11:30'),
+        onBlockTime: new Date('2025-01-02 11:45'),
+      },
+    } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 1,
+          cabinCrew: 12,
+        },
+        passengers: 335,
+        payload: 34.9,
+        cargo: 8.4,
+        zeroFuelWeight: 162.3,
+        blockFuel: 47.9,
+      },
+      final: null,
+    } as Prisma.InputJsonValue & Loadsheets,
+  };
+
+  const departureAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' }, // New York JFK
+  });
+
+  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
+  });
+
+  const alternateAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf' }, // Bremen
+  });
+
+  const etopsAlternateAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a' }, // Reykjavik
+  });
+
+  const etops2AlternateAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97' }, // St. John's
+  });
+
+  const flight = await prisma.flight.create({ data: data });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: departureAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Departure,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: arrivalAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Destination,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: alternateAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.DestinationAlternate,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: etopsAlternateAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.EtopsAlternate,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: etops2AlternateAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.EtopsAlternate,
+    },
+  });
+}
+
 export async function loadFlights(): Promise<void> {
   await loadDLH450();
   await loadAAL4905();
@@ -1367,4 +1601,6 @@ export async function loadFlights(): Promise<void> {
   await loadAAL4915();
   await loadAAL4916();
   await loadAAL4917();
+  await loadDLH40();
+  await loadDLH41();
 }

@@ -9,7 +9,7 @@ Feature: Get rotation
       """json
       {
         "id": "bd8f2d64-a647-42da-be63-c6589915e6c9",
-        "name": "Morning Shift",
+        "name": "2025-01",
         "pilotId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
         "createdAt": "2025-01-01T00:00:00.000Z",
         "updatedAt": null
@@ -25,7 +25,7 @@ Feature: Get rotation
       """json
       {
         "id": "bd8f2d64-a647-42da-be63-c6589915e6c9",
-        "name": "Morning Shift",
+        "name": "2025-01",
         "pilotId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
         "createdAt": "2025-01-01T00:00:00.000Z",
         "updatedAt": null
@@ -41,7 +41,7 @@ Feature: Get rotation
       """json
       {
         "id": "bd8f2d64-a647-42da-be63-c6589915e6c9",
-        "name": "Morning Shift",
+        "name": "2025-01",
         "pilotId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
         "createdAt": "2025-01-01T00:00:00.000Z",
         "updatedAt": null

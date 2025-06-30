@@ -28,7 +28,8 @@ export async function loadUsers(): Promise<void> {
     role: UserRole.CabinCrew,
     // password: 'P@$$w0rd' - bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
-    currentFlightId: 'b3899775-278e-4496-add1-21385a13d93e',
+    // null because seed flights are loaded later than seed users
+    currentFlightId: null, // AAL 4908 is attached in flights.seed.ts
   };
 
   const prisma = new PrismaClient();
