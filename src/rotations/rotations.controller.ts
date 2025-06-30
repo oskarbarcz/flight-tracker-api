@@ -78,7 +78,8 @@ export class RotationsController {
 
   @ApiOperation({
     summary: 'Assign a flight to a rotation',
-    description: '**NOTE:** Only available for users with `operations` role.',
+    description:
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth()
   @ApiParam({ name: 'id', description: 'Rotation unique identifier' })
@@ -114,7 +115,8 @@ export class RotationsController {
 
   @ApiOperation({
     summary: 'Remove a flight from a rotation',
-    description: '**NOTE:** Only available for users with `operations` role.',
+    description:
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth()
   @ApiParam({ name: 'id', description: 'Rotation unique identifier' })
