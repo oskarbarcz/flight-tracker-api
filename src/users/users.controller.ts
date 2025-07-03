@@ -71,7 +71,9 @@ export class UsersController {
   @ApiOperation({
     summary: 'Retrieve all users',
     description:
-      '**NOTE:** This endpoint is only available for users with `admin` role.',
+      '**NOTE:** This endpoint is only available for users with `admin` role,' +
+      ' but users with `operations` role can retrieve users by pilot license' +
+      ' ID.',
   })
   @ApiParam({
     name: 'pilotLicenseId',
