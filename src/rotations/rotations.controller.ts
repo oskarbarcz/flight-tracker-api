@@ -33,7 +33,7 @@ import {
   CreateRotationRequest,
   CreateRotationResponse,
   UpdateRotationRequest,
-} from './dto/create-rotation.dto';
+} from './dto/rotation.dto';
 import { Rotation, RotationId } from './entities/rotation.entity';
 
 @ApiTags('rotation')

@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Flight } from '../../flights/entities/flight.entity';
 import { Uuid } from '../../common/types/id';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { PilotDto } from '../../users/dto/get-user.dto';
 
 export type RotationId = Uuid & { _entity: 'Rotation' };
 
@@ -27,6 +28,12 @@ export class Rotation {
   @IsUUID(4)
   @IsNotEmpty()
   pilotId: string;
+
+  @ApiProperty({
+    description: 'Pilot',
+    type: PilotDto,
+  })
+  pilot: PilotDto;
 
   @ApiProperty({
     description: 'Flights in this rotation',

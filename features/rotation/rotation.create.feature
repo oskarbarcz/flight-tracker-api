@@ -36,7 +36,11 @@ Feature: Create rotation
       {
         "id": "@uuid",
         "name": "2025-01",
-        "pilotId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270"
+        },
         "createdAt": "@date('within 1 minute from now')",
         "updatedAt": null
       }

@@ -4,21 +4,39 @@ import {
   ConflictException,
   BadRequestException,
 } from '@nestjs/common';
-import { Rotation } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   CreateRotationRequest,
   UpdateRotationRequest,
-} from './dto/create-rotation.dto';
+} from './dto/rotation.dto';
 import { v4 } from 'uuid';
 import { RotationId } from './entities/rotation.entity';
 import { FlightStatus } from '../flights/entities/flight.entity';
+
+const rotationWithPilot = {
+  id: true,
+  name: true,
+  pilot: {
+    select: {
+      id: true,
+      name: true,
+      pilotLicenseId: true,
+    },
+  },
+  createdAt: true,
+  updatedAt: true,
+} as const satisfies Prisma.RotationSelect;
+
+type RotationWithPilot = Prisma.RotationGetPayload<{
+  select: typeof rotationWithPilot;
+}>;
 
 @Injectable()
 export class RotationsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(request: CreateRotationRequest): Promise<Rotation> {
+  async create(request: CreateRotationRequest): Promise<RotationWithPilot> {
     if (!(await this.pilotExists(request.pilotId))) {
       throw new NotFoundException('Pilot with given ID does not exist');
     }
@@ -29,23 +47,25 @@ export class RotationsRepository {
         name: request.name,
         pilotId: request.pilotId,
       },
+      select: rotationWithPilot,
     });
   }
 
-  async findAll(): Promise<Rotation[]> {
-    return this.prisma.rotation.findMany();
+  async findAll(): Promise<RotationWithPilot[]> {
+    return this.prisma.rotation.findMany({ select: rotationWithPilot });
   }
 
-  async findOneById(id: RotationId): Promise<Rotation | null> {
+  async findOneById(id: RotationId): Promise<RotationWithPilot | null> {
     return this.prisma.rotation.findFirst({
       where: { id },
+      select: rotationWithPilot,
     });
   }
 
   async update(
     id: RotationId,
     request: UpdateRotationRequest,
-  ): Promise<Rotation> {
+  ): Promise<RotationWithPilot> {
     if (!(await this.rotationExists(id))) {
       throw new NotFoundException('Rotation with given ID does not exist');
     }
@@ -60,6 +80,7 @@ export class RotationsRepository {
         ...request,
         updatedAt: new Date(),
       },
+      select: rotationWithPilot,
     });
   }
 

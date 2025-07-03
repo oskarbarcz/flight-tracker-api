@@ -4,7 +4,7 @@ import {
   CreateRotationRequest,
   CreateRotationResponse,
   UpdateRotationRequest,
-} from './dto/create-rotation.dto';
+} from './dto/rotation.dto';
 import { RotationId } from './entities/rotation.entity';
 
 @Injectable()

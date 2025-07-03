@@ -43,7 +43,7 @@ export class User {
 
   @ApiProperty({
     description: 'Pilot license ID (only for CabinCrew, format: XX-12345)',
-    example: 'PL-12345',
+    example: 'UK-12345',
     nullable: true,
     required: false,
   })

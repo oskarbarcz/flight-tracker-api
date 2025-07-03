@@ -6,3 +6,9 @@ export class ListUsersFilters extends PartialType(
 ) {}
 
 export class GetUserDto extends OmitType(User, ['password']) {}
+
+export class PilotDto extends PickType(User, [
+  'id',
+  'name',
+  'pilotLicenseId',
+]) {}

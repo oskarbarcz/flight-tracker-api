@@ -18,7 +18,11 @@ Feature: Add flight to rotation
       {
         "id": "bd8f2d64-a647-42da-be63-c6589915e6c9",
         "name": "2025-01",
-        "pilotId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270"
+        },
         "createdAt": "2025-01-01T00:00:00.000Z",
         "updatedAt": "@date('within 1 minute from now')"
       }
