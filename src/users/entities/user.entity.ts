@@ -50,7 +50,7 @@ export class User {
   @IsString()
   @IsOptional()
   @Matches(/^[A-Za-z]{2}-\d{5}$/, {
-    message: 'Pilot license ID must does not match required format',
+    message: 'Pilot license ID does not match the required format.',
   })
   pilotLicenseId?: string | null;
 

@@ -245,7 +245,7 @@ Feature: Update user
         "violations": {
           "name": ["name should not be empty"],
           "role": ["role must be one of the following values: CabinCrew, Operations, Admin"],
-          "pilotLicenseId": ["Pilot license ID must does not match required format"]
+          "pilotLicenseId": ["Pilot license ID does not match the required format."]
         }
       }
       """

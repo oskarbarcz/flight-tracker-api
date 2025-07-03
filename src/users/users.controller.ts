@@ -130,7 +130,8 @@ export class UsersController {
   @ApiOperation({
     summary: 'Retrieve one user',
     description:
-      '**NOTE:** This endpoint is only available for users with `admin` role.',
+      '**NOTE:** This endpoint is only available for users with `admin` or' +
+      '`cabincrew` role.',
   })
   @ApiBearerAuth()
   @ApiParam({
@@ -158,7 +159,7 @@ export class UsersController {
     type: GenericNotFoundResponse,
   })
   @Get(':id')
-  @Role(UserRole.Admin)
+  @Role(UserRole.Admin, UserRole.Operations)
   findOne(@UuidParam('id') id: string): Promise<GetUserDto> {
     return this.usersService.findOne(id);
   }

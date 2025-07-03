@@ -76,7 +76,7 @@ Feature: List users
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "pilotLicenseId": ["Pilot license ID must does not match required format"]
+          "pilotLicenseId": ["Pilot license ID does not match the required format."]
         }
       }
       """
