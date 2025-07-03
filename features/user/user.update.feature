@@ -211,7 +211,7 @@ Feature: Update user
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
-        "pilotLicenseId": "PL-12345"
+        "pilotLicenseId": "UK-12345"
       }
       """
     Then the response status should be 400

@@ -61,7 +61,7 @@ Feature: Create user
         "email": "bob.doe@example.com",
         "password": "P@$$w0rd",
         "role": "Admin",
-        "pilotLicenseId": "PL-12345"
+        "pilotLicenseId": "UK-12345"
       }
       """
     Then the response status should be 400
