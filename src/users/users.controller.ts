@@ -73,7 +73,11 @@ export class UsersController {
     description:
       '**NOTE:** This endpoint is only available for users with `admin` role.',
   })
-  @ApiParam({ name: 'pilotLicenseId', required: false, description: 'Pilot license ID' })
+  @ApiParam({
+    name: 'pilotLicenseId',
+    required: false,
+    description: 'Pilot license ID',
+  })
   @ApiBearerAuth()
   @ApiOkResponse({
     description: 'Users list',
@@ -94,7 +98,10 @@ export class UsersController {
     @Query() filters: ListUsersFilters,
     @Req() req: AuthorizedRequest,
   ): Promise<GetUserDto[]> {
-    if (req.user.role === UserRole.Operations.toLowerCase() && !filters.pilotLicenseId) {
+    if (
+      req.user.role === UserRole.Operations.toLowerCase() &&
+      !filters.pilotLicenseId
+    ) {
       // operations can only retrieve users by pilot license ID
       throw new ForbiddenException();
     }

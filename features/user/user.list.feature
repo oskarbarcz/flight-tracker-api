@@ -75,7 +75,7 @@ Feature: List users
         "message": "Request validation failed.",
         "error": "Bad Request",
         "statusCode": 400,
-        "violations":{
+        "violations": {
           "pilotLicenseId": ["Pilot license ID must does not match required format"]
         }
       }
@@ -127,7 +127,7 @@ Feature: List users
       }
       """
 
-    Scenario: As an cabin crew I cannot find user by pilot license ID
+  Scenario: As an cabin crew I cannot find user by pilot license ID
     Given I use seed data
     And I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/user?pilotLicenseId=UK-31270"

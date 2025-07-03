@@ -36,7 +36,6 @@ Feature: Create user
         "password": "P@$$w0rd",
         "role": "CabinCrew",
         "pilotLicenseId": "UK-12345"
-
       }
       """
     Then the response status should be 201

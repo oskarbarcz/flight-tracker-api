@@ -57,7 +57,7 @@ export class UsersService {
 
   async findAll(filters: ListUsersFilters): Promise<GetUserDto[]> {
     const users = await this.prisma.user.findMany({
-      where: filters
+      where: filters,
     });
 
     return users.map((user) => this.returnWithoutPassword(user));
