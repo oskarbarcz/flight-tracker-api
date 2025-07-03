@@ -6,8 +6,9 @@ export async function loadUsers(): Promise<void> {
     name: 'John Doe',
     email: 'admin@example.com',
     role: UserRole.Admin,
-    // password: 'P@$$w0rd' - bcrypt with 12 rounds
+    // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
+    pilotLicenseId: null,
     currentFlightId: null,
   };
 
@@ -16,8 +17,9 @@ export async function loadUsers(): Promise<void> {
     name: 'Alice Doe',
     email: 'operations@example.com',
     role: UserRole.Operations,
-    // password: 'P@$$w0rd' - bcrypt with 12 rounds
+    // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
+    pilotLicenseId: null,
     currentFlightId: null,
   };
 
@@ -26,10 +28,12 @@ export async function loadUsers(): Promise<void> {
     name: 'Rick Doe',
     email: 'cabin-crew@example.com',
     role: UserRole.CabinCrew,
-    // password: 'P@$$w0rd' - bcrypt with 12 rounds
+    // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
-    // null because seed flights are loaded later than seed users
-    currentFlightId: null, // AAL 4908 is attached in flights.seed.ts
+    // null because seed flights loaded later than seed users
+    // AAL 4908 attached in flights.seed.ts
+    currentFlightId: null,
+    pilotLicenseId: 'UK-31270',
   };
 
   const prisma = new PrismaClient();

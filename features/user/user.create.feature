@@ -20,7 +20,57 @@ Feature: Create user
         "name": "Anna Doe",
         "email": "anna.doe@example.com",
         "role": "Admin",
+        "currentFlightId": null,
+        "pilotLicenseId": null
+      }
+      """
+
+  Scenario: As an admin I can create cabin crew user with valid pilot license ID
+    Given I use seed data
+    And I am signed in as "admin"
+    When I send a "POST" request to "/api/v1/user" with body:
+      """json
+      {
+        "name": "Bob Doe",
+        "email": "bob.doe@example.com",
+        "password": "P@$$w0rd",
+        "role": "CabinCrew",
+        "pilotLicenseId": "UK-12345"
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "name": "Bob Doe",
+        "email": "bob.doe@example.com",
+        "role": "CabinCrew",
+        "pilotLicenseId": "UK-12345",
         "currentFlightId": null
+      }
+      """
+
+  Scenario: As an admin I cannot set pilot license ID for admin user
+    Given I use seed data
+    And I am signed in as "admin"
+    When I send a "POST" request to "/api/v1/user" with body:
+      """json
+      {
+        "name": "Bob Doe",
+        "email": "bob.doe@example.com",
+        "password": "P@$$w0rd",
+        "role": "Admin",
+        "pilotLicenseId": "PL-12345"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Only CabinCrew can have a pilot license ID.",
+        "error": "Bad Request",
+        "statusCode": 400
       }
       """
 

@@ -155,6 +155,7 @@ Feature: Close flight
         "name": "Rick Doe",
         "email": "cabin-crew@example.com",
         "role": "CabinCrew",
+        "pilotLicenseId": "UK-31270",
         "currentFlightId": null
       }
       """

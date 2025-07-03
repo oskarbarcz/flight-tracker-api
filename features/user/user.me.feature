@@ -12,6 +12,7 @@ Feature: Get current user
         "name": "John Doe",
         "email": "admin@example.com",
         "role": "Admin",
+        "pilotLicenseId": null,
         "currentFlightId": null
       }
       """
@@ -28,6 +29,7 @@ Feature: Get current user
         "name": "Alice Doe",
         "email": "operations@example.com",
         "role": "Operations",
+        "pilotLicenseId": null,
         "currentFlightId": null
       }
       """
@@ -44,6 +46,7 @@ Feature: Get current user
         "name": "Rick Doe",
         "email": "cabin-crew@example.com",
         "role": "CabinCrew",
+        "pilotLicenseId": "UK-31270",
         "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e"
       }
       """

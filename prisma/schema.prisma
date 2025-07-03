@@ -84,6 +84,7 @@ model User {
   email           String            @unique
   password        String
   role            UserRole
+  pilotLicenseId  String?           @db.VarChar(8)
   currentFlight   Flight?           @relation(fields: [currentFlightId], references: [id])
   currentFlightId String?           @unique @db.Uuid
   JwtRefreshToken JwtRefreshToken[]

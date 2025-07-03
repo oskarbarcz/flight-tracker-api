@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Req,
+  Query,
+  ForbiddenException,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -18,7 +27,7 @@ import {
 import { UuidParam } from '../common/validation/uuid.param';
 import { GenericBadRequestResponse } from '../common/response/bad-request.response';
 import { GenericNotFoundResponse } from '../common/response/not-found.response';
-import { GetUserDto } from './dto/get-user.dto';
+import { GetUserDto, ListUsersFilters } from './dto/get-user.dto';
 import { UserRole } from '@prisma/client';
 import { Role } from '../auth/decorator/role.decorator';
 import { UnauthorizedResponse } from '../common/response/unauthorized.response';
@@ -62,7 +71,14 @@ export class UsersController {
   @ApiOperation({
     summary: 'Retrieve all users',
     description:
-      '**NOTE:** This endpoint is only available for users with `admin` role.',
+      '**NOTE:** This endpoint is only available for users with `admin` role,' +
+      ' but users with `operations` role can retrieve users by pilot license' +
+      ' ID.',
+  })
+  @ApiParam({
+    name: 'pilotLicenseId',
+    required: false,
+    description: 'Pilot license ID',
   })
   @ApiBearerAuth()
   @ApiOkResponse({
@@ -79,9 +95,20 @@ export class UsersController {
     type: ForbiddenRequest,
   })
   @Get()
-  @Role(UserRole.Admin)
-  findAll(): Promise<GetUserDto[]> {
-    return this.usersService.findAll();
+  @Role(UserRole.Admin, UserRole.Operations)
+  getAll(
+    @Query() filters: ListUsersFilters,
+    @Req() req: AuthorizedRequest,
+  ): Promise<GetUserDto[]> {
+    if (
+      req.user.role === UserRole.Operations.toLowerCase() &&
+      !filters.pilotLicenseId
+    ) {
+      // operations can only retrieve users by pilot license ID
+      throw new ForbiddenException();
+    }
+
+    return this.usersService.findAll(filters);
   }
 
   @ApiOperation({
@@ -103,7 +130,8 @@ export class UsersController {
   @ApiOperation({
     summary: 'Retrieve one user',
     description:
-      '**NOTE:** This endpoint is only available for users with `admin` role.',
+      '**NOTE:** This endpoint is only available for users with `admin` or' +
+      '`cabincrew` role.',
   })
   @ApiBearerAuth()
   @ApiParam({
@@ -131,7 +159,7 @@ export class UsersController {
     type: GenericNotFoundResponse,
   })
   @Get(':id')
-  @Role(UserRole.Admin)
+  @Role(UserRole.Admin, UserRole.Operations)
   findOne(@UuidParam('id') id: string): Promise<GetUserDto> {
     return this.usersService.findOne(id);
   }

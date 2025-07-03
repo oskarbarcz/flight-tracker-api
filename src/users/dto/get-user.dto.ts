@@ -1,4 +1,8 @@
-import { OmitType } from '@nestjs/swagger';
+import { OmitType, PartialType, PickType } from '@nestjs/swagger';
 import { User } from '../entities/user.entity';
 
-export class GetUserDto extends OmitType(User, ['password'] as const) {}
+export class ListUsersFilters extends PartialType(
+  PickType(User, ['pilotLicenseId']),
+) {}
+
+export class GetUserDto extends OmitType(User, ['password']) {}
