@@ -1,6 +1,6 @@
 import { UserRole } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString, Matches } from 'class-validator';
 
 export class User {
   @ApiProperty({
@@ -34,6 +34,19 @@ export class User {
   @IsNotEmpty()
   @IsEnum(UserRole)
   role: UserRole;
+
+  @ApiProperty({
+    description: 'Pilot license ID (only for CabinCrew, format: XX-12345)',
+    example: 'PL-12345',
+    nullable: true,
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  @Matches(/^[A-Za-z]{2}-\d{5}$/, {
+    message: 'Pilot license ID must does not match required format',
+  })
+  pilotLicenseId?: string | null;
 
   @ApiProperty({
     description: 'Password user will sign in with',

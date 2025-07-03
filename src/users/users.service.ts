@@ -5,11 +5,11 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from '@prisma/client';
+import { User, UserRole } from '@prisma/client';
 import { v4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
-import { GetUserDto } from './dto/get-user.dto';
+import { GetUserDto, ListUsersFilters } from './dto/get-user.dto';
 import { OnEvent } from '@nestjs/event-emitter';
 import {
   EventType,
@@ -32,6 +32,12 @@ export class UsersService {
       throw new BadRequestException('User with given email already exists.');
     }
 
+    if (data.role !== UserRole.CabinCrew && data.pilotLicenseId) {
+      throw new BadRequestException(
+        'Only CabinCrew can have a pilot license ID.',
+      );
+    }
+
     const hashedPassword = await bcrypt.hash(
       data.password,
       this.BCRYPT_SALT_ROUNDS,
@@ -49,8 +55,10 @@ export class UsersService {
     return this.returnWithoutPassword(user);
   }
 
-  async findAll(): Promise<GetUserDto[]> {
-    const users = await this.prisma.user.findMany();
+  async findAll(filters: ListUsersFilters): Promise<GetUserDto[]> {
+    const users = await this.prisma.user.findMany({
+      where: filters
+    });
 
     return users.map((user) => this.returnWithoutPassword(user));
   }
@@ -87,9 +95,16 @@ export class UsersService {
       throw new NotFoundException('User with given id does not exist.');
     }
 
+    const newRole = data.role ?? user.role;
+    if (newRole !== UserRole.CabinCrew && data.pilotLicenseId) {
+      throw new BadRequestException(
+        'Only CabinCrew can have a pilot license ID.',
+      );
+    }
+
     const updatedUser = await this.prisma.user.update({
       where: { id },
-      data: data,
+      data,
     });
 
     if (data.password) {
@@ -137,6 +152,7 @@ export class UsersService {
       name: user.name,
       email: user.email,
       role: user.role,
+      pilotLicenseId: user.pilotLicenseId,
       currentFlightId: user.currentFlightId,
     };
   }

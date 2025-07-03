@@ -12,6 +12,7 @@ Feature: Get user
         "name": "John Doe",
         "email": "admin@example.com",
         "role": "Admin",
+        "pilotLicenseId": null,
         "currentFlightId": null
       }
       """

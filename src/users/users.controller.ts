@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Req,
+  Query,
+  ForbiddenException,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -18,7 +27,7 @@ import {
 import { UuidParam } from '../common/validation/uuid.param';
 import { GenericBadRequestResponse } from '../common/response/bad-request.response';
 import { GenericNotFoundResponse } from '../common/response/not-found.response';
-import { GetUserDto } from './dto/get-user.dto';
+import { GetUserDto, ListUsersFilters } from './dto/get-user.dto';
 import { UserRole } from '@prisma/client';
 import { Role } from '../auth/decorator/role.decorator';
 import { UnauthorizedResponse } from '../common/response/unauthorized.response';
@@ -64,6 +73,7 @@ export class UsersController {
     description:
       '**NOTE:** This endpoint is only available for users with `admin` role.',
   })
+  @ApiParam({ name: 'pilotLicenseId', required: false, description: 'Pilot license ID' })
   @ApiBearerAuth()
   @ApiOkResponse({
     description: 'Users list',
@@ -79,9 +89,17 @@ export class UsersController {
     type: ForbiddenRequest,
   })
   @Get()
-  @Role(UserRole.Admin)
-  findAll(): Promise<GetUserDto[]> {
-    return this.usersService.findAll();
+  @Role(UserRole.Admin, UserRole.Operations)
+  getAll(
+    @Query() filters: ListUsersFilters,
+    @Req() req: AuthorizedRequest,
+  ): Promise<GetUserDto[]> {
+    if (req.user.role === UserRole.Operations.toLowerCase() && !filters.pilotLicenseId) {
+      // operations can only retrieve users by pilot license ID
+      throw new ForbiddenException();
+    }
+
+    return this.usersService.findAll(filters);
   }
 
   @ApiOperation({
