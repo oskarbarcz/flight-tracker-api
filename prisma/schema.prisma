@@ -9,15 +9,15 @@ datasource db {
 
 model Aircraft {
   id           String    @id @db.Uuid
-  icaoCode     String    @unique @db.VarChar(4)
+  icaoCode     String    @db.VarChar(4)
   shortName    String
   fullName     String
   registration String    @unique
   selcal       String
   livery       String
-  Flight       Flight[]
-  operator     Operator? @relation(fields: [operatorId], references: [id])
   operatorId   String?   @db.Uuid
+  operator     Operator? @relation(fields: [operatorId], references: [id])
+  Flight       Flight[]
 
   @@map("aircraft")
 }
@@ -52,27 +52,27 @@ model Flight {
   flightNumber String
   callsign     String
   status       String
-  aircraft     Aircraft            @relation(fields: [aircraftId], references: [id])
   aircraftId   String              @db.Uuid
-  airports     AirportsOnFlights[]
   timesheet    Json
-  loadsheets   Json                @default("{\"preliminary\":null,\"final\":null}")
-  operator     Operator            @relation(fields: [operatorId], references: [id])
+  loadsheets   Json                @default("{\"final\": null, \"preliminary\": null}")
   operatorId   String              @db.Uuid
-  User         User?
-  rotation     Rotation?           @relation(fields: [rotationId], references: [id])
   rotationId   String?             @db.Uuid
   createdAt    DateTime            @default(now())
+  airports     AirportsOnFlights[]
+  aircraft     Aircraft            @relation(fields: [aircraftId], references: [id])
+  operator     Operator            @relation(fields: [operatorId], references: [id])
+  rotation     Rotation?           @relation(fields: [rotationId], references: [id])
+  User         User?
 
   @@map("flight")
 }
 
 model AirportsOnFlights {
-  airport     Airport @relation(fields: [airportId], references: [id])
   airportId   String  @db.Uuid
-  flight      Flight  @relation(fields: [flightId], references: [id])
   flightId    String  @db.Uuid
   airportType String
+  airport     Airport @relation(fields: [airportId], references: [id])
+  flight      Flight  @relation(fields: [flightId], references: [id])
 
   @@id([airportId, flightId])
   @@map("airport_flight")
@@ -85,10 +85,10 @@ model User {
   password        String
   role            UserRole
   pilotLicenseId  String?           @db.VarChar(8)
-  currentFlight   Flight?           @relation(fields: [currentFlightId], references: [id])
   currentFlightId String?           @unique @db.Uuid
   JwtRefreshToken JwtRefreshToken[]
   Rotation        Rotation[]
+  currentFlight   Flight?           @relation(fields: [currentFlightId], references: [id])
 
   @@map("user")
 }
@@ -96,22 +96,22 @@ model User {
 model Rotation {
   id        String    @id @db.Uuid
   name      String
-  pilot     User      @relation(fields: [pilotId], references: [id])
   pilotId   String    @db.Uuid
   createdAt DateTime  @default(now())
   updatedAt DateTime?
   flights   Flight[]
+  pilot     User      @relation(fields: [pilotId], references: [id])
 
   @@map("rotation")
 }
 
 model JwtRefreshToken {
   id        String   @id @db.Uuid
-  user      User     @relation(fields: [userId], references: [id])
   userId    String   @db.Uuid
   token     String   @unique
   createdAt DateTime
   expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("jwt_refresh_token")
 }
