@@ -41,6 +41,7 @@ Feature: Create rotation
           "name": "Rick Doe",
           "pilotLicenseId": "UK-31270"
         },
+        "flights": [],
         "createdAt": "@date('within 1 minute from now')",
         "updatedAt": null
       }

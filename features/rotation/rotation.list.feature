@@ -16,6 +16,16 @@ Feature: List rotations
             "name": "Rick Doe",
             "pilotLicenseId": "UK-31270"
           },
+          "flights": [
+            {
+              "id": "48760636-9520-4863-b32f-f3618556feb7",
+              "flightNumber": "LH 40"
+            },
+            {
+              "id": "e8e17e59-67d7-4a6c-a0bd-425ffa6bed66",
+              "flightNumber": "LH 41"
+            }
+          ],
           "createdAt": "2025-01-01T00:00:00.000Z",
           "updatedAt": null
         }
@@ -38,6 +48,16 @@ Feature: List rotations
             "name": "Rick Doe",
             "pilotLicenseId": "UK-31270"
           },
+          "flights": [
+            {
+              "id": "48760636-9520-4863-b32f-f3618556feb7",
+              "flightNumber": "LH 40"
+            },
+            {
+              "id": "e8e17e59-67d7-4a6c-a0bd-425ffa6bed66",
+              "flightNumber": "LH 41"
+            }
+          ],
           "createdAt": "2025-01-01T00:00:00.000Z",
           "updatedAt": null
         }
@@ -60,8 +80,29 @@ Feature: List rotations
             "name": "Rick Doe",
             "pilotLicenseId": "UK-31270"
           },
+          "flights": [
+            {
+              "id": "48760636-9520-4863-b32f-f3618556feb7",
+              "flightNumber": "LH 40"
+            },
+            {
+              "id": "e8e17e59-67d7-4a6c-a0bd-425ffa6bed66",
+              "flightNumber": "LH 41"
+            }
+          ],
           "createdAt": "2025-01-01T00:00:00.000Z",
           "updatedAt": null
         }
       ]
+      """
+
+  Scenario: As an unauthorized user I cannot list rotations
+    When I send a "GET" request to "/api/v1/rotation"
+    Then the response status should be 401
+    And the response body should contain:
+      """json
+      {
+        "message": "Unauthorized",
+        "statusCode": 401
+      }
       """

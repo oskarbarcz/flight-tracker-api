@@ -1,10 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Flight } from '../../flights/entities/flight.entity';
 import { Uuid } from '../../common/types/id';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { PilotDto } from '../../users/dto/get-user.dto';
 
 export type RotationId = Uuid & { _entity: 'Rotation' };
+
+export class RotationFlight {
+  @ApiProperty({
+    description: 'Flight unique system identifier',
+    example: 'bd8f2d64-a647-42da-be63-c6589915e6c9',
+  })
+  id: string;
+
+  @ApiProperty({
+    description: 'Flight number',
+    example: 'DAL 1234',
+  })
+  flightNumber: string;
+}
 
 export class Rotation {
   @ApiProperty({
@@ -37,10 +50,10 @@ export class Rotation {
 
   @ApiProperty({
     description: 'Flights in this rotation',
-    type: Flight,
+    type: RotationFlight,
     isArray: true,
   })
-  flights: Flight[];
+  flights: RotationFlight[];
 
   @ApiProperty({
     description: 'Creation timestamp',

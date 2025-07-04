@@ -39,6 +39,16 @@ Feature: Update rotation
           "name": "Rick Doe",
           "pilotLicenseId": "UK-31270"
         },
+        "flights": [
+          {
+            "id": "48760636-9520-4863-b32f-f3618556feb7",
+            "flightNumber": "LH 40"
+          },
+          {
+            "id": "e8e17e59-67d7-4a6c-a0bd-425ffa6bed66",
+            "flightNumber": "LH 41"
+          }
+        ],
         "createdAt": "2025-01-01T00:00:00.000Z",
         "updatedAt": "@date('within 1 minute from now')"
       }
