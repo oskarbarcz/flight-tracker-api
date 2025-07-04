@@ -5,6 +5,14 @@ Feature: Add flight to rotation
     And I am signed in as "admin"
     When I send a "POST" request to "/api/v1/rotation/bd8f2d64-a647-42da-be63-c6589915e6c9/flight/e91e13a9-09d8-48bf-8453-283cef467b88"
     Then the response status should be 403
+    And the response body should contain:
+      """json
+      {
+        "message": "Forbidden resource",
+        "error": "Forbidden",
+        "statusCode": 403
+      }
+      """
 
   Scenario: As operations I can add a flight in created status to a rotation
     Given I use seed data
@@ -23,6 +31,20 @@ Feature: Add flight to rotation
           "name": "Rick Doe",
           "pilotLicenseId": "UK-31270"
         },
+        "flights": [
+          {
+            "id": "48760636-9520-4863-b32f-f3618556feb7",
+            "flightNumber": "LH 40"
+          },
+          {
+            "id": "e8e17e59-67d7-4a6c-a0bd-425ffa6bed66",
+            "flightNumber": "LH 41"
+          },
+          {
+            "id": "e91e13a9-09d8-48bf-8453-283cef467b88",
+            "flightNumber": "AA 4907"
+          }
+        ],
         "createdAt": "2025-01-01T00:00:00.000Z",
         "updatedAt": "@date('within 1 minute from now')"
       }

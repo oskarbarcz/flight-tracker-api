@@ -24,6 +24,12 @@ const rotationWithPilot = {
       pilotLicenseId: true,
     },
   },
+  flights: {
+    select: {
+      id: true,
+      flightNumber: true,
+    },
+  },
   createdAt: true,
   updatedAt: true,
 } as const satisfies Prisma.RotationSelect;
