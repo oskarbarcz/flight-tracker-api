@@ -34,7 +34,7 @@ import {
   CreateRotationResponse,
   UpdateRotationRequest,
 } from './dto/rotation.dto';
-import { Rotation, RotationId } from './entities/rotation.entity';
+import { RotationId } from './entities/rotation.entity';
 
 @ApiTags('rotation')
 @Controller('api/v1/rotation')
@@ -154,7 +154,7 @@ export class RotationsController {
     summary: 'Retrieve all rotations',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ type: Rotation, isArray: true })
+  @ApiOkResponse({ type: CreateRotationResponse, isArray: true })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
     type: UnauthorizedResponse,
@@ -175,7 +175,7 @@ export class RotationsController {
   @ApiParam({ name: 'id' })
   @ApiOkResponse({
     description: 'Rotation was found',
-    type: Rotation,
+    type: CreateRotationResponse,
   })
   @ApiBadRequestResponse({
     description: 'Rotation id is not valid uuid v4',
@@ -208,7 +208,7 @@ export class RotationsController {
   @ApiBody({ type: UpdateRotationRequest })
   @ApiOkResponse({
     description: 'Rotation was updated',
-    type: Rotation,
+    type: CreateRotationResponse,
   })
   @ApiBadRequestResponse({
     description: 'Validation failed or rotation id is not valid uuid v4',
