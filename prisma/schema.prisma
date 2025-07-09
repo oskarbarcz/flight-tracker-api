@@ -63,6 +63,7 @@ model Flight {
   operator     Operator            @relation(fields: [operatorId], references: [id])
   rotation     Rotation?           @relation(fields: [rotationId], references: [id])
   User         User?
+  FlightEvent  FlightEvent[]
 
   @@map("flight")
 }
@@ -89,6 +90,7 @@ model User {
   JwtRefreshToken JwtRefreshToken[]
   Rotation        Rotation[]
   currentFlight   Flight?           @relation(fields: [currentFlightId], references: [id])
+  FlightEvent     FlightEvent[]
 
   @@map("user")
 }
@@ -116,8 +118,28 @@ model JwtRefreshToken {
   @@map("jwt_refresh_token")
 }
 
+model FlightEvent {
+  id        String           @id @default(uuid()) @db.Uuid
+  scope     FlightEventScope
+  type      String
+  payload   Json             @default("{}")
+  flightId  String           @db.Uuid
+  actorId   String?          @db.Uuid
+  createdAt DateTime         @default(now())
+  flight    Flight           @relation(fields: [flightId], references: [id])
+  actor     User?            @relation(fields: [actorId], references: [id])
+
+  @@map("flight_event")
+}
+
 enum UserRole {
   CabinCrew
   Operations
   Admin
+}
+
+enum FlightEventScope {
+  system
+  operations
+  user
 }

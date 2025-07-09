@@ -31,7 +31,7 @@ import { GenericBadRequestResponse } from '../common/response/bad-request.respon
 import { GenericNotFoundResponse } from '../common/response/not-found.response';
 import { Role } from '../auth/decorator/role.decorator';
 import { UserRole } from '@prisma/client';
-import { ForbiddenRequest } from '../common/response/forbidden.response';
+import { ForbiddenResponse } from '../common/response/forbidden.response';
 import { UnauthorizedResponse } from '../common/response/unauthorized.response';
 
 @ApiTags('airport')
@@ -60,7 +60,7 @@ export class AirportsController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @Post()
   @Role(UserRole.Operations)
@@ -136,7 +136,7 @@ export class AirportsController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'Airport with given it does not exist',
@@ -174,7 +174,7 @@ export class AirportsController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'Airport with given it does not exist',

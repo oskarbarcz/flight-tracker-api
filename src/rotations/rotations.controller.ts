@@ -26,7 +26,7 @@ import { GenericBadRequestResponse } from '../common/response/bad-request.respon
 import { GenericNotFoundResponse } from '../common/response/not-found.response';
 import { UuidParam } from '../common/validation/uuid.param';
 import { UnauthorizedResponse } from '../common/response/unauthorized.response';
-import { ForbiddenRequest } from '../common/response/forbidden.response';
+import { ForbiddenResponse } from '../common/response/forbidden.response';
 import { Role } from '../auth/decorator/role.decorator';
 import { UserRole } from '@prisma/client';
 import {
@@ -34,7 +34,7 @@ import {
   CreateRotationResponse,
   UpdateRotationRequest,
 } from './dto/rotation.dto';
-import { Rotation, RotationId } from './entities/rotation.entity';
+import { RotationId } from './entities/rotation.entity';
 
 @ApiTags('rotation')
 @Controller('api/v1/rotation')
@@ -62,7 +62,7 @@ export class RotationsController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'Validation failed',
@@ -97,7 +97,7 @@ export class RotationsController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'Flight or rotation does not exist',
@@ -134,7 +134,7 @@ export class RotationsController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'Flight or rotation does not exist',
@@ -154,14 +154,14 @@ export class RotationsController {
     summary: 'Retrieve all rotations',
   })
   @ApiBearerAuth()
-  @ApiOkResponse({ type: Rotation, isArray: true })
+  @ApiOkResponse({ type: CreateRotationResponse, isArray: true })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
     type: UnauthorizedResponse,
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @Get()
   getAll(): Promise<CreateRotationResponse[]> {
@@ -175,7 +175,7 @@ export class RotationsController {
   @ApiParam({ name: 'id' })
   @ApiOkResponse({
     description: 'Rotation was found',
-    type: Rotation,
+    type: CreateRotationResponse,
   })
   @ApiBadRequestResponse({
     description: 'Rotation id is not valid uuid v4',
@@ -187,7 +187,7 @@ export class RotationsController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'Rotation with given id does not exist',
@@ -208,7 +208,7 @@ export class RotationsController {
   @ApiBody({ type: UpdateRotationRequest })
   @ApiOkResponse({
     description: 'Rotation was updated',
-    type: Rotation,
+    type: CreateRotationResponse,
   })
   @ApiBadRequestResponse({
     description: 'Validation failed or rotation id is not valid uuid v4',
@@ -220,7 +220,7 @@ export class RotationsController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'Rotation with given id does not exist',
@@ -255,7 +255,7 @@ export class RotationsController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'Rotation with given id does not exist',

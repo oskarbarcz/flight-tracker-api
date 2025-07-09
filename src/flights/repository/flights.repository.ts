@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { Flight, FlightStatus } from './entities/flight.entity';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateFlightRequest } from './dto/create-flight.dto';
+import { Flight, FlightStatus } from '../entities/flight.entity';
+import { PrismaService } from '../../prisma/prisma.service';
+import { CreateFlightRequest } from '../dto/create-flight.dto';
 import { v4 } from 'uuid';
-import { FullTimesheet } from './entities/timesheet.entity';
-import { Loadsheets } from './entities/loadsheet.entity';
+import { FullTimesheet } from '../entities/timesheet.entity';
+import { Loadsheets } from '../entities/loadsheet.entity';
 
 export const flightWithAircraftAndAirportsFields =
   Prisma.validator<Prisma.FlightSelect>()({
@@ -135,6 +135,7 @@ export class FlightsRepository {
 
   async remove(id: string): Promise<void> {
     await this.prisma.airportsOnFlights.deleteMany({ where: { flightId: id } });
+    await this.prisma.flightEvent.deleteMany({ where: { flightId: id } });
     await this.prisma.flight.delete({ where: { id } });
   }
 

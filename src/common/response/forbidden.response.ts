@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ForbiddenRequest {
+export class ForbiddenResponse {
   @ApiProperty({
     description: 'Detailed message what went wrong',
     example: 'Forbidden resource',
