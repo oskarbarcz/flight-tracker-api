@@ -31,7 +31,7 @@ import { GetUserDto, ListUsersFilters } from './dto/get-user.dto';
 import { UserRole } from '@prisma/client';
 import { Role } from '../auth/decorator/role.decorator';
 import { UnauthorizedResponse } from '../common/response/unauthorized.response';
-import { ForbiddenRequest } from '../common/response/forbidden.response';
+import { ForbiddenResponse } from '../common/response/forbidden.response';
 import { AuthorizedRequest } from '../common/request/authorized.request';
 
 @ApiTags('user')
@@ -60,7 +60,7 @@ export class UsersController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @Post()
   @Role(UserRole.Admin)
@@ -92,7 +92,7 @@ export class UsersController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @Get()
   @Role(UserRole.Admin, UserRole.Operations)
@@ -152,7 +152,7 @@ export class UsersController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'User with given it does not exist',
@@ -185,7 +185,7 @@ export class UsersController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'User with given it does not exist',

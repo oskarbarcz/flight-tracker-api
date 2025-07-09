@@ -4,16 +4,16 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { Flight, FlightStatus } from './entities/flight.entity';
-import { CreateFlightRequest } from './dto/create-flight.dto';
+import { Flight, FlightStatus } from '../entities/flight.entity';
+import { CreateFlightRequest } from '../dto/create-flight.dto';
 import {
   AirportType,
   AirportWithType,
-} from '../airports/entities/airport.entity';
-import { FullTimesheet, Schedule } from './entities/timesheet.entity';
-import { AirportsService } from '../airports/airports.service';
-import { FlightsRepository } from './flights.repository';
-import { AircraftService } from '../aircraft/aircraft.service';
+} from '../../airports/entities/airport.entity';
+import { FullTimesheet, Schedule } from '../entities/timesheet.entity';
+import { AirportsService } from '../../airports/airports.service';
+import { FlightsRepository } from '../repository/flights.repository';
+import { AircraftService } from '../../aircraft/aircraft.service';
 import {
   AircraftNotFoundError,
   DepartureAirportNotFoundError,
@@ -36,15 +36,15 @@ import {
   OperatorForAircraftNotFoundError,
   PreliminaryLoadsheetMissingError,
   ScheduledFlightCannotBeRemoved,
-} from './dto/errors.dto';
-import { OperatorsService } from '../operators/operators.service';
+} from '../dto/errors.dto';
+import { OperatorsService } from '../../operators/operators.service';
 import {
   EventType,
   FlightWasCheckedInPayload,
   FlightWasClosedPayload,
-} from '../common/events/event';
+} from '../../common/events/event';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { Loadsheet, Loadsheets } from './entities/loadsheet.entity';
+import { Loadsheet, Loadsheets } from '../entities/loadsheet.entity';
 
 @Injectable()
 export class FlightsService {

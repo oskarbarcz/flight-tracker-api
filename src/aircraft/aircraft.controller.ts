@@ -34,7 +34,7 @@ import { GenericNotFoundResponse } from '../common/response/not-found.response';
 import { Role } from '../auth/decorator/role.decorator';
 import { UserRole } from '@prisma/client';
 import { UnauthorizedResponse } from '../common/response/unauthorized.response';
-import { ForbiddenRequest } from '../common/response/forbidden.response';
+import { ForbiddenResponse } from '../common/response/forbidden.response';
 import {
   CreateAircraftRequest,
   CreateAircraftResponse,
@@ -66,7 +66,7 @@ export class AircraftController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'Operator with given it does not exist',
@@ -148,7 +148,7 @@ export class AircraftController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'Aircraft or operator with given it does not exist',
@@ -186,7 +186,7 @@ export class AircraftController {
   })
   @ApiForbiddenResponse({
     description: 'User is not allowed to perform this action',
-    type: ForbiddenRequest,
+    type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
     description: 'Aircraft with given it does not exist',
