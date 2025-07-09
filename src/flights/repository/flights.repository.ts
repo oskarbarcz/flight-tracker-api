@@ -135,6 +135,7 @@ export class FlightsRepository {
 
   async remove(id: string): Promise<void> {
     await this.prisma.airportsOnFlights.deleteMany({ where: { flightId: id } });
+    await this.prisma.flightEvent.deleteMany({ where: { flightId: id } });
     await this.prisma.flight.delete({ where: { id } });
   }
 
