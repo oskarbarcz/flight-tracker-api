@@ -145,6 +145,123 @@ Feature: Start offboarding
         ]
       }
       """
+    When I send a "GET" request to "/api/v1/flight/17d2f703-957d-4ad1-a620-3c187a70c26a/events"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "8d2510dd-bc5e-48a1-8251-79abb33ec9a4",
+          "scope": "operations",
+          "type": "flight_created",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:00:00.000Z"
+        },
+        {
+          "id": "355c57e9-54b4-4b3f-917f-dd33c9f9f9ef",
+          "scope": "operations",
+          "type": "preliminary_loadsheet_updated",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:05:00.000Z"
+        },
+        {
+          "id": "69bf2ba1-1ac4-47e7-8732-5ade52be92be",
+          "scope": "operations",
+          "type": "flight_released",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:10:00.000Z"
+        },
+        {
+          "id": "64e4ae88-7adf-4c29-9e95-061c171a70e3",
+          "scope": "user",
+          "type": "pilot_checked_in",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T12:00:00.000Z"
+        },
+        {
+          "id": "3738a2dc-59c3-4a34-9058-ff57a3cd12bc",
+          "scope": "user",
+          "type": "boarding_started",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T12:40:00.000Z"
+        },
+        {
+          "id": "be16d4a7-83e0-46cb-93fc-2a654338f132",
+          "scope": "user",
+          "type": "boarding_finished",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T13:05:00.000Z"
+        },
+        {
+          "id": "af5b4d42-c963-488f-bdc7-aefad1bb2d49",
+          "scope": "user",
+          "type": "off_block_reported",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T13:10:00.000Z"
+        },
+        {
+          "id": "26373247-4b63-4c90-8091-8efae31dbee7",
+          "scope": "user",
+          "type": "takeoff_reported",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T13:25:00.000Z"
+        },
+        {
+          "id": "38a79e68-aad5-4e1c-ad8e-edce069372d9",
+          "scope": "user",
+          "type": "arrival_reported",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T16:10:00.000Z"
+        },
+        {
+          "id": "d195128e-a2c8-43d9-9700-feb4481620ea",
+          "scope": "user",
+          "type": "on_block_reported",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T16:28:00.000Z"
+        }
+      ]
+      """
 
   Scenario: As a cabin crew I cannot start offboarding for flight twice
     Given I use seed data

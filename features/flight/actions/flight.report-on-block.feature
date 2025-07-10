@@ -145,6 +145,112 @@ Feature: Report on-block
         ]
       }
       """
+    When I send a "GET" request to "/api/v1/flight/04be266c-df78-4bec-9f50-281cc02ce7f2/events"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "079f2632-c0ab-4dd1-9646-522b5c370fe5",
+          "scope": "operations",
+          "type": "flight_created",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:00:00.000Z"
+        },
+        {
+          "id": "dd8871ca-4d02-4b8f-910f-829fa78b9300",
+          "scope": "operations",
+          "type": "preliminary_loadsheet_updated",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:05:00.000Z"
+        },
+        {
+          "id": "95d4986f-4211-4209-8479-deb63de7239f",
+          "scope": "operations",
+          "type": "flight_released",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:10:00.000Z"
+        },
+        {
+          "id": "2d5e21dd-b89d-4f40-bf8b-86317da51147",
+          "scope": "user",
+          "type": "pilot_checked_in",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T12:00:00.000Z"
+        },
+        {
+          "id": "527def55-574b-4740-8876-c6af56e7c060",
+          "scope": "user",
+          "type": "boarding_started",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T12:40:00.000Z"
+        },
+        {
+          "id": "2a64d3fa-3615-4ced-a0ea-5d528f6e8cae",
+          "scope": "user",
+          "type": "boarding_finished",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T13:05:00.000Z"
+        },
+        {
+          "id": "72655033-7a10-40d7-824b-5f20784f762d",
+          "scope": "user",
+          "type": "off_block_reported",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T13:10:00.000Z"
+        },
+        {
+          "id": "e356f0df-f0a8-4c67-a7e9-8d1bdc3c5249",
+          "scope": "user",
+          "type": "takeoff_reported",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T13:25:00.000Z"
+        },
+        {
+          "id": "d6880a1e-4c04-49ca-ab15-7b04d7a4aac4",
+          "scope": "user",
+          "type": "arrival_reported",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T16:10:00.000Z"
+        }
+      ]
+      """
 
   Scenario: As a cabin crew I cannot report on-block for flight twice
     Given I use seed data

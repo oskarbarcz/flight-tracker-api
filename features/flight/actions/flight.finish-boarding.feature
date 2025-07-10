@@ -153,6 +153,68 @@ Feature: Finish flight boarding
         ]
       }
       """
+    When I send a "GET" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/events"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "f8fe29e2-335e-488e-9fea-b5c4647578ed",
+          "scope": "operations",
+          "type": "flight_created",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:00:00.000Z"
+        },
+        {
+          "id": "08f2640d-a382-491a-9226-c6ed5cdbfd60",
+          "scope": "operations",
+          "type": "preliminary_loadsheet_updated",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:05:00.000Z"
+        },
+        {
+          "id": "8297db05-76e4-416e-9f6f-fed2716296ea",
+          "scope": "operations",
+          "type": "flight_released",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:10:00.000Z"
+        },
+        {
+          "id": "9d2f1728-0882-4c65-b912-6d193f87a643",
+          "scope": "user",
+          "type": "pilot_checked_in",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T12:00:00.000Z"
+        },
+        {
+          "id": "9762e7f2-5cb6-48a1-bee2-077c6ed4452c",
+          "scope": "user",
+          "type": "boarding_started",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T12:40:00.000Z"
+        }
+      ]
+      """
 
   Scenario: As a cabin crew I cannot finish boarding in flight twice
     Given I use seed data

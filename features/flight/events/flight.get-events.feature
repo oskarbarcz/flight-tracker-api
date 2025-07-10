@@ -27,7 +27,6 @@ Feature: Get flight events
           "scope": "operations",
           "type": "flight_created",
           "payload": {},
-          "flightId": "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05",
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
             "name": "Alice Doe"
@@ -39,7 +38,6 @@ Feature: Get flight events
           "scope": "operations",
           "type": "preliminary_loadsheet_updated",
           "payload": {},
-          "flightId": "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05",
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
             "name": "Alice Doe"
@@ -51,7 +49,6 @@ Feature: Get flight events
           "scope": "operations",
           "type": "flight_released",
           "payload": {},
-          "flightId": "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05",
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
             "name": "Alice Doe"
@@ -74,7 +71,6 @@ Feature: Get flight events
           "scope": "operations",
           "type": "flight_created",
           "payload": {},
-          "flightId": "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05",
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
             "name": "Alice Doe"
@@ -86,7 +82,6 @@ Feature: Get flight events
           "scope": "operations",
           "type": "preliminary_loadsheet_updated",
           "payload": {},
-          "flightId": "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05",
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
             "name": "Alice Doe"
@@ -98,7 +93,6 @@ Feature: Get flight events
           "scope": "operations",
           "type": "flight_released",
           "payload": {},
-          "flightId": "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05",
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
             "name": "Alice Doe"

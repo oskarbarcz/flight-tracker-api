@@ -7,7 +7,6 @@ const flightEventWithActor = {
   scope: true,
   type: true,
   payload: true,
-  flightId: true,
   actor: {
     select: {
       id: true,

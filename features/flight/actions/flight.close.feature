@@ -145,6 +145,151 @@ Feature: Close flight
         ]
       }
       """
+    When I send a "GET" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/events"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "299705bd-4cdc-462f-941e-907061a530d9",
+          "scope": "operations",
+          "type": "flight_created",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:00:00.000Z"
+        },
+        {
+          "id": "b5242b30-ac97-4014-9000-05773ed394a4",
+          "scope": "operations",
+          "type": "preliminary_loadsheet_updated",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:05:00.000Z"
+        },
+        {
+          "id": "083304c4-85be-4ebf-9c2d-757b714a23f7",
+          "scope": "operations",
+          "type": "flight_released",
+          "payload": {},
+          "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:10:00.000Z"
+        },
+        {
+          "id": "346e6985-299c-49b3-9c76-6ee5ee679e43",
+          "scope": "user",
+          "type": "pilot_checked_in",
+          "payload": {},
+          "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T12:00:00.000Z"
+        },
+        {
+          "id": "975140bc-8cac-4587-bddd-0a7acfb7a15f",
+          "scope": "user",
+          "type": "boarding_started",
+          "payload": {},
+          "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T12:40:00.000Z"
+        },
+        {
+          "id": "69b9a8a4-781c-44e9-8430-3fdd434def23",
+          "scope": "user",
+          "type": "boarding_finished",
+          "payload": {},
+          "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T13:05:00.000Z"
+        },
+        {
+          "id": "be8c9559-0273-4f04-b480-062628bb670d",
+          "scope": "user",
+          "type": "off_block_reported",
+          "payload": {},
+          "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T13:10:00.000Z"
+        },
+        {
+          "id": "e9f6ea80-395a-4859-a7c3-2bd93fc16066",
+          "scope": "user",
+          "type": "takeoff_reported",
+          "payload": {},
+          "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T13:25:00.000Z"
+        },
+        {
+          "id": "e342f02c-b0b5-4921-8ae3-51a28ee2bdd8",
+          "scope": "user",
+          "type": "arrival_reported",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T16:10:00.000Z"
+        },
+        {
+          "id": "beb79715-d10d-49b3-acab-e96d9e0f37a8",
+          "scope": "user",
+          "type": "on_block_reported",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T16:28:00.000Z"
+        },
+        {
+          "id": "a9e2c75c-c22a-41ab-bc00-8602f7f373ed",
+          "scope": "user",
+          "type": "offboarding_started",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T16:30:00.000Z"
+        },
+        {
+          "id": "fbe0b258-8e73-419d-abde-1194ca15944d",
+          "scope": "user",
+          "type": "offboarding_finished",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T16:50:00.000Z"
+        }
+      ]
+      """
     Given I am signed in as "admin"
     When I send a "GET" request to "/api/v1/user/fcf6f4bc-290d-43a9-843c-409cd47e143d"
     Then the response status should be 200

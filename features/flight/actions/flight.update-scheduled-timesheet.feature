@@ -124,6 +124,24 @@ Feature: Update flight scheduled timesheet
         ]
       }
       """
+    When I send a "GET" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/events"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "a1d43d93-0958-45bc-aa5e-3b1c4a081d74",
+          "scope": "operations",
+          "type": "flight_created",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:00:00.000Z"
+        }
+      ]
+      """
 
   Scenario: As a cabin crew I cannot update flight scheduled timesheet
     Given I use seed data

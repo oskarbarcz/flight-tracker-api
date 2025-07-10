@@ -128,6 +128,57 @@ Feature: Start boarding
         ]
       }
       """
+    When I send a "GET" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/events"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "6df6997c-98ad-43b1-8d36-72b921bec1c3",
+          "scope": "operations",
+          "type": "flight_created",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:00:00.000Z"
+        },
+        {
+          "id": "4f9d78e7-b0c9-48a3-a5c8-27d6edd530a1",
+          "scope": "operations",
+          "type": "preliminary_loadsheet_updated",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:05:00.000Z"
+        },
+        {
+          "id": "47c8db09-e786-4287-840c-b54278d543b5",
+          "scope": "operations",
+          "type": "flight_released",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:10:00.000Z"
+        },
+        {
+          "id": "82746826-3d70-40b0-93ac-d61d6af0ef43",
+          "scope": "user",
+          "type": "pilot_checked_in",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "2025-01-01T12:00:00.000Z"
+        }
+      ]
+      """
 
   Scenario: As a cabin crew I cannot start boarding in flight twice
     Given I use seed data
