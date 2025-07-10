@@ -1,7 +1,8 @@
 import { FlightStatus } from '../../../src/flights/entities/flight.entity';
-import { Prisma, PrismaClient } from '@prisma/client';
+import { FlightEventScope, Prisma, PrismaClient } from '@prisma/client';
 import { AirportType } from '../../../src/airports/entities/airport.entity';
 import { Loadsheets } from '../../../src/flights/entities/loadsheet.entity';
+import { FlightEventType } from '../../../src/flights/entities/event.entity';
 
 const prisma = new PrismaClient();
 
@@ -56,12 +57,12 @@ async function loadDLH450(): Promise<void> {
     where: { id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97' },
   });
 
-  const dlh450flight = await prisma.flight.create({ data: dlh450 });
+  const flight = await prisma.flight.create({ data: dlh450 });
 
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: dlh450departureAirport.id } },
-      flight: { connect: { id: dlh450flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.Departure,
     },
   });
@@ -69,7 +70,7 @@ async function loadDLH450(): Promise<void> {
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: dlh450arrivalAirport.id } },
-      flight: { connect: { id: dlh450flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.Destination,
     },
   });
@@ -77,7 +78,7 @@ async function loadDLH450(): Promise<void> {
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: dlh450firstAlternateAirport.id } },
-      flight: { connect: { id: dlh450flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.DestinationAlternate,
     },
   });
@@ -85,7 +86,7 @@ async function loadDLH450(): Promise<void> {
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: dlh450secondAlternateAirport.id } },
-      flight: { connect: { id: dlh450flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.DestinationAlternate,
     },
   });
@@ -93,9 +94,41 @@ async function loadDLH450(): Promise<void> {
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: dlh450etopsAlternateAirport.id } },
-      flight: { connect: { id: dlh450flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.EtopsAlternate,
     },
+  });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: '7b0d3d5a-879c-491c-b6e0-ec051ac9fbc4',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: 'e70f19df-81b4-4712-b4a5-16be22c85ebe',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: '9db99c92-dd95-4089-b11b-abe3ac1d262b',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+    ],
   });
 }
 
@@ -175,12 +208,12 @@ async function loadAAL4905(): Promise<void> {
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const ual4905flight = await prisma.flight.create({ data: ual4905 });
+  const flight = await prisma.flight.create({ data: ual4905 });
 
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4905departureAirport.id } },
-      flight: { connect: { id: ual4905flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.Departure,
     },
   });
@@ -188,7 +221,7 @@ async function loadAAL4905(): Promise<void> {
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4905arrivalAirport.id } },
-      flight: { connect: { id: ual4905flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.Destination,
     },
   });
@@ -196,9 +229,131 @@ async function loadAAL4905(): Promise<void> {
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4905alternateAirport.id } },
-      flight: { connect: { id: ual4905flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.DestinationAlternate,
     },
+  });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: 'a9768272-3c05-4ffe-9370-1433869a139f',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: '38684c9d-55df-43fe-bf6e-f26cccf74d5a',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: '36a2aa4d-40f6-4aaf-a2cd-10312104b683',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: '9e67d36f-d941-4cbc-ab18-586f1a0b5a4c',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+      {
+        id: '27b015f7-f415-4a0a-b12d-3fdc53073488',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:30'),
+      },
+      {
+        id: '44a54d61-3b4d-4ecd-9b56-4a59223a9b78',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:55'),
+      },
+      {
+        id: '0940b633-777d-4ecc-bd63-ef1b30c52c4a',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:00'),
+      },
+      {
+        id: 'b22bf5bb-da96-4511-823a-df611efb72ae',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.TakeoffWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:15'),
+      },
+      {
+        id: '4ebbc569-932c-4a17-b631-2af2739c10e3',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.ArrivalWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:00'),
+      },
+      {
+        id: '0cb6d1ea-df6c-43f0-a1e5-1c2dd7af6fc7',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OnBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:18'),
+      },
+      {
+        id: '46dd5137-b31b-4e5b-919c-cd30191763b1',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffboardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:20'),
+      },
+      {
+        id: '19ffec62-89d4-4c91-b071-b4c0331777ce',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffboardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:40'),
+      },
+      {
+        id: 'c7142a58-0c6c-41ef-aab7-a097a4e57385',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasClosed,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:50'),
+      },
+    ],
   });
 }
 
@@ -255,12 +410,12 @@ async function loadAAL4906(): Promise<void> {
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const ual4906flight = await prisma.flight.create({ data: ual4906 });
+  const flight = await prisma.flight.create({ data: ual4906 });
 
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4906departureAirport.id } },
-      flight: { connect: { id: ual4906flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.Departure,
     },
   });
@@ -268,7 +423,7 @@ async function loadAAL4906(): Promise<void> {
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4906arrivalAirport.id } },
-      flight: { connect: { id: ual4906flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.Destination,
     },
   });
@@ -276,9 +431,41 @@ async function loadAAL4906(): Promise<void> {
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4906alternateAirport.id } },
-      flight: { connect: { id: ual4906flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.DestinationAlternate,
     },
+  });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: '784319d9-a6be-41c4-ad5c-9c0f691faffb',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: 'f434d000-963a-4603-9e4d-92aed0195a89',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: '85530a54-1d5a-4943-a9fb-9b5ef39f6fc5',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+    ],
   });
 }
 
@@ -335,12 +522,12 @@ async function loadAAL4907(): Promise<void> {
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const ual4907flight = await prisma.flight.create({ data: ual4907 });
+  const flight = await prisma.flight.create({ data: ual4907 });
 
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4907departureAirport.id } },
-      flight: { connect: { id: ual4907flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.Departure,
     },
   });
@@ -348,7 +535,7 @@ async function loadAAL4907(): Promise<void> {
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4907arrivalAirport.id } },
-      flight: { connect: { id: ual4907flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.Destination,
     },
   });
@@ -356,9 +543,23 @@ async function loadAAL4907(): Promise<void> {
   await prisma.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4907alternateAirport.id } },
-      flight: { connect: { id: ual4907flight.id } },
+      flight: { connect: { id: flight.id } },
       airportType: AirportType.DestinationAlternate,
     },
+  });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: 'a1d43d93-0958-45bc-aa5e-3b1c4a081d74',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+    ],
   });
 }
 
@@ -451,6 +652,47 @@ async function loadAAL4908(): Promise<void> {
     where: { id: 'fcf6f4bc-290d-43a9-843c-409cd47e143d' }, // Rick Doe user
     data: { currentFlightId: flight.id },
   });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: '6df6997c-98ad-43b1-8d36-72b921bec1c3',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: '4f9d78e7-b0c9-48a3-a5c8-27d6edd530a1',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: '47c8db09-e786-4287-840c-b54278d543b5',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: '82746826-3d70-40b0-93ac-d61d6af0ef43',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+    ],
+  });
 }
 
 /**
@@ -536,6 +778,56 @@ async function loadAAL4909(): Promise<void> {
       flight: { connect: { id: flight.id } },
       airportType: AirportType.DestinationAlternate,
     },
+  });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: 'f8fe29e2-335e-488e-9fea-b5c4647578ed',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: '08f2640d-a382-491a-9226-c6ed5cdbfd60',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: '8297db05-76e4-416e-9f6f-fed2716296ea',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: '9d2f1728-0882-4c65-b912-6d193f87a643',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+      {
+        id: '9762e7f2-5cb6-48a1-bee2-077c6ed4452c',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:40'),
+      },
+    ],
   });
 }
 
@@ -633,6 +925,65 @@ async function loadAAL4910(): Promise<void> {
       flight: { connect: { id: flight.id } },
       airportType: AirportType.DestinationAlternate,
     },
+  });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: '4e1cae7d-1cc4-493e-ae59-fcd87e97416a',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: 'e72a93c0-c3ad-4863-a994-f355f10989dd',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: 'fb3236f0-0318-40be-b581-3312ece412e7',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: '9ac32500-3bad-471a-b6e1-577916abde24',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+      {
+        id: '1489e92f-dde6-4d16-8a0a-f38b18f6e272',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:40'),
+      },
+      {
+        id: '66bcc725-7acd-42e9-b3db-1513176a537f',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:05'),
+      },
+    ],
   });
 }
 
@@ -737,6 +1088,74 @@ async function loadAAL4911(): Promise<void> {
       airportType: AirportType.DestinationAlternate,
     },
   });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: 'defe2649-c100-47b9-b254-d0db0d568103',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: '23f793e8-6f1a-4348-9ac1-5721788f89ce',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: '612637bf-dffe-4a8c-a86b-785011e028df',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: 'e688c31b-1be9-4b08-a3a0-02628c5a5bfd',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+      {
+        id: 'd834bd10-0fd1-4fb2-b77c-c04445bd32ca',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:40'),
+      },
+      {
+        id: 'a3c38a7e-f0fe-498d-bee2-7697dc0d0650',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:05'),
+      },
+      {
+        id: '00cf79f0-5dee-4505-bc10-bc7178c57354',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:10'),
+      },
+    ],
+  });
 }
 
 /**
@@ -839,6 +1258,83 @@ async function loadAAL4912(): Promise<void> {
       flight: { connect: { id: flight.id } },
       airportType: AirportType.DestinationAlternate,
     },
+  });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: '7032f11d-51b2-43ba-9cf1-ae1f144f0707',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: '9822a1b2-9715-40a5-94cb-d8b616637457',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: '88651e15-57d0-468f-9231-bd2e1edcff66',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: '3d802611-728b-41cd-a4d1-f9fc91aaca18',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+      {
+        id: 'd2794a43-60e2-4abe-9803-ce75dfa2a37b',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:40'),
+      },
+      {
+        id: '2dba1cb5-d25c-4ade-9d46-e30eb8ecb24a',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:05'),
+      },
+      {
+        id: 'd03bb44f-88d8-42cd-aa29-342eda6ebbf3',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:10'),
+      },
+      {
+        id: '0108b08b-9c45-49ba-a3cb-a3ae172ce92c',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.TakeoffWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:25'),
+      },
+    ],
   });
 }
 
@@ -943,6 +1439,92 @@ async function loadAAL4913(): Promise<void> {
       airportType: AirportType.DestinationAlternate,
     },
   });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: '079f2632-c0ab-4dd1-9646-522b5c370fe5',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: 'dd8871ca-4d02-4b8f-910f-829fa78b9300',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: '95d4986f-4211-4209-8479-deb63de7239f',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: '2d5e21dd-b89d-4f40-bf8b-86317da51147',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+      {
+        id: '527def55-574b-4740-8876-c6af56e7c060',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:40'),
+      },
+      {
+        id: '2a64d3fa-3615-4ced-a0ea-5d528f6e8cae',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:05'),
+      },
+      {
+        id: '72655033-7a10-40d7-824b-5f20784f762d',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:10'),
+      },
+      {
+        id: 'e356f0df-f0a8-4c67-a7e9-8d1bdc3c5249',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.TakeoffWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:25'),
+      },
+      {
+        id: 'd6880a1e-4c04-49ca-ab15-7b04d7a4aac4',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.ArrivalWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:10'),
+      },
+    ],
+  });
 }
 
 /**
@@ -1045,6 +1627,101 @@ async function loadAAL4914(): Promise<void> {
       flight: { connect: { id: flight.id } },
       airportType: AirportType.DestinationAlternate,
     },
+  });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: '8d2510dd-bc5e-48a1-8251-79abb33ec9a4',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: '355c57e9-54b4-4b3f-917f-dd33c9f9f9ef',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: '69bf2ba1-1ac4-47e7-8732-5ade52be92be',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: '64e4ae88-7adf-4c29-9e95-061c171a70e3',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+      {
+        id: '3738a2dc-59c3-4a34-9058-ff57a3cd12bc',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:40'),
+      },
+      {
+        id: 'be16d4a7-83e0-46cb-93fc-2a654338f132',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:05'),
+      },
+      {
+        id: 'af5b4d42-c963-488f-bdc7-aefad1bb2d49',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:10'),
+      },
+      {
+        id: '26373247-4b63-4c90-8091-8efae31dbee7',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.TakeoffWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:25'),
+      },
+      {
+        id: '38a79e68-aad5-4e1c-ad8e-edce069372d9',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.ArrivalWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:10'),
+      },
+      {
+        id: 'd195128e-a2c8-43d9-9700-feb4481620ea',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OnBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:28'),
+      },
+    ],
   });
 }
 
@@ -1149,6 +1826,110 @@ async function loadAAL4915(): Promise<void> {
       airportType: AirportType.DestinationAlternate,
     },
   });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: 'b68d7b8f-a2a6-4c97-aaf0-039ab2541567',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: '4c3128ed-9c1b-4815-8e0b-8b8d67912706',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: 'eef98d03-6ebf-4643-9a3f-49c7a9d7dd4e',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: '98e76e75-ca05-48bc-b676-f5e3c58769a6',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+      {
+        id: 'd8a68b2d-4b3d-4c96-97cb-ba6e34e14747',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:40'),
+      },
+      {
+        id: '6c00677b-077f-42f3-b65f-0fdd9de92869',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:05'),
+      },
+      {
+        id: '51cfbf54-1c17-4fdc-b56f-385aa11311e4',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:10'),
+      },
+      {
+        id: '26e1178c-3696-4127-abfd-024a2a832e91',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.TakeoffWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:25'),
+      },
+      {
+        id: '3c75fcea-5a2d-4353-8960-b27eb6733e8b',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.ArrivalWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:10'),
+      },
+      {
+        id: '620c5ac4-8224-4dab-a37b-32ecd858b4b4',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OnBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:28'),
+      },
+      {
+        id: 'f7848f6d-8e4e-4554-a1ed-db99779c16dd',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffboardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:30'),
+      },
+    ],
+  });
 }
 
 /**
@@ -1252,6 +2033,119 @@ async function loadAAL4916(): Promise<void> {
       airportType: AirportType.DestinationAlternate,
     },
   });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: '299705bd-4cdc-462f-941e-907061a530d9',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: 'b5242b30-ac97-4014-9000-05773ed394a4',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: '083304c4-85be-4ebf-9c2d-757b714a23f7',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: '346e6985-299c-49b3-9c76-6ee5ee679e43',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+      {
+        id: '975140bc-8cac-4587-bddd-0a7acfb7a15f',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:40'),
+      },
+      {
+        id: '69b9a8a4-781c-44e9-8430-3fdd434def23',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:05'),
+      },
+      {
+        id: 'be8c9559-0273-4f04-b480-062628bb670d',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:10'),
+      },
+      {
+        id: 'e9f6ea80-395a-4859-a7c3-2bd93fc16066',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.TakeoffWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:25'),
+      },
+      {
+        id: 'e342f02c-b0b5-4921-8ae3-51a28ee2bdd8',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.ArrivalWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:10'),
+      },
+      {
+        id: 'beb79715-d10d-49b3-acab-e96d9e0f37a8',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OnBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:28'),
+      },
+      {
+        id: 'a9e2c75c-c22a-41ab-bc00-8602f7f373ed',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffboardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:30'),
+      },
+      {
+        id: 'fbe0b258-8e73-419d-abde-1194ca15944d',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffboardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:50'),
+      },
+    ],
+  });
 }
 
 /**
@@ -1354,6 +2248,128 @@ async function loadAAL4917(): Promise<void> {
       flight: { connect: { id: flight.id } },
       airportType: AirportType.DestinationAlternate,
     },
+  });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: '152225a5-a47f-469d-84ac-13888821d4d2',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: '8d1cef04-f2a6-4544-992e-3b2bb1de4191',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: 'e997ff96-76db-4949-8fe7-23f6391fc1a9',
+        // Alice Doe, Operations
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: '140b5d0e-221d-4575-86fe-44b54b805012',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+      {
+        id: '973707fb-4bf8-4681-9b58-01b61a1f8252',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:40'),
+      },
+      {
+        id: '64329e64-8179-483e-801a-ccc6d992b5e6',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:05'),
+      },
+      {
+        id: '9c783440-9858-4d62-81e4-470897744997',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:10'),
+      },
+      {
+        id: 'a2c3bab0-c2fd-42c8-adda-32b452bcd92c',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.TakeoffWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:25'),
+      },
+      {
+        id: '73c18a5f-a48a-4a77-b377-d4159ce21029',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.ArrivalWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:10'),
+      },
+      {
+        id: '015b921e-c314-4d0c-8c1c-5f697bc31e93',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OnBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:28'),
+      },
+      {
+        id: '735a417f-7ad5-4cea-9b80-902d10b60486',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffboardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:30'),
+      },
+      {
+        id: '05ab2215-6e04-48f4-aecd-064f3cb25f18',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffboardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:50'),
+      },
+      {
+        id: 'fc6f118d-cb4a-4f11-ae09-f8520d846513',
+        // Rick Doe, Cabin Crew
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasClosed,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 17:00'),
+      },
+    ],
   });
 }
 

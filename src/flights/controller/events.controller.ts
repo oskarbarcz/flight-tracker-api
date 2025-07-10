@@ -12,7 +12,10 @@ import { UuidParam } from '../../common/validation/uuid.param';
 import { UnauthorizedResponse } from '../../common/response/unauthorized.response';
 import { EventsRepository } from '../repository/events.repository';
 import { ForbiddenResponse } from '../../common/response/forbidden.response';
-import { FlightEvent } from '../entities/event.entity';
+import { UserRole } from '@prisma/client';
+import { Role } from '../../auth/decorator/role.decorator';
+import { FlightEventResponse } from '../dto/event.dto';
+import { FlightEventScope, FlightEventType } from '../entities/event.entity';
 
 @ApiTags('flight-events')
 @Controller('api/v1/flight')
@@ -25,11 +28,20 @@ export class EventsController {
     name: 'id',
     description: 'Flight unique identifier',
   })
-  @ApiOkResponse({ type: FlightEvent, isArray: true })
+  @ApiOkResponse({ type: FlightEventResponse, isArray: true })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })
   @Get('/:id/events')
-  findEventsForFlight(@UuidParam('id') id: string): Promise<FlightEvent[]> {
-    return this.flightEventsRepository.findForFlight(id);
+  @Role(UserRole.CabinCrew, UserRole.Operations)
+  async findEventsForFlight(
+    @UuidParam('id') id: string,
+  ): Promise<FlightEventResponse[]> {
+    const events = await this.flightEventsRepository.findForFlight(id);
+    return events.map((event) => ({
+      ...event,
+      scope: event.scope as FlightEventScope,
+      type: event.type as FlightEventType,
+      payload: event.payload as object,
+    }));
   }
 }
