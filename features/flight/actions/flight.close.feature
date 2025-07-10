@@ -177,7 +177,6 @@ Feature: Close flight
           "scope": "operations",
           "type": "flight_released",
           "payload": {},
-          "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
             "name": "Alice Doe"
@@ -189,7 +188,6 @@ Feature: Close flight
           "scope": "user",
           "type": "pilot_checked_in",
           "payload": {},
-          "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"
@@ -201,7 +199,6 @@ Feature: Close flight
           "scope": "user",
           "type": "boarding_started",
           "payload": {},
-          "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"
@@ -213,7 +210,6 @@ Feature: Close flight
           "scope": "user",
           "type": "boarding_finished",
           "payload": {},
-          "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"
@@ -225,7 +221,6 @@ Feature: Close flight
           "scope": "user",
           "type": "off_block_reported",
           "payload": {},
-          "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"
@@ -237,7 +232,6 @@ Feature: Close flight
           "scope": "user",
           "type": "takeoff_reported",
           "payload": {},
-          "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"
