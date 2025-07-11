@@ -1,8 +1,7 @@
 Feature: Update user
 
   Scenario: As an admin I can change user name and email
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
@@ -22,10 +21,10 @@ Feature: Update user
         "currentFlightId": null
       }
       """
+    And I set database to initial state
 
   Scenario: As an admin I can change user password
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
@@ -44,10 +43,10 @@ Feature: Update user
         "currentFlightId": null
       }
       """
+    And I set database to initial state
 
   Scenario: As an admin I can change user role
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
@@ -66,10 +65,10 @@ Feature: Update user
         "currentFlightId": null
       }
       """
+    And I set database to initial state
 
   Scenario: As operations I cannot change user name and email
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
@@ -88,8 +87,7 @@ Feature: Update user
       """
 
   Scenario: As operations I cannot change user password
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
@@ -107,8 +105,7 @@ Feature: Update user
       """
 
   Scenario: As operations I cannot change user role
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
@@ -126,8 +123,7 @@ Feature: Update user
       """
 
   Scenario: As a cabin crew I cannot change user name and email
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
@@ -146,8 +142,7 @@ Feature: Update user
       """
 
   Scenario: As a cabin crew I cannot change user password
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
@@ -165,8 +160,7 @@ Feature: Update user
       """
 
   Scenario: As a cabin crew I cannot change user role
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
@@ -184,8 +178,7 @@ Feature: Update user
       """
 
   Scenario: As an admin I can set pilotLicenseId for CabinCrew user
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "PATCH" request to "/api/v1/user/fcf6f4bc-290d-43a9-843c-409cd47e143d" with body:
       """json
       {
@@ -204,10 +197,10 @@ Feature: Update user
         "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e"
       }
       """
+    And I set database to initial state
 
   Scenario: As an admin I cannot set pilotLicenseId for other user
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
@@ -225,8 +218,7 @@ Feature: Update user
       """
 
   Scenario: As an admin I cannot create user with incorrect data
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
@@ -251,8 +243,7 @@ Feature: Update user
       """
 
   Scenario: As an admin I cannot update user with incorrect uuid
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "GET" request to "/api/v1/user/incorrect-uuid"
     Then the response status should be 400
     And the response body should contain:

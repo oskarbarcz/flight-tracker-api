@@ -1,7 +1,6 @@
 Feature: Close flight
 
   Scenario: As an admin I cannot close flight for flight that finished offboarding
-    Given I use seed data
     Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
     Then the response status should be 403
@@ -15,7 +14,6 @@ Feature: Close flight
       """
 
   Scenario: As operations I cannot close flight for flight that finished offboarding
-    Given I use seed data
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
     Then the response status should be 403
@@ -29,7 +27,6 @@ Feature: Close flight
       """
 
   Scenario: As a cabin crew I can close flight for flight that finished offboarding
-    Given I use seed data
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
     Then the response status should be 204
@@ -298,9 +295,9 @@ Feature: Close flight
         "currentFlightId": null
       }
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot close flight plan for flight twice
-    Given I use seed data
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
     Then the response status should be 204
@@ -314,9 +311,9 @@ Feature: Close flight
         "statusCode": 422
       }
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot close flight that not finished offboarding
-    Given I use seed data
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/close"
     Then the response status should be 422
@@ -330,7 +327,6 @@ Feature: Close flight
       """
 
   Scenario: As a cabin crew I cannot close flight that does not exist
-    Given I use seed data
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/c0ee4dec-b1fd-44aa-822c-28a7ead0191a/close"
     Then the response status should be 404
@@ -344,7 +340,6 @@ Feature: Close flight
       """
 
   Scenario: As a cabin crew I cannot close flight with incorrect uuid
-    Given I use seed data
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/invalid-uuid/close"
     Then the response status should be 400

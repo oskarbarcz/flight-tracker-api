@@ -1,8 +1,7 @@
 Feature: Report takeoff
 
   Scenario: As an admin I cannot report takeoff
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/report-takeoff"
     Then the response status should be 403
     And the response body should contain:
@@ -15,8 +14,7 @@ Feature: Report takeoff
       """
 
   Scenario: As operations I cannot report takeoff
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/report-takeoff"
     Then the response status should be 403
     And the response body should contain:
@@ -29,8 +27,7 @@ Feature: Report takeoff
       """
 
   Scenario: Report takeoff for flight that reported off-block
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/report-takeoff"
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7"
@@ -229,10 +226,10 @@ Feature: Report takeoff
         }
       ]
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot report takeoff for flight twice
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/report-takeoff"
     Then the response status should be 204
     When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/report-takeoff"
@@ -245,10 +242,10 @@ Feature: Report takeoff
         "statusCode": 422
       }
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot report takeoff for flight that not reported off-block
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1/report-takeoff"
     Then the response status should be 422
     And the response body should contain:
@@ -261,8 +258,7 @@ Feature: Report takeoff
       """
 
   Scenario: As a cabin crew I cannot report takeoff for flight that does not exist
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/c0ee4dec-b1fd-44aa-822c-28a7ead0191a/report-takeoff"
     Then the response status should be 404
     And the response body should contain:
@@ -275,8 +271,7 @@ Feature: Report takeoff
       """
 
   Scenario: As a cabin crew I cannot report takeoff for flight with incorrect uuid
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/invalid-uuid/report-takeoff"
     Then the response status should be 400
     And the response body should contain:

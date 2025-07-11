@@ -1,8 +1,7 @@
 Feature: Update aircraft
 
   Scenario: As an admin I cannot update aircraft with correct data
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
       """json
       {
@@ -21,8 +20,7 @@ Feature: Update aircraft
       """
 
   Scenario: As operations I can update aircraft with correct data
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
       """json
       {
@@ -51,10 +49,10 @@ Feature: Update aircraft
         }
       }
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot update aircraft with correct data
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
       """json
       {
@@ -73,8 +71,7 @@ Feature: Update aircraft
       """
 
   Scenario: As operations I cannot update aircraft with incorrect data
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
       """json
       {
@@ -97,8 +94,7 @@ Feature: Update aircraft
       """
 
   Scenario: As operations I cannot update aircraft with non-existing operator
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
       """json
       {
@@ -116,8 +112,7 @@ Feature: Update aircraft
       """
 
   Scenario: As operations I cannot update aircraft that does not exist
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/aircraft/d02c2edf-0365-4d68-a027-ecacfb1fb605"
     Then the response status should be 404
     And the response body should contain:
@@ -130,8 +125,7 @@ Feature: Update aircraft
       """
 
   Scenario: As operations I cannot update aircraft with incorrect uuid
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/aircraft/incorrect-uuid"
     Then the response status should be 400
     And the response body should contain:
@@ -144,7 +138,6 @@ Feature: Update aircraft
       """
 
   Scenario: As an unauthorized user I cannot update aircraft
-    Given I use seed data
     When I send a "PATCH" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
       """json
       {

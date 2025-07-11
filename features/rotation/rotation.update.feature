@@ -1,8 +1,7 @@
 Feature: Update rotation
 
   Scenario: As admin I cannot update a rotation
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "PATCH" request to "/api/v1/rotation/bd8f2d64-a647-42da-be63-c6589915e6c9" with body:
       """json
       {
@@ -20,8 +19,7 @@ Feature: Update rotation
       """
 
   Scenario: As operations I can update a rotation
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/rotation/bd8f2d64-a647-42da-be63-c6589915e6c9" with body:
       """json
       {
@@ -53,10 +51,10 @@ Feature: Update rotation
         "updatedAt": "@date('within 1 minute from now')"
       }
       """
+    And I set database to initial state
 
   Scenario: As cabin crew I cannot update a rotation
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/rotation/bd8f2d64-a647-42da-be63-c6589915e6c9" with body:
       """json
       {
@@ -74,8 +72,7 @@ Feature: Update rotation
       """
 
   Scenario: As operations I cannot update a rotation with pilot that does not exist
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/rotation/bd8f2d64-a647-42da-be63-c6589915e6c9" with body:
       """json
       {
@@ -93,8 +90,7 @@ Feature: Update rotation
       """
 
   Scenario: As operations I cannot update non-existing rotation
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/rotation/00fb8d16-9f33-4c60-9c86-9722390b16a1" with body:
       """json
       {
@@ -112,8 +108,7 @@ Feature: Update rotation
       """
 
   Scenario: As operations I cannot update rotation with incorrect id
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/rotation/incorrect-id" with body:
       """json
       {

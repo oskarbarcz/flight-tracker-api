@@ -1,8 +1,7 @@
 Feature: Create user
 
   Scenario: As an admin I can create user
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/user" with body:
       """json
       {
@@ -24,10 +23,10 @@ Feature: Create user
         "pilotLicenseId": null
       }
       """
+    And I set database to initial state
 
   Scenario: As an admin I can create cabin crew user with valid pilot license ID
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/user" with body:
       """json
       {
@@ -50,10 +49,10 @@ Feature: Create user
         "currentFlightId": null
       }
       """
+    And I set database to initial state
 
   Scenario: As an admin I cannot set pilot license ID for admin user
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/user" with body:
       """json
       {
@@ -75,8 +74,7 @@ Feature: Create user
       """
 
   Scenario: As operations I cannot create user
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/user" with body:
       """json
       {
@@ -97,8 +95,7 @@ Feature: Create user
       """
 
   Scenario: As a cabin crew I cannot create user
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/user" with body:
       """json
       {
@@ -119,8 +116,7 @@ Feature: Create user
       """
 
   Scenario: As an admin I cannot create user with incorrect data
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/user" with body:
       """json
       {
@@ -147,8 +143,7 @@ Feature: Create user
       """
 
   Scenario: As an admin I cannot create user with email that is actually registered
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/user" with body:
       """json
       {
@@ -169,7 +164,6 @@ Feature: Create user
       """
 
   Scenario: As an unauthorized user I cannot create user
-    Given I use seed data
     When I send a "POST" request to "/api/v1/user" with body:
       """json
       {

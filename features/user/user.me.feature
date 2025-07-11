@@ -1,8 +1,7 @@
 Feature: Get current user
 
   Scenario: As an admin I see my user data
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "GET" request to "/api/v1/user/me"
     Then the response status should be 200
     And the response body should contain:
@@ -18,8 +17,7 @@ Feature: Get current user
       """
 
   Scenario: As operations I see my user data
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "GET" request to "/api/v1/user/me"
     Then the response status should be 200
     And the response body should contain:
@@ -35,8 +33,7 @@ Feature: Get current user
       """
 
   Scenario: As a cabin crew I see my user data
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/user/me"
     Then the response status should be 200
     And the response body should contain:
@@ -52,7 +49,6 @@ Feature: Get current user
       """
 
   Scenario: As an unauthorized user I have proper error message
-    Given I use seed data
     When I send a "GET" request to "/api/v1/user/me"
     Then the response status should be 401
     And the response body should contain:

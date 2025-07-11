@@ -1,8 +1,7 @@
 Feature: Check in pilot for flight
 
   Scenario: As an admin I cannot check in pilot for flight
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
       """json
       {
@@ -23,8 +22,7 @@ Feature: Check in pilot for flight
       """
 
   Scenario: As operations I cannot check in pilot for flight
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
       """json
       {
@@ -45,8 +43,7 @@ Feature: Check in pilot for flight
       """
 
   Scenario: As a cabin crew I can check in pilot for flight
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
       """json
       {
@@ -206,10 +203,10 @@ Feature: Check in pilot for flight
         "currentFlightId": "23952e79-6b38-49ed-a1db-bd4d9b3cedab"
       }
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot check in pilot for flight twice
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
       """json
       {
@@ -238,10 +235,10 @@ Feature: Check in pilot for flight
         "statusCode": 422
       }
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot check in pilot when flight is not ready
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/check-in" with body:
       """json
       {
@@ -262,8 +259,7 @@ Feature: Check in pilot for flight
       """
 
   Scenario: As a cabin crew I cannot check in pilot for flight with incorrect schedule payload
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/check-in" with body:
       """json
       {
@@ -289,8 +285,7 @@ Feature: Check in pilot for flight
       """
 
   Scenario: As a cabin crew I cannot check in pilot for flight that does not exist
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/141a2f56-708d-4cc9-b967-64dc0c2b20c4/check-in" with body:
       """json
       {
@@ -311,8 +306,7 @@ Feature: Check in pilot for flight
       """
 
   Scenario: As a cabin crew I cannot check in pilot for flight with incorrect uuid
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/incorrect-uuid/check-in" with body:
       """json
       {

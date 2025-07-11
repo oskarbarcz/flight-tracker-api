@@ -1,8 +1,7 @@
 Feature: Create rotation
 
   Scenario: As admin I cannot create a rotation
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/rotation" with body:
       """json
       {
@@ -21,8 +20,7 @@ Feature: Create rotation
       """
 
   Scenario: As operations I can create a rotation
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/rotation" with body:
       """json
       {
@@ -46,10 +44,10 @@ Feature: Create rotation
         "updatedAt": null
       }
       """
+    And I set database to initial state
 
   Scenario: As cabin crew I cannot create a rotation
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/rotation" with body:
       """json
       {
@@ -68,8 +66,7 @@ Feature: Create rotation
       """
 
   Scenario: As an operations I cannot create a rotation without required fields
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/rotation/" with body:
       """json
       {}
@@ -89,8 +86,7 @@ Feature: Create rotation
       """
 
   Scenario: As operations I cannot create a rotation when pilot is not found
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/rotation" with body:
       """json
       {

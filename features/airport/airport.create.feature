@@ -1,8 +1,7 @@
 Feature: Create airport
 
   Scenario: As an admin I cannot create airport
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/airport" with body:
       """json
       {
@@ -25,8 +24,7 @@ Feature: Create airport
       """
 
   Scenario: As operations I can create airport
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/airport" with body:
       """json
       {
@@ -51,10 +49,10 @@ Feature: Create airport
         "timezone": "America/New_York"
       }
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot create airport
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/airport" with body:
       """json
       {
@@ -77,8 +75,7 @@ Feature: Create airport
       """
 
   Scenario: As operations I cannot create airport with incorrect data
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/airport" with body:
       """json
       {
@@ -111,7 +108,6 @@ Feature: Create airport
       """
 
   Scenario: As an unauthorized user I cannot create airport
-    Given I use seed data
     When I send a "POST" request to "/api/v1/airport" with body:
       """json
       {

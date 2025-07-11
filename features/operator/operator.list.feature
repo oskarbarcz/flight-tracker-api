@@ -1,8 +1,7 @@
 Feature: List operators
 
   Scenario: As an admin I can list operators
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "GET" request to "/api/v1/operator"
     Then the response status should be 200
     And the response body should contain:
@@ -47,15 +46,12 @@ Feature: List operators
       """
 
   Scenario: As operations I can list operators
-    Given I use seed data
-    And I am signed in as "operations"
-    Given I use seed data
+    Given I am signed in as "operations"
     When I send a "GET" request to "/api/v1/operator"
     Then the response status should be 200
 
   Scenario: As a cabin crew I can list operators
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/operator"
     Then the response status should be 200
 
