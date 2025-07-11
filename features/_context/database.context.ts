@@ -1,4 +1,4 @@
-import { AfterAll, BeforeAll, Given, Then } from '@cucumber/cucumber';
+import { AfterAll, BeforeAll, Then } from '@cucumber/cucumber';
 import { execSync } from 'child_process';
 
 // Reset the database before running tests
