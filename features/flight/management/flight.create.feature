@@ -1,7 +1,6 @@
 Feature: Create a flight
 
   Scenario: As an admin I cannot create a flight
-    Given I use seed data
     Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/flight/" with body:
       """json
@@ -36,7 +35,6 @@ Feature: Create a flight
       """
 
   Scenario: As operations I can create a flight
-    Given I use seed data
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
       """json
@@ -127,9 +125,9 @@ Feature: Create a flight
         ]
       }
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot create a flight
-    Given I use seed data
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/" with body:
       """json
@@ -164,7 +162,6 @@ Feature: Create a flight
       """
 
   Scenario: As operations I can create a flight with a preliminary loadsheet
-    Given I use seed data
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
       """json
@@ -277,9 +274,9 @@ Feature: Create a flight
         ]
       }
       """
+    And I set database to initial state
 
   Scenario: As operations I cannot create a flight with non existing aircraft
-    Given I use seed data
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
       """json
@@ -314,7 +311,6 @@ Feature: Create a flight
       """
 
   Scenario: As operations I cannot create a flight with non existing departure airport
-    Given I use seed data
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
       """json
@@ -349,7 +345,6 @@ Feature: Create a flight
       """
 
   Scenario: As operations I cannot create a flight with non existing destination airport
-    Given I use seed data
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
       """json
@@ -384,7 +379,6 @@ Feature: Create a flight
       """
 
   Scenario: As operations I cannot create a flight with destination airport matching departure airport
-    Given I use seed data
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
       """json
@@ -419,7 +413,6 @@ Feature: Create a flight
       """
 
   Scenario: As operations I cannot create a flight with operator that does not exist
-    Given I use seed data
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
       """json
@@ -454,7 +447,6 @@ Feature: Create a flight
       """
 
   Scenario: As operations I cannot create a flight with incorrect payload
-    Given I use seed data
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
       """json

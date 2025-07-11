@@ -1,8 +1,7 @@
 Feature: Mark flight as ready
 
   Scenario: As an admin I cannot mark flight as ready
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
     Then the response status should be 403
     And the response body should contain:
@@ -15,8 +14,7 @@ Feature: Mark flight as ready
       """
 
   Scenario: As operations I can mark flight as ready
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88"
@@ -126,10 +124,10 @@ Feature: Mark flight as ready
         }
       ]
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot mark flight as ready
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
     Then the response status should be 403
     And the response body should contain:
@@ -142,8 +140,7 @@ Feature: Mark flight as ready
       """
 
   Scenario: As operations I cannot mark flight as ready twice
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
     Then the response status should be 204
     When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
@@ -158,8 +155,7 @@ Feature: Mark flight as ready
       """
 
   Scenario: As operations I cannot mark flight without loadsheet as ready
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/mark-as-ready"
     Then the response status should be 422
     And the response body should contain:
@@ -172,8 +168,7 @@ Feature: Mark flight as ready
       """
 
   Scenario: As operations I cannot mark as ready flight that does not exist
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/141a2f56-708d-4cc9-b967-64dc0c2b20c4/mark-as-ready"
     Then the response status should be 404
     And the response body should contain:
@@ -186,8 +181,7 @@ Feature: Mark flight as ready
       """
 
   Scenario: As operations I cannot mark as ready flight with incorrect uuid
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/incorrect-uuid/mark-as-ready"
     Then the response status should be 400
     And the response body should contain:

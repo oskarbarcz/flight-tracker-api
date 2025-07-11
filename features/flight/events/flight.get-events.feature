@@ -1,8 +1,7 @@
 Feature: Get flight events
 
   Scenario: As an admin I cannot get flight events
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/events"
     Then the response status should be 403
     And the response body should contain:
@@ -15,8 +14,7 @@ Feature: Get flight events
       """
 
   Scenario: As operations I can get flight events
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/events"
     Then the response status should be 200
     And the response body should contain:
@@ -59,8 +57,7 @@ Feature: Get flight events
       """
 
   Scenario: As a cabin crew I can get flight events
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/events"
     Then the response status should be 200
     And the response body should contain:
@@ -103,8 +100,7 @@ Feature: Get flight events
       """
 
   Scenario: As a cabin crew I cannot get flight events for invalid flight if
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight/invalid-flight-id/events"
     Then the response status should be 400
     And the response body should contain:
@@ -117,8 +113,7 @@ Feature: Get flight events
       """
 
   Scenario: As a cabin crew I cannot get flight events for non-existing flight
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight/11b8dbbf-9e9e-4ea4-a36a-975ab117fc87/events"
     Then the response status should be 404
     And the response body should contain:
@@ -131,7 +126,6 @@ Feature: Get flight events
       """
 
   Scenario: As an unauthorized user I cannot get flight events
-    Given I use seed data
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/events"
     Then the response status should be 401
     And the response body should contain:

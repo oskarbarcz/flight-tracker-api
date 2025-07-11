@@ -1,7 +1,6 @@
 Feature: As a user I can send credentials and get JWT access token and JWT refresh token
 
   Scenario: As an admin I can sign in with valid credentials
-    Given I use seed data
     When I send a "POST" request to "/api/v1/auth/sign-in" with body:
       """json
       {
@@ -17,9 +16,9 @@ Feature: As a user I can send credentials and get JWT access token and JWT refre
         "refreshToken": "@jwt_refresh_token"
       }
       """
+    And I set database to initial state
 
   Scenario: As operations I can sign in with valid credentials
-    Given I use seed data
     When I send a "POST" request to "/api/v1/auth/sign-in" with body:
       """json
       {
@@ -35,9 +34,9 @@ Feature: As a user I can send credentials and get JWT access token and JWT refre
         "refreshToken": "@jwt_refresh_token"
       }
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I can sign in with valid credentials
-    Given I use seed data
     When I send a "POST" request to "/api/v1/auth/sign-in" with body:
       """json
       {
@@ -53,9 +52,9 @@ Feature: As a user I can send credentials and get JWT access token and JWT refre
         "refreshToken": "@jwt_refresh_token"
       }
       """
+    And I set database to initial state
 
   Scenario: As any user I cannot sign in with invalid credentials
-    Given I use seed data
     When I send a "POST" request to "/api/v1/auth/sign-in" with body:
       """json
       {
@@ -74,7 +73,6 @@ Feature: As a user I can send credentials and get JWT access token and JWT refre
       """
 
   Scenario: As any user I cannot sign in with invalid credentials
-    Given I use seed data
     When I send a "POST" request to "/api/v1/auth/sign-in" with body:
       """json
       {

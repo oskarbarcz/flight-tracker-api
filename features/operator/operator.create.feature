@@ -1,8 +1,7 @@
 Feature: Create operator
 
   Scenario: As an admin I cannot create operator
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/operator" with body:
       """json
       {
@@ -23,8 +22,7 @@ Feature: Create operator
       """
 
   Scenario: As operations I cannot create operator
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/operator" with body:
       """json
       {
@@ -45,10 +43,10 @@ Feature: Create operator
         "callsign": "UNITED"
       }
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot create operator
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/operator" with body:
       """json
       {
@@ -69,8 +67,7 @@ Feature: Create operator
       """
 
   Scenario: As operations I cannot operator with incorrect data
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/operator" with body:
       """json
       {
@@ -93,7 +90,6 @@ Feature: Create operator
       """
 
   Scenario: As an unauthorized user I cannot create operator
-    Given I use seed data
     When I send a "POST" request to "/api/v1/operator" with body:
       """json
       {

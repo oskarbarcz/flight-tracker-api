@@ -1,8 +1,7 @@
 Feature: Update flight preliminary loadsheet
 
   Scenario: As an admin I cannot update flight preliminary loadsheet
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/loadsheet/preliminary" with body:
       """json
       {
@@ -29,8 +28,7 @@ Feature: Update flight preliminary loadsheet
       """
 
   Scenario: As operations I can update flight preliminary loadsheet
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/loadsheet/preliminary" with body:
       """json
       {
@@ -154,10 +152,10 @@ Feature: Update flight preliminary loadsheet
         }
       ]
       """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot update flight preliminary loadsheet
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/loadsheet/preliminary" with body:
       """json
       {
@@ -184,8 +182,7 @@ Feature: Update flight preliminary loadsheet
       """
 
   Scenario: As operations I cannot update preliminary loadsheet of flight with status other than created
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/loadsheet/preliminary" with body:
       """json
       {
@@ -212,8 +209,7 @@ Feature: Update flight preliminary loadsheet
       """
 
   Scenario: As operations I cannot update flight preliminary loadsheet with incorrect payload
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/loadsheet/preliminary" with body:
       """json
       {
@@ -250,8 +246,7 @@ Feature: Update flight preliminary loadsheet
       """
 
   Scenario: As operations I cannot update preliminary loadsheet of flight that does not exist
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/flight/732454c3-732e-4e1f-a075-d7fc61296449/loadsheet/preliminary" with body:
       """json
       {
@@ -278,8 +273,7 @@ Feature: Update flight preliminary loadsheet
       """
 
   Scenario: As operations I cannot update scheduled timesheet of flight with incorrect uuid
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/flight/incorrect-uuid/loadsheet/preliminary" with body:
       """json
       {

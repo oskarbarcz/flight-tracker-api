@@ -1,8 +1,7 @@
 Feature: List rotations
 
   Scenario: As admin I can list rotations
-    Given I use seed data
-    And I am signed in as "admin"
+    Given I am signed in as "admin"
     When I send a "GET" request to "/api/v1/rotation"
     Then the response status should be 200
     And the response body should contain:
@@ -33,8 +32,7 @@ Feature: List rotations
       """
 
   Scenario: As operations I can list rotations
-    Given I use seed data
-    And I am signed in as "operations"
+    Given I am signed in as "operations"
     When I send a "GET" request to "/api/v1/rotation"
     Then the response status should be 200
     And the response body should contain:
@@ -65,8 +63,7 @@ Feature: List rotations
       """
 
   Scenario: As cabin crew I can list rotations
-    Given I use seed data
-    And I am signed in as "cabin crew"
+    Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/rotation"
     Then the response status should be 200
     And the response body should contain:
