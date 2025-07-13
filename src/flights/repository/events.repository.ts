@@ -59,7 +59,6 @@ export class EventsRepository {
   @OnEvent(FlightEventType.FlightWasAddedToRotation)
   @OnEvent(FlightEventType.FlightWasRemovedFromRotation)
   async saveEvent(event: NewFlightEvent): Promise<void> {
-    console.log(event);
     await this.prisma.flightEvent.create({ data: event });
   }
 

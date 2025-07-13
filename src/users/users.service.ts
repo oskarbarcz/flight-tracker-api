@@ -131,7 +131,7 @@ export class UsersService {
   async onFlightClose(event: NewFlightEvent): Promise<void> {
     await this.prisma.user.update({
       where: { id: event.actorId as string },
-      data: { currentFlightId: event.flightId },
+      data: { currentFlightId: null },
     });
   }
 
