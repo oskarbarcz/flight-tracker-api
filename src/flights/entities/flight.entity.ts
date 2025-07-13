@@ -10,14 +10,14 @@ export enum FlightStatus {
   Created = 'created',
   Ready = 'ready',
   CheckedIn = 'checked_in',
-  BoardingStarted = 'flight.boarding-started',
-  BoardingFinished = 'flight.boarding-finished',
+  BoardingStarted = 'boarding_started',
+  BoardingFinished = 'boarding_finished',
   TaxiingOut = 'taxiing_out',
   InCruise = 'in_cruise',
   TaxiingIn = 'taxiing_in',
   OnBlock = 'on_block',
-  OffboardingStarted = 'flight.offboarding-started',
-  OffboardingFinished = 'flight.offboarding-finished',
+  OffboardingStarted = 'offboarding_started',
+  OffboardingFinished = 'offboarding_finished',
   Closed = 'closed',
 }
 
