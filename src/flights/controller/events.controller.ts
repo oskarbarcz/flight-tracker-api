@@ -15,7 +15,8 @@ import { ForbiddenResponse } from '../../common/response/forbidden.response';
 import { UserRole } from '@prisma/client';
 import { Role } from '../../auth/decorator/role.decorator';
 import { FlightEventResponse } from '../dto/event.dto';
-import { FlightEventScope, FlightEventType } from '../entities/event.entity';
+import { FlightEventScope } from '../entities/event.entity';
+import { FlightEventType } from '../../common/events/flight';
 
 @ApiTags('flight-events')
 @Controller('api/v1/flight')

@@ -130,7 +130,7 @@ Feature: Update flight scheduled timesheet
         {
           "id": "a1d43d93-0958-45bc-aa5e-3b1c4a081d74",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -141,7 +141,7 @@ Feature: Update flight scheduled timesheet
         {
           "id": "@uuid",
           "scope": "operations",
-          "type": "scheduled_timesheet_updated",
+          "type": "flight.scheduled-timesheet-updated",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",

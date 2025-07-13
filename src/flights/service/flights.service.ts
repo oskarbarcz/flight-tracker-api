@@ -40,9 +40,10 @@ import {
 import { OperatorsService } from '../../operators/operators.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Loadsheet, Loadsheets } from '../entities/loadsheet.entity';
-import { FlightEventScope, FlightEventType } from '../entities/event.entity';
+import { FlightEventScope } from '../entities/event.entity';
 import { NewFlightEvent } from '../dto/event.dto';
 import { JwtUser } from '../../auth/dto/jwt-user.dto';
+import { FlightEventType } from '../../common/events/flight';
 
 @Injectable()
 export class FlightsService {

@@ -2,7 +2,8 @@ import { FlightStatus } from '../../../src/flights/entities/flight.entity';
 import { FlightEventScope, Prisma, PrismaClient } from '@prisma/client';
 import { AirportType } from '../../../src/airports/entities/airport.entity';
 import { Loadsheets } from '../../../src/flights/entities/loadsheet.entity';
-import { FlightEventType } from '../../../src/flights/entities/event.entity';
+
+import { FlightEventType } from '../../../src/common/events/flight';
 
 const prisma = new PrismaClient();
 

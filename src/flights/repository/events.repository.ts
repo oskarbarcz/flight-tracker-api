@@ -3,7 +3,8 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { FlightEventScope, Prisma } from '@prisma/client';
 import { NewFlightEvent } from '../dto/event.dto';
 import { OnEvent } from '@nestjs/event-emitter';
-import { FlightEventType } from '../entities/event.entity';
+
+import { FlightEventType } from '../../common/events/flight';
 
 const flightEventWithActor = {
   id: true,

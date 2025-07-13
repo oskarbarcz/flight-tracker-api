@@ -150,7 +150,7 @@ Feature: Report arrival
         {
           "id": "7032f11d-51b2-43ba-9cf1-ae1f144f0707",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -161,7 +161,7 @@ Feature: Report arrival
         {
           "id": "9822a1b2-9715-40a5-94cb-d8b616637457",
           "scope": "operations",
-          "type": "preliminary_loadsheet_updated",
+          "type": "flight.preliminary-loadsheet-updated",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -172,7 +172,7 @@ Feature: Report arrival
         {
           "id": "88651e15-57d0-468f-9231-bd2e1edcff66",
           "scope": "operations",
-          "type": "flight_released",
+          "type": "flight.released",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -183,7 +183,7 @@ Feature: Report arrival
         {
           "id": "3d802611-728b-41cd-a4d1-f9fc91aaca18",
           "scope": "user",
-          "type": "pilot_checked_in",
+          "type": "flight.pilot-checked-in",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -194,7 +194,7 @@ Feature: Report arrival
         {
           "id": "d2794a43-60e2-4abe-9803-ce75dfa2a37b",
           "scope": "user",
-          "type": "boarding_started",
+          "type": "flight.boarding-started",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -205,7 +205,7 @@ Feature: Report arrival
         {
           "id": "2dba1cb5-d25c-4ade-9d46-e30eb8ecb24a",
           "scope": "user",
-          "type": "boarding_finished",
+          "type": "flight.boarding-finished",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -216,7 +216,7 @@ Feature: Report arrival
         {
           "id": "d03bb44f-88d8-42cd-aa29-342eda6ebbf3",
           "scope": "user",
-          "type": "off_block_reported",
+          "type": "flight.off-block-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -227,7 +227,7 @@ Feature: Report arrival
         {
           "id": "0108b08b-9c45-49ba-a3cb-a3ae172ce92c",
           "scope": "user",
-          "type": "takeoff_reported",
+          "type": "flight.takeoff-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -238,7 +238,7 @@ Feature: Report arrival
         {
           "id": "@uuid",
           "scope": "user",
-          "type": "arrival_reported",
+          "type": "flight.arrival-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",

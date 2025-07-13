@@ -1,25 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { InputJsonValue } from '@prisma/client/runtime/library';
-
-export enum FlightEventType {
-  FlightWasCreated = 'flight_created',
-  PreliminaryLoadsheetWasUpdated = 'preliminary_loadsheet_updated',
-  ScheduledTimesheetWasUpdated = 'scheduled_timesheet_updated',
-  FlightWasAddedToRotation = 'flight_added_to_rotation',
-  FlightWasRemovedFromRotation = 'flight_removed_from_rotation',
-  FlightWasReleased = 'flight_released',
-  PilotCheckedIn = 'pilot_checked_in',
-  BoardingWasStarted = 'boarding_started',
-  BoardingWasFinished = 'boarding_finished',
-  OffBlockWasReported = 'off_block_reported',
-  TakeoffWasReported = 'takeoff_reported',
-  ArrivalWasReported = 'arrival_reported',
-  OnBlockWasReported = 'on_block_reported',
-  OffboardingWasStarted = 'offboarding_started',
-  OffboardingWasFinished = 'offboarding_finished',
-  FlightWasClosed = 'flight_closed',
-  FlightTrackWasSaved = 'flight_track_saved',
-}
+import { FlightEventType } from '../../common/events/flight';
 
 export enum FlightEventScope {
   System = 'system',

@@ -157,7 +157,7 @@ Feature: Check in pilot for flight
         {
           "id": "784319d9-a6be-41c4-ad5c-9c0f691faffb",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -168,7 +168,7 @@ Feature: Check in pilot for flight
         {
           "id": "f434d000-963a-4603-9e4d-92aed0195a89",
           "scope": "operations",
-          "type": "preliminary_loadsheet_updated",
+          "type": "flight.preliminary-loadsheet-updated",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -179,7 +179,7 @@ Feature: Check in pilot for flight
         {
           "id": "85530a54-1d5a-4943-a9fb-9b5ef39f6fc5",
           "scope": "operations",
-          "type": "flight_released",
+          "type": "flight.released",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -190,7 +190,7 @@ Feature: Check in pilot for flight
         {
           "id": "@uuid",
           "scope": "user",
-          "type": "pilot_checked_in",
+          "type": "flight.pilot-checked-in",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",

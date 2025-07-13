@@ -150,7 +150,7 @@ Feature: Report off-block
         {
           "id": "4e1cae7d-1cc4-493e-ae59-fcd87e97416a",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -161,7 +161,7 @@ Feature: Report off-block
         {
           "id": "e72a93c0-c3ad-4863-a994-f355f10989dd",
           "scope": "operations",
-          "type": "preliminary_loadsheet_updated",
+          "type": "flight.preliminary-loadsheet-updated",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -172,7 +172,7 @@ Feature: Report off-block
         {
           "id": "fb3236f0-0318-40be-b581-3312ece412e7",
           "scope": "operations",
-          "type": "flight_released",
+          "type": "flight.released",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -183,7 +183,7 @@ Feature: Report off-block
         {
           "id": "9ac32500-3bad-471a-b6e1-577916abde24",
           "scope": "user",
-          "type": "pilot_checked_in",
+          "type": "flight.pilot-checked-in",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -194,7 +194,7 @@ Feature: Report off-block
         {
           "id": "1489e92f-dde6-4d16-8a0a-f38b18f6e272",
           "scope": "user",
-          "type": "boarding_started",
+          "type": "flight.boarding-started",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -205,7 +205,7 @@ Feature: Report off-block
         {
           "id": "66bcc725-7acd-42e9-b3db-1513176a537f",
           "scope": "user",
-          "type": "boarding_finished",
+          "type": "flight.boarding-finished",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -216,7 +216,7 @@ Feature: Report off-block
         {
           "id": "@uuid",
           "scope": "user",
-          "type": "off_block_reported",
+          "type": "flight.off-block-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",

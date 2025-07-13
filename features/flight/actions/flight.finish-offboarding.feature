@@ -38,7 +38,7 @@ Feature: Finish offboarding for flight that started onboarding
         "id": "5aada8ba-60c1-4e93-bcee-b59a7c555fdd",
         "flightNumber": "AA 4915",
         "callsign": "AAL 4915",
-        "status": "offboarding_finished",
+        "status": "flight.offboarding-finished",
         "timesheet": {
           "scheduled": {
             "arrivalTime": "2025-01-01T16:00:00.000Z",
@@ -150,7 +150,7 @@ Feature: Finish offboarding for flight that started onboarding
         {
           "id": "b68d7b8f-a2a6-4c97-aaf0-039ab2541567",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -161,7 +161,7 @@ Feature: Finish offboarding for flight that started onboarding
         {
           "id": "4c3128ed-9c1b-4815-8e0b-8b8d67912706",
           "scope": "operations",
-          "type": "preliminary_loadsheet_updated",
+          "type": "flight.preliminary-loadsheet-updated",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -172,7 +172,7 @@ Feature: Finish offboarding for flight that started onboarding
         {
           "id": "eef98d03-6ebf-4643-9a3f-49c7a9d7dd4e",
           "scope": "operations",
-          "type": "flight_released",
+          "type": "flight.released",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -183,7 +183,7 @@ Feature: Finish offboarding for flight that started onboarding
         {
           "id": "98e76e75-ca05-48bc-b676-f5e3c58769a6",
           "scope": "user",
-          "type": "pilot_checked_in",
+          "type": "flight.pilot-checked-in",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -194,7 +194,7 @@ Feature: Finish offboarding for flight that started onboarding
         {
           "id": "d8a68b2d-4b3d-4c96-97cb-ba6e34e14747",
           "scope": "user",
-          "type": "boarding_started",
+          "type": "flight.boarding-started",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -205,7 +205,7 @@ Feature: Finish offboarding for flight that started onboarding
         {
           "id": "6c00677b-077f-42f3-b65f-0fdd9de92869",
           "scope": "user",
-          "type": "boarding_finished",
+          "type": "flight.boarding-finished",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -216,7 +216,7 @@ Feature: Finish offboarding for flight that started onboarding
         {
           "id": "51cfbf54-1c17-4fdc-b56f-385aa11311e4",
           "scope": "user",
-          "type": "off_block_reported",
+          "type": "flight.off-block-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -227,7 +227,7 @@ Feature: Finish offboarding for flight that started onboarding
         {
           "id": "26e1178c-3696-4127-abfd-024a2a832e91",
           "scope": "user",
-          "type": "takeoff_reported",
+          "type": "flight.takeoff-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -238,7 +238,7 @@ Feature: Finish offboarding for flight that started onboarding
         {
           "id": "3c75fcea-5a2d-4353-8960-b27eb6733e8b",
           "scope": "user",
-          "type": "arrival_reported",
+          "type": "flight.arrival-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -249,7 +249,7 @@ Feature: Finish offboarding for flight that started onboarding
         {
           "id": "620c5ac4-8224-4dab-a37b-32ecd858b4b4",
           "scope": "user",
-          "type": "on_block_reported",
+          "type": "flight.on-block-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -260,7 +260,7 @@ Feature: Finish offboarding for flight that started onboarding
         {
           "id": "f7848f6d-8e4e-4554-a1ed-db99779c16dd",
           "scope": "user",
-          "type": "offboarding_started",
+          "type": "flight.offboarding-started",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -271,7 +271,7 @@ Feature: Finish offboarding for flight that started onboarding
         {
           "id": "@uuid",
           "scope": "user",
-          "type": "offboarding_finished",
+          "type": "flight.offboarding-finished",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",

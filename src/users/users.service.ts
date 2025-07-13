@@ -11,8 +11,8 @@ import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { GetUserDto, ListUsersFilters } from './dto/get-user.dto';
 import { OnEvent } from '@nestjs/event-emitter';
-import { FlightEventType } from '../flights/entities/event.entity';
 import { NewFlightEvent } from '../flights/dto/event.dto';
+import { FlightEventType } from '../common/events/flight';
 
 @Injectable()
 export class UsersService {
