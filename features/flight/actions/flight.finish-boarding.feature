@@ -52,7 +52,7 @@ Feature: Finish flight boarding
         "id": "05986dd3-ff01-4112-ad35-ecd85db05c77",
         "flightNumber": "AA 4909",
         "callsign": "AAL 4909",
-        "status": "flight.boarding-finished",
+        "status": "boarding_finished",
         "timesheet": {
           "scheduled": {
             "arrivalTime": "2025-01-01T16:00:00.000Z",
