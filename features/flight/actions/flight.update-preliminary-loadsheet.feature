@@ -149,6 +149,17 @@ Feature: Update flight preliminary loadsheet
             "name": "Alice Doe"
           },
           "createdAt": "2025-01-01T11:00:00.000Z"
+        },
+        {
+          "id": "@uuid",
+          "scope": "operations",
+          "type": "preliminary_loadsheet_updated",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "@date('within 1 minute from now')"
         }
       ]
       """

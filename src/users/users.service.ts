@@ -11,11 +11,8 @@ import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { GetUserDto, ListUsersFilters } from './dto/get-user.dto';
 import { OnEvent } from '@nestjs/event-emitter';
-import {
-  EventType,
-  FlightWasCheckedInPayload,
-  FlightWasClosedPayload,
-} from '../common/events/event';
+import { FlightEventType } from '../flights/entities/event.entity';
+import { NewFlightEvent } from '../flights/dto/event.dto';
 
 @Injectable()
 export class UsersService {
@@ -122,19 +119,19 @@ export class UsersService {
     return this.returnWithoutPassword(updatedUser);
   }
 
-  @OnEvent(EventType.FlightWasCheckedIn)
-  async onFlightCheckedIn(payload: FlightWasCheckedInPayload): Promise<void> {
+  @OnEvent(FlightEventType.PilotCheckedIn)
+  async onFlightCheckedIn(event: NewFlightEvent): Promise<void> {
     await this.prisma.user.update({
-      where: { id: payload.userId },
-      data: { currentFlightId: payload.flightId },
+      where: { id: event.actorId as string },
+      data: { currentFlightId: event.flightId },
     });
   }
 
-  @OnEvent(EventType.FlightWasClosed)
-  async onFlightClose(payload: FlightWasClosedPayload): Promise<void> {
+  @OnEvent(FlightEventType.FlightWasClosed)
+  async onFlightClose(event: NewFlightEvent): Promise<void> {
     await this.prisma.user.update({
-      where: { id: payload.userId },
-      data: { currentFlightId: null },
+      where: { id: event.actorId as string },
+      data: { currentFlightId: event.flightId },
     });
   }
 

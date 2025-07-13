@@ -38,13 +38,11 @@ import {
   ScheduledFlightCannotBeRemoved,
 } from '../dto/errors.dto';
 import { OperatorsService } from '../../operators/operators.service';
-import {
-  EventType,
-  FlightWasCheckedInPayload,
-  FlightWasClosedPayload,
-} from '../../common/events/event';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Loadsheet, Loadsheets } from '../entities/loadsheet.entity';
+import { FlightEventScope, FlightEventType } from '../entities/event.entity';
+import { NewFlightEvent } from '../dto/event.dto';
+import { JwtUser } from '../../auth/dto/jwt-user.dto';
 
 @Injectable()
 export class FlightsService {
@@ -106,7 +104,10 @@ export class FlightsService {
     );
   }
 
-  async create(input: CreateFlightRequest): Promise<Flight> {
+  async create(
+    input: CreateFlightRequest,
+    initiator: JwtUser,
+  ): Promise<Flight> {
     if (input.departureAirportId === input.destinationAirportId) {
       throw new BadRequestException(
         DestinationAirportSameAsDepartureAirportError,
@@ -130,6 +131,14 @@ export class FlightsService {
     }
 
     const flight = await this.flightsRepository.create(input);
+
+    const event: NewFlightEvent = {
+      flightId: flight.id,
+      type: FlightEventType.FlightWasCreated,
+      scope: FlightEventScope.Operations,
+      actorId: initiator.sub,
+    };
+    this.eventEmitter.emit(FlightEventType.FlightWasCreated, event);
 
     return {
       id: flight.id,
@@ -163,7 +172,7 @@ export class FlightsService {
     await this.flightsRepository.remove(id);
   }
 
-  async markAsReady(id: string): Promise<void> {
+  async markAsReady(id: string, initiatorId: string): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -179,11 +188,19 @@ export class FlightsService {
     }
 
     await this.flightsRepository.updateStatus(id, FlightStatus.Ready);
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.FlightWasReleased,
+      scope: FlightEventScope.User,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.FlightWasReleased, event);
   }
 
   async updatePreliminaryLoadsheet(
     id: string,
     loadsheet: Loadsheet,
+    initiatorId: string,
   ): Promise<void> {
     const flight = await this.find(id);
 
@@ -199,11 +216,22 @@ export class FlightsService {
 
     const loadsheets: Loadsheets = { preliminary: loadsheet, final: null };
     await this.flightsRepository.updateLoadsheets(id, loadsheets);
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+      scope: FlightEventScope.Operations,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(
+      FlightEventType.PreliminaryLoadsheetWasUpdated,
+      event,
+    );
   }
 
   async updateScheduledTimesheet(
     id: string,
     schedule: Schedule,
+    initiatorId: string,
   ): Promise<void> {
     const flight = await this.find(id);
 
@@ -219,12 +247,19 @@ export class FlightsService {
 
     const timesheet: FullTimesheet = { scheduled: schedule };
     await this.flightsRepository.updateTimesheet(id, timesheet);
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.ScheduledTimesheetWasUpdated,
+      scope: FlightEventScope.Operations,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.ScheduledTimesheetWasUpdated, event);
   }
 
   async checkInPilot(
     id: string,
     estimatedSchedule: Schedule,
-    userId: string,
+    initiatorId: string,
   ): Promise<void> {
     const flight = await this.find(id);
 
@@ -242,11 +277,16 @@ export class FlightsService {
     await this.flightsRepository.updateStatus(id, FlightStatus.CheckedIn);
     await this.flightsRepository.updateTimesheet(id, timesheet);
 
-    const event: FlightWasCheckedInPayload = { flightId: id, userId: userId };
-    this.eventEmitter.emit(EventType.FlightWasCheckedIn, event);
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.PilotCheckedIn,
+      scope: FlightEventScope.User,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.PilotCheckedIn, event);
   }
 
-  async startBoarding(id: string): Promise<void> {
+  async startBoarding(id: string, initiatorId: string): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -258,9 +298,20 @@ export class FlightsService {
     }
 
     await this.flightsRepository.updateStatus(id, FlightStatus.BoardingStarted);
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.BoardingWasStarted,
+      scope: FlightEventScope.User,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.BoardingWasStarted, event);
   }
 
-  async finishBoarding(id: string, finalLoadsheet: Loadsheet): Promise<void> {
+  async finishBoarding(
+    id: string,
+    finalLoadsheet: Loadsheet,
+    initiatorId: string,
+  ): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -283,9 +334,17 @@ export class FlightsService {
         FlightStatus.BoardingFinished,
       ),
     ]);
+
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.BoardingWasFinished,
+      scope: FlightEventScope.User,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.BoardingWasFinished, event);
   }
 
-  async reportOffBlock(id: string): Promise<void> {
+  async reportOffBlock(id: string, initiatorId: string): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -308,9 +367,17 @@ export class FlightsService {
 
     await this.flightsRepository.updateStatus(id, FlightStatus.TaxiingOut);
     await this.flightsRepository.updateTimesheet(id, timesheet);
+
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.OffBlockWasReported,
+      scope: FlightEventScope.User,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.OffBlockWasReported, event);
   }
 
-  async reportTakeoff(id: string): Promise<void> {
+  async reportTakeoff(id: string, initiatorId: string): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -328,9 +395,17 @@ export class FlightsService {
 
     await this.flightsRepository.updateStatus(id, FlightStatus.InCruise);
     await this.flightsRepository.updateTimesheet(id, timesheet);
+
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.TakeoffWasReported,
+      scope: FlightEventScope.User,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.TakeoffWasReported, event);
   }
 
-  async reportArrival(id: string): Promise<void> {
+  async reportArrival(id: string, initiatorId: string): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -346,9 +421,17 @@ export class FlightsService {
 
     await this.flightsRepository.updateStatus(id, FlightStatus.TaxiingIn);
     await this.flightsRepository.updateTimesheet(id, timesheet);
+
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.ArrivalWasReported,
+      scope: FlightEventScope.User,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.ArrivalWasReported, event);
   }
 
-  async reportOnBlock(id: string): Promise<void> {
+  async reportOnBlock(id: string, initiatorId: string): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -364,9 +447,20 @@ export class FlightsService {
 
     await this.flightsRepository.updateStatus(id, FlightStatus.OnBlock);
     await this.flightsRepository.updateTimesheet(id, timesheet);
+
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.OnBlockWasReported,
+      scope: FlightEventScope.User,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.OnBlockWasReported, event);
   }
 
-  async reportOffboardingStarted(id: string): Promise<void> {
+  async reportOffboardingStarted(
+    id: string,
+    initiatorId: string,
+  ): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -383,9 +477,20 @@ export class FlightsService {
       id,
       FlightStatus.OffboardingStarted,
     );
+
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.OffboardingWasStarted,
+      scope: FlightEventScope.User,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.OffboardingWasStarted, event);
   }
 
-  async reportOffboardingFinished(id: string): Promise<void> {
+  async reportOffboardingFinished(
+    id: string,
+    initiatorId: string,
+  ): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -402,9 +507,17 @@ export class FlightsService {
       id,
       FlightStatus.OffboardingFinished,
     );
+
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.OffboardingWasFinished,
+      scope: FlightEventScope.User,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.OffboardingWasFinished, event);
   }
 
-  async close(id: string, userId: string): Promise<void> {
+  async close(id: string, initiatorId: string): Promise<void> {
     const flight = await this.find(id);
 
     if (!flight) {
@@ -417,7 +530,12 @@ export class FlightsService {
 
     await this.flightsRepository.updateStatus(id, FlightStatus.Closed);
 
-    const event: FlightWasClosedPayload = { userId };
-    this.eventEmitter.emit(EventType.FlightWasClosed, event);
+    const event: NewFlightEvent = {
+      flightId: id,
+      type: FlightEventType.FlightWasClosed,
+      scope: FlightEventScope.User,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.FlightWasClosed, event);
   }
 }

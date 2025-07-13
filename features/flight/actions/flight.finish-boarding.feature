@@ -209,6 +209,17 @@ Feature: Finish flight boarding
             "name": "Rick Doe"
           },
           "createdAt": "2025-01-01T12:40:00.000Z"
+        },
+        {
+          "id": "@uuid",
+          "scope": "user",
+          "type": "boarding_finished",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "@date('within 1 minute from now')"
         }
       ]
       """

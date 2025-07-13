@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { InputJsonValue } from '@prisma/client/runtime/library';
 
 export enum FlightEventType {
   FlightWasCreated = 'flight_created',
@@ -40,7 +41,7 @@ export class EventActor {
   name: string;
 }
 
-export class FlightEvent {
+export class FlightEvent<EventPayload = object> {
   @ApiProperty({
     description: 'Event unique identifier',
     example: '123e4567-e89b-12d3-a456-426614174000',
@@ -65,7 +66,7 @@ export class FlightEvent {
     description: 'Event payload',
     example: {},
   })
-  payload: object;
+  payload?: EventPayload & (InputJsonValue | undefined);
 
   @ApiProperty({
     description: 'Flight associated with the event',

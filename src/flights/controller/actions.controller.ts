@@ -71,8 +71,11 @@ export class ActionsController {
   @Post('/:id/mark-as-ready')
   @Role(UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)
-  async markAsReady(@UuidParam('id') id: string): Promise<void> {
-    await this.flightsService.markAsReady(id);
+  async markAsReady(
+    @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
+  ): Promise<void> {
+    await this.flightsService.markAsReady(id, request.user.sub);
   }
 
   @ApiOperation({
@@ -115,9 +118,14 @@ export class ActionsController {
   @Role(UserRole.Operations)
   async updatePreliminaryLoadsheet(
     @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
     @Body() loadsheet: Loadsheet,
   ): Promise<void> {
-    await this.flightsService.updatePreliminaryLoadsheet(id, loadsheet);
+    await this.flightsService.updatePreliminaryLoadsheet(
+      id,
+      loadsheet,
+      request.user.sub,
+    );
   }
 
   @ApiOperation({
@@ -160,9 +168,14 @@ export class ActionsController {
   @Role(UserRole.Operations)
   async updateScheduledTimesheet(
     @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
     @Body() schedule: Schedule,
   ): Promise<void> {
-    await this.flightsService.updateScheduledTimesheet(id, schedule);
+    await this.flightsService.updateScheduledTimesheet(
+      id,
+      schedule,
+      request.user.sub,
+    );
   }
 
   @ApiOperation({
@@ -245,8 +258,11 @@ export class ActionsController {
   @Post('/:id/start-boarding')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async startBoarding(@UuidParam('id') id: string): Promise<void> {
-    await this.flightsService.startBoarding(id);
+  async startBoarding(
+    @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
+  ): Promise<void> {
+    await this.flightsService.startBoarding(id, request.user.sub);
   }
 
   @ApiOperation({
@@ -289,9 +305,10 @@ export class ActionsController {
   @Role(UserRole.CabinCrew)
   async finishBoarding(
     @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
     @Body() loadsheet: Loadsheet,
   ): Promise<void> {
-    await this.flightsService.finishBoarding(id, loadsheet);
+    await this.flightsService.finishBoarding(id, loadsheet, request.user.sub);
   }
 
   @ApiOperation({
@@ -328,8 +345,11 @@ export class ActionsController {
   @Post('/:id/report-off-block')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async reportOffBlock(@UuidParam('id') id: string): Promise<void> {
-    await this.flightsService.reportOffBlock(id);
+  async reportOffBlock(
+    @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
+  ): Promise<void> {
+    await this.flightsService.reportOffBlock(id, request.user.sub);
   }
 
   @ApiOperation({
@@ -366,8 +386,11 @@ export class ActionsController {
   @Post('/:id/report-takeoff')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async reportTakeoff(@UuidParam('id') id: string): Promise<void> {
-    await this.flightsService.reportTakeoff(id);
+  async reportTakeoff(
+    @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
+  ): Promise<void> {
+    await this.flightsService.reportTakeoff(id, request.user.sub);
   }
 
   @ApiOperation({
@@ -404,8 +427,11 @@ export class ActionsController {
   @Post('/:id/report-arrival')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async reportArrival(@UuidParam('id') id: string): Promise<void> {
-    await this.flightsService.reportArrival(id);
+  async reportArrival(
+    @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
+  ): Promise<void> {
+    await this.flightsService.reportArrival(id, request.user.sub);
   }
 
   @ApiOperation({
@@ -442,8 +468,11 @@ export class ActionsController {
   @Post('/:id/report-on-block')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async reportOnBlock(@UuidParam('id') id: string): Promise<void> {
-    await this.flightsService.reportOnBlock(id);
+  async reportOnBlock(
+    @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
+  ): Promise<void> {
+    await this.flightsService.reportOnBlock(id, request.user.sub);
   }
 
   @ApiOperation({
@@ -480,8 +509,11 @@ export class ActionsController {
   @Post('/:id/start-offboarding')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async reportOffboardingStarted(@UuidParam('id') id: string): Promise<void> {
-    await this.flightsService.reportOffboardingStarted(id);
+  async reportOffboardingStarted(
+    @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
+  ): Promise<void> {
+    await this.flightsService.reportOffboardingStarted(id, request.user.sub);
   }
 
   @ApiOperation({
@@ -518,8 +550,11 @@ export class ActionsController {
   @Post('/:id/finish-offboarding')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
-  async reportOffboardingFinished(@UuidParam('id') id: string): Promise<void> {
-    await this.flightsService.reportOffboardingFinished(id);
+  async reportOffboardingFinished(
+    @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
+  ): Promise<void> {
+    await this.flightsService.reportOffboardingFinished(id, request.user.sub);
   }
 
   @ApiOperation({

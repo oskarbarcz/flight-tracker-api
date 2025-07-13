@@ -1,6 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { FlightEventScope, Prisma } from '@prisma/client';
+import { NewFlightEvent } from '../dto/event.dto';
+import { OnEvent } from '@nestjs/event-emitter';
+import { FlightEventType } from '../entities/event.entity';
 
 const flightEventWithActor = {
   id: true,
@@ -39,7 +42,29 @@ export class EventsRepository {
     });
   }
 
-  async flightExists(flightId: string): Promise<boolean> {
+  @OnEvent(FlightEventType.FlightWasCreated)
+  @OnEvent(FlightEventType.FlightWasReleased)
+  @OnEvent(FlightEventType.PilotCheckedIn)
+  @OnEvent(FlightEventType.BoardingWasStarted)
+  @OnEvent(FlightEventType.BoardingWasFinished)
+  @OnEvent(FlightEventType.OffBlockWasReported)
+  @OnEvent(FlightEventType.TakeoffWasReported)
+  @OnEvent(FlightEventType.ArrivalWasReported)
+  @OnEvent(FlightEventType.OnBlockWasReported)
+  @OnEvent(FlightEventType.OffboardingWasStarted)
+  @OnEvent(FlightEventType.OffboardingWasFinished)
+  @OnEvent(FlightEventType.FlightWasClosed)
+  @OnEvent(FlightEventType.FlightTrackWasSaved)
+  @OnEvent(FlightEventType.PreliminaryLoadsheetWasUpdated)
+  @OnEvent(FlightEventType.ScheduledTimesheetWasUpdated)
+  @OnEvent(FlightEventType.FlightWasAddedToRotation)
+  @OnEvent(FlightEventType.FlightWasRemovedFromRotation)
+  async saveEvent(event: NewFlightEvent): Promise<void> {
+    console.log(event);
+    await this.prisma.flightEvent.create({ data: event });
+  }
+
+  private async flightExists(flightId: string): Promise<boolean> {
     const count = await this.prisma.flight.count({
       where: { id: flightId },
     });
