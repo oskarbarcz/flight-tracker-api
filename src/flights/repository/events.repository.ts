@@ -3,7 +3,6 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { FlightEventScope, Prisma } from '@prisma/client';
 import { NewFlightEvent } from '../dto/event.dto';
 import { OnEvent } from '@nestjs/event-emitter';
-
 import { FlightEventType } from '../../common/events/flight';
 
 const flightEventWithActor = {
@@ -43,7 +42,6 @@ export class EventsRepository {
     });
   }
 
-  @OnEvent(FlightEventType.FlightWasCreated)
   @OnEvent(FlightEventType.FlightWasReleased)
   @OnEvent(FlightEventType.PilotCheckedIn)
   @OnEvent(FlightEventType.BoardingWasStarted)
