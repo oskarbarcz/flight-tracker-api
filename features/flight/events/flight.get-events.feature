@@ -23,7 +23,7 @@ Feature: Get flight events
         {
           "id": "7b0d3d5a-879c-491c-b6e0-ec051ac9fbc4",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -34,7 +34,7 @@ Feature: Get flight events
         {
           "id": "e70f19df-81b4-4712-b4a5-16be22c85ebe",
           "scope": "operations",
-          "type": "preliminary_loadsheet_updated",
+          "type": "flight.preliminary-loadsheet-updated",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -45,7 +45,7 @@ Feature: Get flight events
         {
           "id": "9db99c92-dd95-4089-b11b-abe3ac1d262b",
           "scope": "operations",
-          "type": "flight_released",
+          "type": "flight.released",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -66,7 +66,7 @@ Feature: Get flight events
         {
           "id": "7b0d3d5a-879c-491c-b6e0-ec051ac9fbc4",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -77,7 +77,7 @@ Feature: Get flight events
         {
           "id": "e70f19df-81b4-4712-b4a5-16be22c85ebe",
           "scope": "operations",
-          "type": "preliminary_loadsheet_updated",
+          "type": "flight.preliminary-loadsheet-updated",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -88,7 +88,7 @@ Feature: Get flight events
         {
           "id": "9db99c92-dd95-4089-b11b-abe3ac1d262b",
           "scope": "operations",
-          "type": "flight_released",
+          "type": "flight.released",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",

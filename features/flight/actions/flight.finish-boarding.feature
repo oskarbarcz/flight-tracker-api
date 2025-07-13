@@ -52,7 +52,7 @@ Feature: Finish flight boarding
         "id": "05986dd3-ff01-4112-ad35-ecd85db05c77",
         "flightNumber": "AA 4909",
         "callsign": "AAL 4909",
-        "status": "boarding_finished",
+        "status": "flight.boarding-finished",
         "timesheet": {
           "scheduled": {
             "arrivalTime": "2025-01-01T16:00:00.000Z",
@@ -158,7 +158,7 @@ Feature: Finish flight boarding
         {
           "id": "f8fe29e2-335e-488e-9fea-b5c4647578ed",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -169,7 +169,7 @@ Feature: Finish flight boarding
         {
           "id": "08f2640d-a382-491a-9226-c6ed5cdbfd60",
           "scope": "operations",
-          "type": "preliminary_loadsheet_updated",
+          "type": "flight.preliminary-loadsheet-updated",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -180,7 +180,7 @@ Feature: Finish flight boarding
         {
           "id": "8297db05-76e4-416e-9f6f-fed2716296ea",
           "scope": "operations",
-          "type": "flight_released",
+          "type": "flight.released",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -191,7 +191,7 @@ Feature: Finish flight boarding
         {
           "id": "9d2f1728-0882-4c65-b912-6d193f87a643",
           "scope": "user",
-          "type": "pilot_checked_in",
+          "type": "flight.pilot-checked-in",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -202,13 +202,24 @@ Feature: Finish flight boarding
         {
           "id": "9762e7f2-5cb6-48a1-bee2-077c6ed4452c",
           "scope": "user",
-          "type": "boarding_started",
+          "type": "flight.boarding-started",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"
           },
           "createdAt": "2025-01-01T12:40:00.000Z"
+        },
+        {
+          "id": "@uuid",
+          "scope": "user",
+          "type": "flight.boarding-finished",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "@date('within 1 minute from now')"
         }
       ]
       """

@@ -1,24 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-
-export enum FlightEventType {
-  FlightWasCreated = 'flight_created',
-  PreliminaryLoadsheetWasUpdated = 'preliminary_loadsheet_updated',
-  ScheduledTimesheetWasUpdated = 'scheduled_timesheet_updated',
-  FlightWasAddedToRotation = 'flight_added_to_rotation',
-  FlightWasRemovedFromRotation = 'flight_removed_from_rotation',
-  FlightWasReleased = 'flight_released',
-  PilotCheckedIn = 'pilot_checked_in',
-  BoardingWasStarted = 'boarding_started',
-  BoardingWasFinished = 'boarding_finished',
-  OffBlockWasReported = 'off_block_reported',
-  TakeoffWasReported = 'takeoff_reported',
-  ArrivalWasReported = 'arrival_reported',
-  OnBlockWasReported = 'on_block_reported',
-  OffboardingWasStarted = 'offboarding_started',
-  OffboardingWasFinished = 'offboarding_finished',
-  FlightWasClosed = 'flight_closed',
-  FlightTrackWasSaved = 'flight_track_saved',
-}
+import { InputJsonValue } from '@prisma/client/runtime/library';
+import { FlightEventType } from '../../common/events/flight';
 
 export enum FlightEventScope {
   System = 'system',
@@ -40,7 +22,7 @@ export class EventActor {
   name: string;
 }
 
-export class FlightEvent {
+export class FlightEvent<EventPayload = object> {
   @ApiProperty({
     description: 'Event unique identifier',
     example: '123e4567-e89b-12d3-a456-426614174000',
@@ -65,7 +47,7 @@ export class FlightEvent {
     description: 'Event payload',
     example: {},
   })
-  payload: object;
+  payload?: EventPayload & (InputJsonValue | undefined);
 
   @ApiProperty({
     description: 'Flight associated with the event',

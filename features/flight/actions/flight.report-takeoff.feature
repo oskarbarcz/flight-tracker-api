@@ -150,7 +150,7 @@ Feature: Report takeoff
         {
           "id": "defe2649-c100-47b9-b254-d0db0d568103",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -161,7 +161,7 @@ Feature: Report takeoff
         {
           "id": "23f793e8-6f1a-4348-9ac1-5721788f89ce",
           "scope": "operations",
-          "type": "preliminary_loadsheet_updated",
+          "type": "flight.preliminary-loadsheet-updated",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -172,7 +172,7 @@ Feature: Report takeoff
         {
           "id": "612637bf-dffe-4a8c-a86b-785011e028df",
           "scope": "operations",
-          "type": "flight_released",
+          "type": "flight.released",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -183,7 +183,7 @@ Feature: Report takeoff
         {
           "id": "e688c31b-1be9-4b08-a3a0-02628c5a5bfd",
           "scope": "user",
-          "type": "pilot_checked_in",
+          "type": "flight.pilot-checked-in",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -194,7 +194,7 @@ Feature: Report takeoff
         {
           "id": "d834bd10-0fd1-4fb2-b77c-c04445bd32ca",
           "scope": "user",
-          "type": "boarding_started",
+          "type": "flight.boarding-started",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -205,7 +205,7 @@ Feature: Report takeoff
         {
           "id": "a3c38a7e-f0fe-498d-bee2-7697dc0d0650",
           "scope": "user",
-          "type": "boarding_finished",
+          "type": "flight.boarding-finished",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -216,13 +216,24 @@ Feature: Report takeoff
         {
           "id": "00cf79f0-5dee-4505-bc10-bc7178c57354",
           "scope": "user",
-          "type": "off_block_reported",
+          "type": "flight.off-block-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"
           },
           "createdAt": "2025-01-01T13:10:00.000Z"
+        },
+        {
+          "id": "@uuid",
+          "scope": "user",
+          "type": "flight.takeoff-reported",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "@date('within 1 minute from now')"
         }
       ]
       """

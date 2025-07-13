@@ -38,7 +38,7 @@ Feature: Start boarding
         "id": "b3899775-278e-4496-add1-21385a13d93e",
         "flightNumber": "AA 4908",
         "callsign": "AAL 4908",
-        "status": "boarding_started",
+        "status": "flight.boarding-started",
         "timesheet": {
           "scheduled": {
             "arrivalTime": "2025-01-01T16:00:00.000Z",
@@ -133,7 +133,7 @@ Feature: Start boarding
         {
           "id": "6df6997c-98ad-43b1-8d36-72b921bec1c3",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -144,7 +144,7 @@ Feature: Start boarding
         {
           "id": "4f9d78e7-b0c9-48a3-a5c8-27d6edd530a1",
           "scope": "operations",
-          "type": "preliminary_loadsheet_updated",
+          "type": "flight.preliminary-loadsheet-updated",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -155,7 +155,7 @@ Feature: Start boarding
         {
           "id": "47c8db09-e786-4287-840c-b54278d543b5",
           "scope": "operations",
-          "type": "flight_released",
+          "type": "flight.released",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -166,13 +166,24 @@ Feature: Start boarding
         {
           "id": "82746826-3d70-40b0-93ac-d61d6af0ef43",
           "scope": "user",
-          "type": "pilot_checked_in",
+          "type": "flight.pilot-checked-in",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"
           },
           "createdAt": "2025-01-01T12:00:00.000Z"
+        },
+        {
+          "id": "@uuid",
+          "scope": "user",
+          "type": "flight.boarding-started",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "@date('within 1 minute from now')"
         }
       ]
       """

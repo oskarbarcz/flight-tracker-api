@@ -114,13 +114,24 @@ Feature: Mark flight as ready
         {
           "id": "a1d43d93-0958-45bc-aa5e-3b1c4a081d74",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
             "name": "Alice Doe"
           },
           "createdAt": "2025-01-01T11:00:00.000Z"
+        },
+        {
+          "id": "@uuid",
+          "scope": "user",
+          "type": "flight.released",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "@date('within 1 minute from now')"
         }
       ]
       """

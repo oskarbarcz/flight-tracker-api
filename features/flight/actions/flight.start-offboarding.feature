@@ -38,7 +38,7 @@ Feature: Start offboarding
         "id": "17d2f703-957d-4ad1-a620-3c187a70c26a",
         "flightNumber": "AA 4914",
         "callsign": "AAL 4914",
-        "status": "offboarding_started",
+        "status": "flight.offboarding-started",
         "timesheet": {
           "scheduled": {
             "arrivalTime": "2025-01-01T16:00:00.000Z",
@@ -150,7 +150,7 @@ Feature: Start offboarding
         {
           "id": "8d2510dd-bc5e-48a1-8251-79abb33ec9a4",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -161,7 +161,7 @@ Feature: Start offboarding
         {
           "id": "355c57e9-54b4-4b3f-917f-dd33c9f9f9ef",
           "scope": "operations",
-          "type": "preliminary_loadsheet_updated",
+          "type": "flight.preliminary-loadsheet-updated",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -172,7 +172,7 @@ Feature: Start offboarding
         {
           "id": "69bf2ba1-1ac4-47e7-8732-5ade52be92be",
           "scope": "operations",
-          "type": "flight_released",
+          "type": "flight.released",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -183,7 +183,7 @@ Feature: Start offboarding
         {
           "id": "64e4ae88-7adf-4c29-9e95-061c171a70e3",
           "scope": "user",
-          "type": "pilot_checked_in",
+          "type": "flight.pilot-checked-in",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -194,7 +194,7 @@ Feature: Start offboarding
         {
           "id": "3738a2dc-59c3-4a34-9058-ff57a3cd12bc",
           "scope": "user",
-          "type": "boarding_started",
+          "type": "flight.boarding-started",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -205,7 +205,7 @@ Feature: Start offboarding
         {
           "id": "be16d4a7-83e0-46cb-93fc-2a654338f132",
           "scope": "user",
-          "type": "boarding_finished",
+          "type": "flight.boarding-finished",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -216,7 +216,7 @@ Feature: Start offboarding
         {
           "id": "af5b4d42-c963-488f-bdc7-aefad1bb2d49",
           "scope": "user",
-          "type": "off_block_reported",
+          "type": "flight.off-block-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -227,7 +227,7 @@ Feature: Start offboarding
         {
           "id": "26373247-4b63-4c90-8091-8efae31dbee7",
           "scope": "user",
-          "type": "takeoff_reported",
+          "type": "flight.takeoff-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -238,7 +238,7 @@ Feature: Start offboarding
         {
           "id": "38a79e68-aad5-4e1c-ad8e-edce069372d9",
           "scope": "user",
-          "type": "arrival_reported",
+          "type": "flight.arrival-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -249,13 +249,24 @@ Feature: Start offboarding
         {
           "id": "d195128e-a2c8-43d9-9700-feb4481620ea",
           "scope": "user",
-          "type": "on_block_reported",
+          "type": "flight.on-block-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"
           },
           "createdAt": "2025-01-01T16:28:00.000Z"
+        },
+        {
+          "id": "@uuid",
+          "scope": "user",
+          "type": "flight.offboarding-started",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "@date('within 1 minute from now')"
         }
       ]
       """

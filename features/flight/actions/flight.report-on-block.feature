@@ -150,7 +150,7 @@ Feature: Report on-block
         {
           "id": "079f2632-c0ab-4dd1-9646-522b5c370fe5",
           "scope": "operations",
-          "type": "flight_created",
+          "type": "flight.created",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -161,7 +161,7 @@ Feature: Report on-block
         {
           "id": "dd8871ca-4d02-4b8f-910f-829fa78b9300",
           "scope": "operations",
-          "type": "preliminary_loadsheet_updated",
+          "type": "flight.preliminary-loadsheet-updated",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -172,7 +172,7 @@ Feature: Report on-block
         {
           "id": "95d4986f-4211-4209-8479-deb63de7239f",
           "scope": "operations",
-          "type": "flight_released",
+          "type": "flight.released",
           "payload": {},
           "actor": {
             "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -183,7 +183,7 @@ Feature: Report on-block
         {
           "id": "2d5e21dd-b89d-4f40-bf8b-86317da51147",
           "scope": "user",
-          "type": "pilot_checked_in",
+          "type": "flight.pilot-checked-in",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -194,7 +194,7 @@ Feature: Report on-block
         {
           "id": "527def55-574b-4740-8876-c6af56e7c060",
           "scope": "user",
-          "type": "boarding_started",
+          "type": "flight.boarding-started",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -205,7 +205,7 @@ Feature: Report on-block
         {
           "id": "2a64d3fa-3615-4ced-a0ea-5d528f6e8cae",
           "scope": "user",
-          "type": "boarding_finished",
+          "type": "flight.boarding-finished",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -216,7 +216,7 @@ Feature: Report on-block
         {
           "id": "72655033-7a10-40d7-824b-5f20784f762d",
           "scope": "user",
-          "type": "off_block_reported",
+          "type": "flight.off-block-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -227,7 +227,7 @@ Feature: Report on-block
         {
           "id": "e356f0df-f0a8-4c67-a7e9-8d1bdc3c5249",
           "scope": "user",
-          "type": "takeoff_reported",
+          "type": "flight.takeoff-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -238,13 +238,24 @@ Feature: Report on-block
         {
           "id": "d6880a1e-4c04-49ca-ab15-7b04d7a4aac4",
           "scope": "user",
-          "type": "arrival_reported",
+          "type": "flight.arrival-reported",
           "payload": {},
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"
           },
           "createdAt": "2025-01-01T16:10:00.000Z"
+        },
+        {
+          "id": "@uuid",
+          "scope": "user",
+          "type": "flight.on-block-reported",
+          "payload": {},
+          "actor": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "createdAt": "@date('within 1 minute from now')"
         }
       ]
       """

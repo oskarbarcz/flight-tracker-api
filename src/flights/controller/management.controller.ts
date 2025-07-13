@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Req,
 } from '@nestjs/common';
 import { FlightsService } from '../service/flights.service';
 import {
@@ -30,6 +31,7 @@ import { UnauthorizedResponse } from '../../common/response/unauthorized.respons
 import { ForbiddenResponse } from '../../common/response/forbidden.response';
 import { Role } from '../../auth/decorator/role.decorator';
 import { UserRole } from '@prisma/client';
+import { AuthorizedRequest } from '../../common/request/authorized.request';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -108,8 +110,11 @@ export class ManagementController {
   })
   @Post()
   @Role(UserRole.Operations)
-  async create(@Body() input: CreateFlightRequest) {
-    return this.flightsService.create(input);
+  async create(
+    @Req() request: AuthorizedRequest,
+    @Body() input: CreateFlightRequest,
+  ): Promise<Flight> {
+    return this.flightsService.create(input, request.user);
   }
 
   @ApiOperation({
