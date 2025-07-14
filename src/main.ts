@@ -1,14 +1,25 @@
+import { SwaggerModule } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { BadRequestException, ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as pack from '../package.json';
-import { createResponseFromErrorsList } from './common/validation/exception.factory';
+import {
+  BadRequestException,
+  INestApplication,
+  ValidationPipe,
+} from '@nestjs/common';
+import { createResponseFromErrorsList } from './core/validation/exception.factory';
+import { createSwaggerConfig } from './core/http/swagger/swagger.config';
 
-async function bootstrap() {
+(async () => {
   const app = await NestFactory.create(AppModule);
 
-  // Apply global validation pipe
+  configureGlobalPipes(app);
+  configureSwagger(app);
+  app.enableCors();
+
+  await app.listen(3000);
+})();
+
+function configureGlobalPipes(app: INestApplication): void {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -18,22 +29,10 @@ async function bootstrap() {
         new BadRequestException(createResponseFromErrorsList(errors)),
     }),
   );
-
-  // Add swagger API docs
-  const config = new DocumentBuilder()
-    .setTitle('Flight Tracker API')
-    .setDescription(
-      'API for flight tracker app that allows fleet management, flight plan operations and logbook monitoring',
-    )
-    .setVersion(pack.version)
-    .addServer('http://localhost', 'local')
-    .addBearerAuth()
-    .build();
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory);
-
-  app.enableCors();
-
-  await app.listen(process.env.PORT ?? 3000);
 }
-bootstrap();
+
+function configureSwagger(app: INestApplication): void {
+  const config = createSwaggerConfig();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+}

@@ -48,22 +48,23 @@ model Operator {
 }
 
 model Flight {
-  id           String              @id @db.Uuid
-  flightNumber String
-  callsign     String
-  status       String
-  aircraftId   String              @db.Uuid
-  timesheet    Json
-  loadsheets   Json                @default("{\"final\": null, \"preliminary\": null}")
-  operatorId   String              @db.Uuid
-  rotationId   String?             @db.Uuid
-  createdAt    DateTime            @default(now())
-  airports     AirportsOnFlights[]
-  aircraft     Aircraft            @relation(fields: [aircraftId], references: [id])
-  operator     Operator            @relation(fields: [operatorId], references: [id])
-  rotation     Rotation?           @relation(fields: [rotationId], references: [id])
-  User         User?
-  FlightEvent  FlightEvent[]
+  id              String              @id @db.Uuid
+  flightNumber    String
+  callsign        String
+  status          String
+  aircraftId      String              @db.Uuid
+  timesheet       Json
+  loadsheets      Json                @default("{\"final\": null, \"preliminary\": null}")
+  operatorId      String              @db.Uuid
+  rotationId      String?             @db.Uuid
+  createdAt       DateTime            @default(now())
+  positionReports Json                @default("[]")
+  aircraft        Aircraft            @relation(fields: [aircraftId], references: [id])
+  operator        Operator            @relation(fields: [operatorId], references: [id])
+  rotation        Rotation?           @relation(fields: [rotationId], references: [id])
+  User            User?
+  airports        AirportsOnFlights[]
+  FlightEvent     FlightEvent[]
 
   @@map("flight")
 }
