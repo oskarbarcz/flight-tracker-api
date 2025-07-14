@@ -2,7 +2,7 @@ import { When, Then, Given, After } from '@cucumber/cucumber';
 import axios, { AxiosResponse } from 'axios';
 import expect from 'expect';
 import { deepCompare } from '../_helper/deep-compare';
-import { SignInResponse } from '../../src/auth/dto/sign-in.dto';
+import { SignInResponse } from '../../src/modules/auth/dto/sign-in.dto';
 
 const apiUsers = {
   admin: {
