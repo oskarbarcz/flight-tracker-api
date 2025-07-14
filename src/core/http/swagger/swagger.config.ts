@@ -1,7 +1,8 @@
-import { DocumentBuilder } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as pack from '../../../../package.json';
+import { INestApplication } from '@nestjs/common';
 
-export function createSwaggerConfig() {
+function createSwaggerConfig() {
   return new DocumentBuilder()
     .setTitle('Flight Tracker API')
     .setDescription(
@@ -27,4 +28,10 @@ export function createSwaggerConfig() {
     .setContact('Oskar Barcz', 'https://barcz.me', 'flight-tracker@barcz.me')
     .setLicense('Unlicense', 'https://opensource.org/licenses/Unlicense')
     .build();
+}
+
+export function configureSwagger(app: INestApplication): void {
+  const config = createSwaggerConfig();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 }
