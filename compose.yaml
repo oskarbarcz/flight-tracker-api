@@ -30,7 +30,7 @@ services:
     ports:
       - '5432:5432'
     healthcheck:
-      test: 'pg_isready -u root -d app'
+      test: 'pg_isready -U user -d app'
       interval: 1s
       timeout: 500ms
       retries: 30
@@ -43,9 +43,3 @@ services:
       - ./docker/mock:/config
     environment:
       - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/position-api.json
-    healthcheck:
-      test: 'curl --fail http://localhost:1080/api/v1/position/DAL1234 || exit 1'
-      interval: 500ms
-      retries: 3600
-      start_period: 3s
-      timeout: 500ms
