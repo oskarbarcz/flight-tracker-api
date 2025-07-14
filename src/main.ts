@@ -10,7 +10,7 @@ import { configureHelmet } from './core/http/helmet/helmet.config';
 
   configureInputValidation(app);
   configureSwagger(app);
-  configureHelmet(app)
+  configureHelmet(app);
   configureCors(app);
 
   await app.listen(3000);

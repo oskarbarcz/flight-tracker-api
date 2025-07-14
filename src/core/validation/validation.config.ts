@@ -1,4 +1,8 @@
-import { BadRequestException, INestApplication, ValidationPipe } from '@nestjs/common';
+import {
+  BadRequestException,
+  INestApplication,
+  ValidationPipe,
+} from '@nestjs/common';
 import { createResponseFromErrorsList } from './exception.factory';
 
 export function configureInputValidation(app: INestApplication): void {
