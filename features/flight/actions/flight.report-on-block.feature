@@ -30,6 +30,35 @@ Feature: Report on-block
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/04be266c-df78-4bec-9f50-281cc02ce7f2/report-on-block"
     Then the response status should be 204
+    And ADSB service was requested for callsign "AAL4913" and returned data:
+      """json
+      [
+        {
+          "callsign": "AAL4913",
+          "date": "2025-01-01T13:10:00.000Z",
+          "latitude": 60.317255208578054,
+          "longitude": 24.958945837172326
+        },
+        {
+          "callsign": "AAL4913",
+          "date": "2025-01-01T13:40:00.000Z",
+          "latitude": 58.68825909518984,
+          "longitude": 22.248460174236897
+        },
+        {
+          "callsign": "AAL4913",
+          "date": "2025-01-01T14:10:00.000Z",
+          "latitude": 55.587475442504896,
+          "longitude": 17.204921862764106
+        },
+        {
+          "callsign": "AAL4913",
+          "date": "2025-01-01T14:40:00.000Z",
+          "latitude": 54.37998045994538,
+          "longitude": 18.46850453127673
+        }
+      ]
+      """
     When I send a "GET" request to "/api/v1/flight/04be266c-df78-4bec-9f50-281cc02ce7f2"
     Then the response status should be 200
     And the response body should contain:

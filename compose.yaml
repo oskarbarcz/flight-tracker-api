@@ -35,11 +35,11 @@ services:
       timeout: 500ms
       retries: 30
 
-  position-api-mock:
+  adsb-mock:
     image: mockserver/mockserver:mockserver-5.15.0
     ports:
-      - "1080"
+      - '1080'
     volumes:
       - ./docker/mock:/config
     environment:
-      - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/position-api.json
+      - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/adsb.json
