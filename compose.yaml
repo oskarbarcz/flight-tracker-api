@@ -38,7 +38,7 @@ services:
   adsb-mock:
     image: mockserver/mockserver:mockserver-5.15.0
     ports:
-      - '1080:1080'
+      - '1080'
     volumes:
       - ./docker/mock:/config
     environment:
