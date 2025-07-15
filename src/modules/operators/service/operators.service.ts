@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateOperatorDto } from '../dto/create-operator.dto';
 import { UpdateOperatorDto } from '../dto/update-operator.dto';
-import { PrismaService } from '../../../core/prisma/prisma.service';
+import { PrismaService } from '../../../core/provider/prisma/prisma.service';
 import { Operator } from '@prisma/client';
 import { v4 } from 'uuid';
 import {

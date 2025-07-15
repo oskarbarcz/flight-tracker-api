@@ -7,7 +7,7 @@ import * as process from 'node:process';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtTokenGuard } from '../../core/http/auth/guard/jwt-token.guard';
 import { RolesGuard } from '../../core/http/auth/guard/roles.guard';
-import { PrismaModule } from '../../core/prisma/prisma.module';
+import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { SessionRepository } from './repository/session.repository';
 
 @Module({

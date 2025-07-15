@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { Flight, FlightStatus } from '../entity/flight.entity';
-import { PrismaService } from '../../../core/prisma/prisma.service';
+import { PrismaService } from '../../../core/provider/prisma/prisma.service';
 import { CreateFlightRequest } from '../dto/create-flight.dto';
 import { v4 } from 'uuid';
 import { FullTimesheet } from '../entity/timesheet.entity';
 import { Loadsheets } from '../entity/loadsheet.entity';
+import { AdsbFlightTrack } from '../../../core/provider/adsb/type/adsb.types';
 
 export const flightWithAircraftAndAirportsFields =
   Prisma.validator<Prisma.FlightSelect>()({
@@ -127,6 +128,15 @@ export class FlightsRepository {
     });
   }
 
+  async getOneById(id: string): Promise<FlightWithAircraftAndAirports> {
+    const flight = await this.findOneBy({ id });
+    if (!flight) {
+      throw new Error(`Flight with id ${id} not found.`);
+    }
+
+    return flight;
+  }
+
   async findAll(): Promise<FlightWithAircraftAndAirports[]> {
     return this.prisma.flight.findMany({
       select: flightWithAircraftAndAirportsFields,
@@ -161,6 +171,13 @@ export class FlightsRepository {
       data: {
         timesheet: JSON.parse(JSON.stringify(timesheet)),
       },
+    });
+  }
+
+  async updateTrack(id: string, track: AdsbFlightTrack): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id },
+      data: { positionReports: track },
     });
   }
 }
