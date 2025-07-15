@@ -8,7 +8,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserRole } from '@prisma/client';
 import { v4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
-import { PrismaService } from '../../core/prisma/prisma.service';
+import { PrismaService } from '../../core/provider/prisma/prisma.service';
 import { GetUserDto, ListUsersFilters } from './dto/get-user.dto';
 import { OnEvent } from '@nestjs/event-emitter';
 import { NewFlightEvent } from '../flights/dto/event.dto';

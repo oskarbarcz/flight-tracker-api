@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { RotationsModule } from './modules/rotations/rotations.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -20,8 +21,7 @@ import { RotationsModule } from './modules/rotations/rotations.module';
     JwtModule,
     RotationsModule,
     EventEmitterModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}

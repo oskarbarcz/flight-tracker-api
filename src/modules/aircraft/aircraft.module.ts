@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AircraftService } from './service/aircraft.service';
 import { AircraftController } from './controller/aircraft.controller';
-import { PrismaModule } from '../../core/prisma/prisma.module';
+import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { OperatorsModule } from '../operators/operators.module';
 
 @Module({

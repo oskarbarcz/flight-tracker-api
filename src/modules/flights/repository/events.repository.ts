@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../../core/prisma/prisma.service';
+import { PrismaService } from '../../../core/provider/prisma/prisma.service';
 import { FlightEventScope, Prisma } from '@prisma/client';
 import { NewFlightEvent } from '../dto/event.dto';
 import { OnEvent } from '@nestjs/event-emitter';

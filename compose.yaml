@@ -30,7 +30,16 @@ services:
     ports:
       - '5432:5432'
     healthcheck:
-      test: 'pg_isready'
+      test: 'pg_isready -U user -d app'
       interval: 1s
       timeout: 500ms
       retries: 30
+
+  adsb-mock:
+    image: mockserver/mockserver:mockserver-5.15.0
+    ports:
+      - '1080'
+    volumes:
+      - ./docker/mock:/config
+    environment:
+      - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/adsb.json

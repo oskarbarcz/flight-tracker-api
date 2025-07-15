@@ -6,7 +6,7 @@ import {
 import { CreateAirportDto } from '../dto/create-airport.dto';
 import { UpdateAirportDto } from '../dto/update-airport.dto';
 import { v4 } from 'uuid';
-import { PrismaService } from '../../../core/prisma/prisma.service';
+import { PrismaService } from '../../../core/provider/prisma/prisma.service';
 import { Airport } from '@prisma/client';
 import { AirportInUseError } from '../dto/errors.dto';
 
