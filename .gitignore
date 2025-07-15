@@ -11,5 +11,4 @@
 /dist
 /build
 /node_modules
-/test-data/adsb/*
-!/test-data/adsb/.gitkeep
+/test-data
