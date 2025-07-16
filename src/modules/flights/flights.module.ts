@@ -11,6 +11,7 @@ import { ActionsController } from './controller/actions.controller';
 import { EventsRepository } from './repository/events.repository';
 import { PositionService } from './service/position.service';
 import { AdsbModule } from '../../core/provider/adsb/adsb.module';
+import { PathController } from './controller/path.controller';
 
 @Module({
   imports: [
@@ -20,7 +21,12 @@ import { AdsbModule } from '../../core/provider/adsb/adsb.module';
     OperatorsModule,
     AdsbModule,
   ],
-  controllers: [ManagementController, EventsController, ActionsController],
+  controllers: [
+    ManagementController,
+    EventsController,
+    ActionsController,
+    PathController,
+  ],
   providers: [
     FlightsService,
     PositionService,

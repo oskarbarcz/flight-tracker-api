@@ -82,3 +82,33 @@ export class Flight {
   })
   rotation?: Rotation;
 }
+
+export class FlightPathElement {
+  @ApiProperty({
+    description: 'Callsign used by air traffic services, without spaces',
+    example: 'DLH450',
+  })
+  callsign: string;
+
+  @ApiProperty({
+    description: 'Timestamp of the flight event',
+    example: '2023-10-01T12:00:00Z',
+  })
+  date: Date;
+
+  @ApiProperty({
+    description: 'Latitude of the flight event',
+    example: 52.52,
+    minimum: -90,
+    maximum: 90,
+  })
+  latitude: number;
+
+  @ApiProperty({
+    description: 'Longitude of the flight event',
+    example: 13.405,
+    minimum: -180,
+    maximum: 180,
+  })
+  longitude: number;
+}

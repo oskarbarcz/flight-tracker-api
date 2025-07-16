@@ -26,7 +26,7 @@ import { GenericBadRequestResponse } from '../../../core/http/response/bad-reque
 import { GenericNotFoundResponse } from '../../../core/http/response/not-found.response';
 import { UuidParam } from '../../../core/validation/uuid.param';
 import { Flight } from '../entity/flight.entity';
-import { CreateFlightRequest } from '../dto/create-flight.dto';
+import { CreateFlightRequest } from '../dto/flight.dto';
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
 import { Role } from '../../../core/http/auth/decorator/role.decorator';

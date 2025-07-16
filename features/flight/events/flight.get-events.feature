@@ -99,7 +99,7 @@ Feature: Get flight events
       ]
       """
 
-  Scenario: As a cabin crew I cannot get flight events for invalid flight if
+  Scenario: As a cabin crew I cannot get flight events for invalid flight id
     Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight/invalid-flight-id/events"
     Then the response status should be 400
