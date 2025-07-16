@@ -5,7 +5,7 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { Flight, FlightStatus } from '../entity/flight.entity';
-import { CreateFlightRequest } from '../dto/create-flight.dto';
+import { CreateFlightRequest } from '../dto/flight.dto';
 import {
   AirportType,
   AirportWithType,

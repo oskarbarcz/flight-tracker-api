@@ -1,12 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { Flight, FlightStatus } from '../entity/flight.entity';
+import {
+  Flight,
+  FlightPathElement,
+  FlightStatus,
+} from '../entity/flight.entity';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
-import { CreateFlightRequest } from '../dto/create-flight.dto';
+import { CreateFlightRequest } from '../dto/flight.dto';
 import { v4 } from 'uuid';
 import { FullTimesheet } from '../entity/timesheet.entity';
 import { Loadsheets } from '../entity/loadsheet.entity';
-import { AdsbFlightTrack } from '../../../core/provider/adsb/type/adsb.types';
+import {
+  AdsbFlightTrack,
+  AdsbPositionReportApiInput,
+  transformPositionReport,
+} from '../../../core/provider/adsb/type/adsb.types';
 
 export const flightWithAircraftAndAirportsFields =
   Prisma.validator<Prisma.FlightSelect>()({
@@ -128,6 +136,22 @@ export class FlightsRepository {
     });
   }
 
+  async getFlightPathElements(flightId: string): Promise<FlightPathElement[]> {
+    const data = await this.prisma.flight.findUnique({
+      where: { id: flightId },
+      select: { positionReports: true },
+    });
+
+    if (!data) {
+      throw new NotFoundException('Flight with given id does not exist.');
+    }
+
+    const positionReports =
+      data.positionReports as unknown as AdsbPositionReportApiInput[];
+
+    return positionReports.map((report) => transformPositionReport(report));
+  }
+
   async getOneById(id: string): Promise<FlightWithAircraftAndAirports> {
     const flight = await this.findOneBy({ id });
     if (!flight) {
@@ -179,5 +203,13 @@ export class FlightsRepository {
       where: { id },
       data: { positionReports: track },
     });
+  }
+
+  async exists(id: string): Promise<boolean> {
+    const count = await this.prisma.flight.count({
+      where: { id },
+    });
+
+    return count !== 0;
   }
 }
