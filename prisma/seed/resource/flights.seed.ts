@@ -192,6 +192,32 @@ async function loadAAL4905(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    positionReports: [
+      {
+        callsign: 'AAL4913',
+        date: '2025-01-01T13:10:00.000Z',
+        latitude: 60.317255208578054,
+        longitude: 24.958945837172326,
+      },
+      {
+        callsign: 'AAL4913',
+        date: '2025-01-01T13:40:00.000Z',
+        latitude: 58.68825909518984,
+        longitude: 22.248460174236897,
+      },
+      {
+        callsign: 'AAL4913',
+        date: '2025-01-01T14:10:00.000Z',
+        latitude: 55.587475442504896,
+        longitude: 17.204921862764106,
+      },
+      {
+        callsign: 'AAL4913',
+        date: '2025-01-01T14:40:00.000Z',
+        latitude: 54.37998045994538,
+        longitude: 18.46850453127673,
+      },
+    ],
   };
 
   const ual4905departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1587,6 +1613,32 @@ async function loadAAL4914(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    positionReports: [
+      {
+        callsign: 'AAL4914',
+        date: '2025-01-01T13:10:00.000Z',
+        latitude: 60.317255208578054,
+        longitude: 24.958945837172326,
+      },
+      {
+        callsign: 'AAL4914',
+        date: '2025-01-01T13:40:00.000Z',
+        latitude: 58.68825909518984,
+        longitude: 22.248460174236897,
+      },
+      {
+        callsign: 'AAL4914',
+        date: '2025-01-01T14:10:00.000Z',
+        latitude: 55.587475442504896,
+        longitude: 17.204921862764106,
+      },
+      {
+        callsign: 'AAL4914',
+        date: '2025-01-01T14:40:00.000Z',
+        latitude: 54.37998045994538,
+        longitude: 18.46850453127673,
+      },
+    ],
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1785,6 +1837,32 @@ async function loadAAL4915(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    positionReports: [
+      {
+        callsign: 'AAL4915',
+        date: '2025-01-01T13:10:00.000Z',
+        latitude: 60.317255208578054,
+        longitude: 24.958945837172326,
+      },
+      {
+        callsign: 'AAL4915',
+        date: '2025-01-01T13:40:00.000Z',
+        latitude: 58.68825909518984,
+        longitude: 22.248460174236897,
+      },
+      {
+        callsign: 'AAL4915',
+        date: '2025-01-01T14:10:00.000Z',
+        latitude: 55.587475442504896,
+        longitude: 17.204921862764106,
+      },
+      {
+        callsign: 'AAL4915',
+        date: '2025-01-01T14:40:00.000Z',
+        latitude: 54.37998045994538,
+        longitude: 18.46850453127673,
+      },
+    ],
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1992,6 +2070,32 @@ async function loadAAL4916(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    positionReports: [
+      {
+        callsign: 'AAL4916',
+        date: '2025-01-01T13:10:00.000Z',
+        latitude: 60.317255208578054,
+        longitude: 24.958945837172326,
+      },
+      {
+        callsign: 'AAL4916',
+        date: '2025-01-01T13:40:00.000Z',
+        latitude: 58.68825909518984,
+        longitude: 22.248460174236897,
+      },
+      {
+        callsign: 'AAL4916',
+        date: '2025-01-01T14:10:00.000Z',
+        latitude: 55.587475442504896,
+        longitude: 17.204921862764106,
+      },
+      {
+        callsign: 'AAL4916',
+        date: '2025-01-01T14:40:00.000Z',
+        latitude: 54.37998045994538,
+        longitude: 18.46850453127673,
+      },
+    ],
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -2208,6 +2312,32 @@ async function loadAAL4917(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    positionReports: [
+      {
+        callsign: 'AAL4917',
+        date: '2025-01-01T13:10:00.000Z',
+        latitude: 60.317255208578054,
+        longitude: 24.958945837172326,
+      },
+      {
+        callsign: 'AAL4917',
+        date: '2025-01-01T13:40:00.000Z',
+        latitude: 58.68825909518984,
+        longitude: 22.248460174236897,
+      },
+      {
+        callsign: 'AAL4917',
+        date: '2025-01-01T14:10:00.000Z',
+        latitude: 55.587475442504896,
+        longitude: 17.204921862764106,
+      },
+      {
+        callsign: 'AAL4917',
+        date: '2025-01-01T14:40:00.000Z',
+        latitude: 54.37998045994538,
+        longitude: 18.46850453127673,
+      },
+    ],
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -2435,6 +2565,32 @@ async function loadDLH40(): Promise<void> {
         blockFuel: 53.0,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    positionReports: [
+      {
+        callsign: 'DLH40',
+        date: '2025-01-01T13:10:00.000Z',
+        latitude: 60.317255208578054,
+        longitude: 24.958945837172326,
+      },
+      {
+        callsign: 'DLH40',
+        date: '2025-01-01T13:40:00.000Z',
+        latitude: 58.68825909518984,
+        longitude: 22.248460174236897,
+      },
+      {
+        callsign: 'DLH40',
+        date: '2025-01-01T14:10:00.000Z',
+        latitude: 55.587475442504896,
+        longitude: 17.204921862764106,
+      },
+      {
+        callsign: 'DLH40',
+        date: '2025-01-01T14:40:00.000Z',
+        latitude: 54.37998045994538,
+        longitude: 18.46850453127673,
+      },
+    ],
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
