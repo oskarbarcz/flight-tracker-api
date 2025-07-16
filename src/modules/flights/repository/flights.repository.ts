@@ -13,66 +13,75 @@ import { Loadsheets } from '../entity/loadsheet.entity';
 import {
   AdsbFlightTrack,
   AdsbPositionReportApiInput,
+  deduplicatePositionReports,
   transformPositionReport,
 } from '../../../core/provider/adsb/type/adsb.types';
 
-export const flightWithAircraftAndAirportsFields =
-  Prisma.validator<Prisma.FlightSelect>()({
-    id: true,
-    flightNumber: true,
-    callsign: true,
-    status: true,
-    timesheet: true,
-    loadsheets: true,
-    operator: {
-      select: {
-        id: true,
-        icaoCode: true,
-        shortName: true,
-        fullName: true,
-        callsign: true,
-      },
+export const flightWithAircraftAndAirportsFields = {
+  id: true,
+  flightNumber: true,
+  callsign: true,
+  status: true,
+  timesheet: true,
+  loadsheets: true,
+  operator: {
+    select: {
+      id: true,
+      icaoCode: true,
+      shortName: true,
+      fullName: true,
+      callsign: true,
     },
-    aircraft: {
-      select: {
-        id: true,
-        icaoCode: true,
-        shortName: true,
-        fullName: true,
-        registration: true,
-        selcal: true,
-        livery: true,
-        operator: {
-          select: {
-            id: true,
-            icaoCode: true,
-            shortName: true,
-            fullName: true,
-            callsign: true,
-          },
+  },
+  aircraft: {
+    select: {
+      id: true,
+      icaoCode: true,
+      shortName: true,
+      fullName: true,
+      registration: true,
+      selcal: true,
+      livery: true,
+      operator: {
+        select: {
+          id: true,
+          icaoCode: true,
+          shortName: true,
+          fullName: true,
+          callsign: true,
         },
       },
     },
-    airports: {
-      select: {
-        airportType: true,
-        airport: {
-          select: {
-            id: true,
-            icaoCode: true,
-            iataCode: true,
-            city: true,
-            name: true,
-            country: true,
-            timezone: true,
-          },
+  },
+  airports: {
+    select: {
+      airportType: true,
+      airport: {
+        select: {
+          id: true,
+          icaoCode: true,
+          iataCode: true,
+          city: true,
+          name: true,
+          country: true,
+          timezone: true,
         },
       },
     },
-  } as const);
+  },
+} as const satisfies Prisma.FlightSelect;
+
+const flightIdAndCallsign = {
+  id: true,
+  callsign: true,
+} as const satisfies Prisma.FlightSelect;
 
 export type FlightWithAircraftAndAirports = Prisma.FlightGetPayload<{
   select: typeof flightWithAircraftAndAirportsFields;
+}>;
+
+export type FlightIdAndCallsign = Prisma.FlightGetPayload<{
+  select: typeof flightIdAndCallsign;
 }>;
 
 @Injectable()
@@ -136,7 +145,7 @@ export class FlightsRepository {
     });
   }
 
-  async getFlightPathElements(flightId: string): Promise<FlightPathElement[]> {
+  async getFlightPath(flightId: string): Promise<FlightPathElement[]> {
     const data = await this.prisma.flight.findUnique({
       where: { id: flightId },
       select: { positionReports: true },
@@ -159,6 +168,19 @@ export class FlightsRepository {
     }
 
     return flight;
+  }
+
+  async findAllTrackable(): Promise<FlightIdAndCallsign[]> {
+    const trackableStatuses = [
+      FlightStatus.TaxiingOut,
+      FlightStatus.InCruise,
+      FlightStatus.TaxiingIn,
+    ];
+
+    return this.prisma.flight.findMany({
+      where: { status: { in: trackableStatuses } },
+      select: flightIdAndCallsign,
+    });
   }
 
   async findAll(): Promise<FlightWithAircraftAndAirports[]> {
@@ -198,18 +220,13 @@ export class FlightsRepository {
     });
   }
 
-  async updateTrack(id: string, track: AdsbFlightTrack): Promise<void> {
+  async updateFlightPath(id: string, track: AdsbFlightTrack): Promise<void> {
+    const currentPath = await this.getFlightPath(id);
+    const newPath = deduplicatePositionReports([...currentPath, ...track]);
+
     await this.prisma.flight.update({
       where: { id },
-      data: { positionReports: track },
+      data: { positionReports: newPath },
     });
-  }
-
-  async exists(id: string): Promise<boolean> {
-    const count = await this.prisma.flight.count({
-      where: { id },
-    });
-
-    return count !== 0;
   }
 }

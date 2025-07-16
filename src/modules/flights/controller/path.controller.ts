@@ -35,6 +35,6 @@ export class PathController {
   async getFlightPath(
     @UuidParam('id') id: string,
   ): Promise<FlightPathElement[]> {
-    return this.flightRepository.getFlightPathElements(id);
+    return this.flightRepository.getFlightPath(id);
   }
 }

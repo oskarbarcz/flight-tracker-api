@@ -24,3 +24,23 @@ export function transformPositionReport(
     longitude: input.longitude,
   };
 }
+
+export function deduplicatePositionReports(
+  data: AdsbPositionReport[],
+): AdsbPositionReport[] {
+  const seen = new Set<string>();
+
+  const deduplicated = data.filter((entry) => {
+    const isDuplicate = seen.has(entry.date.toISOString());
+    seen.add(entry.date.toISOString());
+    return !isDuplicate;
+  });
+
+  const sorted = deduplicated.sort(
+    (a, b) => a.date.getTime() - b.date.getTime(),
+  );
+
+  return sorted.filter(
+    (entry) => !(entry.latitude === 0 && entry.longitude === 0),
+  );
+}
