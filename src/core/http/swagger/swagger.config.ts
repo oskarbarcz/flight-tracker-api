@@ -33,5 +33,7 @@ function createSwaggerConfig() {
 export function configureSwagger(app: INestApplication): void {
   const config = createSwaggerConfig();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api', app, document, {
+    customCss: `.swagger-ui .models { display: none !important; }`,
+  });
 }
