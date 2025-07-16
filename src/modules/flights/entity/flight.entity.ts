@@ -112,3 +112,7 @@ export class FlightPathElement {
   })
   longitude: number;
 }
+
+export function trimCallsign(callsign: string): string {
+  return callsign.replace(/\s+/g, '').toUpperCase();
+}
