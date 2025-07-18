@@ -4,6 +4,8 @@ import { OnEvent } from '@nestjs/event-emitter';
 import { FlightEventType } from '../../../core/events/flight';
 import { AdsbClient } from '../../../core/provider/adsb/client/adsb.client';
 import { FlightEvent } from '../entity/event.entity';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { trimCallsign } from '../entity/flight.entity';
 
 @Injectable()
 export class PositionService {
@@ -12,12 +14,23 @@ export class PositionService {
     private readonly flightsRepository: FlightsRepository,
   ) {}
 
+  @Cron(CronExpression.EVERY_10_MINUTES)
+  async periodicallyBackupFlightPath(): Promise<void> {
+    const flights = await this.flightsRepository.findAllTrackable();
+
+    for (const flight of flights) {
+      const callsign = trimCallsign(flight.callsign);
+      const track = await this.adsbClient.getTrackHistory(callsign);
+      await this.flightsRepository.updateFlightPath(flight.id, track);
+    }
+  }
+
   @OnEvent(FlightEventType.OnBlockWasReported)
-  async storeFlightTrack(event: FlightEvent): Promise<void> {
+  async storeFlightPathOnFlightEnd(event: FlightEvent): Promise<void> {
     const flight = await this.flightsRepository.getOneById(event.flightId);
-    const callsign = flight.callsign.split(' ').join('').toUpperCase();
+    const callsign = trimCallsign(flight.callsign);
 
     const track = await this.adsbClient.getTrackHistory(callsign);
-    await this.flightsRepository.updateTrack(event.flightId, track);
+    await this.flightsRepository.updateFlightPath(event.flightId, track);
   }
 }
