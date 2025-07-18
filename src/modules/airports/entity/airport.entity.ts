@@ -1,6 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsTimeZone, Length } from 'class-validator';
 
+export enum Continent {
+  Africa = 'africa',
+  Asia = 'asia',
+  Europe = 'europe',
+  NorthAmerica = 'north_america',
+  Oceania = 'oceania',
+  SouthAmerica = 'south_america',
+}
+
 export class Airport {
   @ApiProperty({
     description: 'Airport unique system identifier',

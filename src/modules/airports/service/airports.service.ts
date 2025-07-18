@@ -5,19 +5,30 @@ import {
 } from '@nestjs/common';
 import { CreateAirportDto } from '../dto/create-airport.dto';
 import { UpdateAirportDto } from '../dto/update-airport.dto';
-import { v4 } from 'uuid';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
-import { Airport } from '@prisma/client';
+import { Airport, Prisma } from '@prisma/client';
 import { AirportInUseError } from '../dto/errors.dto';
+
+const selectAirport = {
+  id: true,
+  icaoCode: true,
+  iataCode: true,
+  city: true,
+  name: true,
+  country: true,
+  timezone: true,
+} as const satisfies Prisma.AirportSelect;
+
+type AirportView = Prisma.AirportGetPayload<{
+  select: typeof selectAirport;
+}>;
 
 @Injectable()
 export class AirportsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(data: CreateAirportDto): Promise<Airport> {
-    const airport: Airport | null = await this.findOneBy({
-      icaoCode: data.icaoCode,
-    });
+  async create(data: CreateAirportDto): Promise<AirportView> {
+    const airport = await this.findOneBy({ icaoCode: data.icaoCode });
 
     if (airport) {
       throw new BadRequestException(
@@ -25,15 +36,18 @@ export class AirportsService {
       );
     }
 
-    return this.prisma.airport.create({ data: { id: v4(), ...data } });
+    return this.prisma.airport.create({
+      data: data as Prisma.AirportCreateInput,
+      select: selectAirport,
+    });
   }
 
-  async findAll(): Promise<Airport[]> {
-    return this.prisma.airport.findMany();
+  async findAll(): Promise<AirportView[]> {
+    return this.prisma.airport.findMany({ select: selectAirport });
   }
 
-  async findOne(id: string): Promise<Airport> {
-    const airport: Airport | null = await this.findOneBy({ id });
+  async findOne(id: string): Promise<AirportView> {
+    const airport = await this.findOneBy({ id });
 
     if (!airport) {
       throw new NotFoundException('Airport with given id does not exist.');
@@ -42,8 +56,8 @@ export class AirportsService {
     return airport;
   }
 
-  async update(id: string, data: UpdateAirportDto) {
-    const airport: Airport | null = await this.findOneBy({ id });
+  async update(id: string, data: UpdateAirportDto): Promise<AirportView> {
+    const airport = await this.findOneBy({ id });
 
     if (!airport) {
       throw new NotFoundException('Airport with given id does not exist.');
@@ -52,11 +66,12 @@ export class AirportsService {
     return this.prisma.airport.update({
       where: { id },
       data: data,
+      select: selectAirport,
     });
   }
 
   async remove(id: string): Promise<void> {
-    const airport: Airport | null = await this.findOneBy({ id });
+    const airport = await this.findOneBy({ id });
 
     if (!airport) {
       throw new NotFoundException('Airport with given id does not exist.');
@@ -83,9 +98,10 @@ export class AirportsService {
 
   private async findOneBy(
     criteria: Partial<Record<keyof Airport, any>>,
-  ): Promise<Airport | null> {
+  ): Promise<AirportView | null> {
     return this.prisma.airport.findFirst({
       where: criteria,
+      select: selectAirport,
     });
   }
 }

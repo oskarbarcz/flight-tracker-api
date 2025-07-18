@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Aircraft {
-  id           String    @id @db.Uuid
+  id           String    @id @default(uuid()) @db.Uuid
   icaoCode     String    @db.VarChar(4)
   shortName    String
   fullName     String
@@ -23,20 +23,22 @@ model Aircraft {
 }
 
 model Airport {
-  id                String              @id @db.Uuid
+  id                String              @id @default(uuid()) @db.Uuid
   icaoCode          String              @unique @db.VarChar(4)
   iataCode          String              @unique @db.VarChar(3)
   name              String
   city              String
   country           String
   timezone          String
+  continent         Continent?
+  location          Json                @default("{\"latitude\": 0, \"longitude\": 0}")
   AirportsOnFlights AirportsOnFlights[]
 
   @@map("airport")
 }
 
 model Operator {
-  id        String     @id @db.Uuid
+  id        String     @id @default(uuid()) @db.Uuid
   icaoCode  String     @db.VarChar(4)
   shortName String
   fullName  String
@@ -48,7 +50,7 @@ model Operator {
 }
 
 model Flight {
-  id              String              @id @db.Uuid
+  id              String              @id @default(uuid()) @db.Uuid
   flightNumber    String
   callsign        String
   status          String
@@ -81,7 +83,7 @@ model AirportsOnFlights {
 }
 
 model User {
-  id              String            @id @db.Uuid
+  id              String            @id @default(uuid()) @db.Uuid
   name            String
   email           String            @unique
   password        String
@@ -97,7 +99,7 @@ model User {
 }
 
 model Rotation {
-  id        String    @id @db.Uuid
+  id        String    @id @default(uuid()) @db.Uuid
   name      String
   pilotId   String    @db.Uuid
   createdAt DateTime  @default(now())
@@ -109,7 +111,7 @@ model Rotation {
 }
 
 model JwtRefreshToken {
-  id        String   @id @db.Uuid
+  id        String   @id @default(uuid()) @db.Uuid
   userId    String   @db.Uuid
   token     String   @unique
   createdAt DateTime
@@ -143,4 +145,13 @@ enum FlightEventScope {
   system
   operations
   user
+}
+
+enum Continent {
+  africa
+  asia
+  europe
+  north_america
+  south_america
+  oceania
 }
