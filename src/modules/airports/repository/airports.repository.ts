@@ -3,11 +3,14 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateAirportDto } from '../dto/create-airport.dto';
-import { UpdateAirportDto } from '../dto/update-airport.dto';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
 import { Airport, Prisma } from '@prisma/client';
 import { AirportInUseError } from '../dto/errors.dto';
+import {
+  AirportListFilters,
+  CreateAirportDto,
+  UpdateAirportDto,
+} from '../dto/airport.dto';
 
 const selectAirport = {
   id: true,
@@ -24,7 +27,7 @@ type AirportView = Prisma.AirportGetPayload<{
 }>;
 
 @Injectable()
-export class AirportsService {
+export class AirportsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateAirportDto): Promise<AirportView> {
@@ -42,8 +45,13 @@ export class AirportsService {
     });
   }
 
-  async findAll(): Promise<AirportView[]> {
-    return this.prisma.airport.findMany({ select: selectAirport });
+  async findAll(filters: AirportListFilters): Promise<AirportView[]> {
+    return this.prisma.airport.findMany({
+      where: {
+        continent: filters.continent,
+      },
+      select: selectAirport,
+    });
   }
 
   async findOne(id: string): Promise<AirportView> {

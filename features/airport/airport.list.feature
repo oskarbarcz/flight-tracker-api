@@ -109,3 +109,76 @@ Feature: List airports
     Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/airport"
     Then the response status should be 200
+
+  Scenario: As a cabin crew I can filter airports by continent
+    Given I am signed in as "cabin crew"
+    When I send a "GET" request to "/api/v1/airport?continent=europe"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "icaoCode": "EDDF",
+          "iataCode": "FRA",
+          "city": "Frankfurt",
+          "name": "Frankfurt Rhein/Main",
+          "country": "Germany",
+          "timezone": "Europe/Berlin"
+        },
+        {
+          "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+          "icaoCode": "EPWA",
+          "iataCode": "WAW",
+          "city": "Warsaw",
+          "name": "Warsaw Chopin",
+          "country": "Poland",
+          "timezone": "Europe/Warsaw"
+        },
+        {
+          "id": "79b8f884-f67d-4585-b540-36b0be7f551e",
+          "icaoCode": "LFPG",
+          "iataCode": "CDG",
+          "city": "Paris",
+          "name": "Paris Charles de Gaulle",
+          "country": "France",
+          "timezone": "Europe/Paris"
+        },
+        {
+          "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
+          "icaoCode": "BIRK",
+          "iataCode": "KEF",
+          "city": "Reykjavik",
+          "name": "Reykjavik Keflavik",
+          "country": "Iceland",
+          "timezone": "Atlantic/Reykjavik"
+        },
+        {
+          "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
+          "icaoCode": "EDDW",
+          "iataCode": "BRE",
+          "city": "Bremen",
+          "name": "Bremen",
+          "country": "Germany",
+          "timezone": "Europe/Berlin"
+        }
+      ]
+      """
+
+  Scenario: As a cabin crew I cannot filter airports by incorrect continent
+    Given I am signed in as "cabin crew"
+    When I send a "GET" request to "/api/v1/airport?continent=not-a-continent"
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 400,
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "violations": {
+          "continent": [
+            "continent must be one of the following values: africa, asia, europe, north_america, oceania, south_america"
+          ]
+        }
+      }
+      """

@@ -16,6 +16,10 @@ import {
   deduplicatePositionReports,
   transformPositionReport,
 } from '../../../core/provider/adsb/type/adsb.types';
+import {
+  DepartureAirportNotFoundError,
+  DestinationAirportNotFoundError,
+} from '../dto/errors.dto';
 
 export const flightWithAircraftAndAirportsFields = {
   id: true,
@@ -92,6 +96,14 @@ export class FlightsRepository {
     input: CreateFlightRequest,
   ): Promise<FlightWithAircraftAndAirports> {
     const flightId = v4();
+
+    if (!(await this.airportExist(input.departureAirportId))) {
+      throw new NotFoundException(DepartureAirportNotFoundError);
+    }
+
+    if (!(await this.airportExist(input.destinationAirportId))) {
+      throw new NotFoundException(DestinationAirportNotFoundError);
+    }
 
     const loadsheets = {
       preliminary: input.loadsheets.preliminary,
@@ -228,5 +240,13 @@ export class FlightsRepository {
       where: { id },
       data: { positionReports: newPath },
     });
+  }
+
+  private async airportExist(airportId: string): Promise<boolean> {
+    const count = await this.prisma.airport.count({
+      where: { id: airportId },
+    });
+
+    return count === 1;
   }
 }

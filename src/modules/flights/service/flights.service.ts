@@ -11,13 +11,10 @@ import {
   AirportWithType,
 } from '../../airports/entity/airport.entity';
 import { FullTimesheet, Schedule } from '../entity/timesheet.entity';
-import { AirportsService } from '../../airports/service/airports.service';
 import { FlightsRepository } from '../repository/flights.repository';
 import { AircraftService } from '../../aircraft/service/aircraft.service';
 import {
   AircraftNotFoundError,
-  DepartureAirportNotFoundError,
-  DestinationAirportNotFoundError,
   DestinationAirportSameAsDepartureAirportError,
   FlightDoesNotExistError,
   InvalidStatusToChangeScheduleError,
@@ -48,7 +45,6 @@ import { FlightEventType } from '../../../core/events/flight';
 @Injectable()
 export class FlightsService {
   constructor(
-    private readonly airportsService: AirportsService,
     private readonly aircraftService: AircraftService,
     private readonly flightsRepository: FlightsRepository,
     private readonly operatorsService: OperatorsService,
@@ -117,14 +113,6 @@ export class FlightsService {
 
     if (!(await this.aircraftService.exists(input.aircraftId))) {
       throw new NotFoundException(AircraftNotFoundError);
-    }
-
-    if (!(await this.airportsService.exists(input.departureAirportId))) {
-      throw new NotFoundException(DepartureAirportNotFoundError);
-    }
-
-    if (!(await this.airportsService.exists(input.destinationAirportId))) {
-      throw new NotFoundException(DestinationAirportNotFoundError);
     }
 
     if (!(await this.operatorsService.exists(input.operatorId))) {
