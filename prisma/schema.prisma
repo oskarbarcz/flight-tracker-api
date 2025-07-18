@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Aircraft {
-  id           String    @id @db.Uuid @default(uuid())
+  id           String    @id @default(uuid()) @db.Uuid
   icaoCode     String    @db.VarChar(4)
   shortName    String
   fullName     String
@@ -38,7 +38,7 @@ model Airport {
 }
 
 model Operator {
-  id        String     @id @db.Uuid @default(uuid())
+  id        String     @id @default(uuid()) @db.Uuid
   icaoCode  String     @db.VarChar(4)
   shortName String
   fullName  String
@@ -50,7 +50,7 @@ model Operator {
 }
 
 model Flight {
-  id              String              @id @db.Uuid @default(uuid())
+  id              String              @id @default(uuid()) @db.Uuid
   flightNumber    String
   callsign        String
   status          String
@@ -83,7 +83,7 @@ model AirportsOnFlights {
 }
 
 model User {
-  id              String            @id @db.Uuid @default(uuid())
+  id              String            @id @default(uuid()) @db.Uuid
   name            String
   email           String            @unique
   password        String
@@ -99,7 +99,7 @@ model User {
 }
 
 model Rotation {
-  id        String    @id @db.Uuid @default(uuid())
+  id        String    @id @default(uuid()) @db.Uuid
   name      String
   pilotId   String    @db.Uuid
   createdAt DateTime  @default(now())
@@ -111,7 +111,7 @@ model Rotation {
 }
 
 model JwtRefreshToken {
-  id        String   @id @db.Uuid @default(uuid())
+  id        String   @id @default(uuid()) @db.Uuid
   userId    String   @db.Uuid
   token     String   @unique
   createdAt DateTime

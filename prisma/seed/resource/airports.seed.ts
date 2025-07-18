@@ -13,8 +13,8 @@ export async function loadAirports(): Promise<void> {
     continent: Continent.Europe,
     location: {
       longitude: 8.57397,
-      latitude: 50.04693
-    }
+      latitude: 50.04693,
+    },
   };
 
   const warsaw: Prisma.AirportCreateInput = {
@@ -28,8 +28,8 @@ export async function loadAirports(): Promise<void> {
     continent: Continent.Europe,
     location: {
       longitude: 20.967123,
-      latitude: 52.16575
-    }
+      latitude: 52.16575,
+    },
   };
 
   const newYork: Prisma.AirportCreateInput = {
@@ -43,7 +43,7 @@ export async function loadAirports(): Promise<void> {
     continent: Continent.NorthAmerica,
     location: {
       longitude: -73.7781,
-      latitude: 40.6413
+      latitude: 40.6413,
     },
   };
 
@@ -58,8 +58,8 @@ export async function loadAirports(): Promise<void> {
     continent: Continent.Europe,
     location: {
       longitude: 8.570556,
-      latitude: 50.033333
-    }
+      latitude: 50.033333,
+    },
   };
 
   const gooseBay: Prisma.AirportCreateInput = {
@@ -73,8 +73,8 @@ export async function loadAirports(): Promise<void> {
     continent: Continent.NorthAmerica,
     location: {
       longitude: -60.409444,
-      latitude: 53.319168
-    }
+      latitude: 53.319168,
+    },
   };
 
   const reykjavik: Prisma.AirportCreateInput = {
@@ -88,8 +88,8 @@ export async function loadAirports(): Promise<void> {
     continent: Continent.Europe,
     location: {
       longitude: -21.9406,
-      latitude: 64.13
-    }
+      latitude: 64.13,
+    },
   };
 
   const stJohns: Prisma.AirportCreateInput = {
@@ -103,8 +103,8 @@ export async function loadAirports(): Promise<void> {
     continent: Continent.NorthAmerica,
     location: {
       longitude: -52.751945,
-      latitude: 47.61861
-    }
+      latitude: 47.61861,
+    },
   };
 
   const philadelphia: Prisma.AirportCreateInput = {
@@ -118,8 +118,8 @@ export async function loadAirports(): Promise<void> {
     continent: Continent.NorthAmerica,
     location: {
       longitude: -75.24349,
-      latitude: 39.87113
-    }
+      latitude: 39.87113,
+    },
   };
 
   const boston: Prisma.AirportCreateInput = {
@@ -133,8 +133,8 @@ export async function loadAirports(): Promise<void> {
     continent: Continent.NorthAmerica,
     location: {
       longitude: -71.01663,
-      latitude: 42.36454
-    }
+      latitude: 42.36454,
+    },
   };
 
   const bremen: Prisma.AirportCreateInput = {
@@ -148,22 +148,24 @@ export async function loadAirports(): Promise<void> {
     continent: Continent.Europe,
     location: {
       longitude: 8.786667,
-      latitude: 53.0475
+      latitude: 53.0475,
     },
   };
 
   const prisma = new PrismaClient();
 
-  await prisma.airport.createMany({ data:  [
-    frankfurt,
-    warsaw,
-    newYork,
-    paris,
-    gooseBay,
-    reykjavik,
-    stJohns,
-    philadelphia,
-    boston,
-    bremen,
-  ] });
+  await prisma.airport.createMany({
+    data: [
+      frankfurt,
+      warsaw,
+      newYork,
+      paris,
+      gooseBay,
+      reykjavik,
+      stJohns,
+      philadelphia,
+      boston,
+      bremen,
+    ],
+  });
 }

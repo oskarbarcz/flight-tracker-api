@@ -28,7 +28,7 @@ export class AirportsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateAirportDto): Promise<AirportView> {
-    const airport = await this.findOneBy({icaoCode: data.icaoCode});
+    const airport = await this.findOneBy({ icaoCode: data.icaoCode });
 
     if (airport) {
       throw new BadRequestException(
@@ -38,12 +38,12 @@ export class AirportsService {
 
     return this.prisma.airport.create({
       data: data as Prisma.AirportCreateInput,
-      select: selectAirport
+      select: selectAirport,
     });
   }
 
   async findAll(): Promise<AirportView[]> {
-    return this.prisma.airport.findMany({select: selectAirport});
+    return this.prisma.airport.findMany({ select: selectAirport });
   }
 
   async findOne(id: string): Promise<AirportView> {
@@ -66,7 +66,7 @@ export class AirportsService {
     return this.prisma.airport.update({
       where: { id },
       data: data,
-      select: selectAirport
+      select: selectAirport,
     });
   }
 
@@ -101,7 +101,7 @@ export class AirportsService {
   ): Promise<AirportView | null> {
     return this.prisma.airport.findFirst({
       where: criteria,
-      select: selectAirport
+      select: selectAirport,
     });
   }
 }
