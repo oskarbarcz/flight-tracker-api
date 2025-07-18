@@ -5,21 +5,14 @@ on:
     paths: ['**', '!**.md']
 
 jobs:
-  version:
-    runs-on: 'ubuntu-24.04'
-    steps:
-      - name: 'Checkout repository'
-        uses: 'actions/checkout@v4'
-        with:
-          fetch-depth: 0
-      - name: 'Check if image version is available to publish'
-        run: './docker/ci/check_version_is_free "$(jq -r ''.version'' package.json)"'
   code:
     runs-on: 'ubuntu-24.04'
     environment: ci
     steps:
       - name: 'Checkout repository'
         uses: 'actions/checkout@v4'
+      - name: 'Check app version'
+        run: './docker/ci/check_version_is_free "$(jq -r ''.version'' package.json)"'
       - name: 'Copy environment variables'
         run: 'cp .env.dist .env'
       - name: 'Run docker compose environment'
