@@ -189,7 +189,6 @@ export class RotationsRepository {
   }
 
   private async rotationExists(id: RotationId): Promise<boolean> {
-    console.log(id);
     const count = await this.prisma.rotation.count({
       where: { id: id },
     });
