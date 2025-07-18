@@ -1,6 +1,5 @@
 import { ApiProperty, OmitType, PartialType } from '@nestjs/swagger';
 import { Airport, Continent } from '../entity/airport.entity';
-
 import { IsEnum, IsOptional } from 'class-validator';
 
 export class CreateAirportDto extends OmitType(Airport, ['id'] as const) {}
