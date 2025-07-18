@@ -1,4 +1,4 @@
-import { Airport, Prisma, PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { Continent } from '../../../src/modules/airports/entity/airport.entity';
 
 export async function loadAirports(): Promise<void> {
@@ -12,8 +12,8 @@ export async function loadAirports(): Promise<void> {
     timezone: 'Europe/Berlin',
     continent: Continent.Europe,
     location: {
-      longitude: 8.570556,
-      latitude: 50.033333
+      longitude: 8.57397,
+      latitude: 50.04693
     }
   };
 
@@ -27,8 +27,8 @@ export async function loadAirports(): Promise<void> {
     timezone: 'Europe/Warsaw',
     continent: Continent.Europe,
     location: {
-      longitude: 8.570556,
-      latitude: 50.033333
+      longitude: 20.967123,
+      latitude: 52.16575
     }
   };
 
@@ -41,7 +41,10 @@ export async function loadAirports(): Promise<void> {
     country: 'United States of America',
     timezone: 'America/New_York',
     continent: Continent.NorthAmerica,
-    location: {"longitude": 8.570556,"latitude": 50.033333}as Prisma.InputJsonValue,
+    location: {
+      longitude: -73.7781,
+      latitude: 40.6413
+    },
   };
 
   const paris: Prisma.AirportCreateInput = {
@@ -69,8 +72,8 @@ export async function loadAirports(): Promise<void> {
     timezone: 'America/Goose_Bay',
     continent: Continent.NorthAmerica,
     location: {
-      longitude: 8.570556,
-      latitude: 50.033333
+      longitude: -60.409444,
+      latitude: 53.319168
     }
   };
 
@@ -84,8 +87,8 @@ export async function loadAirports(): Promise<void> {
     timezone: 'Atlantic/Reykjavik',
     continent: Continent.Europe,
     location: {
-      longitude: 8.570556,
-      latitude: 50.033333
+      longitude: -21.9406,
+      latitude: 64.13
     }
   };
 
@@ -99,8 +102,8 @@ export async function loadAirports(): Promise<void> {
     timezone: 'America/St_Johns',
     continent: Continent.NorthAmerica,
     location: {
-      longitude: 8.570556,
-      latitude: 50.033333
+      longitude: -52.751945,
+      latitude: 47.61861
     }
   };
 
@@ -114,8 +117,8 @@ export async function loadAirports(): Promise<void> {
     timezone: 'America/New_York',
     continent: Continent.NorthAmerica,
     location: {
-      longitude: 8.570556,
-      latitude: 50.033333
+      longitude: -75.24349,
+      latitude: 39.87113
     }
   };
 
@@ -129,8 +132,8 @@ export async function loadAirports(): Promise<void> {
     timezone: 'America/New_York',
     continent: Continent.NorthAmerica,
     location: {
-      longitude: 8.570556,
-      latitude: 50.033333
+      longitude: -71.01663,
+      latitude: 42.36454
     }
   };
 
@@ -144,8 +147,8 @@ export async function loadAirports(): Promise<void> {
     timezone: 'Europe/Berlin',
     continent: Continent.Europe,
     location: {
-      longitude: 8.570556,
-      latitude: 50.033333
+      longitude: 8.786667,
+      latitude: 53.0475
     },
   };
 
