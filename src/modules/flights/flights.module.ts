@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { FlightsService } from './service/flights.service';
 import { ManagementController } from './controller/management.controller';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
-import { AirportsModule } from '../airports/airports.module';
 import { FlightsRepository } from './repository/flights.repository';
 import { AircraftModule } from '../aircraft/aircraft.module';
 import { OperatorsModule } from '../operators/operators.module';
@@ -14,13 +13,7 @@ import { AdsbModule } from '../../core/provider/adsb/adsb.module';
 import { PathController } from './controller/path.controller';
 
 @Module({
-  imports: [
-    PrismaModule,
-    AirportsModule,
-    AircraftModule,
-    OperatorsModule,
-    AdsbModule,
-  ],
+  imports: [PrismaModule, AircraftModule, OperatorsModule, AdsbModule],
   controllers: [
     ManagementController,
     EventsController,

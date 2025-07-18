@@ -7,10 +7,9 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
-import { AirportsService } from '../service/airports.service';
-import { CreateAirportDto } from '../dto/create-airport.dto';
-import { UpdateAirportDto } from '../dto/update-airport.dto';
+import { AirportsRepository } from '../repository/airports.repository';
 import { UuidParam } from '../../../core/validation/uuid.param';
 import { Airport } from '../entity/airport.entity';
 import {
@@ -33,11 +32,17 @@ import { Role } from '../../../core/http/auth/decorator/role.decorator';
 import { UserRole } from '@prisma/client';
 import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
+import {
+  AirportListFilters,
+  CreateAirportDto,
+  UpdateAirportDto,
+} from '../dto/airport.dto';
+import { SkipAuth } from '../../../core/http/auth/decorator/skip-auth.decorator';
 
 @ApiTags('airport')
 @Controller('api/v1/airport')
 export class AirportsController {
-  constructor(private readonly airportsService: AirportsService) {}
+  constructor(private readonly repository: AirportsRepository) {}
 
   @ApiOperation({
     summary: 'Create new airport',
@@ -65,11 +70,16 @@ export class AirportsController {
   @Post()
   @Role(UserRole.Operations)
   async create(@Body() createAirportDto: CreateAirportDto): Promise<Airport> {
-    return this.airportsService.create(createAirportDto);
+    return this.repository.create(createAirportDto);
   }
 
   @ApiOperation({ summary: 'Retrieve all airports' })
   @ApiBearerAuth()
+  @ApiParam({
+    name: 'continent',
+    required: false,
+    description: 'Filter by continent',
+  })
   @ApiOkResponse({
     description: 'Airports list',
     type: Airport,
@@ -79,9 +89,10 @@ export class AirportsController {
     description: 'User is not authorized (token is missing)',
     type: UnauthorizedResponse,
   })
+  @SkipAuth()
   @Get()
-  async findAll(): Promise<Airport[]> {
-    return this.airportsService.findAll();
+  async findAll(@Query() filters: AirportListFilters): Promise<Airport[]> {
+    return this.repository.findAll(filters);
   }
 
   @ApiOperation({ summary: 'Retrieve one airport' })
@@ -108,7 +119,7 @@ export class AirportsController {
   })
   @Get(':id')
   async findOne(@UuidParam('id') id: string): Promise<Airport> {
-    return this.airportsService.findOne(id);
+    return this.repository.findOne(id);
   }
 
   @ApiOperation({
@@ -148,7 +159,7 @@ export class AirportsController {
     @UuidParam('id') id: string,
     @Body() updateAirportDto: UpdateAirportDto,
   ): Promise<Airport> {
-    return this.airportsService.update(id, updateAirportDto);
+    return this.repository.update(id, updateAirportDto);
   }
 
   @ApiOperation({
@@ -184,6 +195,6 @@ export class AirportsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.Operations)
   async remove(@UuidParam('id') id: string): Promise<void> {
-    return this.airportsService.remove(id);
+    return this.repository.remove(id);
   }
 }

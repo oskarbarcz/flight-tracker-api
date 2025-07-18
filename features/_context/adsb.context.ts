@@ -6,7 +6,7 @@ import * as path from 'node:path';
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 Then(
-  'ADSB service was requested for callsign {string} and returned data:',
+  'ADSB repository was requested for callsign {string} and returned data:',
   async (callsign: string, body: string) => {
     const expected = JSON.parse(body);
     const filePath = path.join(
