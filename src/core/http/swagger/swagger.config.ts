@@ -14,7 +14,7 @@ function createSwaggerConfig() {
     )
     .setVersion(pack.version)
     .addServer('https://api.flights.barcz.me', 'Production')
-    .addServer('http://localhost:3000', 'Local development')
+    .addServer('http://localhost', 'Local development')
     .addBearerAuth(
       {
         type: 'http',
