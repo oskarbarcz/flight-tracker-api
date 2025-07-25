@@ -43,7 +43,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed for flights in `scheduled` status. <br />' +
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -84,7 +84,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed for flights in created status. <br />' +
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -134,7 +134,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed for flights in created status. <br />' +
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -184,7 +184,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed for flights in ready status. <br />' +
       '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -230,7 +230,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed for flights in checked-in status. <br />' +
       '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -271,7 +271,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed for flights in boarding status. <br />' +
       '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -317,7 +317,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed when boarding is finished. <br />' +
       '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -358,7 +358,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed when off-block was reported. <br />' +
       '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -399,7 +399,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed when aircraft has taken off. <br />' +
       '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -440,7 +440,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed when aircraft is offboarding passengers. <br />' +
       '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -481,7 +481,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed if aircraft is on block. <br />' +
       '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -522,7 +522,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed if offboarding was started. <br />' +
       '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -563,7 +563,7 @@ export class ActionsController {
       '**NOTE:** This action is only allowed when offboarding has been finished. <br />' +
       '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',

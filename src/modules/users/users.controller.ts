@@ -44,7 +44,7 @@ export class UsersController {
     description:
       '**NOTE:** This endpoint is only available for users with `admin` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiBody({ type: CreateUserDto })
   @ApiCreatedResponse({
     description: 'User was created successfully',
@@ -80,7 +80,7 @@ export class UsersController {
     required: false,
     description: 'Pilot license ID',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiOkResponse({
     description: 'Users list',
     type: GetUserDto,
@@ -114,7 +114,7 @@ export class UsersController {
   @ApiOperation({
     summary: 'Retrieve details of the current user',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiOkResponse({
     type: GetUserDto,
   })
@@ -133,7 +133,7 @@ export class UsersController {
       '**NOTE:** This endpoint is only available for users with `admin` or' +
       '`cabincrew` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'User unique identifier',
@@ -169,7 +169,7 @@ export class UsersController {
     description:
       '**NOTE:** This endpoint is only available for users with `admin` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiBody({ type: UpdateUserDto })
   @ApiOkResponse({
     description: 'User was updated successfully',

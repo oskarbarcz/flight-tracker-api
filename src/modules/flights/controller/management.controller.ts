@@ -39,7 +39,7 @@ export class ManagementController {
   constructor(private readonly flightsService: FlightsService) {}
 
   @ApiOperation({ summary: 'Retrieve all flights' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -55,7 +55,7 @@ export class ManagementController {
   }
 
   @ApiOperation({ summary: 'Retrieve one flight' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
@@ -86,7 +86,7 @@ export class ManagementController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiBody({ type: CreateFlightRequest })
   @ApiOkResponse({
     description: 'Flight was created',
@@ -123,7 +123,7 @@ export class ManagementController {
       '**NOTE:** Flight that has been scheduled cannot be removed. <br />' +
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',

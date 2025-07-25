@@ -46,7 +46,7 @@ export class RotationsController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiBody({ type: CreateRotationRequest })
   @ApiOkResponse({
     description: 'Rotation was created',
@@ -81,7 +81,7 @@ export class RotationsController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id', description: 'Rotation unique identifier' })
   @ApiParam({ name: 'flightId', description: 'Flight unique identifier' })
   @ApiNoContentResponse({
@@ -118,7 +118,7 @@ export class RotationsController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id', description: 'Rotation unique identifier' })
   @ApiParam({ name: 'flightId', description: 'Flight unique identifier' })
   @ApiNoContentResponse({
@@ -153,7 +153,7 @@ export class RotationsController {
   @ApiOperation({
     summary: 'Retrieve all rotations',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiOkResponse({ type: CreateRotationResponse, isArray: true })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
@@ -171,7 +171,7 @@ export class RotationsController {
   @ApiOperation({
     summary: 'Retrieve one rotation',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id' })
   @ApiOkResponse({
     description: 'Rotation was found',
@@ -203,7 +203,7 @@ export class RotationsController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id' })
   @ApiBody({ type: UpdateRotationRequest })
   @ApiOkResponse({
@@ -240,7 +240,7 @@ export class RotationsController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id' })
   @ApiNoContentResponse({
     description: 'Rotation was removed successfully',

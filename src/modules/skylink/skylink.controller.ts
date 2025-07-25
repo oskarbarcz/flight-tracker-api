@@ -29,7 +29,7 @@ export class SkyLinkController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiOkResponse({ type: AirportResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })

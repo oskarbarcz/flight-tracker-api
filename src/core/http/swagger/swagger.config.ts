@@ -23,7 +23,7 @@ function createSwaggerConfig() {
         description:
           'Enter your JWT token in the format: **Bearer &lt;token&gt;**',
       },
-      'access-token',
+      'jwt',
     )
     .setContact('Oskar Barcz', 'https://barcz.me', 'flight-tracker@barcz.me')
     .setLicense('Unlicense', 'https://opensource.org/licenses/Unlicense')

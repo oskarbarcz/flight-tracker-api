@@ -22,7 +22,7 @@ export class PathController {
   constructor(private readonly flightRepository: FlightsRepository) {}
 
   @ApiOperation({ summary: 'Retrieve flight path' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
