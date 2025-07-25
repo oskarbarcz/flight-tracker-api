@@ -47,7 +47,7 @@ export class OperatorsController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiBody({ type: CreateOperatorDto })
   @ApiCreatedResponse({
     description: 'Operator was created successfully',
@@ -72,7 +72,7 @@ export class OperatorsController {
   }
 
   @ApiOperation({ summary: 'Retrieve all operators' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiOkResponse({
     description: 'Operators list',
     type: Operator,
@@ -88,7 +88,7 @@ export class OperatorsController {
   }
 
   @ApiOperation({ summary: 'Retrieve one operator' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Operator unique identifier',
@@ -119,7 +119,7 @@ export class OperatorsController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Operator unique identifier',
@@ -159,7 +159,7 @@ export class OperatorsController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Operator unique identifier',

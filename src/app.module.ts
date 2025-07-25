@@ -10,6 +10,8 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { RotationsModule } from './modules/rotations/rotations.module';
 import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
+import { SkyLinkModule } from './modules/skylink/skylink.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
@@ -21,9 +23,11 @@ import { ScheduleModule } from '@nestjs/schedule';
     AuthModule,
     JwtModule,
     RotationsModule,
+    SkyLinkModule,
     EventEmitterModule.forRoot(),
     ScheduleModule.forRoot(),
     ConfigModule.forRoot({ isGlobal: true }),
+    CacheModule.register({ isGlobal: true }),
   ],
 })
 export class AppModule {}

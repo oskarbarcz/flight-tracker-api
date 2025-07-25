@@ -1,0 +1,47 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/airports",
+      "queryStringParameters": {
+        "iata": ["LHR"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"]
+      },
+      "body": [
+        {
+          "icao": "EGLL",
+          "iata": "LHR",
+          "name": "London Heathrow Airport",
+          "city": "London",
+          "region": "England",
+          "country": "GB",
+          "elevation_ft": "83",
+          "latitude": "51.47060013",
+          "longitude": "-0.461941",
+          "timezone": "Europe/London"
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/airports",
+      "queryStringParameters": {
+        "iata": ["XXX"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"]
+      },
+      "body": []
+    }
+  }
+]

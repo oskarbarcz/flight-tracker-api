@@ -50,7 +50,7 @@ export class AircraftController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiBody({ type: CreateAircraftRequest })
   @ApiCreatedResponse({
     description: 'Aircraft was created successfully',
@@ -81,7 +81,7 @@ export class AircraftController {
   }
 
   @ApiOperation({ summary: 'Retrieve all aircraft' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiOkResponse({
     description: 'Aircraft list',
     type: CreateAircraftResponse,
@@ -97,7 +97,7 @@ export class AircraftController {
   }
 
   @ApiOperation({ summary: 'Retrieve one aircraft' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Aircraft unique identifier',
@@ -128,7 +128,7 @@ export class AircraftController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Aircraft unique identifier',
@@ -168,7 +168,7 @@ export class AircraftController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Aircraft unique identifier',

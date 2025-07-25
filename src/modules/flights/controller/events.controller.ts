@@ -24,7 +24,7 @@ export class EventsController {
   constructor(private readonly flightEventsRepository: EventsRepository) {}
 
   @ApiOperation({ summary: 'Retrieve events for a flight' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',

@@ -49,7 +49,7 @@ export class AirportsController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiBody({ type: CreateAirportDto })
   @ApiCreatedResponse({
     description: 'Airport was created successfully',
@@ -74,7 +74,7 @@ export class AirportsController {
   }
 
   @ApiOperation({ summary: 'Retrieve all airports' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'continent',
     required: false,
@@ -96,7 +96,7 @@ export class AirportsController {
   }
 
   @ApiOperation({ summary: 'Retrieve one airport' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Airport unique identifier',
@@ -127,7 +127,7 @@ export class AirportsController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Airport unique identifier',
@@ -167,7 +167,7 @@ export class AirportsController {
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role',
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Airport unique identifier',
