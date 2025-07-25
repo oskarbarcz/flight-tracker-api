@@ -1,6 +1,6 @@
 {
   "name": "flight-tracker-api",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "private": true,
   "homepage": "https://flights.barcz.me",
   "author": "oskarbarcz",
@@ -26,6 +26,7 @@
     "database:migrate": "npx prisma migrate deploy"
   },
   "dependencies": {
+    "@nestjs/cache-manager": "^3.0.1",
     "@nestjs/common": "^11.1.4",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.1.4",
