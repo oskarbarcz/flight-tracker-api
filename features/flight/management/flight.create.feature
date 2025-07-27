@@ -110,6 +110,11 @@ Feature: Create a flight
             "name": "Frankfurt Rhein/Main",
             "country": "Germany",
             "timezone": "Europe/Berlin",
+            "continent": "europe",
+            "location": {
+              "longitude": 8.57397,
+              "latitude": 50.04693
+            },
             "type": "departure"
           },
           {
@@ -120,6 +125,11 @@ Feature: Create a flight
             "name": "New York JFK",
             "country": "United States of America",
             "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": {
+              "longitude": -73.7781,
+              "latitude": 40.6413
+            },
             "type": "destination"
           }
         ]
@@ -259,6 +269,11 @@ Feature: Create a flight
             "name": "Frankfurt Rhein/Main",
             "country": "Germany",
             "timezone": "Europe/Berlin",
+            "continent": "europe",
+            "location": {
+              "longitude": 8.57397,
+              "latitude": 50.04693
+            },
             "type": "departure"
           },
           {
@@ -269,6 +284,11 @@ Feature: Create a flight
             "name": "New York JFK",
             "country": "United States of America",
             "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": {
+              "longitude": -73.7781,
+              "latitude": 40.6413
+            },
             "type": "destination"
           }
         ]

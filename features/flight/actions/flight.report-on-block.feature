@@ -146,6 +146,11 @@ Feature: Report on-block
             "name": "Boston Logan Intl",
             "country": "United States of America",
             "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": {
+              "longitude": -71.01663,
+              "latitude": 42.36454
+            },
             "type": "departure"
           },
           {
@@ -156,7 +161,12 @@ Feature: Report on-block
             "name": "Philadelphia Intl",
             "country": "United States of America",
             "timezone": "America/New_York",
-            "type": "destination"
+            "type": "destination",
+            "continent": "north_america",
+            "location": {
+              "longitude": -75.24349,
+              "latitude": 39.87113
+            }
           },
           {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -166,6 +176,11 @@ Feature: Report on-block
             "name": "New York JFK",
             "country": "United States of America",
             "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": {
+              "longitude": -73.7781,
+              "latitude": 40.6413
+            },
             "type": "destination_alternate"
           }
         ]

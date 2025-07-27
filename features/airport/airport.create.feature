@@ -10,7 +10,12 @@ Feature: Create airport
         "city": "Miami",
         "name": "Miami Intl",
         "country": "United States of America",
-        "timezone": "America/New_York"
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america"
       }
       """
     Then the response status should be 403
@@ -33,7 +38,12 @@ Feature: Create airport
         "iataCode": "MIA",
         "city": "Miami",
         "country": "United States of America",
-        "timezone": "America/New_York"
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america"
       }
       """
     Then the response status should be 201
@@ -46,7 +56,12 @@ Feature: Create airport
         "city": "Miami",
         "name": "Miami Intl",
         "country": "United States of America",
-        "timezone": "America/New_York"
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america"
       }
       """
     And I set database to initial state
@@ -61,7 +76,12 @@ Feature: Create airport
         "city": "Miami",
         "name": "Miami Intl",
         "country": "United States of America",
-        "timezone": "America/New_York"
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america"
       }
       """
     Then the response status should be 403
@@ -85,7 +105,7 @@ Feature: Create airport
       """
     Then the response status should be 400
     And the response body should contain:
-      """
+      """json
       {
         "message": "Request validation failed.",
         "error": "Bad Request",
@@ -102,7 +122,12 @@ Feature: Create airport
             "iataCode should not be empty",
             "iataCode must be a string"
           ],
-          "city": ["city should not be empty", "city must be a string"]
+          "city": ["city should not be empty", "city must be a string"],
+          "location": ["location should not be empty"],
+          "continent": [
+            "continent must be one of the following values: africa, asia, europe, north_america, oceania, south_america",
+            "continent should not be empty"
+          ]
         }
       }
       """

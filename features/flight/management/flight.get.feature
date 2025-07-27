@@ -55,7 +55,12 @@ Feature: Get flight
             "name": "Frankfurt Rhein/Main",
             "country": "Germany",
             "timezone": "Europe/Berlin",
-            "type": "departure"
+            "type": "departure",
+            "continent": "europe",
+            "location": {
+              "longitude": 8.57397,
+              "latitude": 50.04693
+            }
           },
           {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -65,7 +70,12 @@ Feature: Get flight
             "name": "New York JFK",
             "country": "United States of America",
             "timezone": "America/New_York",
-            "type": "destination"
+            "type": "destination",
+            "continent": "north_america",
+            "location": {
+              "longitude": -73.7781,
+              "latitude": 40.6413
+            }
           },
           {
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
@@ -75,7 +85,12 @@ Feature: Get flight
             "name": "Philadelphia Intl",
             "country": "United States of America",
             "timezone": "America/New_York",
-            "type": "destination_alternate"
+            "type": "destination_alternate",
+            "continent": "north_america",
+            "location": {
+              "longitude": -75.24349,
+              "latitude": 39.87113
+            }
           },
           {
             "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
@@ -85,7 +100,12 @@ Feature: Get flight
             "name": "Boston Logan Intl",
             "country": "United States of America",
             "timezone": "America/New_York",
-            "type": "destination_alternate"
+            "type": "destination_alternate",
+            "continent": "north_america",
+            "location": {
+              "longitude": -71.01663,
+              "latitude": 42.36454
+            }
           },
           {
             "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
@@ -95,7 +115,11 @@ Feature: Get flight
             "name": "St. Johns Intl",
             "country": "Canada",
             "timezone": "America/St_Johns",
-            "type": "etops_alternate"
+            "type": "etops_alternate",
+            "location": {
+              "longitude": -52.751945,
+              "latitude": 47.61861
+            }
           }
         ]
       }

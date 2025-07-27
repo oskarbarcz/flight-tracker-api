@@ -1,5 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsTimeZone, Length } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsTimeZone,
+  Length,
+  Max,
+  Min,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
 export enum Continent {
   Africa = 'africa',
@@ -8,6 +18,26 @@ export enum Continent {
   NorthAmerica = 'north_america',
   Oceania = 'oceania',
   SouthAmerica = 'south_america',
+}
+
+export class Coordinates {
+  @ApiProperty({
+    description: 'Airport longitude in decimal degrees',
+    example: 8.570556,
+  })
+  @IsNumber({ allowNaN: false, allowInfinity: false })
+  @Min(-180)
+  @Max(180)
+  longitude: number;
+
+  @ApiProperty({
+    description: 'Airport latitude in decimal degrees',
+    example: 50.033333,
+  })
+  @IsNumber({ allowNaN: false, allowInfinity: false })
+  @Min(-90)
+  @Max(90)
+  latitude: number;
 }
 
 export class Airport {
@@ -67,6 +97,23 @@ export class Airport {
   @IsTimeZone()
   @IsNotEmpty()
   timezone: string;
+
+  @ApiProperty({
+    description: 'Airport coordinates',
+    type: Coordinates,
+  })
+  @Type(() => Coordinates)
+  @IsNotEmpty()
+  location: Coordinates;
+
+  @ApiProperty({
+    description: 'Continent where airport is located',
+    example: Continent.Europe,
+    enum: Continent,
+  })
+  @IsNotEmpty()
+  @IsEnum(Continent)
+  continent: Continent;
 }
 
 export enum AirportType {

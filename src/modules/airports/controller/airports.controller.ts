@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { AirportsRepository } from '../repository/airports.repository';
 import { UuidParam } from '../../../core/validation/uuid.param';
-import { Airport } from '../entity/airport.entity';
+import { Airport, Continent, Coordinates } from '../entity/airport.entity';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -34,8 +34,9 @@ import { ForbiddenResponse } from '../../../core/http/response/forbidden.respons
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
 import {
   AirportListFilters,
-  CreateAirportDto,
-  UpdateAirportDto,
+  CreateAirportRequest,
+  GetAirportResponse,
+  UpdateAirportResponse,
 } from '../dto/airport.dto';
 import { SkipAuth } from '../../../core/http/auth/decorator/skip-auth.decorator';
 
@@ -50,27 +51,21 @@ export class AirportsController {
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth('jwt')
-  @ApiBody({ type: CreateAirportDto })
-  @ApiCreatedResponse({
-    description: 'Airport was created successfully',
-    type: Airport,
-  })
-  @ApiBadRequestResponse({
-    description: 'Request validation failed',
-    type: GenericBadRequestResponse<CreateAirportDto>,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
+  @ApiBody({ type: CreateAirportRequest })
+  @ApiCreatedResponse({ type: Airport })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
   @Post()
   @Role(UserRole.Operations)
-  async create(@Body() createAirportDto: CreateAirportDto): Promise<Airport> {
-    return this.repository.create(createAirportDto);
+  async create(@Body() body: CreateAirportRequest): Promise<GetAirportResponse> {
+    const airport = await this.repository.create(body);
+
+    return {
+      ...airport,
+      location: airport.location as unknown as Coordinates,
+      continent: airport.continent as Continent,
+    };
   }
 
   @ApiOperation({ summary: 'Retrieve all airports' })
@@ -81,18 +76,22 @@ export class AirportsController {
     description: 'Filter by continent',
   })
   @ApiOkResponse({
-    description: 'Airports list',
-    type: Airport,
+    type: GetAirportResponse,
     isArray: true,
   })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @SkipAuth()
   @Get()
-  async findAll(@Query() filters: AirportListFilters): Promise<Airport[]> {
-    return this.repository.findAll(filters);
+  async findAll(
+    @Query() filters: AirportListFilters,
+  ): Promise<GetAirportResponse[]> {
+    const airports = await this.repository.findAll(filters);
+
+    return airports.map((airport) => ({
+      ...airport,
+      location: airport.location as unknown as Coordinates,
+      continent: airport.continent as Continent,
+    }));
   }
 
   @ApiOperation({ summary: 'Retrieve one airport' })
@@ -101,25 +100,19 @@ export class AirportsController {
     name: 'id',
     description: 'Airport unique identifier',
   })
-  @ApiOkResponse({
-    description: 'Airport was created successfully',
-    type: Airport,
-  })
-  @ApiBadRequestResponse({
-    description: 'Aircraft id is not valid uuid v4',
-    type: GenericBadRequestResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Airport with given it does not exist',
-    type: GenericNotFoundResponse,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
+  @ApiOkResponse({ type: GetAirportResponse })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @Get(':id')
-  async findOne(@UuidParam('id') id: string): Promise<Airport> {
-    return this.repository.findOne(id);
+  async findOne(@UuidParam('id') id: string): Promise<GetAirportResponse> {
+    const airport = await this.repository.findOne(id);
+
+    return {
+      ...airport,
+      location: airport.location as unknown as Coordinates,
+      continent: airport.continent as Continent,
+    };
   }
 
   @ApiOperation({
@@ -132,34 +125,25 @@ export class AirportsController {
     name: 'id',
     description: 'Airport unique identifier',
   })
-  @ApiBody({ type: UpdateAirportDto })
-  @ApiOkResponse({
-    description: 'Airport was updated successfully',
-    type: Airport,
-  })
-  @ApiBadRequestResponse({
-    description: 'Request validation failed',
-    type: GenericBadRequestResponse<CreateAirportDto>,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Airport with given it does not exist',
-    type: GenericNotFoundResponse,
-  })
+  @ApiBody({ type: UpdateAirportResponse })
+  @ApiOkResponse({ type: GetAirportResponse })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse<CreateAirportRequest> })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Patch(':id')
   @Role(UserRole.Operations)
   async update(
     @UuidParam('id') id: string,
-    @Body() updateAirportDto: UpdateAirportDto,
-  ): Promise<Airport> {
-    return this.repository.update(id, updateAirportDto);
+    @Body() body: UpdateAirportResponse,
+  ): Promise<GetAirportResponse> {
+    const airport = await this.repository.update(id, body);
+
+    return {
+      ...airport,
+      location: airport.location as unknown as Coordinates,
+      continent: airport.continent as Continent,
+    };
   }
 
   @ApiOperation({
@@ -172,25 +156,11 @@ export class AirportsController {
     name: 'id',
     description: 'Airport unique identifier',
   })
-  @ApiNoContentResponse({
-    description: 'Airport was removed successfully',
-  })
-  @ApiBadRequestResponse({
-    description: 'Airport id is not valid uuid v4',
-    type: GenericBadRequestResponse,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Airport with given it does not exist',
-    type: GenericNotFoundResponse,
-  })
+  @ApiNoContentResponse()
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.Operations)
