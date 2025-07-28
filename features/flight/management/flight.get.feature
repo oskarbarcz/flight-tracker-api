@@ -115,6 +115,7 @@ Feature: Get flight
             "name": "St. Johns Intl",
             "country": "Canada",
             "timezone": "America/St_Johns",
+            "continent": "north_america",
             "type": "etops_alternate",
             "location": {
               "longitude": -52.751945,
