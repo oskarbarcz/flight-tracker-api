@@ -58,7 +58,9 @@ export class AirportsController {
   @ApiForbiddenResponse({ type: ForbiddenResponse })
   @Post()
   @Role(UserRole.Operations)
-  async create(@Body() body: CreateAirportRequest): Promise<GetAirportResponse> {
+  async create(
+    @Body() body: CreateAirportRequest,
+  ): Promise<GetAirportResponse> {
     const airport = await this.repository.create(body);
 
     return {
@@ -127,7 +129,9 @@ export class AirportsController {
   })
   @ApiBody({ type: UpdateAirportResponse })
   @ApiOkResponse({ type: GetAirportResponse })
-  @ApiBadRequestResponse({ type: GenericBadRequestResponse<CreateAirportRequest> })
+  @ApiBadRequestResponse({
+    type: GenericBadRequestResponse<CreateAirportRequest>,
+  })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
