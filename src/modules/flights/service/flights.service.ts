@@ -9,6 +9,8 @@ import { CreateFlightRequest } from '../dto/flight.dto';
 import {
   AirportType,
   AirportWithType,
+  Continent,
+  Coordinates,
 } from '../../airports/entity/airport.entity';
 import { FullTimesheet, Schedule } from '../entity/timesheet.entity';
 import { FlightsRepository } from '../repository/flights.repository';
@@ -72,6 +74,8 @@ export class FlightsService {
       airports: flight.airports.map(
         (airportOnFlight): AirportWithType => ({
           ...airportOnFlight.airport,
+          location: airportOnFlight.airport.location as unknown as Coordinates,
+          continent: airportOnFlight.airport.continent as Continent,
           type: airportOnFlight.airportType as AirportType,
         }),
       ),
@@ -94,6 +98,9 @@ export class FlightsService {
         airports: flight.airports.map(
           (airportOnFlight): AirportWithType => ({
             ...airportOnFlight.airport,
+            location: airportOnFlight.airport
+              .location as unknown as Coordinates,
+            continent: airportOnFlight.airport.continent as Continent,
             type: airportOnFlight.airportType as AirportType,
           }),
         ),
@@ -141,6 +148,8 @@ export class FlightsService {
       airports: flight.airports.map(
         (airportOnFlight): AirportWithType => ({
           ...airportOnFlight.airport,
+          location: airportOnFlight.airport.location as unknown as Coordinates,
+          continent: airportOnFlight.airport.continent as Continent,
           type: airportOnFlight.airportType as AirportType,
         }),
       ),

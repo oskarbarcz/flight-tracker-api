@@ -36,7 +36,12 @@ Feature: Update airport
         "city": "Frankfurt",
         "name": "Frankfurt am Main",
         "country": "Germany",
-        "timezone": "Europe/Berlin"
+        "timezone": "Europe/Berlin",
+        "continent": "europe",
+        "location": {
+          "longitude": 8.57397,
+          "latitude": 50.04693
+        }
       }
       """
     And I set database to initial state

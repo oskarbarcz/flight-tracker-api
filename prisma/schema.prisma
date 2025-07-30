@@ -30,7 +30,7 @@ model Airport {
   city              String
   country           String
   timezone          String
-  continent         Continent?
+  continent         Continent
   location          Json                @default("{\"latitude\": 0, \"longitude\": 0}")
   AirportsOnFlights AirportsOnFlights[]
 

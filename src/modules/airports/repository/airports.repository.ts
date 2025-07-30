@@ -8,8 +8,8 @@ import { Airport, Prisma } from '@prisma/client';
 import { AirportInUseError } from '../dto/errors.dto';
 import {
   AirportListFilters,
-  CreateAirportDto,
-  UpdateAirportDto,
+  CreateAirportRequest,
+  UpdateAirportResponse,
 } from '../dto/airport.dto';
 
 const selectAirport = {
@@ -20,6 +20,8 @@ const selectAirport = {
   name: true,
   country: true,
   timezone: true,
+  location: true,
+  continent: true,
 } as const satisfies Prisma.AirportSelect;
 
 type AirportView = Prisma.AirportGetPayload<{
@@ -30,7 +32,7 @@ type AirportView = Prisma.AirportGetPayload<{
 export class AirportsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(data: CreateAirportDto): Promise<AirportView> {
+  async create(data: CreateAirportRequest): Promise<AirportView> {
     const airport = await this.findOneBy({ icaoCode: data.icaoCode });
 
     if (airport) {
@@ -40,7 +42,10 @@ export class AirportsRepository {
     }
 
     return this.prisma.airport.create({
-      data: data as Prisma.AirportCreateInput,
+      data: {
+        ...data,
+        location: data.location as unknown as Prisma.JsonObject,
+      },
       select: selectAirport,
     });
   }
@@ -64,7 +69,7 @@ export class AirportsRepository {
     return airport;
   }
 
-  async update(id: string, data: UpdateAirportDto): Promise<AirportView> {
+  async update(id: string, data: UpdateAirportResponse): Promise<AirportView> {
     const airport = await this.findOneBy({ id });
 
     if (!airport) {
@@ -73,7 +78,10 @@ export class AirportsRepository {
 
     return this.prisma.airport.update({
       where: { id },
-      data: data,
+      data: {
+        ...data,
+        location: data.location as unknown as Prisma.JsonObject,
+      },
       select: selectAirport,
     });
   }
