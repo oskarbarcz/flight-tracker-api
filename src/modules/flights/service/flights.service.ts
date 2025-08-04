@@ -6,35 +6,11 @@ import {
 } from '@nestjs/common';
 import { Flight, FlightStatus } from '../entity/flight.entity';
 import { CreateFlightRequest } from '../dto/flight.dto';
-import {
-  AirportType,
-  AirportWithType,
-  Continent,
-  Coordinates,
-} from '../../airports/entity/airport.entity';
 import { FullTimesheet, Schedule } from '../entity/timesheet.entity';
 import { FlightsRepository } from '../repository/flights.repository';
 import { AircraftService } from '../../aircraft/service/aircraft.service';
 import {
-  AircraftNotFoundError,
-  DestinationAirportSameAsDepartureAirportError,
   FlightDoesNotExistError,
-  InvalidStatusToChangeScheduleError,
-  InvalidStatusToCheckInError,
-  InvalidStatusToCloseFlight,
-  InvalidStatusToFinishBoardingError,
-  InvalidStatusToFinishOffboardingError,
-  InvalidStatusToMarkAsReadyError,
-  InvalidStatusToReportArrivedError,
-  InvalidStatusToReportOffBlockError,
-  InvalidStatusToReportOnBlockError,
-  InvalidStatusToReportTakenOffError,
-  InvalidStatusToStartBoardingError,
-  InvalidStatusToStartOffboardingError,
-  InvalidStatusToUpdateLoadsheetError,
-  OperatorForAircraftNotFoundError,
-  PreliminaryLoadsheetMissingError,
-  ScheduledFlightCannotBeRemoved,
 } from '../dto/errors.dto';
 import { OperatorsService } from '../../operators/service/operators.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
@@ -43,7 +19,13 @@ import { FlightEventScope } from '../entity/event.entity';
 import { NewFlightEvent } from '../dto/event.dto';
 import { JwtUser } from '../../auth/dto/jwt-user.dto';
 import { FlightEventType } from '../../../core/events/flight';
-import { mapAirportsWithType } from '../utils/flight.utils';
+import { FlightValidationService } from './validation/flight-validation.service';
+import { FlightTransformationService } from './transformation/flight-transformation.service';
+import { 
+  FlightNotFoundError,
+  InvalidFlightStatusTransitionError,
+  InvalidFlightDataError,
+} from '../../../core/errors/domain.errors';
 
 @Injectable()
 export class FlightsService {
@@ -52,6 +34,8 @@ export class FlightsService {
     private readonly flightsRepository: FlightsRepository,
     private readonly operatorsService: OperatorsService,
     private readonly eventEmitter: EventEmitter2,
+    private readonly validationService: FlightValidationService,
+    private readonly transformationService: FlightTransformationService,
   ) {}
 
   async find(id: string): Promise<Flight> {
@@ -63,76 +47,41 @@ export class FlightsService {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    return {
-      id: flight.id,
-      flightNumber: flight.flightNumber,
-      callsign: flight.callsign,
-      status: flight.status as FlightStatus,
-      timesheet: flight.timesheet as FullTimesheet,
-      loadsheets: flight.loadsheets as unknown as Loadsheets,
-      aircraft: flight.aircraft,
-      operator: flight.operator,
-      airports: mapAirportsWithType(flight.airports),
-    };
+    return this.transformationService.transformFlightFromDatabase(flight);
   }
 
   async findAll(): Promise<Flight[]> {
     const flights = await this.flightsRepository.findAll();
-
-    return flights.map(
-      (flight): Flight => ({
-        id: flight.id,
-        flightNumber: flight.flightNumber,
-        callsign: flight.callsign,
-        status: flight.status as FlightStatus,
-        timesheet: flight.timesheet as FullTimesheet,
-        loadsheets: flight.loadsheets as unknown as Loadsheets,
-        aircraft: flight.aircraft,
-        operator: flight.operator,
-        airports: mapAirportsWithType(flight.airports),
-      }),
-    );
+    return this.transformationService.transformFlightsFromDatabase(flights);
   }
 
   async create(
     input: CreateFlightRequest,
     initiator: JwtUser,
   ): Promise<Flight> {
-    if (input.departureAirportId === input.destinationAirportId) {
-      throw new BadRequestException(
-        DestinationAirportSameAsDepartureAirportError,
-      );
+    try {
+      await this.validationService.validateCreateFlight(input);
+
+      const flight = await this.flightsRepository.create(input);
+
+      const event: NewFlightEvent = {
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.Operations,
+        actorId: initiator.sub,
+      };
+      this.eventEmitter.emit(FlightEventType.FlightWasCreated, event);
+
+      return this.transformationService.transformFlightFromDatabase(flight);
+    } catch (error) {
+      if (error instanceof InvalidFlightDataError) {
+        throw new BadRequestException(error.message);
+      }
+      if (error instanceof FlightNotFoundError) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
     }
-
-    if (!(await this.aircraftService.exists(input.aircraftId))) {
-      throw new NotFoundException(AircraftNotFoundError);
-    }
-
-    if (!(await this.operatorsService.exists(input.operatorId))) {
-      throw new NotFoundException(OperatorForAircraftNotFoundError);
-    }
-
-    const flight = await this.flightsRepository.create(input);
-
-    const event: NewFlightEvent = {
-      flightId: flight.id,
-      type: FlightEventType.FlightWasCreated,
-      scope: FlightEventScope.Operations,
-      actorId: initiator.sub,
-    };
-    this.eventEmitter.emit(FlightEventType.FlightWasCreated, event);
-
-    return {
-      id: flight.id,
-      flightNumber: flight.flightNumber,
-      callsign: flight.callsign,
-      status: flight.status as FlightStatus,
-      timesheet: flight.timesheet as FullTimesheet,
-      loadsheets: flight.loadsheets as unknown as Loadsheets,
-      aircraft: flight.aircraft,
-      operator: flight.operator,
-      airports: mapAirportsWithType(flight.airports),
-    };
   }
 
   async remove(id: string): Promise<void> {
@@ -142,11 +91,15 @@ export class FlightsService {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    if (flight.status !== FlightStatus.Created) {
-      throw new BadRequestException(ScheduledFlightCannotBeRemoved);
+    try {
+      this.validationService.validateRemoveFlight(flight.status);
+      await this.flightsRepository.remove(id);
+    } catch (error) {
+      if (error instanceof InvalidFlightDataError) {
+        throw new BadRequestException(error.message);
+      }
+      throw error;
     }
-
-    await this.flightsRepository.remove(id);
   }
 
   async markAsReady(id: string, initiatorId: string): Promise<void> {
@@ -156,22 +109,26 @@ export class FlightsService {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    if (flight.status !== FlightStatus.Created) {
-      throw new UnprocessableEntityException(InvalidStatusToMarkAsReadyError);
-    }
+    try {
+      this.validationService.validateMarkAsReady(
+        flight.status,
+        !!flight.loadsheets.preliminary
+      );
 
-    if (!flight.loadsheets.preliminary) {
-      throw new UnprocessableEntityException(PreliminaryLoadsheetMissingError);
+      await this.flightsRepository.updateStatus(id, FlightStatus.Ready);
+      const event: NewFlightEvent = {
+        flightId: id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.User,
+        actorId: initiatorId,
+      };
+      this.eventEmitter.emit(FlightEventType.FlightWasReleased, event);
+    } catch (error) {
+      if (error instanceof InvalidFlightStatusTransitionError || error instanceof InvalidFlightDataError) {
+        throw new UnprocessableEntityException(error.message);
+      }
+      throw error;
     }
-
-    await this.flightsRepository.updateStatus(id, FlightStatus.Ready);
-    const event: NewFlightEvent = {
-      flightId: id,
-      type: FlightEventType.FlightWasReleased,
-      scope: FlightEventScope.User,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.FlightWasReleased, event);
   }
 
   async updatePreliminaryLoadsheet(
@@ -185,24 +142,28 @@ export class FlightsService {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    if (flight.status !== FlightStatus.Created) {
-      throw new UnprocessableEntityException(
-        InvalidStatusToUpdateLoadsheetError,
-      );
-    }
+    try {
+      this.validationService.validateUpdateLoadsheet(flight.status);
 
-    const loadsheets: Loadsheets = { preliminary: loadsheet, final: null };
-    await this.flightsRepository.updateLoadsheets(id, loadsheets);
-    const event: NewFlightEvent = {
-      flightId: id,
-      type: FlightEventType.PreliminaryLoadsheetWasUpdated,
-      scope: FlightEventScope.Operations,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(
-      FlightEventType.PreliminaryLoadsheetWasUpdated,
-      event,
-    );
+      const loadsheets: Loadsheets = { preliminary: loadsheet, final: null };
+      await this.flightsRepository.updateLoadsheets(id, loadsheets);
+      
+      const event: NewFlightEvent = {
+        flightId: id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.Operations,
+        actorId: initiatorId,
+      };
+      this.eventEmitter.emit(
+        FlightEventType.PreliminaryLoadsheetWasUpdated,
+        event,
+      );
+    } catch (error) {
+      if (error instanceof InvalidFlightStatusTransitionError) {
+        throw new UnprocessableEntityException(error.message);
+      }
+      throw error;
+    }
   }
 
   async updateScheduledTimesheet(
