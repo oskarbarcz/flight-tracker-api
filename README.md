@@ -17,6 +17,21 @@ Take full control of your virtual airline operations with a realistic and struct
 This is server part of the project. For client part, please visit
 [this repository](https://github.com/oskarbarcz/flight-tracker-app).
 
+## Code Quality
+
+This project includes comprehensive anti-patterns analysis and fixes to improve code quality and maintainability. See:
+
+- [`ANTI_PATTERNS.md`](ANTI_PATTERNS.md) - Detailed analysis of identified anti-patterns and their fixes
+- [`IMPLEMENTATION_SUMMARY.md`](IMPLEMENTATION_SUMMARY.md) - Summary of completed fixes and remaining work
+
+### Key Improvements
+
+- **Configuration Management**: Centralized configuration system replacing hardcoded values
+- **Service Decomposition**: Breaking down large services into focused, single-responsibility components
+- **Error Handling**: Domain-driven error management with consistent patterns
+- **Code Deduplication**: Utility functions to eliminate repetitive code
+- **Type Safety**: Improved TypeScript usage and reduced type casting
+
 ## Repository contents
 
 Repository contains server code for [Flight Tracker](https://flights.barcz.me) app.
