@@ -43,6 +43,7 @@ import { FlightEventScope } from '../entity/event.entity';
 import { NewFlightEvent } from '../dto/event.dto';
 import { JwtUser } from '../../auth/dto/jwt-user.dto';
 import { FlightEventType } from '../../../core/events/flight';
+import { mapAirportsWithType } from '../utils/flight.utils';
 
 @Injectable()
 export class FlightsService {
@@ -71,14 +72,7 @@ export class FlightsService {
       loadsheets: flight.loadsheets as unknown as Loadsheets,
       aircraft: flight.aircraft,
       operator: flight.operator,
-      airports: flight.airports.map(
-        (airportOnFlight): AirportWithType => ({
-          ...airportOnFlight.airport,
-          location: airportOnFlight.airport.location as unknown as Coordinates,
-          continent: airportOnFlight.airport.continent as Continent,
-          type: airportOnFlight.airportType as AirportType,
-        }),
-      ),
+      airports: mapAirportsWithType(flight.airports),
     };
   }
 
@@ -95,15 +89,7 @@ export class FlightsService {
         loadsheets: flight.loadsheets as unknown as Loadsheets,
         aircraft: flight.aircraft,
         operator: flight.operator,
-        airports: flight.airports.map(
-          (airportOnFlight): AirportWithType => ({
-            ...airportOnFlight.airport,
-            location: airportOnFlight.airport
-              .location as unknown as Coordinates,
-            continent: airportOnFlight.airport.continent as Continent,
-            type: airportOnFlight.airportType as AirportType,
-          }),
-        ),
+        airports: mapAirportsWithType(flight.airports),
       }),
     );
   }
@@ -145,14 +131,7 @@ export class FlightsService {
       loadsheets: flight.loadsheets as unknown as Loadsheets,
       aircraft: flight.aircraft,
       operator: flight.operator,
-      airports: flight.airports.map(
-        (airportOnFlight): AirportWithType => ({
-          ...airportOnFlight.airport,
-          location: airportOnFlight.airport.location as unknown as Coordinates,
-          continent: airportOnFlight.airport.continent as Continent,
-          type: airportOnFlight.airportType as AirportType,
-        }),
-      ),
+      airports: mapAirportsWithType(flight.airports),
     };
   }
 

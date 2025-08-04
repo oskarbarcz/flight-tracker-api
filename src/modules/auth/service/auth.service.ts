@@ -6,6 +6,7 @@ import { SignInResponse } from '../dto/sign-in.dto';
 import { SessionRepository } from '../repository/session.repository';
 import { v4 } from 'uuid';
 import { JwtTokenType, JwtUser } from '../dto/jwt-user.dto';
+import { AppConfig } from '../../../config/app.config';
 
 @Injectable()
 export class AuthService {
@@ -74,8 +75,8 @@ export class AuthService {
     };
 
     const [accessToken, refreshToken] = await Promise.all([
-      this.jwtService.signAsync(accessTokenPayload, { expiresIn: '15m' }),
-      this.jwtService.signAsync(refreshTokenPayload, { expiresIn: '7d' }),
+      this.jwtService.signAsync(accessTokenPayload, { expiresIn: AppConfig.jwt.accessTokenExpiry }),
+      this.jwtService.signAsync(refreshTokenPayload, { expiresIn: AppConfig.jwt.refreshTokenExpiry }),
     ]);
 
     return { accessToken, refreshToken };

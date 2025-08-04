@@ -20,6 +20,8 @@ import {
   DepartureAirportNotFoundError,
   DestinationAirportNotFoundError,
 } from '../dto/errors.dto';
+import { AppConfig } from '../../../config/app.config';
+import { deepClone } from '../utils/flight.utils';
 
 export const flightWithAircraftAndAirportsFields = {
   id: true,
@@ -120,8 +122,8 @@ export class FlightsRepository {
         aircraftId: input.aircraftId,
         status: FlightStatus.Created,
         operatorId: input.operatorId,
-        timesheet: JSON.parse(JSON.stringify(input.timesheet)),
-        loadsheets: JSON.parse(JSON.stringify(loadsheets)),
+        timesheet: deepClone(input.timesheet),
+        loadsheets: deepClone(loadsheets),
       },
     });
 
@@ -129,7 +131,7 @@ export class FlightsRepository {
       data: {
         airportId: input.departureAirportId,
         flightId: flightId,
-        airportType: 'departure',
+        airportType: AppConfig.airports.types.DEPARTURE,
       },
     });
 
@@ -137,7 +139,7 @@ export class FlightsRepository {
       data: {
         airportId: input.destinationAirportId,
         flightId: flightId,
-        airportType: 'destination',
+        airportType: AppConfig.airports.types.DESTINATION,
       },
     });
 
@@ -220,7 +222,7 @@ export class FlightsRepository {
     await this.prisma.flight.update({
       where: { id },
       data: {
-        loadsheets: JSON.parse(JSON.stringify(loadsheets)),
+        loadsheets: deepClone(loadsheets),
       },
     });
   }
@@ -229,7 +231,7 @@ export class FlightsRepository {
     await this.prisma.flight.update({
       where: { id },
       data: {
-        timesheet: JSON.parse(JSON.stringify(timesheet)),
+        timesheet: deepClone(timesheet),
       },
     });
   }
