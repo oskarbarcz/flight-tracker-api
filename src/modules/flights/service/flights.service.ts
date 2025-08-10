@@ -4,8 +4,8 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { Flight, FlightStatus } from '../entity/flight.entity';
-import { CreateFlightRequest } from '../dto/flight.dto';
+import { FlightStatus } from '../entity/flight.entity';
+import { CreateFlightRequest, GetFlightResponse } from '../dto/flight.dto';
 import {
   AirportType,
   AirportWithType,
@@ -53,7 +53,7 @@ export class FlightsService {
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
-  async find(id: string): Promise<Flight> {
+  async find(id: string): Promise<GetFlightResponse> {
     const flight = await this.flightsRepository.findOneBy({
       id,
     });
@@ -82,11 +82,11 @@ export class FlightsService {
     };
   }
 
-  async findAll(): Promise<Flight[]> {
+  async findAll(): Promise<GetFlightResponse[]> {
     const flights = await this.flightsRepository.findAll();
 
     return flights.map(
-      (flight): Flight => ({
+      (flight): GetFlightResponse => ({
         id: flight.id,
         flightNumber: flight.flightNumber,
         callsign: flight.callsign,
@@ -111,7 +111,7 @@ export class FlightsService {
   async create(
     input: CreateFlightRequest,
     initiator: JwtUser,
-  ): Promise<Flight> {
+  ): Promise<GetFlightResponse> {
     if (input.departureAirportId === input.destinationAirportId) {
       throw new BadRequestException(
         DestinationAirportSameAsDepartureAirportError,

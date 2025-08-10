@@ -5,6 +5,7 @@ import { CreateAircraftResponse } from '../../aircraft/dto/create-aircraft.dto';
 import { Operator } from '../../operators/entity/operator.entity';
 import { Loadsheets } from './loadsheet.entity';
 import { Rotation } from '../../rotations/entity/rotation.entity';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export enum FlightStatus {
   Created = 'created',
@@ -48,6 +49,15 @@ export class Flight {
   status: FlightStatus;
 
   @ApiProperty({
+    description: 'Aircraft system unique identifier',
+    example: 'fe75ec7d-afbe-4514-a935-40c54f475278',
+  })
+  @IsString()
+  @IsNotEmpty()
+  @IsUUID(4)
+  aircraftId: string;
+
+  @ApiProperty({
     description: 'Aircraft reported for flight',
   })
   aircraft: CreateAircraftResponse;
@@ -67,6 +77,15 @@ export class Flight {
     type: Loadsheets,
   })
   loadsheets: Loadsheets;
+
+  @ApiProperty({
+    description: 'Operator system unique identifier',
+    example: 'fe75ec7d-afbe-4514-a935-40c54f475278',
+  })
+  @IsString()
+  @IsNotEmpty()
+  @IsUUID(4)
+  operatorId: string;
 
   @ApiProperty({
     description: 'Flight operator',

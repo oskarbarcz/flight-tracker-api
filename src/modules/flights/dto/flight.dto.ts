@@ -4,6 +4,7 @@ import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { Operator } from '../../operators/entity/operator.entity';
 import { Loadsheets } from '../entity/loadsheet.entity';
 import { Type } from 'class-transformer';
+import { Flight } from '../entity/flight.entity';
 
 class PreliminaryLoadsheetOnly extends OmitType(Loadsheets, ['final']) {}
 
@@ -75,3 +76,9 @@ export class CreateFlightRequest {
   @IsNotEmpty()
   operatorId: string;
 }
+
+export class GetFlightResponse extends OmitType(Flight, [
+  'rotation',
+  'aircraftId',
+  'operatorId',
+]) {}

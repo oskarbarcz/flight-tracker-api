@@ -25,13 +25,13 @@ import {
 import { GenericBadRequestResponse } from '../../../core/http/response/bad-request.response';
 import { GenericNotFoundResponse } from '../../../core/http/response/not-found.response';
 import { UuidParam } from '../../../core/validation/uuid.param';
-import { Flight } from '../entity/flight.entity';
-import { CreateFlightRequest } from '../dto/flight.dto';
+import { CreateFlightRequest, GetFlightResponse } from '../dto/flight.dto';
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
 import { Role } from '../../../core/http/auth/decorator/role.decorator';
 import { UserRole } from '@prisma/client';
 import { AuthorizedRequest } from '../../../core/http/request/authorized.request';
+import { SkipAuth } from '../../../core/http/auth/decorator/skip-auth.decorator';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -44,25 +44,24 @@ export class ManagementController {
     name: 'id',
     description: 'Flight unique identifier',
   })
-  @ApiOkResponse({ type: Flight, isArray: true })
+  @ApiOkResponse({ type: GetFlightResponse, isArray: true })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
     type: UnauthorizedResponse,
   })
   @Get()
-  findAll(): Promise<Flight[]> {
+  findAll(): Promise<GetFlightResponse[]> {
     return this.flightsService.findAll();
   }
 
   @ApiOperation({ summary: 'Retrieve one flight' })
-  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
   })
   @ApiOkResponse({
     description: 'Flight was found',
-    type: Flight,
+    type: GetFlightResponse,
   })
   @ApiBadRequestResponse({
     description: 'Flight id is not valid uuid v4',
@@ -77,7 +76,8 @@ export class ManagementController {
     type: GenericNotFoundResponse,
   })
   @Get(':id')
-  findOne(@UuidParam('id') id: string) {
+  @SkipAuth()
+  findOne(@UuidParam('id') id: string): Promise<GetFlightResponse> {
     return this.flightsService.find(id);
   }
 
@@ -90,7 +90,7 @@ export class ManagementController {
   @ApiBody({ type: CreateFlightRequest })
   @ApiOkResponse({
     description: 'Flight was created',
-    type: Flight,
+    type: GetFlightResponse,
   })
   @ApiBadRequestResponse({
     description: 'Validation failed',
@@ -113,7 +113,7 @@ export class ManagementController {
   async create(
     @Req() request: AuthorizedRequest,
     @Body() input: CreateFlightRequest,
-  ): Promise<Flight> {
+  ): Promise<GetFlightResponse> {
     return this.flightsService.create(input, request.user);
   }
 
