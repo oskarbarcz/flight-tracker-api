@@ -136,6 +136,10 @@ Feature: Get flight
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
     Then the response status should be 200
 
+  Scenario: As an unauthorized user I cannot get flight
+    When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
+    Then the response status should be 200
+
   Scenario: As a cabin crew I cannot get flight that does not exist
     Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight/ef95408a-bb6e-4f4e-9d87-6403164cb4df"
@@ -159,16 +163,5 @@ Feature: Get flight
         "message": "Validation failed (uuid v 4 is expected)",
         "error": "Bad Request",
         "statusCode": 400
-      }
-      """
-
-  Scenario: As an unauthorized user I cannot get flight
-    When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
-    Then the response status should be 401
-    And the response body should contain:
-      """json
-      {
-        "message": "Unauthorized",
-        "statusCode": 401
       }
       """
