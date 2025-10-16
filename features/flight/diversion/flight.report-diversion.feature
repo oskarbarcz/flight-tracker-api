@@ -131,7 +131,7 @@ Feature: Report a flight diversion
       }
       """
 
-    Scenario: As a cabin crew I cannot report diversion for non-existing flight
+  Scenario: As a cabin crew I cannot report diversion for non-existing flight
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/2eb60569-eb00-424e-ab29-6ba10224495c/diversion" with body:
       """json
