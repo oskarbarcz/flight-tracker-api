@@ -104,14 +104,6 @@ export class AirportsRepository {
     await this.prisma.airport.delete({ where: { id } });
   }
 
-  async exists(id: string): Promise<boolean> {
-    const count = await this.prisma.airport.count({
-      where: { id },
-    });
-
-    return count === 1;
-  }
-
   private async findOneBy(
     criteria: Partial<Record<keyof Airport, any>>,
   ): Promise<AirportView | null> {

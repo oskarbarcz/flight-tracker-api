@@ -33,6 +33,7 @@ model Airport {
   continent         Continent
   location          Json                @default("{\"latitude\": 0, \"longitude\": 0}")
   AirportsOnFlights AirportsOnFlights[]
+  Diversion         Diversion[]
 
   @@map("airport")
 }
@@ -67,8 +68,32 @@ model Flight {
   User            User?
   airports        AirportsOnFlights[]
   FlightEvent     FlightEvent[]
+  Diversion       Diversion[]
 
   @@map("flight")
+}
+
+model Diversion {
+  id                         String   @id @default(uuid()) @db.Uuid
+  reportedBy                 String   @db.Uuid
+  reporterRole               String
+  flightId                   String   @unique @db.Uuid
+  airportId                  String   @db.Uuid
+  decisionTime               DateTime
+  estimatedTimeAtDestination DateTime
+  reason                     String
+  severity                   String
+  position                   Json
+  freeText                   String?
+  notifySecurityOnGround     Boolean
+  notifyMedicalOnGround      Boolean
+  notifyFirefightersOnGround Boolean
+
+  Flight  Flight  @relation(fields: [flightId], references: [id])
+  User    User    @relation(fields: [reportedBy], references: [id])
+  Airport Airport @relation(fields: [airportId], references: [id])
+
+  @@map("flight_diversion")
 }
 
 model AirportsOnFlights {
@@ -94,6 +119,7 @@ model User {
   Rotation        Rotation[]
   currentFlight   Flight?           @relation(fields: [currentFlightId], references: [id])
   FlightEvent     FlightEvent[]
+  Diversion       Diversion[]
 
   @@map("user")
 }
