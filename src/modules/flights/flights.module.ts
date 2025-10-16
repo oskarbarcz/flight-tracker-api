@@ -11,12 +11,15 @@ import { EventsRepository } from './repository/events.repository';
 import { PositionService } from './service/position.service';
 import { AdsbModule } from '../../core/provider/adsb/adsb.module';
 import { PathController } from './controller/path.controller';
+import { DiversionRepository } from './repository/diversion.repository';
+import { DiversionController } from './controller/diversion.controller';
 
 @Module({
   imports: [PrismaModule, AircraftModule, OperatorsModule, AdsbModule],
   controllers: [
     ManagementController,
     EventsController,
+    DiversionController,
     ActionsController,
     PathController,
   ],
@@ -25,6 +28,7 @@ import { PathController } from './controller/path.controller';
     PositionService,
     FlightsRepository,
     EventsRepository,
+    DiversionRepository,
   ],
 })
 export class FlightsModule {}
