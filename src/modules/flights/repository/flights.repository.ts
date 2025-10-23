@@ -90,13 +90,17 @@ export type FlightIdAndCallsign = Prisma.FlightGetPayload<{
   select: typeof flightIdAndCallsign;
 }>;
 
+export type DiversionStatus = {
+  isFlightDiverted: boolean;
+};
+
+export type FlightResponse = FlightWithAircraftAndAirports & DiversionStatus;
+
 @Injectable()
 export class FlightsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(
-    input: CreateFlightRequest,
-  ): Promise<FlightWithAircraftAndAirports> {
+  async create(input: CreateFlightRequest): Promise<FlightResponse> {
     const flightId = v4();
 
     if (!(await this.airportExist(input.departureAirportId))) {
@@ -152,11 +156,20 @@ export class FlightsRepository {
 
   async findOneBy(
     criteria: Partial<Record<keyof Flight, any>>,
-  ): Promise<FlightWithAircraftAndAirports | null> {
-    return this.prisma.flight.findFirst({
+  ): Promise<FlightResponse | null> {
+    const flight = await this.prisma.flight.findFirst({
       where: criteria,
       select: flightWithAircraftAndAirportsFields,
     });
+
+    if (!flight) {
+      return null;
+    }
+
+    return {
+      ...flight,
+      isFlightDiverted: await this.isFlightDiverted(flight.id),
+    };
   }
 
   async getFlightPath(flightId: string): Promise<FlightPathElement[]> {
@@ -175,7 +188,7 @@ export class FlightsRepository {
     return positionReports.map((report) => transformPositionReport(report));
   }
 
-  async getOneById(id: string): Promise<FlightWithAircraftAndAirports> {
+  async getOneById(id: string): Promise<FlightResponse> {
     const flight = await this.findOneBy({ id });
     if (!flight) {
       throw new Error(`Flight with id ${id} not found.`);
@@ -197,10 +210,17 @@ export class FlightsRepository {
     });
   }
 
-  async findAll(): Promise<FlightWithAircraftAndAirports[]> {
-    return this.prisma.flight.findMany({
+  async findAll(): Promise<FlightResponse[]> {
+    const flights = await this.prisma.flight.findMany({
       select: flightWithAircraftAndAirportsFields,
     });
+
+    return Promise.all(
+      flights.map(async (flight) => ({
+        ...flight,
+        isFlightDiverted: await this.isFlightDiverted(flight.id),
+      })),
+    );
   }
 
   async remove(id: string): Promise<void> {
@@ -247,6 +267,14 @@ export class FlightsRepository {
   private async airportExist(airportId: string): Promise<boolean> {
     const count = await this.prisma.airport.count({
       where: { id: airportId },
+    });
+
+    return count === 1;
+  }
+
+  private async isFlightDiverted(flightId: string): Promise<boolean> {
+    const count = await this.prisma.diversion.count({
+      where: { flightId },
     });
 
     return count === 1;

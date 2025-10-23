@@ -132,7 +132,8 @@ Feature: Create a flight
             },
             "type": "destination"
           }
-        ]
+        ],
+        "isFlightDiverted": false
       }
       """
     And I set database to initial state
@@ -203,7 +204,8 @@ Feature: Create a flight
             "zeroFuelWeight": 208.9,
             "blockFuel": 12.7
           }
-        }
+        },
+        "isFlightDiverted": false
       }
       """
     Then the response status should be 201
@@ -291,7 +293,8 @@ Feature: Create a flight
             },
             "type": "destination"
           }
-        ]
+        ],
+        "isFlightDiverted": false
       }
       """
     And I set database to initial state
