@@ -215,10 +215,17 @@ export class FlightsRepository {
       select: flightWithAircraftAndAirportsFields,
     });
 
+    const flightIds = flights.map((f) => f.id);
+    const diversions = await this.prisma.diversion.findMany({
+      where: { flightId: { in: flightIds } },
+      select: { flightId: true },
+    });
+    const divertedFlightIds = new Set(diversions.map((d) => d.flightId));
+
     return Promise.all(
       flights.map(async (flight) => ({
         ...flight,
-        isFlightDiverted: await this.isFlightDiverted(flight.id),
+        isFlightDiverted: divertedFlightIds.has(flight.id),
       })),
     );
   }
