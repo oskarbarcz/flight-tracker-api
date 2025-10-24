@@ -222,12 +222,10 @@ export class FlightsRepository {
     });
     const divertedFlightIds = new Set(diversions.map((d) => d.flightId));
 
-    return Promise.all(
-      flights.map(async (flight) => ({
-        ...flight,
-        isFlightDiverted: divertedFlightIds.has(flight.id),
-      })),
-    );
+    return flights.map((flight) => ({
+      ...flight,
+      isFlightDiverted: divertedFlightIds.has(flight.id),
+    }));
   }
 
   async remove(id: string): Promise<void> {
@@ -284,6 +282,6 @@ export class FlightsRepository {
       where: { flightId },
     });
 
-    return count === 1;
+    return count > 0;
   }
 }
