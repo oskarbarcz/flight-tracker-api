@@ -154,7 +154,8 @@ Feature: Report takeoff
             },
             "type": "destination_alternate"
           }
-        ]
+        ],
+        "isFlightDiverted": false
       }
       """
     When I send a "GET" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/events"

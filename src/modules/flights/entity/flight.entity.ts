@@ -100,6 +100,12 @@ export class Flight {
     nullable: true,
   })
   rotation?: Rotation;
+
+  @ApiProperty({
+    description: 'Flag if flight was diverted',
+    example: false,
+  })
+  isFlightDiverted: boolean;
 }
 
 export class FlightPathElement {

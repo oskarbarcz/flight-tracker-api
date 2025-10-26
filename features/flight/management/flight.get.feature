@@ -122,7 +122,8 @@ Feature: Get flight
               "latitude": 47.61861
             }
           }
-        ]
+        ],
+        "isFlightDiverted": false
       }
       """
 

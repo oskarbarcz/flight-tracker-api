@@ -132,7 +132,8 @@ Feature: Create a flight
             },
             "type": "destination"
           }
-        ]
+        ],
+        "isFlightDiverted": false
       }
       """
     And I set database to initial state
@@ -291,7 +292,8 @@ Feature: Create a flight
             },
             "type": "destination"
           }
-        ]
+        ],
+        "isFlightDiverted": false
       }
       """
     And I set database to initial state

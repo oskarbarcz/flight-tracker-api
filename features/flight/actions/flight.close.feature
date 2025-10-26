@@ -154,7 +154,8 @@ Feature: Close flight
             },
             "type": "destination_alternate"
           }
-        ]
+        ],
+        "isFlightDiverted": false
       }
       """
     When I send a "GET" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/events"

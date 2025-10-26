@@ -161,7 +161,8 @@ Feature: Check in pilot for flight
             },
             "type": "destination_alternate"
           }
-        ]
+        ],
+        "isFlightDiverted": false
       }
       """
     When I send a "GET" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/events"

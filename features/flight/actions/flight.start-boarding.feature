@@ -137,7 +137,8 @@ Feature: Start boarding
             },
             "type": "destination_alternate"
           }
-        ]
+        ],
+        "isFlightDiverted": false
       }
       """
     When I send a "GET" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/events"

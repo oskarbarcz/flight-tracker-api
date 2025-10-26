@@ -154,7 +154,8 @@ Feature: Report arrival
             },
             "type": "destination_alternate"
           }
-        ]
+        ],
+        "isFlightDiverted": false
       }
       """
     When I send a "GET" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/events"

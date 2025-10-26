@@ -79,6 +79,7 @@ export class FlightsService {
           type: airportOnFlight.airportType as AirportType,
         }),
       ),
+      isFlightDiverted: flight.isFlightDiverted,
     };
   }
 
@@ -104,6 +105,7 @@ export class FlightsService {
             type: airportOnFlight.airportType as AirportType,
           }),
         ),
+        isFlightDiverted: flight.isFlightDiverted,
       }),
     );
   }
@@ -153,6 +155,7 @@ export class FlightsService {
           type: airportOnFlight.airportType as AirportType,
         }),
       ),
+      isFlightDiverted: flight.isFlightDiverted,
     };
   }
 
