@@ -177,6 +177,40 @@ Feature: Report a flight diversion
         "isFlightDiverted": true
       }
       """
+    When I send a "GET" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/diversion"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "severity": "emergency",
+        "reason": "wx",
+        "freeText": "Severe weather at destination airport",
+        "position": {
+          "longitude": 8.570556,
+          "latitude": 50.033333
+        },
+        "notifySecurityOnGround": true,
+        "notifyMedicalOnGround": false,
+        "notifyFirefightersOnGround": true,
+        "airport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "icaoCode": "EDDF",
+          "iataCode": "FRA",
+          "city": "Frankfurt",
+          "name": "Frankfurt Rhein/Main",
+          "country": "Germany",
+          "timezone": "Europe/Berlin",
+          "continent": "europe",
+          "location": {
+            "longitude": 8.57397,
+            "latitude": 50.04693
+          }
+        },
+        "decisionTime": "@date('within 1 minute from now')",
+        "estimatedTimeAtDestination": "2025-01-01T16:00:00.000Z"
+      }
+      """
     And I set database to initial state
 
   Scenario: As a cabin crew I can report flight diversion
@@ -325,6 +359,40 @@ Feature: Report a flight diversion
           }
         ],
         "isFlightDiverted": true
+      }
+      """
+    When I send a "GET" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/diversion"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "severity": "emergency",
+        "reason": "wx",
+        "freeText": "Severe weather at destination airport",
+        "position": {
+          "longitude": 8.570556,
+          "latitude": 50.033333
+        },
+        "notifySecurityOnGround": true,
+        "notifyMedicalOnGround": false,
+        "notifyFirefightersOnGround": true,
+        "airport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "icaoCode": "EDDF",
+          "iataCode": "FRA",
+          "city": "Frankfurt",
+          "name": "Frankfurt Rhein/Main",
+          "country": "Germany",
+          "timezone": "Europe/Berlin",
+          "continent": "europe",
+          "location": {
+            "longitude": 8.57397,
+            "latitude": 50.04693
+          }
+        },
+        "decisionTime": "@date('within 1 minute from now')",
+        "estimatedTimeAtDestination": "2025-01-01T16:00:00.000Z"
       }
       """
     And I set database to initial state

@@ -14,7 +14,7 @@ import { FlightPathElement } from '../entity/flight.entity';
 import { FlightsRepository } from '../repository/flights.repository';
 import { SkipAuth } from '../../../core/http/auth/decorator/skip-auth.decorator';
 
-@ApiTags('flight-path')
+@ApiTags('flight path')
 @Controller('api/v1/flight')
 export class PathController {
   constructor(private readonly flightRepository: FlightsRepository) {}

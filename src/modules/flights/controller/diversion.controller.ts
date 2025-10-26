@@ -1,7 +1,11 @@
-import { ReportDiversionRequest } from '../dto/diversion.dto';
+import {
+  ReportDiversionRequest,
+  GetDiversionResponse,
+} from '../dto/diversion.dto';
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -14,6 +18,7 @@ import {
   ApiForbiddenResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
+  ApiOkResponse,
   ApiOperation,
   ApiParam,
   ApiTags,
@@ -29,7 +34,7 @@ import { UserRole } from '@prisma/client';
 import { AuthorizedRequest } from '../../../core/http/request/authorized.request';
 import { DiversionRepository } from '../repository/diversion.repository';
 
-@ApiTags('flight-diversion')
+@ApiTags('flight diversion')
 @Controller('api/v1/flight/:flightId/diversion')
 export class DiversionController {
   constructor(private readonly diversionRepository: DiversionRepository) {}
@@ -70,11 +75,50 @@ export class DiversionController {
   @Post()
   @Role(UserRole.CabinCrew, UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)
-  public async reportDiversion(
+  public async report(
     @UuidParam('flightId') flightId: string,
     @Req() request: AuthorizedRequest,
     @Body() body: ReportDiversionRequest,
   ): Promise<void> {
     await this.diversionRepository.create(flightId, request.user, body);
+  }
+
+  @ApiOperation({
+    summary: 'Get flight diversion details',
+    description:
+      '**NOTE:** This endpoint is only available for users with `cabin crew` or `operations` role.',
+  })
+  @ApiBearerAuth('jwt')
+  @ApiParam({
+    name: 'flightId',
+    description: 'Flight unique identifier',
+  })
+  @ApiBody({ type: ReportDiversionRequest })
+  @ApiOkResponse({
+    type: GetDiversionResponse,
+    description: 'Flight diversion was successfully reported',
+  })
+  @ApiBadRequestResponse({
+    description: 'Flight id is not valid uuid v4',
+    type: GenericBadRequestResponse,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Diversion for given flight ID does not exist',
+    type: GenericNotFoundResponse,
+  })
+  @Get()
+  @Role(UserRole.CabinCrew, UserRole.Operations)
+  public async get(
+    @UuidParam('flightId') flightId: string,
+  ): Promise<GetDiversionResponse> {
+    return this.diversionRepository.get(flightId);
   }
 }

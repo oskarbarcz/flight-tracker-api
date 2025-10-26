@@ -31,7 +31,7 @@ import { UserRole } from '@prisma/client';
 import { AuthorizedRequest } from '../../../core/http/request/authorized.request';
 import { Loadsheet } from '../entity/loadsheet.entity';
 
-@ApiTags('flight-actions')
+@ApiTags('flight actions')
 @Controller('api/v1/flight')
 export class ActionsController {
   constructor(private readonly flightsService: FlightsService) {}
