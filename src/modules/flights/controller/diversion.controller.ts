@@ -96,7 +96,7 @@ export class DiversionController {
   @ApiBody({ type: ReportDiversionRequest })
   @ApiOkResponse({
     type: GetDiversionResponse,
-    description: 'Flight diversion was successfully reported',
+    description: 'Flight diversion details',
   })
   @ApiBadRequestResponse({
     description: 'Flight id is not valid uuid v4',
