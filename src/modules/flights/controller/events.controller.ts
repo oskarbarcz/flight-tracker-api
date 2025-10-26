@@ -18,7 +18,7 @@ import { FlightEventResponse } from '../dto/event.dto';
 import { FlightEventScope } from '../entity/event.entity';
 import { FlightEventType } from '../../../core/events/flight';
 
-@ApiTags('flight-events')
+@ApiTags('flight events')
 @Controller('api/v1/flight')
 export class EventsController {
   constructor(private readonly flightEventsRepository: EventsRepository) {}

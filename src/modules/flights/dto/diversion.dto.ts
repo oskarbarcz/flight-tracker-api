@@ -12,3 +12,17 @@ export class ReportDiversionRequest extends PickType(Diversion, [
   'airportId',
   'estimatedTimeAtDestination',
 ]) {}
+
+export class GetDiversionResponse extends PickType(Diversion, [
+  'id',
+  'severity',
+  'reason',
+  'freeText',
+  'position',
+  'notifySecurityOnGround',
+  'notifyMedicalOnGround',
+  'notifyFirefightersOnGround',
+  'airport',
+  'decisionTime',
+  'estimatedTimeAtDestination',
+]) {}

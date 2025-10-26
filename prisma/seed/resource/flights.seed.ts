@@ -9,7 +9,6 @@ import {
   DiversionReporterRole,
   DiversionSeverity,
 } from '../../../src/modules/flights/entity/diversion.entity';
-import { randomUUID } from 'node:crypto';
 
 const prisma = new PrismaClient();
 
@@ -2890,7 +2889,7 @@ async function loadDLH102(): Promise<void> {
 
   await prisma.diversion.create({
     data: {
-      id: randomUUID(),
+      id: '7c1482ce-dc03-4401-8472-0c25eef35de9',
       flightId: flight.id,
       airportId: departureAirport.id, // Diverted to JFK
       reason: DiversionReason.Medical,
