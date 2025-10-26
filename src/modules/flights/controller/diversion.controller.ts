@@ -93,7 +93,6 @@ export class DiversionController {
     name: 'flightId',
     description: 'Flight unique identifier',
   })
-  @ApiBody({ type: ReportDiversionRequest })
   @ApiOkResponse({
     type: GetDiversionResponse,
     description: 'Flight diversion details',
