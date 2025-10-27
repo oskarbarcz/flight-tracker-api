@@ -36,26 +36,26 @@ Feature: Report on-block
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T13:10:00.000Z",
-          "latitude": 60.317255208578054,
-          "longitude": 24.958945837172326
+          "latitude": 42.3656,
+          "longitude": -71.0096
         },
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T13:40:00.000Z",
-          "latitude": 58.68825909518984,
-          "longitude": 22.248460174236897
+          "latitude": 41.7,
+          "longitude": -72.3
         },
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T14:10:00.000Z",
-          "latitude": 55.587475442504896,
-          "longitude": 17.204921862764106
+          "latitude": 40.7,
+          "longitude": -74.0
         },
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T14:40:00.000Z",
-          "latitude": 54.37998045994538,
-          "longitude": 18.46850453127673
+          "latitude": 39.8729,
+          "longitude": -75.2437
         }
       ]
       """
@@ -195,26 +195,26 @@ Feature: Report on-block
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T13:10:00.000Z",
-          "latitude": 60.31725520857805,
-          "longitude": 24.95894583717233
+          "latitude": 42.3656,
+          "longitude": -71.0096
         },
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T13:40:00.000Z",
-          "latitude": 58.68825909518984,
-          "longitude": 22.2484601742369
+          "latitude": 41.7,
+          "longitude": -72.3
         },
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T14:10:00.000Z",
-          "latitude": 55.5874754425049,
-          "longitude": 17.20492186276411
+          "latitude": 40.7,
+          "longitude": -74.0
         },
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T14:40:00.000Z",
-          "latitude": 54.37998045994538,
-          "longitude": 18.46850453127673
+          "latitude": 39.8729,
+          "longitude": -75.2437
         }
       ]
       """
