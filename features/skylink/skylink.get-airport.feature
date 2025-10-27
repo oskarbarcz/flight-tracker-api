@@ -26,9 +26,9 @@ Feature: I get data from SkyLink
         "city": "London",
         "region": "England",
         "country": "GB",
-        "elevation_ft": "83",
-        "latitude": "51.47060013",
-        "longitude": "-0.461941",
+        "elevation_ft": 83,
+        "latitude": 51.47060013,
+        "longitude": -0.461941,
         "timezone": "Europe/London"
       }
       """
