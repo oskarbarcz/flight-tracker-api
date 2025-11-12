@@ -3,6 +3,15 @@ export type AdsbPositionReportApiInput = {
   date: string;
   latitude: number;
   longitude: number;
+  verticalRate?: number;
+  squawk?: string;
+  groundSpeed?: number;
+  track?: number;
+  alert?: boolean;
+  emergency?: boolean;
+  spi?: boolean;
+  isOnGround?: boolean;
+  altitude?: number;
 };
 
 export type AdsbPositionReport = {
@@ -10,6 +19,15 @@ export type AdsbPositionReport = {
   date: Date;
   latitude: number;
   longitude: number;
+  verticalRate?: number;
+  squawk?: string;
+  groundSpeed?: number;
+  track?: number;
+  alert?: boolean;
+  emergency?: boolean;
+  spi?: boolean;
+  isOnGround?: boolean;
+  altitude?: number;
 };
 
 export type AdsbFlightTrack = AdsbPositionReport[];
@@ -17,12 +35,7 @@ export type AdsbFlightTrack = AdsbPositionReport[];
 export function transformPositionReport(
   input: AdsbPositionReportApiInput,
 ): AdsbPositionReport {
-  return {
-    callsign: input.callsign,
-    date: new Date(input.date),
-    latitude: input.latitude,
-    longitude: input.longitude,
-  };
+  return { ...input, date: new Date(input.date) };
 }
 
 export function deduplicatePositionReports(
