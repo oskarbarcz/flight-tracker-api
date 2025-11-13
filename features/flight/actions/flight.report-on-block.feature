@@ -37,25 +37,61 @@ Feature: Report on-block
           "callsign": "AAL4913",
           "date": "2025-01-01T13:10:00.000Z",
           "latitude": 42.3656,
-          "longitude": -71.0096
+          "longitude": -71.0096,
+          "altitude": 8500,
+          "verticalRate": 1800,
+          "groundSpeed": 285,
+          "track": 225,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T13:40:00.000Z",
           "latitude": 41.7,
-          "longitude": -72.3
+          "longitude": -72.3,
+          "altitude": 24000,
+          "verticalRate": 1500,
+          "groundSpeed": 140,
+          "track": 236,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T14:10:00.000Z",
           "latitude": 40.7,
-          "longitude": -74.0
+          "longitude": -74,
+          "altitude": 35000,
+          "verticalRate": 0,
+          "groundSpeed": 195,
+          "track": 233,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T14:40:00.000Z",
           "latitude": 39.8729,
-          "longitude": -75.2437
+          "longitude": -75.2437,
+          "altitude": 12000,
+          "verticalRate": -1200,
+          "groundSpeed": 151,
+          "track": 229,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         }
       ]
       """
@@ -196,25 +232,61 @@ Feature: Report on-block
           "callsign": "AAL4913",
           "date": "2025-01-01T13:10:00.000Z",
           "latitude": 42.3656,
-          "longitude": -71.0096
+          "longitude": -71.0096,
+          "altitude": 8500,
+          "verticalRate": 1800,
+          "groundSpeed": 285,
+          "track": 225,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T13:40:00.000Z",
           "latitude": 41.7,
-          "longitude": -72.3
+          "longitude": -72.3,
+          "altitude": 24000,
+          "verticalRate": 1500,
+          "groundSpeed": 140,
+          "track": 236,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T14:10:00.000Z",
           "latitude": 40.7,
-          "longitude": -74.0
+          "longitude": -74,
+          "altitude": 35000,
+          "verticalRate": 0,
+          "groundSpeed": 195,
+          "track": 233,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4913",
           "date": "2025-01-01T14:40:00.000Z",
           "latitude": 39.8729,
-          "longitude": -75.2437
+          "longitude": -75.2437,
+          "altitude": 12000,
+          "verticalRate": -1200,
+          "groundSpeed": 151,
+          "track": 229,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         }
       ]
       """

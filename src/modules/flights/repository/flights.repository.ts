@@ -185,7 +185,9 @@ export class FlightsRepository {
     const positionReports =
       data.positionReports as unknown as AdsbPositionReportApiInput[];
 
-    return positionReports.map((report) => transformPositionReport(report));
+    console.log(positionReports);
+
+    return positionReports.map(transformPositionReport);
   }
 
   async getOneById(id: string): Promise<FlightResponse> {
