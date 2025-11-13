@@ -185,8 +185,6 @@ export class FlightsRepository {
     const positionReports =
       data.positionReports as unknown as AdsbPositionReportApiInput[];
 
-    console.log(positionReports);
-
     return positionReports.map(transformPositionReport);
   }
 
