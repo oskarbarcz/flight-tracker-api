@@ -136,6 +136,70 @@ export class FlightPathElement {
     maximum: 180,
   })
   longitude: number;
+
+  @ApiProperty({
+    description: 'The vertical rate of the aircraft in fpm (feet per minute)',
+    example: 1500,
+    required: false,
+  })
+  verticalRate?: number;
+
+  @ApiProperty({
+    description: 'The squawk code of the aircraft (4 digits, each 0-7)',
+    example: '1234',
+    required: false,
+  })
+  squawk?: string;
+
+  @ApiProperty({
+    description: 'The ground speed of the aircraft in knots',
+    example: 250,
+    required: false,
+  })
+  groundSpeed?: number;
+
+  @ApiProperty({
+    description: 'The track angle of the aircraft in degrees',
+    example: 180,
+    required: false,
+  })
+  track?: number;
+
+  @ApiProperty({
+    description: 'Indicates if the aircraft is alerting',
+    example: false,
+    required: false,
+  })
+  alert?: boolean;
+
+  @ApiProperty({
+    description: 'Indicates if the aircraft is in an emergency state',
+    example: false,
+    required: false,
+  })
+  emergency?: boolean;
+
+  @ApiProperty({
+    description:
+      'Indicates if the aircraft has special position identification (IDENT)',
+    example: true,
+    required: false,
+  })
+  spi?: boolean;
+
+  @ApiProperty({
+    description: 'Indicates if the aircraft is on the ground',
+    example: true,
+    required: false,
+  })
+  isOnGround?: boolean;
+
+  @ApiProperty({
+    description: 'Aircraft altitude in feet',
+    example: 29000,
+    required: false,
+  })
+  altitude?: number;
 }
 
 export function trimCallsign(callsign: string): string {

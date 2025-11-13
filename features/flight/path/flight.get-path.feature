@@ -11,25 +11,61 @@ Feature: Get flight path
           "callsign": "AAL4914",
           "date": "2025-01-01T13:10:00.000Z",
           "latitude": 60.31725520857805,
-          "longitude": 24.95894583717233
+          "longitude": 24.95894583717233,
+          "altitude": 8500,
+          "verticalRate": 1800,
+          "groundSpeed": 285,
+          "track": 225,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4914",
           "date": "2025-01-01T13:40:00.000Z",
           "latitude": 58.68825909518984,
-          "longitude": 22.2484601742369
+          "longitude": 22.2484601742369,
+          "altitude": 24000,
+          "verticalRate": 1500,
+          "groundSpeed": 140,
+          "track": 236,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4914",
           "date": "2025-01-01T14:10:00.000Z",
           "latitude": 55.5874754425049,
-          "longitude": 17.20492186276411
+          "longitude": 17.20492186276411,
+          "altitude": 35000,
+          "verticalRate": 0,
+          "groundSpeed": 195,
+          "track": 233,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4914",
           "date": "2025-01-01T14:40:00.000Z",
           "latitude": 54.37998045994538,
-          "longitude": 18.46850453127673
+          "longitude": 18.46850453127673,
+          "altitude": 12000,
+          "verticalRate": -1200,
+          "groundSpeed": 151,
+          "track": 229,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         }
       ]
       """
@@ -45,25 +81,61 @@ Feature: Get flight path
           "callsign": "AAL4914",
           "date": "2025-01-01T13:10:00.000Z",
           "latitude": 60.31725520857805,
-          "longitude": 24.95894583717233
+          "longitude": 24.95894583717233,
+          "altitude": 8500,
+          "verticalRate": 1800,
+          "groundSpeed": 285,
+          "track": 225,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4914",
           "date": "2025-01-01T13:40:00.000Z",
           "latitude": 58.68825909518984,
-          "longitude": 22.2484601742369
+          "longitude": 22.2484601742369,
+          "altitude": 24000,
+          "verticalRate": 1500,
+          "groundSpeed": 140,
+          "track": 236,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4914",
           "date": "2025-01-01T14:10:00.000Z",
           "latitude": 55.5874754425049,
-          "longitude": 17.20492186276411
+          "longitude": 17.20492186276411,
+          "altitude": 35000,
+          "verticalRate": 0,
+          "groundSpeed": 195,
+          "track": 233,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4914",
           "date": "2025-01-01T14:40:00.000Z",
           "latitude": 54.37998045994538,
-          "longitude": 18.46850453127673
+          "longitude": 18.46850453127673,
+          "altitude": 12000,
+          "verticalRate": -1200,
+          "groundSpeed": 151,
+          "track": 229,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         }
       ]
       """
@@ -79,25 +151,61 @@ Feature: Get flight path
           "callsign": "AAL4914",
           "date": "2025-01-01T13:10:00.000Z",
           "latitude": 60.31725520857805,
-          "longitude": 24.95894583717233
+          "longitude": 24.95894583717233,
+          "altitude": 8500,
+          "verticalRate": 1800,
+          "groundSpeed": 285,
+          "track": 225,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4914",
           "date": "2025-01-01T13:40:00.000Z",
           "latitude": 58.68825909518984,
-          "longitude": 22.2484601742369
+          "longitude": 22.2484601742369,
+          "altitude": 24000,
+          "verticalRate": 1500,
+          "groundSpeed": 140,
+          "track": 236,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4914",
           "date": "2025-01-01T14:10:00.000Z",
           "latitude": 55.5874754425049,
-          "longitude": 17.20492186276411
+          "longitude": 17.20492186276411,
+          "altitude": 35000,
+          "verticalRate": 0,
+          "groundSpeed": 195,
+          "track": 233,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4914",
           "date": "2025-01-01T14:40:00.000Z",
           "latitude": 54.37998045994538,
-          "longitude": 18.46850453127673
+          "longitude": 18.46850453127673,
+          "altitude": 12000,
+          "verticalRate": -1200,
+          "groundSpeed": 151,
+          "track": 229,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         }
       ]
       """
@@ -112,25 +220,61 @@ Feature: Get flight path
           "callsign": "AAL4914",
           "date": "2025-01-01T13:10:00.000Z",
           "latitude": 60.31725520857805,
-          "longitude": 24.95894583717233
+          "longitude": 24.95894583717233,
+          "altitude": 8500,
+          "verticalRate": 1800,
+          "groundSpeed": 285,
+          "track": 225,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4914",
           "date": "2025-01-01T13:40:00.000Z",
           "latitude": 58.68825909518984,
-          "longitude": 22.2484601742369
+          "longitude": 22.2484601742369,
+          "altitude": 24000,
+          "verticalRate": 1500,
+          "groundSpeed": 140,
+          "track": 236,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4914",
           "date": "2025-01-01T14:10:00.000Z",
           "latitude": 55.5874754425049,
-          "longitude": 17.20492186276411
+          "longitude": 17.20492186276411,
+          "altitude": 35000,
+          "verticalRate": 0,
+          "groundSpeed": 195,
+          "track": 233,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         },
         {
           "callsign": "AAL4914",
           "date": "2025-01-01T14:40:00.000Z",
           "latitude": 54.37998045994538,
-          "longitude": 18.46850453127673
+          "longitude": 18.46850453127673,
+          "altitude": 12000,
+          "verticalRate": -1200,
+          "groundSpeed": 151,
+          "track": 229,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
         }
       ]
       """
