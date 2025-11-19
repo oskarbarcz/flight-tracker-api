@@ -125,6 +125,15 @@ export class UsersService {
       where: { id: event.actorId as string },
       data: { currentFlightId: event.flightId },
     });
+
+    if (!event.rotationId) {
+      return;
+    }
+
+    await this.prisma.user.update({
+      where: { id: event.actorId as string },
+      data: { currentRotationId: event.rotationId },
+    });
   }
 
   @OnEvent(FlightEventType.FlightWasClosed)
@@ -132,6 +141,27 @@ export class UsersService {
     await this.prisma.user.update({
       where: { id: event.actorId as string },
       data: { currentFlightId: null },
+    });
+
+    // flight has no rotation
+    if (!event.rotationId) {
+      return;
+    }
+
+    const lastFlightInRotation = await this.prisma.flight.findFirst({
+      select: { id: true },
+      where: { id: event.flightId },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    // flight is not last in rotation
+    if (lastFlightInRotation?.id !== event.rotationId) {
+      return;
+    }
+
+    await this.prisma.user.update({
+      where: { id: event.actorId as string },
+      data: { currentRotationId: null },
     });
   }
 

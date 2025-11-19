@@ -39,8 +39,24 @@ export async function loadUsers(): Promise<void> {
     pilotLicenseId: 'UK-31270',
   };
 
+  const alan: User = {
+    id: '725f5df2-0c78-4fe8-89a2-52566c89cf7f',
+    name: 'Alan Doe',
+    email: 'second-cabin-crew@example.com',
+    role: UserRole.CabinCrew,
+    // password: 'P@$$w0rd' — bcrypt with 12 rounds
+    password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
+    // null because seed flights loaded later than seed users
+    // DLH 42 attached in flights.seed.ts
+    currentFlightId: null,
+    // null because seed flights loaded later than seed users
+    // 02-2025 attached in rotations.seed.ts
+    currentRotationId: null,
+    pilotLicenseId: 'UK-34560',
+  };
+
   const prisma = new PrismaClient();
-  for (const user of [john, alice, rick]) {
+  for (const user of [john, alice, rick, alan]) {
     await prisma.user.create({ data: user });
   }
 }
