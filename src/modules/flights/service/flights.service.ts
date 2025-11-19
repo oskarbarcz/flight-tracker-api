@@ -80,6 +80,7 @@ export class FlightsService {
         }),
       ),
       isFlightDiverted: flight.isFlightDiverted,
+      rotationId: flight.rotationId,
     };
   }
 
@@ -106,6 +107,7 @@ export class FlightsService {
           }),
         ),
         isFlightDiverted: flight.isFlightDiverted,
+        rotationId: flight.rotationId,
       }),
     );
   }
@@ -132,6 +134,7 @@ export class FlightsService {
 
     const event: NewFlightEvent = {
       flightId: flight.id,
+      rotationId: flight.rotationId,
       type: FlightEventType.FlightWasCreated,
       scope: FlightEventScope.Operations,
       actorId: initiator.sub,
@@ -156,6 +159,7 @@ export class FlightsService {
         }),
       ),
       isFlightDiverted: flight.isFlightDiverted,
+      rotationId: flight.rotationId,
     };
   }
 
@@ -191,6 +195,7 @@ export class FlightsService {
     await this.flightsRepository.updateStatus(id, FlightStatus.Ready);
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.FlightWasReleased,
       scope: FlightEventScope.User,
       actorId: initiatorId,
@@ -219,6 +224,7 @@ export class FlightsService {
     await this.flightsRepository.updateLoadsheets(id, loadsheets);
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.PreliminaryLoadsheetWasUpdated,
       scope: FlightEventScope.Operations,
       actorId: initiatorId,
@@ -250,6 +256,7 @@ export class FlightsService {
     await this.flightsRepository.updateTimesheet(id, timesheet);
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.ScheduledTimesheetWasUpdated,
       scope: FlightEventScope.Operations,
       actorId: initiatorId,
@@ -280,6 +287,7 @@ export class FlightsService {
 
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.PilotCheckedIn,
       scope: FlightEventScope.User,
       actorId: initiatorId,
@@ -301,6 +309,7 @@ export class FlightsService {
     await this.flightsRepository.updateStatus(id, FlightStatus.BoardingStarted);
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.BoardingWasStarted,
       scope: FlightEventScope.User,
       actorId: initiatorId,
@@ -338,6 +347,7 @@ export class FlightsService {
 
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.BoardingWasFinished,
       scope: FlightEventScope.User,
       actorId: initiatorId,
@@ -371,6 +381,7 @@ export class FlightsService {
 
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.OffBlockWasReported,
       scope: FlightEventScope.User,
       actorId: initiatorId,
@@ -399,6 +410,7 @@ export class FlightsService {
 
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.TakeoffWasReported,
       scope: FlightEventScope.User,
       actorId: initiatorId,
@@ -425,6 +437,7 @@ export class FlightsService {
 
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.ArrivalWasReported,
       scope: FlightEventScope.User,
       actorId: initiatorId,
@@ -451,6 +464,7 @@ export class FlightsService {
 
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.OnBlockWasReported,
       scope: FlightEventScope.User,
       actorId: initiatorId,
@@ -481,6 +495,7 @@ export class FlightsService {
 
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.OffboardingWasStarted,
       scope: FlightEventScope.User,
       actorId: initiatorId,
@@ -511,6 +526,7 @@ export class FlightsService {
 
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.OffboardingWasFinished,
       scope: FlightEventScope.User,
       actorId: initiatorId,
@@ -533,6 +549,7 @@ export class FlightsService {
 
     const event: NewFlightEvent = {
       flightId: id,
+      rotationId: flight.rotationId,
       type: FlightEventType.FlightWasClosed,
       scope: FlightEventScope.User,
       actorId: initiatorId,
