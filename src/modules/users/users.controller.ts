@@ -79,6 +79,7 @@ export class UsersController {
     name: 'pilotLicenseId',
     required: false,
     description: 'Pilot license ID',
+    type: 'string',
   })
   @ApiBearerAuth('jwt')
   @ApiOkResponse({

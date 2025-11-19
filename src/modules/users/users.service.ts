@@ -151,6 +151,7 @@ export class UsersService {
       role: user.role,
       pilotLicenseId: user.pilotLicenseId,
       currentFlightId: user.currentFlightId,
+      currentRotationId: user.currentRotationId,
     };
   }
 }
