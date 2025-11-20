@@ -2990,7 +2990,7 @@ async function loadDLH42(): Promise<void> {
     id: '006f0754-1ed7-4ae1-9f91-fae2d446a6e7',
     flightNumber: 'LH 42',
     callsign: 'DLH 42',
-    status: FlightStatus.CheckedIn,
+    status: FlightStatus.Ready,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
     rotationId: '4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1', // 2025-02
@@ -3000,12 +3000,6 @@ async function loadDLH42(): Promise<void> {
         takeoffTime: new Date('2025-01-02 18:00'),
         arrivalTime: new Date('2025-01-03 02:00'),
         onBlockTime: new Date('2025-01-03 02:15'),
-      },
-      estimated: {
-        offBlockTime: new Date('2025-01-02 17:40'),
-        takeoffTime: new Date('2025-01-02 18:00'),
-        arrivalTime: new Date('2025-01-03 02:30'),
-        onBlockTime: new Date('2025-01-03 02:45'),
       },
     } as Prisma.InputJsonValue,
     loadsheets: {

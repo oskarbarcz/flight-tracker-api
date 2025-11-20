@@ -150,12 +150,12 @@ export class UsersService {
 
     const lastFlightInRotation = await this.prisma.flight.findFirst({
       select: { id: true },
-      where: { id: event.flightId },
-      orderBy: { createdAt: 'asc' },
+      where: { rotationId: event.rotationId },
+      orderBy: { createdAt: 'desc' },
     });
 
     // flight is not last in rotation
-    if (lastFlightInRotation?.id !== event.rotationId) {
+    if (lastFlightInRotation?.id !== event.flightId) {
       return;
     }
 

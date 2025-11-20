@@ -17,6 +17,14 @@ const apiUsers = {
     email: 'cabin-crew@example.com',
     password: 'P@$$w0rd',
   },
+  'Alan Doe': {
+    email: 'alan.doe@example.com',
+    password: 'P@$$w0rd',
+  },
+  'Michael Doe': {
+    email: 'michael.doe@example.com',
+    password: 'P@$$w0rd',
+  },
 };
 
 const apiBaseUrl = 'http://localhost:3000';
