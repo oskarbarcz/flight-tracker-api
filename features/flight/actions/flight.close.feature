@@ -155,7 +155,8 @@ Feature: Close flight
             "type": "destination_alternate"
           }
         ],
-        "isFlightDiverted": false
+        "isFlightDiverted": false,
+        "rotationId": null
       }
       """
     When I send a "GET" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/events"
@@ -319,7 +320,8 @@ Feature: Close flight
         "email": "cabin-crew@example.com",
         "role": "CabinCrew",
         "pilotLicenseId": "UK-31270",
-        "currentFlightId": null
+        "currentFlightId": null,
+        "currentRotationId": null
       }
       """
     And I set database to initial state

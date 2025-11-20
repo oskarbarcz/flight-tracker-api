@@ -12,7 +12,8 @@ Feature: Get user
         "email": "admin@example.com",
         "role": "Admin",
         "pilotLicenseId": null,
-        "currentFlightId": null
+        "currentFlightId": null,
+        "currentRotationId": null
       }
       """
 
@@ -28,7 +29,8 @@ Feature: Get user
         "email": "admin@example.com",
         "role": "Admin",
         "pilotLicenseId": null,
-        "currentFlightId": null
+        "currentFlightId": null,
+        "currentRotationId": null
       }
       """
 

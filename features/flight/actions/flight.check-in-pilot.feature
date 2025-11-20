@@ -162,7 +162,8 @@ Feature: Check in pilot for flight
             "type": "destination_alternate"
           }
         ],
-        "isFlightDiverted": false
+        "isFlightDiverted": false,
+        "rotationId": null
       }
       """
     When I send a "GET" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/events"
@@ -227,7 +228,8 @@ Feature: Check in pilot for flight
         "email": "cabin-crew@example.com",
         "role": "CabinCrew",
         "pilotLicenseId": "UK-31270",
-        "currentFlightId": "23952e79-6b38-49ed-a1db-bd4d9b3cedab"
+        "currentFlightId": "23952e79-6b38-49ed-a1db-bd4d9b3cedab",
+        "currentRotationId": null
       }
       """
     And I set database to initial state

@@ -163,7 +163,8 @@ Feature: Finish flight boarding
             "type": "destination_alternate"
           }
         ],
-        "isFlightDiverted": false
+        "isFlightDiverted": false,
+        "rotationId": null
       }
       """
     When I send a "GET" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/events"

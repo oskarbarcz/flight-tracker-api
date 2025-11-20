@@ -42,7 +42,7 @@ export async function loadUsers(): Promise<void> {
   const alan: User = {
     id: '725f5df2-0c78-4fe8-89a2-52566c89cf7f',
     name: 'Alan Doe',
-    email: 'second-cabin-crew@example.com',
+    email: 'alan.doe@example.com',
     role: UserRole.CabinCrew,
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
@@ -55,8 +55,24 @@ export async function loadUsers(): Promise<void> {
     pilotLicenseId: 'UK-34560',
   };
 
+  const michael: User = {
+    id: '629be07f-5e65-429a-9d69-d34b99185f50',
+    name: 'Michael Doe',
+    email: 'michael.doe@example.com',
+    role: UserRole.CabinCrew,
+    // password: 'P@$$w0rd' — bcrypt with 12 rounds
+    password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
+    // null because seed flights loaded later than seed users
+    // DLH 43 attached in flights.seed.ts
+    currentFlightId: null,
+    // null because seed flights loaded later than seed users
+    // 03-2025 attached in rotations.seed.ts
+    currentRotationId: null,
+    pilotLicenseId: 'UK-98540',
+  };
+
   const prisma = new PrismaClient();
-  for (const user of [john, alice, rick, alan]) {
+  for (const user of [john, alice, rick, alan, michael]) {
     await prisma.user.create({ data: user });
   }
 }

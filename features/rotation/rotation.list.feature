@@ -27,6 +27,40 @@ Feature: List rotations
           ],
           "createdAt": "2025-01-01T00:00:00.000Z",
           "updatedAt": null
+        },
+        {
+          "id": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1",
+          "name": "2025-02",
+          "pilot": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe",
+            "pilotLicenseId": "UK-34560"
+          },
+          "flights": [
+            {
+              "id": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
+              "flightNumber": "LH 42"
+            }
+          ],
+          "createdAt": "2025-01-02T00:00:00.000Z",
+          "updatedAt": null
+        },
+        {
+          "id": "c2e12afb-a712-45aa-9ba5-fec71868e59a",
+          "name": "2025-03",
+          "pilot": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe",
+            "pilotLicenseId": "UK-98540"
+          },
+          "flights": [
+            {
+              "id": "d4a25ef2-39cf-484c-af00-a548999e8699",
+              "flightNumber": "LH 43"
+            }
+          ],
+          "createdAt": "2025-01-03T00:00:00.000Z",
+          "updatedAt": null
         }
       ]
       """
@@ -58,6 +92,40 @@ Feature: List rotations
           ],
           "createdAt": "2025-01-01T00:00:00.000Z",
           "updatedAt": null
+        },
+        {
+          "id": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1",
+          "name": "2025-02",
+          "pilot": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe",
+            "pilotLicenseId": "UK-34560"
+          },
+          "flights": [
+            {
+              "id": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
+              "flightNumber": "LH 42"
+            }
+          ],
+          "createdAt": "2025-01-02T00:00:00.000Z",
+          "updatedAt": null
+        },
+        {
+          "id": "c2e12afb-a712-45aa-9ba5-fec71868e59a",
+          "name": "2025-03",
+          "pilot": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe",
+            "pilotLicenseId": "UK-98540"
+          },
+          "flights": [
+            {
+              "id": "d4a25ef2-39cf-484c-af00-a548999e8699",
+              "flightNumber": "LH 43"
+            }
+          ],
+          "createdAt": "2025-01-03T00:00:00.000Z",
+          "updatedAt": null
         }
       ]
       """
@@ -88,6 +156,40 @@ Feature: List rotations
             }
           ],
           "createdAt": "2025-01-01T00:00:00.000Z",
+          "updatedAt": null
+        },
+        {
+          "id": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1",
+          "name": "2025-02",
+          "pilot": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe",
+            "pilotLicenseId": "UK-34560"
+          },
+          "flights": [
+            {
+              "id": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
+              "flightNumber": "LH 42"
+            }
+          ],
+          "createdAt": "2025-01-02T00:00:00.000Z",
+          "updatedAt": null
+        },
+        {
+          "id": "c2e12afb-a712-45aa-9ba5-fec71868e59a",
+          "name": "2025-03",
+          "pilot": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe",
+            "pilotLicenseId": "UK-98540"
+          },
+          "flights": [
+            {
+              "id": "d4a25ef2-39cf-484c-af00-a548999e8699",
+              "flightNumber": "LH 43"
+            }
+          ],
+          "createdAt": "2025-01-03T00:00:00.000Z",
           "updatedAt": null
         }
       ]
