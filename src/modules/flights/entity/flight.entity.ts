@@ -102,6 +102,13 @@ export class Flight {
   rotation?: Rotation;
 
   @ApiProperty({
+    description: 'Unique identifier of rotation this flight belongs to',
+    type: 'string',
+    nullable: true,
+  })
+  rotationId: string | null;
+
+  @ApiProperty({
     description: 'Flag if flight was diverted',
     example: false,
   })

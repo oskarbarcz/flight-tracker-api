@@ -12,7 +12,8 @@ Feature: Get current user
         "email": "admin@example.com",
         "role": "Admin",
         "pilotLicenseId": null,
-        "currentFlightId": null
+        "currentFlightId": null,
+        "currentRotationId": null
       }
       """
 
@@ -28,7 +29,8 @@ Feature: Get current user
         "email": "operations@example.com",
         "role": "Operations",
         "pilotLicenseId": null,
-        "currentFlightId": null
+        "currentFlightId": null,
+        "currentRotationId": null
       }
       """
 
@@ -44,7 +46,8 @@ Feature: Get current user
         "email": "cabin-crew@example.com",
         "role": "CabinCrew",
         "pilotLicenseId": "UK-31270",
-        "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e"
+        "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e",
+        "currentRotationId": null
       }
       """
 

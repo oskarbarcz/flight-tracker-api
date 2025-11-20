@@ -155,7 +155,8 @@ Feature: Finish offboarding for flight that started onboarding
             "type": "destination_alternate"
           }
         ],
-        "isFlightDiverted": false
+        "isFlightDiverted": false,
+        "rotationId": null
       }
       """
     When I send a "GET" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/events"

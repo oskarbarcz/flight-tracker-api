@@ -18,7 +18,8 @@ Feature: Update user
         "email": "john.doe@example.com",
         "role": "Admin",
         "pilotLicenseId": null,
-        "currentFlightId": null
+        "currentFlightId": null,
+        "currentRotationId": null
       }
       """
     And I set database to initial state
@@ -40,7 +41,8 @@ Feature: Update user
         "email": "admin@example.com",
         "role": "Admin",
         "pilotLicenseId": null,
-        "currentFlightId": null
+        "currentFlightId": null,
+        "currentRotationId": null
       }
       """
     And I set database to initial state
@@ -62,7 +64,8 @@ Feature: Update user
         "email": "admin@example.com",
         "role": "CabinCrew",
         "pilotLicenseId": null,
-        "currentFlightId": null
+        "currentFlightId": null,
+        "currentRotationId": null
       }
       """
     And I set database to initial state
@@ -194,7 +197,8 @@ Feature: Update user
         "email": "cabin-crew@example.com",
         "role": "CabinCrew",
         "pilotLicenseId": "UK-12345",
-        "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e"
+        "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e",
+        "currentRotationId": null
       }
       """
     And I set database to initial state

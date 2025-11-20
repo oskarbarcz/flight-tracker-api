@@ -123,7 +123,8 @@ Feature: Get flight
             }
           }
         ],
-        "isFlightDiverted": false
+        "isFlightDiverted": false,
+        "rotationId": null
       }
       """
 

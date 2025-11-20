@@ -59,7 +59,15 @@ export class EventsRepository {
   @OnEvent(FlightEventType.FlightWasAddedToRotation)
   @OnEvent(FlightEventType.FlightWasRemovedFromRotation)
   async saveEvent(event: NewFlightEvent): Promise<void> {
-    await this.prisma.flightEvent.create({ data: event });
+    await this.prisma.flightEvent.create({
+      data: {
+        flightId: event.flightId,
+        scope: event.scope,
+        type: event.type,
+        payload: event.payload,
+        actorId: event.actorId,
+      },
+    });
   }
 
   private async flightExists(flightId: string): Promise<boolean> {

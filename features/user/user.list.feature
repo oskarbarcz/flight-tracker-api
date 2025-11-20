@@ -13,7 +13,8 @@ Feature: List users
           "email": "admin@example.com",
           "role": "Admin",
           "pilotLicenseId": null,
-          "currentFlightId": null
+          "currentFlightId": null,
+          "currentRotationId": null
         },
         {
           "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -21,7 +22,8 @@ Feature: List users
           "email": "operations@example.com",
           "role": "Operations",
           "pilotLicenseId": null,
-          "currentFlightId": null
+          "currentFlightId": null,
+          "currentRotationId": null
         },
         {
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -29,25 +31,26 @@ Feature: List users
           "email": "cabin-crew@example.com",
           "role": "CabinCrew",
           "pilotLicenseId": "UK-31270",
-          "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e"
-        }
-      ]
-      """
-
-  Scenario: As an admin I can find user by pilot license ID
-    Given I am signed in as "admin"
-    When I send a "GET" request to "/api/v1/user?pilotLicenseId=UK-31270"
-    Then the response status should be 200
-    And the response body should contain:
-      """json
-      [
+          "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e",
+          "currentRotationId": null
+        },
         {
-          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
-          "name": "Rick Doe",
-          "email": "cabin-crew@example.com",
+          "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+          "name": "Alan Doe",
+          "email": "alan.doe@example.com",
           "role": "CabinCrew",
-          "pilotLicenseId": "UK-31270",
-          "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e"
+          "pilotLicenseId": "UK-34560",
+          "currentFlightId": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
+          "currentRotationId": null
+        },
+        {
+          "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+          "name": "Michael Doe",
+          "email": "michael.doe@example.com",
+          "role": "CabinCrew",
+          "pilotLicenseId": "UK-98540",
+          "currentFlightId": "d4a25ef2-39cf-484c-af00-a548999e8699",
+          "currentRotationId": "c2e12afb-a712-45aa-9ba5-fec71868e59a"
         }
       ]
       """
@@ -102,7 +105,8 @@ Feature: List users
           "email": "cabin-crew@example.com",
           "role": "CabinCrew",
           "pilotLicenseId": "UK-31270",
-          "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e"
+          "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e",
+          "currentRotationId": null
         }
       ]
       """

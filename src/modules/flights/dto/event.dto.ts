@@ -10,4 +10,5 @@ export class NewFlightEvent extends OmitType(FlightEvent, [
 export class FlightEventResponse extends OmitType(FlightEvent, [
   'actorId',
   'flightId',
+  'rotationId',
 ]) {}

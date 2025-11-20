@@ -20,6 +20,7 @@ Feature: Create user
         "email": "anna.doe@example.com",
         "role": "Admin",
         "currentFlightId": null,
+        "currentRotationId": null,
         "pilotLicenseId": null
       }
       """
@@ -46,7 +47,8 @@ Feature: Create user
         "email": "bob.doe@example.com",
         "role": "CabinCrew",
         "pilotLicenseId": "UK-12345",
-        "currentFlightId": null
+        "currentFlightId": null,
+        "currentRotationId": null
       }
       """
     And I set database to initial state

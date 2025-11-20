@@ -155,7 +155,8 @@ Feature: Report off-block
             "type": "destination_alternate"
           }
         ],
-        "isFlightDiverted": false
+        "isFlightDiverted": false,
+        "rotationId": null
       }
       """
     When I send a "GET" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1/events"

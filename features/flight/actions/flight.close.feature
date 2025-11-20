@@ -155,7 +155,8 @@ Feature: Close flight
             "type": "destination_alternate"
           }
         ],
-        "isFlightDiverted": false
+        "isFlightDiverted": false,
+        "rotationId": null
       }
       """
     When I send a "GET" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/events"
@@ -319,7 +320,327 @@ Feature: Close flight
         "email": "cabin-crew@example.com",
         "role": "CabinCrew",
         "pilotLicenseId": "UK-31270",
-        "currentFlightId": null
+        "currentFlightId": null,
+        "currentRotationId": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As a cabin crew I close flight for flight that finished offboarding and is last in rotation
+    Given I am signed in as "Michael Doe"
+    When I send a "POST" request to "/api/v1/flight/d4a25ef2-39cf-484c-af00-a548999e8699/close"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/d4a25ef2-39cf-484c-af00-a548999e8699"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "d4a25ef2-39cf-484c-af00-a548999e8699",
+        "flightNumber": "LH 43",
+        "callsign": "DLH 43",
+        "status": "closed",
+        "timesheet": {
+          "actual": {
+            "arrivalTime": "2025-01-03T11:30:00.000Z",
+            "onBlockTime": "2025-01-03T11:45:00.000Z",
+            "takeoffTime": "2025-01-03T04:20:00.000Z",
+            "offBlockTime": "2025-01-03T04:00:00.000Z"
+          },
+          "estimated": {
+            "arrivalTime": "2025-01-03T11:30:00.000Z",
+            "onBlockTime": "2025-01-03T11:45:00.000Z",
+            "takeoffTime": "2025-01-03T04:20:00.000Z",
+            "offBlockTime": "2025-01-03T04:00:00.000Z"
+          },
+          "scheduled": {
+            "arrivalTime": "2025-01-03T11:30:00.000Z",
+            "onBlockTime": "2025-01-03T11:45:00.000Z",
+            "takeoffTime": "2025-01-03T04:20:00.000Z",
+            "offBlockTime": "2025-01-03T04:00:00.000Z"
+          }
+        },
+        "loadsheets": {
+          "final": null,
+          "preliminary": {
+            "cargo": 8.4,
+            "payload": 34.9,
+            "blockFuel": 47.9,
+            "flightCrew": {
+              "pilots": 2,
+              "cabinCrew": 12,
+              "reliefPilots": 1
+            },
+            "passengers": 335,
+            "zeroFuelWeight": 162.3
+          }
+        },
+        "aircraft": {
+          "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+          "icaoCode": "A339",
+          "shortName": "Airbus A330",
+          "fullName": "Airbus A330-900 neo",
+          "registration": "D-AIMC",
+          "selcal": "LR-CK",
+          "livery": "Fanhansa (2024)",
+          "operator": {
+            "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+            "icaoCode": "DLH",
+            "shortName": "Lufthansa",
+            "fullName": "Deutsche Lufthansa AG",
+            "callsign": "LUFTHANSA"
+          }
+        },
+        "operator": {
+          "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+          "icaoCode": "DLH",
+          "shortName": "Lufthansa",
+          "fullName": "Deutsche Lufthansa AG",
+          "callsign": "LUFTHANSA"
+        },
+        "airports": [
+          {
+            "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+            "icaoCode": "KJFK",
+            "iataCode": "JFK",
+            "city": "New York",
+            "name": "New York JFK",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": {
+              "latitude": 40.6413,
+              "longitude": -73.7781
+            },
+            "type": "departure"
+          },
+          {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "city": "Frankfurt",
+            "name": "Frankfurt Rhein/Main",
+            "country": "Germany",
+            "timezone": "Europe/Berlin",
+            "continent": "europe",
+            "location": {
+              "latitude": 50.04693,
+              "longitude": 8.57397
+            },
+            "type": "destination"
+          },
+          {
+            "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
+            "icaoCode": "EDDW",
+            "iataCode": "BRE",
+            "city": "Bremen",
+            "name": "Bremen",
+            "country": "Germany",
+            "timezone": "Europe/Berlin",
+            "continent": "europe",
+            "location": {
+              "latitude": 53.0475,
+              "longitude": 8.786667
+            },
+            "type": "destination_alternate"
+          },
+          {
+            "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
+            "icaoCode": "BIRK",
+            "iataCode": "KEF",
+            "city": "Reykjavik",
+            "name": "Reykjavik Keflavik",
+            "country": "Iceland",
+            "timezone": "Atlantic/Reykjavik",
+            "continent": "europe",
+            "location": {
+              "latitude": 64.13,
+              "longitude": -21.9406
+            },
+            "type": "etops_alternate"
+          },
+          {
+            "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
+            "icaoCode": "CYYT",
+            "iataCode": "YYT",
+            "city": "St. Johns",
+            "name": "St. Johns Intl",
+            "country": "Canada",
+            "timezone": "America/St_Johns",
+            "continent": "north_america",
+            "location": {
+              "latitude": 47.61861,
+              "longitude": -52.751945
+            },
+            "type": "etops_alternate"
+          }
+        ],
+        "isFlightDiverted": false,
+        "rotationId": "c2e12afb-a712-45aa-9ba5-fec71868e59a"
+      }
+      """
+    When I send a "GET" request to "/api/v1/flight/d4a25ef2-39cf-484c-af00-a548999e8699/events"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "865a28a4-5154-4e35-a6d4-e198a1ceaa31",
+          "scope": "operations",
+          "type": "flight.created",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:00:00.000Z"
+        },
+        {
+          "id": "2b2cecc3-6af9-4335-9029-873c6da142c5",
+          "scope": "operations",
+          "type": "flight.preliminary-loadsheet-updated",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:05:00.000Z"
+        },
+        {
+          "id": "8505951b-9fdd-4262-8460-248039f8e7cd",
+          "scope": "operations",
+          "type": "flight.released",
+          "payload": {},
+          "actor": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "createdAt": "2025-01-01T11:10:00.000Z"
+        },
+        {
+          "id": "c8f5dd49-03f7-4656-8976-8907175c0017",
+          "scope": "user",
+          "type": "flight.pilot-checked-in",
+          "payload": {},
+          "actor": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe"
+          },
+          "createdAt": "2025-01-01T12:00:00.000Z"
+        },
+        {
+          "id": "eaf13533-5aef-4451-aeea-82152deda67d",
+          "scope": "user",
+          "type": "flight.boarding-started",
+          "payload": {},
+          "actor": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe"
+          },
+          "createdAt": "2025-01-01T12:40:00.000Z"
+        },
+        {
+          "id": "7d337c5c-6a9b-4d6c-bd87-319706ea55d4",
+          "scope": "user",
+          "type": "flight.boarding-finished",
+          "payload": {},
+          "actor": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe"
+          },
+          "createdAt": "2025-01-01T13:05:00.000Z"
+        },
+        {
+          "id": "30e6a5bb-8945-44ca-b6dc-537155c24287",
+          "scope": "user",
+          "type": "flight.off-block-reported",
+          "payload": {},
+          "actor": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe"
+          },
+          "createdAt": "2025-01-01T13:10:00.000Z"
+        },
+        {
+          "id": "0c1703d9-af9b-49f7-9a7a-26ff6cd53e36",
+          "scope": "user",
+          "type": "flight.takeoff-reported",
+          "payload": {},
+          "actor": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe"
+          },
+          "createdAt": "2025-01-01T13:25:00.000Z"
+        },
+        {
+          "id": "8fa22b88-71db-40c9-90ed-0525d35c4af2",
+          "scope": "user",
+          "type": "flight.arrival-reported",
+          "payload": {},
+          "actor": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe"
+          },
+          "createdAt": "2025-01-01T16:10:00.000Z"
+        },
+        {
+          "id": "9fb04dc3-062b-4f68-a2f3-a35a5e76e272",
+          "scope": "user",
+          "type": "flight.on-block-reported",
+          "payload": {},
+          "actor": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe"
+          },
+          "createdAt": "2025-01-01T16:28:00.000Z"
+        },
+        {
+          "id": "bd5ae37a-2efe-4ca9-83c9-6ed6e9218fad",
+          "scope": "user",
+          "type": "flight.offboarding-started",
+          "payload": {},
+          "actor": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe"
+          },
+          "createdAt": "2025-01-01T16:30:00.000Z"
+        },
+        {
+          "id": "6391d61d-988a-43c2-abd0-49a9f6aa25a5",
+          "scope": "user",
+          "type": "flight.offboarding-finished",
+          "payload": {},
+          "actor": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe"
+          },
+          "createdAt": "2025-01-01T16:50:00.000Z"
+        },
+        {
+          "id": "@uuid",
+          "scope": "user",
+          "type": "flight.closed",
+          "payload": {},
+          "actor": {
+            "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+            "name": "Michael Doe"
+          },
+          "createdAt": "@date('within 1 minute from now')"
+        }
+      ]
+      """
+    Given I am signed in as "admin"
+    When I send a "GET" request to "/api/v1/user/629be07f-5e65-429a-9d69-d34b99185f50"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+        "name": "Michael Doe",
+        "email": "michael.doe@example.com",
+        "role": "CabinCrew",
+        "pilotLicenseId": "UK-98540",
+        "currentFlightId": null,
+        "currentRotationId": null
       }
       """
     And I set database to initial state

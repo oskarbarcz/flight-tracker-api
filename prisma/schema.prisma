@@ -113,17 +113,19 @@ model AirportsOnFlights {
 }
 
 model User {
-  id              String   @id @default(uuid()) @db.Uuid
-  name            String
-  email           String   @unique
-  password        String
-  role            UserRole
-  pilotLicenseId  String?  @db.VarChar(8)
-  currentFlightId String?  @unique @db.Uuid
+  id                String   @id @default(uuid()) @db.Uuid
+  name              String
+  email             String   @unique
+  password          String
+  role              UserRole
+  pilotLicenseId    String?  @db.VarChar(8)
+  currentFlightId   String?  @unique @db.Uuid
+  currentRotationId String?  @unique @db.Uuid
 
-  rotation        Rotation[]
+  rotations       Rotation[]
   jwtRefreshToken JwtRefreshToken[]
   currentFlight   Flight?           @relation(fields: [currentFlightId], references: [id])
+  currentRotation Rotation?         @relation("CurrentRotation", fields: [currentRotationId], references: [id])
   flightEvent     FlightEvent[]
   diversion       Diversion[]
 
@@ -137,8 +139,9 @@ model Rotation {
   createdAt DateTime  @default(now())
   updatedAt DateTime?
 
-  flights Flight[]
-  pilot   User     @relation(fields: [pilotId], references: [id])
+  flights        Flight[]
+  pilot          User     @relation(fields: [pilotId], references: [id])
+  currentForUser User?    @relation("CurrentRotation")
 
   @@map("rotation")
 }
