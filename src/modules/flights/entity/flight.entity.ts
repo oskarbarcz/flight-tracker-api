@@ -113,6 +113,13 @@ export class Flight {
     example: false,
   })
   isFlightDiverted: boolean;
+
+  @ApiProperty({
+    description: 'Timestamp when the flight record was created',
+    example: '2025-01-01T00:00:00.000Z',
+    type: 'string',
+  })
+  createdAt: Date;
 }
 
 export class FlightPathElement {

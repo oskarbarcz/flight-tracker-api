@@ -124,7 +124,8 @@ Feature: Get flight
           }
         ],
         "isFlightDiverted": false,
-        "rotationId": null
+        "rotationId": null,
+        "createdAt": "2025-01-01T00:00:00.000Z"
       }
       """
 

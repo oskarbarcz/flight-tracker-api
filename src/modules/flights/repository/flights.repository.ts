@@ -29,6 +29,7 @@ export const flightWithAircraftAndAirportsFields = {
   timesheet: true,
   loadsheets: true,
   rotationId: true,
+  createdAt: true,
   operator: {
     select: {
       id: true,

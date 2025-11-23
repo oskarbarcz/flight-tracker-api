@@ -156,7 +156,8 @@ Feature: Report arrival
           }
         ],
         "isFlightDiverted": false,
-        "rotationId": null
+        "rotationId": null,
+        "createdAt": "2025-01-01T00:00:00.000Z"
       }
       """
     When I send a "GET" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/events"

@@ -156,7 +156,8 @@ Feature: Report off-block
           }
         ],
         "isFlightDiverted": false,
-        "rotationId": null
+        "rotationId": null,
+        "createdAt": "2025-01-01T00:00:00.000Z"
       }
       """
     When I send a "GET" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1/events"

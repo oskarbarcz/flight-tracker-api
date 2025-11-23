@@ -156,7 +156,8 @@ Feature: Start offboarding
           }
         ],
         "isFlightDiverted": false,
-        "rotationId": null
+        "rotationId": null,
+        "createdAt": "2025-01-01T00:00:00.000Z"
       }
       """
     When I send a "GET" request to "/api/v1/flight/17d2f703-957d-4ad1-a620-3c187a70c26a/events"

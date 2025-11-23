@@ -139,7 +139,8 @@ Feature: Start boarding
           }
         ],
         "isFlightDiverted": false,
-        "rotationId": null
+        "rotationId": null,
+        "createdAt": "2025-01-01T00:00:00.000Z"
       }
       """
     When I send a "GET" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/events"

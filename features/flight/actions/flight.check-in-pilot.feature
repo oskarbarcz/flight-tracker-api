@@ -163,7 +163,8 @@ Feature: Check in pilot for flight
           }
         ],
         "isFlightDiverted": false,
-        "rotationId": null
+        "rotationId": null,
+        "createdAt": "2025-01-01T00:00:00.000Z"
       }
       """
     When I send a "GET" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/events"
@@ -384,7 +385,8 @@ Feature: Check in pilot for flight
           }
         ],
         "isFlightDiverted": false,
-        "rotationId": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1"
+        "rotationId": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1",
+        "createdAt": "2025-01-01T00:00:00.000Z"
       }
       """
     When I send a "GET" request to "/api/v1/flight/006f0754-1ed7-4ae1-9f91-fae2d446a6e7/events"
