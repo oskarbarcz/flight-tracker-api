@@ -36,6 +36,7 @@ async function loadDLH450(): Promise<void> {
       preliminary: null,
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const dlh450departureAirport = await prisma.airport.findFirstOrThrow({
@@ -196,6 +197,7 @@ async function loadAAL4905(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
     positionReports: [
       {
         callsign: 'AAL4913',
@@ -460,6 +462,7 @@ async function loadAAL4906(): Promise<void> {
       },
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const ual4906departureAirport = await prisma.airport.findFirstOrThrow({
@@ -572,6 +575,7 @@ async function loadAAL4907(): Promise<void> {
       },
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const ual4907departureAirport = await prisma.airport.findFirstOrThrow({
@@ -672,6 +676,7 @@ async function loadAAL4908(): Promise<void> {
       },
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -804,6 +809,7 @@ async function loadAAL4909(): Promise<void> {
       },
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -951,6 +957,7 @@ async function loadAAL4910(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1113,6 +1120,7 @@ async function loadAAL4911(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1284,6 +1292,7 @@ async function loadAAL4912(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1464,6 +1473,7 @@ async function loadAAL4913(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1715,6 +1725,7 @@ async function loadAAL4914(): Promise<void> {
         spi: false,
       },
     ],
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1975,6 +1986,7 @@ async function loadAAL4915(): Promise<void> {
         spi: false,
       },
     ],
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -2244,6 +2256,7 @@ async function loadAAL4916(): Promise<void> {
         spi: false,
       },
     ],
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -2522,6 +2535,7 @@ async function loadAAL4917(): Promise<void> {
         spi: false,
       },
     ],
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -2811,6 +2825,7 @@ async function loadDLH40(): Promise<void> {
         spi: false,
       },
     ],
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -2914,6 +2929,7 @@ async function loadDLH41(): Promise<void> {
       },
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -3016,6 +3032,7 @@ async function loadDLH42(): Promise<void> {
         blockFuel: 53.0,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -3177,6 +3194,7 @@ async function loadDLH43(): Promise<void> {
       },
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -3422,6 +3440,7 @@ async function loadDLH102(): Promise<void> {
         blockFuel: 47.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({

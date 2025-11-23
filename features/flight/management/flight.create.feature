@@ -134,7 +134,8 @@ Feature: Create a flight
           }
         ],
         "isFlightDiverted": false,
-        "rotationId": null
+        "rotationId": null,
+        "createdAt": "@date('within 1 minute from now')"
       }
       """
     And I set database to initial state
@@ -295,7 +296,8 @@ Feature: Create a flight
           }
         ],
         "isFlightDiverted": false,
-        "rotationId": null
+        "rotationId": null,
+        "createdAt": "@date('within 1 minute from now')"
       }
       """
     And I set database to initial state

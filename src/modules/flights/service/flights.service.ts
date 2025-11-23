@@ -81,6 +81,7 @@ export class FlightsService {
       ),
       isFlightDiverted: flight.isFlightDiverted,
       rotationId: flight.rotationId,
+      createdAt: flight.createdAt,
     };
   }
 
@@ -108,6 +109,7 @@ export class FlightsService {
         ),
         isFlightDiverted: flight.isFlightDiverted,
         rotationId: flight.rotationId,
+        createdAt: flight.createdAt,
       }),
     );
   }
@@ -160,6 +162,7 @@ export class FlightsService {
       ),
       isFlightDiverted: flight.isFlightDiverted,
       rotationId: flight.rotationId,
+      createdAt: flight.createdAt,
     };
   }
 
