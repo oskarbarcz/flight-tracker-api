@@ -115,7 +115,7 @@ export class Flight {
   isFlightDiverted: boolean;
 
   @ApiProperty({
-    description: 'Returns when flight was created',
+    description: 'Timestamp when the flight record was created',
     example: '2025-01-01T00:00:00.000Z',
     type: 'string',
   })
