@@ -7,12 +7,12 @@ import {
   AirportWithType,
 } from '../../airports/entity/airport.entity';
 import { FlightsService } from './flights.service';
-import { Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class DiscordService {
   constructor(
     private readonly client: DiscordClient,
-    @Inject(FlightsService)
     private readonly flightsService: FlightsService,
   ) {}
 
