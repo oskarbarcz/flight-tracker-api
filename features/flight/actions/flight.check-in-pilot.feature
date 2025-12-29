@@ -61,7 +61,7 @@ Feature: Check in pilot for flight
       {
         "id": "23952e79-6b38-49ed-a1db-bd4d9b3cedab",
         "flightNumber": "AA 4906",
-        "callsign": "AAL 4906",
+        "callsign": "AAL4906",
         "status": "checked_in",
         "timesheet": {
           "scheduled": {
@@ -253,7 +253,7 @@ Feature: Check in pilot for flight
       """json
       {
         "id": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
-        "flightNumber": "LH 42",
+        "flightNumber": "LH42",
         "callsign": "DLH 42",
         "status": "checked_in",
         "timesheet": {

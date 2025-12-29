@@ -31,7 +31,7 @@ export class Flight {
 
   @ApiProperty({
     description: 'Flight number used by ticketing systems',
-    example: 'LH 450',
+    example: 'LH450',
   })
   flightNumber: string;
 

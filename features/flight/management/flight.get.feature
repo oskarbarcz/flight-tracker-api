@@ -8,7 +8,7 @@ Feature: Get flight
       """json
       {
         "id": "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05",
-        "flightNumber": "LH 450",
+        "flightNumber": "LH450",
         "callsign": "DLH 450",
         "status": "created",
         "timesheet": {

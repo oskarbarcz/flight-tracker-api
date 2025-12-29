@@ -19,7 +19,7 @@ const prisma = new PrismaClient();
 async function loadDLH450(): Promise<void> {
   const dlh450 = {
     id: '3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05',
-    flightNumber: 'LH 450',
+    flightNumber: 'LH450',
     callsign: 'DLH 450',
     status: FlightStatus.Created,
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa
@@ -139,7 +139,7 @@ async function loadDLH450(): Promise<void> {
 }
 
 /**
- * AAL 4905 | 23da8bc9-a21b-4678-b2e9-1151d3bd15ab
+ * AAL4905 | 23da8bc9-a21b-4678-b2e9-1151d3bd15ab
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Closed
  */
@@ -147,7 +147,7 @@ async function loadAAL4905(): Promise<void> {
   const ual4905 = {
     id: '23da8bc9-a21b-4678-b2e9-1151d3bd15ab',
     flightNumber: 'AA 4905',
-    callsign: 'AAL 4905',
+    callsign: 'AAL4905',
     status: FlightStatus.Closed,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -427,7 +427,7 @@ async function loadAAL4905(): Promise<void> {
 }
 
 /**
- * AAL 4906 | 23952e79-6b38-49ed-a1db-bd4d9b3cedab
+ * AAL4906 | 23952e79-6b38-49ed-a1db-bd4d9b3cedab
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Ready
  */
@@ -435,7 +435,7 @@ async function loadAAL4906(): Promise<void> {
   const ual4906 = {
     id: '23952e79-6b38-49ed-a1db-bd4d9b3cedab',
     flightNumber: 'AA 4906',
-    callsign: 'AAL 4906',
+    callsign: 'AAL4906',
     status: FlightStatus.Ready,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -540,7 +540,7 @@ async function loadAAL4906(): Promise<void> {
 }
 
 /**
- * AAL 4907 | e91e13a9-09d8-48bf-8453-283cef467b88
+ * AAL4907 | e91e13a9-09d8-48bf-8453-283cef467b88
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Created
  */
@@ -548,7 +548,7 @@ async function loadAAL4907(): Promise<void> {
   const ual4907 = {
     id: 'e91e13a9-09d8-48bf-8453-283cef467b88',
     flightNumber: 'AA 4907',
-    callsign: 'AAL 4907',
+    callsign: 'AAL4907',
     status: FlightStatus.Created,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -635,7 +635,7 @@ async function loadAAL4907(): Promise<void> {
 }
 
 /**
- * AAL 4908 | b3899775-278e-4496-add1-21385a13d93e
+ * AAL4908 | b3899775-278e-4496-add1-21385a13d93e
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Checked in
  */
@@ -643,7 +643,7 @@ async function loadAAL4908(): Promise<void> {
   const data = {
     id: 'b3899775-278e-4496-add1-21385a13d93e',
     flightNumber: 'AA 4908',
-    callsign: 'AAL 4908',
+    callsign: 'AAL4908',
     status: FlightStatus.CheckedIn,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -768,7 +768,7 @@ async function loadAAL4908(): Promise<void> {
 }
 
 /**
- * AAL 4909 | 05986dd3-ff01-4112-ad35-ecd85db05c77
+ * AAL4909 | 05986dd3-ff01-4112-ad35-ecd85db05c77
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Boarding started
  */
@@ -776,7 +776,7 @@ async function loadAAL4909(): Promise<void> {
   const data = {
     id: '05986dd3-ff01-4112-ad35-ecd85db05c77',
     flightNumber: 'AA 4909',
-    callsign: 'AAL 4909',
+    callsign: 'AAL4909',
     status: FlightStatus.BoardingStarted,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -905,7 +905,7 @@ async function loadAAL4909(): Promise<void> {
 }
 
 /**
- * AAL 4910 | f14a2141-4737-4622-a387-40513ff3baf1
+ * AAL4910 | f14a2141-4737-4622-a387-40513ff3baf1
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Boarding finished
  */
@@ -913,7 +913,7 @@ async function loadAAL4910(): Promise<void> {
   const data = {
     id: 'f14a2141-4737-4622-a387-40513ff3baf1',
     flightNumber: 'AA 4910',
-    callsign: 'AAL 4910',
+    callsign: 'AAL4910',
     status: FlightStatus.BoardingFinished,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -1062,7 +1062,7 @@ async function loadAAL4910(): Promise<void> {
 }
 
 /**
- * AAL 4911 | 7105891a-8008-4b47-b473-c81c97615ad7
+ * AAL4911 | 7105891a-8008-4b47-b473-c81c97615ad7
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Taxiing out
  */
@@ -1070,7 +1070,7 @@ async function loadAAL4911(): Promise<void> {
   const data = {
     id: '7105891a-8008-4b47-b473-c81c97615ad7',
     flightNumber: 'AA 4911',
-    callsign: 'AAL 4911',
+    callsign: 'AAL4911',
     status: FlightStatus.TaxiingOut,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -1234,7 +1234,7 @@ async function loadAAL4911(): Promise<void> {
 }
 
 /**
- * AAL 4912 | 2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d
+ * AAL4912 | 2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: In cruise
  */
@@ -1242,7 +1242,7 @@ async function loadAAL4912(): Promise<void> {
   const data = {
     id: '2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d',
     flightNumber: 'AA 4912',
-    callsign: 'AAL 4912',
+    callsign: 'AAL4912',
     status: FlightStatus.InCruise,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -1415,7 +1415,7 @@ async function loadAAL4912(): Promise<void> {
 }
 
 /**
- * AAL 4913 | 04be266c-df78-4bec-9f50-281cc02ce7f2
+ * AAL4913 | 04be266c-df78-4bec-9f50-281cc02ce7f2
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Taxiing in
  */
@@ -1423,7 +1423,7 @@ async function loadAAL4913(): Promise<void> {
   const data = {
     id: '04be266c-df78-4bec-9f50-281cc02ce7f2',
     flightNumber: 'AA 4913',
-    callsign: 'AAL 4913',
+    callsign: 'AAL4913',
     status: FlightStatus.TaxiingIn,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -1605,7 +1605,7 @@ async function loadAAL4913(): Promise<void> {
 }
 
 /**
- * AAL 4914 | 17d2f703-957d-4ad1-a620-3c187a70c26a
+ * AAL4914 | 17d2f703-957d-4ad1-a620-3c187a70c26a
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: On block
  */
@@ -1613,7 +1613,7 @@ async function loadAAL4914(): Promise<void> {
   const data = {
     id: '17d2f703-957d-4ad1-a620-3c187a70c26a',
     flightNumber: 'AA 4914',
-    callsign: 'AAL 4914',
+    callsign: 'AAL4914',
     status: FlightStatus.OnBlock,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -1866,7 +1866,7 @@ async function loadAAL4914(): Promise<void> {
 }
 
 /**
- * AAL 4915 | 5aada8ba-60c1-4e93-bcee-b59a7c555fdd
+ * AAL4915 | 5aada8ba-60c1-4e93-bcee-b59a7c555fdd
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Offboarding started
  */
@@ -1874,7 +1874,7 @@ async function loadAAL4915(): Promise<void> {
   const data = {
     id: '5aada8ba-60c1-4e93-bcee-b59a7c555fdd',
     flightNumber: 'AA 4915',
-    callsign: 'AAL 4915',
+    callsign: 'AAL4915',
     status: FlightStatus.OffboardingStarted,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -2136,7 +2136,7 @@ async function loadAAL4915(): Promise<void> {
 }
 
 /**
- * AAL 4916 | 38644393-deee-434d-bfd1-7242abdbc4e1
+ * AAL4916 | 38644393-deee-434d-bfd1-7242abdbc4e1
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Offboarding finished
  */
@@ -2144,7 +2144,7 @@ async function loadAAL4916(): Promise<void> {
   const data = {
     id: '38644393-deee-434d-bfd1-7242abdbc4e1',
     flightNumber: 'AA 4916',
-    callsign: 'AAL 4916',
+    callsign: 'AAL4916',
     status: FlightStatus.OffboardingFinished,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -2415,7 +2415,7 @@ async function loadAAL4916(): Promise<void> {
 }
 
 /**
- * AAL 4917 | d085c107-308d-48e6-9c93-beca6552a8a3
+ * AAL4917 | d085c107-308d-48e6-9c93-beca6552a8a3
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Closed
  */
@@ -2423,7 +2423,7 @@ async function loadAAL4917(): Promise<void> {
   const data = {
     id: 'd085c107-308d-48e6-9c93-beca6552a8a3',
     flightNumber: 'AA 4917',
-    callsign: 'AAL 4917',
+    callsign: 'AAL4917',
     status: FlightStatus.Closed,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -2711,7 +2711,7 @@ async function loadAAL4917(): Promise<void> {
 async function loadDLH40(): Promise<void> {
   const data = {
     id: '48760636-9520-4863-b32f-f3618556feb7',
-    flightNumber: 'LH 40',
+    flightNumber: 'LH40',
     callsign: 'DLH 40',
     status: FlightStatus.Closed,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
@@ -2900,7 +2900,7 @@ async function loadDLH40(): Promise<void> {
 async function loadDLH41(): Promise<void> {
   const data = {
     id: 'e8e17e59-67d7-4a6c-a0bd-425ffa6bed66',
-    flightNumber: 'LH 41',
+    flightNumber: 'LH41',
     callsign: 'DLH 41',
     status: FlightStatus.Created,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
@@ -3004,7 +3004,7 @@ async function loadDLH41(): Promise<void> {
 async function loadDLH42(): Promise<void> {
   const data = {
     id: '006f0754-1ed7-4ae1-9f91-fae2d446a6e7',
-    flightNumber: 'LH 42',
+    flightNumber: 'LH42',
     callsign: 'DLH 42',
     status: FlightStatus.Ready,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
@@ -3153,7 +3153,7 @@ async function loadDLH42(): Promise<void> {
 async function loadDLH43(): Promise<void> {
   const data = {
     id: 'd4a25ef2-39cf-484c-af00-a548999e8699',
-    flightNumber: 'LH 43',
+    flightNumber: 'LH43',
     callsign: 'DLH 43',
     status: FlightStatus.OffboardingFinished,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
@@ -3389,7 +3389,7 @@ async function loadDLH43(): Promise<void> {
 async function loadDLH102(): Promise<void> {
   const data = {
     id: '1e9f4176-188f-41a5-a9d1-25a96579f46d',
-    flightNumber: 'LH 102',
+    flightNumber: 'LH102',
     callsign: 'DLH 102',
     status: FlightStatus.InCruise,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330

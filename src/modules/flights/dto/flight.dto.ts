@@ -11,7 +11,7 @@ class PreliminaryLoadsheetOnly extends OmitType(Loadsheets, ['final']) {}
 export class CreateFlightRequest {
   @ApiProperty({
     description: 'Flight number used by ticketing systems',
-    example: 'LH 450',
+    example: 'LH450',
   })
   @IsNotEmpty()
   @IsString()
