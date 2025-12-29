@@ -42,7 +42,12 @@ export class DiscordService {
       `Passengers on board: **${flight.loadsheets.preliminary?.passengers}**\n\n` +
       `Track flight live on <:ft:1436299102626386031> ` +
       `[Flight Tracker](https://flights.barcz.me/live-tracking/${flight.id})!`;
-    await this.client.sendMessage(event.flightId, content);
+
+    await this.client.sendMessage({
+      flightId: event.flightId,
+      content,
+      type: 'departure',
+    });
   }
 
   @OnEvent(FlightEventType.OnBlockWasReported)
@@ -70,7 +75,12 @@ export class DiscordService {
       `Actual block time: **${blockTime}hrs**\n\n` +
       `See flight path on <:ft:1436299102626386031> ` +
       `[Flight Tracker](https://flights.barcz.me/live-tracking/${flight.id})!`;
-    await this.client.sendMessage(event.flightId, content);
+
+    await this.client.sendMessage({
+      flightId: event.flightId,
+      content,
+      type: 'arrival',
+    });
   }
 
   public calculateBlockTime(offBlockTime: Date, onBlockTime: Date): string {

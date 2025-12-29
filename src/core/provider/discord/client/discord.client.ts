@@ -1,5 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable, Logger } from '@nestjs/common';
+import { DiscordMessage } from '../types/discord.types';
 
 @Injectable()
 export class DiscordClient {
@@ -7,12 +8,14 @@ export class DiscordClient {
 
   constructor(private readonly webhook: string) {}
 
-  async sendMessage(flightId: string, content: string): Promise<void> {
-    this.logger.log(`Sending Discord message for flight ${flightId}`);
+  async sendMessage(message: DiscordMessage): Promise<void> {
+    this.logger.log(
+      `Sending Discord ${message.type} message for flight ${message.flightId}`,
+    );
     const response = await fetch(this.webhook, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content }),
+      body: JSON.stringify({ content: message.content }),
     });
 
     if (!response.ok) {
@@ -26,9 +29,11 @@ export class DiscordClient {
 export class TestDiscordClient extends DiscordClient {
   protected readonly logger = new Logger(TestDiscordClient.name);
 
-  override async sendMessage(flightId: string, message: string): Promise<void> {
-    this.logger.log(`Sending Discord message: ${flightId}`);
-    this.logger.debug(`Message content: \n ${message}`);
+  override async sendMessage(message: DiscordMessage): Promise<void> {
+    this.logger.log(
+      `Sending Discord ${message.type} message for flight ${message.flightId}`,
+    );
+    this.logger.debug(`Message content: \n ${message.content}`);
   }
 }
 
