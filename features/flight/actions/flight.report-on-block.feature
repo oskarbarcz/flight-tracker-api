@@ -409,6 +409,10 @@ Feature: Report on-block
         }
       ]
       """
+    And I see Discord "arrival" message for flight "04be266c-df78-4bec-9f50-281cc02ce7f2" containing "Flight **AAL 4913** from **Boston (BOS)** to **Philadelphia (PHL)** just arrived!"
+    And I see Discord "arrival" message for flight "04be266c-df78-4bec-9f50-281cc02ce7f2" containing "Actual block time:"
+    And I see Discord "arrival" message for flight "04be266c-df78-4bec-9f50-281cc02ce7f2" containing "[Flight Tracker](https://flights.barcz.me/live-tracking/04be266c-df78-4bec-9f50-281cc02ce7f2)"
+    And I clear Discord messages directory
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot report on-block for flight twice

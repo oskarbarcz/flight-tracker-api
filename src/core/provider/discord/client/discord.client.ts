@@ -1,6 +1,8 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable, Logger } from '@nestjs/common';
 import { DiscordMessage } from '../types/discord.types';
+import * as path from 'path';
+import { promises as fs } from 'fs';
 
 @Injectable()
 export class DiscordClient {
@@ -34,6 +36,14 @@ export class TestDiscordClient extends DiscordClient {
       `Sending Discord ${message.type} message for flight ${message.flightId}`,
     );
     this.logger.debug(`Message content: \n ${message.content}`);
+
+    const outputDir = path.join(process.cwd(), 'test-data', 'discord');
+    const filePath = path.join(
+      outputDir,
+      `${message.type}_${message.flightId}.md`,
+    );
+    await fs.mkdir(outputDir, { recursive: true });
+    await fs.writeFile(filePath, message.content, { encoding: 'utf-8' });
   }
 }
 
