@@ -101,7 +101,7 @@ Feature: Report on-block
       """json
       {
         "id": "04be266c-df78-4bec-9f50-281cc02ce7f2",
-        "flightNumber": "AA 4913",
+        "flightNumber": "AA4913",
         "callsign": "AAL4913",
         "status": "on_block",
         "timesheet": {

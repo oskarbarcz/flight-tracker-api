@@ -36,7 +36,7 @@ Feature: Report arrival
       """json
       {
         "id": "2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d",
-        "flightNumber": "AA 4912",
+        "flightNumber": "AA4912",
         "callsign": "AAL4912",
         "status": "taxiing_in",
         "timesheet": {

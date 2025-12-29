@@ -36,7 +36,7 @@ Feature: Start offboarding
       """json
       {
         "id": "17d2f703-957d-4ad1-a620-3c187a70c26a",
-        "flightNumber": "AA 4914",
+        "flightNumber": "AA4914",
         "callsign": "AAL4914",
         "status": "offboarding_started",
         "timesheet": {

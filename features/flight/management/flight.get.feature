@@ -9,7 +9,7 @@ Feature: Get flight
       {
         "id": "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05",
         "flightNumber": "LH450",
-        "callsign": "DLH 450",
+        "callsign": "DLH450",
         "status": "created",
         "timesheet": {
           "scheduled": {

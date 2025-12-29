@@ -32,7 +32,7 @@ Feature: Add flight to rotation
         "flights": [
           {
             "id": "e91e13a9-09d8-48bf-8453-283cef467b88",
-            "flightNumber": "AA 4907"
+            "flightNumber": "AA4907"
           },
           {
             "id": "48760636-9520-4863-b32f-f3618556feb7",

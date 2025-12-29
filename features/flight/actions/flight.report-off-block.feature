@@ -36,7 +36,7 @@ Feature: Report off-block
       """json
       {
         "id": "f14a2141-4737-4622-a387-40513ff3baf1",
-        "flightNumber": "AA 4910",
+        "flightNumber": "AA4910",
         "callsign": "AAL4910",
         "status": "taxiing_out",
         "timesheet": {

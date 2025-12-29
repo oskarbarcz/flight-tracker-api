@@ -50,7 +50,7 @@ Feature: Finish flight boarding
       """json
       {
         "id": "05986dd3-ff01-4112-ad35-ecd85db05c77",
-        "flightNumber": "AA 4909",
+        "flightNumber": "AA4909",
         "callsign": "AAL4909",
         "status": "boarding_finished",
         "timesheet": {
