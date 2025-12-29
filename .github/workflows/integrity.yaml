@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: 'Checkout repository'
         uses: 'actions/checkout@v4'
+        with:
+          fetch-depth: 0
       - name: 'Check app version'
         run: './docker/ci/check_version_is_free "$(jq -r ''.version'' package.json)"'
       - name: 'Copy environment variables'
