@@ -53,6 +53,41 @@ export class FlightsService {
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
+  private convertSchedule = (
+    schedule: Schedule | Partial<Schedule> | undefined,
+  ): Schedule | Partial<Schedule> | undefined => {
+    if (!schedule) return undefined;
+
+    return {
+      offBlockTime: schedule.offBlockTime
+        ? new Date(schedule.offBlockTime)
+        : null,
+      takeoffTime: schedule.takeoffTime ? new Date(schedule.takeoffTime) : null,
+      arrivalTime: schedule.arrivalTime ? new Date(schedule.arrivalTime) : null,
+      onBlockTime: schedule.onBlockTime ? new Date(schedule.onBlockTime) : null,
+    };
+  };
+
+  private convertTimesheetDates(timesheet: FullTimesheet): FullTimesheet {
+    const result: FullTimesheet = {};
+
+    if (timesheet.scheduled) {
+      result.scheduled = this.convertSchedule(timesheet.scheduled) as Schedule;
+    }
+
+    if (timesheet.estimated) {
+      result.estimated = this.convertSchedule(timesheet.estimated) as Schedule;
+    }
+
+    if (timesheet.actual) {
+      result.actual = this.convertSchedule(
+        timesheet.actual,
+      ) as Partial<Schedule>;
+    }
+
+    return result;
+  }
+
   async find(id: string): Promise<GetFlightResponse> {
     const flight = await this.flightsRepository.findOneBy({
       id,
@@ -67,7 +102,7 @@ export class FlightsService {
       flightNumber: flight.flightNumber,
       callsign: flight.callsign,
       status: flight.status as FlightStatus,
-      timesheet: flight.timesheet as FullTimesheet,
+      timesheet: this.convertTimesheetDates(flight.timesheet as FullTimesheet),
       loadsheets: flight.loadsheets as unknown as Loadsheets,
       aircraft: flight.aircraft,
       operator: flight.operator,

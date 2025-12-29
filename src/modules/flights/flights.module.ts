@@ -13,9 +13,17 @@ import { AdsbModule } from '../../core/provider/adsb/adsb.module';
 import { PathController } from './controller/path.controller';
 import { DiversionRepository } from './repository/diversion.repository';
 import { DiversionController } from './controller/diversion.controller';
+import { DiscordService } from './service/discord.service';
+import { DiscordModule } from '../../core/provider/discord/discord.module';
 
 @Module({
-  imports: [PrismaModule, AircraftModule, OperatorsModule, AdsbModule],
+  imports: [
+    PrismaModule,
+    AircraftModule,
+    DiscordModule,
+    OperatorsModule,
+    AdsbModule,
+  ],
   controllers: [
     ManagementController,
     EventsController,
@@ -26,6 +34,7 @@ import { DiversionController } from './controller/diversion.controller';
   providers: [
     FlightsService,
     PositionService,
+    DiscordService,
     FlightsRepository,
     EventsRepository,
     DiversionRepository,
