@@ -12,6 +12,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { SkyLinkModule } from './modules/skylink/skylink.module';
 import { CacheModule } from '@nestjs/cache-manager';
+import { DiscordModule } from './core/provider/discord/discord.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { CacheModule } from '@nestjs/cache-manager';
     JwtModule,
     RotationsModule,
     SkyLinkModule,
+    DiscordModule,
     EventEmitterModule.forRoot(),
     ScheduleModule.forRoot(),
     ConfigModule.forRoot({ isGlobal: true }),
