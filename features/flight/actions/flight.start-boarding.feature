@@ -36,8 +36,8 @@ Feature: Start boarding
       """json
       {
         "id": "b3899775-278e-4496-add1-21385a13d93e",
-        "flightNumber": "AA 4908",
-        "callsign": "AAL 4908",
+        "flightNumber": "AA4908",
+        "callsign": "AAL4908",
         "status": "boarding_started",
         "timesheet": {
           "scheduled": {
@@ -206,7 +206,7 @@ Feature: Start boarding
       ]
       """
     And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing ":airplane_departure: :airplane_departure: :airplane_departure:"
-    And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "Flight **AAL 4908** from **Boston (BOS)** to **Philadelphia (PHL)** has started boarding!"
+    And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "Flight **AAL4908** from **Boston (BOS)** to **Philadelphia (PHL)** has started boarding!"
     And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "Estimated block time: **03:08hrs**, Passengers on board: **370**"
     And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "[Flight Tracker](https://flights.barcz.me/live-tracking/b3899775-278e-4496-add1-21385a13d93e)"
     And I set database to initial state

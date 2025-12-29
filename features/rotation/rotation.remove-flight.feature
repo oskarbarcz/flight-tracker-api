@@ -32,7 +32,7 @@ Feature: Remove flights from rotation
         "flights": [
           {
             "id": "48760636-9520-4863-b32f-f3618556feb7",
-            "flightNumber": "LH 40"
+            "flightNumber": "LH40"
           }
         ],
         "createdAt": "2025-01-01T00:00:00.000Z",

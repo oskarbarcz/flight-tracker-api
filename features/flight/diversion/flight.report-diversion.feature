@@ -55,8 +55,8 @@ Feature: Report a flight diversion
       """json
       {
         "id": "2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d",
-        "flightNumber": "AA 4912",
-        "callsign": "AAL 4912",
+        "flightNumber": "AA4912",
+        "callsign": "AAL4912",
         "status": "in_cruise",
         "timesheet": {
           "actual": {
@@ -241,8 +241,8 @@ Feature: Report a flight diversion
       """json
       {
         "id": "2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d",
-        "flightNumber": "AA 4912",
-        "callsign": "AAL 4912",
+        "flightNumber": "AA4912",
+        "callsign": "AAL4912",
         "status": "in_cruise",
         "timesheet": {
           "actual": {

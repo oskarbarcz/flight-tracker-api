@@ -18,11 +18,11 @@ Feature: List rotations
           "flights": [
             {
               "id": "48760636-9520-4863-b32f-f3618556feb7",
-              "flightNumber": "LH 40"
+              "flightNumber": "LH40"
             },
             {
               "id": "e8e17e59-67d7-4a6c-a0bd-425ffa6bed66",
-              "flightNumber": "LH 41"
+              "flightNumber": "LH41"
             }
           ],
           "createdAt": "2025-01-01T00:00:00.000Z",
@@ -39,7 +39,7 @@ Feature: List rotations
           "flights": [
             {
               "id": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
-              "flightNumber": "LH 42"
+              "flightNumber": "LH42"
             }
           ],
           "createdAt": "2025-01-02T00:00:00.000Z",
@@ -56,7 +56,7 @@ Feature: List rotations
           "flights": [
             {
               "id": "d4a25ef2-39cf-484c-af00-a548999e8699",
-              "flightNumber": "LH 43"
+              "flightNumber": "LH43"
             }
           ],
           "createdAt": "2025-01-03T00:00:00.000Z",
@@ -83,11 +83,11 @@ Feature: List rotations
           "flights": [
             {
               "id": "48760636-9520-4863-b32f-f3618556feb7",
-              "flightNumber": "LH 40"
+              "flightNumber": "LH40"
             },
             {
               "id": "e8e17e59-67d7-4a6c-a0bd-425ffa6bed66",
-              "flightNumber": "LH 41"
+              "flightNumber": "LH41"
             }
           ],
           "createdAt": "2025-01-01T00:00:00.000Z",
@@ -104,7 +104,7 @@ Feature: List rotations
           "flights": [
             {
               "id": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
-              "flightNumber": "LH 42"
+              "flightNumber": "LH42"
             }
           ],
           "createdAt": "2025-01-02T00:00:00.000Z",
@@ -121,7 +121,7 @@ Feature: List rotations
           "flights": [
             {
               "id": "d4a25ef2-39cf-484c-af00-a548999e8699",
-              "flightNumber": "LH 43"
+              "flightNumber": "LH43"
             }
           ],
           "createdAt": "2025-01-03T00:00:00.000Z",
@@ -148,11 +148,11 @@ Feature: List rotations
           "flights": [
             {
               "id": "48760636-9520-4863-b32f-f3618556feb7",
-              "flightNumber": "LH 40"
+              "flightNumber": "LH40"
             },
             {
               "id": "e8e17e59-67d7-4a6c-a0bd-425ffa6bed66",
-              "flightNumber": "LH 41"
+              "flightNumber": "LH41"
             }
           ],
           "createdAt": "2025-01-01T00:00:00.000Z",
@@ -169,7 +169,7 @@ Feature: List rotations
           "flights": [
             {
               "id": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
-              "flightNumber": "LH 42"
+              "flightNumber": "LH42"
             }
           ],
           "createdAt": "2025-01-02T00:00:00.000Z",
@@ -186,7 +186,7 @@ Feature: List rotations
           "flights": [
             {
               "id": "d4a25ef2-39cf-484c-af00-a548999e8699",
-              "flightNumber": "LH 43"
+              "flightNumber": "LH43"
             }
           ],
           "createdAt": "2025-01-03T00:00:00.000Z",

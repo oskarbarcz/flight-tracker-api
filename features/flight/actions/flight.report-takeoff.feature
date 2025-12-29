@@ -36,8 +36,8 @@ Feature: Report takeoff
       """json
       {
         "id": "7105891a-8008-4b47-b473-c81c97615ad7",
-        "flightNumber": "AA 4911",
-        "callsign": "AAL 4911",
+        "flightNumber": "AA4911",
+        "callsign": "AAL4911",
         "status": "in_cruise",
         "timesheet": {
           "scheduled": {
