@@ -29,7 +29,7 @@ export class SessionRepository {
   }
 
   async removeSession(id: string): Promise<void> {
-    await this.prisma.jwtRefreshToken.delete({ where: { id } });
+    await this.prisma.jwtRefreshToken.deleteMany({ where: { id } });
   }
 
   async removeAllSessionsForUser(userId: string) {
