@@ -22,7 +22,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:functional": "npx cucumber-js",
     "database:reset": "npx prisma db push --force-reset",
-    "database:seed": "npx prisma db push --force-reset && npx ts-node prisma/seed/seed.ts",
+    "database:seed": "npx prisma db push --force-reset && npx prisma db seed",
     "database:migrate": "npx prisma migrate deploy"
   },
   "dependencies": {
