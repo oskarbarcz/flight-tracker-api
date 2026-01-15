@@ -54,7 +54,7 @@ export class AirportResponse {
     example: '8.57056',
   })
   longitude!: string;
-  
+
   @ApiProperty({
     description: 'IANA standard timezone',
     example: 'Europe/Berlin',
