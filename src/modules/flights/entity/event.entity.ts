@@ -13,13 +13,13 @@ export class EventActor {
     description: 'User unique system identifier',
     example: '3b75f824-84c1-4521-9373-a4f3c27bdd8a',
   })
-  id: string;
+  id!: string;
 
   @ApiProperty({
     description: 'User first and last name',
     example: 'John Doe',
   })
-  name: string;
+  name!: string;
 }
 
 export class FlightEvent<EventPayload = object> {
@@ -27,21 +27,21 @@ export class FlightEvent<EventPayload = object> {
     description: 'Event unique identifier',
     example: '123e4567-e89b-12d3-a456-426614174000',
   })
-  id: string;
+  id!: string;
 
   @ApiProperty({
     description: 'Event scope',
     enum: FlightEventScope,
     example: FlightEventScope.User,
   })
-  scope: FlightEventScope;
+  scope!: FlightEventScope;
 
   @ApiProperty({
     description: 'Event type',
     enum: FlightEventType,
     example: FlightEventType.FlightWasCreated,
   })
-  type: FlightEventType;
+  type!: FlightEventType;
 
   @ApiProperty({
     description: 'Event payload',
@@ -53,27 +53,27 @@ export class FlightEvent<EventPayload = object> {
     description: 'Flight associated with the event',
     example: '123e4567-e89b-12d3-a456-426614174002',
   })
-  flightId: string;
+  flightId!: string;
 
   @ApiProperty({
     description: 'User caused event generation',
     example: '123e4567-e89b-12d3-a456-426614174001',
     nullable: true,
   })
-  actorId: string | null;
+  actorId!: string | null;
 
   @ApiProperty({
     description: 'User caused event generation',
     type: EventActor,
     nullable: true,
   })
-  actor: EventActor | null;
+  actor!: EventActor | null;
 
   @ApiProperty({
     description: 'Event creation date',
     example: '2025-01-01T00:00:00Z',
   })
-  createdAt: Date;
+  createdAt!: Date;
 
-  rotationId: string | null;
+  rotationId!: string | null;
 }

@@ -6,7 +6,7 @@ export class Operator {
     description: 'Operator unique system identifier',
     example: 'eab840d0-901b-4ad5-90e3-7f2b0b13ed2d',
   })
-  id: string;
+  id!: string;
 
   @ApiProperty({
     description: 'Operator ICAO code',
@@ -14,7 +14,7 @@ export class Operator {
   })
   @IsString()
   @IsNotEmpty()
-  icaoCode: string;
+  icaoCode!: string;
 
   @ApiProperty({
     description: 'Operator name',
@@ -22,7 +22,7 @@ export class Operator {
   })
   @IsString()
   @IsNotEmpty()
-  shortName: string;
+  shortName!: string;
 
   @ApiProperty({
     description: 'Full operator company name',
@@ -30,7 +30,7 @@ export class Operator {
   })
   @IsString()
   @IsNotEmpty()
-  fullName: string;
+  fullName!: string;
 
   @ApiProperty({
     description: 'Callsign used by air traffic control services',
@@ -38,5 +38,5 @@ export class Operator {
   })
   @IsString()
   @IsNotEmpty()
-  callsign: string;
+  callsign!: string;
 }

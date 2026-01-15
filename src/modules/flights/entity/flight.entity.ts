@@ -27,26 +27,26 @@ export class Flight {
     description: 'Flight unique system identifier',
     example: 'bd8f2d64-a647-42da-be63-c6589915e6c9',
   })
-  id: string;
+  id!: string;
 
   @ApiProperty({
     description: 'Flight number used by ticketing systems',
     example: 'LH450',
   })
-  flightNumber: string;
+  flightNumber!: string;
 
   @ApiProperty({
     description: 'Callsign used by air traffic services',
     example: 'DLH450',
   })
-  callsign: string;
+  callsign!: string;
 
   @ApiProperty({
     description: 'Flight status',
     example: FlightStatus.Created,
     enum: FlightStatus,
   })
-  status: FlightStatus;
+  status!: FlightStatus;
 
   @ApiProperty({
     description: 'Aircraft system unique identifier',
@@ -55,28 +55,28 @@ export class Flight {
   @IsString()
   @IsNotEmpty()
   @IsUUID(4)
-  aircraftId: string;
+  aircraftId!: string;
 
   @ApiProperty({
     description: 'Aircraft reported for flight',
   })
-  aircraft: CreateAircraftResponse;
+  aircraft!: CreateAircraftResponse;
 
   @ApiProperty({
     description: 'Airports related to the flight',
   })
-  airports: AirportWithType[];
+  airports!: AirportWithType[];
 
   @ApiProperty({
     description: 'Timesheet',
   })
-  timesheet: FullTimesheet;
+  timesheet!: FullTimesheet;
 
   @ApiProperty({
     description: 'Loadsheets',
     type: Loadsheets,
   })
-  loadsheets: Loadsheets;
+  loadsheets!: Loadsheets;
 
   @ApiProperty({
     description: 'Operator system unique identifier',
@@ -85,13 +85,13 @@ export class Flight {
   @IsString()
   @IsNotEmpty()
   @IsUUID(4)
-  operatorId: string;
+  operatorId!: string;
 
   @ApiProperty({
     description: 'Flight operator',
     type: Operator,
   })
-  operator: Operator;
+  operator!: Operator;
 
   @ApiProperty({
     description: 'Rotation this flight belongs to',
@@ -106,20 +106,20 @@ export class Flight {
     type: 'string',
     nullable: true,
   })
-  rotationId: string | null;
+  rotationId!: string | null;
 
   @ApiProperty({
     description: 'Flag if flight was diverted',
     example: false,
   })
-  isFlightDiverted: boolean;
+  isFlightDiverted!: boolean;
 
   @ApiProperty({
     description: 'Timestamp when the flight record was created',
     example: '2025-01-01T00:00:00.000Z',
     type: 'string',
   })
-  createdAt: Date;
+  createdAt!: Date;
 }
 
 export class FlightPathElement {
@@ -127,13 +127,13 @@ export class FlightPathElement {
     description: 'Callsign used by air traffic services, without spaces',
     example: 'DLH450',
   })
-  callsign: string;
+  callsign!: string;
 
   @ApiProperty({
     description: 'Timestamp of the flight event',
     example: '2023-10-01T12:00:00Z',
   })
-  date: Date;
+  date!: Date;
 
   @ApiProperty({
     description: 'Latitude of the flight event',
@@ -141,7 +141,7 @@ export class FlightPathElement {
     minimum: -90,
     maximum: 90,
   })
-  latitude: number;
+  latitude!: number;
 
   @ApiProperty({
     description: 'Longitude of the flight event',
@@ -149,7 +149,7 @@ export class FlightPathElement {
     minimum: -180,
     maximum: 180,
   })
-  longitude: number;
+  longitude!: number;
 
   @ApiProperty({
     description: 'The vertical rate of the aircraft in fpm (feet per minute)',

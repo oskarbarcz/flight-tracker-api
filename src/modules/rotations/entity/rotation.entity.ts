@@ -10,13 +10,13 @@ export class RotationFlight {
     description: 'Flight unique system identifier',
     example: 'bd8f2d64-a647-42da-be63-c6589915e6c9',
   })
-  id: string;
+  id!: string;
 
   @ApiProperty({
     description: 'Flight number',
     example: 'DAL 1234',
   })
-  flightNumber: string;
+  flightNumber!: string;
 }
 
 export class Rotation {
@@ -24,7 +24,7 @@ export class Rotation {
     description: 'Rotation unique system identifier',
     example: 'bd8f2d64-a647-42da-be63-c6589915e6c9',
   })
-  id: RotationId;
+  id!: RotationId;
 
   @ApiProperty({
     description: 'Rotation name',
@@ -32,7 +32,7 @@ export class Rotation {
   })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @ApiProperty({
     description: 'Pilot unique system identifier',
@@ -40,26 +40,26 @@ export class Rotation {
   })
   @IsUUID(4)
   @IsNotEmpty()
-  pilotId: string;
+  pilotId!: string;
 
   @ApiProperty({
     description: 'Pilot',
     type: PilotDto,
   })
-  pilot: PilotDto;
+  pilot!: PilotDto;
 
   @ApiProperty({
     description: 'Flights in this rotation',
     type: RotationFlight,
     isArray: true,
   })
-  flights: RotationFlight[];
+  flights!: RotationFlight[];
 
   @ApiProperty({
     description: 'Creation timestamp',
     example: '2025-01-01T00:00:00.000Z',
   })
-  createdAt: Date;
+  createdAt!: Date;
 
   @ApiProperty({
     description: 'Last update timestamp',
@@ -67,5 +67,5 @@ export class Rotation {
     nullable: true,
     type: Date,
   })
-  updatedAt: Date | null;
+  updatedAt!: Date | null;
 }

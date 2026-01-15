@@ -10,7 +10,7 @@ export class Schedule {
   @IsNotEmpty()
   @Type(() => Date)
   @IsDate()
-  arrivalTime: Date | null;
+  arrivalTime!: Date | null;
 
   @ApiProperty({
     description: 'Time when aircraft parks at the gate',
@@ -20,7 +20,7 @@ export class Schedule {
   @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
-  onBlockTime: Date | null;
+  onBlockTime!: Date | null;
 
   @ApiProperty({
     description: 'Time when the aircraft takes off',
@@ -30,7 +30,7 @@ export class Schedule {
   @Type(() => Date)
   @IsNotEmpty()
   @IsDate()
-  takeoffTime: Date | null;
+  takeoffTime!: Date | null;
 
   @ApiProperty({
     description: 'Time when the aircraft leaves the gate',
@@ -40,7 +40,7 @@ export class Schedule {
   @IsNotEmpty()
   @Type(() => Date)
   @IsDate()
-  offBlockTime: Date | null;
+  offBlockTime!: Date | null;
 }
 
 export class ScheduledTimesheet {
@@ -49,7 +49,7 @@ export class ScheduledTimesheet {
     type: Schedule,
   })
   @IsNotEmpty()
-  scheduled: Schedule;
+  scheduled!: Schedule;
 }
 
 export class EstimatedTimesheet extends ScheduledTimesheet {

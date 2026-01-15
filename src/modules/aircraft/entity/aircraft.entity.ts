@@ -7,7 +7,7 @@ export class Aircraft {
     description: 'Aircraft unique system identifier',
     example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
   })
-  id: string;
+  id!: string;
 
   @ApiProperty({
     description: 'Aircraft type ICAO code',
@@ -15,7 +15,7 @@ export class Aircraft {
   })
   @IsString()
   @IsNotEmpty()
-  icaoCode: string;
+  icaoCode!: string;
 
   @ApiProperty({
     description: 'Aircraft short name',
@@ -23,7 +23,7 @@ export class Aircraft {
   })
   @IsString()
   @IsNotEmpty()
-  shortName: string;
+  shortName!: string;
 
   @ApiProperty({
     description:
@@ -32,7 +32,7 @@ export class Aircraft {
   })
   @IsString()
   @IsNotEmpty()
-  fullName: string;
+  fullName!: string;
 
   @ApiProperty({
     description: 'Aircraft registration matching act of registration',
@@ -40,7 +40,7 @@ export class Aircraft {
   })
   @IsString()
   @IsNotEmpty()
-  registration: string;
+  registration!: string;
 
   @ApiProperty({
     description: 'Aircraft SELCAL code',
@@ -48,7 +48,7 @@ export class Aircraft {
   })
   @IsString()
   @IsNotEmpty()
-  selcal: string;
+  selcal!: string;
 
   @ApiProperty({
     description: 'Aircraft livery description and age',
@@ -56,18 +56,18 @@ export class Aircraft {
   })
   @IsString()
   @IsNotEmpty()
-  livery: string;
+  livery!: string;
 
   @ApiProperty({
     description: 'Aircraft operator',
   })
   @IsString()
   @IsNotEmpty()
-  operatorId: string;
+  operatorId!: string;
 
   @ApiProperty({
     description: 'Aircraft operator',
     type: Operator,
   })
-  operator: Operator | null;
+  operator!: Operator | null;
 }

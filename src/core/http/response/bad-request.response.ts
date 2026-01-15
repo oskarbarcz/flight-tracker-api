@@ -5,13 +5,13 @@ export class GenericBadRequestResponse<RequestObj> {
     description: 'Detailed message what went wrong',
     example: 'Request validation failed.',
   })
-  message: string;
+  message!: string;
 
   @ApiProperty({
     description: 'HTTP status message',
     example: 'Bad Request',
   })
-  error: 'Bad Request';
+  error = 'Bad Request';
 
   @ApiProperty({
     description:
@@ -21,11 +21,11 @@ export class GenericBadRequestResponse<RequestObj> {
     },
     required: false,
   })
-  violations: Record<keyof RequestObj, string[]>;
+  violations!: Record<keyof RequestObj, string[]>;
 
   @ApiProperty({
     description: 'HTTP status code',
     example: 400,
   })
-  statusCode: 400;
+  statusCode = 400;
 }

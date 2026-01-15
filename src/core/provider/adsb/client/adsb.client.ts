@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { AdsbFlightTrack, transformPositionReport } from '../type/adsb.types';
 import * as path from 'path';
 import { promises as fs } from 'fs';
+import { getErrorMessage } from '../../../utils/error-message';
 
 @Injectable()
 export class AdsbClient {
@@ -36,8 +37,9 @@ export class AdsbClient {
 
       return body.map(transformPositionReport);
     } catch (error) {
+      const message = getErrorMessage(error);
       this.logger.error(
-        `Error fetching track history for ${callsign}: ${error.message}`,
+        `Error fetching track history for ${callsign}: ${message}`,
       );
       throw error;
     }

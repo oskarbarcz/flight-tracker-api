@@ -9,7 +9,7 @@ export class FlightCrew {
   })
   @IsNotEmpty()
   @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 0 })
-  pilots: number;
+  pilots!: number;
 
   @ApiProperty({
     description: 'Relief pilots taking care of the aircraft in cruise',
@@ -17,7 +17,7 @@ export class FlightCrew {
   })
   @IsNotEmpty()
   @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 0 })
-  reliefPilots: number;
+  reliefPilots!: number;
 
   @ApiProperty({
     description: 'Cabin crew members serving passengers during the flight',
@@ -25,7 +25,7 @@ export class FlightCrew {
   })
   @IsNotEmpty()
   @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 0 })
-  cabinCrew: number;
+  cabinCrew!: number;
 }
 
 export class Loadsheet {
@@ -35,7 +35,7 @@ export class Loadsheet {
   })
   @IsNotEmpty()
   @Type(() => FlightCrew)
-  flightCrew: FlightCrew;
+  flightCrew!: FlightCrew;
 
   @ApiProperty({
     description: 'Number of passengers on board excluding flight crew',
@@ -43,7 +43,7 @@ export class Loadsheet {
   })
   @IsNotEmpty()
   @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 0 })
-  passengers: number;
+  passengers!: number;
 
   @ApiProperty({
     description: 'Cargo in tons',
@@ -51,7 +51,7 @@ export class Loadsheet {
   })
   @IsNotEmpty()
   @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 2 })
-  cargo: number;
+  cargo!: number;
 
   @ApiProperty({
     description: 'Aircraft payload in tons',
@@ -59,7 +59,7 @@ export class Loadsheet {
   })
   @IsNotEmpty()
   @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 3 })
-  payload: number;
+  payload!: number;
 
   @ApiProperty({
     description: 'Zero fuel weight of the aircraft in tons',
@@ -67,7 +67,7 @@ export class Loadsheet {
   })
   @IsNotEmpty()
   @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 3 })
-  zeroFuelWeight: number;
+  zeroFuelWeight!: number;
 
   @ApiProperty({
     description: 'Fuel on board in tons',
@@ -75,7 +75,7 @@ export class Loadsheet {
   })
   @IsNotEmpty()
   @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 3 })
-  blockFuel: number;
+  blockFuel!: number;
 }
 
 export class Loadsheets {
@@ -85,7 +85,7 @@ export class Loadsheets {
     nullable: true,
   })
   @Type(() => Loadsheet)
-  preliminary: Loadsheet | null;
+  preliminary!: Loadsheet | null;
 
   @ApiProperty({
     description: 'Loadsheet filled by pilots when finished boarding',
@@ -93,5 +93,5 @@ export class Loadsheets {
     nullable: true,
   })
   @Type(() => Loadsheet)
-  final: Loadsheet | null;
+  final!: Loadsheet | null;
 }

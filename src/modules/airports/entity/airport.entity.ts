@@ -28,7 +28,7 @@ export class Coordinates {
   @IsNumber({ allowNaN: false, allowInfinity: false })
   @Min(-180)
   @Max(180)
-  longitude: number;
+  longitude!: number;
 
   @ApiProperty({
     description: 'Airport latitude in decimal degrees',
@@ -37,7 +37,7 @@ export class Coordinates {
   @IsNumber({ allowNaN: false, allowInfinity: false })
   @Min(-90)
   @Max(90)
-  latitude: number;
+  latitude!: number;
 }
 
 export class Airport {
@@ -45,7 +45,7 @@ export class Airport {
     description: 'Airport unique system identifier',
     example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
   })
-  id: string;
+  id!: string;
 
   @ApiProperty({
     description: 'Airport ICAO code',
@@ -54,7 +54,7 @@ export class Airport {
   @IsString()
   @IsNotEmpty()
   @Length(4, 4)
-  icaoCode: string;
+  icaoCode!: string;
 
   @ApiProperty({
     description: 'Airport IATA code',
@@ -63,7 +63,7 @@ export class Airport {
   @IsString()
   @IsNotEmpty()
   @Length(3, 3)
-  iataCode: string;
+  iataCode!: string;
 
   @ApiProperty({
     description: 'Airport name',
@@ -71,7 +71,7 @@ export class Airport {
   })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @ApiProperty({
     description: 'City where airport is located',
@@ -79,7 +79,7 @@ export class Airport {
   })
   @IsString()
   @IsNotEmpty()
-  city: string;
+  city!: string;
 
   @ApiProperty({
     description: 'Country where airport is located',
@@ -87,7 +87,7 @@ export class Airport {
   })
   @IsString()
   @IsNotEmpty()
-  country: string;
+  country!: string;
 
   @ApiProperty({
     description: 'IANA standard timezone',
@@ -96,7 +96,7 @@ export class Airport {
   @IsString()
   @IsTimeZone()
   @IsNotEmpty()
-  timezone: string;
+  timezone!: string;
 
   @ApiProperty({
     description: 'Airport coordinates',
@@ -104,7 +104,7 @@ export class Airport {
   })
   @Type(() => Coordinates)
   @IsNotEmpty()
-  location: Coordinates;
+  location!: Coordinates;
 
   @ApiProperty({
     description: 'Continent where airport is located',
@@ -113,7 +113,7 @@ export class Airport {
   })
   @IsNotEmpty()
   @IsEnum(Continent)
-  continent: Continent;
+  continent!: Continent;
 }
 
 export enum AirportType {
@@ -129,5 +129,5 @@ export class AirportWithType extends Airport {
     example: 'departure',
     enum: AirportType,
   })
-  type: AirportType;
+  type!: AirportType;
 }
