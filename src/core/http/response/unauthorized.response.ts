@@ -5,11 +5,11 @@ export class UnauthorizedResponse {
     description: 'HTTP status message',
     example: 'Unauthorized',
   })
-  message: 'Unauthorized';
+  message = 'Unauthorized';
 
   @ApiProperty({
     description: 'HTTP status code',
     example: 401,
   })
-  statusCode: 401;
+  statusCode = 401;
 }

@@ -13,7 +13,7 @@ export class User {
     description: 'User unique system identifier',
     example: '3b75f824-84c1-4521-9373-a4f3c27bdd8a',
   })
-  id: string;
+  id!: string;
 
   @ApiProperty({
     description: 'User first and last name',
@@ -21,7 +21,7 @@ export class User {
   })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @ApiProperty({
     description: 'User e-mail address',
@@ -29,7 +29,7 @@ export class User {
   })
   @IsString()
   @IsNotEmpty()
-  email: string;
+  email!: string;
 
   @ApiProperty({
     description: 'Role will determine what actions user performs in the system',
@@ -39,7 +39,7 @@ export class User {
   @IsString()
   @IsNotEmpty()
   @IsEnum(UserRole)
-  role: UserRole;
+  role!: UserRole;
 
   @ApiProperty({
     description: 'Pilot license ID (only for CabinCrew, format: XX-12345)',
@@ -62,7 +62,7 @@ export class User {
   })
   @IsString()
   @IsNotEmpty()
-  password: string;
+  password!: string;
 
   @ApiProperty({
     description: 'Current flight user checked in for',
@@ -70,7 +70,7 @@ export class User {
     type: 'string',
     nullable: true,
   })
-  currentFlightId: string | null;
+  currentFlightId!: string | null;
 
   @ApiProperty({
     description: 'Current rotation user is performing',
@@ -78,5 +78,5 @@ export class User {
     type: 'string',
     nullable: true,
   })
-  currentRotationId: string | null;
+  currentRotationId!: string | null;
 }

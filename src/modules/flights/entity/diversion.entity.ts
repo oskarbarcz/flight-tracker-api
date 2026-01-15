@@ -30,7 +30,7 @@ export enum DiversionReporterRole {
 }
 
 export class Diversion {
-  id: string;
+  id!: string;
 
   @ApiProperty({
     description: 'Diversion severity',
@@ -39,7 +39,7 @@ export class Diversion {
   })
   @IsEnum(DiversionSeverity)
   @IsNotEmpty()
-  severity: DiversionSeverity;
+  severity!: DiversionSeverity;
 
   @ApiProperty({
     description: 'Diversion reason',
@@ -48,14 +48,14 @@ export class Diversion {
   })
   @IsEnum(DiversionReason)
   @IsNotEmpty()
-  reason: DiversionReason;
+  reason!: DiversionReason;
 
   @ApiProperty({
     description: 'Free text to describe the diversion reason in detail',
     example: 'Severe weather at destination airport',
   })
   @IsNotEmpty()
-  freeText: string;
+  freeText!: string;
 
   @ApiProperty({
     description: 'Airport coordinates',
@@ -63,7 +63,7 @@ export class Diversion {
   })
   @Type(() => Coordinates)
   @IsNotEmpty()
-  position: Coordinates;
+  position!: Coordinates;
 
   @ApiProperty({
     description: 'Should security services be notified on ground',
@@ -71,7 +71,7 @@ export class Diversion {
   })
   @IsBoolean()
   @IsNotEmpty()
-  notifySecurityOnGround: boolean;
+  notifySecurityOnGround!: boolean;
 
   @ApiProperty({
     description: 'Should medical services be notified on ground',
@@ -79,7 +79,7 @@ export class Diversion {
   })
   @IsBoolean()
   @IsNotEmpty()
-  notifyMedicalOnGround: boolean;
+  notifyMedicalOnGround!: boolean;
 
   @ApiProperty({
     description: 'Should fire department be notified on ground',
@@ -87,7 +87,7 @@ export class Diversion {
   })
   @IsBoolean()
   @IsNotEmpty()
-  notifyFirefightersOnGround: boolean;
+  notifyFirefightersOnGround!: boolean;
 
   @ApiProperty({
     description:
@@ -96,19 +96,19 @@ export class Diversion {
   })
   @IsNotEmpty()
   @IsUUID(4)
-  airportId: string;
+  airportId!: string;
 
   @ApiProperty({
     description: 'Airport where aircraft is diverting to',
     type: Airport,
   })
-  airport: Airport;
+  airport!: Airport;
 
   @ApiProperty({
     description: 'Time when diversion decision was made',
     example: '2021-01-01T12:00:00Z',
   })
-  decisionTime: Date;
+  decisionTime!: Date;
 
   @ApiProperty({
     description:
@@ -118,5 +118,5 @@ export class Diversion {
   @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
-  estimatedTimeAtDestination: Date;
+  estimatedTimeAtDestination!: Date;
 }

@@ -9,7 +9,7 @@ export class SignInRequest {
   @IsNotEmpty()
   @IsString()
   @IsEmail()
-  email: string;
+  email!: string;
 
   @ApiProperty({
     description: 'User password',
@@ -17,7 +17,7 @@ export class SignInRequest {
   })
   @IsNotEmpty()
   @IsString()
-  password: string;
+  password!: string;
 }
 
 export class SignInResponse {
@@ -28,14 +28,14 @@ export class SignInResponse {
       '`session` - session unique system identifier,<br />' +
       '`name` - user name and surname,<br />' +
       '`email` - user email address,<br />' +
-      '`role` - role that is assigned to user',
+      '`role` — a role that is assigned to a user.',
     example: 'eyJhbGci...',
   })
-  accessToken: string;
+  accessToken!: string;
 
   @ApiProperty({
     description: 'JWT refresh token that can be used to refresh `accessToken`',
     example: 'eyJhbGci...',
   })
-  refreshToken: string;
+  refreshToken!: string;
 }

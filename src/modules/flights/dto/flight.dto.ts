@@ -15,7 +15,7 @@ export class CreateFlightRequest {
   })
   @IsNotEmpty()
   @IsString()
-  flightNumber: string;
+  flightNumber!: string;
 
   @ApiProperty({
     description: 'Callsign used by air traffic services',
@@ -23,7 +23,7 @@ export class CreateFlightRequest {
   })
   @IsNotEmpty()
   @IsString()
-  callsign: string;
+  callsign!: string;
 
   @ApiProperty({
     description:
@@ -32,7 +32,7 @@ export class CreateFlightRequest {
   })
   @IsUUID()
   @IsString()
-  aircraftId: string;
+  aircraftId!: string;
 
   @ApiProperty({
     description:
@@ -41,7 +41,7 @@ export class CreateFlightRequest {
   })
   @IsUUID()
   @IsString()
-  departureAirportId: string;
+  departureAirportId!: string;
 
   @ApiProperty({
     description:
@@ -50,14 +50,14 @@ export class CreateFlightRequest {
   })
   @IsUUID()
   @IsString()
-  destinationAirportId: string;
+  destinationAirportId!: string;
 
   @ApiProperty({
     description: 'Initial timesheet reported to air traffic control services',
     type: ScheduledTimesheet,
   })
   @IsNotEmpty()
-  timesheet: ScheduledTimesheet;
+  timesheet!: ScheduledTimesheet;
 
   @ApiProperty({
     description: 'Initial loadsheet filled by operations team for pilots',
@@ -65,7 +65,7 @@ export class CreateFlightRequest {
   })
   @Type(() => PreliminaryLoadsheetOnly)
   @IsNotEmpty()
-  loadsheets: PreliminaryLoadsheetOnly;
+  loadsheets!: PreliminaryLoadsheetOnly;
 
   @ApiProperty({
     description: 'Flight operator',
@@ -74,7 +74,7 @@ export class CreateFlightRequest {
   @IsUUID()
   @IsString()
   @IsNotEmpty()
-  operatorId: string;
+  operatorId!: string;
 }
 
 export class GetFlightResponse extends OmitType(Flight, [

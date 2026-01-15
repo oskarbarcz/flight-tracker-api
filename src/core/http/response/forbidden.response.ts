@@ -5,17 +5,17 @@ export class ForbiddenResponse {
     description: 'Detailed message what went wrong',
     example: 'Forbidden resource',
   })
-  error: string;
+  error!: string;
 
   @ApiProperty({
     description: 'HTTP status message',
     example: 'Forbidden',
   })
-  message: 'Forbidden';
+  message = 'Forbidden';
 
   @ApiProperty({
     description: 'HTTP status code',
     example: 403,
   })
-  statusCode: 403;
+  statusCode = 403;
 }
