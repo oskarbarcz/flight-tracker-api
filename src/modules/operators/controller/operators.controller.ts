@@ -35,7 +35,7 @@ import { GenericNotFoundResponse } from '../../../core/http/response/not-found.r
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
 import { Role } from '../../../core/http/auth/decorator/role.decorator';
-import { UserRole } from '@prisma/client';
+import { UserRole } from 'prisma/client/client';
 
 @ApiTags('operator')
 @Controller('/api/v1/operator')

@@ -1,4 +1,5 @@
-import { Operator, PrismaClient } from '@prisma/client';
+import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
+import { Operator } from '../../client/client';
 
 export async function loadOperators(): Promise<void> {
   const condor: Operator = {
@@ -41,7 +42,7 @@ export async function loadOperators(): Promise<void> {
     callsign: 'SPEEDBIRD',
   };
 
-  const prisma = new PrismaClient();
+  const prisma = new PrismaService();
   for (const operator of [condor, lufthansa, lot, american, british]) {
     await prisma.operator.create({ data: operator });
   }

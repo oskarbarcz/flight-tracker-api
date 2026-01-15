@@ -10,5 +10,6 @@
 .react-router
 /dist
 /build
+/prisma/client
 /node_modules
 /test-data

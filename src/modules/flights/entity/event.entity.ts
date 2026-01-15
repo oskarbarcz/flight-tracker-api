@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { InputJsonValue } from '@prisma/client/runtime/library';
 import { FlightEventType } from '../../../core/events/flight';
+import { InputJsonValue } from '../../../../prisma/client/internal/prismaNamespace';
 
 export enum FlightEventScope {
   System = 'system',

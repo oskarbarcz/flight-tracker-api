@@ -27,7 +27,7 @@ import { Schedule } from '../entity/timesheet.entity';
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
 import { Role } from '../../../core/http/auth/decorator/role.decorator';
-import { UserRole } from '@prisma/client';
+import { UserRole } from 'prisma/client/client';
 import { AuthorizedRequest } from '../../../core/http/request/authorized.request';
 import { Loadsheet } from '../entity/loadsheet.entity';
 

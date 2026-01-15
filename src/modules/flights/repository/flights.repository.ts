@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import {
   Flight,
   FlightPathElement,
@@ -20,6 +19,7 @@ import {
   DepartureAirportNotFoundError,
   DestinationAirportNotFoundError,
 } from '../dto/errors.dto';
+import { Prisma } from '../../../../prisma/client/client';
 
 export const flightWithAircraftAndAirportsFields = {
   id: true,

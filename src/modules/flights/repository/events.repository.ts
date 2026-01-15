@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
-import { FlightEventScope, Prisma } from '@prisma/client';
 import { NewFlightEvent } from '../dto/event.dto';
 import { OnEvent } from '@nestjs/event-emitter';
 import { FlightEventType } from '../../../core/events/flight';
+import { FlightEventScope, Prisma } from 'prisma/client/client';
 
 const flightEventWithActor = {
   id: true,

@@ -6,7 +6,6 @@ import {
 import { CreateOperatorDto } from '../dto/create-operator.dto';
 import { UpdateOperatorDto } from '../dto/update-operator.dto';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
-import { Operator } from '@prisma/client';
 import { v4 } from 'uuid';
 import {
   OperatorAlreadyExistsError,
@@ -14,6 +13,7 @@ import {
   OperatorContainsFlightsError,
   OperatorDoesNotExistsError,
 } from '../dto/errors';
+import { Operator } from '../entity/operator.entity';
 
 @Injectable()
 export class OperatorsService {

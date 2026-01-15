@@ -28,11 +28,11 @@ import { UuidParam } from '../../core/validation/uuid.param';
 import { GenericBadRequestResponse } from '../../core/http/response/bad-request.response';
 import { GenericNotFoundResponse } from '../../core/http/response/not-found.response';
 import { GetUserDto, ListUsersFilters } from './dto/get-user.dto';
-import { UserRole } from '@prisma/client';
 import { Role } from '../../core/http/auth/decorator/role.decorator';
 import { UnauthorizedResponse } from '../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../core/http/response/forbidden.response';
 import { AuthorizedRequest } from '../../core/http/request/authorized.request';
+import { UserRole } from '../../../prisma/client/enums';
 
 @ApiTags('user')
 @Controller('/api/v1/user')

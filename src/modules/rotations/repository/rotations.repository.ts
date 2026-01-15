@@ -4,7 +4,6 @@ import {
   ConflictException,
   BadRequestException,
 } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
 import {
   CreateRotationRequest,
@@ -13,6 +12,7 @@ import {
 import { v4 } from 'uuid';
 import { RotationId } from '../entity/rotation.entity';
 import { FlightStatus } from '../../flights/entity/flight.entity';
+import { Prisma } from 'prisma/client/client';
 
 const rotationWithPilot = {
   id: true,

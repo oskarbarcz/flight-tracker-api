@@ -12,7 +12,7 @@ import { UuidParam } from '../../../core/validation/uuid.param';
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
 import { EventsRepository } from '../repository/events.repository';
 import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
-import { UserRole } from '@prisma/client';
+import { UserRole } from 'prisma/client/client';
 import { Role } from '../../../core/http/auth/decorator/role.decorator';
 import { FlightEventResponse } from '../dto/event.dto';
 import { FlightEventScope } from '../entity/event.entity';

@@ -28,13 +28,13 @@ import { UuidParam } from '../../../core/validation/uuid.param';
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
 import { Role } from '../../../core/http/auth/decorator/role.decorator';
-import { UserRole } from '@prisma/client';
 import {
   CreateRotationRequest,
   CreateRotationResponse,
   UpdateRotationRequest,
 } from '../dto/rotation.dto';
 import { RotationId } from '../entity/rotation.entity';
+import { UserRole } from 'prisma/client/client';
 
 @ApiTags('rotation')
 @Controller('api/v1/rotation')

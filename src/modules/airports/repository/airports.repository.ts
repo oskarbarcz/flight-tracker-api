@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
-import { Airport, Prisma } from '@prisma/client';
+import { Airport, Prisma } from 'prisma/client/client';
 import { AirportInUseError } from '../dto/errors.dto';
 import {
   AirportListFilters,
