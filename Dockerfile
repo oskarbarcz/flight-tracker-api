@@ -15,7 +15,7 @@ COPY --chown=node:node package*.json ./
 COPY --chown=node:node prisma ./prisma
 COPY --chown=node:node --from=development /app/node_modules ./node_modules
 COPY --chown=node:node . .
-RUN npm run build
+RUN npx prisma generate && npm run build
 ENV NODE_ENV="production"
 RUN npm ci --omit=dev && npm cache clean --force
 USER node
