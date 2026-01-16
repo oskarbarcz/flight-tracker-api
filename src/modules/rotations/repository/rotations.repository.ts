@@ -57,11 +57,11 @@ export class RotationsRepository {
     });
   }
 
-  async findAll(): Promise<RotationWithPilot[]> {
+  async getAll(): Promise<RotationWithPilot[]> {
     return this.prisma.rotation.findMany({ select: rotationWithPilot });
   }
 
-  async findOneById(id: RotationId): Promise<RotationWithPilot | null> {
+  async getOneById(id: RotationId): Promise<RotationWithPilot | null> {
     return this.prisma.rotation.findFirst({
       where: { id },
       select: rotationWithPilot,

@@ -10,7 +10,7 @@ export class RotationFlight {
     description: 'Flight unique system identifier',
     example: 'bd8f2d64-a647-42da-be63-c6589915e6c9',
   })
-  id!: string;
+  id!: string | RotationId;
 
   @ApiProperty({
     description: 'Flight number',
@@ -24,7 +24,7 @@ export class Rotation {
     description: 'Rotation unique system identifier',
     example: 'bd8f2d64-a647-42da-be63-c6589915e6c9',
   })
-  id!: RotationId;
+  id!: string;
 
   @ApiProperty({
     description: 'Rotation name',

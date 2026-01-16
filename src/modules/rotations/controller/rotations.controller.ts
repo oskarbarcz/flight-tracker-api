@@ -5,10 +5,10 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Patch,
   Post,
 } from '@nestjs/common';
-import { RotationsService } from '../service/rotations.service';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -35,11 +35,12 @@ import {
 } from '../dto/rotation.dto';
 import { RotationId } from '../entity/rotation.entity';
 import { UserRole } from 'prisma/client/client';
+import { RotationsRepository } from '../repository/rotations.repository';
 
 @ApiTags('rotation')
 @Controller('api/v1/rotation')
 export class RotationsController {
-  constructor(private readonly rotationsService: RotationsService) {}
+  constructor(private readonly repository: RotationsRepository) {}
 
   @ApiOperation({
     summary: 'Create a rotation',
@@ -73,7 +74,7 @@ export class RotationsController {
   async create(
     @Body() body: CreateRotationRequest,
   ): Promise<CreateRotationResponse> {
-    return this.rotationsService.create(body);
+    return this.repository.create(body);
   }
 
   @ApiOperation({
@@ -110,7 +111,7 @@ export class RotationsController {
     @UuidParam('id') id: string,
     @UuidParam('flightId') flightId: string,
   ): Promise<void> {
-    await this.rotationsService.addFlight(id, flightId);
+    await this.repository.addFlight(id, flightId);
   }
 
   @ApiOperation({
@@ -147,7 +148,7 @@ export class RotationsController {
     @UuidParam('id') id: string,
     @UuidParam('flightId') flightId: string,
   ): Promise<void> {
-    await this.rotationsService.removeFlight(id, flightId);
+    await this.repository.removeFlight(id, flightId);
   }
 
   @ApiOperation({
@@ -165,7 +166,7 @@ export class RotationsController {
   })
   @Get()
   getAll(): Promise<CreateRotationResponse[]> {
-    return this.rotationsService.getAll();
+    return this.repository.getAll();
   }
 
   @ApiOperation({
@@ -194,8 +195,15 @@ export class RotationsController {
     type: GenericNotFoundResponse,
   })
   @Get(':id')
-  getOneById(@UuidParam('id') id: RotationId): Promise<CreateRotationResponse> {
-    return this.rotationsService.getOneById(id);
+  async getOneById(
+    @UuidParam('id') id: RotationId,
+  ): Promise<CreateRotationResponse> {
+    const rotation = await this.repository.getOneById(id);
+
+    if (!rotation) {
+      throw new NotFoundException('Rotation with given ID not found');
+    }
+    return rotation;
   }
 
   @ApiOperation({
@@ -232,7 +240,7 @@ export class RotationsController {
     @UuidParam('id') id: RotationId,
     @Body() body: UpdateRotationRequest,
   ): Promise<CreateRotationResponse> {
-    return this.rotationsService.update(id, body);
+    return this.repository.update(id, body);
   }
 
   @ApiOperation({
@@ -265,6 +273,6 @@ export class RotationsController {
   @Role(UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@UuidParam('id') id: RotationId): Promise<void> {
-    await this.rotationsService.remove(id);
+    await this.repository.remove(id);
   }
 }
