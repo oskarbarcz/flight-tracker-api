@@ -30,11 +30,17 @@ import { Role } from '../../../core/http/auth/decorator/role.decorator';
 import { UserRole } from 'prisma/client/client';
 import { AuthorizedRequest } from '../../../core/http/request/authorized.request';
 import { Loadsheet } from '../entity/loadsheet.entity';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { MarkFlightAsReadyCommand } from '../application/command/mark-flight-as-ready.command';
 
 @ApiTags('flight actions')
 @Controller('api/v1/flight')
 export class ActionsController {
-  constructor(private readonly flightsService: FlightsService) {}
+  constructor(
+    private readonly flightsService: FlightsService,
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+  ) {}
 
   @ApiOperation({
     summary: 'Mark flight as ready',
@@ -75,7 +81,8 @@ export class ActionsController {
     @UuidParam('id') id: string,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    await this.flightsService.markAsReady(id, request.user.sub);
+    const command = new MarkFlightAsReadyCommand(id, request.user.sub);
+    await this.commandBus.execute(command);
   }
 
   @ApiOperation({

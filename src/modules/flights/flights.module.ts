@@ -15,6 +15,9 @@ import { DiversionRepository } from './repository/diversion.repository';
 import { DiversionController } from './controller/diversion.controller';
 import { DiscordService } from './service/discord.service';
 import { DiscordModule } from '../../core/provider/discord/discord.module';
+import { MarkFlightAsReadyHandler } from './application/command/mark-flight-as-ready.command';
+import { GetFlightByIdHandler } from './application/query/get-flight-by-id.query';
+import { ListAllFlightsHandler } from './application/query/list-all-flights.query';
 
 @Module({
   imports: [
@@ -38,6 +41,9 @@ import { DiscordModule } from '../../core/provider/discord/discord.module';
     FlightsRepository,
     EventsRepository,
     DiversionRepository,
+    MarkFlightAsReadyHandler,
+    GetFlightByIdHandler,
+    ListAllFlightsHandler,
   ],
 })
 export class FlightsModule {}

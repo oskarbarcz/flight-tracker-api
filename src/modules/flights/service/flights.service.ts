@@ -24,7 +24,6 @@ import {
   InvalidStatusToCloseFlight,
   InvalidStatusToFinishBoardingError,
   InvalidStatusToFinishOffboardingError,
-  InvalidStatusToMarkAsReadyError,
   InvalidStatusToReportArrivedError,
   InvalidStatusToReportOffBlockError,
   InvalidStatusToReportOnBlockError,
@@ -33,7 +32,6 @@ import {
   InvalidStatusToStartOffboardingError,
   InvalidStatusToUpdateLoadsheetError,
   OperatorForAircraftNotFoundError,
-  PreliminaryLoadsheetMissingError,
   ScheduledFlightCannotBeRemoved,
 } from '../dto/errors.dto';
 import { OperatorsService } from '../../operators/service/operators.service';
@@ -43,6 +41,8 @@ import { FlightEventScope } from '../entity/event.entity';
 import { NewFlightEvent } from '../dto/event.dto';
 import { JwtUser } from '../../auth/dto/jwt-user.dto';
 import { FlightEventType } from '../../../core/events/flight';
+import { QueryBus } from '@nestjs/cqrs';
+import { GetFlightByIdQuery } from '../application/query/get-flight-by-id.query';
 
 @Injectable()
 export class FlightsService {
@@ -51,104 +51,8 @@ export class FlightsService {
     private readonly flightsRepository: FlightsRepository,
     private readonly operatorsService: OperatorsService,
     private readonly eventEmitter: EventEmitter2,
+    private readonly queryBus: QueryBus,
   ) {}
-
-  private convertSchedule = (
-    schedule: Schedule | Partial<Schedule> | undefined,
-  ): Schedule | Partial<Schedule> | undefined => {
-    if (!schedule) return undefined;
-
-    return {
-      offBlockTime: schedule.offBlockTime
-        ? new Date(schedule.offBlockTime)
-        : null,
-      takeoffTime: schedule.takeoffTime ? new Date(schedule.takeoffTime) : null,
-      arrivalTime: schedule.arrivalTime ? new Date(schedule.arrivalTime) : null,
-      onBlockTime: schedule.onBlockTime ? new Date(schedule.onBlockTime) : null,
-    };
-  };
-
-  private convertTimesheetDates(timesheet: FullTimesheet): FullTimesheet {
-    const result: FullTimesheet = {};
-
-    if (timesheet.scheduled) {
-      result.scheduled = this.convertSchedule(timesheet.scheduled) as Schedule;
-    }
-
-    if (timesheet.estimated) {
-      result.estimated = this.convertSchedule(timesheet.estimated) as Schedule;
-    }
-
-    if (timesheet.actual) {
-      result.actual = this.convertSchedule(
-        timesheet.actual,
-      ) as Partial<Schedule>;
-    }
-
-    return result;
-  }
-
-  async find(id: string): Promise<GetFlightResponse> {
-    const flight = await this.flightsRepository.findOneBy({
-      id,
-    });
-
-    if (!flight) {
-      throw new NotFoundException(FlightDoesNotExistError);
-    }
-
-    return {
-      id: flight.id,
-      flightNumber: flight.flightNumber,
-      callsign: flight.callsign,
-      status: flight.status as FlightStatus,
-      timesheet: this.convertTimesheetDates(flight.timesheet as FullTimesheet),
-      loadsheets: flight.loadsheets as unknown as Loadsheets,
-      aircraft: flight.aircraft,
-      operator: flight.operator,
-      airports: flight.airports.map(
-        (airportOnFlight): AirportWithType => ({
-          ...airportOnFlight.airport,
-          location: airportOnFlight.airport.location as unknown as Coordinates,
-          continent: airportOnFlight.airport.continent as Continent,
-          type: airportOnFlight.airportType as AirportType,
-        }),
-      ),
-      isFlightDiverted: flight.isFlightDiverted,
-      rotationId: flight.rotationId,
-      createdAt: flight.createdAt,
-    };
-  }
-
-  async findAll(): Promise<GetFlightResponse[]> {
-    const flights = await this.flightsRepository.findAll();
-
-    return flights.map(
-      (flight): GetFlightResponse => ({
-        id: flight.id,
-        flightNumber: flight.flightNumber,
-        callsign: flight.callsign,
-        status: flight.status as FlightStatus,
-        timesheet: flight.timesheet as FullTimesheet,
-        loadsheets: flight.loadsheets as unknown as Loadsheets,
-        aircraft: flight.aircraft,
-        operator: flight.operator,
-        airports: flight.airports.map(
-          (airportOnFlight): AirportWithType => ({
-            ...airportOnFlight.airport,
-            location: airportOnFlight.airport
-              .location as unknown as Coordinates,
-            continent: airportOnFlight.airport.continent as Continent,
-            type: airportOnFlight.airportType as AirportType,
-          }),
-        ),
-        isFlightDiverted: flight.isFlightDiverted,
-        rotationId: flight.rotationId,
-        createdAt: flight.createdAt,
-      }),
-    );
-  }
-
   async create(
     input: CreateFlightRequest,
     initiator: JwtUser,
@@ -202,7 +106,8 @@ export class FlightsService {
   }
 
   async remove(id: string): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(FlightDoesNotExistError);
@@ -215,38 +120,13 @@ export class FlightsService {
     await this.flightsRepository.remove(id);
   }
 
-  async markAsReady(id: string, initiatorId: string): Promise<void> {
-    const flight = await this.find(id);
-
-    if (!flight) {
-      throw new NotFoundException(FlightDoesNotExistError);
-    }
-
-    if (flight.status !== FlightStatus.Created) {
-      throw new UnprocessableEntityException(InvalidStatusToMarkAsReadyError);
-    }
-
-    if (!flight.loadsheets.preliminary) {
-      throw new UnprocessableEntityException(PreliminaryLoadsheetMissingError);
-    }
-
-    await this.flightsRepository.updateStatus(id, FlightStatus.Ready);
-    const event: NewFlightEvent = {
-      flightId: id,
-      rotationId: flight.rotationId,
-      type: FlightEventType.FlightWasReleased,
-      scope: FlightEventScope.User,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.FlightWasReleased, event);
-  }
-
   async updatePreliminaryLoadsheet(
     id: string,
     loadsheet: Loadsheet,
     initiatorId: string,
   ): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(FlightDoesNotExistError);
@@ -278,7 +158,8 @@ export class FlightsService {
     schedule: Schedule,
     initiatorId: string,
   ): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(FlightDoesNotExistError);
@@ -307,7 +188,8 @@ export class FlightsService {
     estimatedSchedule: Schedule,
     initiatorId: string,
   ): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(FlightDoesNotExistError);
@@ -334,7 +216,8 @@ export class FlightsService {
   }
 
   async startBoarding(id: string, initiatorId: string): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(FlightDoesNotExistError);
@@ -360,7 +243,8 @@ export class FlightsService {
     finalLoadsheet: Loadsheet,
     initiatorId: string,
   ): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(FlightDoesNotExistError);
@@ -394,7 +278,8 @@ export class FlightsService {
   }
 
   async reportOffBlock(id: string, initiatorId: string): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(FlightDoesNotExistError);
@@ -428,7 +313,8 @@ export class FlightsService {
   }
 
   async reportTakeoff(id: string, initiatorId: string): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(FlightDoesNotExistError);
@@ -457,7 +343,8 @@ export class FlightsService {
   }
 
   async reportArrival(id: string, initiatorId: string): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(FlightDoesNotExistError);
@@ -484,7 +371,8 @@ export class FlightsService {
   }
 
   async reportOnBlock(id: string, initiatorId: string): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(FlightDoesNotExistError);
@@ -514,7 +402,8 @@ export class FlightsService {
     id: string,
     initiatorId: string,
   ): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(FlightDoesNotExistError);
@@ -545,7 +434,8 @@ export class FlightsService {
     id: string,
     initiatorId: string,
   ): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(FlightDoesNotExistError);
@@ -573,7 +463,8 @@ export class FlightsService {
   }
 
   async close(id: string, initiatorId: string): Promise<void> {
-    const flight = await this.find(id);
+    const query = new GetFlightByIdQuery(id);
+    const flight = await this.queryBus.execute(query);
 
     if (!flight) {
       throw new NotFoundException(InvalidStatusToCloseFlight);

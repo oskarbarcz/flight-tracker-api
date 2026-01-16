@@ -32,11 +32,17 @@ import { Role } from '../../../core/http/auth/decorator/role.decorator';
 import { UserRole } from 'prisma/client/client';
 import { AuthorizedRequest } from '../../../core/http/request/authorized.request';
 import { SkipAuth } from '../../../core/http/auth/decorator/skip-auth.decorator';
+import { GetFlightByIdQuery } from '../application/query/get-flight-by-id.query';
+import { QueryBus } from '@nestjs/cqrs';
+import { ListAllFlightsQuery } from '../application/query/list-all-flights.query';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
 export class ManagementController {
-  constructor(private readonly flightsService: FlightsService) {}
+  constructor(
+    private readonly flightsService: FlightsService,
+    private readonly queryBus: QueryBus,
+  ) {}
 
   @ApiOperation({ summary: 'Retrieve all flights' })
   @ApiBearerAuth('jwt')
@@ -51,7 +57,8 @@ export class ManagementController {
   })
   @Get()
   findAll(): Promise<GetFlightResponse[]> {
-    return this.flightsService.findAll();
+    const query = new ListAllFlightsQuery();
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({ summary: 'Retrieve one flight' })
@@ -78,7 +85,8 @@ export class ManagementController {
   @Get(':id')
   @SkipAuth()
   findOne(@UuidParam('id') id: string): Promise<GetFlightResponse> {
-    return this.flightsService.find(id);
+    const query = new GetFlightByIdQuery(id);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({
