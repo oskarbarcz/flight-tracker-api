@@ -13,6 +13,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { SkyLinkModule } from './modules/skylink/skylink.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { DiscordModule } from './core/provider/discord/discord.module';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { DiscordModule } from './core/provider/discord/discord.module';
     DiscordModule,
     EventEmitterModule.forRoot(),
     ScheduleModule.forRoot(),
+    CqrsModule.forRoot(),
     ConfigModule.forRoot({ isGlobal: true }),
     CacheModule.register({ isGlobal: true }),
   ],

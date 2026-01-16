@@ -6,19 +6,21 @@ import {
   AirportType,
   AirportWithType,
 } from '../../airports/entity/airport.entity';
-import { FlightsService } from './flights.service';
 import { Injectable } from '@nestjs/common';
+import { QueryBus } from '@nestjs/cqrs';
+import { GetFlightByIdQuery } from '../application/query/get-flight-by-id.query';
 
 @Injectable()
 export class DiscordService {
   constructor(
     private readonly client: DiscordClient,
-    private readonly flightsService: FlightsService,
+    private readonly queryBus: QueryBus,
   ) {}
 
   @OnEvent(FlightEventType.BoardingWasStarted)
   public async onBoardingStarted(event: NewFlightEvent): Promise<void> {
-    const flight = await this.flightsService.find(event.flightId);
+    const query = new GetFlightByIdQuery(event.flightId);
+    const flight = await this.queryBus.execute(query);
 
     const departure = flight.airports.find(
       (airport) => airport.type === AirportType.Departure,
@@ -52,7 +54,8 @@ export class DiscordService {
 
   @OnEvent(FlightEventType.OnBlockWasReported)
   public async onOnblockReported(event: NewFlightEvent): Promise<void> {
-    const flight = await this.flightsService.find(event.flightId);
+    const query = new GetFlightByIdQuery(event.flightId);
+    const flight = await this.queryBus.execute(query);
 
     const departure = flight.airports.find(
       (airport) => airport.type === AirportType.Departure,

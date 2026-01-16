@@ -8,7 +8,6 @@ import {
   Post,
   Req,
 } from '@nestjs/common';
-import { FlightsService } from '../service/flights.service';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -32,11 +31,20 @@ import { Role } from '../../../core/http/auth/decorator/role.decorator';
 import { UserRole } from 'prisma/client/client';
 import { AuthorizedRequest } from '../../../core/http/request/authorized.request';
 import { SkipAuth } from '../../../core/http/auth/decorator/skip-auth.decorator';
+import { GetFlightByIdQuery } from '../application/query/get-flight-by-id.query';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { ListAllFlightsQuery } from '../application/query/list-all-flights.query';
+import { RemoveFlightCommand } from '../application/command/remove-flight.command';
+import { CreateFlightCommand } from '../application/command/create-flight.command';
+import { v4 } from 'uuid';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
 export class ManagementController {
-  constructor(private readonly flightsService: FlightsService) {}
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+  ) {}
 
   @ApiOperation({ summary: 'Retrieve all flights' })
   @ApiBearerAuth('jwt')
@@ -51,7 +59,8 @@ export class ManagementController {
   })
   @Get()
   findAll(): Promise<GetFlightResponse[]> {
-    return this.flightsService.findAll();
+    const query = new ListAllFlightsQuery();
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({ summary: 'Retrieve one flight' })
@@ -78,7 +87,8 @@ export class ManagementController {
   @Get(':id')
   @SkipAuth()
   findOne(@UuidParam('id') id: string): Promise<GetFlightResponse> {
-    return this.flightsService.find(id);
+    const query = new GetFlightByIdQuery(id);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({
@@ -114,7 +124,13 @@ export class ManagementController {
     @Req() request: AuthorizedRequest,
     @Body() input: CreateFlightRequest,
   ): Promise<GetFlightResponse> {
-    return this.flightsService.create(input, request.user);
+    const flightId = v4();
+
+    const command = new CreateFlightCommand(flightId, input, request.user.sub);
+    await this.commandBus.execute(command);
+
+    const query = new GetFlightByIdQuery(flightId);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({
@@ -152,6 +168,7 @@ export class ManagementController {
   @Role(UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@UuidParam('id') id: string): Promise<void> {
-    await this.flightsService.remove(id);
+    const command = new RemoveFlightCommand(id);
+    await this.commandBus.execute(command);
   }
 }
