@@ -6,7 +6,6 @@ import {
 } from '../entity/flight.entity';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
 import { CreateFlightRequest } from '../dto/flight.dto';
-import { v4 } from 'uuid';
 import { FullTimesheet } from '../entity/timesheet.entity';
 import { Loadsheets } from '../entity/loadsheet.entity';
 import {
@@ -103,38 +102,39 @@ export type FlightResponse = FlightWithAircraftAndAirports & DiversionStatus;
 export class FlightsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(input: CreateFlightRequest): Promise<FlightResponse> {
-    const flightId = v4();
-
-    if (!(await this.airportExist(input.departureAirportId))) {
+  async create(
+    flightId: string,
+    flightData: CreateFlightRequest,
+  ): Promise<void> {
+    if (!(await this.airportExist(flightData.departureAirportId))) {
       throw new NotFoundException(DepartureAirportNotFoundError);
     }
 
-    if (!(await this.airportExist(input.destinationAirportId))) {
+    if (!(await this.airportExist(flightData.destinationAirportId))) {
       throw new NotFoundException(DestinationAirportNotFoundError);
     }
 
     const loadsheets = {
-      preliminary: input.loadsheets.preliminary,
+      preliminary: flightData.loadsheets.preliminary,
       final: null,
     };
 
     await this.prisma.flight.create({
       data: {
         id: flightId,
-        flightNumber: input.flightNumber,
-        callsign: input.callsign,
-        aircraftId: input.aircraftId,
+        flightNumber: flightData.flightNumber,
+        callsign: flightData.callsign,
+        aircraftId: flightData.aircraftId,
         status: FlightStatus.Created,
-        operatorId: input.operatorId,
-        timesheet: JSON.parse(JSON.stringify(input.timesheet)),
+        operatorId: flightData.operatorId,
+        timesheet: JSON.parse(JSON.stringify(flightData.timesheet)),
         loadsheets: JSON.parse(JSON.stringify(loadsheets)),
       },
     });
 
     await this.prisma.airportsOnFlights.create({
       data: {
-        airportId: input.departureAirportId,
+        airportId: flightData.departureAirportId,
         flightId: flightId,
         airportType: 'departure',
       },
@@ -142,19 +142,11 @@ export class FlightsRepository {
 
     await this.prisma.airportsOnFlights.create({
       data: {
-        airportId: input.destinationAirportId,
+        airportId: flightData.destinationAirportId,
         flightId: flightId,
         airportType: 'destination',
       },
     });
-
-    const flight = await this.findOneBy({ id: flightId });
-
-    if (!flight) {
-      throw new Error('Flight was not created. Internal error occurred.');
-    }
-
-    return flight;
   }
 
   async findOneBy(

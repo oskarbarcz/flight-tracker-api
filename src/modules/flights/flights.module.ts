@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { FlightsService } from './service/flights.service';
 import { ManagementController } from './controller/management.controller';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { FlightsRepository } from './repository/flights.repository';
@@ -15,9 +14,23 @@ import { DiversionRepository } from './repository/diversion.repository';
 import { DiversionController } from './controller/diversion.controller';
 import { DiscordService } from './service/discord.service';
 import { DiscordModule } from '../../core/provider/discord/discord.module';
-import { MarkFlightAsReadyHandler } from './application/command/mark-flight-as-ready.command';
+import { MarkFlightAsReadyHandler } from './application/command/mark-as-ready.command';
 import { GetFlightByIdHandler } from './application/query/get-flight-by-id.query';
 import { ListAllFlightsHandler } from './application/query/list-all-flights.query';
+import { RemoveFlightHandler } from './application/command/remove-flight.command';
+import { CheckInPilotForFlightHandler } from './application/command/check-in-pilot.command';
+import { StartBoardingHandler } from './application/command/start-boarding.command';
+import { FinishBoardingHandler } from './application/command/finish-boarding.command';
+import { ReportOffBlockHandler } from './application/command/report-off-block.command';
+import { ReportTakeoffHandler } from './application/command/report-takeoff.command';
+import { ReportArrivalHandler } from './application/command/report-arrival.command';
+import { ReportOnBlockHandler } from './application/command/report-on-block.command';
+import { FinishOffboardingHandler } from './application/command/finish-offboarding.command';
+import { StartOffboardingHandler } from './application/command/start-offboarding.command';
+import { UpdatePreliminaryLoadsheetHandler } from './application/command/update-preliminary-loadsheet.command';
+import { CloseFlightHandler } from './application/command/close-flight.command';
+import { UpdateScheduledTimesheetHandler } from './application/command/update-scheduled-timesheet.command';
+import { CreateFlightHandler } from './application/command/create-flight.command';
 
 @Module({
   imports: [
@@ -35,7 +48,6 @@ import { ListAllFlightsHandler } from './application/query/list-all-flights.quer
     PathController,
   ],
   providers: [
-    FlightsService,
     PositionService,
     DiscordService,
     FlightsRepository,
@@ -44,6 +56,20 @@ import { ListAllFlightsHandler } from './application/query/list-all-flights.quer
     MarkFlightAsReadyHandler,
     GetFlightByIdHandler,
     ListAllFlightsHandler,
+    RemoveFlightHandler,
+    CheckInPilotForFlightHandler,
+    StartBoardingHandler,
+    FinishBoardingHandler,
+    ReportOffBlockHandler,
+    ReportTakeoffHandler,
+    ReportArrivalHandler,
+    ReportOnBlockHandler,
+    StartOffboardingHandler,
+    FinishOffboardingHandler,
+    UpdatePreliminaryLoadsheetHandler,
+    UpdateScheduledTimesheetHandler,
+    CloseFlightHandler,
+    CreateFlightHandler,
   ],
 })
 export class FlightsModule {}

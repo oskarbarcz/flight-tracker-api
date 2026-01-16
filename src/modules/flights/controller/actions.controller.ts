@@ -7,7 +7,6 @@ import {
   Post,
   Req,
 } from '@nestjs/common';
-import { FlightsService } from '../service/flights.service';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -30,17 +29,25 @@ import { Role } from '../../../core/http/auth/decorator/role.decorator';
 import { UserRole } from 'prisma/client/client';
 import { AuthorizedRequest } from '../../../core/http/request/authorized.request';
 import { Loadsheet } from '../entity/loadsheet.entity';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { MarkFlightAsReadyCommand } from '../application/command/mark-flight-as-ready.command';
+import { CommandBus } from '@nestjs/cqrs';
+import { MarkAsReadyCommand } from '../application/command/mark-as-ready.command';
+import { CheckInPilotCommand } from '../application/command/check-in-pilot.command';
+import { StartBoardingCommand } from '../application/command/start-boarding.command';
+import { FinishBoardingCommand } from '../application/command/finish-boarding.command';
+import { ReportOffBlockCommand } from '../application/command/report-off-block.command';
+import { ReportTakeoffCommand } from '../application/command/report-takeoff.command';
+import { ReportArrivalCommand } from '../application/command/report-arrival.command';
+import { ReportOnBlockCommand } from '../application/command/report-on-block.command';
+import { FinishOffboardingCommand } from '../application/command/finish-offboarding.command';
+import { StartOffboardingCommand } from '../application/command/start-offboarding.command';
+import { UpdatePreliminaryLoadsheetCommand } from '../application/command/update-preliminary-loadsheet.command';
+import { CloseFlightCommand } from '../application/command/close-flight.command';
+import { UpdateScheduledTimesheetCommand } from '../application/command/update-scheduled-timesheet.command';
 
 @ApiTags('flight actions')
 @Controller('api/v1/flight')
 export class ActionsController {
-  constructor(
-    private readonly flightsService: FlightsService,
-    private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus,
-  ) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   @ApiOperation({
     summary: 'Mark flight as ready',
@@ -81,7 +88,7 @@ export class ActionsController {
     @UuidParam('id') id: string,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    const command = new MarkFlightAsReadyCommand(id, request.user.sub);
+    const command = new MarkAsReadyCommand(id, request.user.sub);
     await this.commandBus.execute(command);
   }
 
@@ -128,11 +135,12 @@ export class ActionsController {
     @Req() request: AuthorizedRequest,
     @Body() loadsheet: Loadsheet,
   ): Promise<void> {
-    await this.flightsService.updatePreliminaryLoadsheet(
+    const command = new UpdatePreliminaryLoadsheetCommand(
       id,
-      loadsheet,
       request.user.sub,
+      loadsheet,
     );
+    await this.commandBus.execute(command);
   }
 
   @ApiOperation({
@@ -178,11 +186,12 @@ export class ActionsController {
     @Req() request: AuthorizedRequest,
     @Body() schedule: Schedule,
   ): Promise<void> {
-    await this.flightsService.updateScheduledTimesheet(
+    const command = new UpdateScheduledTimesheetCommand(
       id,
-      schedule,
       request.user.sub,
+      schedule,
     );
+    await this.commandBus.execute(command);
   }
 
   @ApiOperation({
@@ -228,7 +237,8 @@ export class ActionsController {
     @Body() schedule: Schedule,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    await this.flightsService.checkInPilot(id, schedule, request.user.sub);
+    const command = new CheckInPilotCommand(id, request.user.sub, schedule);
+    await this.commandBus.execute(command);
   }
 
   @ApiOperation({
@@ -269,7 +279,8 @@ export class ActionsController {
     @UuidParam('id') id: string,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    await this.flightsService.startBoarding(id, request.user.sub);
+    const command = new StartBoardingCommand(id, request.user.sub);
+    await this.commandBus.execute(command);
   }
 
   @ApiOperation({
@@ -315,7 +326,8 @@ export class ActionsController {
     @Req() request: AuthorizedRequest,
     @Body() loadsheet: Loadsheet,
   ): Promise<void> {
-    await this.flightsService.finishBoarding(id, loadsheet, request.user.sub);
+    const command = new FinishBoardingCommand(id, request.user.sub, loadsheet);
+    await this.commandBus.execute(command);
   }
 
   @ApiOperation({
@@ -356,7 +368,8 @@ export class ActionsController {
     @UuidParam('id') id: string,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    await this.flightsService.reportOffBlock(id, request.user.sub);
+    const command = new ReportOffBlockCommand(id, request.user.sub);
+    await this.commandBus.execute(command);
   }
 
   @ApiOperation({
@@ -397,7 +410,8 @@ export class ActionsController {
     @UuidParam('id') id: string,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    await this.flightsService.reportTakeoff(id, request.user.sub);
+    const command = new ReportTakeoffCommand(id, request.user.sub);
+    await this.commandBus.execute(command);
   }
 
   @ApiOperation({
@@ -438,7 +452,8 @@ export class ActionsController {
     @UuidParam('id') id: string,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    await this.flightsService.reportArrival(id, request.user.sub);
+    const command = new ReportArrivalCommand(id, request.user.sub);
+    await this.commandBus.execute(command);
   }
 
   @ApiOperation({
@@ -479,7 +494,8 @@ export class ActionsController {
     @UuidParam('id') id: string,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    await this.flightsService.reportOnBlock(id, request.user.sub);
+    const command = new ReportOnBlockCommand(id, request.user.sub);
+    await this.commandBus.execute(command);
   }
 
   @ApiOperation({
@@ -520,7 +536,8 @@ export class ActionsController {
     @UuidParam('id') id: string,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    await this.flightsService.reportOffboardingStarted(id, request.user.sub);
+    const command = new StartOffboardingCommand(id, request.user.sub);
+    await this.commandBus.execute(command);
   }
 
   @ApiOperation({
@@ -561,7 +578,8 @@ export class ActionsController {
     @UuidParam('id') id: string,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    await this.flightsService.reportOffboardingFinished(id, request.user.sub);
+    const command = new FinishOffboardingCommand(id, request.user.sub);
+    await this.commandBus.execute(command);
   }
 
   @ApiOperation({
@@ -602,6 +620,7 @@ export class ActionsController {
     @UuidParam('id') id: string,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    await this.flightsService.close(id, request.user.sub);
+    const command = new CloseFlightCommand(id, request.user.sub);
+    await this.commandBus.execute(command);
   }
 }

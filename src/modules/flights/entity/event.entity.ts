@@ -75,5 +75,5 @@ export class FlightEvent<EventPayload = object> {
   })
   createdAt!: Date;
 
-  rotationId!: string | null;
+  rotationId?: string | null = null;
 }

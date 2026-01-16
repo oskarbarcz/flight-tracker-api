@@ -8,7 +8,6 @@ import {
   Post,
   Req,
 } from '@nestjs/common';
-import { FlightsService } from '../service/flights.service';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -33,15 +32,18 @@ import { UserRole } from 'prisma/client/client';
 import { AuthorizedRequest } from '../../../core/http/request/authorized.request';
 import { SkipAuth } from '../../../core/http/auth/decorator/skip-auth.decorator';
 import { GetFlightByIdQuery } from '../application/query/get-flight-by-id.query';
-import { QueryBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ListAllFlightsQuery } from '../application/query/list-all-flights.query';
+import { RemoveFlightCommand } from '../application/command/remove-flight.command';
+import { CreateFlightCommand } from '../application/command/create-flight.command';
+import { v4 } from 'uuid';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
 export class ManagementController {
   constructor(
-    private readonly flightsService: FlightsService,
     private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
   ) {}
 
   @ApiOperation({ summary: 'Retrieve all flights' })
@@ -122,7 +124,13 @@ export class ManagementController {
     @Req() request: AuthorizedRequest,
     @Body() input: CreateFlightRequest,
   ): Promise<GetFlightResponse> {
-    return this.flightsService.create(input, request.user);
+    const flightId = v4();
+
+    const command = new CreateFlightCommand(flightId, input, request.user.sub);
+    await this.commandBus.execute(command);
+
+    const query = new GetFlightByIdQuery(flightId);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({
@@ -160,6 +168,7 @@ export class ManagementController {
   @Role(UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@UuidParam('id') id: string): Promise<void> {
-    await this.flightsService.remove(id);
+    const command = new RemoveFlightCommand(id);
+    await this.commandBus.execute(command);
   }
 }

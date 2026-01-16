@@ -1,54 +1,59 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightByIdQuery } from '../query/get-flight-by-id.query';
 import { FlightStatus } from '../../entity/flight.entity';
-import { UnprocessableEntityException } from '@nestjs/common';
 import {
-  InvalidStatusToMarkAsReadyError,
-  PreliminaryLoadsheetMissingError,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
+import {
+  FlightDoesNotExistError,
+  InvalidStatusToStartBoardingError,
 } from '../../dto/errors.dto';
+import { FlightsRepository } from '../../repository/flights.repository';
 import { NewFlightEvent } from '../../dto/event.dto';
 import { FlightEventType } from '../../../../core/events/flight';
 import { FlightEventScope } from '../../entity/event.entity';
-import { FlightsRepository } from '../../repository/flights.repository';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
-export class MarkFlightAsReadyCommand {
+export class StartBoardingCommand {
   constructor(
     public readonly flightId: string,
     public readonly initiatorId: string,
   ) {}
 }
 
-@CommandHandler(MarkFlightAsReadyCommand)
-export class MarkFlightAsReadyHandler implements ICommandHandler<MarkFlightAsReadyCommand> {
+@CommandHandler(StartBoardingCommand)
+export class StartBoardingHandler implements ICommandHandler<StartBoardingCommand> {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
-  async execute(command: MarkFlightAsReadyCommand): Promise<void> {
+  async execute(command: StartBoardingCommand): Promise<void> {
     const { flightId, initiatorId } = command;
-
     const query = new GetFlightByIdQuery(flightId);
     const flight = await this.queryBus.execute(query);
 
-    if (flight.status !== FlightStatus.Created) {
-      throw new UnprocessableEntityException(InvalidStatusToMarkAsReadyError);
+    if (!flight) {
+      throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    if (!flight.loadsheets.preliminary) {
-      throw new UnprocessableEntityException(PreliminaryLoadsheetMissingError);
+    if (flight.status !== FlightStatus.CheckedIn) {
+      throw new UnprocessableEntityException(InvalidStatusToStartBoardingError);
     }
 
-    await this.flightsRepository.updateStatus(flightId, FlightStatus.Ready);
+    await this.flightsRepository.updateStatus(
+      flightId,
+      FlightStatus.BoardingStarted,
+    );
     const event: NewFlightEvent = {
       flightId,
       rotationId: flight.rotationId,
-      type: FlightEventType.FlightWasReleased,
+      type: FlightEventType.BoardingWasStarted,
       scope: FlightEventScope.User,
       actorId: initiatorId,
     };
-    this.eventEmitter.emit(FlightEventType.FlightWasReleased, event);
+    this.eventEmitter.emit(FlightEventType.BoardingWasStarted, event);
   }
 }
