@@ -13,5 +13,8 @@ import { configureHelmet } from './core/http/helmet/helmet.config';
   configureHelmet(app);
   configureCors(app);
 
-  await app.listen(3000);
+  const server = await app.listen(3000);
+
+  server.keepAliveTimeout = 15 * 1000;
+  server.headersTimeout = 15 * 1000;
 })();

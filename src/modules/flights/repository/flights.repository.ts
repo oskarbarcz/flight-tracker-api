@@ -60,6 +60,7 @@ export const flightWithAircraftAndAirportsFields = {
     },
   },
   airports: {
+    orderBy: { airportType: 'asc' },
     select: {
       airportType: true,
       airport: {
