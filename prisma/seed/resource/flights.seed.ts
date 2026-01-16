@@ -1,5 +1,5 @@
 import { FlightStatus } from '../../../src/modules/flights/entity/flight.entity';
-import { FlightEventScope, Prisma, PrismaClient } from '@prisma/client';
+import { FlightEventScope, Prisma } from '../../client/client';
 import { AirportType } from '../../../src/modules/airports/entity/airport.entity';
 import { Loadsheets } from '../../../src/modules/flights/entity/loadsheet.entity';
 import { FlightEventType } from '../../../src/core/events/flight';
@@ -8,8 +8,9 @@ import {
   DiversionReporterRole,
   DiversionSeverity,
 } from '../../../src/modules/flights/entity/diversion.entity';
+import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaService();
 
 /**
  * DLH450 | 3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05

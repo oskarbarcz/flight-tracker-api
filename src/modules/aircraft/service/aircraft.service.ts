@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
 import { v4 } from 'uuid';
-import { Aircraft, Prisma } from '@prisma/client';
+import { Aircraft, Prisma } from 'prisma/client/client';
 import {
   AircraftInUseError,
   OperatorForAircraftNotFoundError,

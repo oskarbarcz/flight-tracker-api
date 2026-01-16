@@ -1,5 +1,6 @@
-import { Prisma, PrismaClient } from '@prisma/client';
+import { Prisma } from '../../client/client';
 import { Continent } from '../../../src/modules/airports/entity/airport.entity';
+import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 
 export async function loadAirports(): Promise<void> {
   const frankfurt: Prisma.AirportCreateInput = {
@@ -152,7 +153,7 @@ export async function loadAirports(): Promise<void> {
     },
   };
 
-  const prisma = new PrismaClient();
+  const prisma = new PrismaService();
 
   await prisma.airport.createMany({
     data: [

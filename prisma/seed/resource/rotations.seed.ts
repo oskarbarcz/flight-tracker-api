@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaService();
 
 async function load012025(): Promise<void> {
   await prisma.rotation.create({

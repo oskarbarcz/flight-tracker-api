@@ -1,4 +1,5 @@
-import { PrismaClient, User, UserRole } from '@prisma/client';
+import { User, UserRole } from '../../client/client';
+import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 
 export async function loadUsers(): Promise<void> {
   const john: User = {
@@ -71,7 +72,7 @@ export async function loadUsers(): Promise<void> {
     pilotLicenseId: 'UK-98540',
   };
 
-  const prisma = new PrismaClient();
+  const prisma = new PrismaService();
   for (const user of [john, alice, rick, alan, michael]) {
     await prisma.user.create({ data: user });
   }

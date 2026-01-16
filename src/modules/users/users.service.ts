@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User, UserRole } from '@prisma/client';
 import { v4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../core/provider/prisma/prisma.service';
@@ -13,6 +12,8 @@ import { GetUserDto, ListUsersFilters } from './dto/get-user.dto';
 import { OnEvent } from '@nestjs/event-emitter';
 import { NewFlightEvent } from '../flights/dto/event.dto';
 import { FlightEventType } from '../../core/events/flight';
+import { User } from '../../../prisma/client/client';
+import { UserRole } from '../../../prisma/client/enums';
 
 @Injectable()
 export class UsersService {

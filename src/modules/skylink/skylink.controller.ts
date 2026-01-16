@@ -12,11 +12,11 @@ import { SkyLinkClient } from '../../core/provider/skylink/client/skylink.client
 import { Param, UseInterceptors } from '@nestjs/common';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import { Role } from '../../core/http/auth/decorator/role.decorator';
-import { UserRole } from '@prisma/client';
 import { AirportResponse } from './dto/airport.dto';
 import { UnauthorizedResponse } from '../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../core/http/response/forbidden.response';
 import { GenericNotFoundResponse } from '../../core/http/response/not-found.response';
+import { UserRole } from 'prisma/client/client';
 
 @ApiTags('skylink')
 @Controller('api/v1/skylink')

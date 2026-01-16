@@ -1,4 +1,3 @@
-import { UserRole } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEnum,
@@ -7,6 +6,7 @@ import {
   IsString,
   Matches,
 } from 'class-validator';
+import { UserRole } from '../../../../prisma/client/enums';
 
 export class User {
   @ApiProperty({

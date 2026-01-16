@@ -3,6 +3,8 @@ import axios, { AxiosResponse } from 'axios';
 import expect from 'expect';
 import { deepCompare } from '../_helper/deep-compare';
 import { SignInResponse } from '../../src/modules/auth/dto/sign-in.dto';
+import * as http from 'node:http';
+import * as https from 'node:https';
 
 const apiUsers = {
   admin: {
@@ -36,12 +38,21 @@ let apiTokens = {
 } as Record<string, string>;
 let apiResponse: AxiosResponse;
 
+const httpAgent = new http.Agent({ keepAlive: true });
+const httpsAgent = new https.Agent({ keepAlive: true });
+const apiClient = axios.create({
+  baseURL: 'http://localhost:3000',
+  httpAgent,
+  httpsAgent,
+  validateStatus: () => true,
+});
+
 Given(
   'I am signed in as {string}',
   async (role: 'admin' | 'operations' | 'cabin crew') => {
     const credentials = apiUsers[role];
     const url = `${apiBaseUrl}/api/v1/auth/sign-in`;
-    apiResponse = (await axios.post(
+    apiResponse = (await apiClient.post(
       url,
       credentials,
     )) as AxiosResponse<SignInResponse>;
@@ -55,7 +66,7 @@ When(
   'I send a {string} request to {string}',
   async (method: string, path: string) => {
     const url = `${apiBaseUrl}${path}`;
-    apiResponse = await axios.request({
+    apiResponse = await apiClient.request({
       method: method,
       url: url,
       validateStatus: () => true,
@@ -71,7 +82,7 @@ When(
   'I send a {string} request to {string} with body:',
   async (method: string, path: string, body: string) => {
     const url = `${apiBaseUrl}${path}`;
-    apiResponse = await axios.request({
+    apiResponse = await apiClient.request({
       method: method,
       url: url,
       data: JSON.parse(body),

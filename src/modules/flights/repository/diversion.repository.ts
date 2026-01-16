@@ -9,7 +9,7 @@ import {
   ReportDiversionRequest,
   GetDiversionResponse,
 } from '../dto/diversion.dto';
-import { Prisma, UserRole } from '@prisma/client';
+import { Prisma, UserRole } from 'prisma/client/client';
 import { JwtUser } from '../../auth/dto/jwt-user.dto';
 import {
   DiversionReason,
