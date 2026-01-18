@@ -8,7 +8,6 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { OperatorsService } from '../service/operators.service';
 import { CreateOperatorDto } from '../dto/create-operator.dto';
 import { UpdateOperatorDto } from '../dto/update-operator.dto';
 import { UuidParam } from '../../../core/validation/uuid.param';
@@ -36,11 +35,21 @@ import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.r
 import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
 import { Role } from '../../../core/http/auth/decorator/role.decorator';
 import { UserRole } from 'prisma/client/client';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { CreateOperatorCommand } from '../application/command/create-operator.command';
+import { UpdateOperatorCommand } from '../application/command/update-operator.command';
+import { RemoveOperatorCommand } from '../application/command/remove-operator.command';
+import { GetOperatorByIdQuery } from '../application/query/get-operator-by-id.query';
+import { ListAllOperatorsQuery } from '../application/query/list-all-operators.query';
+import { v4 } from 'uuid';
 
 @ApiTags('operator')
 @Controller('/api/v1/operator')
 export class OperatorsController {
-  constructor(private readonly operatorsService: OperatorsService) {}
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+  ) {}
 
   @ApiOperation({
     summary: 'Create new operator',
@@ -67,8 +76,16 @@ export class OperatorsController {
   })
   @Post()
   @Role(UserRole.Operations)
-  create(@Body() createOperatorDto: CreateOperatorDto): Promise<Operator> {
-    return this.operatorsService.create(createOperatorDto);
+  async create(
+    @Body() createOperatorDto: CreateOperatorDto,
+  ): Promise<Operator> {
+    const operatorId = v4();
+
+    const command = new CreateOperatorCommand(operatorId, createOperatorDto);
+    await this.commandBus.execute(command);
+
+    const query = new GetOperatorByIdQuery(operatorId);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({ summary: 'Retrieve all operators' })
@@ -84,7 +101,8 @@ export class OperatorsController {
   })
   @Get()
   findAll(): Promise<Operator[]> {
-    return this.operatorsService.findAll();
+    const query = new ListAllOperatorsQuery();
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({ summary: 'Retrieve one operator' })
@@ -111,7 +129,8 @@ export class OperatorsController {
   })
   @Get(':id')
   findOne(@UuidParam('id') id: string): Promise<Operator> {
-    return this.operatorsService.findOne(id);
+    const query = new GetOperatorByIdQuery(id);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({
@@ -147,11 +166,15 @@ export class OperatorsController {
   })
   @Patch(':id')
   @Role(UserRole.Operations)
-  update(
+  async update(
     @UuidParam('id') id: string,
     @Body() updateOperatorDto: UpdateOperatorDto,
   ): Promise<Operator> {
-    return this.operatorsService.update(id, updateOperatorDto);
+    const command = new UpdateOperatorCommand(id, updateOperatorDto);
+    await this.commandBus.execute(command);
+
+    const query = new GetOperatorByIdQuery(id);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({
@@ -187,7 +210,8 @@ export class OperatorsController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.Operations)
-  remove(@UuidParam('id') id: string): Promise<void> {
-    return this.operatorsService.remove(id);
+  async remove(@UuidParam('id') id: string): Promise<void> {
+    const command = new RemoveOperatorCommand(id);
+    await this.commandBus.execute(command);
   }
 }

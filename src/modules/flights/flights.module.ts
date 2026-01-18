@@ -2,8 +2,6 @@ import { Module } from '@nestjs/common';
 import { ManagementController } from './controller/management.controller';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { FlightsRepository } from './repository/flights.repository';
-import { AircraftModule } from '../aircraft/aircraft.module';
-import { OperatorsModule } from '../operators/operators.module';
 import { EventsController } from './controller/events.controller';
 import { ActionsController } from './controller/actions.controller';
 import { EventsRepository } from './repository/events.repository';
@@ -31,15 +29,11 @@ import { UpdatePreliminaryLoadsheetHandler } from './application/command/update-
 import { CloseFlightHandler } from './application/command/close-flight.command';
 import { UpdateScheduledTimesheetHandler } from './application/command/update-scheduled-timesheet.command';
 import { CreateFlightHandler } from './application/command/create-flight.command';
+import { CheckFlightExistsHandler } from './application/query/check-flight-exists.query';
+import { GetFlightRotationInfoHandler } from './application/query/get-flight-rotation-info.query';
 
 @Module({
-  imports: [
-    PrismaModule,
-    AircraftModule,
-    DiscordModule,
-    OperatorsModule,
-    AdsbModule,
-  ],
+  imports: [PrismaModule, DiscordModule, AdsbModule],
   controllers: [
     ManagementController,
     EventsController,
@@ -70,6 +64,8 @@ import { CreateFlightHandler } from './application/command/create-flight.command
     UpdateScheduledTimesheetHandler,
     CloseFlightHandler,
     CreateFlightHandler,
+    CheckFlightExistsHandler,
+    GetFlightRotationInfoHandler,
   ],
 })
 export class FlightsModule {}

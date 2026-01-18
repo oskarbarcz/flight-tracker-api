@@ -279,4 +279,9 @@ export class FlightsRepository {
 
     return count > 0;
   }
+
+  public async exists(flightId: string): Promise<boolean> {
+    const count = await this.prisma.flight.count({ where: { id: flightId } });
+    return count > 0;
+  }
 }
