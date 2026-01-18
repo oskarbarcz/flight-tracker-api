@@ -95,7 +95,7 @@ export class AircraftRepository {
       where: { id },
     });
 
-    return count === 1;
+    return count > 0;
   }
 
   async countFlights(aircraftId: string): Promise<number> {
