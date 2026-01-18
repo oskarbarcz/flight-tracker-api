@@ -12,7 +12,7 @@ export class CheckFlightExistsHandler implements IQueryHandler<CheckFlightExists
   constructor(private readonly repository: FlightsRepository) {}
 
   async execute(query: CheckFlightExistsQuery): Promise<boolean> {
-    const flight = await this.repository.findOneBy({ id: query.flightId });
-    return !!flight;
+    const count = await this.repository.countBy({ id: query.flightId });
+    return count > 0;
   }
 }
