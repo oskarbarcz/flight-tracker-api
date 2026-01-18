@@ -8,7 +8,6 @@ import {
   HttpStatus,
   HttpCode,
 } from '@nestjs/common';
-import { AircraftService } from '../service/aircraft.service';
 import {
   UpdateAircraftRequest,
   UpdateAircraftResponse,
@@ -39,11 +38,21 @@ import {
   CreateAircraftRequest,
   CreateAircraftResponse,
 } from '../dto/create-aircraft.dto';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { CreateAircraftCommand } from '../application/command/create-aircraft.command';
+import { UpdateAircraftCommand } from '../application/command/update-aircraft.command';
+import { RemoveAircraftCommand } from '../application/command/remove-aircraft.command';
+import { GetAircraftByIdQuery } from '../application/query/get-aircraft-by-id.query';
+import { ListAllAircraftQuery } from '../application/query/list-all-aircraft.query';
+import { v4 } from 'uuid';
 
 @ApiTags('aircraft')
 @Controller('/api/v1/aircraft')
 export class AircraftController {
-  constructor(private readonly aircraftService: AircraftService) {}
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+  ) {}
 
   @ApiOperation({
     summary: 'Create new aircraft',
@@ -77,7 +86,13 @@ export class AircraftController {
   async create(
     @Body() createAircraftDto: CreateAircraftRequest,
   ): Promise<CreateAircraftResponse> {
-    return await this.aircraftService.create(createAircraftDto);
+    const aircraftId = v4();
+
+    const command = new CreateAircraftCommand(aircraftId, createAircraftDto);
+    await this.commandBus.execute(command);
+
+    const query = new GetAircraftByIdQuery(aircraftId);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({ summary: 'Retrieve all aircraft' })
@@ -93,7 +108,8 @@ export class AircraftController {
     type: UnauthorizedResponse,
   })
   async findAll(): Promise<CreateAircraftResponse[]> {
-    return this.aircraftService.findAll();
+    const query = new ListAllAircraftQuery();
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({ summary: 'Retrieve one aircraft' })
@@ -120,7 +136,8 @@ export class AircraftController {
   })
   @Get(':id')
   async findOne(@UuidParam('id') id: string): Promise<CreateAircraftResponse> {
-    return this.aircraftService.findOne(id);
+    const query = new GetAircraftByIdQuery(id);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({
@@ -160,7 +177,11 @@ export class AircraftController {
     @UuidParam('id') id: string,
     @Body() updateAircraftDto: UpdateAircraftRequest,
   ): Promise<UpdateAircraftResponse> {
-    return this.aircraftService.update(id, updateAircraftDto);
+    const command = new UpdateAircraftCommand(id, updateAircraftDto);
+    await this.commandBus.execute(command);
+
+    const query = new GetAircraftByIdQuery(id);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({
@@ -196,6 +217,7 @@ export class AircraftController {
   @Role(UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@UuidParam('id') id: string): Promise<void> {
-    await this.aircraftService.remove(id);
+    const command = new RemoveAircraftCommand(id);
+    await this.commandBus.execute(command);
   }
 }

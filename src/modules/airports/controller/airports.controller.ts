@@ -9,9 +9,8 @@ import {
   HttpStatus,
   Query,
 } from '@nestjs/common';
-import { AirportsRepository } from '../repository/airports.repository';
 import { UuidParam } from '../../../core/validation/uuid.param';
-import { Airport, Continent, Coordinates } from '../entity/airport.entity';
+import { Airport } from '../entity/airport.entity';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -39,11 +38,20 @@ import {
   UpdateAirportResponse,
 } from '../dto/airport.dto';
 import { SkipAuth } from '../../../core/http/auth/decorator/skip-auth.decorator';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { CreateAirportCommand } from '../application/command/create-airport.command';
+import { UpdateAirportCommand } from '../application/command/update-airport.command';
+import { RemoveAirportCommand } from '../application/command/remove-airport.command';
+import { GetAirportByIdQuery } from '../application/query/get-airport-by-id.query';
+import { ListAllAirportsQuery } from '../application/query/list-all-airports.query';
 
 @ApiTags('airport')
 @Controller('api/v1/airport')
 export class AirportsController {
-  constructor(private readonly repository: AirportsRepository) {}
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+  ) {}
 
   @ApiOperation({
     summary: 'Create new airport',
@@ -61,13 +69,11 @@ export class AirportsController {
   async create(
     @Body() body: CreateAirportRequest,
   ): Promise<GetAirportResponse> {
-    const airport = await this.repository.create(body);
+    const command = new CreateAirportCommand(body);
+    const airportId = await this.commandBus.execute(command);
 
-    return {
-      ...airport,
-      location: airport.location as unknown as Coordinates,
-      continent: airport.continent as Continent,
-    };
+    const query = new GetAirportByIdQuery(airportId);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({ summary: 'Retrieve all airports' })
@@ -87,13 +93,8 @@ export class AirportsController {
   async findAll(
     @Query() filters: AirportListFilters,
   ): Promise<GetAirportResponse[]> {
-    const airports = await this.repository.findAll(filters);
-
-    return airports.map((airport) => ({
-      ...airport,
-      location: airport.location as unknown as Coordinates,
-      continent: airport.continent as Continent,
-    }));
+    const query = new ListAllAirportsQuery(filters);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({ summary: 'Retrieve one airport' })
@@ -108,13 +109,8 @@ export class AirportsController {
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @Get(':id')
   async findOne(@UuidParam('id') id: string): Promise<GetAirportResponse> {
-    const airport = await this.repository.findOne(id);
-
-    return {
-      ...airport,
-      location: airport.location as unknown as Coordinates,
-      continent: airport.continent as Continent,
-    };
+    const query = new GetAirportByIdQuery(id);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({
@@ -141,13 +137,11 @@ export class AirportsController {
     @UuidParam('id') id: string,
     @Body() body: UpdateAirportResponse,
   ): Promise<GetAirportResponse> {
-    const airport = await this.repository.update(id, body);
+    const command = new UpdateAirportCommand(id, body);
+    await this.commandBus.execute(command);
 
-    return {
-      ...airport,
-      location: airport.location as unknown as Coordinates,
-      continent: airport.continent as Continent,
-    };
+    const query = new GetAirportByIdQuery(id);
+    return this.queryBus.execute(query);
   }
 
   @ApiOperation({
@@ -169,6 +163,7 @@ export class AirportsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.Operations)
   async remove(@UuidParam('id') id: string): Promise<void> {
-    return this.repository.remove(id);
+    const command = new RemoveAirportCommand(id);
+    await this.commandBus.execute(command);
   }
 }
