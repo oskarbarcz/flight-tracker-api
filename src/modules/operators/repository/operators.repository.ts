@@ -36,7 +36,11 @@ export class OperatorsRepository {
   }
 
   async exists(operatorId: string): Promise<boolean> {
-    return !!(await this.findOneBy({ id: operatorId }));
+    const count = await this.prisma.operator.count({
+      where: { id: operatorId },
+    });
+
+    return count > 0;
   }
 
   async countFlights(operatorId: string): Promise<number> {

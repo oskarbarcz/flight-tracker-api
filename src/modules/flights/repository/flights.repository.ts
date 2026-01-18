@@ -272,6 +272,14 @@ export class FlightsRepository {
     return count === 1;
   }
 
+  async exists(flightId: string): Promise<boolean> {
+    const count = await this.prisma.flight.count({
+      where: { id: flightId },
+    });
+
+    return count > 0;
+  }
+
   private async isFlightDiverted(flightId: string): Promise<boolean> {
     const count = await this.prisma.diversion.count({
       where: { flightId },
