@@ -1,7 +1,8 @@
 import { ConfigService } from '@nestjs/config';
-import { Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { OperationalFlightPlan } from '../type/simbrief.types';
 
+@Injectable()
 export class SimbriefClient {
   private readonly logger = new Logger(SimbriefClient.name);
 
