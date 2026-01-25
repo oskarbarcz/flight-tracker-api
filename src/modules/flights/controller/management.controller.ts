@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -37,6 +38,7 @@ import { ListAllFlightsQuery } from '../application/query/list-all-flights.query
 import { RemoveFlightCommand } from '../application/command/remove-flight.command';
 import { CreateFlightCommand } from '../application/command/create-flight.command';
 import { v4 } from 'uuid';
+import { CreateFlightFromSimbriefCommand } from '../application/command/create-flight-from-simbrief.command';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -45,6 +47,49 @@ export class ManagementController {
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus,
   ) {}
+
+  @ApiOperation({
+    summary: 'Create a flight',
+    description:
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
+  })
+  @ApiBearerAuth('jwt')
+  @ApiOkResponse({
+    description: 'Flight was created',
+    type: GetFlightResponse,
+  })
+  @ApiBadRequestResponse({
+    description: 'Validation failed',
+    type: GenericBadRequestResponse,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Airports or aircraft does not exist',
+    type: GenericNotFoundResponse,
+  })
+  @Post('/create-with-simbrief')
+  @Role(UserRole.Operations)
+  async createWithSimbrief(
+    @Req() request: AuthorizedRequest,
+  ): Promise<GetFlightResponse> {
+    const flightId = v4();
+
+    const command = new CreateFlightFromSimbriefCommand(
+      flightId,
+      request.user.sub,
+    );
+    await this.commandBus.execute(command);
+
+    const getFlightQuery = new GetFlightByIdQuery(flightId);
+    return this.queryBus.execute(getFlightQuery);
+  }
 
   @ApiOperation({ summary: 'Retrieve all flights' })
   @ApiBearerAuth('jwt')

@@ -104,7 +104,7 @@ export class AirportsRepository {
     await this.prisma.airport.delete({ where: { id } });
   }
 
-  private async findOneBy(
+  public async findOneBy(
     criteria: Partial<Record<keyof Airport, any>>,
   ): Promise<AirportView | null> {
     return this.prisma.airport.findFirst({
