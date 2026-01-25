@@ -123,6 +123,7 @@ model User {
   pilotLicenseId    String?  @db.VarChar(8)
   currentFlightId   String?  @unique @db.Uuid
   currentRotationId String?  @unique @db.Uuid
+  simbriefUserId    String?
 
   rotations       Rotation[]
   jwtRefreshToken JwtRefreshToken[]

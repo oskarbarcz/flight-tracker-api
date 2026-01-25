@@ -6,7 +6,8 @@ Feature: Update user
       """json
       {
         "name": "John Alfred Doe",
-        "email": "john.doe@example.com"
+        "email": "john.doe@example.com",
+        "simbriefUserId": "123456"
       }
       """
     Then the response status should be 200

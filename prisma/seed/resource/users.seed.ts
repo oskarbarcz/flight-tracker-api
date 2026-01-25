@@ -12,6 +12,7 @@ export async function loadUsers(): Promise<void> {
     pilotLicenseId: null,
     currentFlightId: null,
     currentRotationId: null,
+    simbriefUserId: null,
   };
 
   const alice: User = {
@@ -24,6 +25,7 @@ export async function loadUsers(): Promise<void> {
     pilotLicenseId: null,
     currentFlightId: null,
     currentRotationId: null,
+    simbriefUserId: '123456',
   };
 
   const rick: User = {
@@ -38,6 +40,7 @@ export async function loadUsers(): Promise<void> {
     currentFlightId: null,
     currentRotationId: null,
     pilotLicenseId: 'UK-31270',
+    simbriefUserId: null,
   };
 
   const alan: User = {
@@ -54,6 +57,7 @@ export async function loadUsers(): Promise<void> {
     // 02-2025 attached in rotations.seed.ts
     currentRotationId: null,
     pilotLicenseId: 'UK-34560',
+    simbriefUserId: null,
   };
 
   const michael: User = {
@@ -70,6 +74,7 @@ export async function loadUsers(): Promise<void> {
     // 03-2025 attached in rotations.seed.ts
     currentRotationId: null,
     pilotLicenseId: 'UK-98540',
+    simbriefUserId: null,
   };
 
   const prisma = new PrismaService();
