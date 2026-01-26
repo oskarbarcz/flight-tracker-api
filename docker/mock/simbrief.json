@@ -1,0 +1,73 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/xml.fetcher.php",
+      "queryStringParameters": {
+        "userid": ["123456"],
+        "json": ["2"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"]
+      },
+      "body": {
+        "general": {
+          "icao_airline": "DLH",
+          "flight_number": "80"
+        },
+        "origin": {
+          "icao_code": "EDDF"
+        },
+        "destination": {
+          "icao_code": "KJFK"
+        },
+        "alternate": [
+          {
+            "icao_code": "KBOS"
+          },
+          {
+            "icao_code": "KPHL"
+          }
+        ],
+        "enroute_altn": {
+          "icao_code": "CYYR"
+        },
+        "etops": {
+          "entry": {
+            "icao_code": "BIKF"
+          },
+          "exit": {
+            "icao_code": "CYYT"
+          }
+        },
+        "fuel": {
+          "plan_ramp": "71636"
+        },
+        "aircraft": {
+          "reg": "D-AIMC"
+        },
+        "times": {
+          "sched_out": "1736067600",
+          "sched_off": "1736068800",
+          "sched_on": "1736097000",
+          "sched_in": "1736097900"
+        },
+        "weights": {
+          "cargo": "8004",
+          "payload": "37932",
+          "est_zfw": "206523",
+          "pax_count": "348"
+        },
+        "files": {
+          "directory": "https://www.simbrief.com/ofp/flightplans/",
+          "pdf": {
+            "link": "EDDFKJFK_PDF_1769431274.pdf"
+          }
+        }
+      }
+    }
+  }
+]

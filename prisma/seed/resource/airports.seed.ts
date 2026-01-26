@@ -80,7 +80,7 @@ export async function loadAirports(): Promise<void> {
 
   const reykjavik: Prisma.AirportCreateInput = {
     id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a',
-    icaoCode: 'BIRK',
+    icaoCode: 'BIKF',
     iataCode: 'KEF',
     city: 'Reykjavik',
     name: 'Reykjavik Keflavik',

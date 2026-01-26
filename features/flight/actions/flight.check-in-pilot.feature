@@ -94,7 +94,7 @@ Feature: Check in pilot for flight
         },
         "aircraft": {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
-          "icaoCode": "B773",
+          "icaoCode": "B77W",
           "shortName": "Boeing 777",
           "fullName": "Boeing 777-300ER",
           "registration": "N78881",
@@ -356,7 +356,7 @@ Feature: Check in pilot for flight
           },
           {
             "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
-            "icaoCode": "BIRK",
+            "icaoCode": "BIKF",
             "iataCode": "KEF",
             "city": "Reykjavik",
             "name": "Reykjavik Keflavik",

@@ -80,7 +80,7 @@ Feature: Create a flight
         },
         "aircraft": {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
-          "icaoCode": "B773",
+          "icaoCode": "B77W",
           "shortName": "Boeing 777",
           "fullName": "Boeing 777-300ER",
           "registration": "N78881",
@@ -243,7 +243,7 @@ Feature: Create a flight
         },
         "aircraft": {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
-          "icaoCode": "B773",
+          "icaoCode": "B77W",
           "shortName": "Boeing 777",
           "fullName": "Boeing 777-300ER",
           "registration": "N78881",
