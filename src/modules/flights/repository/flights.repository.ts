@@ -30,6 +30,7 @@ export const flightWithAircraftAndAirportsFields = {
   loadsheets: true,
   rotationId: true,
   source: true,
+  tracking: true,
   createdAt: true,
   operator: {
     select: {
@@ -131,6 +132,7 @@ export class FlightsRepository {
         status: FlightStatus.Created,
         operatorId: flightData.operatorId,
         source,
+        tracking: flightData.tracking,
         timesheet: JSON.parse(JSON.stringify(flightData.timesheet)),
         loadsheets: JSON.parse(JSON.stringify(loadsheets)),
       },

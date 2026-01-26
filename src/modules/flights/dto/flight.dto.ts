@@ -1,10 +1,10 @@
 import { ScheduledTimesheet } from '../entity/timesheet.entity';
 import { ApiProperty, OmitType } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { Operator } from '../../operators/entity/operator.entity';
 import { Loadsheets } from '../entity/loadsheet.entity';
 import { Type } from 'class-transformer';
-import { Flight } from '../entity/flight.entity';
+import { Flight, FlightTracking } from '../entity/flight.entity';
 
 class PreliminaryLoadsheetOnly extends OmitType(Loadsheets, ['final']) {}
 
@@ -33,6 +33,19 @@ export class CreateFlightRequest {
   @IsUUID()
   @IsString()
   aircraftId!: string;
+
+  @ApiProperty({
+    description:
+      'Flight tracking settings <br />' +
+      '**public**: flight can be tracked by anyone and will be listed. <br>' +
+      '**private**: flight can be tracked by people having a dedicated link, flight will not be listed.<br>' +
+      '**disabled**: flight cannot be tracked online.',
+    enum: FlightTracking,
+    example: FlightTracking.Private,
+  })
+  @IsEnum(FlightTracking)
+  @IsString()
+  tracking: FlightTracking = FlightTracking.Private;
 
   @ApiProperty({
     description:

@@ -5,7 +5,7 @@ import { CreateAircraftResponse } from '../../aircraft/dto/create-aircraft.dto';
 import { Operator } from '../../operators/entity/operator.entity';
 import { Loadsheets } from './loadsheet.entity';
 import { Rotation } from '../../rotations/entity/rotation.entity';
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export enum FlightStatus {
   Created = 'created',
@@ -25,6 +25,12 @@ export enum FlightStatus {
 export enum FlightSource {
   Manual = 'manual',
   Simbrief = 'simbrief',
+}
+
+export enum FlightTracking {
+  Public = 'public',
+  Private = 'private',
+  Disabled = 'disabled',
 }
 
 export class Flight {
@@ -119,6 +125,19 @@ export class Flight {
     enum: FlightSource,
   })
   source!: FlightSource;
+
+  @ApiProperty({
+    description:
+      'Flight tracking settings <br />' +
+      '**public**: flight can be tracked by anyone and will be listed. <br>' +
+      '**private**: flight can be tracked by people having a dedicated link, flight will not be listed.<br>' +
+      '**disabled**: flight cannot be tracked online.',
+    enum: FlightTracking,
+    example: FlightTracking.Private,
+  })
+  @IsEnum(FlightTracking)
+  @IsString()
+  tracking: FlightTracking = FlightTracking.Private;
 
   @ApiProperty({
     description: 'Flag if flight was diverted',

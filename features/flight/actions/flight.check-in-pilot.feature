@@ -164,6 +164,7 @@ Feature: Check in pilot for flight
         ],
         "isFlightDiverted": false,
         "source": "manual",
+        "tracking": "private",
         "rotationId": null,
         "createdAt": "2025-01-01T00:00:00.000Z"
       }
@@ -387,6 +388,7 @@ Feature: Check in pilot for flight
         ],
         "isFlightDiverted": false,
         "source": "manual",
+        "tracking": "private",
         "rotationId": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1",
         "createdAt": "2025-01-01T00:00:00.000Z"
       }

@@ -135,6 +135,7 @@ Feature: Create a flight
         ],
         "isFlightDiverted": false,
         "source": "manual",
+        "tracking": "private",
         "rotationId": null,
         "createdAt": "@date('within 1 minute from now')"
       }
@@ -298,6 +299,7 @@ Feature: Create a flight
         ],
         "isFlightDiverted": false,
         "source": "manual",
+        "tracking": "private",
         "rotationId": null,
         "createdAt": "@date('within 1 minute from now')"
       }
