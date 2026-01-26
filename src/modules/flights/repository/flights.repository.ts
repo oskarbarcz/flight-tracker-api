@@ -36,6 +36,7 @@ export const flightWithAircraftAndAirportsFields = {
     select: {
       id: true,
       icaoCode: true,
+      iataCode: true,
       shortName: true,
       fullName: true,
       callsign: true,
@@ -54,6 +55,7 @@ export const flightWithAircraftAndAirportsFields = {
         select: {
           id: true,
           icaoCode: true,
+          iataCode: true,
           shortName: true,
           fullName: true,
           callsign: true,

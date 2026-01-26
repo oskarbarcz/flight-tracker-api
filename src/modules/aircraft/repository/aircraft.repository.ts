@@ -4,28 +4,6 @@ import { Aircraft, Prisma } from 'prisma/client/client';
 import { CreateAircraftRequest } from '../dto/create-aircraft.dto';
 import { UpdateAircraftRequest } from '../dto/update-aircraft.dto';
 
-export type AircraftWithOperator = Prisma.AircraftGetPayload<{
-  select: {
-    id: true;
-    icaoCode: true;
-    shortName: true;
-    fullName: true;
-    registration: true;
-    selcal: true;
-    livery: true;
-    operator: {
-      select: {
-        id: true;
-        icaoCode: true;
-        shortName: true;
-        fullName: true;
-        callsign: true;
-      };
-    };
-    operatorId: false;
-  };
-}>;
-
 const aircraftWithOperatorFields = {
   id: true,
   icaoCode: true,
@@ -38,6 +16,7 @@ const aircraftWithOperatorFields = {
     select: {
       id: true,
       icaoCode: true,
+      iataCode: true,
       shortName: true,
       fullName: true,
       callsign: true,
@@ -45,6 +24,10 @@ const aircraftWithOperatorFields = {
   },
   operatorId: false,
 } as const satisfies Prisma.AircraftSelect;
+
+export type AircraftWithOperator = Prisma.AircraftGetPayload<{
+  select: typeof aircraftWithOperatorFields;
+}>;
 
 @Injectable()
 export class AircraftRepository {

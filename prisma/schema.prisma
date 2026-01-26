@@ -44,7 +44,8 @@ model Airport {
 
 model Operator {
   id        String @id @default(uuid()) @db.Uuid
-  icaoCode  String @db.VarChar(4)
+  icaoCode  String @db.VarChar(3)
+  iataCode  String @default("AA") @db.VarChar(2)
   shortName String
   fullName  String
   callsign  String

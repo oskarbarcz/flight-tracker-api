@@ -96,6 +96,7 @@ Feature: Close flight
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",
+            "iataCode": "AA",
             "shortName": "American Airlines",
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
@@ -104,6 +105,7 @@ Feature: Close flight
         "operator": {
           "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
           "icaoCode": "AAL",
+          "iataCode": "AA",
           "shortName": "American Airlines",
           "fullName": "American Airlines, Inc.",
           "callsign": "AMERICAN"
@@ -388,6 +390,7 @@ Feature: Close flight
           "operator": {
             "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
             "icaoCode": "DLH",
+            "iataCode": "LH",
             "shortName": "Lufthansa",
             "fullName": "Deutsche Lufthansa AG",
             "callsign": "LUFTHANSA"
@@ -396,6 +399,7 @@ Feature: Close flight
         "operator": {
           "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
           "icaoCode": "DLH",
+          "iataCode": "LH",
           "shortName": "Lufthansa",
           "fullName": "Deutsche Lufthansa AG",
           "callsign": "LUFTHANSA"

@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "operator" ADD COLUMN     "iataCode" VARCHAR(2) NOT NULL DEFAULT 'AA',
+ALTER COLUMN "icaoCode" SET DATA TYPE VARCHAR(3);

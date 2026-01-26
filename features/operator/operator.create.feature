@@ -6,6 +6,7 @@ Feature: Create operator
       """json
       {
         "icaoCode": "UAL",
+        "iataCode": "UA",
         "shortName": "United",
         "fullName": "United Airlines, Inc.",
         "callsign": "UNITED"
@@ -27,6 +28,7 @@ Feature: Create operator
       """json
       {
         "icaoCode": "UAL",
+        "iataCode": "UA",
         "shortName": "United",
         "fullName": "United Airlines, Inc.",
         "callsign": "UNITED"
@@ -38,6 +40,7 @@ Feature: Create operator
       {
         "id": "@uuid",
         "icaoCode": "UAL",
+        "iataCode": "UA",
         "shortName": "United",
         "fullName": "United Airlines, Inc.",
         "callsign": "UNITED"
@@ -51,6 +54,7 @@ Feature: Create operator
       """json
       {
         "icaoCode": "UAL",
+        "iataCode": "UA",
         "shortName": "United",
         "fullName": "United Airlines, Inc.",
         "callsign": "UNITED"
@@ -84,7 +88,12 @@ Feature: Create operator
         "statusCode": 400,
         "violations": {
           "fullName": ["fullName should not be empty", "fullName must be a string"],
-          "callsign": ["callsign should not be empty", "callsign must be a string"]
+          "callsign": ["callsign should not be empty", "callsign must be a string"],
+          "iataCode": [
+            "iataCode should not be empty",
+            "iataCode must be longer than or equal to 2 characters",
+            "iataCode must be a string"
+          ]
         }
       }
       """
@@ -94,6 +103,7 @@ Feature: Create operator
       """json
       {
         "icaoCode": "UAL",
+        "iataCode": "UA",
         "shortName": "United",
         "fullName": "United Airlines, Inc.",
         "callsign": "UNITED"
