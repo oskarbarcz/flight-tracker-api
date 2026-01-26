@@ -12,6 +12,7 @@ import {
   ApiBadRequestResponse,
   ApiBearerAuth,
   ApiBody,
+  ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -54,7 +55,7 @@ export class ManagementController {
       '**NOTE:** Simbrief ID must be provided for the user, otherwise import will throw HTTP 400.',
   })
   @ApiBearerAuth('jwt')
-  @ApiOkResponse({
+  @ApiCreatedResponse({
     description: 'Flight was created',
     type: GetFlightResponse,
   })
@@ -143,7 +144,7 @@ export class ManagementController {
   })
   @ApiBearerAuth('jwt')
   @ApiBody({ type: CreateFlightRequest })
-  @ApiOkResponse({
+  @ApiCreatedResponse({
     description: 'Flight was created',
     type: GetFlightResponse,
   })
