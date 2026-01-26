@@ -1,4 +1,8 @@
-import { FlightSource, FlightStatus } from '../../entity/flight.entity';
+import {
+  FlightSource,
+  FlightStatus,
+  FlightTracking,
+} from '../../entity/flight.entity';
 import { QueryHandler, Query, IQueryHandler } from '@nestjs/cqrs';
 import { FlightsRepository } from '../../repository/flights.repository';
 import { NotFoundException } from '@nestjs/common';
@@ -52,6 +56,7 @@ export class GetFlightByIdHandler implements IQueryHandler<GetFlightByIdQuery> {
       isFlightDiverted: flight.isFlightDiverted,
       rotationId: flight.rotationId,
       source: flight.source as FlightSource,
+      tracking: flight.tracking as FlightTracking,
       createdAt: flight.createdAt,
     };
   }

@@ -105,6 +105,7 @@ Feature: Create a flight with Simbrief
         "isFlightDiverted": false,
         "rotationId": null,
         "source": "simbrief",
+        "tracking": "private",
         "createdAt": "@date('within 1 minute from now')"
       }
       """

@@ -56,18 +56,19 @@ model Operator {
 }
 
 model Flight {
-  id              String       @id @default(uuid()) @db.Uuid
+  id              String         @id @default(uuid()) @db.Uuid
   flightNumber    String
   callsign        String
   status          String
-  aircraftId      String       @db.Uuid
+  aircraftId      String         @db.Uuid
   timesheet       Json
-  loadsheets      Json         @default("{\"final\": null, \"preliminary\": null}")
-  operatorId      String       @db.Uuid
-  rotationId      String?      @db.Uuid
-  source          FlightSource @default(manual)
-  createdAt       DateTime     @default(now())
-  positionReports Json         @default("[]")
+  loadsheets      Json           @default("{\"final\": null, \"preliminary\": null}")
+  operatorId      String         @db.Uuid
+  rotationId      String?        @db.Uuid
+  source          FlightSource   @default(manual)
+  tracking        FlightTracking @default(private)
+  createdAt       DateTime       @default(now())
+  positionReports Json           @default("[]")
 
   operator    Operator            @relation(fields: [operatorId], references: [id])
   rotation    Rotation?           @relation(fields: [rotationId], references: [id])
@@ -201,4 +202,10 @@ enum Continent {
 enum FlightSource {
   manual
   simbrief
+}
+
+enum FlightTracking {
+  public
+  private
+  disabled
 }

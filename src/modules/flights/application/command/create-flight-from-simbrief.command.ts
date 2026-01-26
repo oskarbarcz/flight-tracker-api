@@ -10,7 +10,7 @@ import { SimbriefClient } from '../../../../core/provider/simbrief/client/simbri
 import { GetAirportByIcaoCodeQuery } from '../../../airports/application/query/get-airport-by-icao-code.query';
 import { GetAircraftByRegistrationQuery } from '../../../aircraft/application/query/get-aircraft-by-registration.query';
 import { GetOperatorByIcaoCodeQuery } from '../../../operators/application/query/get-operator-by-icao-code.query';
-import { FlightSource } from '../../entity/flight.entity';
+import { FlightSource, FlightTracking } from '../../entity/flight.entity';
 
 export class CreateFlightFromSimbriefCommand {
   constructor(
@@ -66,6 +66,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       aircraftId: aircraft.id,
       operatorId: operator.id,
       departureAirportId: departureAirport.id,
+      tracking: FlightTracking.Private,
       destinationAirportId: destinationAirport.id,
       timesheet: {
         scheduled: {

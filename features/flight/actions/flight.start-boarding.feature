@@ -140,6 +140,7 @@ Feature: Start boarding
         ],
         "isFlightDiverted": false,
         "source": "manual",
+        "tracking": "private",
         "rotationId": null,
         "createdAt": "2025-01-01T00:00:00.000Z"
       }
