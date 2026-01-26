@@ -156,6 +156,7 @@ Feature: Close flight
           }
         ],
         "isFlightDiverted": false,
+        "source": "manual",
         "rotationId": null,
         "createdAt": "2025-01-01T00:00:00.000Z"
       }
@@ -476,6 +477,7 @@ Feature: Close flight
           }
         ],
         "isFlightDiverted": false,
+        "source": "manual",
         "rotationId": "c2e12afb-a712-45aa-9ba5-fec71868e59a",
         "createdAt": "2025-01-01T00:00:00.000Z"
       }

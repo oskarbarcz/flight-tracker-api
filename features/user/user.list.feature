@@ -26,6 +26,24 @@ Feature: List users
           "currentRotationId": null
         },
         {
+          "id": "49731efd-2d37-4fcc-8221-8575cba5b722",
+          "name": "Claudia Doe",
+          "email": "claudia.doe@example.com",
+          "role": "Operations",
+          "pilotLicenseId": null,
+          "currentFlightId": null,
+          "currentRotationId": null
+        },
+        {
+          "id": "381334df-1e3c-41f5-8513-0e2de3c1662f",
+          "name": "Abby Doe",
+          "email": "abby.doe@example.com",
+          "role": "Operations",
+          "pilotLicenseId": null,
+          "currentFlightId": null,
+          "currentRotationId": null
+        },
+        {
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
           "name": "Rick Doe",
           "email": "cabin-crew@example.com",
