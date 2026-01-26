@@ -109,6 +109,13 @@ export class Flight {
   rotationId!: string | null;
 
   @ApiProperty({
+    description: 'Source how flight was created',
+    type: 'string',
+    enum: ['manual', 'simbrief'],
+  })
+  source!: 'manual' | 'simbrief';
+
+  @ApiProperty({
     description: 'Flag if flight was diverted',
     example: false,
   })

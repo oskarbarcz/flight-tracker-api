@@ -9,6 +9,7 @@ import { GetAircraftByIdHandler } from './application/query/get-aircraft-by-id.q
 import { ListAllAircraftHandler } from './application/query/list-all-aircraft.query';
 import { CheckAircraftExistsHandler } from './application/query/check-aircraft-exists.query';
 import { GetAircraftByIcaoCodeHandler } from './application/query/get-aircraft-by-icao-code.query';
+import { GetAircraftByRegistrationHandler } from './application/query/get-aircraft-by-registration.query';
 
 @Module({
   controllers: [AircraftController],
@@ -20,6 +21,7 @@ import { GetAircraftByIcaoCodeHandler } from './application/query/get-aircraft-b
     RemoveAircraftHandler,
     GetAircraftByIdHandler,
     GetAircraftByIcaoCodeHandler,
+    GetAircraftByRegistrationHandler,
     ListAllAircraftHandler,
     CheckAircraftExistsHandler,
   ],

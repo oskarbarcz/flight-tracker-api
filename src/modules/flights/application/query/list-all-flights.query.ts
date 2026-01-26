@@ -45,6 +45,7 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
         ),
         isFlightDiverted: flight.isFlightDiverted,
         rotationId: flight.rotationId,
+        source: flight.source,
         createdAt: flight.createdAt,
       }),
     );

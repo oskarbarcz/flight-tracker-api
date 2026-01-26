@@ -3,7 +3,6 @@ import { AirportsRepository } from '../../repository/airports.repository';
 import { GetAirportResponse } from '../../dto/airport.dto';
 import { Continent, Coordinates } from '../../entity/airport.entity';
 import { NotFoundException } from '@nestjs/common';
-import { GetAirportByIdQuery } from './get-airport-by-id.query';
 
 export class GetAirportByIcaoCodeQuery extends Query<GetAirportResponse> {
   constructor(public readonly icaoCode: string) {

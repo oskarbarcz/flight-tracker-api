@@ -51,6 +51,7 @@ export class GetFlightByIdHandler implements IQueryHandler<GetFlightByIdQuery> {
       ),
       isFlightDiverted: flight.isFlightDiverted,
       rotationId: flight.rotationId,
+      source: flight.source,
       createdAt: flight.createdAt,
     };
   }

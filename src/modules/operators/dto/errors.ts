@@ -4,6 +4,12 @@ export const OperatorDoesNotExistsError = {
   message: 'Operator with given id does not exist.',
 };
 
+export const OperatorWithGivenIcaoCodeDoesNotExist = {
+  statusCode: 404,
+  error: 'Not Found',
+  message: 'Operator with given ICAO code does not exist.',
+};
+
 export const OperatorAlreadyExistsError = {
   statusCode: 400,
   error: 'Bad Request',
