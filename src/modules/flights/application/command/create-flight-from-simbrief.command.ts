@@ -39,7 +39,6 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
 
     const ofp = await this.simbriefClient.getOperationalFlightPlan(simbriefId);
 
-    console.log(ofp.times);
     const departureAirportQuery = new GetAirportByIcaoCodeQuery(
       ofp.origin.icao_code,
     );
@@ -82,9 +81,9 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
             reliefPilots: 1,
             cabinCrew: 12,
           },
-          passengers: this.ofpWeightToTons(ofp.weights.pax_count),
+          passengers: Number(ofp.weights.pax_count),
           cargo: this.ofpWeightToTons(ofp.weights.cargo),
-          blockFuel: 0,
+          blockFuel: this.ofpWeightToTons(ofp.fuel.plan_ramp),
           payload: this.ofpWeightToTons(ofp.weights.payload),
           zeroFuelWeight: this.ofpWeightToTons(ofp.weights.est_zfw),
         },
