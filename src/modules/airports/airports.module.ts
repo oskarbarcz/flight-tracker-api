@@ -7,6 +7,7 @@ import { UpdateAirportHandler } from './application/command/update-airport.comma
 import { RemoveAirportHandler } from './application/command/remove-airport.command';
 import { GetAirportByIdHandler } from './application/query/get-airport-by-id.query';
 import { ListAllAirportsHandler } from './application/query/list-all-airports.query';
+import { GetAirportByIcaoCodeHandler } from './application/query/get-airport-by-icao-code.query';
 
 @Module({
   imports: [PrismaModule],
@@ -17,6 +18,7 @@ import { ListAllAirportsHandler } from './application/query/list-all-airports.qu
     UpdateAirportHandler,
     RemoveAirportHandler,
     GetAirportByIdHandler,
+    GetAirportByIcaoCodeHandler,
     ListAllAirportsHandler,
   ],
 })

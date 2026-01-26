@@ -65,6 +65,16 @@ export class User {
   password!: string;
 
   @ApiProperty({
+    description: 'Simbrief userId',
+    example: '123456',
+    type: 'string',
+    nullable: true,
+  })
+  @IsString()
+  @IsOptional()
+  simbriefUserId?: string | null = null;
+
+  @ApiProperty({
     description: 'Current flight user checked in for',
     example: '3b75f824-84c1-4521-9373-a4f3c27bdd8a',
     type: 'string',

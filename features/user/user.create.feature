@@ -8,7 +8,8 @@ Feature: Create user
         "name": "Anna Doe",
         "email": "anna.doe@example.com",
         "password": "P@$$w0rd",
-        "role": "Admin"
+        "role": "Admin",
+        "simbriefUserId": "123456"
       }
       """
     Then the response status should be 201

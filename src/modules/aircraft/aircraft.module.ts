@@ -8,6 +8,7 @@ import { RemoveAircraftHandler } from './application/command/remove-aircraft.com
 import { GetAircraftByIdHandler } from './application/query/get-aircraft-by-id.query';
 import { ListAllAircraftHandler } from './application/query/list-all-aircraft.query';
 import { CheckAircraftExistsHandler } from './application/query/check-aircraft-exists.query';
+import { GetAircraftByRegistrationHandler } from './application/query/get-aircraft-by-registration.query';
 
 @Module({
   controllers: [AircraftController],
@@ -18,6 +19,7 @@ import { CheckAircraftExistsHandler } from './application/query/check-aircraft-e
     UpdateAircraftHandler,
     RemoveAircraftHandler,
     GetAircraftByIdHandler,
+    GetAircraftByRegistrationHandler,
     ListAllAircraftHandler,
     CheckAircraftExistsHandler,
   ],

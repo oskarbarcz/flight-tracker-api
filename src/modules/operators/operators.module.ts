@@ -8,6 +8,7 @@ import { RemoveOperatorHandler } from './application/command/remove-operator.com
 import { GetOperatorByIdHandler } from './application/query/get-operator-by-id.query';
 import { ListAllOperatorsHandler } from './application/query/list-all-operators.query';
 import { CheckOperatorExistsHandler } from './application/query/check-operator-exists.query';
+import { GetOperatorByIcaoCodeHandler } from './application/query/get-operator-by-icao-code.query';
 
 @Module({
   imports: [PrismaModule],
@@ -18,6 +19,7 @@ import { CheckOperatorExistsHandler } from './application/query/check-operator-e
     UpdateOperatorHandler,
     RemoveOperatorHandler,
     GetOperatorByIdHandler,
+    GetOperatorByIcaoCodeHandler,
     ListAllOperatorsHandler,
     CheckOperatorExistsHandler,
   ],

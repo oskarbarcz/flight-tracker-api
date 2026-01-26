@@ -51,7 +51,7 @@ Feature: Mark flight as ready
         },
         "aircraft": {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
-          "icaoCode": "B773",
+          "icaoCode": "B77W",
           "shortName": "Boeing 777",
           "fullName": "Boeing 777-300ER",
           "registration": "N78881",
@@ -120,6 +120,7 @@ Feature: Mark flight as ready
           }
         ],
         "isFlightDiverted": false,
+        "source": "manual",
         "rotationId": null,
         "createdAt": "2025-01-01T00:00:00.000Z"
       }

@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   Flight,
   FlightPathElement,
+  FlightSource,
   FlightStatus,
 } from '../entity/flight.entity';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
@@ -28,6 +29,7 @@ export const flightWithAircraftAndAirportsFields = {
   timesheet: true,
   loadsheets: true,
   rotationId: true,
+  source: true,
   createdAt: true,
   operator: {
     select: {
@@ -105,6 +107,7 @@ export class FlightsRepository {
   async create(
     flightId: string,
     flightData: CreateFlightRequest,
+    source: FlightSource = FlightSource.Manual,
   ): Promise<void> {
     if (!(await this.airportExist(flightData.departureAirportId))) {
       throw new NotFoundException(DepartureAirportNotFoundError);
@@ -127,6 +130,7 @@ export class FlightsRepository {
         aircraftId: flightData.aircraftId,
         status: FlightStatus.Created,
         operatorId: flightData.operatorId,
+        source,
         timesheet: JSON.parse(JSON.stringify(flightData.timesheet)),
         loadsheets: JSON.parse(JSON.stringify(loadsheets)),
       },

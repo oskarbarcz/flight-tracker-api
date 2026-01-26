@@ -31,9 +31,11 @@ import { UpdateScheduledTimesheetHandler } from './application/command/update-sc
 import { CreateFlightHandler } from './application/command/create-flight.command';
 import { CheckFlightExistsHandler } from './application/query/check-flight-exists.query';
 import { GetFlightRotationInfoHandler } from './application/query/get-flight-rotation-info.query';
+import { SimbriefModule } from '../../core/provider/simbrief/simbrief.module';
+import { CreateFlightFromSimbriefHandler } from './application/command/create-flight-from-simbrief.command';
 
 @Module({
-  imports: [PrismaModule, DiscordModule, AdsbModule],
+  imports: [PrismaModule, DiscordModule, AdsbModule, SimbriefModule],
   controllers: [
     ManagementController,
     EventsController,
@@ -64,6 +66,7 @@ import { GetFlightRotationInfoHandler } from './application/query/get-flight-rot
     UpdateScheduledTimesheetHandler,
     CloseFlightHandler,
     CreateFlightHandler,
+    CreateFlightFromSimbriefHandler,
     CheckFlightExistsHandler,
     GetFlightRotationInfoHandler,
   ],

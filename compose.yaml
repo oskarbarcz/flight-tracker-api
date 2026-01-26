@@ -52,3 +52,12 @@ services:
       - ./docker/mock:/config
     environment:
       - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/skylink.json
+
+  simbrief-mock:
+    image: mockserver/mockserver:mockserver-5.15.0
+    ports:
+      - '3080:1080'
+    volumes:
+      - ./docker/mock:/config
+    environment:
+      - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/simbrief.json

@@ -12,6 +12,7 @@ export async function loadUsers(): Promise<void> {
     pilotLicenseId: null,
     currentFlightId: null,
     currentRotationId: null,
+    simbriefUserId: null,
   };
 
   const alice: User = {
@@ -24,6 +25,33 @@ export async function loadUsers(): Promise<void> {
     pilotLicenseId: null,
     currentFlightId: null,
     currentRotationId: null,
+    simbriefUserId: null,
+  };
+
+  const abby: User = {
+    id: '381334df-1e3c-41f5-8513-0e2de3c1662f',
+    name: 'Abby Doe',
+    email: 'abby.doe@example.com',
+    role: UserRole.Operations,
+    // password: 'P@$$w0rd' — bcrypt with 12 rounds
+    password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
+    pilotLicenseId: null,
+    currentFlightId: null,
+    currentRotationId: null,
+    simbriefUserId: '123456',
+  };
+
+  const claudia: User = {
+    id: '49731efd-2d37-4fcc-8221-8575cba5b722',
+    name: 'Claudia Doe',
+    email: 'claudia.doe@example.com',
+    role: UserRole.Operations,
+    // password: 'P@$$w0rd' — bcrypt with 12 rounds
+    password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
+    pilotLicenseId: null,
+    currentFlightId: null,
+    currentRotationId: null,
+    simbriefUserId: '654321',
   };
 
   const rick: User = {
@@ -38,6 +66,7 @@ export async function loadUsers(): Promise<void> {
     currentFlightId: null,
     currentRotationId: null,
     pilotLicenseId: 'UK-31270',
+    simbriefUserId: null,
   };
 
   const alan: User = {
@@ -54,6 +83,7 @@ export async function loadUsers(): Promise<void> {
     // 02-2025 attached in rotations.seed.ts
     currentRotationId: null,
     pilotLicenseId: 'UK-34560',
+    simbriefUserId: null,
   };
 
   const michael: User = {
@@ -70,10 +100,11 @@ export async function loadUsers(): Promise<void> {
     // 03-2025 attached in rotations.seed.ts
     currentRotationId: null,
     pilotLicenseId: 'UK-98540',
+    simbriefUserId: null,
   };
 
   const prisma = new PrismaService();
-  for (const user of [john, alice, rick, alan, michael]) {
+  for (const user of [john, alice, claudia, abby, rick, alan, michael]) {
     await prisma.user.create({ data: user });
   }
 }

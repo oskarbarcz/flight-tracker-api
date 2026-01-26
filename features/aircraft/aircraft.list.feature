@@ -57,7 +57,7 @@ Feature: List aircraft
         },
         {
           "fullName": "Boeing 777-300ER",
-          "icaoCode": "B773",
+          "icaoCode": "B77W",
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
           "livery": "Team USA (2023)",
           "registration": "N78881",

@@ -22,7 +22,7 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateUserDto): Promise<GetUserDto> {
-    const userWithSameEmail: User | null = await this.findOneBy({
+    const userWithSameEmail = await this.findOneBy({
       email: data.email,
     });
 

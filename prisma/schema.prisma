@@ -56,17 +56,18 @@ model Operator {
 }
 
 model Flight {
-  id              String   @id @default(uuid()) @db.Uuid
+  id              String       @id @default(uuid()) @db.Uuid
   flightNumber    String
   callsign        String
   status          String
-  aircraftId      String   @db.Uuid
+  aircraftId      String       @db.Uuid
   timesheet       Json
-  loadsheets      Json     @default("{\"final\": null, \"preliminary\": null}")
-  operatorId      String   @db.Uuid
-  rotationId      String?  @db.Uuid
-  createdAt       DateTime @default(now())
-  positionReports Json     @default("[]")
+  loadsheets      Json         @default("{\"final\": null, \"preliminary\": null}")
+  operatorId      String       @db.Uuid
+  rotationId      String?      @db.Uuid
+  source          FlightSource @default(manual)
+  createdAt       DateTime     @default(now())
+  positionReports Json         @default("[]")
 
   operator    Operator            @relation(fields: [operatorId], references: [id])
   rotation    Rotation?           @relation(fields: [rotationId], references: [id])
@@ -123,6 +124,7 @@ model User {
   pilotLicenseId    String?  @db.VarChar(8)
   currentFlightId   String?  @unique @db.Uuid
   currentRotationId String?  @unique @db.Uuid
+  simbriefUserId    String?
 
   rotations       Rotation[]
   jwtRefreshToken JwtRefreshToken[]
@@ -194,4 +196,9 @@ enum Continent {
   north_america
   south_america
   oceania
+}
+
+enum FlightSource {
+  manual
+  simbrief
 }

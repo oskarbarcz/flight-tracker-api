@@ -8,7 +8,6 @@ type Airport = {
 };
 
 type Aircraft = {
-  icao_code: string;
   reg: string;
 };
 
@@ -17,10 +16,10 @@ export type Times = {
   sched_off: string;
   sched_on: string;
   sched_in: string;
-  est_out: string;
-  est_off: string;
-  est_on: string;
-  est_in: string;
+};
+
+export type Fuel = {
+  plan_ramp: string;
 };
 
 export type Weights = {
@@ -47,6 +46,7 @@ export type OperationalFlightPlan = {
     entry: Airport;
     exit: Airport;
   };
+  fuel: Fuel;
   aircraft: Aircraft;
   times: Times;
   weights: Weights;

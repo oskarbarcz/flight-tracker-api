@@ -22,6 +22,11 @@ export enum FlightStatus {
   Closed = 'closed',
 }
 
+export enum FlightSource {
+  Manual = 'manual',
+  Simbrief = 'simbrief',
+}
+
 export class Flight {
   @ApiProperty({
     description: 'Flight unique system identifier',
@@ -107,6 +112,13 @@ export class Flight {
     nullable: true,
   })
   rotationId!: string | null;
+
+  @ApiProperty({
+    description: 'Source how flight was created',
+    type: 'string',
+    enum: FlightSource,
+  })
+  source!: FlightSource;
 
   @ApiProperty({
     description: 'Flag if flight was diverted',
