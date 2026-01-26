@@ -10,6 +10,7 @@ import { SimbriefClient } from '../../../../core/provider/simbrief/client/simbri
 import { GetAirportByIcaoCodeQuery } from '../../../airports/application/query/get-airport-by-icao-code.query';
 import { GetAircraftByRegistrationQuery } from '../../../aircraft/application/query/get-aircraft-by-registration.query';
 import { GetOperatorByIcaoCodeQuery } from '../../../operators/application/query/get-operator-by-icao-code.query';
+import { FlightSource } from '../../entity/flight.entity';
 
 export class CreateFlightFromSimbriefCommand {
   constructor(
@@ -34,7 +35,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     const simbriefId = await this.queryBus.execute(getSimbriefIdQuery);
 
     if (simbriefId === null) {
-      throw new BadRequestException('Simbrief ID is not linked to a user');
+      throw new BadRequestException('User has not connected SimBrief ID.');
     }
 
     const ofp = await this.simbriefClient.getOperationalFlightPlan(simbriefId);
@@ -90,7 +91,11 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       },
     };
 
-    await this.flightsRepository.create(flightId, flightData);
+    await this.flightsRepository.create(
+      flightId,
+      flightData,
+      FlightSource.Simbrief,
+    );
 
     const event: NewFlightEvent = {
       flightId: flightId,

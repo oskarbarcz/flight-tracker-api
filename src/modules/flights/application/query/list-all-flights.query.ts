@@ -1,4 +1,4 @@
-import { FlightStatus } from '../../entity/flight.entity';
+import { FlightSource, FlightStatus } from '../../entity/flight.entity';
 import { QueryHandler, Query, IQueryHandler } from '@nestjs/cqrs';
 import { FlightsRepository } from '../../repository/flights.repository';
 import { FullTimesheet } from '../../entity/timesheet.entity';
@@ -45,7 +45,7 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
         ),
         isFlightDiverted: flight.isFlightDiverted,
         rotationId: flight.rotationId,
-        source: flight.source,
+        source: flight.source as FlightSource,
         createdAt: flight.createdAt,
       }),
     );

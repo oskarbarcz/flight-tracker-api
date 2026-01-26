@@ -48,9 +48,10 @@ export class ManagementController {
   ) {}
 
   @ApiOperation({
-    summary: 'Create a flight',
+    summary: 'Create a flight with SimBrief data',
     description:
-      '**NOTE:** This endpoint is only available for users with `operations` role.',
+      '**NOTE:** This endpoint is only available for users with the ` operations ` role. <br />' +
+      '**NOTE:** Simbrief ID must be provided for the user, otherwise import will throw HTTP 400.',
   })
   @ApiBearerAuth('jwt')
   @ApiOkResponse({

@@ -4,6 +4,13 @@ import expect from 'expect';
 import { deepCompare } from '../_helper/deep-compare';
 import { SignInResponse } from '../../src/modules/auth/dto/sign-in.dto';
 import * as http from 'node:http';
+type ApiUserType =
+  | 'admin'
+  | 'operations'
+  | 'operations with valid Simbrief ID'
+  | 'operations with Simbrief ID but non existing aircraft'
+  | 'cabin crew';
+
 import * as https from 'node:https';
 
 const apiUsers = {
@@ -19,6 +26,14 @@ const apiUsers = {
     email: 'cabin-crew@example.com',
     password: 'P@$$w0rd',
   },
+  'operations with valid Simbrief ID': {
+    email: 'abby.doe@example.com',
+    password: 'P@$$w0rd',
+  },
+  'operations with Simbrief ID but non existing aircraft': {
+    email: 'claudia.doe@example.com',
+    password: 'P@$$w0rd',
+  },
   'Alan Doe': {
     email: 'alan.doe@example.com',
     password: 'P@$$w0rd',
@@ -27,7 +42,7 @@ const apiUsers = {
     email: 'michael.doe@example.com',
     password: 'P@$$w0rd',
   },
-};
+} as Record<ApiUserType, { email: string; password: string }>;
 
 const apiBaseUrl = 'http://localhost:3000';
 let apiTokens = {
@@ -47,20 +62,17 @@ const apiClient = axios.create({
   validateStatus: () => true,
 });
 
-Given(
-  'I am signed in as {string}',
-  async (role: 'admin' | 'operations' | 'cabin crew') => {
-    const credentials = apiUsers[role];
-    const url = `${apiBaseUrl}/api/v1/auth/sign-in`;
-    apiResponse = (await apiClient.post(
-      url,
-      credentials,
-    )) as AxiosResponse<SignInResponse>;
+Given('I am signed in as {string}', async (role: ApiUserType) => {
+  const credentials = apiUsers[role];
+  const url = `${apiBaseUrl}/api/v1/auth/sign-in`;
+  apiResponse = (await apiClient.post(
+    url,
+    credentials,
+  )) as AxiosResponse<SignInResponse>;
 
-    apiTokens[role] = (apiResponse.data as SignInResponse).accessToken;
-    apiTokens.currentRole = role;
-  },
-);
+  apiTokens[role] = (apiResponse.data as SignInResponse).accessToken;
+  apiTokens.currentRole = role;
+});
 
 When(
   'I send a {string} request to {string}',
