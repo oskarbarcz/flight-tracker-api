@@ -29,10 +29,27 @@ jobs:
       - name: 'Clone repository'
         uses: actions/checkout@v4
       - name: 'Build app docker image'
-        run: "docker build --target production -t ghcr.io/$(jq -r '.author' package.json)/$(jq -r '.name' package.json):$(jq -r '.version' package.json) ."
+        run: |
+          AUTHOR=$(jq -r '.author' package.json)
+          NAME=$(jq -r '.name' package.json)
+          VERSION=$(jq -r '.version' package.json)
+
+          IMAGE="ghcr.io/${AUTHOR}/${NAME}"
+          docker build --target production -t "${IMAGE}:${VERSION}" .
+
+          # tag same image as :latest
+          docker tag "${IMAGE}:${VERSION}" "${IMAGE}:latest"
       - name: 'Push docker image to ghcr.io'
-        run: "docker push ghcr.io/$(jq -r '.author' package.json)/$(jq -r '.name' package.json):$(jq -r '.version' package.json)"
+        run: |
+          AUTHOR=$(jq -r '.author' package.json)
+          NAME=$(jq -r '.name' package.json)
+          VERSION=$(jq -r '.version' package.json)
+          
+          IMAGE="ghcr.io/${AUTHOR}/${NAME}"
+          docker push "${IMAGE}:${VERSION}"
+          docker push "${IMAGE}:latest"
   release:
+    needs: deploy
     runs-on: 'ubuntu-22.04'
     timeout-minutes: 8
     environment: production

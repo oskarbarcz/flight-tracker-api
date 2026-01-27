@@ -23,6 +23,7 @@ USER node
 FROM alpine-node-base AS production
 COPY --chown=node:node docker/prod ./docker/prod
 COPY --chown=node:node prisma ./prisma
+COPY --chown=node:node prisma.config.ts ./
 COPY --chown=node:node package.json ./
 COPY --chown=node:node --from=build /app/node_modules ./node_modules
 COPY --chown=node:node --from=build /app/dist ./dist
