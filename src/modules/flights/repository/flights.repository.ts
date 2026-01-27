@@ -2,11 +2,12 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   Flight,
   FlightPathElement,
+  FlightPhase,
   FlightSource,
   FlightStatus,
 } from '../entity/flight.entity';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
-import { CreateFlightRequest } from '../dto/flight.dto';
+import { CreateFlightRequest, FlightListFilters } from '../dto/flight.dto';
 import { FullTimesheet } from '../entity/timesheet.entity';
 import { Loadsheets } from '../entity/loadsheet.entity';
 import {
@@ -213,9 +214,37 @@ export class FlightsRepository {
     });
   }
 
-  async findAll(): Promise<FlightResponse[]> {
+  async findAll(filters?: FlightListFilters): Promise<FlightResponse[]> {
+    const where: Prisma.FlightWhereInput = {};
+
+    if (filters?.phase === FlightPhase.Upcoming) {
+      where.status = {
+        in: [FlightStatus.Created, FlightStatus.Ready],
+      };
+    } else if (filters?.phase === FlightPhase.Ongoing) {
+      where.status = {
+        in: [
+          FlightStatus.CheckedIn,
+          FlightStatus.BoardingStarted,
+          FlightStatus.BoardingFinished,
+          FlightStatus.TaxiingOut,
+          FlightStatus.InCruise,
+          FlightStatus.TaxiingIn,
+          FlightStatus.OnBlock,
+          FlightStatus.OffboardingStarted,
+          FlightStatus.OffboardingFinished,
+        ],
+      };
+    } else if (filters?.phase === FlightPhase.Finished) {
+      where.status = FlightStatus.Closed;
+    }
+
     const flights = await this.prisma.flight.findMany({
+      where,
       select: flightWithAircraftAndAirportsFields,
+      skip: filters ? (filters.page - 1) * filters.limit : undefined,
+      take: filters ? filters.limit : undefined,
+      orderBy: { createdAt: 'desc' },
     });
 
     const flightIds = flights.map((f) => f.id);

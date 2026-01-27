@@ -1,12 +1,40 @@
 import { ScheduledTimesheet } from '../entity/timesheet.entity';
 import { ApiProperty, OmitType } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+  IsInt,
+  Min,
+  Max,
+} from 'class-validator';
 import { Operator } from '../../operators/entity/operator.entity';
 import { Loadsheets } from '../entity/loadsheet.entity';
 import { Type } from 'class-transformer';
-import { Flight, FlightTracking } from '../entity/flight.entity';
+import { Flight, FlightPhase, FlightTracking } from '../entity/flight.entity';
 
 class PreliminaryLoadsheetOnly extends OmitType(Loadsheets, ['final']) {}
+
+export class FlightListFilters {
+  @IsOptional()
+  @IsEnum(FlightPhase)
+  phase?: FlightPhase;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  page: number = 1;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  @Max(100)
+  limit: number = 10;
+}
 
 export class CreateFlightRequest {
   @ApiProperty({

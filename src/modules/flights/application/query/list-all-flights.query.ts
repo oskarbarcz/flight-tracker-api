@@ -13,10 +13,10 @@ import {
   Continent,
   Coordinates,
 } from '../../../airports/entity/airport.entity';
-import { GetFlightResponse } from '../../dto/flight.dto';
+import { GetFlightResponse, FlightListFilters } from '../../dto/flight.dto';
 
 export class ListAllFlightsQuery extends Query<GetFlightResponse[]> {
-  constructor() {
+  constructor(public readonly filters?: FlightListFilters) {
     super();
   }
 }
@@ -25,8 +25,8 @@ export class ListAllFlightsQuery extends Query<GetFlightResponse[]> {
 export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery> {
   constructor(private repository: FlightsRepository) {}
 
-  async execute() {
-    const flights = await this.repository.findAll();
+  async execute(query: ListAllFlightsQuery) {
+    const flights = await this.repository.findAll(query.filters);
 
     return flights.map(
       (flight): GetFlightResponse => ({

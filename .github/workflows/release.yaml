@@ -44,7 +44,7 @@ jobs:
           AUTHOR=$(jq -r '.author' package.json)
           NAME=$(jq -r '.name' package.json)
           VERSION=$(jq -r '.version' package.json)
-          
+
           IMAGE="ghcr.io/${AUTHOR}/${NAME}"
           docker push "${IMAGE}:${VERSION}"
           docker push "${IMAGE}:latest"
