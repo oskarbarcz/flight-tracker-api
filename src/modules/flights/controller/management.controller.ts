@@ -25,7 +25,11 @@ import {
 import { GenericBadRequestResponse } from '../../../core/http/response/bad-request.response';
 import { GenericNotFoundResponse } from '../../../core/http/response/not-found.response';
 import { UuidParam } from '../../../core/validation/uuid.param';
-import { CreateFlightRequest, GetFlightResponse } from '../dto/flight.dto';
+import {
+  CreateFlightRequest,
+  GetFlightResponse,
+  ListFlightsFilters,
+} from '../dto/flight.dto';
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
 import { Role } from '../../../core/http/auth/decorator/role.decorator';
@@ -39,6 +43,8 @@ import { RemoveFlightCommand } from '../application/command/remove-flight.comman
 import { CreateFlightCommand } from '../application/command/create-flight.command';
 import { v4 } from 'uuid';
 import { CreateFlightFromSimbriefCommand } from '../application/command/create-flight-from-simbrief.command';
+import { Query } from '@nestjs/common';
+import { FlightPhase } from '../entity/flight.entity';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -93,27 +99,20 @@ export class ManagementController {
   }
 
   @ApiOperation({ summary: 'Retrieve all flights' })
+  @ApiParam({ name: 'phase', type: 'string', enum: FlightPhase })
   @ApiBearerAuth('jwt')
-  @ApiParam({
-    name: 'id',
-    description: 'Flight unique identifier',
-  })
   @ApiOkResponse({ type: GetFlightResponse, isArray: true })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
     type: UnauthorizedResponse,
   })
   @Get()
-  findAll(): Promise<GetFlightResponse[]> {
-    const query = new ListAllFlightsQuery();
+  findAll(@Query() filters: ListFlightsFilters): Promise<GetFlightResponse[]> {
+    const query = new ListAllFlightsQuery(filters);
     return this.queryBus.execute(query);
   }
 
   @ApiOperation({ summary: 'Retrieve one flight' })
-  @ApiParam({
-    name: 'id',
-    description: 'Flight unique identifier',
-  })
   @ApiOkResponse({
     description: 'Flight was found',
     type: GetFlightResponse,

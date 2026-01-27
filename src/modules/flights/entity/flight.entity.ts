@@ -22,6 +22,12 @@ export enum FlightStatus {
   Closed = 'closed',
 }
 
+export enum FlightPhase {
+  Upcoming = 'upcoming',
+  Ongoing = 'ongoing',
+  Finished = 'finished',
+}
+
 export enum FlightSource {
   Manual = 'manual',
   Simbrief = 'simbrief',
