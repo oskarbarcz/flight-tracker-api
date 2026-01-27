@@ -96,6 +96,7 @@ Feature: Report takeoff
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",
+            "iataCode": "AA",
             "shortName": "American Airlines",
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
@@ -104,6 +105,7 @@ Feature: Report takeoff
         "operator": {
           "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
           "icaoCode": "AAL",
+          "iataCode": "AA",
           "shortName": "American Airlines",
           "fullName": "American Airlines, Inc.",
           "callsign": "AMERICAN"

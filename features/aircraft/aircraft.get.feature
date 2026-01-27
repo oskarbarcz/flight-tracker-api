@@ -17,6 +17,7 @@ Feature: Get aircraft
         "operator": {
           "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
           "icaoCode": "DLH",
+          "iataCode": "LH",
           "shortName": "Lufthansa",
           "fullName": "Deutsche Lufthansa AG",
           "callsign": "LUFTHANSA"
@@ -41,6 +42,7 @@ Feature: Get aircraft
         "operator": {
           "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
           "icaoCode": "DLH",
+          "iataCode": "LH",
           "shortName": "Lufthansa",
           "fullName": "Deutsche Lufthansa AG",
           "callsign": "LUFTHANSA"
@@ -65,6 +67,7 @@ Feature: Get aircraft
         "operator": {
           "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
           "icaoCode": "DLH",
+          "iataCode": "LH",
           "shortName": "Lufthansa",
           "fullName": "Deutsche Lufthansa AG",
           "callsign": "LUFTHANSA"

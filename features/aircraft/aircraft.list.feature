@@ -18,6 +18,7 @@ Feature: List aircraft
           "operator": {
             "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
             "icaoCode": "DLH",
+            "iataCode": "LH",
             "shortName": "Lufthansa",
             "fullName": "Deutsche Lufthansa AG",
             "callsign": "LUFTHANSA"
@@ -34,6 +35,7 @@ Feature: List aircraft
           "operator": {
             "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
             "icaoCode": "CDG",
+            "iataCode": "DE",
             "shortName": "Condor",
             "fullName": "Condor Flugdienst",
             "callsign": "CONDOR"
@@ -50,6 +52,7 @@ Feature: List aircraft
           "operator": {
             "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
             "icaoCode": "CDG",
+            "iataCode": "DE",
             "shortName": "Condor",
             "fullName": "Condor Flugdienst",
             "callsign": "CONDOR"
@@ -66,6 +69,7 @@ Feature: List aircraft
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",
+            "iataCode": "AA",
             "shortName": "American Airlines",
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
