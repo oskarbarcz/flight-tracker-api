@@ -20,6 +20,7 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiParam,
+  ApiQuery,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -99,10 +100,28 @@ export class ManagementController {
   }
 
   @ApiOperation({ summary: 'Retrieve all flights' })
-  @ApiParam({
+  @ApiQuery({
     name: 'phase',
+    description: 'Filter by flight phase',
     type: 'string',
     enum: FlightPhase,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'page',
+    description: 'Page number',
+    type: 'number',
+    minimum: 1,
+    default: 1,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'limit',
+    description: 'Maximum number of items to return',
+    type: 'number',
+    minimum: 1,
+    maximum: 100,
+    default: 10,
     required: false,
   })
   @ApiBearerAuth('jwt')
