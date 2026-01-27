@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Query,
   Req,
 } from '@nestjs/common';
 import {
@@ -27,8 +28,8 @@ import { GenericNotFoundResponse } from '../../../core/http/response/not-found.r
 import { UuidParam } from '../../../core/validation/uuid.param';
 import {
   CreateFlightRequest,
+  FlightListFilters,
   GetFlightResponse,
-  ListFlightsFilters,
 } from '../dto/flight.dto';
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
@@ -43,7 +44,6 @@ import { RemoveFlightCommand } from '../application/command/remove-flight.comman
 import { CreateFlightCommand } from '../application/command/create-flight.command';
 import { v4 } from 'uuid';
 import { CreateFlightFromSimbriefCommand } from '../application/command/create-flight-from-simbrief.command';
-import { Query } from '@nestjs/common';
 import { FlightPhase } from '../entity/flight.entity';
 
 @ApiTags('flight')
@@ -112,7 +112,7 @@ export class ManagementController {
     type: UnauthorizedResponse,
   })
   @Get()
-  findAll(@Query() filters: ListFlightsFilters): Promise<GetFlightResponse[]> {
+  findAll(@Query() filters: FlightListFilters): Promise<GetFlightResponse[]> {
     const query = new ListAllFlightsQuery(filters);
     return this.queryBus.execute(query);
   }

@@ -6,12 +6,14 @@ import {
   IsOptional,
   IsString,
   IsUUID,
+  IsInt,
+  Min,
+  Max,
 } from 'class-validator';
 import { Operator } from '../../operators/entity/operator.entity';
 import { Loadsheets } from '../entity/loadsheet.entity';
 import { Type } from 'class-transformer';
 import { Flight, FlightPhase, FlightTracking } from '../entity/flight.entity';
-import { IsInt, Min, Max } from 'class-validator';
 
 class PreliminaryLoadsheetOnly extends OmitType(Loadsheets, ['final']) {}
 
@@ -45,8 +47,6 @@ export class FlightListFilters {
   @Max(100)
   limit: number = 10;
 }
-
-export class ListFlightsFilters extends FlightListFilters {}
 
 export class CreateFlightRequest {
   @ApiProperty({
