@@ -99,7 +99,12 @@ export class ManagementController {
   }
 
   @ApiOperation({ summary: 'Retrieve all flights' })
-  @ApiParam({ name: 'phase', type: 'string', enum: FlightPhase })
+  @ApiParam({
+    name: 'phase',
+    type: 'string',
+    enum: FlightPhase,
+    required: false,
+  })
   @ApiBearerAuth('jwt')
   @ApiOkResponse({ type: GetFlightResponse, isArray: true })
   @ApiUnauthorizedResponse({

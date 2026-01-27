@@ -242,6 +242,9 @@ export class FlightsRepository {
     const flights = await this.prisma.flight.findMany({
       where,
       select: flightWithAircraftAndAirportsFields,
+      skip: filters ? (filters.page - 1) * filters.limit : undefined,
+      take: filters ? filters.limit : undefined,
+      orderBy: { createdAt: 'desc' },
     });
 
     const flightIds = flights.map((f) => f.id);

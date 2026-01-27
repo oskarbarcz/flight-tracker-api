@@ -35,7 +35,28 @@ Feature: Get flights list
         }
       }
       """
-    And I dump response
+
+  Scenario: As cabin crew I can get flight list paginated
+    Given I am signed in as "cabin crew"
+    When I send a "GET" request to "/api/v1/flight?limit=2&page=3"
+    Then the response status should be 200
+
+  Scenario: As cabin crew I cannot get flight filtered by incorrect pagination
+    Given I am signed in as "cabin crew"
+    When I send a "GET" request to "/api/v1/flight?limit=1000&page=0"
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 400,
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "violations": {
+          "page": ["page must not be less than 1"],
+          "limit": ["limit must not be greater than 100"]
+        }
+      }
+      """
 
   Scenario: As an unauthorized user I cannot get flights list
     When I send a "GET" request to "/api/v1/flight"

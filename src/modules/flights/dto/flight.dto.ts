@@ -11,6 +11,7 @@ import { Operator } from '../../operators/entity/operator.entity';
 import { Loadsheets } from '../entity/loadsheet.entity';
 import { Type } from 'class-transformer';
 import { Flight, FlightPhase, FlightTracking } from '../entity/flight.entity';
+import { IsInt, Min, Max } from 'class-validator';
 
 class PreliminaryLoadsheetOnly extends OmitType(Loadsheets, ['final']) {}
 
@@ -18,6 +19,31 @@ export class FlightListFilters {
   @IsOptional()
   @IsEnum(FlightPhase)
   phase?: FlightPhase;
+
+  @ApiProperty({
+    description: 'Number of page to retrieve',
+    example: 1,
+    required: false,
+    default: 1,
+  })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  page: number = 1;
+
+  @ApiProperty({
+    description: 'Number of items per page',
+    example: 10,
+    required: false,
+    default: 10,
+  })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  @Max(100)
+  limit: number = 10;
 }
 
 export class ListFlightsFilters extends FlightListFilters {}
