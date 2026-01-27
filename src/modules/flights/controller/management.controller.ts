@@ -137,6 +137,10 @@ export class ManagementController {
   }
 
   @ApiOperation({ summary: 'Retrieve one flight' })
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
   @ApiOkResponse({
     description: 'Flight was found',
     type: GetFlightResponse,
