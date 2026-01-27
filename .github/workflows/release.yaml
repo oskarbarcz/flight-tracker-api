@@ -49,6 +49,7 @@ jobs:
           docker push "${IMAGE}:${VERSION}"
           docker push "${IMAGE}:latest"
   release:
+    needs: deploy
     runs-on: 'ubuntu-22.04'
     timeout-minutes: 8
     environment: production
