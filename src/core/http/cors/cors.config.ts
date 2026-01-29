@@ -8,5 +8,6 @@ export function configureCors(app: INestApplication): void {
     credentials: true, // allow cookies / Authorization headers
     methods: 'GET,POST,PUT,DELETE,PATCH,OPTIONS',
     allowedHeaders: 'Content-Type, Authorization',
+    exposedHeaders: 'X-Total-Count',
   });
 }

@@ -104,6 +104,11 @@ export type DiversionStatus = {
 
 export type FlightResponse = FlightWithAircraftAndAirports & DiversionStatus;
 
+type FlightsWithCount = {
+  flights: FlightResponse[];
+  totalCount: number;
+};
+
 @Injectable()
 export class FlightsRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -214,7 +219,7 @@ export class FlightsRepository {
     });
   }
 
-  async findAll(filters?: FlightListFilters): Promise<FlightResponse[]> {
+  async findAll(filters?: FlightListFilters): Promise<FlightsWithCount> {
     const where: Prisma.FlightWhereInput = {};
 
     if (filters?.phase === FlightPhase.Upcoming) {
@@ -239,13 +244,16 @@ export class FlightsRepository {
       where.status = FlightStatus.Closed;
     }
 
-    const flights = await this.prisma.flight.findMany({
-      where,
-      select: flightWithAircraftAndAirportsFields,
-      skip: filters ? (filters.page - 1) * filters.limit : undefined,
-      take: filters ? filters.limit : undefined,
-      orderBy: { createdAt: 'desc' },
-    });
+    const [flights, totalCount] = await Promise.all([
+      this.prisma.flight.findMany({
+        where,
+        select: flightWithAircraftAndAirportsFields,
+        skip: filters ? (filters.page - 1) * filters.limit : undefined,
+        take: filters ? filters.limit : undefined,
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.flight.count({ where }),
+    ]);
 
     const flightIds = flights.map((f) => f.id);
     const diversions = await this.prisma.diversion.findMany({
@@ -254,10 +262,13 @@ export class FlightsRepository {
     });
     const divertedFlightIds = new Set(diversions.map((d) => d.flightId));
 
-    return flights.map((flight) => ({
-      ...flight,
-      isFlightDiverted: divertedFlightIds.has(flight.id),
-    }));
+    return {
+      flights: flights.map((flight) => ({
+        ...flight,
+        isFlightDiverted: divertedFlightIds.has(flight.id),
+      })),
+      totalCount,
+    };
   }
 
   async remove(id: string): Promise<void> {

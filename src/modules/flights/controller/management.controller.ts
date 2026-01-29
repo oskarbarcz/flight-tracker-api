@@ -8,7 +8,9 @@ import {
   Post,
   Query,
   Req,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -125,15 +127,30 @@ export class ManagementController {
     required: false,
   })
   @ApiBearerAuth('jwt')
-  @ApiOkResponse({ type: GetFlightResponse, isArray: true })
+  @ApiOkResponse({
+    type: GetFlightResponse,
+    isArray: true,
+    headers: {
+      'X-Total-Count': {
+        description: 'Total number of flights',
+        schema: { type: 'number' },
+      },
+    },
+  })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
     type: UnauthorizedResponse,
   })
   @Get()
-  findAll(@Query() filters: FlightListFilters): Promise<GetFlightResponse[]> {
+  async findAll(
+    @Query() filters: FlightListFilters,
+    @Res() response: Response,
+  ): Promise<void> {
     const query = new ListAllFlightsQuery(filters);
-    return this.queryBus.execute(query);
+    const { flights, totalCount } = await this.queryBus.execute(query);
+
+    response.setHeader('X-Total-Count', totalCount.toString());
+    response.json(flights);
   }
 
   @ApiOperation({ summary: 'Retrieve one flight' })
