@@ -60,6 +60,7 @@ model Flight {
   id              String         @id @default(uuid()) @db.Uuid
   flightNumber    String
   callsign        String
+  atcCallsign     String?
   status          String
   aircraftId      String         @db.Uuid
   timesheet       Json

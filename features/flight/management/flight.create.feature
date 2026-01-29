@@ -65,6 +65,7 @@ Feature: Create a flight
         "id": "@uuid",
         "flightNumber": "DLH990",
         "callsign": "DLH990",
+        "atcCallsign": null,
         "status": "created",
         "timesheet": {
           "scheduled": {
@@ -151,6 +152,7 @@ Feature: Create a flight
       {
         "flightNumber": "DLH990",
         "callsign": "DLH990",
+        "atcCallsign": "DLH9J",
         "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
         "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -185,6 +187,7 @@ Feature: Create a flight
       {
         "flightNumber": "DLH990",
         "callsign": "DLH990",
+        "atcCallsign": "DLH9J",
         "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
         "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -220,6 +223,7 @@ Feature: Create a flight
         "id": "@uuid",
         "flightNumber": "DLH990",
         "callsign": "DLH990",
+        "atcCallsign": "DLH9J",
         "status": "created",
         "timesheet": {
           "scheduled": {
@@ -506,11 +510,11 @@ Feature: Create a flight
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "aircraftId": ["aircraftId must be a string", "aircraftId must be a UUID"],
+          "aircraftId": ["aircraftId must be a UUID", "aircraftId should not be empty", "aircraftId must be a string"],
           "departureAirportId": ["departureAirportId must be a string", "departureAirportId must be a UUID"],
           "destinationAirportId": ["destinationAirportId must be a string", "destinationAirportId must be a UUID"],
           "status": ["property status should not exist"],
-          "operatorId": ["operatorId should not be empty", "operatorId must be a string", "operatorId must be a UUID"],
+          "operatorId": ["operatorId must be a UUID", "operatorId should not be empty", "operatorId must be a string"],
           "loadsheets": ["loadsheets should not be empty"]
         }
       }

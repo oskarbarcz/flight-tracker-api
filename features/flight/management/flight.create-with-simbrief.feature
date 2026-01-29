@@ -22,7 +22,8 @@ Feature: Create a flight with Simbrief
       {
         "id": "@uuid",
         "flightNumber": "DLH80",
-        "callsign": "DLH80",
+        "callsign": "LH80",
+        "atcCallsign": "LH80",
         "status": "created",
         "timesheet": {
           "scheduled": {
