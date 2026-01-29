@@ -5,7 +5,13 @@ import { CreateAircraftResponse } from '../../aircraft/dto/create-aircraft.dto';
 import { Operator } from '../../operators/entity/operator.entity';
 import { Loadsheets } from './loadsheet.entity';
 import { Rotation } from '../../rotations/entity/rotation.entity';
-import { IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 
 export enum FlightStatus {
   Created = 'created',
@@ -50,13 +56,29 @@ export class Flight {
     description: 'Flight number used by ticketing systems',
     example: 'LH450',
   })
+  @IsNotEmpty()
+  @IsString()
   flightNumber!: string;
 
   @ApiProperty({
-    description: 'Callsign used by air traffic services',
+    description: 'Callsign used by airline internal systems',
     example: 'DLH450',
   })
+  @IsNotEmpty()
+  @IsString()
   callsign!: string;
+
+  @ApiProperty({
+    description: 'Callsign used by air traffic services',
+    example: 'DLH5PJ',
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  atcCallsign?: string | null = null;
 
   @ApiProperty({
     description: 'Flight status',

@@ -61,8 +61,9 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
 
     const flightData = {
       id: flightId,
-      flightNumber: `${operator.icaoCode}${ofp.general.flight_number}`,
+      flightNumber: `${operator.iataCode}${ofp.general.flight_number}`,
       callsign: `${operator.icaoCode}${ofp.general.flight_number}`,
+      atcCallsign: `${operator.icaoCode}${ofp.general.flight_number}`,
       aircraftId: aircraft.id,
       operatorId: operator.id,
       departureAirportId: departureAirport.id,

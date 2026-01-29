@@ -22,6 +22,7 @@ async function loadDLH450(): Promise<void> {
     id: '3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05',
     flightNumber: 'LH450',
     callsign: 'DLH450',
+    atcCallsign: null,
     status: FlightStatus.Created,
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A339
@@ -149,6 +150,7 @@ async function loadAAL4905(): Promise<void> {
     id: '23da8bc9-a21b-4678-b2e9-1151d3bd15ab',
     flightNumber: 'AA4905',
     callsign: 'AAL4905',
+    atcCallsign: 'AAL05J',
     status: FlightStatus.Closed,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -437,6 +439,7 @@ async function loadAAL4906(): Promise<void> {
     id: '23952e79-6b38-49ed-a1db-bd4d9b3cedab',
     flightNumber: 'AA4906',
     callsign: 'AAL4906',
+    atcCallsign: 'AAL06J',
     status: FlightStatus.Ready,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -550,6 +553,7 @@ async function loadAAL4907(): Promise<void> {
     id: 'e91e13a9-09d8-48bf-8453-283cef467b88',
     flightNumber: 'AA4907',
     callsign: 'AAL4907',
+    atcCallsign: 'AAL07J',
     status: FlightStatus.Created,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -645,6 +649,7 @@ async function loadAAL4908(): Promise<void> {
     id: 'b3899775-278e-4496-add1-21385a13d93e',
     flightNumber: 'AA4908',
     callsign: 'AAL4908',
+    atcCallsign: 'AAL08J',
     status: FlightStatus.CheckedIn,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -778,6 +783,7 @@ async function loadAAL4909(): Promise<void> {
     id: '05986dd3-ff01-4112-ad35-ecd85db05c77',
     flightNumber: 'AA4909',
     callsign: 'AAL4909',
+    atcCallsign: 'AAL09J',
     status: FlightStatus.BoardingStarted,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -915,6 +921,7 @@ async function loadAAL4910(): Promise<void> {
     id: 'f14a2141-4737-4622-a387-40513ff3baf1',
     flightNumber: 'AA4910',
     callsign: 'AAL4910',
+    atcCallsign: 'AAL10J',
     status: FlightStatus.BoardingFinished,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -1072,6 +1079,7 @@ async function loadAAL4911(): Promise<void> {
     id: '7105891a-8008-4b47-b473-c81c97615ad7',
     flightNumber: 'AA4911',
     callsign: 'AAL4911',
+    atcCallsign: 'AAL11J',
     status: FlightStatus.TaxiingOut,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -1244,6 +1252,7 @@ async function loadAAL4912(): Promise<void> {
     id: '2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d',
     flightNumber: 'AA4912',
     callsign: 'AAL4912',
+    atcCallsign: 'AAL12J',
     status: FlightStatus.InCruise,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -1425,6 +1434,7 @@ async function loadAAL4913(): Promise<void> {
     id: '04be266c-df78-4bec-9f50-281cc02ce7f2',
     flightNumber: 'AA4913',
     callsign: 'AAL4913',
+    atcCallsign: 'AAL13J',
     status: FlightStatus.TaxiingIn,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -1615,6 +1625,7 @@ async function loadAAL4914(): Promise<void> {
     id: '17d2f703-957d-4ad1-a620-3c187a70c26a',
     flightNumber: 'AA4914',
     callsign: 'AAL4914',
+    atcCallsign: 'AAL14J',
     status: FlightStatus.OnBlock,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -1876,6 +1887,7 @@ async function loadAAL4915(): Promise<void> {
     id: '5aada8ba-60c1-4e93-bcee-b59a7c555fdd',
     flightNumber: 'AA4915',
     callsign: 'AAL4915',
+    atcCallsign: 'AAL15J',
     status: FlightStatus.OffboardingStarted,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -2146,6 +2158,7 @@ async function loadAAL4916(): Promise<void> {
     id: '38644393-deee-434d-bfd1-7242abdbc4e1',
     flightNumber: 'AA4916',
     callsign: 'AAL4916',
+    atcCallsign: 'AAL16J',
     status: FlightStatus.OffboardingFinished,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -2425,6 +2438,7 @@ async function loadAAL4917(): Promise<void> {
     id: 'd085c107-308d-48e6-9c93-beca6552a8a3',
     flightNumber: 'AA4917',
     callsign: 'AAL4917',
+    atcCallsign: 'AAL17J',
     status: FlightStatus.Closed,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -2714,6 +2728,7 @@ async function loadDLH40(): Promise<void> {
     id: '48760636-9520-4863-b32f-f3618556feb7',
     flightNumber: 'LH40',
     callsign: 'DLH40',
+    atcCallsign: null,
     status: FlightStatus.Closed,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
@@ -2903,6 +2918,7 @@ async function loadDLH41(): Promise<void> {
     id: 'e8e17e59-67d7-4a6c-a0bd-425ffa6bed66',
     flightNumber: 'LH41',
     callsign: 'DLH41',
+    atcCallsign: null,
     status: FlightStatus.Created,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
@@ -3007,6 +3023,7 @@ async function loadDLH42(): Promise<void> {
     id: '006f0754-1ed7-4ae1-9f91-fae2d446a6e7',
     flightNumber: 'LH42',
     callsign: 'DLH42',
+    atcCallsign: null,
     status: FlightStatus.Ready,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
@@ -3392,6 +3409,7 @@ async function loadDLH102(): Promise<void> {
     id: '1e9f4176-188f-41a5-a9d1-25a96579f46d',
     flightNumber: 'LH102',
     callsign: 'DLH102',
+    atcCallsign: null,
     status: FlightStatus.InCruise,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,

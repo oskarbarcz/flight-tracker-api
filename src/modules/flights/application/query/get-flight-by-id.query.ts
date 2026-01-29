@@ -40,6 +40,7 @@ export class GetFlightByIdHandler implements IQueryHandler<GetFlightByIdQuery> {
       id: flight.id,
       flightNumber: flight.flightNumber,
       callsign: flight.callsign,
+      atcCallsign: flight.atcCallsign,
       status: flight.status as FlightStatus,
       timesheet: this.convertTimesheetDates(flight.timesheet as FullTimesheet),
       loadsheets: flight.loadsheets as unknown as Loadsheets,

@@ -38,6 +38,7 @@ Feature: Close flight
         "id": "38644393-deee-434d-bfd1-7242abdbc4e1",
         "flightNumber": "AA4916",
         "callsign": "AAL4916",
+        "atcCallsign": "AAL16J",
         "status": "closed",
         "timesheet": {
           "scheduled": {
@@ -343,6 +344,7 @@ Feature: Close flight
         "id": "d4a25ef2-39cf-484c-af00-a548999e8699",
         "flightNumber": "LH43",
         "callsign": "DLH43",
+        "atcCallsign": null,
         "status": "closed",
         "timesheet": {
           "actual": {

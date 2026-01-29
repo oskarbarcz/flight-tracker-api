@@ -21,8 +21,9 @@ Feature: Create a flight with Simbrief
       """json
       {
         "id": "@uuid",
-        "flightNumber": "DLH80",
+        "flightNumber": "LH80",
         "callsign": "DLH80",
+        "atcCallsign": "DLH80",
         "status": "created",
         "timesheet": {
           "scheduled": {

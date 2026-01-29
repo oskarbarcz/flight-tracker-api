@@ -53,6 +53,7 @@ Feature: Update flight preliminary loadsheet
         "id": "e91e13a9-09d8-48bf-8453-283cef467b88",
         "flightNumber": "AA4907",
         "callsign": "AAL4907",
+        "atcCallsign": "AAL07J",
         "status": "created",
         "timesheet": {
           "scheduled": {
