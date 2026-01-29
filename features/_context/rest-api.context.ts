@@ -112,6 +112,13 @@ Then('the response status should be {int}', (statusCode: number) => {
 });
 
 Then(
+  'the response header {string} should be {string}',
+  (header: string, value: string) => {
+    expect(apiResponse.headers[header.toLowerCase()]).toBe(value);
+  },
+);
+
+Then(
   'the response body should have the property {string}',
   (property: string) => {
     expect(apiResponse.data).toHaveProperty(property);
