@@ -67,18 +67,20 @@ model Flight {
   loadsheets      Json           @default("{\"final\": null, \"preliminary\": null}")
   operatorId      String         @db.Uuid
   rotationId      String?        @db.Uuid
+  captainId       String?        @db.Uuid
   source          FlightSource   @default(manual)
   tracking        FlightTracking @default(private)
   createdAt       DateTime       @default(now())
   positionReports Json           @default("[]")
 
-  operator    Operator            @relation(fields: [operatorId], references: [id])
-  rotation    Rotation?           @relation(fields: [rotationId], references: [id])
-  user        User?
-  aircraft    Aircraft            @relation(fields: [aircraftId], references: [id])
-  airports    AirportsOnFlights[]
-  flightEvent FlightEvent[]
-  diversion   Diversion[]
+  operator             Operator            @relation(fields: [operatorId], references: [id])
+  rotation             Rotation?           @relation(fields: [rotationId], references: [id])
+  captain              User?               @relation("FlightCaptain", fields: [captainId], references: [id])
+  aircraft             Aircraft            @relation(fields: [aircraftId], references: [id])
+  airports             AirportsOnFlights[]
+  flightEvent          FlightEvent[]
+  diversion            Diversion[]
+  userPerformingFlight User[]              @relation("UserCurrentFlight")
 
   @@map("flight")
 }
@@ -131,10 +133,11 @@ model User {
 
   rotations       Rotation[]
   jwtRefreshToken JwtRefreshToken[]
-  currentFlight   Flight?           @relation(fields: [currentFlightId], references: [id])
-  currentRotation Rotation?         @relation("CurrentRotation", fields: [currentRotationId], references: [id])
+  currentFlight   Flight?           @relation("UserCurrentFlight", fields: [currentFlightId], references: [id])
+  currentRotation Rotation?         @relation(fields: [currentRotationId], references: [id], name: "CurrentRotation")
   flightEvent     FlightEvent[]
   diversion       Diversion[]
+  allFlights      Flight[]          @relation("FlightCaptain")
 
   @@map("user")
 }
