@@ -48,8 +48,14 @@ export class CheckInPilotForFlightHandler implements ICommandHandler<CheckInPilo
     const timesheet = flight.timesheet;
     timesheet.estimated = estimatedSchedule;
 
-    await this.flightsRepository.updateStatus(flightId, FlightStatus.CheckedIn);
-    await this.flightsRepository.updateTimesheet(flightId, timesheet);
+    await Promise.all([
+      await this.flightsRepository.checkInCaptain(flightId, initiatorId),
+      await this.flightsRepository.updateStatus(
+        flightId,
+        FlightStatus.CheckedIn,
+      ),
+      await this.flightsRepository.updateTimesheet(flightId, timesheet),
+    ]);
 
     const event: NewFlightEvent = {
       flightId,

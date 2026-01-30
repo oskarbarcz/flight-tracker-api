@@ -279,6 +279,13 @@ export class FlightsRepository {
     await this.prisma.flight.delete({ where: { id } });
   }
 
+  async checkInCaptain(flightId: string, captainId: string): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id: flightId },
+      data: { captainId },
+    });
+  }
+
   async updateStatus(id: string, status: FlightStatus): Promise<void> {
     await this.prisma.flight.update({
       where: { id },

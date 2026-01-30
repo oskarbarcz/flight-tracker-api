@@ -43,6 +43,12 @@ export class Schedule {
   offBlockTime!: Date | null;
 }
 
+type NonNullable<T> = T extends null | undefined ? never : T;
+
+export type FilledSchedule = {
+  [K in keyof Schedule]: NonNullable<Schedule[K]>;
+};
+
 export class ScheduledTimesheet {
   @ApiProperty({
     description: 'Flight plan timesheet reported to air traffic services',
@@ -67,3 +73,7 @@ export class FullTimesheet extends PartialType(EstimatedTimesheet) {
   })
   actual?: Partial<Schedule>;
 }
+
+export type FilledTimesheet = {
+  [K in keyof FullTimesheet]: NonNullable<FullTimesheet[K]>;
+};
