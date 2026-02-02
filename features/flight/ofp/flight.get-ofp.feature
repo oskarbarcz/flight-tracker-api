@@ -27,7 +27,7 @@ Feature: Get OFP for flight
       """
 
   Scenario: As cabin crew I can get OFP for flight
-    Given I am signed in as "operations"
+    Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight/11087d20-ead0-4b7e-97ee-f1ef0ea29e4f/ofp"
     Then the response status should be 200
     And the response body should contain:
