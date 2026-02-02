@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   Flight,
+  FlightOfpDetails,
   FlightPathElement,
   FlightPhase,
   FlightSource,
@@ -84,6 +85,12 @@ export const flightWithAircraftAndAirportsFields = {
       },
     },
   },
+} as const satisfies Prisma.FlightSelect;
+
+const flightOfp = {
+  ofpContent: true,
+  ofpDocumentUrl: true,
+  runwayAnalysis: true,
 } as const satisfies Prisma.FlightSelect;
 
 const flightIdAndCallsign = {
@@ -197,6 +204,26 @@ export class FlightsRepository {
       data.positionReports as unknown as AdsbPositionReportApiInput[];
 
     return positionReports.map(transformPositionReport);
+  }
+
+  async getOfpByFlightId(id: string): Promise<FlightOfpDetails> {
+    const data = await this.prisma.flight.findUnique({
+      where: {
+        id,
+        ofpDocumentUrl: { not: null },
+        ofpContent: { not: null },
+        runwayAnalysis: { not: null },
+      },
+      select: flightOfp,
+    });
+
+    if (!data) {
+      throw new NotFoundException(
+        'Flight with given id does not exist or no OFP for flight',
+      );
+    }
+
+    return data as FlightOfpDetails;
   }
 
   async getOneById(id: string): Promise<FlightResponse> {

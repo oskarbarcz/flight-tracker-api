@@ -33,6 +33,8 @@ import { CheckFlightExistsHandler } from './application/query/check-flight-exist
 import { GetFlightRotationInfoHandler } from './application/query/get-flight-rotation-info.query';
 import { SimbriefModule } from '../../core/provider/simbrief/simbrief.module';
 import { CreateFlightFromSimbriefHandler } from './application/command/create-flight-from-simbrief.command';
+import { OfpController } from './controller/ofp.controller';
+import { GetOfpByFlightIdHandler } from './application/query/get-ofp-by-flight-id.query';
 
 @Module({
   imports: [PrismaModule, DiscordModule, AdsbModule, SimbriefModule],
@@ -40,6 +42,7 @@ import { CreateFlightFromSimbriefHandler } from './application/command/create-fl
     ManagementController,
     EventsController,
     DiversionController,
+    OfpController,
     ActionsController,
     PathController,
   ],
@@ -69,6 +72,7 @@ import { CreateFlightFromSimbriefHandler } from './application/command/create-fl
     CreateFlightFromSimbriefHandler,
     CheckFlightExistsHandler,
     GetFlightRotationInfoHandler,
+    GetOfpByFlightIdHandler,
   ],
 })
 export class FlightsModule {}

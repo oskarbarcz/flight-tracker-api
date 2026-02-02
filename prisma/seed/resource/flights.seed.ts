@@ -1,4 +1,7 @@
-import { FlightStatus } from '../../../src/modules/flights/entity/flight.entity';
+import {
+  FlightSource,
+  FlightStatus,
+} from '../../../src/modules/flights/entity/flight.entity';
 import { FlightEventScope, Prisma } from '../../client/client';
 import { AirportType } from '../../../src/modules/airports/entity/airport.entity';
 import { Loadsheets } from '../../../src/modules/flights/entity/loadsheet.entity';
@@ -3557,6 +3560,75 @@ async function loadDLH102(): Promise<void> {
   });
 }
 
+/**
+ * DLH81 | 11087d20-ead0-4b7e-97ee-f1ef0ea29e4f
+ * Frankfurt (EDDF) -> New York JFK (KJFK)
+ * status: Ready
+ */
+async function loadDLH81(): Promise<void> {
+  const data = {
+    id: '11087d20-ead0-4b7e-97ee-f1ef0ea29e4f',
+    flightNumber: 'LH81',
+    callsign: 'DLH81',
+    atcCallsign: null,
+    captainId: null,
+    status: FlightStatus.Ready,
+    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
+    operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
+    source: FlightSource.Simbrief,
+    timesheet: {
+      scheduled: {
+        arrivalTime: '2025-01-05T17:10:00.000Z',
+        onBlockTime: '2025-01-05T17:25:00.000Z',
+        takeoffTime: '2025-01-05T09:20:00.000Z',
+        offBlockTime: '2025-01-05T09:00:00.000Z',
+      },
+    } as Prisma.InputJsonValue,
+    loadsheets: {
+      final: null,
+      preliminary: {
+        cargo: 8,
+        payload: 37.9,
+        blockFuel: 71.6,
+        flightCrew: { pilots: 2, cabinCrew: 12, reliefPilots: 1 },
+        passengers: 348,
+        zeroFuelWeight: 206.5,
+      },
+    } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
+    ofpContent: '<div><h2>Simbrief OFP</h2><p>Mock OFP</p></div>',
+    ofpDocumentUrl:
+      'https://www.simbrief.com/ofp/flightplans/EDDFKJFK_PDF_1769431274.pdf',
+    runwayAnalysis: 'TAKEOFF AND LANDING REPORT DLH81',
+  };
+
+  const departureAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
+  });
+
+  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' }, // New York JFK
+  });
+
+  const flight = await prisma.flight.create({ data: data });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: departureAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Departure,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: arrivalAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Destination,
+    },
+  });
+}
+
 export async function loadFlights(): Promise<void> {
   await loadDLH450();
   await loadAAL4905();
@@ -3577,4 +3649,5 @@ export async function loadFlights(): Promise<void> {
   await loadDLH42();
   await loadDLH43();
   await loadDLH102();
+  await loadDLH81();
 }

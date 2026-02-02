@@ -61,6 +61,10 @@
           "est_zfw": "206523",
           "pax_count": "348"
         },
+        "text": {
+          "tlr_section": "TAKEOFF AND LANDING REPORT DLH80",
+          "plan_html": "<div><h2>Simbrief OFP</h2><p>Mock OFP</p></div>"
+        },
         "files": {
           "directory": "https://www.simbrief.com/ofp/flightplans/",
           "pdf": {

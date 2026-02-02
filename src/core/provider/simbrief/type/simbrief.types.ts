@@ -29,6 +29,11 @@ export type Weights = {
   pax_count: string;
 };
 
+export type Text = {
+  tlr_section: string;
+  plan_html: string;
+};
+
 export type Files = {
   directory: string;
   pdf: {
@@ -50,5 +55,6 @@ export type OperationalFlightPlan = {
   aircraft: Aircraft;
   times: Times;
   weights: Weights;
+  text: Text;
   files: Files;
 };

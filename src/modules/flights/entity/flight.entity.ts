@@ -181,6 +181,26 @@ export class Flight {
   createdAt!: Date;
 }
 
+export class FlightOfpDetails {
+  @ApiProperty({
+    description: 'HTML content of the operational flight plan',
+    example: '<div>OFP content</div>',
+  })
+  ofpContent!: string;
+
+  @ApiProperty({
+    description: 'URL to external OFP PDF document',
+    example: 'https://example.com/ofp/document.pdf',
+  })
+  ofpDocumentUrl!: string;
+
+  @ApiProperty({
+    description: 'Takeoff and landing runway analysis content',
+    example: 'TAKEOFF RUNWAY 25C: ... LANDING RUNWAY 07L: ...',
+  })
+  runwayAnalysis!: string;
+}
+
 export class FlightPathElement {
   @ApiProperty({
     description: 'Callsign used by air traffic services, without spaces',
