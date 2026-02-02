@@ -65,7 +65,7 @@ Feature: Get OFP for flight
       }
       """
 
-  Scenario: As a cabin crew I cannot get flight path for non-existing flight
+  Scenario: As a cabin crew I cannot get OFP for non-existing flight
     Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight/11b8dbbf-9e9e-4ea4-a36a-975ab117fc87/ofp"
     Then the response status should be 404
