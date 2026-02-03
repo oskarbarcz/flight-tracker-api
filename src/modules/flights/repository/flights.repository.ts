@@ -142,14 +142,9 @@ export class FlightsRepository {
     await this.prisma.flight.create({
       data: {
         id: flightId,
-        flightNumber: flightData.flightNumber,
-        callsign: flightData.callsign,
-        atcCallsign: flightData.atcCallsign,
-        aircraftId: flightData.aircraftId,
+        ...flightData,
         status: FlightStatus.Created,
-        operatorId: flightData.operatorId,
         source,
-        tracking: flightData.tracking,
         timesheet: JSON.parse(JSON.stringify(flightData.timesheet)),
         loadsheets: JSON.parse(JSON.stringify(loadsheets)),
       },
