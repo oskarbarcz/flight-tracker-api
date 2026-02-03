@@ -91,9 +91,6 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
           zeroFuelWeight: this.ofpWeightToTons(ofp.weights.est_zfw),
         },
       },
-      ofpContent: ofp.text.plan_html,
-      ofpDocumentUrl: ofp.files.directory + ofp.files.pdf.link,
-      runwayAnalysis: ofp.text.tlr_section,
     };
 
     await this.flightsRepository.create(
@@ -101,6 +98,12 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       flightData,
       FlightSource.Simbrief,
     );
+
+    await this.flightsRepository.updateOfp(flightId, {
+      ofpContent: ofp.text.plan_html,
+      ofpDocumentUrl: ofp.files.directory + ofp.files.pdf.link,
+      runwayAnalysis: ofp.text.tlr_section,
+    });
 
     const event: NewFlightEvent = {
       flightId: flightId,

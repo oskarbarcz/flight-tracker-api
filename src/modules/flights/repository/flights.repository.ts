@@ -142,7 +142,12 @@ export class FlightsRepository {
     await this.prisma.flight.create({
       data: {
         id: flightId,
-        ...flightData,
+        flightNumber: flightData.flightNumber,
+        callsign: flightData.callsign,
+        atcCallsign: flightData.atcCallsign,
+        aircraftId: flightData.aircraftId,
+        operatorId: flightData.operatorId,
+        tracking: flightData.tracking,
         status: FlightStatus.Created,
         source,
         timesheet: JSON.parse(JSON.stringify(flightData.timesheet)),
@@ -329,6 +334,17 @@ export class FlightsRepository {
       where: { id },
       data: {
         timesheet: JSON.parse(JSON.stringify(timesheet)),
+      },
+    });
+  }
+
+  async updateOfp(id: string, ofp: FlightOfpDetails): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id },
+      data: {
+        ofpContent: ofp.ofpContent,
+        ofpDocumentUrl: ofp.ofpDocumentUrl,
+        runwayAnalysis: ofp.runwayAnalysis,
       },
     });
   }
