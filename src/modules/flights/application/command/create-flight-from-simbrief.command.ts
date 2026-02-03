@@ -92,7 +92,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
         },
       },
       ofpContent: ofp.text.plan_html,
-      ofpDocumentUrl: ofp.files.directory + ofp.files.pdf,
+      ofpDocumentUrl: ofp.files.directory + ofp.files.pdf.link,
       runwayAnalysis: ofp.text.tlr_section,
     };
 
