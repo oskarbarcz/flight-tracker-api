@@ -72,6 +72,9 @@ model Flight {
   tracking        FlightTracking @default(private)
   createdAt       DateTime       @default(now())
   positionReports Json           @default("[]")
+  runwayAnalysis  String?
+  ofpContent      String?
+  ofpDocumentUrl  String?
 
   operator             Operator            @relation(fields: [operatorId], references: [id])
   rotation             Rotation?           @relation(fields: [rotationId], references: [id])
