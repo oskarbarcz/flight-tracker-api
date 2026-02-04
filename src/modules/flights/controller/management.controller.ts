@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Post,
   Query,
   Req,
@@ -47,7 +48,9 @@ import { RemoveFlightCommand } from '../application/command/remove-flight.comman
 import { CreateFlightCommand } from '../application/command/create-flight.command';
 import { v4 } from 'uuid';
 import { CreateFlightFromSimbriefCommand } from '../application/command/create-flight-from-simbrief.command';
-import { FlightPhase } from '../entity/flight.entity';
+import { FlightPhase, FlightTracking } from '../entity/flight.entity';
+import { FlightDoesNotExistError } from '../dto/errors.dto';
+import { GetFlightTrackingQuery } from '../application/query/get-flight-tracking.query';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -142,11 +145,14 @@ export class ManagementController {
     type: UnauthorizedResponse,
   })
   @Get()
+  @SkipAuth()
   async findAll(
+    @Req() request: AuthorizedRequest,
     @Query() filters: FlightListFilters,
     @Res() response: Response,
   ): Promise<void> {
-    const query = new ListAllFlightsQuery(filters);
+    const onlyPublic = !Boolean(request.user);
+    const query = new ListAllFlightsQuery(onlyPublic, filters);
     const { flights, totalCount } = await this.queryBus.execute(query);
 
     response.setHeader('X-Total-Count', totalCount.toString());
@@ -176,7 +182,22 @@ export class ManagementController {
   })
   @Get(':id')
   @SkipAuth()
-  findOne(@UuidParam('id') id: string): Promise<GetFlightResponse> {
+  async findOne(
+    @Req() request: AuthorizedRequest,
+    @UuidParam('id') id: string,
+  ): Promise<GetFlightResponse> {
+    const tracking = await this.queryBus.execute(
+      new GetFlightTrackingQuery(id),
+    );
+
+    if (!tracking) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
+    if (!request.user && tracking === FlightTracking.Private) {
+      throw new NotFoundException(FlightDoesNotExistError);
+    }
+
     const query = new GetFlightByIdQuery(id);
     return this.queryBus.execute(query);
   }

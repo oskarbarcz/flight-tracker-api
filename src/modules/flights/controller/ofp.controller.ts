@@ -15,6 +15,7 @@ import { FlightOfpDetails } from '../entity/flight.entity';
 import { GetOfpByFlightIdQuery } from '../application/query/get-ofp-by-flight-id.query';
 import { QueryBus } from '@nestjs/cqrs';
 import { GenericNotFoundResponse } from '../../../core/http/response/not-found.response';
+import { SkipAuth } from '../../../core/http/auth/decorator/skip-auth.decorator';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -31,7 +32,8 @@ export class OfpController {
   @ApiForbiddenResponse({ type: ForbiddenResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Get('/:id/ofp')
-  async getFlightPath(@UuidParam('id') id: string): Promise<FlightOfpDetails> {
+  @SkipAuth()
+  async GetFlightOfp(@UuidParam('id') id: string): Promise<FlightOfpDetails> {
     const query = new GetOfpByFlightIdQuery(id);
     return this.queryBus.execute(query);
   }

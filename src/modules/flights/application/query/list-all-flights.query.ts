@@ -21,7 +21,10 @@ type ListAllFlightsResult = {
 };
 
 export class ListAllFlightsQuery extends Query<ListAllFlightsResult> {
-  constructor(public readonly filters?: FlightListFilters) {
+  constructor(
+    public readonly onlyPublic: boolean,
+    public readonly filters?: FlightListFilters,
+  ) {
     super();
   }
 }
@@ -33,6 +36,7 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
   async execute(query: ListAllFlightsQuery) {
     const { flights, totalCount } = await this.repository.findAll(
       query.filters,
+      query.onlyPublic,
     );
 
     return {
