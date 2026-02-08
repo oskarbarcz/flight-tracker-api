@@ -6,6 +6,7 @@ import {
   FlightPhase,
   FlightSource,
   FlightStatus,
+  FlightTracking,
 } from '../entity/flight.entity';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
 import { CreateFlightRequest, FlightListFilters } from '../dto/flight.dto';
@@ -190,6 +191,15 @@ export class FlightsRepository {
     };
   }
 
+  async getFlightTracking(id: string): Promise<FlightTracking | undefined> {
+    const flight = await this.prisma.flight.findUnique({
+      select: { tracking: true },
+      where: { id },
+    });
+
+    return flight?.tracking as FlightTracking | undefined;
+  }
+
   async getFlightPath(flightId: string): Promise<FlightPathElement[]> {
     const data = await this.prisma.flight.findUnique({
       where: { id: flightId },
@@ -248,7 +258,10 @@ export class FlightsRepository {
     });
   }
 
-  async findAll(filters?: FlightListFilters): Promise<FlightsWithCount> {
+  async findAll(
+    filters?: FlightListFilters,
+    onlyPublic?: boolean,
+  ): Promise<FlightsWithCount> {
     const where: Prisma.FlightWhereInput = {};
 
     if (filters?.phase === FlightPhase.Upcoming) {
@@ -271,6 +284,10 @@ export class FlightsRepository {
       };
     } else if (filters?.phase === FlightPhase.Finished) {
       where.status = FlightStatus.Closed;
+    }
+
+    if (onlyPublic) {
+      where.tracking = FlightTracking.Public;
     }
 
     const [flights, totalCount] = await Promise.all([

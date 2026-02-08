@@ -179,7 +179,7 @@ Feature: Report a flight diversion
         ],
         "isFlightDiverted": true,
         "source": "manual",
-        "tracking": "private",
+        "tracking": "public",
         "rotationId": null,
         "createdAt": "2025-01-01T00:00:00.000Z"
       }
@@ -370,7 +370,7 @@ Feature: Report a flight diversion
         ],
         "isFlightDiverted": true,
         "source": "manual",
-        "tracking": "private",
+        "tracking": "public",
         "rotationId": null,
         "createdAt": "2025-01-01T00:00:00.000Z"
       }

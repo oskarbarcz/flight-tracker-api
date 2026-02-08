@@ -63,13 +63,7 @@ Feature: Get flights list
       }
       """
 
-  Scenario: As an unauthorized user I cannot get flights list
+  Scenario: As an unauthorized user I can get flights list with public flights only
     When I send a "GET" request to "/api/v1/flight"
-    Then the response status should be 401
-    And the response body should contain:
-      """json
-      {
-        "message": "Unauthorized",
-        "statusCode": 401
-      }
-      """
+    Then the response status should be 200
+    And the response header "X-Total-Count" should be "13"
