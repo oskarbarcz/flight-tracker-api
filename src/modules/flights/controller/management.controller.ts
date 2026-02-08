@@ -172,10 +172,6 @@ export class ManagementController {
     description: 'Flight id is not valid uuid v4',
     type: GenericBadRequestResponse,
   })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
@@ -189,7 +185,6 @@ export class ManagementController {
     const tracking = await this.queryBus.execute(
       new GetFlightTrackingQuery(id),
     );
-    console.log(tracking, request.user);
 
     if (!tracking) {
       throw new NotFoundException(FlightDoesNotExistError);

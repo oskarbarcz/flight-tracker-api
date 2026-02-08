@@ -45,7 +45,7 @@ export class PathController {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    if (!request.user && tracking === FlightTracking.Private) {
+    if (!request.user && tracking !== FlightTracking.Public) {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 

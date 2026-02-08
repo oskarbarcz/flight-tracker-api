@@ -31,7 +31,7 @@ export class OfpController {
   @ApiForbiddenResponse({ type: ForbiddenResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Get('/:id/ofp')
-  async GetFlightOfp(@UuidParam('id') id: string): Promise<FlightOfpDetails> {
+  async getFlightOfp(@UuidParam('id') id: string): Promise<FlightOfpDetails> {
     const query = new GetOfpByFlightIdQuery(id);
     return this.queryBus.execute(query);
   }
