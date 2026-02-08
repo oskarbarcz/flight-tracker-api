@@ -1,6 +1,7 @@
 import {
   FlightSource,
   FlightStatus,
+  FlightTracking,
 } from '../../../src/modules/flights/entity/flight.entity';
 import { FlightEventScope, Prisma } from '../../client/client';
 import { AirportType } from '../../../src/modules/airports/entity/airport.entity';
@@ -155,6 +156,7 @@ async function loadAAL4905(): Promise<void> {
     callsign: 'AAL4905',
     atcCallsign: 'AAL05J',
     status: FlightStatus.Closed,
+    tracking: FlightTracking.Public,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
@@ -445,6 +447,7 @@ async function loadAAL4906(): Promise<void> {
     callsign: 'AAL4906',
     atcCallsign: 'AAL06J',
     status: FlightStatus.Ready,
+    tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
@@ -559,6 +562,7 @@ async function loadAAL4907(): Promise<void> {
     callsign: 'AAL4907',
     atcCallsign: 'AAL07J',
     status: FlightStatus.Created,
+    tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
@@ -656,6 +660,7 @@ async function loadAAL4908(): Promise<void> {
     atcCallsign: 'AAL08J',
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.CheckedIn,
+    tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
@@ -791,6 +796,7 @@ async function loadAAL4909(): Promise<void> {
     atcCallsign: 'AAL09J',
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.BoardingStarted,
+    tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
@@ -930,6 +936,7 @@ async function loadAAL4910(): Promise<void> {
     atcCallsign: 'AAL10J',
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.BoardingFinished,
+    tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
@@ -1089,6 +1096,7 @@ async function loadAAL4911(): Promise<void> {
     atcCallsign: 'AAL11J',
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.TaxiingOut,
+    tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
@@ -1263,6 +1271,7 @@ async function loadAAL4912(): Promise<void> {
     atcCallsign: 'AAL12J',
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.InCruise,
+    tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
@@ -1446,6 +1455,7 @@ async function loadAAL4913(): Promise<void> {
     atcCallsign: 'AAL13J',
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.TaxiingIn,
+    tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
@@ -1638,6 +1648,7 @@ async function loadAAL4914(): Promise<void> {
     atcCallsign: 'AAL14J',
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.OnBlock,
+    tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
@@ -1901,6 +1912,7 @@ async function loadAAL4915(): Promise<void> {
     atcCallsign: 'AAL15J',
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.OffboardingStarted,
+    tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
@@ -2173,6 +2185,7 @@ async function loadAAL4916(): Promise<void> {
     atcCallsign: 'AAL16J',
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.OffboardingFinished,
+    tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
@@ -2454,6 +2467,7 @@ async function loadAAL4917(): Promise<void> {
     atcCallsign: 'AAL17J',
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.Closed,
+    tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {

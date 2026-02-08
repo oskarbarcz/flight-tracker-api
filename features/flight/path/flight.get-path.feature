@@ -210,7 +210,7 @@ Feature: Get flight path
       ]
       """
 
-  Scenario: As an unauthorized user I can get flight path that is on block
+  Scenario: As an unauthorized user I can get public flight path that is on block
     When I send a "GET" request to "/api/v1/flight/17d2f703-957d-4ad1-a620-3c187a70c26a/path"
     Then the response status should be 200
     And the response body should contain:
@@ -277,6 +277,18 @@ Feature: Get flight path
           "spi": false
         }
       ]
+      """
+
+  Scenario: As an unauthorized user I cannot get private flight path
+    When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/path"
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "message": "Flight with given id does not exist.",
+        "error": "Not Found",
+        "statusCode": 404
+      }
       """
 
   Scenario: As cabin crew I can get flight path of flight that has no path yet

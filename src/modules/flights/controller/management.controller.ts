@@ -189,6 +189,7 @@ export class ManagementController {
     const tracking = await this.queryBus.execute(
       new GetFlightTrackingQuery(id),
     );
+    console.log(tracking, request.user);
 
     if (!tracking) {
       throw new NotFoundException(FlightDoesNotExistError);
