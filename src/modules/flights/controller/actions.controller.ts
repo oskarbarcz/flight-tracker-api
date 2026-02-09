@@ -3,7 +3,6 @@ import {
   Controller,
   HttpCode,
   HttpStatus,
-  Patch,
   Post,
   Req,
 } from '@nestjs/common';
@@ -40,9 +39,7 @@ import { ReportArrivalCommand } from '../application/command/report-arrival.comm
 import { ReportOnBlockCommand } from '../application/command/report-on-block.command';
 import { FinishOffboardingCommand } from '../application/command/finish-offboarding.command';
 import { StartOffboardingCommand } from '../application/command/start-offboarding.command';
-import { UpdatePreliminaryLoadsheetCommand } from '../application/command/update-preliminary-loadsheet.command';
 import { CloseFlightCommand } from '../application/command/close-flight.command';
-import { UpdateScheduledTimesheetCommand } from '../application/command/update-scheduled-timesheet.command';
 
 @ApiTags('flight actions')
 @Controller('api/v1/flight')
@@ -89,108 +86,6 @@ export class ActionsController {
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
     const command = new MarkAsReadyCommand(id, request.user.sub);
-    await this.commandBus.execute(command);
-  }
-
-  @ApiOperation({
-    summary: 'Update flight preliminary loadsheet',
-    description:
-      '**NOTE:** This action is only allowed for flights in created status. <br />' +
-      '**NOTE:** This endpoint is only available for users with `operations` role.',
-  })
-  @ApiBearerAuth('jwt')
-  @ApiParam({
-    name: 'id',
-    description: 'Flight unique identifier',
-  })
-  @ApiBody({
-    description: 'Updated preliminary loadsheet',
-    type: Loadsheet,
-  })
-  @ApiNoContentResponse({
-    description: 'Flight loadsheet was updated successfully',
-  })
-  @ApiBadRequestResponse({
-    description:
-      'Flight id is not valid uuid v4 or domain logic error occurred',
-    type: GenericBadRequestResponse,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Flight with given it does not exist',
-    type: GenericNotFoundResponse,
-  })
-  @Patch('/:id/loadsheet/preliminary')
-  @HttpCode(HttpStatus.NO_CONTENT)
-  @Role(UserRole.Operations)
-  async updatePreliminaryLoadsheet(
-    @UuidParam('id') id: string,
-    @Req() request: AuthorizedRequest,
-    @Body() loadsheet: Loadsheet,
-  ): Promise<void> {
-    const command = new UpdatePreliminaryLoadsheetCommand(
-      id,
-      request.user.sub,
-      loadsheet,
-    );
-    await this.commandBus.execute(command);
-  }
-
-  @ApiOperation({
-    summary: 'Update flight scheduled timesheet',
-    description:
-      '**NOTE:** This action is only allowed for flights in created status. <br />' +
-      '**NOTE:** This endpoint is only available for users with `operations` role.',
-  })
-  @ApiBearerAuth('jwt')
-  @ApiParam({
-    name: 'id',
-    description: 'Flight unique identifier',
-  })
-  @ApiBody({
-    description: 'New scheduled timesheet',
-    type: Schedule,
-  })
-  @ApiNoContentResponse({
-    description: 'Flight schedule was updated successfully',
-  })
-  @ApiBadRequestResponse({
-    description:
-      'Flight id is not valid uuid v4 or domain logic error occurred',
-    type: GenericBadRequestResponse,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Flight with given it does not exist',
-    type: GenericNotFoundResponse,
-  })
-  @Patch('/:id/timesheet/scheduled')
-  @HttpCode(HttpStatus.NO_CONTENT)
-  @Role(UserRole.Operations)
-  async updateScheduledTimesheet(
-    @UuidParam('id') id: string,
-    @Req() request: AuthorizedRequest,
-    @Body() schedule: Schedule,
-  ): Promise<void> {
-    const command = new UpdateScheduledTimesheetCommand(
-      id,
-      request.user.sub,
-      schedule,
-    );
     await this.commandBus.execute(command);
   }
 

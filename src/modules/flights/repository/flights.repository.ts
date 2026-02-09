@@ -366,6 +366,16 @@ export class FlightsRepository {
     });
   }
 
+  async updateVisibility(
+    id: string,
+    visibility: FlightTracking,
+  ): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id },
+      data: { tracking: visibility },
+    });
+  }
+
   async updateFlightPath(id: string, track: AdsbFlightTrack): Promise<void> {
     const currentPath = await this.getFlightPath(id);
     const newPath = deduplicatePositionReports([...currentPath, ...track]);

@@ -1,5 +1,5 @@
 import { ScheduledTimesheet } from '../entity/timesheet.entity';
-import { ApiProperty, OmitType } from '@nestjs/swagger';
+import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
 import {
   IsEnum,
   IsNotEmpty,
@@ -88,3 +88,7 @@ export class FlightListFilters {
   @Max(100)
   limit: number = 10;
 }
+
+export class UpdateFlightVisibilityRequest extends PickType(Flight, [
+  'tracking',
+]) {}
