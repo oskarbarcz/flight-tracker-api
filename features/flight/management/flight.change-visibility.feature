@@ -47,16 +47,16 @@ Feature: Change flight visibility
         },
         "loadsheets": {
           "preliminary": {
-              "blockFuel": 12.7,
-              "cargo": 8.5,
-              "flightCrew": {
-                  "cabinCrew": 6,
-                  "pilots": 2,
-                  "reliefPilots": 0
-              },
-              "passengers": 370,
-              "payload": 40.3,
-              "zeroFuelWeight": 208.9
+            "blockFuel": 12.7,
+            "cargo": 8.5,
+            "flightCrew": {
+              "cabinCrew": 6,
+              "pilots": 2,
+              "reliefPilots": 0
+            },
+            "passengers": 370,
+            "payload": 40.3,
+            "zeroFuelWeight": 208.9
           },
           "final": null
         },
@@ -175,9 +175,7 @@ Feature: Change flight visibility
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "tracking": [
-            "tracking must be one of the following values: public, private, disabled"
-          ]
+          "tracking": ["tracking must be one of the following values: public, private, disabled"]
         }
       }
       """

@@ -54,8 +54,6 @@ import { FlightPhase, FlightTracking } from '../entity/flight.entity';
 import { FlightDoesNotExistError } from '../dto/errors.dto';
 import { GetFlightTrackingQuery } from '../application/query/get-flight-tracking.query';
 import { Schedule } from '../entity/timesheet.entity';
-import { CheckInPilotCommand } from '../application/command/check-in-pilot.command';
-import { StartBoardingCommand } from '../application/command/start-boarding.command';
 import { UpdateScheduledTimesheetCommand } from '../application/command/update-scheduled-timesheet.command';
 import { UpdatePreliminaryLoadsheetCommand } from '../application/command/update-preliminary-loadsheet.command';
 import { Loadsheet } from '../entity/loadsheet.entity';
