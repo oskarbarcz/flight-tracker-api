@@ -37,6 +37,7 @@ import { OfpController } from './controller/ofp.controller';
 import { GetOfpByFlightIdHandler } from './application/query/get-ofp-by-flight-id.query';
 import { GetFlightPathHandler } from './application/query/get-flight-path.query';
 import { GetFlightTrackingHandler } from './application/query/get-flight-tracking.query';
+import { ChangeFlightVisibilityHandler } from './application/command/change-flight-visibility.command';
 
 @Module({
   imports: [PrismaModule, DiscordModule, AdsbModule, SimbriefModule],
@@ -77,6 +78,7 @@ import { GetFlightTrackingHandler } from './application/query/get-flight-trackin
     GetOfpByFlightIdHandler,
     GetFlightPathHandler,
     GetFlightTrackingHandler,
+    ChangeFlightVisibilityHandler,
   ],
 })
 export class FlightsModule {}

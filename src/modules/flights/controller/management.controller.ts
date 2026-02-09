@@ -35,6 +35,7 @@ import {
   CreateFlightRequest,
   FlightListFilters,
   GetFlightResponse,
+  UpdateFlightVisibilityRequest,
 } from '../dto/flight.dto';
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
@@ -58,6 +59,7 @@ import { StartBoardingCommand } from '../application/command/start-boarding.comm
 import { UpdateScheduledTimesheetCommand } from '../application/command/update-scheduled-timesheet.command';
 import { UpdatePreliminaryLoadsheetCommand } from '../application/command/update-preliminary-loadsheet.command';
 import { Loadsheet } from '../entity/loadsheet.entity';
+import { ChangeFlightVisibilityCommand } from '../application/command/change-flight-visibility.command';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -385,6 +387,51 @@ export class ManagementController {
       request.user.sub,
       schedule,
     );
+    await this.commandBus.execute(command);
+  }
+
+  @ApiOperation({
+    summary: 'Change flight visibility settings',
+    description:
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
+  })
+  @ApiBearerAuth('jwt')
+  @ApiParam({
+    name: 'id',
+    description: 'Flight unique identifier',
+  })
+  @ApiBody({
+    description: 'New visibility settings',
+    type: UpdateFlightVisibilityRequest,
+  })
+  @ApiNoContentResponse({
+    description: 'Flight schedule was updated successfully',
+  })
+  @ApiBadRequestResponse({
+    description:
+      'Flight id is not valid uuid v4 or domain logic error occurred',
+    type: GenericBadRequestResponse,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiForbiddenResponse({
+    description: 'User is not allowed to perform this action',
+    type: ForbiddenResponse,
+  })
+  @ApiNotFoundResponse({
+    description: 'Flight with given it does not exist',
+    type: GenericNotFoundResponse,
+  })
+  @Patch('/:id/tracking')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.Operations)
+  async changeVisibility(
+    @UuidParam('id') id: string,
+    @Body() body: UpdateFlightVisibilityRequest,
+  ): Promise<void> {
+    const command = new ChangeFlightVisibilityCommand(id, body.tracking);
     await this.commandBus.execute(command);
   }
 }
