@@ -418,7 +418,6 @@ export class ManagementController {
     description: 'User is not allowed to perform this action',
     type: ForbiddenResponse,
   })
-
   @ApiNotFoundResponse({
     description: 'Flight with given it does not exist',
     type: GenericNotFoundResponse,
