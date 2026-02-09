@@ -403,7 +403,7 @@ export class ManagementController {
     type: UpdateFlightVisibilityRequest,
   })
   @ApiNoContentResponse({
-    description: 'Flight schedule was updated successfully',
+    description: 'Flight tracking visibility was changed successfully',
   })
   @ApiBadRequestResponse({
     description:
