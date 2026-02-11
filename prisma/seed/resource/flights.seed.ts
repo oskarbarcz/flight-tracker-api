@@ -43,6 +43,9 @@ async function loadDLH450(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: true,
+    greatCircleDistance: 3350,
+    totalFuelBurned: 156000,
   };
 
   const dlh450departureAirport = await prisma.airport.findFirstOrThrow({
@@ -269,6 +272,9 @@ async function loadAAL4905(): Promise<void> {
         spi: false,
       },
     ],
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const ual4905departureAirport = await prisma.airport.findFirstOrThrow({
@@ -474,6 +480,9 @@ async function loadAAL4906(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const ual4906departureAirport = await prisma.airport.findFirstOrThrow({
@@ -589,6 +598,9 @@ async function loadAAL4907(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const ual4907departureAirport = await prisma.airport.findFirstOrThrow({
@@ -693,6 +705,9 @@ async function loadAAL4908(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -829,6 +844,9 @@ async function loadAAL4909(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -980,6 +998,9 @@ async function loadAAL4910(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1146,6 +1167,9 @@ async function loadAAL4911(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1321,6 +1345,9 @@ async function loadAAL4912(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1505,6 +1532,9 @@ async function loadAAL4913(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -1760,6 +1790,9 @@ async function loadAAL4914(): Promise<void> {
       },
     ],
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -2024,6 +2057,9 @@ async function loadAAL4915(): Promise<void> {
       },
     ],
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -2297,6 +2333,9 @@ async function loadAAL4916(): Promise<void> {
       },
     ],
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -2579,6 +2618,9 @@ async function loadAAL4917(): Promise<void> {
       },
     ],
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: false,
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -2871,6 +2913,10 @@ async function loadDLH40(): Promise<void> {
       },
     ],
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: true,
+    greatCircleDistance: 3350,
+    totalFuelBurned: 156000,
+    route: null,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -2893,7 +2939,7 @@ async function loadDLH40(): Promise<void> {
     where: { id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a' }, // Reykjavik
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await prisma.flight.create({ data });
 
   await prisma.airportsOnFlights.create({
     data: {
@@ -2939,7 +2985,7 @@ async function loadDLH40(): Promise<void> {
 /**
  * DLH41 | e8e17e59-67d7-4a6c-a0bd-425ffa6bed66
  * Rotation 2025-01
- * New York JFK (KJFK) -> Boston Frankfurt (EDDF)
+ * New York JFK (KJFK) -> Frankfurt (EDDF)
  * status: Created
  */
 async function loadDLH41(): Promise<void> {
@@ -2976,6 +3022,10 @@ async function loadDLH41(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: true,
+    greatCircleDistance: 3350,
+    totalFuelBurned: 156000,
+    route: null,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -3044,7 +3094,7 @@ async function loadDLH41(): Promise<void> {
 /**
  * DLH42 | 006f0754-1ed7-4ae1-9f91-fae2d446a6e7
  * Rotation 2025-02
- * Boston Frankfurt (EDDF) -> New York JFK (KJFK)
+ * Frankfurt (EDDF) -> New York JFK (KJFK)
  * status: Ready
  */
 async function loadDLH42(): Promise<void> {
@@ -3080,6 +3130,10 @@ async function loadDLH42(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: true,
+    greatCircleDistance: 3350,
+    totalFuelBurned: 156000,
+    route: null,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -3194,7 +3248,7 @@ async function loadDLH42(): Promise<void> {
 /**
  * DLH43 | d4a25ef2-39cf-484c-af00-a548999e8699
  * Rotation 2025-03
- * New York JFK (KJFK) -> Boston Frankfurt (EDDF)
+ * New York JFK (KJFK) -> Frankfurt (EDDF)
  * status: Offboarding finished
  */
 async function loadDLH43(): Promise<void> {
@@ -3243,6 +3297,10 @@ async function loadDLH43(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: true,
+    greatCircleDistance: 3350,
+    totalFuelBurned: 156000,
+    route: null,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -3431,7 +3489,7 @@ async function loadDLH43(): Promise<void> {
 
 /**
  * DLH102 | 1e9f4176-188f-41a5-a9d1-25a96579f46d
- * New York JFK (KJFK) -> Boston Frankfurt (EDDF)
+ * New York JFK (KJFK) -> Frankfurt (EDDF)
  * status: In cruise - DIVERSION TO KJFK
  */
 async function loadDLH102(): Promise<void> {
@@ -3491,6 +3549,10 @@ async function loadDLH102(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: true,
+    greatCircleDistance: 3350,
+    totalFuelBurned: 156000,
+    route: null,
   };
 
   const departureAirport = await prisma.airport.findFirstOrThrow({
@@ -3577,7 +3639,7 @@ async function loadDLH102(): Promise<void> {
 /**
  * DLH81 | 11087d20-ead0-4b7e-97ee-f1ef0ea29e4f
  * Frankfurt (EDDF) -> New York JFK (KJFK)
- * status: Ready
+ * status: Ready, import from SimBrief
  */
 async function loadDLH81(): Promise<void> {
   const data = {
@@ -3610,6 +3672,12 @@ async function loadDLH81(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isEtops: true,
+    greatCircleDistance: 3350,
+    totalFuelBurned: 156000,
+    simbriefRequestId: 162595443,
+    simbriefSequenceId: '816599746ea5',
+    route: 'EDDF DCT KOBRA DCT NAPOL DCT PELLA DCT BAKUR DCT KJFK',
     ofpContent: '<div><h2>Simbrief OFP</h2><p>Mock OFP</p></div>',
     ofpDocumentUrl:
       'https://www.simbrief.com/ofp/flightplans/EDDFKJFK_PDF_1769431274.pdf',
