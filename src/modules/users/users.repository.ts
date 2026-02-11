@@ -18,6 +18,7 @@ import {
   FilledSchedule,
   FilledTimesheet,
 } from '../flights/entity/timesheet.entity';
+import { scheduleToBlockTimeInMinutes } from '../flights/helper/dates';
 
 @Injectable()
 export class UsersRepository {
@@ -154,7 +155,7 @@ export class UsersRepository {
     });
 
     const timesheet = flight.timesheet as FilledTimesheet;
-    const blockTime = this.calculateBlockTimeInMinutes(
+    const blockTime = scheduleToBlockTimeInMinutes(
       timesheet.actual as FilledSchedule,
     );
 
@@ -216,14 +217,5 @@ export class UsersRepository {
       currentFlightId: user.currentFlightId,
       currentRotationId: user.currentRotationId,
     };
-  }
-
-  private calculateBlockTimeInMinutes(schedule: FilledSchedule): number {
-    const off = new Date(schedule.offBlockTime).getTime();
-    const on = new Date(schedule.onBlockTime).getTime();
-
-    const minutes = (on - off) / (1000 * 60);
-
-    return Math.round(minutes); // or Math.floor / Math.ceil
   }
 }
