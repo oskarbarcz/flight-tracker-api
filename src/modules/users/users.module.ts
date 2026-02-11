@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UsersRepository } from './users.repository';
+import { UsersRepository } from './repository/users.repository';
 import { UsersController } from './controller/users.controller';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { CheckUserExistsHandler } from './application/query/check-user-exists.query';

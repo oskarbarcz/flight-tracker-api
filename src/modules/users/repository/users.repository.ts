@@ -1,30 +1,41 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 import { v4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
-import { PrismaService } from '../../core/provider/prisma/prisma.service';
-import { GetUserDto, ListUsersFilters } from './dto/get-user.dto';
+import { PrismaService } from '../../../core/provider/prisma/prisma.service';
+import {
+  GetUserDto,
+  ListUsersFilters,
+  GetUserStatsResponse,
+} from '../dto/get-user.dto';
 import { OnEvent } from '@nestjs/event-emitter';
-import { NewFlightEvent } from '../flights/dto/event.dto';
-import { FlightEventType } from '../../core/events/flight';
-import { User } from '../../../prisma/client/client';
-import { UserRole } from '../../../prisma/client/enums';
+import { NewFlightEvent } from '../../flights/dto/event.dto';
+import { FlightEventType } from '../../../core/events/flight';
+import { User } from '../../../../prisma/client/client';
+import { UserRole } from '../../../../prisma/client/enums';
 import {
   FilledSchedule,
   FilledTimesheet,
-} from '../flights/entity/timesheet.entity';
-import { scheduleToBlockTimeInMinutes } from '../flights/helper/dates';
+} from '../../flights/entity/timesheet.entity';
+import { scheduleToBlockTimeInMinutes } from '../../flights/helper/dates';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import type { Cache } from 'cache-manager';
+import { CACHE_KEYS, cacheByUser } from '../../../core/cache/cache.key';
 
 @Injectable()
 export class UsersRepository {
   BCRYPT_SALT_ROUNDS = 12;
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private readonly prisma: PrismaService,
+  ) {}
 
   async create(data: CreateUserDto): Promise<GetUserDto> {
     const userWithSameEmail = await this.findOneBy({
@@ -74,6 +85,28 @@ export class UsersRepository {
     }
 
     return this.returnWithoutPassword(user);
+  }
+
+  async getUserStats(id: string): Promise<GetUserStatsResponse> {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        totalGreatCircleDistance: true,
+        totalFuelBurned: true,
+        totalFlightTime: true,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User with given id does not exist.');
+    }
+
+    return {
+      total: {
+        ...user,
+        blockTime: user.totalFlightTime,
+      },
+    };
   }
 
   async findByCredentials(
@@ -168,6 +201,7 @@ export class UsersRepository {
         totalFlightTime: { increment: blockTime },
       },
     });
+    await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_STATS));
   }
 
   @OnEvent(FlightEventType.FlightWasClosed)
