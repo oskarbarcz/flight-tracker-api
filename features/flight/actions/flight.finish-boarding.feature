@@ -53,6 +53,7 @@ Feature: Finish flight boarding
         "flightNumber": "AA4909",
         "callsign": "AAL4909",
         "atcCallsign": "AAL09J",
+        "isEtops": false,
         "status": "boarding_finished",
         "timesheet": {
           "scheduled": {

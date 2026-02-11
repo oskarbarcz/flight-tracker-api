@@ -42,15 +42,10 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
     return {
       flights: flights.map(
         (flight): GetFlightResponse => ({
-          id: flight.id,
-          flightNumber: flight.flightNumber,
-          callsign: flight.callsign,
-          atcCallsign: flight.atcCallsign,
+          ...flight,
           status: flight.status as FlightStatus,
           timesheet: flight.timesheet as FullTimesheet,
           loadsheets: flight.loadsheets as unknown as Loadsheets,
-          aircraft: flight.aircraft,
-          operator: flight.operator,
           airports: flight.airports.map(
             (airportOnFlight): AirportWithType => ({
               ...airportOnFlight.airport,
@@ -60,11 +55,8 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
               type: airportOnFlight.airportType as AirportType,
             }),
           ),
-          isFlightDiverted: flight.isFlightDiverted,
-          rotationId: flight.rotationId,
           source: flight.source as FlightSource,
           tracking: flight.tracking as FlightTracking,
-          createdAt: flight.createdAt,
         }),
       ),
       totalCount,

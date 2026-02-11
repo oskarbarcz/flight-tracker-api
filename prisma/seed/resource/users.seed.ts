@@ -13,6 +13,9 @@ export async function loadUsers(): Promise<void> {
     currentFlightId: null,
     currentRotationId: null,
     simbriefUserId: null,
+    totalFlightTime: 0,
+    totalGreatCircleDistance: 0,
+    totalFuelBurned: 0,
   };
 
   const alice: User = {
@@ -26,6 +29,9 @@ export async function loadUsers(): Promise<void> {
     currentFlightId: null,
     currentRotationId: null,
     simbriefUserId: null,
+    totalFlightTime: 0,
+    totalGreatCircleDistance: 0,
+    totalFuelBurned: 0,
   };
 
   const abby: User = {
@@ -39,6 +45,9 @@ export async function loadUsers(): Promise<void> {
     currentFlightId: null,
     currentRotationId: null,
     simbriefUserId: '123456',
+    totalFlightTime: 0,
+    totalGreatCircleDistance: 0,
+    totalFuelBurned: 0,
   };
 
   const claudia: User = {
@@ -52,6 +61,9 @@ export async function loadUsers(): Promise<void> {
     currentFlightId: null,
     currentRotationId: null,
     simbriefUserId: '654321',
+    totalFlightTime: 0,
+    totalGreatCircleDistance: 0,
+    totalFuelBurned: 0,
   };
 
   const rick: User = {
@@ -67,6 +79,9 @@ export async function loadUsers(): Promise<void> {
     currentRotationId: null,
     pilotLicenseId: 'UK-31270',
     simbriefUserId: null,
+    totalFlightTime: 0,
+    totalGreatCircleDistance: 7850,
+    totalFuelBurned: 326000,
   };
 
   const alan: User = {
@@ -84,6 +99,9 @@ export async function loadUsers(): Promise<void> {
     currentRotationId: null,
     pilotLicenseId: 'UK-34560',
     simbriefUserId: null,
+    totalFlightTime: 0,
+    totalGreatCircleDistance: 0,
+    totalFuelBurned: 0,
   };
 
   const michael: User = {
@@ -101,6 +119,9 @@ export async function loadUsers(): Promise<void> {
     currentRotationId: null,
     pilotLicenseId: 'UK-98540',
     simbriefUserId: null,
+    totalFlightTime: 0,
+    totalGreatCircleDistance: 0,
+    totalFuelBurned: 0,
   };
 
   const prisma = new PrismaService();

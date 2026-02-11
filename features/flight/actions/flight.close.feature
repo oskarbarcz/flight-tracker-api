@@ -39,6 +39,7 @@ Feature: Close flight
         "flightNumber": "AA4916",
         "callsign": "AAL4916",
         "atcCallsign": "AAL16J",
+        "isEtops": false,
         "status": "closed",
         "timesheet": {
           "scheduled": {
@@ -345,6 +346,7 @@ Feature: Close flight
         "flightNumber": "LH43",
         "callsign": "DLH43",
         "atcCallsign": null,
+        "isEtops": true,
         "status": "closed",
         "timesheet": {
           "actual": {

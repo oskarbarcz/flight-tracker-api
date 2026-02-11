@@ -1,6 +1,14 @@
+type Params = {
+  request_id: string;
+  sequence_id: string;
+};
+
 type General = {
   icao_airline: string;
   flight_number: string;
+  is_etops: '0' | '1';
+  gc_distance: string;
+  total_burn: string;
 };
 
 type Airport = {
@@ -42,6 +50,7 @@ export type Files = {
 };
 
 export type OperationalFlightPlan = {
+  params: Params;
   general: General;
   origin: Airport;
   destination: Airport;

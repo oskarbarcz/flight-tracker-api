@@ -26,6 +26,7 @@ Feature: Mark flight as ready
         "flightNumber": "AA4907",
         "callsign": "AAL4907",
         "atcCallsign": "AAL07J",
+        "isEtops": false,
         "status": "ready",
         "timesheet": {
           "scheduled": {

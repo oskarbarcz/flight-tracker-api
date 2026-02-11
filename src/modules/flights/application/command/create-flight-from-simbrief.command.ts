@@ -10,7 +10,8 @@ import { SimbriefClient } from '../../../../core/provider/simbrief/client/simbri
 import { GetAirportByIcaoCodeQuery } from '../../../airports/application/query/get-airport-by-icao-code.query';
 import { GetAircraftByRegistrationQuery } from '../../../aircraft/application/query/get-aircraft-by-registration.query';
 import { GetOperatorByIcaoCodeQuery } from '../../../operators/application/query/get-operator-by-icao-code.query';
-import { FlightSource, FlightTracking } from '../../entity/flight.entity';
+import { FlightTracking } from '../../entity/flight.entity';
+import { CreateFlightRequest } from '../../dto/flight.dto';
 
 export class CreateFlightFromSimbriefCommand {
   constructor(
@@ -64,6 +65,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       flightNumber: `${operator.iataCode}${ofp.general.flight_number}`,
       callsign: `${operator.icaoCode}${ofp.general.flight_number}`,
       atcCallsign: `${operator.icaoCode}${ofp.general.flight_number}`,
+      isEtops: ofp.general.is_etops === '1',
       aircraftId: aircraft.id,
       operatorId: operator.id,
       departureAirportId: departureAirport.id,
@@ -91,19 +93,21 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
           zeroFuelWeight: this.ofpWeightToTons(ofp.weights.est_zfw),
         },
       },
-    };
+    } as CreateFlightRequest;
 
-    await this.flightsRepository.create(
+    await this.flightsRepository.create(flightId, flightData);
+    await this.flightsRepository.updateSimbriefData(
       flightId,
-      flightData,
-      FlightSource.Simbrief,
+      {
+        ofpContent: ofp.text.plan_html,
+        ofpDocumentUrl: ofp.files.directory + ofp.files.pdf.link,
+        runwayAnalysis: ofp.text.tlr_section,
+      },
+      Number(ofp.params.request_id),
+      ofp.params.sequence_id,
+      Number(ofp.general.gc_distance),
+      Number(ofp.general.total_burn),
     );
-
-    await this.flightsRepository.updateOfp(flightId, {
-      ofpContent: ofp.text.plan_html,
-      ofpDocumentUrl: ofp.files.directory + ofp.files.pdf.link,
-      runwayAnalysis: ofp.text.tlr_section,
-    });
 
     const event: NewFlightEvent = {
       flightId: flightId,

@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from '../../users/users.service';
+import { UsersRepository } from '../../users/users.repository';
 import { JwtService } from '@nestjs/jwt';
 import { GetUserDto } from '../../users/dto/get-user.dto';
 import { SignInResponse } from '../dto/sign-in.dto';
@@ -10,7 +10,7 @@ import { JwtTokenType, JwtUser } from '../dto/jwt-user.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UsersService,
+    private readonly usersService: UsersRepository,
     private readonly jwtService: JwtService,
     private readonly sessionRepository: SessionRepository,
   ) {}

@@ -14,9 +14,14 @@ import { NewFlightEvent } from '../flights/dto/event.dto';
 import { FlightEventType } from '../../core/events/flight';
 import { User } from '../../../prisma/client/client';
 import { UserRole } from '../../../prisma/client/enums';
+import {
+  FilledSchedule,
+  FilledTimesheet,
+} from '../flights/entity/timesheet.entity';
+import { scheduleToBlockTimeInMinutes } from '../flights/helper/dates';
 
 @Injectable()
-export class UsersService {
+export class UsersRepository {
   BCRYPT_SALT_ROUNDS = 12;
 
   constructor(private readonly prisma: PrismaService) {}
@@ -134,6 +139,34 @@ export class UsersService {
     await this.prisma.user.update({
       where: { id: event.actorId as string },
       data: { currentRotationId: event.rotationId },
+    });
+  }
+
+  @OnEvent(FlightEventType.OnBlockWasReported)
+  async onOnBlockWasReported(event: NewFlightEvent): Promise<void> {
+    const flight = await this.prisma.flight.findFirstOrThrow({
+      select: {
+        captainId: true,
+        greatCircleDistance: true,
+        totalFuelBurned: true,
+        timesheet: true,
+      },
+      where: { id: event.flightId },
+    });
+
+    const timesheet = flight.timesheet as FilledTimesheet;
+    const blockTime = scheduleToBlockTimeInMinutes(
+      timesheet.actual as FilledSchedule,
+    );
+
+    // add miles, block time and fuel burned to captain's stats
+    await this.prisma.user.update({
+      where: { id: flight.captainId as string },
+      data: {
+        totalGreatCircleDistance: { increment: flight.greatCircleDistance },
+        totalFuelBurned: { increment: flight.totalFuelBurned },
+        totalFlightTime: { increment: blockTime },
+      },
     });
   }
 

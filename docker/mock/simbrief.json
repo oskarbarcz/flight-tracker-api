@@ -14,9 +14,16 @@
         "Content-Type": ["application/json; charset=utf-8"]
       },
       "body": {
+        "params": {
+          "request_id": "162595443",
+          "sequence_id": "816599746ea5"
+        },
         "general": {
           "icao_airline": "DLH",
-          "flight_number": "80"
+          "flight_number": "80",
+          "is_etops": "1",
+          "gc_distance": "3350",
+          "total_burn": "156000"
         },
         "origin": {
           "icao_code": "EDDF"

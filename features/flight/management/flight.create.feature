@@ -41,6 +41,7 @@ Feature: Create a flight
       {
         "flightNumber": "DLH990",
         "callsign": "DLH990",
+        "isEtops": true,
         "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
         "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -66,6 +67,7 @@ Feature: Create a flight
         "flightNumber": "DLH990",
         "callsign": "DLH990",
         "atcCallsign": null,
+        "isEtops": true,
         "status": "created",
         "timesheet": {
           "scheduled": {
@@ -153,6 +155,7 @@ Feature: Create a flight
         "flightNumber": "DLH990",
         "callsign": "DLH990",
         "atcCallsign": "DLH9J",
+        "isEtops": true,
         "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
         "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -224,6 +227,7 @@ Feature: Create a flight
         "flightNumber": "DLH990",
         "callsign": "DLH990",
         "atcCallsign": "DLH9J",
+        "isEtops": false,
         "status": "created",
         "timesheet": {
           "scheduled": {
