@@ -39,6 +39,7 @@ Feature: Report arrival
         "flightNumber": "AA4912",
         "callsign": "AAL4912",
         "atcCallsign": "AAL12J",
+        "isEtops": false,
         "status": "taxiing_in",
         "timesheet": {
           "scheduled": {

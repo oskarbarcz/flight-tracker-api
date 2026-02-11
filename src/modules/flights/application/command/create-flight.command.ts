@@ -13,7 +13,6 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CreateFlightRequest } from '../../dto/flight.dto';
 import { CheckAircraftExistsQuery } from '../../../aircraft/application/query/check-aircraft-exists.query';
 import { CheckOperatorExistsQuery } from '../../../operators/application/query/check-operator-exists.query';
-import { FlightSource } from '../../entity/flight.entity';
 
 export class CreateFlightCommand {
   constructor(
@@ -54,11 +53,7 @@ export class CreateFlightHandler implements ICommandHandler<CreateFlightCommand>
       throw new NotFoundException(OperatorForAircraftNotFoundError);
     }
 
-    await this.flightsRepository.create(
-      flightId,
-      flightData,
-      FlightSource.Manual,
-    );
+    await this.flightsRepository.create(flightId, flightData);
 
     const event: NewFlightEvent = {
       flightId: flightId,

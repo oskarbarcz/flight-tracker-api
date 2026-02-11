@@ -27,6 +27,7 @@ async function loadDLH450(): Promise<void> {
     flightNumber: 'LH450',
     callsign: 'DLH450',
     atcCallsign: null,
+    isEtops: true,
     status: FlightStatus.Created,
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A339
@@ -43,7 +44,6 @@ async function loadDLH450(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: true,
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
   };
@@ -158,6 +158,7 @@ async function loadAAL4905(): Promise<void> {
     flightNumber: 'AA4905',
     callsign: 'AAL4905',
     atcCallsign: 'AAL05J',
+    isEtops: false,
     status: FlightStatus.Closed,
     tracking: FlightTracking.Public,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
@@ -272,7 +273,6 @@ async function loadAAL4905(): Promise<void> {
         spi: false,
       },
     ],
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -452,6 +452,7 @@ async function loadAAL4906(): Promise<void> {
     flightNumber: 'AA4906',
     callsign: 'AAL4906',
     atcCallsign: 'AAL06J',
+    isEtops: false,
     status: FlightStatus.Ready,
     tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
@@ -480,7 +481,6 @@ async function loadAAL4906(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -570,6 +570,7 @@ async function loadAAL4907(): Promise<void> {
     flightNumber: 'AA4907',
     callsign: 'AAL4907',
     atcCallsign: 'AAL07J',
+    isEtops: false,
     status: FlightStatus.Created,
     tracking: FlightTracking.Public,
     aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
@@ -598,7 +599,6 @@ async function loadAAL4907(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -670,6 +670,7 @@ async function loadAAL4908(): Promise<void> {
     flightNumber: 'AA4908',
     callsign: 'AAL4908',
     atcCallsign: 'AAL08J',
+    isEtops: false,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.CheckedIn,
     tracking: FlightTracking.Public,
@@ -705,7 +706,6 @@ async function loadAAL4908(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -809,6 +809,7 @@ async function loadAAL4909(): Promise<void> {
     flightNumber: 'AA4909',
     callsign: 'AAL4909',
     atcCallsign: 'AAL09J',
+    isEtops: false,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.BoardingStarted,
     tracking: FlightTracking.Public,
@@ -844,7 +845,6 @@ async function loadAAL4909(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -952,6 +952,7 @@ async function loadAAL4910(): Promise<void> {
     flightNumber: 'AA4910',
     callsign: 'AAL4910',
     atcCallsign: 'AAL10J',
+    isEtops: false,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.BoardingFinished,
     tracking: FlightTracking.Public,
@@ -998,7 +999,6 @@ async function loadAAL4910(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -1115,6 +1115,7 @@ async function loadAAL4911(): Promise<void> {
     flightNumber: 'AA4911',
     callsign: 'AAL4911',
     atcCallsign: 'AAL11J',
+    isEtops: false,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.TaxiingOut,
     tracking: FlightTracking.Public,
@@ -1167,7 +1168,6 @@ async function loadAAL4911(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -1293,6 +1293,7 @@ async function loadAAL4912(): Promise<void> {
     flightNumber: 'AA4912',
     callsign: 'AAL4912',
     atcCallsign: 'AAL12J',
+    isEtops: false,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.InCruise,
     tracking: FlightTracking.Public,
@@ -1345,7 +1346,6 @@ async function loadAAL4912(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -1480,6 +1480,7 @@ async function loadAAL4913(): Promise<void> {
     flightNumber: 'AA4913',
     callsign: 'AAL4913',
     atcCallsign: 'AAL13J',
+    isEtops: false,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.TaxiingIn,
     tracking: FlightTracking.Public,
@@ -1532,7 +1533,6 @@ async function loadAAL4913(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -1676,6 +1676,7 @@ async function loadAAL4914(): Promise<void> {
     flightNumber: 'AA4914',
     callsign: 'AAL4914',
     atcCallsign: 'AAL14J',
+    isEtops: false,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.OnBlock,
     tracking: FlightTracking.Public,
@@ -1790,7 +1791,6 @@ async function loadAAL4914(): Promise<void> {
       },
     ],
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -1943,6 +1943,7 @@ async function loadAAL4915(): Promise<void> {
     flightNumber: 'AA4915',
     callsign: 'AAL4915',
     atcCallsign: 'AAL15J',
+    isEtops: false,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.OffboardingStarted,
     tracking: FlightTracking.Public,
@@ -2057,7 +2058,6 @@ async function loadAAL4915(): Promise<void> {
       },
     ],
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -2219,6 +2219,7 @@ async function loadAAL4916(): Promise<void> {
     flightNumber: 'AA4916',
     callsign: 'AAL4916',
     atcCallsign: 'AAL16J',
+    isEtops: false,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.OffboardingFinished,
     tracking: FlightTracking.Public,
@@ -2333,7 +2334,6 @@ async function loadAAL4916(): Promise<void> {
       },
     ],
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -2504,6 +2504,7 @@ async function loadAAL4917(): Promise<void> {
     flightNumber: 'AA4917',
     callsign: 'AAL4917',
     atcCallsign: 'AAL17J',
+    isEtops: false,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.Closed,
     tracking: FlightTracking.Public,
@@ -2618,7 +2619,6 @@ async function loadAAL4917(): Promise<void> {
       },
     ],
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: false,
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
   };
@@ -2799,6 +2799,7 @@ async function loadDLH40(): Promise<void> {
     flightNumber: 'LH40',
     callsign: 'DLH40',
     atcCallsign: null,
+    isEtops: true,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.Closed,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
@@ -2913,7 +2914,6 @@ async function loadDLH40(): Promise<void> {
       },
     ],
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: true,
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
     route: null,
@@ -2994,6 +2994,7 @@ async function loadDLH41(): Promise<void> {
     flightNumber: 'LH41',
     callsign: 'DLH41',
     atcCallsign: null,
+    isEtops: true,
     status: FlightStatus.Created,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
@@ -3022,7 +3023,6 @@ async function loadDLH41(): Promise<void> {
       final: null,
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: true,
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
     route: null,
@@ -3103,6 +3103,7 @@ async function loadDLH42(): Promise<void> {
     flightNumber: 'LH42',
     callsign: 'DLH42',
     atcCallsign: null,
+    isEtops: true,
     status: FlightStatus.Ready,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
@@ -3130,7 +3131,6 @@ async function loadDLH42(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: true,
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
     route: null,
@@ -3498,6 +3498,7 @@ async function loadDLH102(): Promise<void> {
     flightNumber: 'LH102',
     callsign: 'DLH102',
     atcCallsign: null,
+    isEtops: true,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.InCruise,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
@@ -3549,7 +3550,6 @@ async function loadDLH102(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: true,
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
     route: null,
@@ -3647,6 +3647,7 @@ async function loadDLH81(): Promise<void> {
     flightNumber: 'LH81',
     callsign: 'DLH81',
     atcCallsign: null,
+    isEtops: true,
     captainId: null,
     status: FlightStatus.Ready,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
@@ -3672,7 +3673,6 @@ async function loadDLH81(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
-    isEtops: true,
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
     simbriefRequestId: 162595443,

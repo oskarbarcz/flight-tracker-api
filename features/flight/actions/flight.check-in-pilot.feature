@@ -63,6 +63,7 @@ Feature: Check in pilot for flight
         "flightNumber": "AA4906",
         "callsign": "AAL4906",
         "atcCallsign": "AAL06J",
+        "isEtops": false,
         "status": "checked_in",
         "timesheet": {
           "scheduled": {
@@ -261,6 +262,7 @@ Feature: Check in pilot for flight
         "flightNumber": "LH42",
         "callsign": "DLH42",
         "atcCallsign": null,
+        "isEtops": true,
         "status": "checked_in",
         "timesheet": {
           "estimated": {

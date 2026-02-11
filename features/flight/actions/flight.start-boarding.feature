@@ -39,6 +39,7 @@ Feature: Start boarding
         "flightNumber": "AA4908",
         "callsign": "AAL4908",
         "atcCallsign": "AAL08J",
+        "isEtops": false,
         "status": "boarding_started",
         "timesheet": {
           "scheduled": {

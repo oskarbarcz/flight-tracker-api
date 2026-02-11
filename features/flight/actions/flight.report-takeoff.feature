@@ -39,6 +39,7 @@ Feature: Report takeoff
         "flightNumber": "AA4911",
         "callsign": "AAL4911",
         "atcCallsign": "AAL11J",
+        "isEtops": false,
         "status": "in_cruise",
         "timesheet": {
           "scheduled": {

@@ -39,6 +39,7 @@ Feature: Start offboarding
         "flightNumber": "AA4914",
         "callsign": "AAL4914",
         "atcCallsign": "AAL14J",
+        "isEtops": false,
         "status": "offboarding_started",
         "timesheet": {
           "scheduled": {

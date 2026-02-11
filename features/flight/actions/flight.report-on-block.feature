@@ -104,6 +104,7 @@ Feature: Report on-block
         "flightNumber": "AA4913",
         "callsign": "AAL4913",
         "atcCallsign": "AAL13J",
+        "isEtops": false,
         "status": "on_block",
         "timesheet": {
           "scheduled": {

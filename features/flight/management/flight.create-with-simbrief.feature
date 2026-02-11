@@ -24,6 +24,7 @@ Feature: Create a flight with Simbrief
         "flightNumber": "LH80",
         "callsign": "DLH80",
         "atcCallsign": "DLH80",
+        "isEtops": true,
         "status": "created",
         "timesheet": {
           "scheduled": {

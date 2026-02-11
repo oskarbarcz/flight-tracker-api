@@ -11,6 +11,7 @@ Feature: Get flight
         "flightNumber": "LH450",
         "callsign": "DLH450",
         "atcCallsign": null,
+        "isEtops": true,
         "status": "created",
         "timesheet": {
           "scheduled": {

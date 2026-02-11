@@ -36,6 +36,7 @@ Feature: Change flight visibility
         "flightNumber": "AA4907",
         "callsign": "AAL4907",
         "atcCallsign": "AAL07J",
+        "isEtops": false,
         "status": "created",
         "timesheet": {
           "scheduled": {

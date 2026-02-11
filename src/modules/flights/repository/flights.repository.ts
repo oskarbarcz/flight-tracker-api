@@ -29,6 +29,7 @@ export const flightWithAircraftAndAirportsFields = {
   flightNumber: true,
   callsign: true,
   atcCallsign: true,
+  isEtops: true,
   status: true,
   timesheet: true,
   loadsheets: true,
@@ -125,7 +126,6 @@ export class FlightsRepository {
   async create(
     flightId: string,
     flightData: CreateFlightRequest,
-    source: FlightSource = FlightSource.Manual,
   ): Promise<void> {
     if (!(await this.airportExist(flightData.departureAirportId))) {
       throw new NotFoundException(DepartureAirportNotFoundError);
@@ -147,10 +147,10 @@ export class FlightsRepository {
         callsign: flightData.callsign,
         atcCallsign: flightData.atcCallsign,
         aircraftId: flightData.aircraftId,
+        isEtops: flightData.isEtops,
         operatorId: flightData.operatorId,
         tracking: flightData.tracking,
         status: FlightStatus.Created,
-        source,
         timesheet: JSON.parse(JSON.stringify(flightData.timesheet)),
         loadsheets: JSON.parse(JSON.stringify(loadsheets)),
       },
@@ -355,13 +355,25 @@ export class FlightsRepository {
     });
   }
 
-  async updateOfp(id: string, ofp: FlightOfpDetails): Promise<void> {
+  async updateSimbriefData(
+    id: string,
+    ofp: FlightOfpDetails,
+    simbriefRequestId: number,
+    simbriefSequenceId: string,
+    greatCircleDistance: number,
+    totalFuelBurned: number,
+  ): Promise<void> {
     await this.prisma.flight.update({
       where: { id },
       data: {
+        source: FlightSource.Simbrief,
         ofpContent: ofp.ofpContent,
         ofpDocumentUrl: ofp.ofpDocumentUrl,
         runwayAnalysis: ofp.runwayAnalysis,
+        simbriefRequestId,
+        simbriefSequenceId,
+        greatCircleDistance,
+        totalFuelBurned,
       },
     });
   }

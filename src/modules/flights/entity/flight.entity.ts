@@ -6,6 +6,7 @@ import { Operator } from '../../operators/entity/operator.entity';
 import { Loadsheets } from './loadsheet.entity';
 import { Rotation } from '../../rotations/entity/rotation.entity';
 import {
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -79,6 +80,15 @@ export class Flight {
   @IsNotEmpty()
   @IsString()
   atcCallsign?: string | null = null;
+
+  @ApiProperty({
+    description: 'Flag whether flight covered by ETOPS procedures',
+    example: false,
+    required: false,
+    default: false,
+  })
+  @IsBoolean()
+  isEtops: boolean = false;
 
   @ApiProperty({
     description: 'Flight status',

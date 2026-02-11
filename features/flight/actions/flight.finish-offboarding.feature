@@ -39,6 +39,7 @@ Feature: Finish offboarding for flight that started onboarding
         "flightNumber": "AA4915",
         "callsign": "AAL4915",
         "atcCallsign": "AAL15J",
+        "isEtops": false,
         "status": "offboarding_finished",
         "timesheet": {
           "scheduled": {

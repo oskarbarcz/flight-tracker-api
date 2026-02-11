@@ -39,6 +39,7 @@ Feature: Report off-block
         "flightNumber": "AA4910",
         "callsign": "AAL4910",
         "atcCallsign": "AAL10J",
+        "isEtops": false,
         "status": "taxiing_out",
         "timesheet": {
           "scheduled": {

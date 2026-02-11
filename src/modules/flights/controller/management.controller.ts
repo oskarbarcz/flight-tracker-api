@@ -74,6 +74,7 @@ export class ManagementController {
       '**NOTE:** Simbrief ID must be provided for the user, otherwise import will throw HTTP 400.',
   })
   @ApiBearerAuth('jwt')
+  @ApiBody({ type: CreateFlightRequest })
   @ApiCreatedResponse({
     description: 'Flight was created',
     type: GetFlightResponse,

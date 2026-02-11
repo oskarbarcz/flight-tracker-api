@@ -58,6 +58,7 @@ Feature: Report a flight diversion
         "flightNumber": "AA4912",
         "callsign": "AAL4912",
         "atcCallsign": "AAL12J",
+        "isEtops": false,
         "status": "in_cruise",
         "timesheet": {
           "actual": {
@@ -249,6 +250,7 @@ Feature: Report a flight diversion
         "flightNumber": "AA4912",
         "callsign": "AAL4912",
         "atcCallsign": "AAL12J",
+        "isEtops": false,
         "status": "in_cruise",
         "timesheet": {
           "actual": {
