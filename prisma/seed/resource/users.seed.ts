@@ -79,7 +79,7 @@ export async function loadUsers(): Promise<void> {
     currentRotationId: null,
     pilotLicenseId: 'UK-31270',
     simbriefUserId: null,
-    totalFlightTime: 0,
+    totalFlightTime: 1797,
     totalGreatCircleDistance: 7850,
     totalFuelBurned: 326000,
   };

@@ -8,7 +8,10 @@ Feature: Get user stats
       """json
       {
         "total": {
-          "blockTime": 0
+          "blockTime": 0,
+          "totalFuelBurned": 0,
+          "totalFlightTime": 0,
+          "totalGreatCircleDistance": 0
         }
       }
       """
@@ -21,7 +24,10 @@ Feature: Get user stats
       """json
       {
         "total": {
-          "blockTime": 0
+          "blockTime": 0,
+          "totalFuelBurned": 0,
+          "totalFlightTime": 0,
+          "totalGreatCircleDistance": 0
         }
       }
       """
@@ -34,7 +40,10 @@ Feature: Get user stats
       """json
       {
         "total": {
-          "blockTime": 1797
+          "blockTime": 1797,
+          "totalFuelBurned": 326000,
+          "totalFlightTime": 1797,
+          "totalGreatCircleDistance": 7850
         }
       }
       """

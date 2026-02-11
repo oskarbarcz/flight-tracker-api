@@ -1,13 +1,8 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { PrismaService } from '../../../../core/provider/prisma/prisma.service';
-import { UserStatsDto } from '../../dto/get-user.dto';
-import { FlightStatus } from '../../../flights/entity/flight.entity';
-import {
-  FilledSchedule,
-  FilledTimesheet,
-} from '../../../flights/entity/timesheet.entity';
+import { GetUserStatsResponse } from '../../dto/get-user.dto';
+import { UsersRepository } from '../../repository/users.repository';
 
-export class GetUserStatsQuery extends Query<UserStatsDto> {
+export class GetUserStatsQuery extends Query<GetUserStatsResponse> {
   constructor(public readonly userId: string) {
     super();
   }
@@ -15,43 +10,9 @@ export class GetUserStatsQuery extends Query<UserStatsDto> {
 
 @QueryHandler(GetUserStatsQuery)
 export class GetUserStatsHandler implements IQueryHandler<GetUserStatsQuery> {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly userRepository: UsersRepository) {}
 
-  async execute(query: GetUserStatsQuery): Promise<UserStatsDto> {
-    const flights = await this.prisma.flight.findMany({
-      where: {
-        captainId: query.userId,
-        status: {
-          in: [
-            FlightStatus.OnBlock,
-            FlightStatus.OffboardingFinished,
-            FlightStatus.OffboardingFinished,
-            FlightStatus.Closed,
-          ],
-        },
-      },
-    });
-
-    let totalBlockTime = 0;
-
-    for (const flight of flights) {
-      const ts = flight.timesheet as unknown as FilledTimesheet;
-      const actual = ts.actual as FilledSchedule;
-
-      const offBlock = new Date(actual.offBlockTime);
-      const onBlock = new Date(actual.onBlockTime);
-
-      if (offBlock && onBlock && onBlock > offBlock) {
-        const blockMinutes =
-          (onBlock.getTime() - offBlock.getTime()) / (1000 * 60);
-        totalBlockTime += blockMinutes;
-      }
-    }
-
-    return {
-      total: {
-        blockTime: totalBlockTime,
-      },
-    };
+  async execute(query: GetUserStatsQuery): Promise<GetUserStatsResponse> {
+    return this.userRepository.getUserStats(query.userId);
   }
 }
