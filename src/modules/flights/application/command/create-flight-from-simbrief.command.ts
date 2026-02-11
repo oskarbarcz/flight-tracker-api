@@ -91,6 +91,11 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
           zeroFuelWeight: this.ofpWeightToTons(ofp.weights.est_zfw),
         },
       },
+      simbriefRequestId: ofp.params.request_id,
+      simbriefSequenceId: ofp.params.sequence_id,
+      isEtops: ofp.general.is_etops === '1',
+      greatCircleDistance: Number(ofp.general.gc_distance),
+      totalBurn: Number(ofp.general.total_burn),
     };
 
     await this.flightsRepository.create(
