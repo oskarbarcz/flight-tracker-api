@@ -13,7 +13,7 @@ export async function loadUsers(): Promise<void> {
     currentFlightId: null,
     currentRotationId: null,
     simbriefUserId: null,
-    totalFlightHours: 0,
+    totalFlightTime: 0,
     totalGreatCircleDistance: 0,
     totalFuelBurned: 0,
   };
@@ -29,7 +29,7 @@ export async function loadUsers(): Promise<void> {
     currentFlightId: null,
     currentRotationId: null,
     simbriefUserId: null,
-    totalFlightHours: 0,
+    totalFlightTime: 0,
     totalGreatCircleDistance: 0,
     totalFuelBurned: 0,
   };
@@ -45,7 +45,7 @@ export async function loadUsers(): Promise<void> {
     currentFlightId: null,
     currentRotationId: null,
     simbriefUserId: '123456',
-    totalFlightHours: 0,
+    totalFlightTime: 0,
     totalGreatCircleDistance: 0,
     totalFuelBurned: 0,
   };
@@ -61,7 +61,7 @@ export async function loadUsers(): Promise<void> {
     currentFlightId: null,
     currentRotationId: null,
     simbriefUserId: '654321',
-    totalFlightHours: 0,
+    totalFlightTime: 0,
     totalGreatCircleDistance: 0,
     totalFuelBurned: 0,
   };
@@ -79,7 +79,7 @@ export async function loadUsers(): Promise<void> {
     currentRotationId: null,
     pilotLicenseId: 'UK-31270',
     simbriefUserId: null,
-    totalFlightHours: 0,
+    totalFlightTime: 0,
     totalGreatCircleDistance: 7850,
     totalFuelBurned: 326000,
   };
@@ -99,7 +99,7 @@ export async function loadUsers(): Promise<void> {
     currentRotationId: null,
     pilotLicenseId: 'UK-34560',
     simbriefUserId: null,
-    totalFlightHours: 0,
+    totalFlightTime: 0,
     totalGreatCircleDistance: 0,
     totalFuelBurned: 0,
   };
@@ -119,8 +119,8 @@ export async function loadUsers(): Promise<void> {
     currentRotationId: null,
     pilotLicenseId: 'UK-98540',
     simbriefUserId: null,
-    totalFlightHours: 0,
-    totalGreatCircleDistance: 3350,
+    totalFlightTime: 0,
+    totalGreatCircleDistance: 0,
     totalFuelBurned: 0,
   };
 

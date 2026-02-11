@@ -7,6 +7,6 @@ ADD COLUMN     "simbriefSequenceId" TEXT,
 ADD COLUMN     "totalFuelBurned" INTEGER NOT NULL DEFAULT 1;
 
 -- AlterTable
-ALTER TABLE "user" ADD COLUMN     "totalFlightHours" INTEGER NOT NULL DEFAULT 0,
+ALTER TABLE "user" ADD COLUMN     "totalFlightTime" INTEGER NOT NULL DEFAULT 0,
 ADD COLUMN     "totalFuelBurned" INTEGER NOT NULL DEFAULT 0,
 ADD COLUMN     "totalGreatCircleDistance" INTEGER NOT NULL DEFAULT 0;

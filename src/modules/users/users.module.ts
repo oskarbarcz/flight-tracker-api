@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UsersRepository } from './users.repository';
 import { UsersController } from './controller/users.controller';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { CheckUserExistsHandler } from './application/query/check-user-exists.query';
@@ -10,12 +10,12 @@ import { UserStatsController } from './controller/user-stats.controller';
 @Module({
   controllers: [UsersController, UserStatsController],
   providers: [
-    UsersService,
+    UsersRepository,
     CheckUserExistsHandler,
     GetUserSimbriefIdHandler,
     GetUserStatsHandler,
   ],
   imports: [PrismaModule],
-  exports: [UsersService],
+  exports: [UsersRepository],
 })
 export class UsersModule {}

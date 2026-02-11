@@ -14,9 +14,13 @@ import { NewFlightEvent } from '../flights/dto/event.dto';
 import { FlightEventType } from '../../core/events/flight';
 import { User } from '../../../prisma/client/client';
 import { UserRole } from '../../../prisma/client/enums';
+import {
+  FilledSchedule,
+  FilledTimesheet,
+} from '../flights/entity/timesheet.entity';
 
 @Injectable()
-export class UsersService {
+export class UsersRepository {
   BCRYPT_SALT_ROUNDS = 12;
 
   constructor(private readonly prisma: PrismaService) {}
@@ -137,6 +141,34 @@ export class UsersService {
     });
   }
 
+  @OnEvent(FlightEventType.OnBlockWasReported)
+  async onOnBlockWasReported(event: NewFlightEvent): Promise<void> {
+    const flight = await this.prisma.flight.findFirstOrThrow({
+      select: {
+        captainId: true,
+        greatCircleDistance: true,
+        totalFuelBurned: true,
+        timesheet: true,
+      },
+      where: { id: event.flightId },
+    });
+
+    const timesheet = flight.timesheet as FilledTimesheet;
+    const blockTime = this.calculateBlockTimeInMinutes(
+      timesheet.actual as FilledSchedule,
+    );
+
+    // add miles, block time and fuel burned to captain's stats
+    await this.prisma.user.update({
+      where: { id: flight.captainId as string },
+      data: {
+        totalGreatCircleDistance: { increment: flight.greatCircleDistance },
+        totalFuelBurned: { increment: flight.totalFuelBurned },
+        totalFlightTime: { increment: blockTime },
+      },
+    });
+  }
+
   @OnEvent(FlightEventType.FlightWasClosed)
   async onFlightClose(event: NewFlightEvent): Promise<void> {
     await this.prisma.user.update({
@@ -184,5 +216,14 @@ export class UsersService {
       currentFlightId: user.currentFlightId,
       currentRotationId: user.currentRotationId,
     };
+  }
+
+  private calculateBlockTimeInMinutes(schedule: FilledSchedule): number {
+    const off = new Date(schedule.offBlockTime).getTime();
+    const on = new Date(schedule.onBlockTime).getTime();
+
+    const minutes = (on - off) / (1000 * 60);
+
+    return Math.round(minutes); // or Math.floor / Math.ceil
   }
 }

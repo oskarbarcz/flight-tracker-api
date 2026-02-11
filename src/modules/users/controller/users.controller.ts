@@ -8,7 +8,7 @@ import {
   Query,
   ForbiddenException,
 } from '@nestjs/common';
-import { UsersService } from '../users.service';
+import { UsersRepository } from '../users.repository';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import {
@@ -37,7 +37,7 @@ import { UserRole } from '../../../../prisma/client/enums';
 @ApiTags('user')
 @Controller('/api/v1/user')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersRepository) {}
 
   @ApiOperation({
     summary: 'Create new user',

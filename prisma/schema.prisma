@@ -139,7 +139,7 @@ model User {
   currentFlightId          String?  @unique @db.Uuid
   currentRotationId        String?  @unique @db.Uuid
   simbriefUserId           String?
-  totalFlightHours         Int      @default(0)
+  totalFlightTime          Int      @default(0)
   totalGreatCircleDistance Int      @default(0)
   totalFuelBurned          Int      @default(0)
 
