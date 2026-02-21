@@ -5,10 +5,10 @@ import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { CheckUserExistsHandler } from './application/query/check-user-exists.query';
 import { GetUserSimbriefIdHandler } from './application/query/get-user-simbrief-id.query';
 import { GetUserStatsHandler } from './application/query/get-user-stats.query';
-import { UserStatsController } from './controller/user-stats.controller';
+import { StatsController } from './controller/stats.controller';
 
 @Module({
-  controllers: [UsersController, UserStatsController],
+  controllers: [UsersController, StatsController],
   providers: [
     UsersRepository,
     CheckUserExistsHandler,

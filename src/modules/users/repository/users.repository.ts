@@ -201,7 +201,12 @@ export class UsersRepository {
         totalFlightTime: { increment: blockTime },
       },
     });
-    await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_STATS));
+    // remove user stats from an indefinite cache
+    const cacheKey = cacheByUser(
+      CACHE_KEYS.USER_STATS,
+      flight.captainId as string,
+    );
+    await this.cacheManager.del(cacheKey);
   }
 
   @OnEvent(FlightEventType.FlightWasClosed)
