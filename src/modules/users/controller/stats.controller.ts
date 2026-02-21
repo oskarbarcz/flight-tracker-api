@@ -18,7 +18,7 @@ import { CACHE_KEYS } from '../../../core/cache/cache.key';
 @ApiTags('user')
 @Controller('/api/v1/user')
 @UseInterceptors(UserAwareCacheInterceptor)
-export class UserStatsController {
+export class StatsController {
   constructor(private readonly queryBus: QueryBus) {}
 
   @ApiOperation({
