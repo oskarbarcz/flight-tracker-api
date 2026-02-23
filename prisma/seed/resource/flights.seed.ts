@@ -2,16 +2,16 @@ import {
   FlightSource,
   FlightStatus,
   FlightTracking,
-} from '../../../src/modules/flights/entity/flight.entity';
+} from '../../../src/modules/flights/model/flight.entity';
 import { FlightEventScope, Prisma } from '../../client/client';
-import { AirportType } from '../../../src/modules/airports/entity/airport.entity';
-import { Loadsheets } from '../../../src/modules/flights/entity/loadsheet.entity';
+import { AirportType } from '../../../src/modules/airports/model/airport.model';
+import { Loadsheets } from '../../../src/modules/flights/model/loadsheet.model';
 import { FlightEventType } from '../../../src/core/events/flight';
 import {
   DiversionReason,
   DiversionReporterRole,
   DiversionSeverity,
-} from '../../../src/modules/flights/entity/diversion.entity';
+} from '../../../src/modules/flights/model/diversion.model';
 import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 
 const prisma = new PrismaService();

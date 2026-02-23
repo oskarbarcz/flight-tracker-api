@@ -1,6 +1,6 @@
-import { FlightPathElement } from '../../entity/flight.entity';
+import { FlightPathElement } from '../../model/flight.entity';
 import { QueryHandler, Query, IQueryHandler } from '@nestjs/cqrs';
-import { FlightsRepository } from '../../repository/flights.repository';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 
 export class GetFlightPathQuery extends Query<FlightPathElement[]> {
   constructor(public readonly flightId: string) {

@@ -1,6 +1,6 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { GetUserStatsResponse } from '../../dto/get-user.dto';
-import { UsersRepository } from '../../repository/users.repository';
+import { GetUserStatsResponse } from '../../infra/http/request/get-user.dto';
+import { UsersRepository } from '../../infra/database/repository/users.repository';
 
 export class GetUserStatsQuery extends Query<GetUserStatsResponse> {
   constructor(public readonly userId: string) {

@@ -2,18 +2,21 @@ import {
   FlightSource,
   FlightStatus,
   FlightTracking,
-} from '../../entity/flight.entity';
+} from '../../model/flight.entity';
 import { QueryHandler, Query, IQueryHandler } from '@nestjs/cqrs';
-import { FlightsRepository } from '../../repository/flights.repository';
-import { FullTimesheet } from '../../entity/timesheet.entity';
-import { Loadsheets } from '../../entity/loadsheet.entity';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
+import { FullTimesheet } from '../../model/timesheet.model';
+import { Loadsheets } from '../../model/loadsheet.model';
 import {
   AirportType,
   AirportWithType,
   Continent,
   Coordinates,
-} from '../../../airports/entity/airport.entity';
-import { GetFlightResponse, FlightListFilters } from '../../dto/flight.dto';
+} from '../../../airports/model/airport.model';
+import {
+  GetFlightResponse,
+  FlightListFilters,
+} from '../../infra/http/request/flight.dto';
 
 type ListAllFlightsResult = {
   flights: GetFlightResponse[];

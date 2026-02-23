@@ -1,5 +1,5 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { FlightsRepository } from '../../repository/flights.repository';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 
 export class CheckFlightExistsQuery extends Query<boolean> {
   constructor(public readonly flightId: string) {

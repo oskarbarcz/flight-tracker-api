@@ -1,12 +1,12 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightByIdQuery } from '../query/get-flight-by-id.query';
-import { FlightStatus } from '../../entity/flight.entity';
+import { FlightStatus } from '../../model/flight.entity';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import {
   FlightDoesNotExistError,
   ScheduledFlightCannotBeRemoved,
-} from '../../dto/errors.dto';
-import { FlightsRepository } from '../../repository/flights.repository';
+} from '../../infra/http/request/errors.dto';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 
 export class RemoveFlightCommand {
   constructor(public readonly flightId: string) {}

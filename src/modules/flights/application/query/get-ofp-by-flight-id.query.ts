@@ -1,6 +1,6 @@
-import { FlightOfpDetails } from '../../entity/flight.entity';
+import { FlightOfpDetails } from '../../model/flight.entity';
 import { QueryHandler, Query, IQueryHandler } from '@nestjs/cqrs';
-import { FlightsRepository } from '../../repository/flights.repository';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 
 export class GetOfpByFlightIdQuery extends Query<FlightOfpDetails> {
   constructor(public readonly flightId: string) {

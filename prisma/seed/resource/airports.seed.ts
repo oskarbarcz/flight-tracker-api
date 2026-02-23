@@ -1,5 +1,5 @@
 import { Prisma } from '../../client/client';
-import { Continent } from '../../../src/modules/airports/entity/airport.entity';
+import { Continent } from '../../../src/modules/airports/model/airport.model';
 import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 
 export async function loadAirports(): Promise<void> {

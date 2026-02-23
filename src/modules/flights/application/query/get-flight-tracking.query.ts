@@ -1,6 +1,6 @@
-import { FlightTracking } from '../../entity/flight.entity';
+import { FlightTracking } from '../../model/flight.entity';
 import { QueryHandler, Query, IQueryHandler } from '@nestjs/cqrs';
-import { FlightsRepository } from '../../repository/flights.repository';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 
 export class GetFlightTrackingQuery extends Query<FlightTracking | undefined> {
   constructor(public readonly flightId: string) {
