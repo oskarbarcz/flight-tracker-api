@@ -86,9 +86,6 @@
     "minimatch": "^10.2.1",
     "hono": "^4.11.7",
     "lodash": "4.17.23",
-    "eslint": {
-      "ajv": "8.18.0"
-    },
     "@angular-devkit/core": {
       "ajv": "8.18.0"
     },
