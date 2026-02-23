@@ -9,12 +9,15 @@ import { GetOperatorByIdHandler } from './application/query/get-operator-by-id.q
 import { ListAllOperatorsHandler } from './application/query/list-all-operators.query';
 import { CheckOperatorExistsHandler } from './application/query/check-operator-exists.query';
 import { GetOperatorByIcaoCodeHandler } from './application/query/get-operator-by-icao-code.query';
+import { AircraftController } from './controller/aircraft.controller';
+import { AirportsRepository } from '../airports/repository/airports.repository';
 
 @Module({
   imports: [PrismaModule],
-  controllers: [OperatorsController],
+  controllers: [OperatorsController, AircraftController],
   providers: [
     OperatorsRepository,
+    AirportsRepository,
     CreateOperatorHandler,
     UpdateOperatorHandler,
     RemoveOperatorHandler,
@@ -23,6 +26,5 @@ import { GetOperatorByIcaoCodeHandler } from './application/query/get-operator-b
     ListAllOperatorsHandler,
     CheckOperatorExistsHandler,
   ],
-  exports: [OperatorsRepository],
 })
 export class OperatorsModule {}

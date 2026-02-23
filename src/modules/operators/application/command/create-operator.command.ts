@@ -1,8 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { BadRequestException } from '@nestjs/common';
-import { OperatorAlreadyExistsError } from '../../dto/errors';
 import { OperatorsRepository } from '../../repository/operators.repository';
-import { CreateOperatorDto } from '../../dto/create-operator.dto';
+import { OperatorAlreadyExistsError } from '../../model/error/operator.error';
+import { CreateOperatorDto } from '../../controller/request/operator.request';
 
 export class CreateOperatorCommand {
   constructor(
@@ -23,7 +22,7 @@ export class CreateOperatorHandler implements ICommandHandler<CreateOperatorComm
     });
 
     if (existing) {
-      throw new BadRequestException(OperatorAlreadyExistsError);
+      throw new OperatorAlreadyExistsError();
     }
 
     await this.repository.create(operatorId, data);

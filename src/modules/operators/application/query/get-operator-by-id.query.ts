@@ -1,8 +1,7 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { NotFoundException } from '@nestjs/common';
-import { OperatorDoesNotExistsError } from '../../dto/errors';
 import { OperatorsRepository } from '../../repository/operators.repository';
-import { Operator } from '../../entity/operator.entity';
+import { Operator } from '../../model/operator.model';
+import { OperatorNotFoundError } from '../../model/error/operator.error';
 
 export class GetOperatorByIdQuery extends Query<Operator> {
   constructor(public readonly operatorId: string) {
@@ -18,7 +17,7 @@ export class GetOperatorByIdHandler implements IQueryHandler<GetOperatorByIdQuer
     const operator = await this.repository.findOneBy({ id: query.operatorId });
 
     if (!operator) {
-      throw new NotFoundException(OperatorDoesNotExistsError);
+      throw new OperatorNotFoundError();
     }
 
     return operator;

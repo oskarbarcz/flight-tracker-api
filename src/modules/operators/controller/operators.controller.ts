@@ -8,8 +8,6 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { CreateOperatorDto } from '../dto/create-operator.dto';
-import { UpdateOperatorDto } from '../dto/update-operator.dto';
 import { UuidParam } from '../../../core/validation/uuid.param';
 import {
   ApiBearerAuth,
@@ -18,7 +16,7 @@ import {
   ApiUnauthorizedResponse,
   PartialType,
 } from '@nestjs/swagger';
-import { Operator } from '../entity/operator.entity';
+import { Operator } from '../model/operator.model';
 import {
   ApiBadRequestResponse,
   ApiBody,
@@ -42,6 +40,10 @@ import { RemoveOperatorCommand } from '../application/command/remove-operator.co
 import { GetOperatorByIdQuery } from '../application/query/get-operator-by-id.query';
 import { ListAllOperatorsQuery } from '../application/query/list-all-operators.query';
 import { v4 } from 'uuid';
+import {
+  CreateOperatorDto,
+  UpdateOperatorDto,
+} from './request/operator.request';
 
 @ApiTags('operator')
 @Controller('/api/v1/operator')

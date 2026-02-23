@@ -1,8 +1,10 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { AircraftRepository } from '../../repository/aircraft.repository';
-import { CreateAircraftResponse } from '../../dto/create-aircraft.dto';
+import { AircraftRepository } from '../../../operators/repository/aircraft.repository';
+import { LegacyCreateAircraftResponse } from '../../../operators/controller/request/aircraft.request';
 
-export class ListAllAircraftQuery extends Query<CreateAircraftResponse[]> {
+export class ListAllAircraftQuery extends Query<
+  LegacyCreateAircraftResponse[]
+> {
   constructor() {
     super();
   }
@@ -12,7 +14,7 @@ export class ListAllAircraftQuery extends Query<CreateAircraftResponse[]> {
 export class ListAllAircraftHandler implements IQueryHandler<ListAllAircraftQuery> {
   constructor(private readonly repository: AircraftRepository) {}
 
-  async execute(): Promise<CreateAircraftResponse[]> {
+  async execute(): Promise<LegacyCreateAircraftResponse[]> {
     return this.repository.findAll();
   }
 }

@@ -1,9 +1,9 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { NotFoundException } from '@nestjs/common';
-import { AircraftRepository } from '../../repository/aircraft.repository';
-import { CreateAircraftResponse } from '../../dto/create-aircraft.dto';
+import { AircraftRepository } from '../../../operators/repository/aircraft.repository';
+import { LegacyCreateAircraftResponse } from '../../../operators/controller/request/aircraft.request';
 
-export class GetAircraftByIdQuery extends Query<CreateAircraftResponse> {
+export class GetAircraftByIdQuery extends Query<LegacyCreateAircraftResponse> {
   constructor(public readonly aircraftId: string) {
     super();
   }
@@ -13,7 +13,9 @@ export class GetAircraftByIdQuery extends Query<CreateAircraftResponse> {
 export class GetAircraftByIdHandler implements IQueryHandler<GetAircraftByIdQuery> {
   constructor(private readonly repository: AircraftRepository) {}
 
-  async execute(query: GetAircraftByIdQuery): Promise<CreateAircraftResponse> {
+  async execute(
+    query: GetAircraftByIdQuery,
+  ): Promise<LegacyCreateAircraftResponse> {
     const aircraft = await this.repository.findOneBy({ id: query.aircraftId });
 
     if (!aircraft) {

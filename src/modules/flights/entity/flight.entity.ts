@@ -1,8 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { AirportWithType } from '../../airports/entity/airport.entity';
 import { FullTimesheet } from './timesheet.entity';
-import { CreateAircraftResponse } from '../../aircraft/dto/create-aircraft.dto';
-import { Operator } from '../../operators/entity/operator.entity';
+import { Operator } from '../../operators/model/operator.model';
 import { Loadsheets } from './loadsheet.entity';
 import { Rotation } from '../../rotations/entity/rotation.entity';
 import {
@@ -13,6 +12,7 @@ import {
   IsString,
   IsUUID,
 } from 'class-validator';
+import { LegacyCreateAircraftResponse } from '../../operators/controller/request/aircraft.request';
 
 export enum FlightStatus {
   Created = 'created',
@@ -109,7 +109,7 @@ export class Flight {
   @ApiProperty({
     description: 'Aircraft reported for flight',
   })
-  aircraft!: CreateAircraftResponse;
+  aircraft!: LegacyCreateAircraftResponse;
 
   @ApiProperty({
     description: 'Airports related to the flight',

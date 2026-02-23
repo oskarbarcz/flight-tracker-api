@@ -1,8 +1,8 @@
-Feature: Create aircraft
+Feature: Create aircraft for operator
 
   Scenario: As an admin I cannot create aircraft
     Given I am signed in as "admin"
-    When I send a "POST" request to "/api/v1/aircraft" with body:
+    When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
       """json
       {
         "icaoCode": "B748",
@@ -10,8 +10,7 @@ Feature: Create aircraft
         "selcal": "SL-PR",
         "fullName": "Boeing 747-8 Intercontinental",
         "registration": "SP-LRA",
-        "livery": "Sunshine",
-        "operatorId": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
+        "livery": "Sunshine"
       }
       """
     Then the response status should be 403
@@ -26,7 +25,7 @@ Feature: Create aircraft
 
   Scenario: As operations I create aircraft
     Given I am signed in as "operations"
-    When I send a "POST" request to "/api/v1/aircraft" with body:
+    When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
       """json
       {
         "icaoCode": "B748",
@@ -34,8 +33,7 @@ Feature: Create aircraft
         "selcal": "SL-PR",
         "fullName": "Boeing 747-8 Intercontinental",
         "registration": "SP-LRA",
-        "livery": "Sunshine",
-        "operatorId": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
+        "livery": "Sunshine"
       }
       """
     Then the response status should be 201
@@ -87,7 +85,7 @@ Feature: Create aircraft
 
   Scenario: As operations I cannot create aircraft with incorrect data
     Given I am signed in as "operations"
-    When I send a "POST" request to "/api/v1/aircraft" with body:
+    When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
       """json
       {
         "icaoCode": "B748",
@@ -105,15 +103,14 @@ Feature: Create aircraft
         "violations": {
           "registration": ["registration should not be empty", "registration must be a string"],
           "selcal": ["selcal should not be empty", "selcal must be a string"],
-          "shortName": ["shortName should not be empty", "shortName must be a string"],
-          "operatorId": ["operatorId should not be empty", "operatorId must be a string"]
+          "shortName": ["shortName should not be empty", "shortName must be a string"]
         }
       }
       """
 
   Scenario: As operations I cannot create aircraft with non-existing operator
     Given I am signed in as "operations"
-    When I send a "POST" request to "/api/v1/aircraft" with body:
+    When I send a "POST" request to "/api/v1/operator/16b531c3-d817-4326-841c-2a4c243f9c1f/aircraft" with body:
       """json
       {
         "icaoCode": "B748",
@@ -121,8 +118,7 @@ Feature: Create aircraft
         "selcal": "SL-PR",
         "fullName": "Boeing 747-8 Intercontinental",
         "registration": "SP-LRA",
-        "livery": "Sunshine",
-        "operatorId": "16b531c3-d817-4326-841c-2a4c243f9c1f"
+        "livery": "Sunshine"
       }
       """
     Then the response status should be 404
@@ -131,12 +127,12 @@ Feature: Create aircraft
       {
         "statusCode": 404,
         "error": "Not Found",
-        "message": "Operator with given ID not found."
+        "message": "Cannot find operator declared in the request."
       }
       """
 
   Scenario: As an unauthorized user I cannot create aircraft
-    When I send a "POST" request to "/api/v1/aircraft" with body:
+    When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
       """json
       {
         "icaoCode": "B748",
@@ -144,8 +140,7 @@ Feature: Create aircraft
         "selcal": "SL-PR",
         "fullName": "Boeing 747-8 Intercontinental",
         "registration": "SP-LRA",
-        "livery": "Sunshine",
-        "operatorId": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
+        "livery": "Sunshine"
       }
       """
     Then the response status should be 401

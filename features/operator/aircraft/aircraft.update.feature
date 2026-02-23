@@ -108,7 +108,7 @@ Feature: Update aircraft
       {
         "statusCode": 404,
         "error": "Not Found",
-        "message": "Operator with given ID not found."
+        "message": "Cannot find operator declared in the request."
       }
       """
 
@@ -119,7 +119,7 @@ Feature: Update aircraft
     And the response body should contain:
       """json
       {
-        "message": "Aircraft with given ID not found.",
+        "message": "Aircraft with given id does not exist.",
         "error": "Not Found",
         "statusCode": 404
       }

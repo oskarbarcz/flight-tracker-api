@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
 import { Aircraft, Prisma } from 'prisma/client/client';
-import { CreateAircraftRequest } from '../dto/create-aircraft.dto';
-import { UpdateAircraftRequest } from '../dto/update-aircraft.dto';
+import {
+  LegacyCreateAircraftRequest,
+  LegacyUpdateAircraftRequest,
+} from '../controller/request/aircraft.request';
 
 const aircraftWithOperatorFields = {
   id: true,
@@ -35,7 +37,7 @@ export class AircraftRepository {
 
   async create(
     id: string,
-    data: CreateAircraftRequest,
+    data: LegacyCreateAircraftRequest,
   ): Promise<AircraftWithOperator> {
     return this.prisma.aircraft.create({
       data: { id, ...data },
@@ -60,7 +62,7 @@ export class AircraftRepository {
 
   async update(
     id: string,
-    data: UpdateAircraftRequest,
+    data: LegacyUpdateAircraftRequest,
   ): Promise<AircraftWithOperator> {
     return this.prisma.aircraft.update({
       where: { id },
@@ -73,9 +75,11 @@ export class AircraftRepository {
     await this.prisma.aircraft.delete({ where: { id } });
   }
 
-  async exists(id: string): Promise<boolean> {
+  async exists(
+    criteria: Partial<Record<keyof Aircraft, any>>,
+  ): Promise<boolean> {
     const count = await this.prisma.aircraft.count({
-      where: { id },
+      where: criteria,
     });
 
     return count > 0;

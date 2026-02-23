@@ -45,13 +45,13 @@ Feature: Delete aircraft
   Scenario: As operations I cannot delete aircraft that is already in use
     Given I am signed in as "operations"
     When I send a "DELETE" request to "/api/v1/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f"
-    Then the response status should be 409
+    Then the response status should be 400
     And the response body should contain:
       """json
       {
-        "message": "Aircraft is related to other resources and cannot be removed.",
-        "error": "Conflict",
-        "statusCode": 409
+        "message": "Cannot remove aircraft that is used by any of flights.",
+        "error": "Bad Request",
+        "statusCode": 400
       }
       """
 
@@ -62,7 +62,7 @@ Feature: Delete aircraft
     And the response body should contain:
       """json
       {
-        "message": "Aircraft with given ID not found.",
+        "message": "Aircraft with given id does not exist.",
         "error": "Not Found",
         "statusCode": 404
       }
