@@ -1,11 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { NotFoundException, BadRequestException } from '@nestjs/common';
+import { OperatorsRepository } from '../../infra/database/repository/operators.repository';
 import {
-  OperatorContainsAircraftError,
-  OperatorContainsFlightsError,
-  OperatorDoesNotExistsError,
-} from '../../dto/errors';
-import { OperatorsRepository } from '../../repository/operators.repository';
+  OperatorInUseError,
+  OperatorNotFoundError,
+} from '../../model/error/operator.error';
 
 export class RemoveOperatorCommand {
   constructor(public readonly operatorId: string) {}
@@ -21,19 +19,19 @@ export class RemoveOperatorHandler implements ICommandHandler<RemoveOperatorComm
     const operator = await this.repository.findOneBy({ id: operatorId });
 
     if (!operator) {
-      throw new NotFoundException(OperatorDoesNotExistsError);
+      throw new OperatorNotFoundError();
     }
 
     const flightsCount = await this.repository.countFlights(operatorId);
 
     if (flightsCount > 0) {
-      throw new BadRequestException(OperatorContainsFlightsError);
+      throw new OperatorInUseError();
     }
 
     const aircraftCount = await this.repository.countAircraft(operatorId);
 
     if (aircraftCount > 0) {
-      throw new BadRequestException(OperatorContainsAircraftError);
+      throw new OperatorInUseError();
     }
 
     await this.repository.remove(operatorId);

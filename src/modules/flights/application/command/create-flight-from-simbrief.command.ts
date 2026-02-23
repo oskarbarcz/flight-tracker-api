@@ -8,7 +8,7 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { GetUserSimbriefIdQuery } from '../../../users/application/query/get-user-simbrief-id.query';
 import { SimbriefClient } from '../../../../core/provider/simbrief/client/simbrief.client';
 import { GetAirportByIcaoCodeQuery } from '../../../airports/application/query/get-airport-by-icao-code.query';
-import { GetAircraftByRegistrationQuery } from '../../../aircraft/application/query/get-aircraft-by-registration.query';
+import { GetAircraftByRegistrationQuery } from '../../../operators/application/query/aircraft/get-aircraft-by-registration.query';
 import { GetOperatorByIcaoCodeQuery } from '../../../operators/application/query/get-operator-by-icao-code.query';
 import { FlightTracking } from '../../entity/flight.entity';
 import { CreateFlightRequest } from '../../dto/flight.dto';

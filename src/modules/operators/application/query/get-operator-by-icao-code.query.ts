@@ -1,8 +1,7 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { NotFoundException } from '@nestjs/common';
-import { OperatorWithGivenIcaoCodeDoesNotExist } from '../../dto/errors';
-import { OperatorsRepository } from '../../repository/operators.repository';
-import { Operator } from '../../entity/operator.entity';
+import { OperatorsRepository } from '../../infra/database/repository/operators.repository';
+import { Operator } from '../../model/operator.model';
+import { OperatorWithIcaoCodeNotFoundError } from '../../model/error/operator.error';
 
 export class GetOperatorByIcaoCodeQuery extends Query<Operator> {
   constructor(public readonly icaoCode: string) {
@@ -20,7 +19,7 @@ export class GetOperatorByIcaoCodeHandler implements IQueryHandler<GetOperatorBy
     });
 
     if (!operator) {
-      throw new NotFoundException(OperatorWithGivenIcaoCodeDoesNotExist);
+      throw new OperatorWithIcaoCodeNotFoundError();
     }
 
     return operator;

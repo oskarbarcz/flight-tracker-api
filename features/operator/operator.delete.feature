@@ -22,7 +22,7 @@ Feature: Delete operator
     And the response body should contain:
       """json
       {
-        "message": "Operator with given id does not exist.",
+        "message": "Operator with given ID not found.",
         "error": "Not Found",
         "statusCode": 404
       }
@@ -45,13 +45,13 @@ Feature: Delete operator
   Scenario: As operations I cannot delete operator that has aircraft assigned
     Given I am signed in as "operations"
     When I send a "DELETE" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
-    Then the response status should be 400
+    Then the response status should be 409
     And the response body should contain:
       """json
       {
-        "statusCode": 400,
-        "error": "Bad Request",
-        "message": "Operator cannot be deleted because it has flights scheduled."
+        "statusCode": 409,
+        "error": "Conflict",
+        "message": "Operator is related to other resources and cannot be removed."
       }
       """
 
@@ -62,7 +62,7 @@ Feature: Delete operator
     And the response body should contain:
       """json
       {
-        "message": "Operator with given id does not exist.",
+        "message": "Operator with given ID not found.",
         "error": "Not Found",
         "statusCode": 404
       }

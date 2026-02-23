@@ -1,5 +1,5 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { AircraftRepository } from '../../repository/aircraft.repository';
+import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
 
 export class CheckAircraftExistsQuery extends Query<boolean> {
   constructor(public readonly aircraftId: string) {
@@ -12,6 +12,6 @@ export class CheckAircraftExistsHandler implements IQueryHandler<CheckAircraftEx
   constructor(private readonly repository: AircraftRepository) {}
 
   async execute(query: CheckAircraftExistsQuery): Promise<boolean> {
-    return this.repository.exists(query.aircraftId);
+    return this.repository.exists({ id: query.aircraftId });
   }
 }

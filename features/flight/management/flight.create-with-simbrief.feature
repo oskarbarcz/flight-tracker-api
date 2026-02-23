@@ -137,7 +137,7 @@ Feature: Create a flight with Simbrief
       {
         "statusCode": 404,
         "error": "Not Found",
-        "message": "Aircraft with given registration does not exist."
+        "message": "Aircraft with given registration not found."
       }
       """
 

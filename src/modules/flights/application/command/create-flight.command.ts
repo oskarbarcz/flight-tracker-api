@@ -11,7 +11,7 @@ import { FlightEventType } from '../../../../core/events/flight';
 import { FlightEventScope } from '../../entity/event.entity';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CreateFlightRequest } from '../../dto/flight.dto';
-import { CheckAircraftExistsQuery } from '../../../aircraft/application/query/check-aircraft-exists.query';
+import { CheckAircraftExistsQuery } from '../../../operators/application/query/aircraft/check-aircraft-exists.query';
 import { CheckOperatorExistsQuery } from '../../../operators/application/query/check-operator-exists.query';
 
 export class CreateFlightCommand {

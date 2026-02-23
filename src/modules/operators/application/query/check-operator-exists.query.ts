@@ -1,5 +1,5 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { OperatorsRepository } from '../../repository/operators.repository';
+import { OperatorsRepository } from '../../infra/database/repository/operators.repository';
 
 export class CheckOperatorExistsQuery extends Query<boolean> {
   constructor(public readonly operatorId: string) {
