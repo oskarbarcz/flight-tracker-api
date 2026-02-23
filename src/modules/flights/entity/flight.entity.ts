@@ -12,7 +12,7 @@ import {
   IsString,
   IsUUID,
 } from 'class-validator';
-import { LegacyCreateAircraftResponse } from '../../operators/controller/request/aircraft.request';
+import { LegacyCreateAircraftResponse } from '../../operators/infra/http/request/aircraft.request';
 
 export enum FlightStatus {
   Created = 'created',

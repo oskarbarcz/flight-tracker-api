@@ -89,7 +89,7 @@ Feature: Update operator
     And the response body should contain:
       """json
       {
-        "message": "Operator with given id does not exist.",
+        "message": "Operator with given ID not found.",
         "error": "Not Found",
         "statusCode": 404
       }

@@ -1,6 +1,6 @@
 import { ApiProperty, OmitType, PartialType } from '@nestjs/swagger';
-import { Aircraft } from '../../model/aircraft.model';
-import { Operator } from '../../model/operator.model';
+import { Aircraft } from '../../../model/aircraft.model';
+import { Operator } from '../../../model/operator.model';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class LegacyCreateAircraftRequest extends OmitType(Aircraft, [

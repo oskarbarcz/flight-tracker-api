@@ -8,7 +8,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { UuidParam } from '../../../core/validation/uuid.param';
+import { UuidParam } from '../../../../../core/validation/uuid.param';
 import {
   ApiBearerAuth,
   ApiForbiddenResponse,
@@ -16,7 +16,7 @@ import {
   ApiUnauthorizedResponse,
   PartialType,
 } from '@nestjs/swagger';
-import { Operator } from '../model/operator.model';
+import { Operator } from '../../../model/operator.model';
 import {
   ApiBadRequestResponse,
   ApiBody,
@@ -27,23 +27,23 @@ import {
   ApiOperation,
   ApiParam,
 } from '@nestjs/swagger';
-import { GenericBadRequestResponse } from '../../../core/http/response/bad-request.response';
-import { GenericNotFoundResponse } from '../../../core/http/response/not-found.response';
-import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
-import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
-import { Role } from '../../../core/http/auth/decorator/role.decorator';
+import { GenericBadRequestResponse } from '../../../../../core/http/response/bad-request.response';
+import { GenericNotFoundResponse } from '../../../../../core/http/response/not-found.response';
+import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
+import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
+import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
 import { UserRole } from 'prisma/client/client';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateOperatorCommand } from '../application/command/create-operator.command';
-import { UpdateOperatorCommand } from '../application/command/update-operator.command';
-import { RemoveOperatorCommand } from '../application/command/remove-operator.command';
-import { GetOperatorByIdQuery } from '../application/query/get-operator-by-id.query';
-import { ListAllOperatorsQuery } from '../application/query/list-all-operators.query';
+import { CreateOperatorCommand } from '../../../application/command/create-operator.command';
+import { UpdateOperatorCommand } from '../../../application/command/update-operator.command';
+import { RemoveOperatorCommand } from '../../../application/command/remove-operator.command';
+import { GetOperatorByIdQuery } from '../../../application/query/get-operator-by-id.query';
+import { ListAllOperatorsQuery } from '../../../application/query/list-all-operators.query';
 import { v4 } from 'uuid';
 import {
   CreateOperatorDto,
   UpdateOperatorDto,
-} from './request/operator.request';
+} from '../request/operator.request';
 
 @ApiTags('operator')
 @Controller('/api/v1/operator')

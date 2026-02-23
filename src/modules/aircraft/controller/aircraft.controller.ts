@@ -42,7 +42,7 @@ import {
   LegacyCreateAircraftResponse,
   LegacyUpdateAircraftRequest,
   LegacyUpdateAircraftResponse,
-} from '../../operators/controller/request/aircraft.request';
+} from '../../operators/infra/http/request/aircraft.request';
 
 @ApiTags('aircraft')
 @Controller('/api/v1/aircraft')

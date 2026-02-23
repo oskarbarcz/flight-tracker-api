@@ -1,5 +1,5 @@
 import { OmitType, PartialType } from '@nestjs/swagger';
-import { Operator } from '../../model/operator.model';
+import { Operator } from '../../../model/operator.model';
 
 export class CreateOperatorDto extends OmitType(Operator, ['id']) {}
 

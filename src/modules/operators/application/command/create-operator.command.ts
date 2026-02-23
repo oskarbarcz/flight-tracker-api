@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { OperatorsRepository } from '../../repository/operators.repository';
+import { OperatorsRepository } from '../../infra/database/repository/operators.repository';
 import { OperatorAlreadyExistsError } from '../../model/error/operator.error';
-import { CreateOperatorDto } from '../../controller/request/operator.request';
+import { CreateOperatorDto } from '../../infra/http/request/operator.request';
 
 export class CreateOperatorCommand {
   constructor(

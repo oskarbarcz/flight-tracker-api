@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../../core/provider/prisma/prisma.service';
-import { Operator } from '../model/operator.model';
+import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
+import { Operator } from '../../../model/operator.model';
 import {
   CreateOperatorDto,
   UpdateOperatorDto,
-} from '../controller/request/operator.request';
+} from '../../http/request/operator.request';
 @Injectable()
 export class OperatorsRepository {
   constructor(private readonly prisma: PrismaService) {}

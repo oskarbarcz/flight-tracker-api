@@ -1,9 +1,9 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { AircraftRepository } from '../../../operators/repository/aircraft.repository';
+import { AircraftRepository } from '../../../operators/infra/database/repository/aircraft.repository';
 import { CheckOperatorExistsQuery } from '../../../operators/application/query/check-operator-exists.query';
 import { AircraftNotFoundError } from '../../../operators/model/error/aircraft.error';
 import { OperatorNotFoundError } from '../../../operators/model/error/operator.error';
-import { LegacyUpdateAircraftRequest } from '../../../operators/controller/request/aircraft.request';
+import { LegacyUpdateAircraftRequest } from '../../../operators/infra/http/request/aircraft.request';
 
 export class LegacyUpdateAircraftCommand {
   constructor(

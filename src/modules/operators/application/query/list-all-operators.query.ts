@@ -1,5 +1,5 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { OperatorsRepository } from '../../repository/operators.repository';
+import { OperatorsRepository } from '../../infra/database/repository/operators.repository';
 import { Operator } from '../../model/operator.model';
 
 export class ListAllOperatorsQuery extends Query<Operator[]> {

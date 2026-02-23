@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { AircraftRepository } from '../../../operators/repository/aircraft.repository';
+import { AircraftRepository } from '../../../operators/infra/database/repository/aircraft.repository';
 import {
   AircraftInUseError,
   AircraftNotFoundError,

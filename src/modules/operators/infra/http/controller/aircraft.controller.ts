@@ -24,25 +24,25 @@ import {
   Post,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { GenericBadRequestResponse } from '../../../core/http/response/bad-request.response';
-import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
-import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
-import { GenericNotFoundResponse } from '../../../core/http/response/not-found.response';
-import { Role } from '../../../core/http/auth/decorator/role.decorator';
+import { GenericBadRequestResponse } from '../../../../../core/http/response/bad-request.response';
+import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
+import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
+import { GenericNotFoundResponse } from '../../../../../core/http/response/not-found.response';
+import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
 import { v4 } from 'uuid';
 import { UserRole } from 'prisma/client/client';
 import {
   CreateAircraftRequest,
   GetAircraftResponse,
   UpdateAircraftRequest,
-} from './request/aircraft.request';
-import { UuidParam } from '../../../core/validation/uuid.param';
-import { CreateAircraftCommand } from '../application/command/aircraft/create-aircraft.command';
-import { GenericConflictResponse } from '../../../core/http/response/conflict.response';
-import { GetAircraftByIdQuery } from '../application/query/aircraft/get-aircraft-by-id.query';
-import { ListAllAircraftQuery } from '../application/query/aircraft/list-all-aircraft.query';
-import { RemoveAircraftCommand } from '../application/command/aircraft/remove-aircraft.command';
-import { UpdateAircraftCommand } from '../application/command/aircraft/update-aircraft.command';
+} from '../request/aircraft.request';
+import { UuidParam } from '../../../../../core/validation/uuid.param';
+import { CreateAircraftCommand } from '../../../application/command/aircraft/create-aircraft.command';
+import { GenericConflictResponse } from '../../../../../core/http/response/conflict.response';
+import { GetAircraftByIdQuery } from '../../../application/query/aircraft/get-aircraft-by-id.query';
+import { ListAllAircraftQuery } from '../../../application/query/aircraft/list-all-aircraft.query';
+import { RemoveAircraftCommand } from '../../../application/command/aircraft/remove-aircraft.command';
+import { UpdateAircraftCommand } from '../../../application/command/aircraft/update-aircraft.command';
 
 @ApiTags('operator fleet')
 @Controller('/api/v1/operator/:operatorId/aircraft')

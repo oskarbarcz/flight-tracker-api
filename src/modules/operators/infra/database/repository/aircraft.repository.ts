@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../../core/provider/prisma/prisma.service';
+import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import { Aircraft as AircraftEntity, Prisma } from 'prisma/client/client';
 import {
   CreateAircraftRequest,
   LegacyCreateAircraftRequest,
   LegacyUpdateAircraftRequest,
   UpdateAircraftRequest,
-} from '../controller/request/aircraft.request';
+} from '../../http/request/aircraft.request';
 
 const aircraftWithOperatorFields = {
   id: true,

@@ -1,8 +1,8 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { OperatorNotFoundError } from '../../../model/error/operator.error';
-import { OperatorsRepository } from '../../../repository/operators.repository';
-import { GetAircraftResponse } from '../../../controller/request/aircraft.request';
-import { AircraftRepository } from '../../../repository/aircraft.repository';
+import { OperatorsRepository } from '../../../infra/database/repository/operators.repository';
+import { GetAircraftResponse } from '../../../infra/http/request/aircraft.request';
+import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
 
 export class ListAllAircraftQuery extends Query<GetAircraftResponse[]> {
   constructor(public readonly operatorId: string) {

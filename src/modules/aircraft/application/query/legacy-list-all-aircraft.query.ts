@@ -1,6 +1,6 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { AircraftRepository } from '../../../operators/repository/aircraft.repository';
-import { LegacyCreateAircraftResponse } from '../../../operators/controller/request/aircraft.request';
+import { AircraftRepository } from '../../../operators/infra/database/repository/aircraft.repository';
+import { LegacyCreateAircraftResponse } from '../../../operators/infra/http/request/aircraft.request';
 
 export class LegacyListAllAircraftQuery extends Query<
   LegacyCreateAircraftResponse[]

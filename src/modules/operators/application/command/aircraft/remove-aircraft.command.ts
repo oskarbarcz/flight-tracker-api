@@ -1,10 +1,10 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { AircraftRepository } from '../../../repository/aircraft.repository';
+import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
 import {
   AircraftInUseError,
   AircraftNotFoundError,
 } from '../../../model/error/aircraft.error';
-import { OperatorsRepository } from '../../../repository/operators.repository';
+import { OperatorsRepository } from '../../../infra/database/repository/operators.repository';
 import { OperatorNotFoundError } from '../../../model/error/operator.error';
 
 export class RemoveAircraftCommand {

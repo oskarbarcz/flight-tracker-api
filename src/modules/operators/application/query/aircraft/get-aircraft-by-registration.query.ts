@@ -1,6 +1,6 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { AircraftRepository } from '../../../repository/aircraft.repository';
-import { LegacyCreateAircraftResponse } from '../../../controller/request/aircraft.request';
+import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
+import { LegacyCreateAircraftResponse } from '../../../infra/http/request/aircraft.request';
 import { AircraftWithRegistrationNotFoundError } from '../../../model/error/aircraft.error';
 
 export class GetAircraftByRegistrationQuery extends Query<LegacyCreateAircraftResponse> {
