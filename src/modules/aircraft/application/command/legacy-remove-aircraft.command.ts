@@ -16,7 +16,7 @@ export class LegacyRemoveAircraftHandler implements ICommandHandler<LegacyRemove
   async execute(command: LegacyRemoveAircraftCommand): Promise<void> {
     const { aircraftId } = command;
 
-    const aircraft = await this.repository.findOneBy({ id: aircraftId });
+    const aircraft = await this.repository.legacyFindOneBy({ id: aircraftId });
 
     if (!aircraft) {
       throw new AircraftNotFoundError();

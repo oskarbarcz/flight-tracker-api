@@ -2,14 +2,17 @@ import {
   ApiBadRequestResponse,
   ApiBearerAuth,
   ApiBody,
+  ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
+  ApiOkResponse,
   ApiOperation,
+  ApiParam,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GenericBadRequestResponse } from '../../../core/http/response/bad-request.response';
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
@@ -18,12 +21,14 @@ import { GenericNotFoundResponse } from '../../../core/http/response/not-found.r
 import { Role } from '../../../core/http/auth/decorator/role.decorator';
 import { v4 } from 'uuid';
 import { UserRole } from 'prisma/client/client';
-import { LegacyCreateAircraftCommand } from '../../aircraft/application/command/legacy-create-aircraft.command';
-import { GetAircraftByIdQuery } from '../../aircraft/application/query/get-aircraft-by-id.query';
 import {
-  LegacyCreateAircraftRequest,
-  LegacyCreateAircraftResponse,
+  CreateAircraftRequest,
+  GetAircraftResponse,
 } from './request/aircraft.request';
+import { UuidParam } from '../../../core/validation/uuid.param';
+import { CreateAircraftCommand } from '../application/command/aircraft/create-aircraft.command';
+import { GenericConflictResponse } from '../../../core/http/response/conflict.response';
+import { GetAircraftByIdQuery } from '../application/query/aircraft/get-aircraft-by-id.query';
 
 @ApiTags('operator fleet')
 @Controller('/api/v1/operator/:operatorId/aircraft')
@@ -34,19 +39,23 @@ export class AircraftController {
   ) {}
 
   @ApiOperation({
-    summary: 'Create new aircraft',
+    summary: 'Register new aircraft for operator',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth('jwt')
-  @ApiBody({ type: LegacyCreateAircraftRequest })
+  @ApiParam({
+    name: 'operatorId',
+    description: 'Operator unique identifier',
+  })
+  @ApiBody({ type: CreateAircraftRequest })
   @ApiCreatedResponse({
     description: 'Aircraft was created successfully',
-    type: LegacyCreateAircraftResponse,
+    type: GetAircraftResponse,
   })
   @ApiBadRequestResponse({
     description: 'Request validation failed',
-    type: GenericBadRequestResponse<LegacyCreateAircraftResponse>,
+    type: GenericBadRequestResponse<GetAircraftResponse>,
   })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
@@ -57,23 +66,25 @@ export class AircraftController {
     type: ForbiddenResponse,
   })
   @ApiNotFoundResponse({
-    description: 'Operator with given it does not exist',
+    description: 'Resource was not found',
     type: GenericNotFoundResponse,
+  })
+  @ApiConflictResponse({
+    description: 'New aircraft conflicts with existing aircraft',
+    type: GenericConflictResponse,
   })
   @Post()
   @Role(UserRole.Operations)
   async create(
-    @Body() createAircraftDto: LegacyCreateAircraftRequest,
-  ): Promise<LegacyCreateAircraftResponse> {
+    @UuidParam('operatorId') operatorId: string,
+    @Body() request: CreateAircraftRequest,
+  ): Promise<GetAircraftResponse> {
     const aircraftId = v4();
 
-    const command = new LegacyCreateAircraftCommand(
-      aircraftId,
-      createAircraftDto,
-    );
+    const command = new CreateAircraftCommand(aircraftId, operatorId, request);
     await this.commandBus.execute(command);
 
-    const query = new GetAircraftByIdQuery(aircraftId);
+    const query = new GetAircraftByIdQuery(aircraftId, operatorId);
     return this.queryBus.execute(query);
   }
 
@@ -93,34 +104,35 @@ export class AircraftController {
   //   const query = new ListAllAircraftQuery();
   //   return this.queryBus.execute(query);
   // }
-  //
-  // @ApiOperation({ summary: 'Retrieve one aircraft' })
-  // @ApiBearerAuth('jwt')
-  // @ApiParam({
-  //   name: 'id',
-  //   description: 'Aircraft unique identifier',
-  // })
-  // @ApiOkResponse({
-  //   description: 'Aircraft was created successfully',
-  //   type: CreateAircraftResponse,
-  // })
-  // @ApiBadRequestResponse({
-  //   description: 'Aircraft id is not valid uuid v4',
-  //   type: GenericBadRequestResponse,
-  // })
-  // @ApiUnauthorizedResponse({
-  //   description: 'User is not authorized (token is missing)',
-  //   type: UnauthorizedResponse,
-  // })
-  // @ApiNotFoundResponse({
-  //   description: 'Aircraft with given it does not exist',
-  //   type: GenericNotFoundResponse,
-  // })
-  // @Get(':id')
-  // async findOne(@UuidParam('id') id: string): Promise<CreateAircraftResponse> {
-  //   const query = new GetAircraftByIdQuery(id);
-  //   return this.queryBus.execute(query);
-  // }
+
+  @ApiOperation({ summary: 'Retrieve one aircraft' })
+  @ApiBearerAuth('jwt')
+  @ApiParam({
+    name: 'operatorId',
+    description: 'Operator unique identifier',
+  })
+  @ApiParam({
+    name: 'aircraftId',
+    description: 'Aircraft unique identifier',
+  })
+  @ApiOkResponse({ type: GetAircraftResponse })
+  @ApiBadRequestResponse({
+    description: 'Resource ID is not valid uuid v4',
+    type: GenericBadRequestResponse,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @Get(':aircraftId')
+  async findOne(
+    @UuidParam('operatorId') operatorId: string,
+    @UuidParam('aircraftId') aircraftId: string,
+  ): Promise<GetAircraftResponse> {
+    const query = new GetAircraftByIdQuery(operatorId, aircraftId);
+    return this.queryBus.execute(query);
+  }
   //
   // @ApiOperation({
   //   summary: 'Update aircraft',

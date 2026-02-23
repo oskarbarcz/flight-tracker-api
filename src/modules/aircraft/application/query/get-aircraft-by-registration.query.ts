@@ -16,7 +16,7 @@ export class GetAircraftByRegistrationHandler implements IQueryHandler<GetAircra
   async execute(
     query: GetAircraftByRegistrationQuery,
   ): Promise<LegacyCreateAircraftResponse> {
-    const aircraft = await this.repository.findOneBy({
+    const aircraft = await this.repository.legacyFindOneBy({
       registration: query.registration,
     });
 

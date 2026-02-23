@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
-import { Aircraft, Prisma } from 'prisma/client/client';
+import { Aircraft as AircraftEntity, Prisma } from 'prisma/client/client';
 import {
+  CreateAircraftRequest,
   LegacyCreateAircraftRequest,
   LegacyUpdateAircraftRequest,
 } from '../controller/request/aircraft.request';
@@ -27,21 +28,45 @@ const aircraftWithOperatorFields = {
   operatorId: false,
 } as const satisfies Prisma.AircraftSelect;
 
-export type AircraftWithOperator = Prisma.AircraftGetPayload<{
+const aircraft = {
+  id: true,
+  icaoCode: true,
+  shortName: true,
+  fullName: true,
+  registration: true,
+  selcal: true,
+  livery: true,
+  operatorId: false,
+} as const satisfies Prisma.AircraftSelect;
+
+type AircraftWithOperator = Prisma.AircraftGetPayload<{
   select: typeof aircraftWithOperatorFields;
+}>;
+
+type Aircraft = Prisma.AircraftGetPayload<{
+  select: typeof aircraft;
 }>;
 
 @Injectable()
 export class AircraftRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(
+  async legacyCreate(
     id: string,
     data: LegacyCreateAircraftRequest,
-  ): Promise<AircraftWithOperator> {
-    return this.prisma.aircraft.create({
+  ): Promise<void> {
+    await this.prisma.aircraft.create({
       data: { id, ...data },
-      select: aircraftWithOperatorFields,
+    });
+  }
+
+  async create(
+    id: string,
+    operatorId: string,
+    data: CreateAircraftRequest,
+  ): Promise<void> {
+    await this.prisma.aircraft.create({
+      data: { id, ...data, operatorId },
     });
   }
 
@@ -51,12 +76,21 @@ export class AircraftRepository {
     });
   }
 
-  async findOneBy(
-    criteria: Partial<Record<keyof Aircraft, any>>,
+  async legacyFindOneBy(
+    criteria: Partial<Record<keyof AircraftEntity, any>>,
   ): Promise<AircraftWithOperator | null> {
     return this.prisma.aircraft.findFirst({
       where: criteria,
       select: aircraftWithOperatorFields,
+    });
+  }
+
+  async findOneBy(
+    criteria: Partial<Record<keyof AircraftEntity, any>>,
+  ): Promise<Aircraft | null> {
+    return this.prisma.aircraft.findFirst({
+      where: criteria,
+      select: aircraft,
     });
   }
 

@@ -34,7 +34,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { LegacyCreateAircraftCommand } from '../application/command/legacy-create-aircraft.command';
 import { LegacyUpdateAircraftCommand } from '../application/command/legacy-update-aircraft.command';
 import { LegacyRemoveAircraftCommand } from '../application/command/legacy-remove-aircraft.command';
-import { GetAircraftByIdQuery } from '../application/query/get-aircraft-by-id.query';
+import { LegacyGetAircraftByIdQuery } from '../application/query/legacy-get-aircraft-by-id.query';
 import { ListAllAircraftQuery } from '../application/query/list-all-aircraft.query';
 import { v4 } from 'uuid';
 import {
@@ -93,7 +93,7 @@ export class LegacyAircraftController {
     );
     await this.commandBus.execute(command);
 
-    const query = new GetAircraftByIdQuery(aircraftId);
+    const query = new LegacyGetAircraftByIdQuery(aircraftId);
     return this.queryBus.execute(query);
   }
 
@@ -140,7 +140,7 @@ export class LegacyAircraftController {
   async findOne(
     @UuidParam('id') id: string,
   ): Promise<LegacyCreateAircraftResponse> {
-    const query = new GetAircraftByIdQuery(id);
+    const query = new LegacyGetAircraftByIdQuery(id);
     return this.queryBus.execute(query);
   }
 
@@ -185,7 +185,7 @@ export class LegacyAircraftController {
     const command = new LegacyUpdateAircraftCommand(id, updateAircraftDto);
     await this.commandBus.execute(command);
 
-    const query = new GetAircraftByIdQuery(id);
+    const query = new LegacyGetAircraftByIdQuery(id);
     return this.queryBus.execute(query);
   }
 

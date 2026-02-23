@@ -10,14 +10,16 @@ import { ListAllOperatorsHandler } from './application/query/list-all-operators.
 import { CheckOperatorExistsHandler } from './application/query/check-operator-exists.query';
 import { GetOperatorByIcaoCodeHandler } from './application/query/get-operator-by-icao-code.query';
 import { AircraftController } from './controller/aircraft.controller';
-import { AirportsRepository } from '../airports/repository/airports.repository';
+import { CreateAircraftHandler } from './application/command/aircraft/create-aircraft.command';
+import { AircraftRepository } from './repository/aircraft.repository';
+import { GetAircraftByIdHandler } from './application/query/aircraft/get-aircraft-by-id.query';
 
 @Module({
   imports: [PrismaModule],
   controllers: [OperatorsController, AircraftController],
   providers: [
     OperatorsRepository,
-    AirportsRepository,
+    AircraftRepository,
     CreateOperatorHandler,
     UpdateOperatorHandler,
     RemoveOperatorHandler,
@@ -25,6 +27,8 @@ import { AirportsRepository } from '../airports/repository/airports.repository';
     GetOperatorByIcaoCodeHandler,
     ListAllOperatorsHandler,
     CheckOperatorExistsHandler,
+    CreateAircraftHandler,
+    GetAircraftByIdHandler,
   ],
 })
 export class OperatorsModule {}

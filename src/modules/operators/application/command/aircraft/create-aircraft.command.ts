@@ -1,14 +1,15 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { BadRequestException } from '@nestjs/common';
 import { CheckOperatorExistsQuery } from '../../query/check-operator-exists.query';
 import { AircraftRepository } from '../../../repository/aircraft.repository';
 import { OperatorNotFoundError } from '../../../model/error/operator.error';
-import { LegacyCreateAircraftRequest } from '../../../controller/request/aircraft.request';
+import { CreateAircraftRequest } from '../../../controller/request/aircraft.request';
+import { AircraftWithRegistrationAlreadyExistsError } from '../../../model/error/aircraft.error';
 
 export class CreateAircraftCommand {
   constructor(
     public readonly aircraftId: string,
-    public readonly data: LegacyCreateAircraftRequest,
+    public readonly operatorId: string,
+    public readonly data: CreateAircraftRequest,
   ) {}
 }
 
@@ -20,26 +21,24 @@ export class CreateAircraftHandler implements ICommandHandler<CreateAircraftComm
   ) {}
 
   async execute(command: CreateAircraftCommand): Promise<void> {
-    const { aircraftId, data } = command;
+    const { aircraftId, operatorId, data } = command;
 
     const registrationExists = await this.repository.exists({
       registration: data.registration,
     });
 
     if (registrationExists) {
-      throw new BadRequestException(
-        'Aircraft with given registration already exists.',
-      );
+      throw new AircraftWithRegistrationAlreadyExistsError();
     }
 
     const operatorExists = await this.queryBus.execute(
-      new CheckOperatorExistsQuery(data.operatorId),
+      new CheckOperatorExistsQuery(operatorId),
     );
 
     if (!operatorExists) {
       throw new OperatorNotFoundError();
     }
 
-    await this.repository.create(aircraftId, data);
+    await this.repository.create(aircraftId, operatorId, data);
   }
 }

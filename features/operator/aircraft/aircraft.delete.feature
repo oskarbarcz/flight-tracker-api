@@ -22,7 +22,7 @@ Feature: Delete aircraft
     And the response body should contain:
       """json
       {
-        "message": "Aircraft with given id does not exist.",
+        "message": "Aircraft with given ID not found.",
         "error": "Not Found",
         "statusCode": 404
       }
@@ -62,7 +62,7 @@ Feature: Delete aircraft
     And the response body should contain:
       """json
       {
-        "message": "Aircraft with given id does not exist.",
+        "message": "Aircraft with given ID not found.",
         "error": "Not Found",
         "statusCode": 404
       }

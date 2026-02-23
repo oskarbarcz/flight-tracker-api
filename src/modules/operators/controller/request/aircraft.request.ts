@@ -8,6 +8,7 @@ export class LegacyCreateAircraftRequest extends OmitType(Aircraft, [
 ] as const) {
   @ApiProperty({
     description: 'Aircraft operator',
+    deprecated: true,
   })
   @IsString()
   @IsNotEmpty()
@@ -18,6 +19,7 @@ export class LegacyCreateAircraftResponse extends Aircraft {
   @ApiProperty({
     description: 'Aircraft operator',
     type: Operator,
+    deprecated: true,
   })
   operator!: Operator | null;
 }
@@ -29,3 +31,9 @@ export class LegacyUpdateAircraftRequest extends PartialType(
 export class LegacyUpdateAircraftResponse extends PartialType(
   LegacyCreateAircraftResponse,
 ) {}
+
+export class CreateAircraftRequest extends OmitType(Aircraft, [
+  'id',
+] as const) {}
+
+export class GetAircraftResponse extends Aircraft {}

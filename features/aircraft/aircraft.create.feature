@@ -111,6 +111,30 @@ Feature: Create aircraft
       }
       """
 
+  Scenario: As operations I create aircraft with existing registration
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/aircraft" with body:
+      """json
+      {
+        "icaoCode": "B748",
+        "shortName": "747-8i",
+        "selcal": "SL-PR",
+        "fullName": "Boeing 747-8 Intercontinental",
+        "registration": "D-AIMC",
+        "livery": "Sunshine",
+        "operatorId": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
+      }
+      """
+    Then the response status should be 409
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 409,
+        "error": "Conflict",
+        "message": "Aircraft with given registration already exists."
+      }
+      """
+
   Scenario: As operations I cannot create aircraft with non-existing operator
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/aircraft" with body:
