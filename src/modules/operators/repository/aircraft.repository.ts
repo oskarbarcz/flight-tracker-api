@@ -76,6 +76,13 @@ export class AircraftRepository {
     });
   }
 
+  async findAllForOperator(operatorId: string): Promise<Aircraft[]> {
+    return this.prisma.aircraft.findMany({
+      where: { operatorId },
+      select: aircraft,
+    });
+  }
+
   async legacyFindOneBy(
     criteria: Partial<Record<keyof AircraftEntity, any>>,
   ): Promise<AircraftWithOperator | null> {

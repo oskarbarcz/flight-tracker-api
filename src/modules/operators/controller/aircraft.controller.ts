@@ -29,6 +29,7 @@ import { UuidParam } from '../../../core/validation/uuid.param';
 import { CreateAircraftCommand } from '../application/command/aircraft/create-aircraft.command';
 import { GenericConflictResponse } from '../../../core/http/response/conflict.response';
 import { GetAircraftByIdQuery } from '../application/query/aircraft/get-aircraft-by-id.query';
+import { ListAllAircraftQuery } from '../application/query/aircraft/list-all-aircraft.query';
 
 @ApiTags('operator fleet')
 @Controller('/api/v1/operator/:operatorId/aircraft')
@@ -88,22 +89,28 @@ export class AircraftController {
     return this.queryBus.execute(query);
   }
 
-  // @ApiOperation({ summary: 'Retrieve all aircraft' })
-  // @ApiBearerAuth('jwt')
-  // @ApiOkResponse({
-  //   description: 'Aircraft list',
-  //   type: CreateAircraftResponse,
-  //   isArray: true,
-  // })
-  // @Get()
-  // @ApiUnauthorizedResponse({
-  //   description: 'User is not authorized (token is missing)',
-  //   type: UnauthorizedResponse,
-  // })
-  // async findAll(): Promise<CreateAircraftResponse[]> {
-  //   const query = new ListAllAircraftQuery();
-  //   return this.queryBus.execute(query);
-  // }
+  @ApiOperation({ summary: 'Retrieve all aircraft for operator' })
+  @ApiBearerAuth('jwt')
+  @ApiOkResponse({
+    type: GetAircraftResponse,
+    isArray: true,
+  })
+  @ApiBadRequestResponse({
+    description: 'Resource ID is not valid uuid v4',
+    type: GenericBadRequestResponse,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authorized (token is missing)',
+    type: UnauthorizedResponse,
+  })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @Get()
+  async findAllForOperator(
+    @UuidParam('operatorId') operatorId: string,
+  ): Promise<GetAircraftResponse[]> {
+    const query = new ListAllAircraftQuery(operatorId);
+    return this.queryBus.execute(query);
+  }
 
   @ApiOperation({ summary: 'Retrieve one aircraft' })
   @ApiBearerAuth('jwt')

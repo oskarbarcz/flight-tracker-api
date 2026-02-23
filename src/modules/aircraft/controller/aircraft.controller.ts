@@ -35,7 +35,7 @@ import { LegacyCreateAircraftCommand } from '../application/command/legacy-creat
 import { LegacyUpdateAircraftCommand } from '../application/command/legacy-update-aircraft.command';
 import { LegacyRemoveAircraftCommand } from '../application/command/legacy-remove-aircraft.command';
 import { LegacyGetAircraftByIdQuery } from '../application/query/legacy-get-aircraft-by-id.query';
-import { ListAllAircraftQuery } from '../application/query/list-all-aircraft.query';
+import { LegacyListAllAircraftQuery } from '../application/query/legacy-list-all-aircraft.query';
 import { v4 } from 'uuid';
 import {
   LegacyCreateAircraftRequest,
@@ -110,7 +110,7 @@ export class LegacyAircraftController {
     type: UnauthorizedResponse,
   })
   async findAll(): Promise<LegacyCreateAircraftResponse[]> {
-    const query = new ListAllAircraftQuery();
+    const query = new LegacyListAllAircraftQuery();
     return this.queryBus.execute(query);
   }
 

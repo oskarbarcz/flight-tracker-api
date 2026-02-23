@@ -123,7 +123,7 @@ Feature: Create aircraft for operator
       }
       """
 
-  Scenario: As operations I create aircraft with existing registration
+  Scenario: As operations I cannot create aircraft with existing registration
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
       """json

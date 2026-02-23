@@ -6,7 +6,7 @@ import { LegacyCreateAircraftHandler } from './application/command/legacy-create
 import { UpdateAircraftHandler } from './application/command/legacy-update-aircraft.command';
 import { LegacyRemoveAircraftHandler } from './application/command/legacy-remove-aircraft.command';
 import { LegacyGetAircraftByIdHandler } from './application/query/legacy-get-aircraft-by-id.query';
-import { ListAllAircraftHandler } from './application/query/list-all-aircraft.query';
+import { LegacyListAllAircraftHandler } from './application/query/legacy-list-all-aircraft.query';
 import { CheckAircraftExistsHandler } from './application/query/check-aircraft-exists.query';
 import { GetAircraftByRegistrationHandler } from './application/query/get-aircraft-by-registration.query';
 
@@ -20,7 +20,7 @@ import { GetAircraftByRegistrationHandler } from './application/query/get-aircra
     LegacyRemoveAircraftHandler,
     LegacyGetAircraftByIdHandler,
     GetAircraftByRegistrationHandler,
-    ListAllAircraftHandler,
+    LegacyListAllAircraftHandler,
     CheckAircraftExistsHandler,
   ],
   exports: [AircraftRepository],

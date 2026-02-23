@@ -13,6 +13,7 @@ import { AircraftController } from './controller/aircraft.controller';
 import { CreateAircraftHandler } from './application/command/aircraft/create-aircraft.command';
 import { AircraftRepository } from './repository/aircraft.repository';
 import { GetAircraftByIdHandler } from './application/query/aircraft/get-aircraft-by-id.query';
+import { ListAllAircraftHandler } from './application/query/aircraft/list-all-aircraft.query';
 
 @Module({
   imports: [PrismaModule],
@@ -28,6 +29,7 @@ import { GetAircraftByIdHandler } from './application/query/aircraft/get-aircraf
     ListAllOperatorsHandler,
     CheckOperatorExistsHandler,
     CreateAircraftHandler,
+    ListAllAircraftHandler,
     GetAircraftByIdHandler,
   ],
 })
