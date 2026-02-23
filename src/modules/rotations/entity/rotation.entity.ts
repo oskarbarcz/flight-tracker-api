@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Uuid } from '../../../core/types/id';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
-import { PilotDto } from '../../users/dto/get-user.dto';
+import { PilotDto } from '../../users/infra/http/request/get-user.dto';
 
 export type RotationId = Uuid & { _entity: 'Rotation' };
 

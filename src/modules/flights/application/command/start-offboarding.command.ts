@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightByIdQuery } from '../query/get-flight-by-id.query';
-import { FlightStatus } from '../../entity/flight.entity';
+import { FlightStatus } from '../../model/flight.entity';
 import {
   NotFoundException,
   UnprocessableEntityException,
@@ -8,11 +8,11 @@ import {
 import {
   FlightDoesNotExistError,
   InvalidStatusToStartOffboardingError,
-} from '../../dto/errors.dto';
-import { FlightsRepository } from '../../repository/flights.repository';
-import { NewFlightEvent } from '../../dto/event.dto';
+} from '../../infra/http/request/errors.dto';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
+import { NewFlightEvent } from '../../infra/http/request/event.dto';
 import { FlightEventType } from '../../../../core/events/flight';
-import { FlightEventScope } from '../../entity/event.entity';
+import { FlightEventScope } from '../../model/event.model';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
 export class StartOffboardingCommand {

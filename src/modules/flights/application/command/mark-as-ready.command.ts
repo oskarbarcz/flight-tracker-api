@@ -1,15 +1,15 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightByIdQuery } from '../query/get-flight-by-id.query';
-import { FlightStatus } from '../../entity/flight.entity';
+import { FlightStatus } from '../../model/flight.entity';
 import { UnprocessableEntityException } from '@nestjs/common';
 import {
   InvalidStatusToMarkAsReadyError,
   PreliminaryLoadsheetMissingError,
-} from '../../dto/errors.dto';
-import { NewFlightEvent } from '../../dto/event.dto';
+} from '../../infra/http/request/errors.dto';
+import { NewFlightEvent } from '../../infra/http/request/event.dto';
 import { FlightEventType } from '../../../../core/events/flight';
-import { FlightEventScope } from '../../entity/event.entity';
-import { FlightsRepository } from '../../repository/flights.repository';
+import { FlightEventScope } from '../../model/event.model';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
 export class MarkAsReadyCommand {

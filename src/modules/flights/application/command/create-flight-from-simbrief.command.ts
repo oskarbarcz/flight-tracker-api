@@ -1,17 +1,17 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { BadRequestException } from '@nestjs/common';
-import { FlightsRepository } from '../../repository/flights.repository';
-import { NewFlightEvent } from '../../dto/event.dto';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
+import { NewFlightEvent } from '../../infra/http/request/event.dto';
 import { FlightEventType } from '../../../../core/events/flight';
-import { FlightEventScope } from '../../entity/event.entity';
+import { FlightEventScope } from '../../model/event.model';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { GetUserSimbriefIdQuery } from '../../../users/application/query/get-user-simbrief-id.query';
 import { SimbriefClient } from '../../../../core/provider/simbrief/client/simbrief.client';
 import { GetAirportByIcaoCodeQuery } from '../../../airports/application/query/get-airport-by-icao-code.query';
 import { GetAircraftByRegistrationQuery } from '../../../operators/application/query/aircraft/get-aircraft-by-registration.query';
 import { GetOperatorByIcaoCodeQuery } from '../../../operators/application/query/get-operator-by-icao-code.query';
-import { FlightTracking } from '../../entity/flight.entity';
-import { CreateFlightRequest } from '../../dto/flight.dto';
+import { FlightTracking } from '../../model/flight.entity';
+import { CreateFlightRequest } from '../../infra/http/request/flight.dto';
 
 export class CreateFlightFromSimbriefCommand {
   constructor(

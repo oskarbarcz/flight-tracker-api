@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { CreateAirportRequest } from '../../dto/airport.dto';
-import { AirportsRepository } from '../../repository/airports.repository';
+import { CreateAirportRequest } from '../../infra/http/request/airport.dto';
+import { AirportsRepository } from '../../infra/database/repository/airports.repository';
 
 export class CreateAirportCommand {
   constructor(public readonly data: CreateAirportRequest) {}

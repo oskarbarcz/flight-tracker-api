@@ -11,8 +11,8 @@ import { IS_PUBLIC_KEY } from '../decorator/skip-auth.decorator';
 import {
   JwtTokenType,
   JwtUser,
-} from '../../../../modules/auth/dto/jwt-user.dto';
-import { CannotUseTokenTypeError } from '../../../../modules/auth/dto/error.dto';
+} from '../../../../modules/auth/infra/http/request/jwt-user.dto';
+import { CannotUseTokenTypeError } from '../../../../modules/auth/infra/http/request/error.dto';
 
 @Injectable()
 export class JwtTokenGuard implements CanActivate {

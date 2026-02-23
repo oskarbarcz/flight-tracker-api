@@ -2,20 +2,20 @@ import {
   FlightSource,
   FlightStatus,
   FlightTracking,
-} from '../../entity/flight.entity';
+} from '../../model/flight.entity';
 import { QueryHandler, Query, IQueryHandler } from '@nestjs/cqrs';
-import { FlightsRepository } from '../../repository/flights.repository';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { NotFoundException } from '@nestjs/common';
-import { FlightDoesNotExistError } from '../../dto/errors.dto';
-import { FullTimesheet, Schedule } from '../../entity/timesheet.entity';
-import { Loadsheets } from '../../entity/loadsheet.entity';
+import { FlightDoesNotExistError } from '../../infra/http/request/errors.dto';
+import { FullTimesheet, Schedule } from '../../model/timesheet.model';
+import { Loadsheets } from '../../model/loadsheet.model';
 import {
   AirportType,
   AirportWithType,
   Continent,
   Coordinates,
-} from '../../../airports/entity/airport.entity';
-import { GetFlightResponse } from '../../dto/flight.dto';
+} from '../../../airports/model/airport.model';
+import { GetFlightResponse } from '../../infra/http/request/flight.dto';
 
 export class GetFlightByIdQuery extends Query<GetFlightResponse> {
   constructor(public readonly flightId: string) {

@@ -1,8 +1,8 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { AirportsRepository } from '../../repository/airports.repository';
-import { GetAirportResponse } from '../../dto/airport.dto';
-import { Continent, Coordinates } from '../../entity/airport.entity';
+import { AirportsRepository } from '../../infra/database/repository/airports.repository';
+import { GetAirportResponse } from '../../infra/http/request/airport.dto';
 import { NotFoundException } from '@nestjs/common';
+import { Continent, Coordinates } from '../../model/airport.model';
 
 export class GetAirportByIcaoCodeQuery extends Query<GetAirportResponse> {
   constructor(public readonly icaoCode: string) {

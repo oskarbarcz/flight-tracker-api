@@ -1,9 +1,9 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightByIdQuery } from '../query/get-flight-by-id.query';
-import { FlightTracking } from '../../entity/flight.entity';
+import { FlightTracking } from '../../model/flight.entity';
 import { NotFoundException } from '@nestjs/common';
-import { FlightDoesNotExistError } from '../../dto/errors.dto';
-import { FlightsRepository } from '../../repository/flights.repository';
+import { FlightDoesNotExistError } from '../../infra/http/request/errors.dto';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 
 export class ChangeFlightVisibilityCommand {
   constructor(

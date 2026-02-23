@@ -4,13 +4,13 @@ import {
   AircraftNotFoundError,
   DestinationAirportSameAsDepartureAirportError,
   OperatorForAircraftNotFoundError,
-} from '../../dto/errors.dto';
-import { FlightsRepository } from '../../repository/flights.repository';
-import { NewFlightEvent } from '../../dto/event.dto';
+} from '../../infra/http/request/errors.dto';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
+import { NewFlightEvent } from '../../infra/http/request/event.dto';
 import { FlightEventType } from '../../../../core/events/flight';
-import { FlightEventScope } from '../../entity/event.entity';
+import { FlightEventScope } from '../../model/event.model';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { CreateFlightRequest } from '../../dto/flight.dto';
+import { CreateFlightRequest } from '../../infra/http/request/flight.dto';
 import { CheckAircraftExistsQuery } from '../../../operators/application/query/aircraft/check-aircraft-exists.query';
 import { CheckOperatorExistsQuery } from '../../../operators/application/query/check-operator-exists.query';
 

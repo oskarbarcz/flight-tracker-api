@@ -1,8 +1,8 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { GetAirportResponse } from '../../dto/airport.dto';
-import { Continent, Coordinates } from '../../entity/airport.entity';
+import { GetAirportResponse } from '../../infra/http/request/airport.dto';
 import { NotFoundException } from '@nestjs/common';
-import { AirportsRepository } from '../../repository/airports.repository';
+import { AirportsRepository } from '../../infra/database/repository/airports.repository';
+import { Continent, Coordinates } from '../../model/airport.model';
 
 export class GetAirportByIdQuery extends Query<GetAirportResponse> {
   constructor(public readonly airportId: string) {

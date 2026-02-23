@@ -11,7 +11,7 @@ import {
 } from '../dto/rotation.dto';
 import { v4 } from 'uuid';
 import { RotationId } from '../entity/rotation.entity';
-import { FlightStatus } from '../../flights/entity/flight.entity';
+import { FlightStatus } from '../../flights/model/flight.entity';
 import { Prisma } from 'prisma/client/client';
 
 const rotationWithPilot = {
