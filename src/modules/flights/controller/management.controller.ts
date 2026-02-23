@@ -159,7 +159,7 @@ export class ManagementController {
     @Query() filters: FlightListFilters,
     @Res() response: Response,
   ): Promise<void> {
-    const onlyPublic = !Boolean(request.user);
+    const onlyPublic = !request.user;
     const query = new ListAllFlightsQuery(onlyPublic, filters);
     const { flights, totalCount } = await this.queryBus.execute(query);
 

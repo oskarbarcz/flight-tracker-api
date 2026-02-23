@@ -11,10 +11,10 @@ import {
 import { UuidParam } from '../../../../../core/validation/uuid.param';
 import {
   ApiBearerAuth,
+  ApiConflictResponse,
   ApiForbiddenResponse,
   ApiTags,
   ApiUnauthorizedResponse,
-  PartialType,
 } from '@nestjs/swagger';
 import { Operator } from '../../../model/operator.model';
 import {
@@ -44,6 +44,7 @@ import {
   CreateOperatorDto,
   UpdateOperatorDto,
 } from '../request/operator.request';
+import { GenericConflictResponse } from '../../../../../core/http/response/conflict.response';
 
 @ApiTags('operator')
 @Controller('/api/v1/operator')
@@ -60,22 +61,10 @@ export class OperatorsController {
   })
   @ApiBearerAuth('jwt')
   @ApiBody({ type: CreateOperatorDto })
-  @ApiCreatedResponse({
-    description: 'Operator was created successfully',
-    type: Operator,
-  })
-  @ApiBadRequestResponse({
-    description: 'Request validation failed',
-    type: GenericBadRequestResponse<CreateOperatorDto>,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
+  @ApiCreatedResponse({ type: Operator })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
   @Post()
   @Role(UserRole.Operations)
   async create(
@@ -92,15 +81,8 @@ export class OperatorsController {
 
   @ApiOperation({ summary: 'Retrieve all operators' })
   @ApiBearerAuth('jwt')
-  @ApiOkResponse({
-    description: 'Operators list',
-    type: Operator,
-    isArray: true,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
+  @ApiOkResponse({ type: Operator, isArray: true })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @Get()
   findAll(): Promise<Operator[]> {
     const query = new ListAllOperatorsQuery();
@@ -113,22 +95,10 @@ export class OperatorsController {
     name: 'id',
     description: 'Operator unique identifier',
   })
-  @ApiOkResponse({
-    description: 'Operator was created successfully',
-    type: PartialType(Operator),
-  })
-  @ApiBadRequestResponse({
-    description: 'Operator id is not valid uuid v4',
-    type: GenericBadRequestResponse,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Operator with given it does not exist',
-    type: GenericNotFoundResponse,
-  })
+  @ApiOkResponse({ type: Operator })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Get(':id')
   findOne(@UuidParam('id') id: string): Promise<Operator> {
     const query = new GetOperatorByIdQuery(id);
@@ -146,26 +116,11 @@ export class OperatorsController {
     description: 'Operator unique identifier',
   })
   @ApiBody({ type: UpdateOperatorDto })
-  @ApiOkResponse({
-    description: 'Operator was updated successfully',
-    type: Operator,
-  })
-  @ApiBadRequestResponse({
-    description: 'Request validation failed',
-    type: GenericBadRequestResponse<CreateOperatorDto>,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Operator with given it does not exist',
-    type: GenericNotFoundResponse,
-  })
+  @ApiOkResponse({ type: Operator })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Patch(':id')
   @Role(UserRole.Operations)
   async update(
@@ -192,23 +147,11 @@ export class OperatorsController {
   @ApiNoContentResponse({
     description: 'Operator was removed successfully',
   })
-  @ApiBadRequestResponse({
-    description:
-      'Operator id is not valid uuid v4, has flights assigned or has aircraft assigned',
-    type: GenericBadRequestResponse,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Operator with given it does not exist',
-    type: GenericNotFoundResponse,
-  })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @ApiConflictResponse({ type: GenericConflictResponse })
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.Operations)
