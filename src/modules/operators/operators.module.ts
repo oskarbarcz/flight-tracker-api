@@ -16,6 +16,8 @@ import { GetAircraftByIdHandler } from './application/query/aircraft/get-aircraf
 import { ListAllAircraftHandler } from './application/query/aircraft/list-all-aircraft.query';
 import { GetAircraftByRegistrationHandler } from './application/query/aircraft/get-aircraft-by-registration.query';
 import { CheckAircraftExistsHandler } from './application/query/aircraft/check-aircraft-exists.query';
+import { RemoveAircraftHandler } from './application/command/aircraft/remove-aircraft.command';
+import { UpdateAircraftHandler } from './application/command/aircraft/update-aircraft.command';
 
 @Module({
   imports: [PrismaModule],
@@ -33,6 +35,8 @@ import { CheckAircraftExistsHandler } from './application/query/aircraft/check-a
     CreateAircraftHandler,
     ListAllAircraftHandler,
     GetAircraftByIdHandler,
+    RemoveAircraftHandler,
+    UpdateAircraftHandler,
     GetAircraftByRegistrationHandler,
     CheckAircraftExistsHandler,
   ],

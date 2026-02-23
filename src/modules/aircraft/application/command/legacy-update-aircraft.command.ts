@@ -38,6 +38,6 @@ export class LegacyUpdateAircraftHandler implements ICommandHandler<LegacyUpdate
       }
     }
 
-    await this.aircraftRepository.update(aircraftId, data);
+    await this.aircraftRepository.legacyUpdate(aircraftId, data);
   }
 }

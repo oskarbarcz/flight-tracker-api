@@ -36,4 +36,6 @@ export class CreateAircraftRequest extends OmitType(Aircraft, [
   'id',
 ] as const) {}
 
+export class UpdateAircraftRequest extends PartialType(CreateAircraftRequest) {}
+
 export class GetAircraftResponse extends Aircraft {}

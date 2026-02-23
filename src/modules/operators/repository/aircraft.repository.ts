@@ -5,6 +5,7 @@ import {
   CreateAircraftRequest,
   LegacyCreateAircraftRequest,
   LegacyUpdateAircraftRequest,
+  UpdateAircraftRequest,
 } from '../controller/request/aircraft.request';
 
 const aircraftWithOperatorFields = {
@@ -101,7 +102,7 @@ export class AircraftRepository {
     });
   }
 
-  async update(
+  async legacyUpdate(
     id: string,
     data: LegacyUpdateAircraftRequest,
   ): Promise<AircraftWithOperator> {
@@ -109,6 +110,13 @@ export class AircraftRepository {
       where: { id },
       data: data,
       select: aircraftWithOperatorFields,
+    });
+  }
+
+  async update(id: string, data: UpdateAircraftRequest): Promise<void> {
+    await this.prisma.aircraft.update({
+      where: { id },
+      data: data,
     });
   }
 

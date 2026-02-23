@@ -5,6 +5,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -12,7 +13,16 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GenericBadRequestResponse } from '../../../core/http/response/bad-request.response';
 import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.response';
@@ -24,12 +34,15 @@ import { UserRole } from 'prisma/client/client';
 import {
   CreateAircraftRequest,
   GetAircraftResponse,
+  UpdateAircraftRequest,
 } from './request/aircraft.request';
 import { UuidParam } from '../../../core/validation/uuid.param';
 import { CreateAircraftCommand } from '../application/command/aircraft/create-aircraft.command';
 import { GenericConflictResponse } from '../../../core/http/response/conflict.response';
 import { GetAircraftByIdQuery } from '../application/query/aircraft/get-aircraft-by-id.query';
 import { ListAllAircraftQuery } from '../application/query/aircraft/list-all-aircraft.query';
+import { RemoveAircraftCommand } from '../application/command/aircraft/remove-aircraft.command';
+import { UpdateAircraftCommand } from '../application/command/aircraft/update-aircraft.command';
 
 @ApiTags('operator fleet')
 @Controller('/api/v1/operator/:operatorId/aircraft')
@@ -50,30 +63,12 @@ export class AircraftController {
     description: 'Operator unique identifier',
   })
   @ApiBody({ type: CreateAircraftRequest })
-  @ApiCreatedResponse({
-    description: 'Aircraft was created successfully',
-    type: GetAircraftResponse,
-  })
-  @ApiBadRequestResponse({
-    description: 'Request validation failed',
-    type: GenericBadRequestResponse<GetAircraftResponse>,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Resource was not found',
-    type: GenericNotFoundResponse,
-  })
-  @ApiConflictResponse({
-    description: 'New aircraft conflicts with existing aircraft',
-    type: GenericConflictResponse,
-  })
+  @ApiCreatedResponse({ type: GetAircraftResponse })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @ApiConflictResponse({ type: GenericConflictResponse })
   @Post()
   @Role(UserRole.Operations)
   async create(
@@ -82,10 +77,10 @@ export class AircraftController {
   ): Promise<GetAircraftResponse> {
     const aircraftId = v4();
 
-    const command = new CreateAircraftCommand(aircraftId, operatorId, request);
+    const command = new CreateAircraftCommand(operatorId, aircraftId, request);
     await this.commandBus.execute(command);
 
-    const query = new GetAircraftByIdQuery(aircraftId, operatorId);
+    const query = new GetAircraftByIdQuery(operatorId, aircraftId);
     return this.queryBus.execute(query);
   }
 
@@ -123,14 +118,8 @@ export class AircraftController {
     description: 'Aircraft unique identifier',
   })
   @ApiOkResponse({ type: GetAircraftResponse })
-  @ApiBadRequestResponse({
-    description: 'Resource ID is not valid uuid v4',
-    type: GenericBadRequestResponse,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Get(':aircraftId')
   async findOne(
@@ -140,85 +129,70 @@ export class AircraftController {
     const query = new GetAircraftByIdQuery(operatorId, aircraftId);
     return this.queryBus.execute(query);
   }
-  //
-  // @ApiOperation({
-  //   summary: 'Update aircraft',
-  //   description:
-  //     '**NOTE:** This endpoint is only available for users with `operations` role.',
-  // })
-  // @ApiBearerAuth('jwt')
-  // @ApiParam({
-  //   name: 'id',
-  //   description: 'Aircraft unique identifier',
-  // })
-  // @ApiBody({ type: UpdateAircraftRequest })
-  // @ApiOkResponse({
-  //   description: 'Aircraft was updated successfully',
-  //   type: Aircraft,
-  // })
-  // @ApiBadRequestResponse({
-  //   description: 'Request validation failed',
-  //   type: GenericBadRequestResponse<UpdateAircraftRequest>,
-  // })
-  // @ApiUnauthorizedResponse({
-  //   description: 'User is not authorized (token is missing)',
-  //   type: UnauthorizedResponse,
-  // })
-  // @ApiForbiddenResponse({
-  //   description: 'User is not allowed to perform this action',
-  //   type: ForbiddenResponse,
-  // })
-  // @ApiNotFoundResponse({
-  //   description: 'Aircraft or operator with given it does not exist',
-  //   type: GenericNotFoundResponse,
-  // })
-  // @Patch(':id')
-  // @Role(UserRole.Operations)
-  // async update(
-  //   @UuidParam('id') id: string,
-  //   @Body() updateAircraftDto: UpdateAircraftRequest,
-  // ): Promise<UpdateAircraftResponse> {
-  //   const command = new UpdateAircraftCommand(id, updateAircraftDto);
-  //   await this.commandBus.execute(command);
-  //
-  //   const query = new GetAircraftByIdQuery(id);
-  //   return this.queryBus.execute(query);
-  // }
-  //
-  // @ApiOperation({
-  //   summary: 'Remove aircraft',
-  //   description:
-  //     '**NOTE:** This endpoint is only available for users with `operations` role.',
-  // })
-  // @ApiBearerAuth('jwt')
-  // @ApiParam({
-  //   name: 'id',
-  //   description: 'Aircraft unique identifier',
-  // })
-  // @ApiNoContentResponse({
-  //   description: 'Aircraft was removed successfully',
-  // })
-  // @ApiBadRequestResponse({
-  //   description: 'Aircraft id is not valid uuid v4',
-  //   type: GenericBadRequestResponse,
-  // })
-  // @ApiUnauthorizedResponse({
-  //   description: 'User is not authorized (token is missing)',
-  //   type: UnauthorizedResponse,
-  // })
-  // @ApiForbiddenResponse({
-  //   description: 'User is not allowed to perform this action',
-  //   type: ForbiddenResponse,
-  // })
-  // @ApiNotFoundResponse({
-  //   description: 'Aircraft with given it does not exist',
-  //   type: GenericNotFoundResponse,
-  // })
-  // @Delete(':id')
-  // @Role(UserRole.Operations)
-  // @HttpCode(HttpStatus.NO_CONTENT)
-  // async remove(@UuidParam('id') id: string): Promise<void> {
-  //   const command = new RemoveAircraftCommand(id);
-  //   await this.commandBus.execute(command);
-  // }
+
+  @ApiOperation({
+    summary: 'Update aircraft',
+    description:
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
+  })
+  @ApiBearerAuth('jwt')
+  @ApiParam({
+    name: 'operatorId',
+    description: 'Operator unique identifier',
+  })
+  @ApiParam({
+    name: 'aircraftId',
+    description: 'Aircraft unique identifier',
+  })
+  @ApiBody({ type: UpdateAircraftRequest })
+  @ApiOkResponse({ type: GetAircraftResponse })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @Patch(':aircraftId')
+  @Role(UserRole.Operations)
+  async update(
+    @UuidParam('operatorId') operatorId: string,
+    @UuidParam('aircraftId') aircraftId: string,
+    @Body() request: UpdateAircraftRequest,
+  ): Promise<GetAircraftResponse> {
+    const command = new UpdateAircraftCommand(operatorId, aircraftId, request);
+    await this.commandBus.execute(command);
+
+    const query = new GetAircraftByIdQuery(operatorId, aircraftId);
+    return this.queryBus.execute(query);
+  }
+
+  @ApiOperation({
+    summary: 'Remove aircraft',
+    description:
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
+  })
+  @ApiBearerAuth('jwt')
+  @ApiParam({
+    name: 'operatorId',
+    description: 'Operator unique identifier',
+  })
+  @ApiParam({
+    name: 'aircraftId',
+    description: 'Aircraft unique identifier',
+  })
+  @ApiNoContentResponse({
+    description: 'Aircraft was removed successfully.',
+  })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @Delete(':aircraftId')
+  @Role(UserRole.Operations)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async remove(
+    @UuidParam('operatorId') operatorId: string,
+    @UuidParam('aircraftId') aircraftId: string,
+  ): Promise<void> {
+    const command = new RemoveAircraftCommand(operatorId, aircraftId);
+    await this.commandBus.execute(command);
+  }
 }
