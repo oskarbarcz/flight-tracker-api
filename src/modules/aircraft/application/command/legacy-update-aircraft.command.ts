@@ -13,7 +13,7 @@ export class LegacyUpdateAircraftCommand {
 }
 
 @CommandHandler(LegacyUpdateAircraftCommand)
-export class UpdateAircraftHandler implements ICommandHandler<LegacyUpdateAircraftCommand> {
+export class LegacyUpdateAircraftHandler implements ICommandHandler<LegacyUpdateAircraftCommand> {
   constructor(
     private readonly aircraftRepository: AircraftRepository,
     private readonly queryBus: QueryBus,

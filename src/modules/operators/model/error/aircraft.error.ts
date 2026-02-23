@@ -6,6 +6,12 @@ export class AircraftNotFoundError extends NotFoundException {
   }
 }
 
+export class AircraftWithRegistrationNotFoundError extends NotFoundException {
+  constructor() {
+    super('Aircraft with given registration not found.');
+  }
+}
+
 export class AircraftWithRegistrationAlreadyExistsError extends ConflictException {
   constructor() {
     super('Aircraft with given registration already exists.');

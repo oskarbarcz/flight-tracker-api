@@ -14,6 +14,8 @@ import { CreateAircraftHandler } from './application/command/aircraft/create-air
 import { AircraftRepository } from './repository/aircraft.repository';
 import { GetAircraftByIdHandler } from './application/query/aircraft/get-aircraft-by-id.query';
 import { ListAllAircraftHandler } from './application/query/aircraft/list-all-aircraft.query';
+import { GetAircraftByRegistrationHandler } from './application/query/aircraft/get-aircraft-by-registration.query';
+import { CheckAircraftExistsHandler } from './application/query/aircraft/check-aircraft-exists.query';
 
 @Module({
   imports: [PrismaModule],
@@ -31,6 +33,8 @@ import { ListAllAircraftHandler } from './application/query/aircraft/list-all-ai
     CreateAircraftHandler,
     ListAllAircraftHandler,
     GetAircraftByIdHandler,
+    GetAircraftByRegistrationHandler,
+    CheckAircraftExistsHandler,
   ],
 })
 export class OperatorsModule {}

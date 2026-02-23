@@ -1,7 +1,7 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { NotFoundException } from '@nestjs/common';
-import { AircraftRepository } from '../../../operators/repository/aircraft.repository';
-import { LegacyCreateAircraftResponse } from '../../../operators/controller/request/aircraft.request';
+import { AircraftRepository } from '../../../repository/aircraft.repository';
+import { LegacyCreateAircraftResponse } from '../../../controller/request/aircraft.request';
+import { AircraftWithRegistrationNotFoundError } from '../../../model/error/aircraft.error';
 
 export class GetAircraftByRegistrationQuery extends Query<LegacyCreateAircraftResponse> {
   constructor(public readonly registration: string) {
@@ -21,9 +21,7 @@ export class GetAircraftByRegistrationHandler implements IQueryHandler<GetAircra
     });
 
     if (!aircraft) {
-      throw new NotFoundException(
-        'Aircraft with given registration does not exist.',
-      );
+      throw new AircraftWithRegistrationNotFoundError();
     }
 
     return aircraft;
