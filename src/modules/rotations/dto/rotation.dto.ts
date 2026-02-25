@@ -1,11 +1,13 @@
 import { OmitType, PartialType, PickType } from '@nestjs/swagger';
-import { Rotation } from '../entity/rotation.entity';
+import { Rotation } from '../../operators/model/rotation.model';
 
-export class CreateRotationRequest extends PickType(Rotation, [
+export class LegacyCreateRotationRequest extends PickType(Rotation, [
   'name',
   'pilotId',
 ]) {}
 
-export class CreateRotationResponse extends OmitType(Rotation, ['pilotId']) {}
+export class LegacyUpdateRotationRequest extends PartialType(
+  LegacyCreateRotationRequest,
+) {}
 
-export class UpdateRotationRequest extends PartialType(CreateRotationRequest) {}
+export class LegacyGetRotationResponse extends OmitType(Rotation, ['pilotId']) {}

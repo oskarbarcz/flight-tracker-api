@@ -3,7 +3,7 @@ import { AirportWithType } from '../../airports/model/airport.model';
 import { FullTimesheet } from './timesheet.model';
 import { Operator } from '../../operators/model/operator.model';
 import { Loadsheets } from './loadsheet.model';
-import { Rotation } from '../../rotations/entity/rotation.entity';
+import { Rotation } from '../../operators/model/rotation.model';
 import {
   IsBoolean,
   IsEnum,

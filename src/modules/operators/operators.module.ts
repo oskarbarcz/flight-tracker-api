@@ -18,13 +18,16 @@ import { GetAircraftByRegistrationHandler } from './application/query/aircraft/g
 import { CheckAircraftExistsHandler } from './application/query/aircraft/check-aircraft-exists.query';
 import { RemoveAircraftHandler } from './application/command/aircraft/remove-aircraft.command';
 import { UpdateAircraftHandler } from './application/command/aircraft/update-aircraft.command';
+import { RotationController } from './infra/http/controller/rotation.controller';
+import { RotationsRepository } from './infra/database/repository/rotations.repository';
 
 @Module({
   imports: [PrismaModule],
-  controllers: [OperatorsController, AircraftController],
+  controllers: [OperatorsController, AircraftController, RotationController],
   providers: [
     OperatorsRepository,
     AircraftRepository,
+    RotationsRepository,
     CreateOperatorHandler,
     UpdateOperatorHandler,
     RemoveOperatorHandler,

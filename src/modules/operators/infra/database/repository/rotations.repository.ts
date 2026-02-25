@@ -4,15 +4,15 @@ import {
   ConflictException,
   BadRequestException,
 } from '@nestjs/common';
-import { PrismaService } from '../../../core/provider/prisma/prisma.service';
+import { v4 } from 'uuid';
+import { Prisma } from 'prisma/client/client';
+import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import {
   LegacyCreateRotationRequest,
   LegacyUpdateRotationRequest,
-} from '../dto/rotation.dto';
-import { v4 } from 'uuid';
-import { RotationId } from '../../operators/model/rotation.model';
-import { FlightStatus } from '../../flights/model/flight.entity';
-import { Prisma } from 'prisma/client/client';
+} from '../../../../rotations/dto/rotation.dto';
+import { RotationId } from '../../../model/rotation.model';
+import { FlightStatus } from '../../../../flights/model/flight.entity';
 
 const rotationWithPilot = {
   id: true,
@@ -39,7 +39,7 @@ type RotationWithPilot = Prisma.RotationGetPayload<{
 }>;
 
 @Injectable()
-export class LegacyRotationsRepository {
+export class RotationsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(request: LegacyCreateRotationRequest): Promise<RotationWithPilot> {
