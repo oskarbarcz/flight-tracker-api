@@ -10,4 +10,6 @@ export class LegacyUpdateRotationRequest extends PartialType(
   LegacyCreateRotationRequest,
 ) {}
 
-export class LegacyGetRotationResponse extends OmitType(Rotation, ['pilotId']) {}
+export class LegacyGetRotationResponse extends OmitType(Rotation, [
+  'pilotId',
+]) {}

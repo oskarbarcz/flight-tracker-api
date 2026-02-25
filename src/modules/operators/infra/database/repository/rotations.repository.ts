@@ -42,7 +42,9 @@ type RotationWithPilot = Prisma.RotationGetPayload<{
 export class RotationsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(request: LegacyCreateRotationRequest): Promise<RotationWithPilot> {
+  async create(
+    request: LegacyCreateRotationRequest,
+  ): Promise<RotationWithPilot> {
     if (!(await this.pilotExists(request.pilotId))) {
       throw new NotFoundException('Pilot with given ID does not exist');
     }

@@ -46,6 +46,7 @@ export class LegacyRotationsController {
     summary: 'Create a rotation',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiBody({ type: LegacyCreateRotationRequest })
@@ -81,6 +82,7 @@ export class LegacyRotationsController {
     summary: 'Assign a flight to a rotation',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id', description: 'Rotation unique identifier' })
@@ -118,6 +120,7 @@ export class LegacyRotationsController {
     summary: 'Remove a flight from a rotation',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id', description: 'Rotation unique identifier' })
@@ -153,6 +156,7 @@ export class LegacyRotationsController {
 
   @ApiOperation({
     summary: 'Retrieve all rotations',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiOkResponse({ type: LegacyGetRotationResponse, isArray: true })
@@ -171,6 +175,7 @@ export class LegacyRotationsController {
 
   @ApiOperation({
     summary: 'Retrieve one rotation',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id' })
@@ -210,6 +215,7 @@ export class LegacyRotationsController {
     summary: 'Update a rotation',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id' })
@@ -247,6 +253,7 @@ export class LegacyRotationsController {
     summary: 'Remove a rotation',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id' })
