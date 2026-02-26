@@ -126,6 +126,15 @@ type FlightsWithCount = {
 export class FlightsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  async getRotationIdByFlightId(flightId: string): Promise<string | null> {
+    const flight = await this.prisma.flight.findUnique({
+      where: { id: flightId },
+      select: { rotationId: true },
+    });
+
+    return flight?.rotationId ?? null;
+  }
+
   async create(
     flightId: string,
     flightData: CreateFlightRequest,
@@ -420,5 +429,37 @@ export class FlightsRepository {
   public async exists(flightId: string): Promise<boolean> {
     const count = await this.prisma.flight.count({ where: { id: flightId } });
     return count > 0;
+  }
+
+  async addRotationForFlight(
+    flightId: string,
+    rotationId: string,
+  ): Promise<void> {
+    await Promise.all([
+      this.prisma.flight.update({
+        where: { id: flightId },
+        data: { rotationId },
+      }),
+      this.prisma.rotation.update({
+        where: { id: rotationId },
+        data: { updatedAt: new Date() },
+      }),
+    ]);
+  }
+
+  async removeRotationForFlight(
+    flightId: string,
+    rotationId: string,
+  ): Promise<void> {
+    await Promise.all([
+      this.prisma.flight.update({
+        where: { id: flightId },
+        data: { rotationId: null },
+      }),
+      this.prisma.rotation.update({
+        where: { id: rotationId },
+        data: { updatedAt: new Date() },
+      }),
+    ]);
   }
 }

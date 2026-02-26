@@ -55,6 +55,7 @@ export class RotationsController {
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth('jwt')
+  @ApiParam({ name: 'operatorId', description: 'Operator unique identifier' })
   @ApiBody({ type: CreateRotationRequest })
   @ApiOkResponse({ type: GetRotationResponse })
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
@@ -91,7 +92,8 @@ export class RotationsController {
 
   @ApiOperation({ summary: 'Retrieve one rotation' })
   @ApiBearerAuth('jwt')
-  @ApiParam({ name: 'id' })
+  @ApiParam({ name: 'operatorId', description: 'Operator unique identifier' })
+  @ApiParam({ name: 'rotationId', description: 'Rotation unique identifier' })
   @ApiOkResponse({ type: GetRotationResponse })
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
@@ -112,7 +114,8 @@ export class RotationsController {
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth('jwt')
-  @ApiParam({ name: 'id' })
+  @ApiParam({ name: 'operatorId', description: 'Operator unique identifier' })
+  @ApiParam({ name: 'rotationId', description: 'Rotation unique identifier' })
   @ApiBody({ type: UpdateRotationRequest })
   @ApiOkResponse({ type: GetRotationResponse })
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
@@ -139,7 +142,8 @@ export class RotationsController {
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth('jwt')
-  @ApiParam({ name: 'id' })
+  @ApiParam({ name: 'operatorId', description: 'Operator unique identifier' })
+  @ApiParam({ name: 'rotationId', description: 'Rotation unique identifier' })
   @ApiNoContentResponse({
     description: 'Rotation was removed successfully',
   })
