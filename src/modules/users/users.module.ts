@@ -6,6 +6,7 @@ import { CheckUserExistsHandler } from './application/query/check-user-exists.qu
 import { GetUserSimbriefIdHandler } from './application/query/get-user-simbrief-id.query';
 import { GetUserStatsHandler } from './application/query/get-user-stats.query';
 import { StatsController } from './infra/http/controller/stats.controller';
+import { AssertUserExistsHandler } from './application/query/assert-user-exists.query';
 
 @Module({
   controllers: [UsersController, StatsController],
@@ -14,6 +15,7 @@ import { StatsController } from './infra/http/controller/stats.controller';
     CheckUserExistsHandler,
     GetUserSimbriefIdHandler,
     GetUserStatsHandler,
+    AssertUserExistsHandler,
   ],
   imports: [PrismaModule],
   exports: [UsersRepository],

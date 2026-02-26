@@ -9,6 +9,7 @@ async function load012025(): Promise<void> {
       name: '2025-01',
       // Rick Doe user
       pilotId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+      operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d',
       createdAt: new Date('2025-01-01T00:00:00.000Z'),
     },
   });
@@ -21,6 +22,7 @@ async function load022025(): Promise<void> {
       name: '2025-02',
       // Alan Doe user
       pilotId: '725f5df2-0c78-4fe8-89a2-52566c89cf7f',
+      operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d',
       createdAt: new Date('2025-01-02T00:00:00.000Z'),
     },
   });
@@ -33,6 +35,7 @@ async function load032025(): Promise<void> {
       name: '2025-03',
       // Michael Doe user
       pilotId: '629be07f-5e65-429a-9d69-d34b99185f50',
+      operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d',
       createdAt: new Date('2025-01-03T00:00:00.000Z'),
     },
   });

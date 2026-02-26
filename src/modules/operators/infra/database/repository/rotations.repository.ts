@@ -4,17 +4,16 @@ import {
   ConflictException,
   BadRequestException,
 } from '@nestjs/common';
-import { v4 } from 'uuid';
 import { Prisma } from 'prisma/client/client';
+import { RotationWhereInput } from 'prisma/client/models/Rotation';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import {
-  LegacyCreateRotationRequest,
-  LegacyUpdateRotationRequest,
-} from '../../../../rotations/dto/rotation.dto';
-import { RotationId } from '../../../model/rotation.model';
+  CreateRotationRequest,
+  UpdateRotationRequest,
+} from '../../http/request/rotation.request';
 import { FlightStatus } from '../../../../flights/model/flight.entity';
 
-const rotationWithPilot = {
+const rotationSchema = {
   id: true,
   name: true,
   pilot: {
@@ -34,8 +33,8 @@ const rotationWithPilot = {
   updatedAt: true,
 } as const satisfies Prisma.RotationSelect;
 
-type RotationWithPilot = Prisma.RotationGetPayload<{
-  select: typeof rotationWithPilot;
+type RotationEntity = Prisma.RotationGetPayload<{
+  select: typeof rotationSchema;
 }>;
 
 @Injectable()
@@ -43,74 +42,51 @@ export class RotationsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(
-    request: LegacyCreateRotationRequest,
-  ): Promise<RotationWithPilot> {
-    if (!(await this.pilotExists(request.pilotId))) {
-      throw new NotFoundException('Pilot with given ID does not exist');
-    }
-
+    rotationId: string,
+    operatorId: string,
+    data: CreateRotationRequest,
+  ): Promise<RotationEntity> {
     return this.prisma.rotation.create({
       data: {
-        id: v4(),
-        name: request.name,
-        pilotId: request.pilotId,
+        id: rotationId,
+        name: data.name,
+        pilotId: data.pilotId,
+        operatorId: operatorId,
       },
-      select: rotationWithPilot,
+      select: rotationSchema,
     });
   }
 
-  async getAll(): Promise<RotationWithPilot[]> {
-    return this.prisma.rotation.findMany({ select: rotationWithPilot });
-  }
-
-  async getOneById(id: RotationId): Promise<RotationWithPilot | null> {
+  async findOneBy(
+    criteria: RotationWhereInput,
+  ): Promise<RotationEntity | null> {
     return this.prisma.rotation.findFirst({
-      where: { id },
-      select: rotationWithPilot,
+      where: criteria,
+      select: rotationSchema,
     });
   }
 
-  async update(
-    id: RotationId,
-    request: LegacyUpdateRotationRequest,
-  ): Promise<RotationWithPilot> {
-    if (!(await this.rotationExists(id))) {
-      throw new NotFoundException('Rotation with given ID does not exist');
-    }
-
-    if (request.pilotId && !(await this.pilotExists(request.pilotId))) {
-      throw new NotFoundException('Pilot with given ID does not exist');
-    }
-
-    return this.prisma.rotation.update({
-      where: { id },
-      data: {
-        ...request,
-        updatedAt: new Date(),
-      },
-      select: rotationWithPilot,
+  async findAllForOperator(operatorId: string): Promise<RotationEntity[]> {
+    return this.prisma.rotation.findMany({
+      where: { operatorId },
+      select: rotationSchema,
     });
   }
 
-  async remove(id: RotationId): Promise<void> {
-    if (!(await this.rotationExists(id))) {
-      throw new NotFoundException('Rotation with given ID does not exist');
-    }
+  async update(id: string, data: UpdateRotationRequest): Promise<void> {
+    await this.prisma.rotation.update({
+      where: { id },
+      data: { ...data, updatedAt: new Date() },
+    });
+  }
 
+  async remove(id: string): Promise<void> {
     await this.prisma.flight.updateMany({
       where: { rotationId: id },
       data: { rotationId: null },
     });
 
     await this.prisma.rotation.delete({ where: { id } });
-  }
-
-  private async pilotExists(pilotId: string): Promise<boolean> {
-    const count = await this.prisma.user.count({
-      where: { id: pilotId },
-    });
-
-    return count > 0;
   }
 
   async addFlight(rotationId: string, flightId: string): Promise<void> {
@@ -190,9 +166,9 @@ export class RotationsRepository {
     });
   }
 
-  private async rotationExists(id: RotationId): Promise<boolean> {
+  async exists(id: string): Promise<boolean> {
     const count = await this.prisma.rotation.count({
-      where: { id: id },
+      where: { id },
     });
 
     return count > 0;

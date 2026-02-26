@@ -6,9 +6,9 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../../../core/provider/prisma/prisma.service';
 import {
-  LegacyCreateRotationRequest,
-  LegacyUpdateRotationRequest,
-} from '../dto/rotation.dto';
+  CreateRotationRequest,
+  UpdateRotationRequest,
+} from '../../operators/infra/http/request/rotation.request';
 import { v4 } from 'uuid';
 import { RotationId } from '../../operators/model/rotation.model';
 import { FlightStatus } from '../../flights/model/flight.entity';
@@ -42,9 +42,7 @@ type RotationWithPilot = Prisma.RotationGetPayload<{
 export class LegacyRotationsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(
-    request: LegacyCreateRotationRequest,
-  ): Promise<RotationWithPilot> {
+  async create(request: CreateRotationRequest): Promise<RotationWithPilot> {
     if (!(await this.pilotExists(request.pilotId))) {
       throw new NotFoundException('Pilot with given ID does not exist');
     }
@@ -72,7 +70,7 @@ export class LegacyRotationsRepository {
 
   async update(
     id: RotationId,
-    request: LegacyUpdateRotationRequest,
+    request: UpdateRotationRequest,
   ): Promise<RotationWithPilot> {
     if (!(await this.rotationExists(id))) {
       throw new NotFoundException('Rotation with given ID does not exist');

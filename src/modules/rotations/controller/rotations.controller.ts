@@ -29,10 +29,10 @@ import { UnauthorizedResponse } from '../../../core/http/response/unauthorized.r
 import { ForbiddenResponse } from '../../../core/http/response/forbidden.response';
 import { Role } from '../../../core/http/auth/decorator/role.decorator';
 import {
-  LegacyCreateRotationRequest,
-  LegacyGetRotationResponse,
-  LegacyUpdateRotationRequest,
-} from '../dto/rotation.dto';
+  CreateRotationRequest,
+  GetRotationResponse,
+  UpdateRotationRequest,
+} from '../../operators/infra/http/request/rotation.request';
 import { RotationId } from '../../operators/model/rotation.model';
 import { UserRole } from 'prisma/client/client';
 import { LegacyRotationsRepository } from '../repository/rotations.repository';
@@ -49,10 +49,10 @@ export class LegacyRotationsController {
     deprecated: true,
   })
   @ApiBearerAuth('jwt')
-  @ApiBody({ type: LegacyCreateRotationRequest })
+  @ApiBody({ type: CreateRotationRequest })
   @ApiOkResponse({
     description: 'Rotation was created',
-    type: LegacyGetRotationResponse,
+    type: GetRotationResponse,
   })
   @ApiBadRequestResponse({
     description: 'Validation failed',
@@ -73,8 +73,8 @@ export class LegacyRotationsController {
   @Post()
   @Role(UserRole.Operations)
   async create(
-    @Body() body: LegacyCreateRotationRequest,
-  ): Promise<LegacyGetRotationResponse> {
+    @Body() body: CreateRotationRequest,
+  ): Promise<GetRotationResponse> {
     return this.repository.create(body);
   }
 
@@ -159,7 +159,7 @@ export class LegacyRotationsController {
     deprecated: true,
   })
   @ApiBearerAuth('jwt')
-  @ApiOkResponse({ type: LegacyGetRotationResponse, isArray: true })
+  @ApiOkResponse({ type: GetRotationResponse, isArray: true })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
     type: UnauthorizedResponse,
@@ -169,7 +169,7 @@ export class LegacyRotationsController {
     type: ForbiddenResponse,
   })
   @Get()
-  getAll(): Promise<LegacyGetRotationResponse[]> {
+  getAll(): Promise<GetRotationResponse[]> {
     return this.repository.getAll();
   }
 
@@ -181,7 +181,7 @@ export class LegacyRotationsController {
   @ApiParam({ name: 'id' })
   @ApiOkResponse({
     description: 'Rotation was found',
-    type: LegacyGetRotationResponse,
+    type: GetRotationResponse,
   })
   @ApiBadRequestResponse({
     description: 'Rotation id is not valid uuid v4',
@@ -202,7 +202,7 @@ export class LegacyRotationsController {
   @Get(':id')
   async getOneById(
     @UuidParam('id') id: RotationId,
-  ): Promise<LegacyGetRotationResponse> {
+  ): Promise<GetRotationResponse> {
     const rotation = await this.repository.getOneById(id);
 
     if (!rotation) {
@@ -219,10 +219,10 @@ export class LegacyRotationsController {
   })
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id' })
-  @ApiBody({ type: LegacyUpdateRotationRequest })
+  @ApiBody({ type: UpdateRotationRequest })
   @ApiOkResponse({
     description: 'Rotation was updated',
-    type: LegacyGetRotationResponse,
+    type: GetRotationResponse,
   })
   @ApiBadRequestResponse({
     description: 'Validation failed or rotation id is not valid uuid v4',
@@ -244,8 +244,8 @@ export class LegacyRotationsController {
   @Role(UserRole.Operations)
   update(
     @UuidParam('id') id: RotationId,
-    @Body() body: LegacyUpdateRotationRequest,
-  ): Promise<LegacyGetRotationResponse> {
+    @Body() body: UpdateRotationRequest,
+  ): Promise<GetRotationResponse> {
     return this.repository.update(id, body);
   }
 
