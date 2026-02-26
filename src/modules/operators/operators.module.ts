@@ -25,6 +25,7 @@ import { GetRotationByIdHandler } from './application/query/rotation/get-rotatio
 import { ListAllRotationsQueryHandler } from './application/query/rotation/list-all-rotations.query';
 import { RemoveRotationHandler } from './application/command/rotation/remove-rotation.command';
 import { UpdateRotationHandler } from './application/command/rotation/update-rotation.command';
+import { AssertRotationExistsHandler } from './application/query/rotation/assert-rotation-exists.query';
 
 @Module({
   imports: [PrismaModule],
@@ -52,6 +53,7 @@ import { UpdateRotationHandler } from './application/command/rotation/update-rot
     RemoveRotationHandler,
     GetRotationByIdHandler,
     ListAllRotationsQueryHandler,
+    AssertRotationExistsHandler,
   ],
 })
 export class OperatorsModule {}

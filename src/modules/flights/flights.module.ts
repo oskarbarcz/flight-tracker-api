@@ -40,6 +40,7 @@ import { GetFlightTrackingHandler } from './application/query/get-flight-trackin
 import { ChangeFlightVisibilityHandler } from './application/command/change-flight-visibility.command';
 import { AddFlightToRotationHandler } from './application/command/rotation/add-flight-to-rotation.command';
 import { RemoveFlightToRotationHandler } from './application/command/rotation/remove-flight-from-rotation.command';
+import { RotationsController } from './infra/http/controller/rotations.controller';
 
 @Module({
   imports: [PrismaModule, DiscordModule, AdsbModule, SimbriefModule],
@@ -50,6 +51,7 @@ import { RemoveFlightToRotationHandler } from './application/command/rotation/re
     OfpController,
     ActionsController,
     PathController,
+    RotationsController,
   ],
   providers: [
     PositionService,

@@ -20,16 +20,13 @@ import { UserRole } from '../../../../../../prisma/client/enums';
 import { UuidParam } from '../../../../../core/validation/uuid.param';
 import { AddFlightToRotationCommand } from '../../../application/command/rotation/add-flight-to-rotation.command';
 import { RemoveFlightFromRotationCommand } from '../../../application/command/rotation/remove-flight-from-rotation.command';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { CommandBus } from '@nestjs/cqrs';
 import { GenericConflictResponse } from '../../../../../core/http/response/conflict.response';
 
 @ApiTags('flight rotations')
 @Controller('/api/v1/flight/:flightId/rotation')
 export class RotationsController {
-  constructor(
-    private readonly commandBus: CommandBus,
-    private readonly queryBus: QueryBus,
-  ) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   @ApiOperation({
     summary: 'Assign a flight to a rotation',
@@ -74,7 +71,7 @@ export class RotationsController {
   @ApiForbiddenResponse({ type: ForbiddenResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @ApiConflictResponse({ type: GenericConflictResponse })
-  @Delete(':id/flight/:flightId')
+  @Delete(':rotationId')
   @Role(UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)
   async removeFlightFromRotation(

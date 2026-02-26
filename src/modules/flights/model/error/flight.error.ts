@@ -1,4 +1,8 @@
-import { ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 
 export class FlightNotFoundError extends NotFoundException {
   constructor() {
@@ -12,8 +16,14 @@ export class FlightAlreadyAssignedToRotationError extends ConflictException {
   }
 }
 
-export class FlightIncorrectStateToAddToRotationError extends ConflictException {
+export class FlightRotationNotMatchingError extends ConflictException {
   constructor() {
-    super('Flight is in incorrect state to be added to rotation.');
+    super('Flight is already assigned to a different rotation.');
+  }
+}
+
+export class FlightIncorrectStateToChangeRotationError extends BadRequestException {
+  constructor() {
+    super('Flight is in incorrect state to be modify its rotation.');
   }
 }
