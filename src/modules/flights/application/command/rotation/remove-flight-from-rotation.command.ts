@@ -16,7 +16,7 @@ export class RemoveFlightFromRotationCommand {
 }
 
 @CommandHandler(RemoveFlightFromRotationCommand)
-export class RemoveFlightToRotationHandler implements ICommandHandler<RemoveFlightFromRotationCommand> {
+export class RemoveFlightFromRotationHandler implements ICommandHandler<RemoveFlightFromRotationCommand> {
   constructor(
     private readonly repository: FlightsRepository,
     private readonly queryBus: QueryBus,

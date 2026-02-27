@@ -24,6 +24,6 @@ export class FlightRotationNotMatchingError extends ConflictException {
 
 export class FlightIncorrectStateToChangeRotationError extends BadRequestException {
   constructor() {
-    super('Flight is in incorrect state to be modify its rotation.');
+    super('Flight is in incorrect state to modify its rotation.');
   }
 }

@@ -261,6 +261,6 @@ export class UsersRepository {
   async exists(id: string): Promise<boolean> {
     const count = await this.prisma.user.count({ where: { id } });
 
-    return count === 1;
+    return count > 0;
   }
 }

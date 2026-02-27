@@ -2,6 +2,7 @@ import {
   ApiBadRequestResponse,
   ApiBearerAuth,
   ApiBody,
+  ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -57,7 +58,7 @@ export class RotationsController {
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'operatorId', description: 'Operator unique identifier' })
   @ApiBody({ type: CreateRotationRequest })
-  @ApiOkResponse({ type: GetRotationResponse })
+  @ApiCreatedResponse({ type: GetRotationResponse })
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })
@@ -79,9 +80,11 @@ export class RotationsController {
 
   @ApiOperation({ summary: 'Retrieve all rotations' })
   @ApiBearerAuth('jwt')
+  @ApiParam({ name: 'operatorId', description: 'Operator unique identifier' })
   @ApiOkResponse({ type: GetRotationResponse, isArray: true })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Get()
   findAllForOperator(
     @UuidParam('operatorId') operatorId: string,

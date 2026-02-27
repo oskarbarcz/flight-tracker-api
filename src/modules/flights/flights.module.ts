@@ -39,7 +39,7 @@ import { GetFlightPathHandler } from './application/query/get-flight-path.query'
 import { GetFlightTrackingHandler } from './application/query/get-flight-tracking.query';
 import { ChangeFlightVisibilityHandler } from './application/command/change-flight-visibility.command';
 import { AddFlightToRotationHandler } from './application/command/rotation/add-flight-to-rotation.command';
-import { RemoveFlightToRotationHandler } from './application/command/rotation/remove-flight-from-rotation.command';
+import { RemoveFlightFromRotationHandler } from './application/command/rotation/remove-flight-from-rotation.command';
 import { RotationsController } from './infra/http/controller/rotations.controller';
 
 @Module({
@@ -84,7 +84,7 @@ import { RotationsController } from './infra/http/controller/rotations.controlle
     GetFlightTrackingHandler,
     ChangeFlightVisibilityHandler,
     AddFlightToRotationHandler,
-    RemoveFlightToRotationHandler,
+    RemoveFlightFromRotationHandler,
   ],
 })
 export class FlightsModule {}

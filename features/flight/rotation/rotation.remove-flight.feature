@@ -61,7 +61,7 @@ Feature: Remove flights from rotation
     And the response body should contain:
       """json
       {
-        "message": "Flight is in incorrect state to be modify its rotation.",
+        "message": "Flight is in incorrect state to modify its rotation.",
         "error": "Bad Request",
         "statusCode": 400
       }
