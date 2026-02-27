@@ -1,5 +1,5 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { PrismaService } from '../../../../core/provider/prisma/prisma.service';
+import { UsersRepository } from '../../infra/database/repository/users.repository';
 
 export class CheckUserExistsQuery extends Query<boolean> {
   constructor(public readonly userId: string) {
@@ -9,12 +9,9 @@ export class CheckUserExistsQuery extends Query<boolean> {
 
 @QueryHandler(CheckUserExistsQuery)
 export class CheckUserExistsHandler implements IQueryHandler<CheckUserExistsQuery> {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly repository: UsersRepository) {}
 
   async execute(query: CheckUserExistsQuery): Promise<boolean> {
-    const count = await this.prisma.user.count({
-      where: { id: query.userId },
-    });
-    return count === 1;
+    return this.repository.exists(query.userId);
   }
 }

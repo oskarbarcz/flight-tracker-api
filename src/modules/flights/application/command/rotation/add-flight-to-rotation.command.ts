@@ -1,0 +1,39 @@
+import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
+import { FlightsRepository } from '../../../infra/database/repository/flights.repository';
+import {
+  FlightAlreadyAssignedToRotationError,
+  FlightIncorrectStateToChangeRotationError,
+  FlightNotFoundError,
+} from '../../../model/error/flight.error';
+import { FlightStatus } from '../../../model/flight.entity';
+import { AssertRotationExistsQuery } from '../../../../operators/application/query/rotation/assert-rotation-exists.query';
+
+export class AddFlightToRotationCommand {
+  constructor(
+    public readonly flightId: string,
+    public readonly rotationId: string,
+  ) {}
+}
+
+@CommandHandler(AddFlightToRotationCommand)
+export class AddFlightToRotationHandler implements ICommandHandler<AddFlightToRotationCommand> {
+  constructor(
+    private readonly repository: FlightsRepository,
+    private readonly queryBus: QueryBus,
+  ) {}
+
+  async execute(command: AddFlightToRotationCommand): Promise<void> {
+    const { flightId, rotationId } = command;
+
+    const flight = await this.repository.findOneBy({ id: flightId });
+
+    if (!flight) throw new FlightNotFoundError();
+    if (flight.rotationId) throw new FlightAlreadyAssignedToRotationError();
+    if (flight.status !== FlightStatus.Created) {
+      throw new FlightIncorrectStateToChangeRotationError();
+    }
+
+    await this.queryBus.execute(new AssertRotationExistsQuery(rotationId));
+    await this.repository.addRotationForFlight(flightId, rotationId);
+  }
+}

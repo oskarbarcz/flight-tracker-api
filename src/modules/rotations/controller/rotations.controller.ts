@@ -30,28 +30,29 @@ import { ForbiddenResponse } from '../../../core/http/response/forbidden.respons
 import { Role } from '../../../core/http/auth/decorator/role.decorator';
 import {
   CreateRotationRequest,
-  CreateRotationResponse,
+  GetRotationResponse,
   UpdateRotationRequest,
-} from '../dto/rotation.dto';
-import { RotationId } from '../entity/rotation.entity';
+} from '../../operators/infra/http/request/rotation.request';
+import { RotationId } from '../../operators/model/rotation.model';
 import { UserRole } from 'prisma/client/client';
-import { RotationsRepository } from '../repository/rotations.repository';
+import { LegacyRotationsRepository } from '../repository/rotations.repository';
 
 @ApiTags('rotation')
 @Controller('api/v1/rotation')
-export class RotationsController {
-  constructor(private readonly repository: RotationsRepository) {}
+export class LegacyRotationsController {
+  constructor(private readonly repository: LegacyRotationsRepository) {}
 
   @ApiOperation({
     summary: 'Create a rotation',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiBody({ type: CreateRotationRequest })
   @ApiOkResponse({
     description: 'Rotation was created',
-    type: CreateRotationResponse,
+    type: GetRotationResponse,
   })
   @ApiBadRequestResponse({
     description: 'Validation failed',
@@ -73,7 +74,7 @@ export class RotationsController {
   @Role(UserRole.Operations)
   async create(
     @Body() body: CreateRotationRequest,
-  ): Promise<CreateRotationResponse> {
+  ): Promise<GetRotationResponse> {
     return this.repository.create(body);
   }
 
@@ -81,6 +82,7 @@ export class RotationsController {
     summary: 'Assign a flight to a rotation',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id', description: 'Rotation unique identifier' })
@@ -118,6 +120,7 @@ export class RotationsController {
     summary: 'Remove a flight from a rotation',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id', description: 'Rotation unique identifier' })
@@ -153,9 +156,10 @@ export class RotationsController {
 
   @ApiOperation({
     summary: 'Retrieve all rotations',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
-  @ApiOkResponse({ type: CreateRotationResponse, isArray: true })
+  @ApiOkResponse({ type: GetRotationResponse, isArray: true })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
     type: UnauthorizedResponse,
@@ -165,18 +169,19 @@ export class RotationsController {
     type: ForbiddenResponse,
   })
   @Get()
-  getAll(): Promise<CreateRotationResponse[]> {
+  getAll(): Promise<GetRotationResponse[]> {
     return this.repository.getAll();
   }
 
   @ApiOperation({
     summary: 'Retrieve one rotation',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id' })
   @ApiOkResponse({
     description: 'Rotation was found',
-    type: CreateRotationResponse,
+    type: GetRotationResponse,
   })
   @ApiBadRequestResponse({
     description: 'Rotation id is not valid uuid v4',
@@ -197,7 +202,7 @@ export class RotationsController {
   @Get(':id')
   async getOneById(
     @UuidParam('id') id: RotationId,
-  ): Promise<CreateRotationResponse> {
+  ): Promise<GetRotationResponse> {
     const rotation = await this.repository.getOneById(id);
 
     if (!rotation) {
@@ -210,13 +215,14 @@ export class RotationsController {
     summary: 'Update a rotation',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id' })
   @ApiBody({ type: UpdateRotationRequest })
   @ApiOkResponse({
     description: 'Rotation was updated',
-    type: CreateRotationResponse,
+    type: GetRotationResponse,
   })
   @ApiBadRequestResponse({
     description: 'Validation failed or rotation id is not valid uuid v4',
@@ -239,7 +245,7 @@ export class RotationsController {
   update(
     @UuidParam('id') id: RotationId,
     @Body() body: UpdateRotationRequest,
-  ): Promise<CreateRotationResponse> {
+  ): Promise<GetRotationResponse> {
     return this.repository.update(id, body);
   }
 
@@ -247,6 +253,7 @@ export class RotationsController {
     summary: 'Remove a rotation',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
+    deprecated: true,
   })
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'id' })

@@ -8,9 +8,9 @@ import { PrismaService } from '../../../core/provider/prisma/prisma.service';
 import {
   CreateRotationRequest,
   UpdateRotationRequest,
-} from '../dto/rotation.dto';
+} from '../../operators/infra/http/request/rotation.request';
 import { v4 } from 'uuid';
-import { RotationId } from '../entity/rotation.entity';
+import { RotationId } from '../../operators/model/rotation.model';
 import { FlightStatus } from '../../flights/model/flight.entity';
 import { Prisma } from 'prisma/client/client';
 
@@ -39,7 +39,7 @@ type RotationWithPilot = Prisma.RotationGetPayload<{
 }>;
 
 @Injectable()
-export class RotationsRepository {
+export class LegacyRotationsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(request: CreateRotationRequest): Promise<RotationWithPilot> {

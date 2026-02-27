@@ -257,4 +257,10 @@ export class UsersRepository {
       currentRotationId: user.currentRotationId,
     };
   }
+
+  async exists(id: string): Promise<boolean> {
+    const count = await this.prisma.user.count({ where: { id } });
+
+    return count > 0;
+  }
 }

@@ -38,6 +38,9 @@ import { GetOfpByFlightIdHandler } from './application/query/get-ofp-by-flight-i
 import { GetFlightPathHandler } from './application/query/get-flight-path.query';
 import { GetFlightTrackingHandler } from './application/query/get-flight-tracking.query';
 import { ChangeFlightVisibilityHandler } from './application/command/change-flight-visibility.command';
+import { AddFlightToRotationHandler } from './application/command/rotation/add-flight-to-rotation.command';
+import { RemoveFlightFromRotationHandler } from './application/command/rotation/remove-flight-from-rotation.command';
+import { RotationsController } from './infra/http/controller/rotations.controller';
 
 @Module({
   imports: [PrismaModule, DiscordModule, AdsbModule, SimbriefModule],
@@ -48,6 +51,7 @@ import { ChangeFlightVisibilityHandler } from './application/command/change-flig
     OfpController,
     ActionsController,
     PathController,
+    RotationsController,
   ],
   providers: [
     PositionService,
@@ -79,6 +83,8 @@ import { ChangeFlightVisibilityHandler } from './application/command/change-flig
     GetFlightPathHandler,
     GetFlightTrackingHandler,
     ChangeFlightVisibilityHandler,
+    AddFlightToRotationHandler,
+    RemoveFlightFromRotationHandler,
   ],
 })
 export class FlightsModule {}

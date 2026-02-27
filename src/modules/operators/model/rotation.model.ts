@@ -3,14 +3,14 @@ import { Uuid } from '../../../core/types/id';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { PilotDto } from '../../users/infra/http/request/get-user.dto';
 
-export type RotationId = Uuid & { _entity: 'Rotation' };
+export type RotationId = Uuid & { _entity: '__rotation' };
 
-export class RotationFlight {
+export class FlightPreview {
   @ApiProperty({
     description: 'Flight unique system identifier',
     example: 'bd8f2d64-a647-42da-be63-c6589915e6c9',
   })
-  id!: string | RotationId;
+  id!: string;
 
   @ApiProperty({
     description: 'Flight number',
@@ -50,10 +50,10 @@ export class Rotation {
 
   @ApiProperty({
     description: 'Flights in this rotation',
-    type: RotationFlight,
+    type: FlightPreview,
     isArray: true,
   })
-  flights!: RotationFlight[];
+  flights!: FlightPreview[];
 
   @ApiProperty({
     description: 'Creation timestamp',
