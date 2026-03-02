@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 
-npm run database:migrate # execute database schema migrations
-npm run start:prod # start app in production mode
+npx prisma generate
+npm run database:migrate
+npm run start:prod
