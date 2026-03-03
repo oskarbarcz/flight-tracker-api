@@ -39,7 +39,7 @@ Feature: Update operator
         "type": "low_cost",
         "hubs": ["BER", "DUS", "FRA", "HAM", "MUC", "STR", "ZRH"],
         "fleetSize": 2,
-        "fleetTypes": [],
+        "fleetTypes": ["A321", "A319"],
         "avgFleetAge": 9.2,
         "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png",
         "backgroundUrl": null,
