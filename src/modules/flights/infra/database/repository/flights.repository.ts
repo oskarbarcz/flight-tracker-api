@@ -7,7 +7,7 @@ import {
   FlightSource,
   FlightStatus,
   FlightTracking,
-} from '../../../model/flight.entity';
+} from '../../../model/flight.model';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import {
   CreateFlightRequest,

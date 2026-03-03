@@ -13,6 +13,7 @@ import {
   IsUUID,
 } from 'class-validator';
 import { LegacyCreateAircraftResponse } from '../../operators/infra/http/request/aircraft.request';
+import { ShortOperatorResponse } from '../infra/http/request/operator.request';
 
 export enum FlightStatus {
   Created = 'created',
@@ -140,7 +141,7 @@ export class Flight {
     description: 'Flight operator',
     type: Operator,
   })
-  operator!: Operator;
+  operator!: ShortOperatorResponse;
 
   @ApiProperty({
     description: 'Rotation this flight belongs to',

@@ -2,7 +2,7 @@ import {
   FlightSource,
   FlightStatus,
   FlightTracking,
-} from '../../../src/modules/flights/model/flight.entity';
+} from '../../../src/modules/flights/model/flight.model';
 import { FlightEventScope, Prisma } from '../../client/client';
 import { AirportType } from '../../../src/modules/airports/model/airport.model';
 import { Loadsheets } from '../../../src/modules/flights/model/loadsheet.model';

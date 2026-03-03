@@ -10,10 +10,7 @@ import {
 import { UuidParam } from '../../../../../core/validation/uuid.param';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
-import {
-  FlightPathElement,
-  FlightTracking,
-} from '../../../model/flight.entity';
+import { FlightPathElement, FlightTracking } from '../../../model/flight.model';
 import { SkipAuth } from '../../../../../core/http/auth/decorator/skip-auth.decorator';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
 import { QueryBus } from '@nestjs/cqrs';

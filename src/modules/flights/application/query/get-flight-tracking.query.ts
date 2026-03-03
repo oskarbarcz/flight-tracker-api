@@ -1,4 +1,4 @@
-import { FlightTracking } from '../../model/flight.entity';
+import { FlightTracking } from '../../model/flight.model';
 import { QueryHandler, Query, IQueryHandler } from '@nestjs/cqrs';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 

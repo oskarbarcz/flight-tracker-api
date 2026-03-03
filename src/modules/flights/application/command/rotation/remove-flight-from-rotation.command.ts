@@ -6,7 +6,7 @@ import {
   FlightNotFoundError,
   FlightRotationNotMatchingError,
 } from '../../../model/error/flight.error';
-import { FlightStatus } from '../../../model/flight.entity';
+import { FlightStatus } from '../../../model/flight.model';
 
 export class RemoveFlightFromRotationCommand {
   constructor(

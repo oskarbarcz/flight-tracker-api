@@ -50,7 +50,7 @@ import { RemoveFlightCommand } from '../../../application/command/remove-flight.
 import { CreateFlightCommand } from '../../../application/command/create-flight.command';
 import { v4 } from 'uuid';
 import { CreateFlightFromSimbriefCommand } from '../../../application/command/create-flight-from-simbrief.command';
-import { FlightPhase, FlightTracking } from '../../../model/flight.entity';
+import { FlightPhase, FlightTracking } from '../../../model/flight.model';
 import { FlightDoesNotExistError } from '../request/errors.dto';
 import { GetFlightTrackingQuery } from '../../../application/query/get-flight-tracking.query';
 import { Schedule } from '../../../model/timesheet.model';

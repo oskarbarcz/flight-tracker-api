@@ -12,7 +12,7 @@ import {
 } from 'class-validator';
 import { Loadsheets } from '../../../model/loadsheet.model';
 import { Type } from 'class-transformer';
-import { Flight, FlightPhase } from '../../../model/flight.entity';
+import { Flight, FlightPhase } from '../../../model/flight.model';
 
 class PreliminaryLoadsheetOnly extends OmitType(Loadsheets, ['final']) {}
 

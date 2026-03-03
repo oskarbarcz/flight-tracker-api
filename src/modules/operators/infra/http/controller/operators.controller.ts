@@ -41,8 +41,8 @@ import { GetOperatorByIdQuery } from '../../../application/query/get-operator-by
 import { ListAllOperatorsQuery } from '../../../application/query/list-all-operators.query';
 import { v4 } from 'uuid';
 import {
-  CreateOperatorDto,
-  UpdateOperatorDto,
+  CreateOperatorRequest,
+  UpdateOperatorRequest,
 } from '../request/operator.request';
 import { GenericConflictResponse } from '../../../../../core/http/response/conflict.response';
 
@@ -60,7 +60,7 @@ export class OperatorsController {
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth('jwt')
-  @ApiBody({ type: CreateOperatorDto })
+  @ApiBody({ type: CreateOperatorRequest })
   @ApiCreatedResponse({ type: Operator })
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
@@ -68,7 +68,7 @@ export class OperatorsController {
   @Post()
   @Role(UserRole.Operations)
   async create(
-    @Body() createOperatorDto: CreateOperatorDto,
+    @Body() createOperatorDto: CreateOperatorRequest,
   ): Promise<Operator> {
     const operatorId = v4();
 
@@ -115,7 +115,7 @@ export class OperatorsController {
     name: 'id',
     description: 'Operator unique identifier',
   })
-  @ApiBody({ type: UpdateOperatorDto })
+  @ApiBody({ type: UpdateOperatorRequest })
   @ApiOkResponse({ type: Operator })
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
@@ -125,7 +125,7 @@ export class OperatorsController {
   @Role(UserRole.Operations)
   async update(
     @UuidParam('id') id: string,
-    @Body() updateOperatorDto: UpdateOperatorDto,
+    @Body() updateOperatorDto: UpdateOperatorRequest,
   ): Promise<Operator> {
     const command = new UpdateOperatorCommand(id, updateOperatorDto);
     await this.commandBus.execute(command);

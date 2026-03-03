@@ -1,5 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, Length } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUrl,
+  Length,
+} from 'class-validator';
+import { Continent } from '../../airports/model/airport.model';
+
+export enum OperatorType {
+  Legacy = 'legacy',
+  LowCost = 'low_cost',
+  Charter = 'charter',
+  GovernmentMilitary = 'government_military',
+}
 
 export class Operator {
   @ApiProperty({
@@ -49,4 +65,83 @@ export class Operator {
   @IsString()
   @IsNotEmpty()
   callsign!: string;
+
+  @ApiProperty({
+    description: 'Operator fleet size',
+    example: 104,
+  })
+  fleetSize!: number;
+
+  @ApiProperty({
+    description: 'Operator fleet types (ICAO codes)',
+    example: ['A35K', 'B773'],
+    type: 'string',
+    isArray: true,
+  })
+  fleetTypes!: string[];
+
+  @ApiProperty({
+    description: 'Operator average fleet age',
+    example: 12.5,
+    required: false,
+    default: 5,
+  })
+  @IsNumber({ maxDecimalPlaces: 1 })
+  avgFleetAge!: number;
+
+  @ApiProperty({
+    description: 'Operator logo URL',
+    example: 'https://example.com/background.png',
+    required: false,
+    default: null,
+  })
+  @IsOptional()
+  @IsString()
+  @IsUrl()
+  logoUrl?: string | null;
+
+  @ApiProperty({
+    description: 'Operator logo URL',
+    example: 'https://example.com/background.png',
+    required: false,
+    default: null,
+  })
+  @IsOptional()
+  @IsString()
+  @IsUrl()
+  backgroundUrl?: string | null;
+
+  @ApiProperty({
+    description: 'Operator type',
+    example: OperatorType.Legacy,
+    enum: OperatorType,
+    default: OperatorType.Legacy,
+    required: false,
+  })
+  @IsNotEmpty()
+  @IsEnum(OperatorType)
+  type!: OperatorType;
+
+  @ApiProperty({
+    description: 'Continent operator primarily operates on',
+    example: Continent.Europe,
+    enum: Continent,
+    default: Continent.Europe,
+    required: false,
+  })
+  @IsNotEmpty()
+  @IsEnum(Continent)
+  continent!: Continent;
+
+  @ApiProperty({
+    description: 'Operator primary airport hubs (IATA codes)',
+    example: ['MUC', 'FRA'],
+    type: 'string',
+    isArray: true,
+    required: false,
+    default: [],
+  })
+  @IsString({ each: true })
+  @IsNotEmpty()
+  hubs!: string[];
 }

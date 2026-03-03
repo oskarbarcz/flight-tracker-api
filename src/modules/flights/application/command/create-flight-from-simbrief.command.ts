@@ -10,7 +10,7 @@ import { SimbriefClient } from '../../../../core/provider/simbrief/client/simbri
 import { GetAirportByIcaoCodeQuery } from '../../../airports/application/query/get-airport-by-icao-code.query';
 import { GetAircraftByRegistrationQuery } from '../../../operators/application/query/aircraft/get-aircraft-by-registration.query';
 import { GetOperatorByIcaoCodeQuery } from '../../../operators/application/query/get-operator-by-icao-code.query';
-import { FlightTracking } from '../../model/flight.entity';
+import { FlightTracking } from '../../model/flight.model';
 import { CreateFlightRequest } from '../../infra/http/request/flight.dto';
 
 export class CreateFlightFromSimbriefCommand {
