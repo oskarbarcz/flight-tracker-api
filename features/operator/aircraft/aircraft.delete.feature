@@ -27,6 +27,27 @@ Feature: Delete aircraft
         "statusCode": 404
       }
       """
+    When I send a "GET" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
+        "icaoCode": "CDG",
+        "iataCode": "DE",
+        "shortName": "Condor",
+        "fullName": "Condor Flugdienst",
+        "callsign": "CONDOR",
+        "type": "low_cost",
+        "hubs": ["BER", "DUS", "FRA", "HAM", "MUC", "STR", "ZRH"],
+        "fleetSize": 1,
+        "fleetTypes": ["A321"],
+        "avgFleetAge": 9.2,
+        "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png",
+        "backgroundUrl": null,
+        "continent": "europe"
+      }
+      """
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot delete aircraft

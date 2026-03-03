@@ -40,5 +40,6 @@ export class CreateAircraftHandler implements ICommandHandler<CreateAircraftComm
     }
 
     await this.aircraftRepository.create(aircraftId, operatorId, data);
+    await this.operatorsRepository.updateFleet(operatorId);
   }
 }

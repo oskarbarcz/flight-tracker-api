@@ -4,6 +4,8 @@ import { CheckOperatorExistsQuery } from '../../../operators/application/query/c
 import { OperatorNotFoundError } from '../../../operators/model/error/operator.error';
 import { LegacyCreateAircraftRequest } from '../../../operators/infra/http/request/aircraft.request';
 import { AircraftWithRegistrationAlreadyExistsError } from '../../../operators/model/error/aircraft.error';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { AircraftWasCreatedEvent } from '../../../operators/application/event/aircraft.event';
 
 export class LegacyCreateAircraftCommand {
   constructor(
@@ -16,6 +18,7 @@ export class LegacyCreateAircraftCommand {
 export class LegacyCreateAircraftHandler implements ICommandHandler<LegacyCreateAircraftCommand> {
   constructor(
     private readonly repository: AircraftRepository,
+    private readonly eventEmitter: EventEmitter2,
     private readonly queryBus: QueryBus,
   ) {}
 
@@ -39,5 +42,11 @@ export class LegacyCreateAircraftHandler implements ICommandHandler<LegacyCreate
     }
 
     await this.repository.legacyCreate(aircraftId, data);
+
+    const event = new AircraftWasCreatedEvent({
+      aircraftId,
+      operatorId: data.operatorId,
+    });
+    this.eventEmitter.emit(AircraftWasCreatedEvent.name, event);
   }
 }

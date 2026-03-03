@@ -59,6 +59,27 @@ Feature: Create aircraft
         }
       }
       """
+    When I send a "GET" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+        "icaoCode": "DLH",
+        "iataCode": "LH",
+        "shortName": "Lufthansa",
+        "fullName": "Deutsche Lufthansa AG",
+        "callsign": "LUFTHANSA",
+        "type": "legacy",
+        "hubs": ["FRA", "MUC"],
+        "fleetSize": 2,
+        "fleetTypes": ["A339", "B748"],
+        "avgFleetAge": 14.2,
+        "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/lufthansa.png",
+        "backgroundUrl": null,
+        "continent": "europe"
+      }
+      """
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot create aircraft with correct data

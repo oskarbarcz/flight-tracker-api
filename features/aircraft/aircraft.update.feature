@@ -50,6 +50,27 @@ Feature: Update aircraft
         }
       }
       """
+    When I send a "GET" request to "/api/v1/operator/1d85d597-c3a1-43cf-b888-10d674ea7a46"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "1d85d597-c3a1-43cf-b888-10d674ea7a46",
+        "icaoCode": "LOT",
+        "iataCode": "LO",
+        "shortName": "LOT",
+        "fullName": "Polskie Linie Lotnicze LOT",
+        "callsign": "LOT",
+        "type": "legacy",
+        "hubs": ["WAW"],
+        "fleetSize": 1,
+        "fleetTypes": ["A339"],
+        "avgFleetAge": 11.1,
+        "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/lot_polish.png",
+        "backgroundUrl": null,
+        "continent": "europe"
+      }
+      """
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot update aircraft with correct data

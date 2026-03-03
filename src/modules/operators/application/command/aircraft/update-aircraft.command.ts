@@ -21,11 +21,9 @@ export class UpdateAircraftHandler implements ICommandHandler<UpdateAircraftComm
   ) {}
 
   async execute(command: UpdateAircraftCommand): Promise<void> {
-    const { aircraftId, data } = command;
+    const { operatorId, aircraftId, data } = command;
 
-    const operatorExists = await this.operatorsRepository.exists(
-      command.operatorId,
-    );
+    const operatorExists = await this.operatorsRepository.exists(operatorId);
 
     if (!operatorExists) {
       throw new OperatorNotFoundError();
@@ -40,5 +38,6 @@ export class UpdateAircraftHandler implements ICommandHandler<UpdateAircraftComm
     }
 
     await this.aircraftRepository.update(aircraftId, data);
+    await this.operatorsRepository.updateFleet(operatorId);
   }
 }
