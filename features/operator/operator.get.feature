@@ -5,7 +5,7 @@ Feature: Get operator resource
     When I send a "GET" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871"
     Then the response status should be 200
     And the response body should contain:
-      """json
+      """
       {
         "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
         "icaoCode": "CDG",
@@ -16,7 +16,7 @@ Feature: Get operator resource
         "type": "low_cost",
         "hubs": ["BER", "DUS", "FRA", "HAM", "MUC", "STR", "ZRH"],
         "fleetSize": 2,
-        "fleetTypes": [],
+        "fleetTypes": ["A321", "A319"],
         "avgFleetAge": 9.2,
         "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png",
         "backgroundUrl": null,
@@ -40,7 +40,7 @@ Feature: Get operator resource
         "type": "low_cost",
         "hubs": ["BER", "DUS", "FRA", "HAM", "MUC", "STR", "ZRH"],
         "fleetSize": 2,
-        "fleetTypes": [],
+        "fleetTypes": ["A321", "A319"],
         "avgFleetAge": 9.2,
         "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png",
         "backgroundUrl": null,
@@ -64,7 +64,7 @@ Feature: Get operator resource
         "type": "low_cost",
         "hubs": ["BER", "DUS", "FRA", "HAM", "MUC", "STR", "ZRH"],
         "fleetSize": 2,
-        "fleetTypes": [],
+        "fleetTypes": ["A321", "A319"],
         "avgFleetAge": 9.2,
         "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png",
         "backgroundUrl": null,

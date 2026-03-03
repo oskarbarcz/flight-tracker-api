@@ -4,6 +4,8 @@ import {
   AircraftInUseError,
   AircraftNotFoundError,
 } from '../../../operators/model/error/aircraft.error';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { AircraftWasRemovedEvent } from '../../../operators/application/event/aircraft.event';
 
 export class LegacyRemoveAircraftCommand {
   constructor(public readonly aircraftId: string) {}
@@ -11,7 +13,10 @@ export class LegacyRemoveAircraftCommand {
 
 @CommandHandler(LegacyRemoveAircraftCommand)
 export class LegacyRemoveAircraftHandler implements ICommandHandler<LegacyRemoveAircraftCommand> {
-  constructor(private readonly repository: AircraftRepository) {}
+  constructor(
+    private readonly repository: AircraftRepository,
+    private readonly eventEmitter: EventEmitter2,
+  ) {}
 
   async execute(command: LegacyRemoveAircraftCommand): Promise<void> {
     const { aircraftId } = command;
@@ -29,5 +34,11 @@ export class LegacyRemoveAircraftHandler implements ICommandHandler<LegacyRemove
     }
 
     await this.repository.remove(aircraftId);
+    const operator = aircraft.operator as { id: string };
+    const event = new AircraftWasRemovedEvent({
+      aircraftId,
+      operatorId: operator.id,
+    });
+    this.eventEmitter.emit(AircraftWasRemovedEvent.name, event);
   }
 }

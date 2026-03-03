@@ -26,6 +26,7 @@ import { ListAllRotationsQueryHandler } from './application/query/rotation/list-
 import { RemoveRotationHandler } from './application/command/rotation/remove-rotation.command';
 import { UpdateRotationHandler } from './application/command/rotation/update-rotation.command';
 import { AssertRotationExistsHandler } from './application/query/rotation/assert-rotation-exists.query';
+import { AircraftListener } from './application/event/listener/aircraft.listener';
 
 @Module({
   imports: [PrismaModule],
@@ -54,6 +55,7 @@ import { AssertRotationExistsHandler } from './application/query/rotation/assert
     GetRotationByIdHandler,
     ListAllRotationsQueryHandler,
     AssertRotationExistsHandler,
+    AircraftListener,
   ],
 })
 export class OperatorsModule {}

@@ -49,5 +49,6 @@ export class RemoveAircraftHandler implements ICommandHandler<RemoveAircraftComm
     }
 
     await this.aircraftRepository.remove(aircraftId);
+    await this.operatorsRepository.updateFleet(operatorId);
   }
 }

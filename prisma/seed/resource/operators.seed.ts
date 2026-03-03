@@ -21,7 +21,7 @@ export async function loadOperators(): Promise<void> {
       'ZRH',
     ] as Prisma.InputJsonValue,
     fleetSize: 2,
-    fleetTypes: [] as Prisma.InputJsonValue,
+    fleetTypes: ['A321', 'A319'] as Prisma.InputJsonValue,
     avgFleetAge: 9.2,
     logoUrl:
       'https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png',
@@ -39,7 +39,7 @@ export async function loadOperators(): Promise<void> {
     type: OperatorType.legacy,
     hubs: ['FRA', 'MUC'] as Prisma.InputJsonValue,
     fleetSize: 1,
-    fleetTypes: [] as Prisma.InputJsonValue,
+    fleetTypes: ['A339'] as Prisma.InputJsonValue,
     avgFleetAge: 14.2,
     logoUrl:
       'https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/lufthansa.png',
@@ -86,7 +86,7 @@ export async function loadOperators(): Promise<void> {
       'DCA',
     ] as Prisma.InputJsonValue,
     fleetSize: 1,
-    fleetTypes: [] as Prisma.InputJsonValue,
+    fleetTypes: ['B77W'] as Prisma.InputJsonValue,
     avgFleetAge: 14.4,
     logoUrl:
       'https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/american_airlines.png',

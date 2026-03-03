@@ -77,4 +77,26 @@ export class OperatorsRepository {
       where: { operatorId },
     });
   }
+
+  async updateFleet(operatorId: string): Promise<void> {
+    const [fleetSize, fleetTypes] = await Promise.all([
+      this.countAircraft(operatorId),
+      this.getUniqueAircraftTypes(operatorId),
+    ]);
+
+    await this.prisma.operator.update({
+      where: { id: operatorId },
+      data: { fleetSize, fleetTypes },
+    });
+  }
+
+  private async getUniqueAircraftTypes(operatorId: string): Promise<string[]> {
+    const types = await this.prisma.aircraft.findMany({
+      select: { icaoCode: true },
+      where: { operatorId },
+      distinct: ['icaoCode'],
+    });
+
+    return types.map((type) => type.icaoCode);
+  }
 }
