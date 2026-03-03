@@ -43,12 +43,20 @@ model Airport {
 }
 
 model Operator {
-  id        String @id @default(uuid()) @db.Uuid
-  icaoCode  String @db.VarChar(3)
-  iataCode  String @default("AA") @db.VarChar(2)
-  shortName String
-  fullName  String
-  callsign  String
+  id            String       @id @default(uuid()) @db.Uuid
+  icaoCode      String       @db.VarChar(3)
+  iataCode      String       @default("AA") @db.VarChar(2)
+  shortName     String
+  fullName      String
+  callsign      String
+  type          OperatorType @default(legacy)
+  hubs          Json         @default("[]")
+  fleetSize     Int          @default(0)
+  fleetTypes    Json         @default("[]")
+  avgFleetAge   Float        @default(0)
+  logoUrl       String?
+  backgroundUrl String?
+  continent     Continent    @default(europe)
 
   aircrafts Aircraft[]
   flights   Flight[]
@@ -228,4 +236,11 @@ enum FlightTracking {
   public
   private
   disabled
+}
+
+enum OperatorType {
+  legacy
+  low_cost
+  charter
+  government_military
 }

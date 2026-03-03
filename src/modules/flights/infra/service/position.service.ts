@@ -5,7 +5,7 @@ import { FlightEventType } from '../../../../core/events/flight';
 import { AdsbClient } from '../../../../core/provider/adsb/client/adsb.client';
 import { FlightEvent } from '../../model/event.model';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { trimCallsign } from '../../model/flight.entity';
+import { trimCallsign } from '../../model/flight.model';
 
 @Injectable()
 export class PositionService {

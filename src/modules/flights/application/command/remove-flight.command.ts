@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightByIdQuery } from '../query/get-flight-by-id.query';
-import { FlightStatus } from '../../model/flight.entity';
+import { FlightStatus } from '../../model/flight.model';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import {
   FlightDoesNotExistError,

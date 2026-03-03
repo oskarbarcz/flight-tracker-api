@@ -1,12 +1,12 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { OperatorsRepository } from '../../infra/database/repository/operators.repository';
 import { OperatorNotFoundError } from '../../model/error/operator.error';
-import { UpdateOperatorDto } from '../../infra/http/request/operator.request';
+import { UpdateOperatorRequest } from '../../infra/http/request/operator.request';
 
 export class UpdateOperatorCommand {
   constructor(
     public readonly operatorId: string,
-    public readonly data: UpdateOperatorDto,
+    public readonly data: UpdateOperatorRequest,
   ) {}
 }
 

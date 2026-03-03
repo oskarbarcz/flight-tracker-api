@@ -11,7 +11,7 @@ import {
 } from '../../operators/infra/http/request/rotation.request';
 import { v4 } from 'uuid';
 import { RotationId } from '../../operators/model/rotation.model';
-import { FlightStatus } from '../../flights/model/flight.entity';
+import { FlightStatus } from '../../flights/model/flight.model';
 import { Prisma } from 'prisma/client/client';
 
 const rotationWithPilot = {

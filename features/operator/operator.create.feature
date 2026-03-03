@@ -22,7 +22,7 @@ Feature: Create operator
       }
       """
 
-  Scenario: As operations I cannot create operator
+  Scenario: As operations I can create operator
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/operator" with body:
       """json
@@ -43,7 +43,55 @@ Feature: Create operator
         "iataCode": "UA",
         "shortName": "United",
         "fullName": "United Airlines, Inc.",
-        "callsign": "UNITED"
+        "callsign": "UNITED",
+        "type": "legacy",
+        "hubs": [],
+        "fleetSize": 0,
+        "fleetTypes": [],
+        "avgFleetAge": 5,
+        "logoUrl": null,
+        "backgroundUrl": null,
+        "continent": "europe"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I can create operator with additional fields
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/operator" with body:
+      """json
+      {
+        "icaoCode": "WZZ",
+        "iataCode": "W6",
+        "shortName": "Wizz Air",
+        "fullName": "Wizz Air Hungary",
+        "callsign": "WIZZAIR",
+        "type": "low_cost",
+        "hubs": ["BUD"],
+        "avgFleetAge": 10,
+        "logoUrl": "https://example.com/logo.png",
+        "backgroundUrl": "https://example.com/background.png",
+        "continent": "europe"
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "icaoCode": "WZZ",
+        "iataCode": "W6",
+        "shortName": "Wizz Air",
+        "fullName": "Wizz Air Hungary",
+        "callsign": "WIZZAIR",
+        "type": "low_cost",
+        "hubs": ["BUD"],
+        "avgFleetAge": 10,
+        "logoUrl": "https://example.com/logo.png",
+        "backgroundUrl": "https://example.com/background.png",
+        "continent": "europe",
+        "fleetSize": 0,
+        "fleetTypes": []
       }
       """
     And I set database to initial state

@@ -35,7 +35,15 @@ Feature: Update operator
         "iataCode": "DE",
         "shortName": "Condor Regional",
         "fullName": "Condor Flugdienst",
-        "callsign": "CONDOR"
+        "callsign": "CONDOR",
+        "type": "low_cost",
+        "hubs": ["BER", "DUS", "FRA", "HAM", "MUC", "STR", "ZRH"],
+        "fleetSize": 2,
+        "fleetTypes": [],
+        "avgFleetAge": 9.2,
+        "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png",
+        "backgroundUrl": null,
+        "continent": "europe"
       }
       """
     And I set database to initial state

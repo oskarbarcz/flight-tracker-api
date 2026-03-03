@@ -1,7 +1,7 @@
 import { ApiProperty, OmitType, PartialType } from '@nestjs/swagger';
 import { Aircraft } from '../../../model/aircraft.model';
-import { Operator } from '../../../model/operator.model';
 import { IsNotEmpty, IsString } from 'class-validator';
+import { LegacyOperatorResponse } from './operator.request';
 
 export class LegacyCreateAircraftRequest extends OmitType(Aircraft, [
   'id',
@@ -18,10 +18,10 @@ export class LegacyCreateAircraftRequest extends OmitType(Aircraft, [
 export class LegacyCreateAircraftResponse extends Aircraft {
   @ApiProperty({
     description: 'Aircraft operator',
-    type: Operator,
+    type: LegacyOperatorResponse,
     deprecated: true,
   })
-  operator!: Operator | null;
+  operator!: LegacyOperatorResponse | null;
 }
 
 export class LegacyUpdateAircraftRequest extends PartialType(

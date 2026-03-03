@@ -2,7 +2,7 @@ import {
   FlightSource,
   FlightStatus,
   FlightTracking,
-} from '../../model/flight.entity';
+} from '../../model/flight.model';
 import { QueryHandler, Query, IQueryHandler } from '@nestjs/cqrs';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { FullTimesheet } from '../../model/timesheet.model';

@@ -5,7 +5,7 @@ import {
   FlightIncorrectStateToChangeRotationError,
   FlightNotFoundError,
 } from '../../../model/error/flight.error';
-import { FlightStatus } from '../../../model/flight.entity';
+import { FlightStatus } from '../../../model/flight.model';
 import { AssertRotationExistsQuery } from '../../../../operators/application/query/rotation/assert-rotation-exists.query';
 
 export class AddFlightToRotationCommand {

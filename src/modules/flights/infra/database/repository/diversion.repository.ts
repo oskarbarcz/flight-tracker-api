@@ -16,7 +16,7 @@ import {
   DiversionReporterRole,
   DiversionSeverity,
 } from '../../../model/diversion.model';
-import { FlightStatus } from '../../../model/flight.entity';
+import { FlightStatus } from '../../../model/flight.model';
 import {
   Continent,
   Coordinates,
