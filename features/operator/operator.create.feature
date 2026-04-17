@@ -123,7 +123,7 @@ Feature: Create operator
     When I send a "POST" request to "/api/v1/operator" with body:
       """json
       {
-        "icaoCode": "CDG",
+        "icaoCode": "CFG",
         "shortName": "Condor Copy"
       }
       """

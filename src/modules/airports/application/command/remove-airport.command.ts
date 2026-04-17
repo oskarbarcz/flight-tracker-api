@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { AirportsRepository } from '../../infra/database/repository/airports.repository';
+import { AirportsRepository } from '../../infra/database/airports.repository';
 
 export class RemoveAirportCommand {
   constructor(public readonly airportId: string) {}

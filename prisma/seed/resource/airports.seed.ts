@@ -51,7 +51,7 @@ export async function loadAirports(): Promise<void> {
   const paris: Prisma.AirportCreateInput = {
     id: '79b8f884-f67d-4585-b540-36b0be7f551e',
     icaoCode: 'LFPG',
-    iataCode: 'CDG',
+    iataCode: 'CFG',
     city: 'Paris',
     name: 'Paris Charles de Gaulle',
     country: 'France',

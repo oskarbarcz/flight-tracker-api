@@ -42,6 +42,17 @@ model Airport {
   @@map("airport")
 }
 
+model Terminal {
+  id              String @id @default(uuid()) @db.Uuid
+  airportId       String @db.Uuid
+  shortName       String @db.VarChar(8)
+  fullName        String @db.VarChar(128)
+  averageTaxiTime Int
+  operatorCodes   Json
+
+  @@map("terminal")
+}
+
 model Operator {
   id            String       @id @default(uuid()) @db.Uuid
   icaoCode      String       @db.VarChar(3)

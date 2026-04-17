@@ -3,14 +3,16 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
+import { PrismaService } from 'src/core/provider/prisma/prisma.service';
 import { Airport, Prisma } from 'prisma/client/client';
-import { AirportInUseError } from '../../http/request/errors.dto';
+import { AirportInUseError } from '../http/request/errors.dto';
 import {
   AirportListFilters,
   CreateAirportRequest,
   UpdateAirportResponse,
-} from '../../http/request/airport.dto';
+} from '../http/request/airport.dto';
+import { TerminalId } from '../../model/terminal.model';
+import { CreateTerminalRequest } from '../http/request/terminal.dto';
 
 const selectAirport = {
   id: true,
@@ -29,25 +31,21 @@ type AirportView = Prisma.AirportGetPayload<{
 }>;
 
 @Injectable()
-export class AirportsRepository {
+export class TerminalsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(data: CreateAirportRequest): Promise<AirportView> {
-    const airport = await this.findOneBy({ icaoCode: data.icaoCode });
-
-    if (airport) {
-      throw new BadRequestException(
-        'Aircraft with given ICAO code already exists.',
-      );
-    }
-
-    return this.prisma.airport.create({
-      data: {
-        ...data,
-        location: data.location as unknown as Prisma.JsonObject,
-      },
-      select: selectAirport,
-    });
+  async create(
+    airportId: string,
+    terminalId: TerminalId,
+    request: CreateTerminalRequest,
+  ): Promise<void> {
+    // await this.prisma.airport.create({
+    //   data: {
+    //     ...data,
+    //     location: data.location as unknown as Prisma.JsonObject,
+    //   },
+    //   select: selectAirport,
+    // });
   }
 
   async findAll(filters: AirportListFilters): Promise<AirportView[]> {

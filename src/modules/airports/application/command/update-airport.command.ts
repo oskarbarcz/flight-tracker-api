@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UpdateAirportResponse } from '../../infra/http/request/airport.dto';
-import { AirportsRepository } from '../../infra/database/repository/airports.repository';
+import { AirportsRepository } from '../../infra/database/airports.repository';
 
 export class UpdateAirportCommand {
   constructor(

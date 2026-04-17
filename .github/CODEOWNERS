@@ -1,0 +1,16 @@
+# By default, only backend developers should review changes
+*                  @Generacja-Innowacja/backs
+
+# Files and directories required to be reviewed by the admins
+/.github/          @Generacja-Innowacja/admins
+/docker/           @Generacja-Innowacja/admins
+/.env.dist         @Generacja-Innowacja/admins
+/.gitignore        @Generacja-Innowacja/admins
+/.prettierrc       @Generacja-Innowacja/admins
+/compose.yaml      @Generacja-Innowacja/admins
+/cucumber.js       @Generacja-Innowacja/admins
+/Dockerfile        @Generacja-Innowacja/admins
+/eslint.config.mjs @Generacja-Innowacja/admins
+/nest-cli.json     @Generacja-Innowacja/admins
+/prisma.config.ts  @Generacja-Innowacja/admins
+/tsconfig.json     @Generacja-Innowacja/admins
