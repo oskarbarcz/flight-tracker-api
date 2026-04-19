@@ -67,7 +67,7 @@ enum FuelingOptions {
 
 type NoiseSensitivityOption = YesOrNoString;
 
-export class GateBriefing {
+export class Gate {
   @ApiProperty({
     description: 'Gate unique system identifier',
     example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
