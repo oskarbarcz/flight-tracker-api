@@ -21,7 +21,7 @@ Feature: Create terminal
       }
       """
 
-  Scenario: As operations I can create terminal
+  Scenario: As operations I can create terminal without text
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/terminal" with body:
       """json
@@ -41,7 +41,35 @@ Feature: Create terminal
         "shortName": "T3",
         "fullName": "Terminal 3",
         "averageTaxiTime": 10,
-        "operatorCodes": ["KLM"]
+        "operatorCodes": ["KLM"],
+        "text": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I can create terminal with text briefing
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/terminal" with body:
+      """json
+      {
+        "shortName": "T3",
+        "fullName": "Terminal 3",
+        "averageTaxiTime": 10,
+        "operatorCodes": ["KLM"],
+        "text": "Gates 1-20. Remote stands accessed via bus."
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "shortName": "T3",
+        "fullName": "Terminal 3",
+        "averageTaxiTime": 10,
+        "operatorCodes": ["KLM"],
+        "text": "Gates 1-20. Remote stands accessed via bus."
       }
       """
     And I set database to initial state

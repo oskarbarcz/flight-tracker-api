@@ -12,7 +12,8 @@ Feature: Get terminal
         "shortName": "T1",
         "fullName": "Terminal 1",
         "averageTaxiTime": 12,
-        "operatorCodes": ["DLH", "LOT"]
+        "operatorCodes": ["DLH", "LOT"],
+        "text": null
       }
       """
 

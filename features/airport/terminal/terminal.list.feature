@@ -13,7 +13,8 @@ Feature: List terminals at an airport
           "shortName": "T1",
           "fullName": "Terminal 1",
           "averageTaxiTime": 12,
-          "operatorCodes": ["DLH", "LOT"]
+          "operatorCodes": ["DLH", "LOT"],
+          "text": null
         },
         {
           "id": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
@@ -21,7 +22,8 @@ Feature: List terminals at an airport
           "shortName": "T2",
           "fullName": "Terminal 2",
           "averageTaxiTime": 14,
-          "operatorCodes": ["BAW", "AFR"]
+          "operatorCodes": ["BAW", "AFR"],
+          "text": null
         }
       ]
       """

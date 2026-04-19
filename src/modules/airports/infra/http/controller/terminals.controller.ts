@@ -38,8 +38,8 @@ import {
 import { CreateTerminalCommand } from '../../../application/command/terminals/create-terminal.command';
 import { UpdateTerminalCommand } from '../../../application/command/terminals/update-terminal.command';
 import { RemoveTerminalCommand } from '../../../application/command/terminals/remove-terminal.command';
-import { GetTerminalByIdQuery } from '../../../application/query/get-terminal-by-id.query';
-import { ListTerminalsByAirportQuery } from '../../../application/query/list-terminals-by-airport.query';
+import { GetTerminalByIdQuery } from '../../../application/query/terminal/get-terminal-by-id.query';
+import { ListTerminalsByAirportQuery } from '../../../application/query/terminal/list-terminals-by-airport.query';
 import { v4 } from 'uuid';
 
 @ApiTags('airport terminal')

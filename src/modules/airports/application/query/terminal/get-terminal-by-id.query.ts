@@ -1,36 +1,45 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { UpdateTerminalRequest } from '../../../infra/http/request/terminal.dto';
+import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { TerminalsRepository } from '../../../infra/database/terminals.repository';
+import { GetTerminalResponse } from '../../../infra/http/request/terminal.dto';
 import { AirportsRepository } from '../../../infra/database/airports.repository';
 import { AirportNotFoundError } from '../../../model/error/airport.error';
 import { TerminalNotFoundError } from '../../../model/error/terminal.error';
 
-export class UpdateTerminalCommand {
+export class GetTerminalByIdQuery extends Query<GetTerminalResponse> {
   constructor(
     public readonly airportId: string,
     public readonly terminalId: string,
-    public readonly data: UpdateTerminalRequest,
-  ) {}
+  ) {
+    super();
+  }
 }
 
-@CommandHandler(UpdateTerminalCommand)
-export class UpdateTerminalHandler implements ICommandHandler<UpdateTerminalCommand> {
+@QueryHandler(GetTerminalByIdQuery)
+export class GetTerminalByIdHandler implements IQueryHandler<GetTerminalByIdQuery> {
   constructor(
     private readonly terminalsRepository: TerminalsRepository,
     private readonly airportsRepository: AirportsRepository,
   ) {}
 
-  async execute(command: UpdateTerminalCommand): Promise<void> {
-    const { airportId, terminalId, data } = command;
+  async execute(query: GetTerminalByIdQuery): Promise<GetTerminalResponse> {
+    const { airportId, terminalId } = query;
 
     if (!(await this.airportsRepository.exists(airportId))) {
       throw new AirportNotFoundError();
     }
 
-    if (!(await this.terminalsRepository.exists(airportId, terminalId))) {
+    const terminal = await this.terminalsRepository.findOneBy({
+      id: terminalId,
+      airportId,
+    });
+
+    if (!terminal) {
       throw new TerminalNotFoundError();
     }
 
-    await this.terminalsRepository.update(terminalId, data);
+    return {
+      ...terminal,
+      operatorCodes: terminal.operatorCodes as string[],
+    };
   }
 }

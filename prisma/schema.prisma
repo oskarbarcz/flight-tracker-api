@@ -44,12 +44,13 @@ model Airport {
 }
 
 model Terminal {
-  id              String @id @default(uuid()) @db.Uuid
-  airportId       String @db.Uuid
-  shortName       String @db.VarChar(8)
-  fullName        String @db.VarChar(128)
+  id              String  @id @default(uuid()) @db.Uuid
+  airportId       String  @db.Uuid
+  shortName       String  @db.VarChar(8)
+  fullName        String  @db.VarChar(128)
   averageTaxiTime Int
-  operatorCodes   Json   @default("[]")
+  operatorCodes   Json    @default("[]")
+  text            String? @db.Text
 
   airport Airport @relation(fields: [airportId], references: [id], onDelete: Cascade)
 

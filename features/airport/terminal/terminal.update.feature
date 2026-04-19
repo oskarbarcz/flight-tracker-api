@@ -15,7 +15,8 @@ Feature: Update terminal
       {
         "fullName": "Terminal 1 (renovated)",
         "averageTaxiTime": 20,
-        "operatorCodes": ["DLH", "LOT", "KLM"]
+        "operatorCodes": ["DLH", "LOT", "KLM"],
+        "text": "Renovated in 2026. New jet-bridges on all gates."
       }
       """
     Then the response status should be 200
@@ -27,7 +28,8 @@ Feature: Update terminal
         "shortName": "T1",
         "fullName": "Terminal 1 (renovated)",
         "averageTaxiTime": 20,
-        "operatorCodes": ["DLH", "LOT", "KLM"]
+        "operatorCodes": ["DLH", "LOT", "KLM"],
+        "text": "Renovated in 2026. New jet-bridges on all gates."
       }
       """
     And I set database to initial state

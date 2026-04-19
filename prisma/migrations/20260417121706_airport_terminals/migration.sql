@@ -4,6 +4,7 @@ CREATE TABLE "terminal" (
     "airportId" UUID NOT NULL,
     "shortName" VARCHAR(8) NOT NULL,
     "fullName" VARCHAR(128) NOT NULL,
+    "text" TEXT,
     "averageTaxiTime" INTEGER NOT NULL,
     "operatorCodes" JSONB NOT NULL DEFAULT '[]',
 

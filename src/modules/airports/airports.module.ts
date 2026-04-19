@@ -13,8 +13,8 @@ import { TerminalsController } from './infra/http/controller/terminals.controlle
 import { CreateTerminalHandler } from './application/command/terminals/create-terminal.command';
 import { UpdateTerminalHandler } from './application/command/terminals/update-terminal.command';
 import { RemoveTerminalHandler } from './application/command/terminals/remove-terminal.command';
-import { GetTerminalByIdHandler } from './application/query/get-terminal-by-id.query';
-import { ListTerminalsByAirportHandler } from './application/query/list-terminals-by-airport.query';
+import { GetTerminalByIdHandler } from './application/query/terminal/get-terminal-by-id.query';
+import { ListTerminalsByAirportHandler } from './application/query/terminal/list-terminals-by-airport.query';
 
 @Module({
   imports: [PrismaModule],

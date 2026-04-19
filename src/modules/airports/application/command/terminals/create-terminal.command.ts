@@ -1,6 +1,8 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateTerminalRequest } from '../../../infra/http/request/terminal.dto';
 import { TerminalsRepository } from '../../../infra/database/terminals.repository';
+import { AirportsRepository } from '../../../infra/database/airports.repository';
+import { AirportNotFoundError } from '../../../model/error/airport.error';
 
 export class CreateTerminalCommand {
   constructor(
@@ -12,13 +14,18 @@ export class CreateTerminalCommand {
 
 @CommandHandler(CreateTerminalCommand)
 export class CreateTerminalHandler implements ICommandHandler<CreateTerminalCommand> {
-  constructor(private readonly repository: TerminalsRepository) {}
+  constructor(
+    private readonly terminalsRepository: TerminalsRepository,
+    private readonly airportsRepository: AirportsRepository,
+  ) {}
 
   async execute(command: CreateTerminalCommand): Promise<void> {
-    await this.repository.create(
-      command.airportId,
-      command.terminalId,
-      command.data,
-    );
+    const { airportId, terminalId, data } = command;
+
+    if (!(await this.airportsRepository.exists(airportId))) {
+      throw new AirportNotFoundError();
+    }
+
+    await this.terminalsRepository.create(airportId, terminalId, data);
   }
 }

@@ -112,4 +112,8 @@ export class AirportsRepository {
       select: selectAirport,
     });
   }
+
+  async exists(airportId: string): Promise<boolean> {
+    return !!(await this.findOneBy({ id: airportId }));
+  }
 }

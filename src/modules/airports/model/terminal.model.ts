@@ -4,6 +4,7 @@ import {
   IsArray,
   IsInt,
   IsNotEmpty,
+  IsOptional,
   IsString,
   Length,
   MaxLength,
@@ -64,4 +65,15 @@ export class Terminal {
   @ArrayUnique()
   @IsString({ each: true })
   operatorCodes!: OperatorIcaoCode[];
+
+  @ApiProperty({
+    description: 'Free-text briefing notes about the terminal',
+    example: 'Gates 1–20. Remote stands accessed via bus.',
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  @IsOptional()
+  @IsString()
+  text?: string | null;
 }
