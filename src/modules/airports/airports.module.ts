@@ -9,11 +9,16 @@ import { GetAirportByIdHandler } from './application/query/get-airport-by-id.que
 import { ListAllAirportsHandler } from './application/query/list-all-airports.query';
 import { GetAirportByIcaoCodeHandler } from './application/query/get-airport-by-icao-code.query';
 import { TerminalsRepository } from './infra/database/terminals.repository';
-import { CreateTerminalHandler } from './application/command/terminals/create-terminal-command';
+import { TerminalsController } from './infra/http/controller/terminals.controller';
+import { CreateTerminalHandler } from './application/command/terminals/create-terminal.command';
+import { UpdateTerminalHandler } from './application/command/terminals/update-terminal.command';
+import { RemoveTerminalHandler } from './application/command/terminals/remove-terminal.command';
+import { GetTerminalByIdHandler } from './application/query/get-terminal-by-id.query';
+import { ListTerminalsByAirportHandler } from './application/query/list-terminals-by-airport.query';
 
 @Module({
   imports: [PrismaModule],
-  controllers: [AirportsController],
+  controllers: [AirportsController, TerminalsController],
   providers: [
     AirportsRepository,
     TerminalsRepository,
@@ -24,6 +29,10 @@ import { CreateTerminalHandler } from './application/command/terminals/create-te
     GetAirportByIcaoCodeHandler,
     ListAllAirportsHandler,
     CreateTerminalHandler,
+    UpdateTerminalHandler,
+    RemoveTerminalHandler,
+    GetTerminalByIdHandler,
+    ListTerminalsByAirportHandler,
   ],
 })
 export class AirportsModule {}

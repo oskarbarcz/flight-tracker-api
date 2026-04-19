@@ -1,8 +1,11 @@
-import { TerminalBriefing } from '../../../model/terminal.model';
 import { OmitType, PartialType } from '@nestjs/swagger';
+import { Terminal } from '../../../model/terminal.model';
 
-export class CreateTerminalRequest extends OmitType(TerminalBriefing, ['id']) {}
+export class CreateTerminalRequest extends OmitType(Terminal, [
+  'id',
+  'airportId',
+]) {}
 
 export class UpdateTerminalRequest extends PartialType(CreateTerminalRequest) {}
 
-export class GetTerminalResponse extends TerminalBriefing {}
+export class GetTerminalResponse extends Terminal {}

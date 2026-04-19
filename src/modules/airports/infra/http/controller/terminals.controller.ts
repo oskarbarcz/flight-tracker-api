@@ -1,15 +1,13 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
+  Controller,
   Delete,
+  Get,
   HttpCode,
   HttpStatus,
-  Query,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { UuidParam } from '../../../../../core/validation/uuid.param';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -24,30 +22,28 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { UserRole } from 'prisma/client/client';
+import { UuidParam } from '../../../../../core/validation/uuid.param';
+import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
 import { GenericBadRequestResponse } from '../../../../../core/http/response/bad-request.response';
 import { GenericNotFoundResponse } from '../../../../../core/http/response/not-found.response';
-import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
-import { UserRole } from 'prisma/client/client';
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import {
-  AirportListFilters,
-  CreateAirportRequest,
-  GetAirportResponse,
-  UpdateAirportResponse,
-} from '../request/airport.dto';
-import { SkipAuth } from '../../../../../core/http/auth/decorator/skip-auth.decorator';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateAirportCommand } from '../../../application/command/create-airport.command';
-import { UpdateAirportCommand } from '../../../application/command/update-airport.command';
-import { RemoveAirportCommand } from '../../../application/command/remove-airport.command';
-import { GetAirportByIdQuery } from '../../../application/query/get-airport-by-id.query';
-import { ListAllAirportsQuery } from '../../../application/query/list-all-airports.query';
-import { Airport } from '../../../model/airport.model';
-import { CreateTerminalRequest } from '../request/terminal.dto';
+  CreateTerminalRequest,
+  GetTerminalResponse,
+  UpdateTerminalRequest,
+} from '../request/terminal.dto';
+import { CreateTerminalCommand } from '../../../application/command/terminals/create-terminal.command';
+import { UpdateTerminalCommand } from '../../../application/command/terminals/update-terminal.command';
+import { RemoveTerminalCommand } from '../../../application/command/terminals/remove-terminal.command';
+import { GetTerminalByIdQuery } from '../../../application/query/get-terminal-by-id.query';
+import { ListTerminalsByAirportQuery } from '../../../application/query/list-terminals-by-airport.query';
+import { v4 } from 'uuid';
 
-@ApiTags('airport')
-@Controller('api/v1/airport')
+@ApiTags('airport terminal')
+@Controller('api/v1/airport/:airportId/terminal')
 export class TerminalsController {
   constructor(
     private readonly commandBus: CommandBus,
@@ -55,114 +51,113 @@ export class TerminalsController {
   ) {}
 
   @ApiOperation({
-    summary: 'Create new airport',
+    summary: 'Create new terminal at given airport',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth('jwt')
-  @ApiBody({ type: CreateAirportRequest })
-  @ApiCreatedResponse({ type: Airport })
+  @ApiParam({ name: 'airportId', description: 'Airport unique identifier' })
+  @ApiBody({ type: CreateTerminalRequest })
+  @ApiCreatedResponse({ type: GetTerminalResponse })
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Post()
   @Role(UserRole.Operations)
-  async create(@Body() body: CreateTerminalRequest) {
-    // const command = new Create(body);
-    // const airportId = await this.commandBus.execute(command);
-    //
-    // const query = new GetAirportByIdQuery(airportId);
-    // return this.queryBus.execute(query);
-  }
+  async create(
+    @UuidParam('airportId') airportId: string,
+    @Body() body: CreateTerminalRequest,
+  ): Promise<GetTerminalResponse> {
+    const terminalId = v4();
 
-  @ApiOperation({ summary: 'Retrieve all airports' })
-  @ApiBearerAuth('jwt')
-  @ApiParam({
-    name: 'continent',
-    required: false,
-    description: 'Filter by continent',
-  })
-  @ApiOkResponse({
-    type: GetAirportResponse,
-    isArray: true,
-  })
-  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
-  @SkipAuth()
-  @Get()
-  async findAll(
-    @Query() filters: AirportListFilters,
-  ): Promise<GetAirportResponse[]> {
-    const query = new ListAllAirportsQuery(filters);
+    const command = new CreateTerminalCommand(airportId, terminalId, body);
+    await this.commandBus.execute(command);
+
+    const query = new GetTerminalByIdQuery(airportId, terminalId);
     return this.queryBus.execute(query);
   }
 
-  @ApiOperation({ summary: 'Retrieve one airport' })
+  @ApiOperation({ summary: 'Retrieve all terminals at given airport' })
   @ApiBearerAuth('jwt')
-  @ApiParam({
-    name: 'id',
-    description: 'Airport unique identifier',
-  })
-  @ApiOkResponse({ type: GetAirportResponse })
-  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
-  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @ApiParam({ name: 'airportId', description: 'Airport unique identifier' })
+  @ApiOkResponse({ type: GetTerminalResponse, isArray: true })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
-  @Get(':id')
-  async findOne(@UuidParam('id') id: string): Promise<GetAirportResponse> {
-    const query = new GetAirportByIdQuery(id);
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @Get()
+  async findAll(
+    @UuidParam('airportId') airportId: string,
+  ): Promise<GetTerminalResponse[]> {
+    const query = new ListTerminalsByAirportQuery(airportId);
+    return this.queryBus.execute(query);
+  }
+
+  @ApiOperation({ summary: 'Retrieve one terminal' })
+  @ApiBearerAuth('jwt')
+  @ApiParam({ name: 'airportId', description: 'Airport unique identifier' })
+  @ApiParam({ name: 'terminalId', description: 'Terminal unique identifier' })
+  @ApiOkResponse({ type: GetTerminalResponse })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @Get(':terminalId')
+  async findOne(
+    @UuidParam('airportId') airportId: string,
+    @UuidParam('terminalId') terminalId: string,
+  ): Promise<GetTerminalResponse> {
+    const query = new GetTerminalByIdQuery(airportId, terminalId);
     return this.queryBus.execute(query);
   }
 
   @ApiOperation({
-    summary: 'Update airport',
+    summary: 'Update terminal',
     description:
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth('jwt')
-  @ApiParam({
-    name: 'id',
-    description: 'Airport unique identifier',
-  })
-  @ApiBody({ type: UpdateAirportResponse })
-  @ApiOkResponse({ type: GetAirportResponse })
-  @ApiBadRequestResponse({
-    type: GenericBadRequestResponse<CreateAirportRequest>,
-  })
+  @ApiParam({ name: 'airportId', description: 'Airport unique identifier' })
+  @ApiParam({ name: 'terminalId', description: 'Terminal unique identifier' })
+  @ApiBody({ type: UpdateTerminalRequest })
+  @ApiOkResponse({ type: GetTerminalResponse })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
-  @Patch(':id')
+  @Patch(':terminalId')
   @Role(UserRole.Operations)
   async update(
-    @UuidParam('id') id: string,
-    @Body() body: UpdateAirportResponse,
-  ): Promise<GetAirportResponse> {
-    const command = new UpdateAirportCommand(id, body);
+    @UuidParam('airportId') airportId: string,
+    @UuidParam('terminalId') terminalId: string,
+    @Body() body: UpdateTerminalRequest,
+  ): Promise<GetTerminalResponse> {
+    const command = new UpdateTerminalCommand(airportId, terminalId, body);
     await this.commandBus.execute(command);
 
-    const query = new GetAirportByIdQuery(id);
+    const query = new GetTerminalByIdQuery(airportId, terminalId);
     return this.queryBus.execute(query);
   }
 
   @ApiOperation({
-    summary: 'Remove airport',
+    summary: 'Remove terminal',
     description:
-      '**NOTE:** This endpoint is only available for users with `operations` role',
+      '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth('jwt')
-  @ApiParam({
-    name: 'id',
-    description: 'Airport unique identifier',
-  })
+  @ApiParam({ name: 'airportId', description: 'Airport unique identifier' })
+  @ApiParam({ name: 'terminalId', description: 'Terminal unique identifier' })
   @ApiNoContentResponse()
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
-  @Delete(':id')
+  @Delete(':terminalId')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.Operations)
-  async remove(@UuidParam('id') id: string): Promise<void> {
-    const command = new RemoveAirportCommand(id);
+  async remove(
+    @UuidParam('airportId') airportId: string,
+    @UuidParam('terminalId') terminalId: string,
+  ): Promise<void> {
+    const command = new RemoveTerminalCommand(airportId, terminalId);
     await this.commandBus.execute(command);
   }
 }

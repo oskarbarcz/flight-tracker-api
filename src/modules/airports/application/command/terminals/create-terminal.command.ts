@@ -6,7 +6,7 @@ export class CreateTerminalCommand {
   constructor(
     public readonly airportId: string,
     public readonly terminalId: string,
-    public readonly request: CreateTerminalRequest,
+    public readonly data: CreateTerminalRequest,
   ) {}
 }
 
@@ -15,7 +15,10 @@ export class CreateTerminalHandler implements ICommandHandler<CreateTerminalComm
   constructor(private readonly repository: TerminalsRepository) {}
 
   async execute(command: CreateTerminalCommand): Promise<void> {
-    const { airportId, terminalId, request } = command;
-    await this.repository.create(terminalId, airportId, request);
+    await this.repository.create(
+      command.airportId,
+      command.terminalId,
+      command.data,
+    );
   }
 }

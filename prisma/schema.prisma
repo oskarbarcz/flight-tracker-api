@@ -38,6 +38,7 @@ model Airport {
 
   airportsOnFlights AirportsOnFlights[]
   diversion         Diversion[]
+  terminals         Terminal[]
 
   @@map("airport")
 }
@@ -48,7 +49,9 @@ model Terminal {
   shortName       String @db.VarChar(8)
   fullName        String @db.VarChar(128)
   averageTaxiTime Int
-  operatorCodes   Json
+  operatorCodes   Json   @default("[]")
+
+  airport Airport @relation(fields: [airportId], references: [id], onDelete: Cascade)
 
   @@map("terminal")
 }
