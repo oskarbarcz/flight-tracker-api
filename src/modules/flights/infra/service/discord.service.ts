@@ -34,11 +34,11 @@ export class DiscordService {
       flight.timesheet.estimated?.onBlockTime as Date,
     );
 
-    const callsignWithSpace = flight.callsign.replace(/^(.{2})/, '$1 ');
+    const formattedFlightNumber = flight.flightNumber.replace(/^(.{2})/, '$1 ');
 
     const content =
       `:airplane_departure: :airplane_departure: :airplane_departure:\n\n` +
-      `Flight **${callsignWithSpace}**` +
+      `Flight **${formattedFlightNumber}**` +
       ` from **${departure.city} (${departure.iataCode})**` +
       ` to **${destination.city} (${destination.iataCode})**` +
       ` has started boarding!\n` +
@@ -71,11 +71,11 @@ export class DiscordService {
       flight.timesheet.actual?.onBlockTime as Date,
     );
 
-    const callsignWithSpace = flight.callsign.replace(/^(.{2})/, '$1 ');
+    const formattedFlightNumber = flight.flightNumber.replace(/^(.{2})/, '$1 ');
 
     const content =
       `:airplane_arriving: :airplane_arriving: :airplane_arriving:\n\n` +
-      `Flight **${callsignWithSpace}**` +
+      `Flight **${formattedFlightNumber}**` +
       ` from **${departure.city} (${departure.iataCode})**` +
       ` to **${destination.city} (${destination.iataCode})**` +
       ` just arrived!\n` +
