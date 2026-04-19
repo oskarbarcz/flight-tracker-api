@@ -34,16 +34,18 @@ export class DiscordService {
       flight.timesheet.estimated?.onBlockTime as Date,
     );
 
+    const callsignWithSpace = flight.callsign.replace(/^(.{2})/, '$1 ');
+
     const content =
       `:airplane_departure: :airplane_departure: :airplane_departure:\n\n` +
-      `Flight **${flight.callsign}**` +
+      `Flight **${callsignWithSpace}**` +
       ` from **${departure.city} (${departure.iataCode})**` +
       ` to **${destination.city} (${destination.iataCode})**` +
       ` has started boarding!\n` +
       `Estimated block time: **${blockTime}hrs**, ` +
       `Passengers on board: **${flight.loadsheets.preliminary?.passengers}**\n\n` +
       `Track flight live on <:ft:1436299102626386031> ` +
-      `[Flight Tracker](https://flights.barcz.me/live-tracking/${flight.id})!`;
+      `[Flight Tracker](https://flights.barcz.me/map/${flight.id})!`;
 
     await this.client.sendMessage({
       flightId: event.flightId,
@@ -69,15 +71,17 @@ export class DiscordService {
       flight.timesheet.actual?.onBlockTime as Date,
     );
 
+    const callsignWithSpace = flight.callsign.replace(/^(.{2})/, '$1 ');
+
     const content =
       `:airplane_arriving: :airplane_arriving: :airplane_arriving:\n\n` +
-      `Flight **${flight.callsign}**` +
+      `Flight **${callsignWithSpace}**` +
       ` from **${departure.city} (${departure.iataCode})**` +
       ` to **${destination.city} (${destination.iataCode})**` +
       ` just arrived!\n` +
       `Actual block time: **${blockTime}hrs**\n\n` +
       `See flight path on <:ft:1436299102626386031> ` +
-      `[Flight Tracker](https://flights.barcz.me/live-tracking/${flight.id})!`;
+      `[Flight Tracker](https://flights.barcz.me/map/${flight.id})!`;
 
     await this.client.sendMessage({
       flightId: event.flightId,
