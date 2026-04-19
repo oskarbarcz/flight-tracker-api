@@ -32,6 +32,7 @@ export class TerminalsRepository {
 
     return this.prisma.terminal.create({
       data: {
+        id: terminalId,
         ...data,
         operatorCodes: data.operatorCodes as Prisma.JsonArray,
         airport: { connect: { id: airportId } },
