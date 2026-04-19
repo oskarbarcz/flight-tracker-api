@@ -13,7 +13,7 @@ export class Schedule {
   arrivalTime!: Date | null;
 
   @ApiProperty({
-    description: 'Time when aircraft parks at the gate',
+    description: 'Time when aircraft parks at the gates',
     type: Date,
     example: '2021-07-01T12:00:00Z',
   })
@@ -33,7 +33,7 @@ export class Schedule {
   takeoffTime!: Date | null;
 
   @ApiProperty({
-    description: 'Time when the aircraft leaves the gate',
+    description: 'Time when the aircraft leaves the gates',
     type: Date,
     example: '2021-07-01T12:00:00Z',
   })

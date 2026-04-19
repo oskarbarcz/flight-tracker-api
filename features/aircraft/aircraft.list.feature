@@ -34,7 +34,7 @@ Feature: List aircraft
           "shortName": "Airbus A321",
           "operator": {
             "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
-            "icaoCode": "CDG",
+            "icaoCode": "CFG",
             "iataCode": "DE",
             "shortName": "Condor",
             "fullName": "Condor Flugdienst",
@@ -51,7 +51,7 @@ Feature: List aircraft
           "shortName": "Airbus A319",
           "operator": {
             "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
-            "icaoCode": "CDG",
+            "icaoCode": "CFG",
             "iataCode": "DE",
             "shortName": "Condor",
             "fullName": "Condor Flugdienst",

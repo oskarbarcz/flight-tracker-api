@@ -1,5 +1,5 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { AirportsRepository } from '../../infra/database/repository/airports.repository';
+import { AirportsRepository } from '../../infra/database/airports.repository';
 import { Continent, Coordinates } from '../../model/airport.model';
 import {
   AirportListFilters,

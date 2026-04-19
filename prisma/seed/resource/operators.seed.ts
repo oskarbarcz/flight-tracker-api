@@ -5,7 +5,7 @@ import { Continent } from '../../../src/modules/airports/model/airport.model';
 export async function loadOperators(): Promise<void> {
   const condor = {
     id: '5c649579-22eb-4c07-a96c-b74a77f53871',
-    icaoCode: 'CDG',
+    icaoCode: 'CFG',
     iataCode: 'DE',
     shortName: 'Condor',
     fullName: 'Condor Flugdienst',

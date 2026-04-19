@@ -3,14 +3,14 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
+import { PrismaService } from '../../../../core/provider/prisma/prisma.service';
 import { Airport, Prisma } from 'prisma/client/client';
-import { AirportInUseError } from '../../http/request/errors.dto';
+import { AirportInUseError } from '../http/request/errors.dto';
 import {
   AirportListFilters,
   CreateAirportRequest,
   UpdateAirportResponse,
-} from '../../http/request/airport.dto';
+} from '../http/request/airport.dto';
 
 const selectAirport = {
   id: true,
@@ -111,5 +111,9 @@ export class AirportsRepository {
       where: criteria,
       select: selectAirport,
     });
+  }
+
+  async exists(airportId: string): Promise<boolean> {
+    return !!(await this.findOneBy({ id: airportId }));
   }
 }
