@@ -32,7 +32,10 @@ type AirportView = Prisma.AirportGetPayload<{
 export class AirportsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(data: CreateAirportRequest): Promise<AirportView> {
+  async create(
+    airportId: string,
+    data: CreateAirportRequest,
+  ): Promise<AirportView> {
     const airport = await this.findOneBy({ icaoCode: data.icaoCode });
 
     if (airport) {
@@ -43,6 +46,7 @@ export class AirportsRepository {
 
     return this.prisma.airport.create({
       data: {
+        id: airportId,
         ...data,
         location: data.location as unknown as Prisma.JsonObject,
       },

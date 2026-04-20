@@ -44,6 +44,7 @@ import { RemoveAirportCommand } from '../../../application/command/remove-airpor
 import { GetAirportByIdQuery } from '../../../application/query/get-airport-by-id.query';
 import { ListAllAirportsQuery } from '../../../application/query/list-all-airports.query';
 import { Airport } from '../../../model/airport.model';
+import { v4 } from 'uuid';
 
 @ApiTags('airport')
 @Controller('api/v1/airport')
@@ -69,8 +70,10 @@ export class AirportsController {
   async create(
     @Body() body: CreateAirportRequest,
   ): Promise<GetAirportResponse> {
-    const command = new CreateAirportCommand(body);
-    const airportId = await this.commandBus.execute(command);
+    const airportId = v4();
+
+    const command = new CreateAirportCommand(airportId, body);
+    await this.commandBus.execute(command);
 
     const query = new GetAirportByIdQuery(airportId);
     return this.queryBus.execute(query);

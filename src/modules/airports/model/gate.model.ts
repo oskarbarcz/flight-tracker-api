@@ -1,71 +1,80 @@
 import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsEnum,
+  IsMilitaryTime,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+  MaxLength,
+} from 'class-validator';
 import { YesOrNoString } from 'src/core/types/monada';
 import { TerminalId } from './terminal.model';
 
-type GateId = string & {};
+export type GateId = string & {};
 
-type BridgeOption = YesOrNoString;
+export type BridgeOption = YesOrNoString;
 
-enum StairOption {
+export enum StairOption {
   No = 'no',
   WithBus = 'with-bus-transport',
   WithPassengerWalking = 'with-passenger-walking',
   WithBusOrPassengerWalking = 'with-bus-or-passenger-walking',
 }
 
-enum DeicingOption {
+export enum DeicingOption {
   No = 'no',
   Possible = 'possible',
   Recommended = 'recommended',
   Mandatory = 'mandatory',
 }
 
-enum GpuAvailability {
+export enum GpuAvailability {
   No = 'no',
   Bridge = 'bridge',
   Standalone = 'standalone',
   Both = 'both',
 }
 
-enum PcaAvailability {
+export enum PcaAvailability {
   No = 'no',
   Bridge = 'bridge',
   Standalone = 'standalone',
   Both = 'both',
 }
 
-enum ParkingPositionType {
+export enum ParkingPositionType {
   Angled = 'angled',
   StraightIn = 'straight-in',
   AngledTaxiThrough = 'angled-taxi-through',
   StraightInTaxiThrough = 'straight-in-taxi-through',
 }
 
-enum ParkingLocation {
+export enum ParkingLocation {
   Remote = 'remote',
   Gate = 'gate',
 }
 
-enum ParkingSpotType {
+export enum ParkingSpotType {
   Passenger = 'passenger',
   Cargo = 'cargo',
   Other = 'other',
 }
 
-enum ParkingAssistanceType {
+export enum ParkingAssistanceType {
   None = 'none',
   Vdgs = 'vdgs',
   Marshaller = 'marshaller',
-  VdgsOrMashaller = 'vdgs-or-marshaller',
+  VdgsOrMarshaller = 'vdgs-or-marshaller',
 }
 
-enum FuelingOptions {
+export enum FuelingOptions {
   None = 'none',
   Truck = 'truck',
   Hydrant = 'hydrant',
 }
 
-type NoiseSensitivityOption = YesOrNoString;
+export type NoiseSensitivityOption = YesOrNoString;
 
 export class Gate {
   @ApiProperty({
@@ -76,33 +85,158 @@ export class Gate {
   id!: GateId;
 
   @ApiProperty({
-    description: 'Gate unique system identifier',
+    description: 'Airport unique system identifier',
     example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
     format: 'uuid',
   })
   airportId!: string;
 
   @ApiProperty({
-    description: 'Gate unique system identifier',
+    description: 'Terminal unique system identifier',
     example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
     format: 'uuid',
   })
+  @IsUUID()
   terminalId!: TerminalId;
 
   @ApiProperty({
     description: 'Gate name',
     example: '575',
   })
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(16)
   name!: string;
+
+  @ApiProperty({
+    description: 'Whether gate has jet bridge',
+    enum: YesOrNoString,
+    example: YesOrNoString.Yes,
+  })
+  @IsEnum(YesOrNoString)
   bridge!: BridgeOption;
+
+  @ApiProperty({
+    description: 'Stairs boarding option at the gate',
+    enum: StairOption,
+    example: StairOption.No,
+  })
+  @IsEnum(StairOption)
   stairs!: StairOption;
+
+  @ApiProperty({
+    description: 'Deicing capability at the gate',
+    enum: DeicingOption,
+    example: DeicingOption.Possible,
+  })
+  @IsEnum(DeicingOption)
   deicing!: DeicingOption;
+
+  @ApiProperty({
+    description: 'Free-text notes about deicing at the gate',
+    example: 'Deicing pad shared with stand B6. Coordinate with ground ops.',
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  @IsOptional()
+  @IsString()
+  deicingDescription?: string | null;
+
+  @ApiProperty({
+    description: 'Ground Power Unit availability at the gate',
+    enum: GpuAvailability,
+    example: GpuAvailability.Bridge,
+  })
+  @IsEnum(GpuAvailability)
   gpu!: GpuAvailability;
+
+  @ApiProperty({
+    description: 'Pre-Conditioned Air availability at the gate',
+    enum: PcaAvailability,
+    example: PcaAvailability.Bridge,
+  })
+  @IsEnum(PcaAvailability)
   pca!: PcaAvailability;
+
+  @ApiProperty({
+    description: 'Parking position type',
+    enum: ParkingPositionType,
+    example: ParkingPositionType.StraightIn,
+  })
+  @IsEnum(ParkingPositionType)
   parkingPositionType!: ParkingPositionType;
+
+  @ApiProperty({
+    description: 'Parking spot type',
+    enum: ParkingSpotType,
+    example: ParkingSpotType.Passenger,
+  })
+  @IsEnum(ParkingSpotType)
   parkingSpotType!: ParkingSpotType;
+
+  @ApiProperty({
+    description: 'Parking assistance type',
+    enum: ParkingAssistanceType,
+    example: ParkingAssistanceType.Vdgs,
+  })
+  @IsEnum(ParkingAssistanceType)
   parkingAssistance!: ParkingAssistanceType;
+
+  @ApiProperty({
+    description: 'Parking location category',
+    enum: ParkingLocation,
+    example: ParkingLocation.Gate,
+  })
+  @IsEnum(ParkingLocation)
   location!: ParkingLocation;
+
+  @ApiProperty({
+    description: 'Whether gate is located at noise-sensitive area',
+    enum: YesOrNoString,
+    example: YesOrNoString.No,
+  })
+  @IsEnum(YesOrNoString)
   noiseSensitivity!: NoiseSensitivityOption;
+
+  @ApiProperty({
+    description: 'Free-text notes about noise restrictions at the gate',
+    example: 'Night curfew: no engine runs or pushbacks permitted.',
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  @IsOptional()
+  @IsString()
+  noiseSensitivityText?: string | null;
+
+  @ApiProperty({
+    description: 'Start of the noise-sensitive window in 24h HH:mm UTC',
+    example: '21:00',
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  @IsOptional()
+  @IsMilitaryTime()
+  noiseSensitivityStartTime?: string | null;
+
+  @ApiProperty({
+    description: 'End of the noise-sensitive window in 24h HH:mm UTC',
+    example: '05:00',
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  @IsOptional()
+  @IsMilitaryTime()
+  noiseSensitivityEndTime?: string | null;
+
+  @ApiProperty({
+    description: 'Fueling options at the gate',
+    enum: FuelingOptions,
+    example: FuelingOptions.Hydrant,
+  })
+  @IsEnum(FuelingOptions)
   fuelingOptions!: FuelingOptions;
 }
