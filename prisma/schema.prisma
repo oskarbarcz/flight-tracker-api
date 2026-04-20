@@ -53,8 +53,35 @@ model Terminal {
   text            String? @db.Text
 
   airport Airport @relation(fields: [airportId], references: [id], onDelete: Cascade)
+  gates   Gate[]
 
   @@map("terminal")
+}
+
+model Gate {
+  id                        String  @id @default(uuid()) @db.Uuid
+  airportId                 String  @db.Uuid
+  terminalId                String  @db.Uuid
+  name                      String  @db.VarChar(16)
+  bridge                    String  @db.VarChar(32)
+  stairs                    String  @db.VarChar(32)
+  deicing                   String  @db.VarChar(32)
+  deicingDescription        String? @db.Text
+  gpu                       String  @db.VarChar(32)
+  pca                       String  @db.VarChar(32)
+  parkingPositionType       String  @db.VarChar(32)
+  parkingSpotType           String  @db.VarChar(32)
+  parkingAssistance         String  @db.VarChar(32)
+  location                  String  @db.VarChar(32)
+  noiseSensitivity          String  @db.VarChar(32)
+  noiseSensitivityText      String? @db.Text
+  noiseSensitivityStartTime String? @db.VarChar(5)
+  noiseSensitivityEndTime   String? @db.VarChar(5)
+  fuelingOptions            String  @db.VarChar(32)
+
+  terminal Terminal @relation(fields: [terminalId], references: [id], onDelete: Cascade)
+
+  @@map("gate")
 }
 
 model Operator {

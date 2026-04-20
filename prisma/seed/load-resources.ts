@@ -5,10 +5,12 @@ import { loadFlights } from './resource/flights.seed';
 import { loadUsers } from './resource/users.seed';
 import { loadRotations } from './resource/rotations.seed';
 import { loadTerminals } from './resource/terminals.seed';
+import { loadGates } from './resource/gates.seed';
 
 export async function loadResources() {
   await loadAirports();
   await loadTerminals();
+  await loadGates();
   await loadOperators();
   await loadAircraft();
   await loadUsers();

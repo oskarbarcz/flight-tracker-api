@@ -15,13 +15,21 @@ import { UpdateTerminalHandler } from './application/command/terminals/update-te
 import { RemoveTerminalHandler } from './application/command/terminals/remove-terminal.command';
 import { GetTerminalByIdHandler } from './application/query/terminal/get-terminal-by-id.query';
 import { ListTerminalsByAirportHandler } from './application/query/terminal/list-terminals-by-airport.query';
+import { GatesRepository } from './infra/database/gates.repository';
+import { GatesController } from './infra/http/controller/gates.controller';
+import { CreateGateHandler } from './application/command/gates/create-gate.command';
+import { UpdateGateHandler } from './application/command/gates/update-gate.command';
+import { RemoveGateHandler } from './application/command/gates/remove-gate.command';
+import { GetGateByIdHandler } from './application/query/gate/get-gate-by-id.query';
+import { ListGatesByAirportHandler } from './application/query/gate/list-gates-by-airport.query';
 
 @Module({
   imports: [PrismaModule],
-  controllers: [AirportsController, TerminalsController],
+  controllers: [AirportsController, TerminalsController, GatesController],
   providers: [
     AirportsRepository,
     TerminalsRepository,
+    GatesRepository,
     CreateAirportHandler,
     UpdateAirportHandler,
     RemoveAirportHandler,
@@ -33,6 +41,11 @@ import { ListTerminalsByAirportHandler } from './application/query/terminal/list
     RemoveTerminalHandler,
     GetTerminalByIdHandler,
     ListTerminalsByAirportHandler,
+    CreateGateHandler,
+    UpdateGateHandler,
+    RemoveGateHandler,
+    GetGateByIdHandler,
+    ListGatesByAirportHandler,
   ],
 })
 export class AirportsModule {}
