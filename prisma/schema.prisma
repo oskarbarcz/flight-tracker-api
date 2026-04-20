@@ -39,8 +39,27 @@ model Airport {
   airportsOnFlights AirportsOnFlights[]
   diversion         Diversion[]
   terminals         Terminal[]
+  runways           Runway[]
 
   @@map("airport")
+}
+
+model Runway {
+  id               String @id @default(uuid()) @db.Uuid
+  airportId        String @db.Uuid
+  designator       String @db.VarChar(4)
+  length           Int
+  width            Int
+  displace         Int?
+  trueHeading      Int?
+  magneticHeading  Int
+  elevation        Int?
+  surfaceType      String @db.VarChar(16)
+  lightingType     String @db.VarChar(16)
+
+  airport Airport @relation(fields: [airportId], references: [id], onDelete: Cascade)
+
+  @@map("runway")
 }
 
 model Terminal {
