@@ -19,7 +19,6 @@ Feature: Add flight to rotation
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/rotation/bd8f2d64-a647-42da-be63-c6589915e6c9"
     Then the response status should be 200
-    And I dump response
     And the response body should contain:
       """json
       {
