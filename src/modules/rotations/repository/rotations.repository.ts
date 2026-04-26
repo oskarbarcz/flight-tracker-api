@@ -29,6 +29,7 @@ const rotationWithPilot = {
       id: true,
       flightNumber: true,
     },
+    orderBy: { flightNumber: 'asc' },
   },
   createdAt: true,
   updatedAt: true,

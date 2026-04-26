@@ -29,6 +29,8 @@ import { UpdateRunwayHandler } from './application/command/runways/update-runway
 import { RemoveRunwayHandler } from './application/command/runways/remove-runway.command';
 import { GetRunwayByIdHandler } from './application/query/runway/get-runway-by-id.query';
 import { ListRunwaysByAirportHandler } from './application/query/runway/list-runways-by-airport.query';
+import { AssertGateBelongsToAirportHandler } from './application/assert/assert-gate-belongs-to-airport.command';
+import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert-runway-belongs-to-airport.command';
 
 @Module({
   imports: [PrismaModule],
@@ -64,6 +66,8 @@ import { ListRunwaysByAirportHandler } from './application/query/runway/list-run
     RemoveRunwayHandler,
     GetRunwayByIdHandler,
     ListRunwaysByAirportHandler,
+    AssertGateBelongsToAirportHandler,
+    AssertRunwayBelongsToAirportHandler,
   ],
 })
 export class AirportsModule {}
