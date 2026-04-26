@@ -161,6 +161,8 @@ Feature: Finish offboarding for flight that started onboarding
         ],
         "departureGateId": null,
         "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
+        "arrivalGateId": null,
+        "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "source": "manual",
         "tracking": "public",

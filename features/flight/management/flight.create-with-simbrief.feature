@@ -108,6 +108,8 @@ Feature: Create a flight with Simbrief
         ],
         "departureGateId": null,
         "departureRunwayId": null,
+        "arrivalGateId": null,
+        "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "rotationId": null,
         "source": "simbrief",

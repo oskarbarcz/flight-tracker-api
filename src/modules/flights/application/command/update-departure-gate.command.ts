@@ -14,7 +14,7 @@ export class UpdateDepartureGateCommand {
   constructor(
     public readonly flightId: string,
     public readonly initiatorId: string,
-    public readonly departureGateId: string | null,
+    public readonly departureGateId: string,
   ) {}
 }
 

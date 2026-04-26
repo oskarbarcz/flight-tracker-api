@@ -50,6 +50,8 @@ export class GetFlightByIdHandler implements IQueryHandler<GetFlightByIdQuery> {
       ),
       departureGateId: flight.departureGateId,
       departureRunwayId: flight.departureRunwayId,
+      arrivalGateId: flight.arrivalGateId,
+      arrivalRunwayId: flight.arrivalRunwayId,
       source: flight.source as FlightSource,
       tracking: flight.tracking as FlightTracking,
     };

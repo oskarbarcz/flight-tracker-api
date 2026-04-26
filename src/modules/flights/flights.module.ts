@@ -40,6 +40,8 @@ import { GetFlightTrackingHandler } from './application/query/get-flight-trackin
 import { ChangeFlightVisibilityHandler } from './application/command/change-flight-visibility.command';
 import { UpdateDepartureGateHandler } from './application/command/update-departure-gate.command';
 import { UpdateDepartureRunwayHandler } from './application/command/update-departure-runway.command';
+import { UpdateArrivalGateHandler } from './application/command/update-arrival-gate.command';
+import { UpdateArrivalRunwayHandler } from './application/command/update-arrival-runway.command';
 import { AddFlightToRotationHandler } from './application/command/rotation/add-flight-to-rotation.command';
 import { RemoveFlightFromRotationHandler } from './application/command/rotation/remove-flight-from-rotation.command';
 import { RotationsController } from './infra/http/controller/rotations.controller';
@@ -87,6 +89,8 @@ import { RotationsController } from './infra/http/controller/rotations.controlle
     ChangeFlightVisibilityHandler,
     UpdateDepartureGateHandler,
     UpdateDepartureRunwayHandler,
+    UpdateArrivalGateHandler,
+    UpdateArrivalRunwayHandler,
     AddFlightToRotationHandler,
     RemoveFlightFromRotationHandler,
   ],
