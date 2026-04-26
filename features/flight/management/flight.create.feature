@@ -138,6 +138,8 @@ Feature: Create a flight
             "type": "destination"
           }
         ],
+        "departureGateId": null,
+        "departureRunwayId": null,
         "isFlightDiverted": false,
         "source": "manual",
         "tracking": "private",
@@ -309,6 +311,8 @@ Feature: Create a flight
             "type": "destination"
           }
         ],
+        "departureGateId": null,
+        "departureRunwayId": null,
         "isFlightDiverted": false,
         "source": "manual",
         "tracking": "private",

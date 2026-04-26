@@ -2,6 +2,7 @@ import {
   BadRequestException,
   ConflictException,
   NotFoundException,
+  UnprocessableEntityException,
 } from '@nestjs/common';
 
 export class FlightNotFoundError extends NotFoundException {
@@ -25,5 +26,17 @@ export class FlightRotationNotMatchingError extends ConflictException {
 export class FlightIncorrectStateToChangeRotationError extends BadRequestException {
   constructor() {
     super('Flight is in incorrect state to modify its rotation.');
+  }
+}
+
+export class InvalidStatusToUpdateDepartureGateError extends UnprocessableEntityException {
+  constructor() {
+    super('Cannot update departure gate, because pilot is already checked in.');
+  }
+}
+
+export class InvalidStatusToUpdateDepartureRunwayError extends UnprocessableEntityException {
+  constructor() {
+    super('Cannot update departure runway after takeoff.');
   }
 }

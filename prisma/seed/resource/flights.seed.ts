@@ -24,6 +24,8 @@ const prisma = new PrismaService();
 async function loadDLH450(): Promise<void> {
   const dlh450 = {
     id: '3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05',
+    departureGateId: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
+    departureRunwayId: '32121288-2550-4b81-a558-9a7193ef6c97',
     flightNumber: 'LH450',
     callsign: 'DLH450',
     atcCallsign: null,
@@ -155,6 +157,8 @@ async function loadDLH450(): Promise<void> {
 async function loadAAL4905(): Promise<void> {
   const ual4905 = {
     id: '23da8bc9-a21b-4678-b2e9-1151d3bd15ab',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4905',
     callsign: 'AAL4905',
     atcCallsign: 'AAL05J',
@@ -449,6 +453,8 @@ async function loadAAL4905(): Promise<void> {
 async function loadAAL4906(): Promise<void> {
   const ual4906 = {
     id: '23952e79-6b38-49ed-a1db-bd4d9b3cedab',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4906',
     callsign: 'AAL4906',
     atcCallsign: 'AAL06J',
@@ -567,6 +573,8 @@ async function loadAAL4906(): Promise<void> {
 async function loadAAL4907(): Promise<void> {
   const ual4907 = {
     id: 'e91e13a9-09d8-48bf-8453-283cef467b88',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4907',
     callsign: 'AAL4907',
     atcCallsign: 'AAL07J',
@@ -667,6 +675,8 @@ async function loadAAL4907(): Promise<void> {
 async function loadAAL4908(): Promise<void> {
   const data = {
     id: 'b3899775-278e-4496-add1-21385a13d93e',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4908',
     callsign: 'AAL4908',
     atcCallsign: 'AAL08J',
@@ -806,6 +816,8 @@ async function loadAAL4908(): Promise<void> {
 async function loadAAL4909(): Promise<void> {
   const data = {
     id: '05986dd3-ff01-4112-ad35-ecd85db05c77',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4909',
     callsign: 'AAL4909',
     atcCallsign: 'AAL09J',
@@ -949,6 +961,8 @@ async function loadAAL4909(): Promise<void> {
 async function loadAAL4910(): Promise<void> {
   const data = {
     id: 'f14a2141-4737-4622-a387-40513ff3baf1',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4910',
     callsign: 'AAL4910',
     atcCallsign: 'AAL10J',
@@ -1112,6 +1126,8 @@ async function loadAAL4910(): Promise<void> {
 async function loadAAL4911(): Promise<void> {
   const data = {
     id: '7105891a-8008-4b47-b473-c81c97615ad7',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4911',
     callsign: 'AAL4911',
     atcCallsign: 'AAL11J',
@@ -1290,6 +1306,8 @@ async function loadAAL4911(): Promise<void> {
 async function loadAAL4912(): Promise<void> {
   const data = {
     id: '2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4912',
     callsign: 'AAL4912',
     atcCallsign: 'AAL12J',
@@ -1477,6 +1495,8 @@ async function loadAAL4912(): Promise<void> {
 async function loadAAL4913(): Promise<void> {
   const data = {
     id: '04be266c-df78-4bec-9f50-281cc02ce7f2',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4913',
     callsign: 'AAL4913',
     atcCallsign: 'AAL13J',
@@ -1673,6 +1693,8 @@ async function loadAAL4913(): Promise<void> {
 async function loadAAL4914(): Promise<void> {
   const data = {
     id: '17d2f703-957d-4ad1-a620-3c187a70c26a',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4914',
     callsign: 'AAL4914',
     atcCallsign: 'AAL14J',
@@ -1940,6 +1962,8 @@ async function loadAAL4914(): Promise<void> {
 async function loadAAL4915(): Promise<void> {
   const data = {
     id: '5aada8ba-60c1-4e93-bcee-b59a7c555fdd',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4915',
     callsign: 'AAL4915',
     atcCallsign: 'AAL15J',
@@ -2216,6 +2240,8 @@ async function loadAAL4915(): Promise<void> {
 async function loadAAL4916(): Promise<void> {
   const data = {
     id: '38644393-deee-434d-bfd1-7242abdbc4e1',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4916',
     callsign: 'AAL4916',
     atcCallsign: 'AAL16J',
@@ -2501,6 +2527,8 @@ async function loadAAL4916(): Promise<void> {
 async function loadAAL4917(): Promise<void> {
   const data = {
     id: 'd085c107-308d-48e6-9c93-beca6552a8a3',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     flightNumber: 'AA4917',
     callsign: 'AAL4917',
     atcCallsign: 'AAL17J',
@@ -2796,6 +2824,8 @@ async function loadAAL4917(): Promise<void> {
 async function loadDLH40(): Promise<void> {
   const data = {
     id: '48760636-9520-4863-b32f-f3618556feb7',
+    departureGateId: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
+    departureRunwayId: '32121288-2550-4b81-a558-9a7193ef6c97',
     flightNumber: 'LH40',
     callsign: 'DLH40',
     atcCallsign: null,
@@ -2991,6 +3021,8 @@ async function loadDLH40(): Promise<void> {
 async function loadDLH41(): Promise<void> {
   const data = {
     id: 'e8e17e59-67d7-4a6c-a0bd-425ffa6bed66',
+    departureGateId: null,
+    departureRunwayId: '6bbf43a4-9242-4f04-b195-6a7bcd1f14c4',
     flightNumber: 'LH41',
     callsign: 'DLH41',
     atcCallsign: null,
@@ -3100,6 +3132,8 @@ async function loadDLH41(): Promise<void> {
 async function loadDLH42(): Promise<void> {
   const data = {
     id: '006f0754-1ed7-4ae1-9f91-fae2d446a6e7',
+    departureGateId: null,
+    departureRunwayId: '6bbf43a4-9242-4f04-b195-6a7bcd1f14c4',
     flightNumber: 'LH42',
     callsign: 'DLH42',
     atcCallsign: null,
@@ -3254,6 +3288,8 @@ async function loadDLH42(): Promise<void> {
 async function loadDLH43(): Promise<void> {
   const data = {
     id: 'd4a25ef2-39cf-484c-af00-a548999e8699',
+    departureGateId: null,
+    departureRunwayId: '6bbf43a4-9242-4f04-b195-6a7bcd1f14c4',
     flightNumber: 'LH43',
     callsign: 'DLH43',
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
@@ -3495,6 +3531,8 @@ async function loadDLH43(): Promise<void> {
 async function loadDLH102(): Promise<void> {
   const data = {
     id: '1e9f4176-188f-41a5-a9d1-25a96579f46d',
+    departureGateId: null,
+    departureRunwayId: '6bbf43a4-9242-4f04-b195-6a7bcd1f14c4',
     flightNumber: 'LH102',
     callsign: 'DLH102',
     atcCallsign: null,
@@ -3644,6 +3682,8 @@ async function loadDLH102(): Promise<void> {
 async function loadDLH81(): Promise<void> {
   const data = {
     id: '11087d20-ead0-4b7e-97ee-f1ef0ea29e4f',
+    departureGateId: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
+    departureRunwayId: '32121288-2550-4b81-a558-9a7193ef6c97',
     flightNumber: 'LH81',
     callsign: 'DLH81',
     atcCallsign: null,

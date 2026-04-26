@@ -57,7 +57,8 @@ model Runway {
   surfaceType      String @db.VarChar(16)
   lightingType     String @db.VarChar(16)
 
-  airport Airport @relation(fields: [airportId], references: [id], onDelete: Cascade)
+  airport Airport  @relation(fields: [airportId], references: [id], onDelete: Cascade)
+  flights Flight[]
 
   @@map("runway")
 }
@@ -99,6 +100,7 @@ model Gate {
   fuelingOptions            String  @db.VarChar(32)
 
   terminal Terminal @relation(fields: [terminalId], references: [id], onDelete: Cascade)
+  flights  Flight[]
 
   @@map("gate")
 }
@@ -151,6 +153,8 @@ model Flight {
   greatCircleDistance Int            @default(1)
   totalFuelBurned     Int            @default(1)
   route               String?
+  departureGateId     String?        @db.Uuid
+  departureRunwayId   String?        @db.Uuid
 
   operator             Operator            @relation(fields: [operatorId], references: [id])
   rotation             Rotation?           @relation(fields: [rotationId], references: [id])
@@ -160,6 +164,8 @@ model Flight {
   flightEvent          FlightEvent[]
   diversion            Diversion[]
   userPerformingFlight User[]              @relation("UserCurrentFlight")
+  departureGate        Gate?               @relation(fields: [departureGateId], references: [id], onDelete: SetNull)
+  departureRunway      Runway?             @relation(fields: [departureRunwayId], references: [id], onDelete: SetNull)
 
   @@map("flight")
 }

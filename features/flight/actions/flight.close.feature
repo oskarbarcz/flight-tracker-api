@@ -159,6 +159,8 @@ Feature: Close flight
             "type": "destination_alternate"
           }
         ],
+        "departureGateId": null,
+        "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
         "isFlightDiverted": false,
         "source": "manual",
         "tracking": "public",
@@ -485,6 +487,8 @@ Feature: Close flight
             "type": "etops_alternate"
           }
         ],
+        "departureGateId": null,
+        "departureRunwayId": "6bbf43a4-9242-4f04-b195-6a7bcd1f14c4",
         "isFlightDiverted": false,
         "source": "manual",
         "tracking": "private",

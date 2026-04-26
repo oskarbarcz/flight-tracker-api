@@ -40,6 +40,8 @@ export const flightWithAircraftAndAirportsFields = {
   source: true,
   tracking: true,
   createdAt: true,
+  departureGateId: true,
+  departureRunwayId: true,
   operator: {
     select: {
       id: true,
@@ -429,6 +431,26 @@ export class FlightsRepository {
   public async exists(flightId: string): Promise<boolean> {
     const count = await this.prisma.flight.count({ where: { id: flightId } });
     return count > 0;
+  }
+
+  async updateDeparture(
+    flightId: string,
+    data: {
+      departureGateId?: string | null;
+      departureRunwayId?: string | null;
+    },
+  ): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id: flightId },
+      data: {
+        ...(data.departureGateId !== undefined && {
+          departureGateId: data.departureGateId,
+        }),
+        ...(data.departureRunwayId !== undefined && {
+          departureRunwayId: data.departureRunwayId,
+        }),
+      },
+    });
   }
 
   async addRotationForFlight(

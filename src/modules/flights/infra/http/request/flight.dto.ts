@@ -2,13 +2,14 @@ import { ScheduledTimesheet } from '../../../model/timesheet.model';
 import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
 import {
   IsEnum,
+  IsInt,
   IsNotEmpty,
   IsOptional,
   IsString,
   IsUUID,
-  IsInt,
-  Min,
   Max,
+  Min,
+  ValidateIf,
 } from 'class-validator';
 import { Loadsheets } from '../../../model/loadsheet.model';
 import { Type } from 'class-transformer';
@@ -29,6 +30,8 @@ export class CreateFlightRequest extends OmitType(Flight, [
   'source',
   'isFlightDiverted',
   'createdAt',
+  'departureGateId',
+  'departureRunwayId',
 ]) {
   @ApiProperty({
     description:
@@ -92,3 +95,25 @@ export class FlightListFilters {
 export class UpdateFlightVisibilityRequest extends PickType(Flight, [
   'tracking',
 ]) {}
+
+export class UpdateDepartureGateRequest {
+  @ApiProperty({
+    description: 'Departure gate unique identifier, or null to clear',
+    example: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
+    nullable: true,
+  })
+  @ValidateIf((_, value) => value !== null)
+  @IsUUID()
+  departureGateId!: string | null;
+}
+
+export class UpdateDepartureRunwayRequest {
+  @ApiProperty({
+    description: 'Departure runway unique identifier, or null to clear',
+    example: '32121288-2550-4b81-a558-9a7193ef6c97',
+    nullable: true,
+  })
+  @ValidateIf((_, value) => value !== null)
+  @IsUUID()
+  departureRunwayId!: string | null;
+}

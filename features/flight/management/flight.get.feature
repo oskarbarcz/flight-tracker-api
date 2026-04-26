@@ -127,6 +127,8 @@ Feature: Get flight
             }
           }
         ],
+        "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "departureRunwayId": "32121288-2550-4b81-a558-9a7193ef6c97",
         "isFlightDiverted": false,
         "source": "manual",
         "tracking": "private",

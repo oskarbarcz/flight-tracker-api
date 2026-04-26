@@ -38,6 +38,8 @@ import { GetOfpByFlightIdHandler } from './application/query/get-ofp-by-flight-i
 import { GetFlightPathHandler } from './application/query/get-flight-path.query';
 import { GetFlightTrackingHandler } from './application/query/get-flight-tracking.query';
 import { ChangeFlightVisibilityHandler } from './application/command/change-flight-visibility.command';
+import { UpdateDepartureGateHandler } from './application/command/update-departure-gate.command';
+import { UpdateDepartureRunwayHandler } from './application/command/update-departure-runway.command';
 import { AddFlightToRotationHandler } from './application/command/rotation/add-flight-to-rotation.command';
 import { RemoveFlightFromRotationHandler } from './application/command/rotation/remove-flight-from-rotation.command';
 import { RotationsController } from './infra/http/controller/rotations.controller';
@@ -83,6 +85,8 @@ import { RotationsController } from './infra/http/controller/rotations.controlle
     GetFlightPathHandler,
     GetFlightTrackingHandler,
     ChangeFlightVisibilityHandler,
+    UpdateDepartureGateHandler,
+    UpdateDepartureRunwayHandler,
     AddFlightToRotationHandler,
     RemoveFlightFromRotationHandler,
   ],

@@ -123,6 +123,8 @@ Feature: Mark flight as ready
             "type": "destination_alternate"
           }
         ],
+        "departureGateId": null,
+        "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
         "isFlightDiverted": false,
         "source": "manual",
         "tracking": "public",

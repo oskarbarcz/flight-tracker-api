@@ -49,6 +49,8 @@ export class GetFlightByIdHandler implements IQueryHandler<GetFlightByIdQuery> {
           type: airportOnFlight.airportType as AirportType,
         }),
       ),
+      departureGateId: flight.departureGateId,
+      departureRunwayId: flight.departureRunwayId,
       source: flight.source as FlightSource,
       tracking: flight.tracking as FlightTracking,
     };

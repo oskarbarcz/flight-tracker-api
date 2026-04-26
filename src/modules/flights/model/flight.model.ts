@@ -179,6 +179,24 @@ export class Flight {
   tracking: FlightTracking = FlightTracking.Private;
 
   @ApiProperty({
+    description: 'Departure gate unique identifier',
+    example: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  departureGateId!: string | null;
+
+  @ApiProperty({
+    description: 'Departure runway unique identifier',
+    example: '32121288-2550-4b81-a558-9a7193ef6c97',
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  departureRunwayId!: string | null;
+
+  @ApiProperty({
     description: 'Flag if flight was diverted',
     example: false,
   })
