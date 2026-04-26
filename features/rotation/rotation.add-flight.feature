@@ -19,6 +19,7 @@ Feature: Add flight to rotation
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/rotation/bd8f2d64-a647-42da-be63-c6589915e6c9"
     Then the response status should be 200
+    And I dump response
     And the response body should contain:
       """json
       {
@@ -31,16 +32,16 @@ Feature: Add flight to rotation
         },
         "flights": [
           {
+            "id": "e91e13a9-09d8-48bf-8453-283cef467b88",
+            "flightNumber": "AA4907"
+          },
+          {
             "id": "48760636-9520-4863-b32f-f3618556feb7",
             "flightNumber": "LH40"
           },
           {
             "id": "e8e17e59-67d7-4a6c-a0bd-425ffa6bed66",
             "flightNumber": "LH41"
-          },
-          {
-            "id": "e91e13a9-09d8-48bf-8453-283cef467b88",
-            "flightNumber": "AA4907"
           }
         ],
         "createdAt": "2025-01-01T00:00:00.000Z",
