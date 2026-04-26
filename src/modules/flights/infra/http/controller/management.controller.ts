@@ -460,6 +460,7 @@ export class ManagementController {
   @Role(UserRole.Operations, UserRole.CabinCrew)
   async updateDepartureGate(
     @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
     @Body() body: UpdateDepartureGateRequest,
   ): Promise<GetFlightResponse> {
     if (body.departureGateId) {
@@ -478,7 +479,11 @@ export class ManagementController {
     }
 
     await this.commandBus.execute(
-      new UpdateDepartureGateCommand(id, body.departureGateId),
+      new UpdateDepartureGateCommand(
+        id,
+        request.user.sub,
+        body.departureGateId,
+      ),
     );
 
     return this.queryBus.execute(new GetFlightByIdQuery(id));
@@ -503,6 +508,7 @@ export class ManagementController {
   @Role(UserRole.Operations, UserRole.CabinCrew)
   async updateDepartureRunway(
     @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
     @Body() body: UpdateDepartureRunwayRequest,
   ): Promise<GetFlightResponse> {
     if (body.departureRunwayId) {
@@ -521,7 +527,11 @@ export class ManagementController {
     }
 
     await this.commandBus.execute(
-      new UpdateDepartureRunwayCommand(id, body.departureRunwayId),
+      new UpdateDepartureRunwayCommand(
+        id,
+        request.user.sub,
+        body.departureRunwayId,
+      ),
     );
 
     return this.queryBus.execute(new GetFlightByIdQuery(id));
