@@ -5,8 +5,7 @@ import {
 } from '../../model/flight.model';
 import { QueryHandler, Query, IQueryHandler } from '@nestjs/cqrs';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { NotFoundException } from '@nestjs/common';
-import { FlightDoesNotExistError } from '../../infra/http/request/errors.dto';
+import { FlightDoesNotExistError } from '../../model/error/flight.error';
 import { FullTimesheet, Schedule } from '../../model/timesheet.model';
 import { Loadsheets } from '../../model/loadsheet.model';
 import {
@@ -33,7 +32,7 @@ export class GetFlightByIdHandler implements IQueryHandler<GetFlightByIdQuery> {
     });
 
     if (!flight) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     return {

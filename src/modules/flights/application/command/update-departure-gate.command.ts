@@ -1,9 +1,10 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { NotFoundException } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { FlightDoesNotExistError } from '../../infra/http/request/errors.dto';
-import { InvalidStatusToUpdateDepartureGateError } from '../../model/error/flight.error';
+import {
+  FlightDoesNotExistError,
+  InvalidStatusToUpdateDepartureGateError,
+} from '../../model/error/flight.error';
 import { FlightStatus } from '../../model/flight.model';
 import { NewFlightEvent } from '../../infra/http/request/event.dto';
 import { FlightEventType } from '../../../../core/events/flight';
@@ -29,7 +30,7 @@ export class UpdateDepartureGateHandler implements ICommandHandler<UpdateDepartu
 
     const flight = await this.flightsRepository.findOneBy({ id: flightId });
     if (!flight) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     const preCheckInStatuses: string[] = [
@@ -40,7 +41,7 @@ export class UpdateDepartureGateHandler implements ICommandHandler<UpdateDepartu
       throw new InvalidStatusToUpdateDepartureGateError();
     }
 
-    await this.flightsRepository.updateDeparture(flightId, { departureGateId });
+    await this.flightsRepository.updateDepartureGate(flightId, departureGateId);
 
     const event: NewFlightEvent = {
       flightId,

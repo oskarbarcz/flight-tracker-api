@@ -433,23 +433,23 @@ export class FlightsRepository {
     return count > 0;
   }
 
-  async updateDeparture(
+  async updateDepartureGate(
     flightId: string,
-    data: {
-      departureGateId?: string | null;
-      departureRunwayId?: string | null;
-    },
+    departureGateId: string | null,
   ): Promise<void> {
     await this.prisma.flight.update({
       where: { id: flightId },
-      data: {
-        ...(data.departureGateId !== undefined && {
-          departureGateId: data.departureGateId,
-        }),
-        ...(data.departureRunwayId !== undefined && {
-          departureRunwayId: data.departureRunwayId,
-        }),
-      },
+      data: { departureGateId },
+    });
+  }
+
+  async updateDepartureRunway(
+    flightId: string,
+    departureRunwayId: string | null,
+  ): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id: flightId },
+      data: { departureRunwayId },
     });
   }
 

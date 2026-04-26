@@ -11,6 +11,12 @@ export class FlightNotFoundError extends NotFoundException {
   }
 }
 
+export class FlightDoesNotExistError extends NotFoundException {
+  constructor() {
+    super('Flight with given id does not exist.');
+  }
+}
+
 export class FlightAlreadyAssignedToRotationError extends ConflictException {
   constructor() {
     super('Flight is already assigned to rotation.');

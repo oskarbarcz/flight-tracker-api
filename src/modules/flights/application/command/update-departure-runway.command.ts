@@ -1,9 +1,10 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { NotFoundException } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { FlightDoesNotExistError } from '../../infra/http/request/errors.dto';
-import { InvalidStatusToUpdateDepartureRunwayError } from '../../model/error/flight.error';
+import {
+  FlightDoesNotExistError,
+  InvalidStatusToUpdateDepartureRunwayError,
+} from '../../model/error/flight.error';
 import { FlightStatus } from '../../model/flight.model';
 import { NewFlightEvent } from '../../infra/http/request/event.dto';
 import { FlightEventType } from '../../../../core/events/flight';
@@ -29,7 +30,7 @@ export class UpdateDepartureRunwayHandler implements ICommandHandler<UpdateDepar
 
     const flight = await this.flightsRepository.findOneBy({ id: flightId });
     if (!flight) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     const preTakeoffStatuses: string[] = [
@@ -44,9 +45,10 @@ export class UpdateDepartureRunwayHandler implements ICommandHandler<UpdateDepar
       throw new InvalidStatusToUpdateDepartureRunwayError();
     }
 
-    await this.flightsRepository.updateDeparture(flightId, {
+    await this.flightsRepository.updateDepartureRunway(
+      flightId,
       departureRunwayId,
-    });
+    );
 
     const event: NewFlightEvent = {
       flightId,
