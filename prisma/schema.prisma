@@ -57,8 +57,9 @@ model Runway {
   surfaceType      String @db.VarChar(16)
   lightingType     String @db.VarChar(16)
 
-  airport Airport  @relation(fields: [airportId], references: [id], onDelete: Cascade)
-  flights Flight[]
+  airport         Airport  @relation(fields: [airportId], references: [id], onDelete: Cascade)
+  departureFlights Flight[] @relation("FlightDepartureRunway")
+  arrivalFlights   Flight[] @relation("FlightArrivalRunway")
 
   @@map("runway")
 }
@@ -99,8 +100,9 @@ model Gate {
   noiseSensitivityEndTime   String? @db.VarChar(5)
   fuelingOptions            String  @db.VarChar(32)
 
-  terminal Terminal @relation(fields: [terminalId], references: [id], onDelete: Cascade)
-  flights  Flight[]
+  terminal         Terminal @relation(fields: [terminalId], references: [id], onDelete: Cascade)
+  departureFlights Flight[] @relation("FlightDepartureGate")
+  arrivalFlights   Flight[] @relation("FlightArrivalGate")
 
   @@map("gate")
 }
@@ -155,6 +157,8 @@ model Flight {
   route               String?
   departureGateId     String?        @db.Uuid
   departureRunwayId   String?        @db.Uuid
+  arrivalGateId       String?        @db.Uuid
+  arrivalRunwayId     String?        @db.Uuid
 
   operator             Operator            @relation(fields: [operatorId], references: [id])
   rotation             Rotation?           @relation(fields: [rotationId], references: [id])
@@ -164,8 +168,10 @@ model Flight {
   flightEvent          FlightEvent[]
   diversion            Diversion[]
   userPerformingFlight User[]              @relation("UserCurrentFlight")
-  departureGate        Gate?               @relation(fields: [departureGateId], references: [id], onDelete: SetNull)
-  departureRunway      Runway?             @relation(fields: [departureRunwayId], references: [id], onDelete: SetNull)
+  departureGate        Gate?               @relation("FlightDepartureGate", fields: [departureGateId], references: [id], onDelete: SetNull)
+  departureRunway      Runway?             @relation("FlightDepartureRunway", fields: [departureRunwayId], references: [id], onDelete: SetNull)
+  arrivalGate          Gate?               @relation("FlightArrivalGate", fields: [arrivalGateId], references: [id], onDelete: SetNull)
+  arrivalRunway        Runway?             @relation("FlightArrivalRunway", fields: [arrivalRunwayId], references: [id], onDelete: SetNull)
 
   @@map("flight")
 }

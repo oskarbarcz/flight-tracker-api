@@ -9,7 +9,6 @@ import {
   IsUUID,
   Max,
   Min,
-  ValidateIf,
 } from 'class-validator';
 import { Loadsheets } from '../../../model/loadsheet.model';
 import { Type } from 'class-transformer';
@@ -32,6 +31,8 @@ export class CreateFlightRequest extends OmitType(Flight, [
   'createdAt',
   'departureGateId',
   'departureRunwayId',
+  'arrivalGateId',
+  'arrivalRunwayId',
 ]) {
   @ApiProperty({
     description:
@@ -98,22 +99,36 @@ export class UpdateFlightVisibilityRequest extends PickType(Flight, [
 
 export class UpdateDepartureGateRequest {
   @ApiProperty({
-    description: 'Departure gate unique identifier, or null to clear',
+    description: 'Departure gate unique identifier',
     example: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
-    nullable: true,
   })
-  @ValidateIf((_, value) => value !== null)
   @IsUUID()
-  departureGateId!: string | null;
+  departureGateId!: string;
 }
 
 export class UpdateDepartureRunwayRequest {
   @ApiProperty({
-    description: 'Departure runway unique identifier, or null to clear',
+    description: 'Departure runway unique identifier',
     example: '32121288-2550-4b81-a558-9a7193ef6c97',
-    nullable: true,
   })
-  @ValidateIf((_, value) => value !== null)
   @IsUUID()
-  departureRunwayId!: string | null;
+  departureRunwayId!: string;
+}
+
+export class UpdateArrivalGateRequest {
+  @ApiProperty({
+    description: 'Arrival gate unique identifier',
+    example: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
+  })
+  @IsUUID()
+  arrivalGateId!: string;
+}
+
+export class UpdateArrivalRunwayRequest {
+  @ApiProperty({
+    description: 'Arrival runway unique identifier',
+    example: '32121288-2550-4b81-a558-9a7193ef6c97',
+  })
+  @IsUUID()
+  arrivalRunwayId!: string;
 }

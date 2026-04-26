@@ -42,6 +42,8 @@ export const flightWithAircraftAndAirportsFields = {
   createdAt: true,
   departureGateId: true,
   departureRunwayId: true,
+  arrivalGateId: true,
+  arrivalRunwayId: true,
   operator: {
     select: {
       id: true,
@@ -435,7 +437,7 @@ export class FlightsRepository {
 
   async updateDepartureGate(
     flightId: string,
-    departureGateId: string | null,
+    departureGateId: string,
   ): Promise<void> {
     await this.prisma.flight.update({
       where: { id: flightId },
@@ -445,11 +447,31 @@ export class FlightsRepository {
 
   async updateDepartureRunway(
     flightId: string,
-    departureRunwayId: string | null,
+    departureRunwayId: string,
   ): Promise<void> {
     await this.prisma.flight.update({
       where: { id: flightId },
       data: { departureRunwayId },
+    });
+  }
+
+  async updateArrivalGate(
+    flightId: string,
+    arrivalGateId: string,
+  ): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id: flightId },
+      data: { arrivalGateId },
+    });
+  }
+
+  async updateArrivalRunway(
+    flightId: string,
+    arrivalRunwayId: string,
+  ): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id: flightId },
+      data: { arrivalRunwayId },
     });
   }
 

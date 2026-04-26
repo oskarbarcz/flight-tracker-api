@@ -3,60 +3,58 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import {
   FlightDoesNotExistError,
-  InvalidStatusToUpdateDepartureRunwayError,
+  InvalidStatusToUpdateArrivalRunwayError,
 } from '../../model/error/flight.error';
 import { FlightStatus } from '../../model/flight.model';
 import { NewFlightEvent } from '../../infra/http/request/event.dto';
 import { FlightEventType } from '../../../../core/events/flight';
 import { FlightEventScope } from '../../model/event.model';
 
-export class UpdateDepartureRunwayCommand {
+export class UpdateArrivalRunwayCommand {
   constructor(
     public readonly flightId: string,
     public readonly initiatorId: string,
-    public readonly departureRunwayId: string,
+    public readonly arrivalRunwayId: string,
   ) {}
 }
 
-@CommandHandler(UpdateDepartureRunwayCommand)
-export class UpdateDepartureRunwayHandler implements ICommandHandler<UpdateDepartureRunwayCommand> {
+@CommandHandler(UpdateArrivalRunwayCommand)
+export class UpdateArrivalRunwayHandler implements ICommandHandler<UpdateArrivalRunwayCommand> {
   constructor(
     private readonly flightsRepository: FlightsRepository,
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
-  async execute(command: UpdateDepartureRunwayCommand): Promise<void> {
-    const { flightId, initiatorId, departureRunwayId } = command;
+  async execute(command: UpdateArrivalRunwayCommand): Promise<void> {
+    const { flightId, initiatorId, arrivalRunwayId } = command;
 
     const flight = await this.flightsRepository.findOneBy({ id: flightId });
     if (!flight) {
       throw new FlightDoesNotExistError();
     }
 
-    const preTakeoffStatuses: string[] = [
+    const preTaxiInStatuses: string[] = [
       FlightStatus.Created,
       FlightStatus.Ready,
       FlightStatus.CheckedIn,
       FlightStatus.BoardingStarted,
       FlightStatus.BoardingFinished,
       FlightStatus.TaxiingOut,
+      FlightStatus.InCruise,
     ];
-    if (!preTakeoffStatuses.includes(flight.status)) {
-      throw new InvalidStatusToUpdateDepartureRunwayError();
+    if (!preTaxiInStatuses.includes(flight.status)) {
+      throw new InvalidStatusToUpdateArrivalRunwayError();
     }
 
-    await this.flightsRepository.updateDepartureRunway(
-      flightId,
-      departureRunwayId,
-    );
+    await this.flightsRepository.updateArrivalRunway(flightId, arrivalRunwayId);
 
     const event: NewFlightEvent = {
       flightId,
       rotationId: flight.rotationId,
-      type: FlightEventType.DepartureRunwayWasChanged,
+      type: FlightEventType.ArrivalRunwayWasChanged,
       scope: FlightEventScope.User,
       actorId: initiatorId,
     };
-    this.eventEmitter.emit(FlightEventType.DepartureRunwayWasChanged, event);
+    this.eventEmitter.emit(FlightEventType.ArrivalRunwayWasChanged, event);
   }
 }

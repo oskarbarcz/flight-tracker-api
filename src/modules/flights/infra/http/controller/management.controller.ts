@@ -35,6 +35,8 @@ import {
   CreateFlightRequest,
   FlightListFilters,
   GetFlightResponse,
+  UpdateArrivalGateRequest,
+  UpdateArrivalRunwayRequest,
   UpdateDepartureGateRequest,
   UpdateDepartureRunwayRequest,
   UpdateFlightVisibilityRequest,
@@ -62,6 +64,8 @@ import { Loadsheet } from '../../../model/loadsheet.model';
 import { ChangeFlightVisibilityCommand } from '../../../application/command/change-flight-visibility.command';
 import { UpdateDepartureGateCommand } from '../../../application/command/update-departure-gate.command';
 import { UpdateDepartureRunwayCommand } from '../../../application/command/update-departure-runway.command';
+import { UpdateArrivalGateCommand } from '../../../application/command/update-arrival-gate.command';
+import { UpdateArrivalRunwayCommand } from '../../../application/command/update-arrival-runway.command';
 import { AssertGateBelongsToAirportCommand } from '../../../../airports/application/assert/assert-gate-belongs-to-airport.command';
 import { AssertRunwayBelongsToAirportCommand } from '../../../../airports/application/assert/assert-runway-belongs-to-airport.command';
 import { AirportType } from '../../../../airports/model/airport.model';
@@ -444,7 +448,7 @@ export class ManagementController {
   @ApiOperation({
     summary: 'Update flight departure gate',
     description:
-      'Assigns the departure gate to a flight. Pass `null` to clear the current value. <br />' +
+      'Assigns the departure gate to a flight. <br />' +
       '**NOTE:** This action is only allowed while the flight is in `created` or `ready` status (before the pilot has checked in). <br />' +
       '**NOTE:** This endpoint is available for `operations` and `cabin crew` roles.',
   })
@@ -463,20 +467,18 @@ export class ManagementController {
     @Req() request: AuthorizedRequest,
     @Body() body: UpdateDepartureGateRequest,
   ): Promise<GetFlightResponse> {
-    if (body.departureGateId) {
-      const flight: GetFlightResponse = await this.queryBus.execute(
-        new GetFlightByIdQuery(id),
-      );
-      const departureAirportId = flight.airports.find(
-        (airport) => airport.type === AirportType.Departure,
-      )!.id;
-      await this.commandBus.execute(
-        new AssertGateBelongsToAirportCommand(
-          departureAirportId,
-          body.departureGateId,
-        ),
-      );
-    }
+    const flight: GetFlightResponse = await this.queryBus.execute(
+      new GetFlightByIdQuery(id),
+    );
+    const departureAirportId = flight.airports.find(
+      (airport) => airport.type === AirportType.Departure,
+    )!.id;
+    await this.commandBus.execute(
+      new AssertGateBelongsToAirportCommand(
+        departureAirportId,
+        body.departureGateId,
+      ),
+    );
 
     await this.commandBus.execute(
       new UpdateDepartureGateCommand(
@@ -492,7 +494,7 @@ export class ManagementController {
   @ApiOperation({
     summary: 'Update flight departure runway',
     description:
-      'Assigns the departure runway to a flight. Pass `null` to clear the current value. <br />' +
+      'Assigns the departure runway to a flight. <br />' +
       '**NOTE:** This action is allowed any time before takeoff (flight must not yet be in cruise or later). <br />' +
       '**NOTE:** This endpoint is available for `operations` and `cabin crew` roles.',
   })
@@ -511,26 +513,112 @@ export class ManagementController {
     @Req() request: AuthorizedRequest,
     @Body() body: UpdateDepartureRunwayRequest,
   ): Promise<GetFlightResponse> {
-    if (body.departureRunwayId) {
-      const flight: GetFlightResponse = await this.queryBus.execute(
-        new GetFlightByIdQuery(id),
-      );
-      const departureAirportId = flight.airports.find(
-        (airport) => airport.type === AirportType.Departure,
-      )!.id;
-      await this.commandBus.execute(
-        new AssertRunwayBelongsToAirportCommand(
-          departureAirportId,
-          body.departureRunwayId,
-        ),
-      );
-    }
+    const flight: GetFlightResponse = await this.queryBus.execute(
+      new GetFlightByIdQuery(id),
+    );
+    const departureAirportId = flight.airports.find(
+      (airport) => airport.type === AirportType.Departure,
+    )!.id;
+    await this.commandBus.execute(
+      new AssertRunwayBelongsToAirportCommand(
+        departureAirportId,
+        body.departureRunwayId,
+      ),
+    );
 
     await this.commandBus.execute(
       new UpdateDepartureRunwayCommand(
         id,
         request.user.sub,
         body.departureRunwayId,
+      ),
+    );
+
+    return this.queryBus.execute(new GetFlightByIdQuery(id));
+  }
+
+  @ApiOperation({
+    summary: 'Update flight arrival gate',
+    description:
+      'Assigns the arrival gate to a flight. <br />' +
+      '**NOTE:** This action is only allowed before on-block has been reported. <br />' +
+      '**NOTE:** This endpoint is available for `operations` and `cabin crew` roles.',
+  })
+  @ApiBearerAuth('jwt')
+  @ApiParam({ name: 'id', description: 'Flight unique identifier' })
+  @ApiBody({ type: UpdateArrivalGateRequest })
+  @ApiOkResponse({ type: GetFlightResponse })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @Patch('/:id/arrival-gate')
+  @Role(UserRole.Operations, UserRole.CabinCrew)
+  async updateArrivalGate(
+    @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
+    @Body() body: UpdateArrivalGateRequest,
+  ): Promise<GetFlightResponse> {
+    const flight: GetFlightResponse = await this.queryBus.execute(
+      new GetFlightByIdQuery(id),
+    );
+    const arrivalAirportId = flight.airports.find(
+      (airport) => airport.type === AirportType.Destination,
+    )!.id;
+    await this.commandBus.execute(
+      new AssertGateBelongsToAirportCommand(
+        arrivalAirportId,
+        body.arrivalGateId,
+      ),
+    );
+
+    await this.commandBus.execute(
+      new UpdateArrivalGateCommand(id, request.user.sub, body.arrivalGateId),
+    );
+
+    return this.queryBus.execute(new GetFlightByIdQuery(id));
+  }
+
+  @ApiOperation({
+    summary: 'Update flight arrival runway',
+    description:
+      'Assigns the arrival runway to a flight. <br />' +
+      '**NOTE:** This action is only allowed before the flight is taxiing in. <br />' +
+      '**NOTE:** This endpoint is available for `operations` and `cabin crew` roles.',
+  })
+  @ApiBearerAuth('jwt')
+  @ApiParam({ name: 'id', description: 'Flight unique identifier' })
+  @ApiBody({ type: UpdateArrivalRunwayRequest })
+  @ApiOkResponse({ type: GetFlightResponse })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @Patch('/:id/arrival-runway')
+  @Role(UserRole.Operations, UserRole.CabinCrew)
+  async updateArrivalRunway(
+    @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
+    @Body() body: UpdateArrivalRunwayRequest,
+  ): Promise<GetFlightResponse> {
+    const flight: GetFlightResponse = await this.queryBus.execute(
+      new GetFlightByIdQuery(id),
+    );
+    const arrivalAirportId = flight.airports.find(
+      (airport) => airport.type === AirportType.Destination,
+    )!.id;
+    await this.commandBus.execute(
+      new AssertRunwayBelongsToAirportCommand(
+        arrivalAirportId,
+        body.arrivalRunwayId,
+      ),
+    );
+
+    await this.commandBus.execute(
+      new UpdateArrivalRunwayCommand(
+        id,
+        request.user.sub,
+        body.arrivalRunwayId,
       ),
     );
 

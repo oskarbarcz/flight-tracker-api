@@ -46,3 +46,15 @@ export class InvalidStatusToUpdateDepartureRunwayError extends UnprocessableEnti
     super('Cannot update departure runway after takeoff.');
   }
 }
+
+export class InvalidStatusToUpdateArrivalGateError extends UnprocessableEntityException {
+  constructor() {
+    super('Cannot update arrival gate after on-block was reported.');
+  }
+}
+
+export class InvalidStatusToUpdateArrivalRunwayError extends UnprocessableEntityException {
+  constructor() {
+    super('Cannot update arrival runway after taxiing in.');
+  }
+}
