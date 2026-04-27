@@ -229,6 +229,98 @@
   },
   {
     "httpRequest": {
+      "method": "GET",
+      "path": "/api/v1/position/DLH102"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"],
+        "Access-Control-Allow-Origin": ["*"],
+        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
+        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+      },
+      "body": [
+        {
+          "callsign": "DLH102",
+          "date": "2025-01-01T13:25:00.000Z",
+          "latitude": 40.6398,
+          "longitude": -73.7789,
+          "altitude": 0,
+          "verticalRate": 0,
+          "groundSpeed": 165,
+          "track": 49,
+          "isOnGround": true,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        },
+        {
+          "callsign": "DLH102",
+          "date": "2025-01-01T13:55:00.000Z",
+          "latitude": 42.8,
+          "longitude": -70.1,
+          "altitude": 22000,
+          "verticalRate": 1800,
+          "groundSpeed": 410,
+          "track": 52,
+          "isOnGround": false,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        },
+        {
+          "callsign": "DLH102",
+          "date": "2025-01-01T14:40:00.000Z",
+          "latitude": 45.6,
+          "longitude": -62.5,
+          "altitude": 36000,
+          "verticalRate": 0,
+          "groundSpeed": 470,
+          "track": 58,
+          "isOnGround": false,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        },
+        {
+          "callsign": "DLH102",
+          "date": "2025-01-01T15:40:00.000Z",
+          "latitude": 49.0,
+          "longitude": -52.0,
+          "altitude": 38000,
+          "verticalRate": 0,
+          "groundSpeed": 475,
+          "track": 64,
+          "isOnGround": false,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        },
+        {
+          "callsign": "DLH102",
+          "date": "2025-01-01T16:40:00.000Z",
+          "latitude": 52.5,
+          "longitude": -38.0,
+          "altitude": 38000,
+          "verticalRate": 0,
+          "groundSpeed": 480,
+          "track": 72,
+          "isOnGround": false,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
       "method": "OPTIONS",
       "path": "/api/v1/position/.*"
     },
