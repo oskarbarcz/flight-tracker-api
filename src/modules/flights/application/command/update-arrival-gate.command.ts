@@ -8,12 +8,13 @@ import {
 import { FlightStatus } from '../../model/flight.model';
 import { NewFlightEvent } from '../../infra/http/request/event.dto';
 import { FlightEventType } from '../../../../core/events/flight';
-import { FlightEventScope } from '../../model/event.model';
+import { scopeForActor } from '../../model/event.model';
+import { JwtUser } from '../../../auth/infra/http/request/jwt-user.dto';
 
 export class UpdateArrivalGateCommand {
   constructor(
     public readonly flightId: string,
-    public readonly initiatorId: string,
+    public readonly actor: JwtUser,
     public readonly arrivalGateId: string,
   ) {}
 }
@@ -26,7 +27,7 @@ export class UpdateArrivalGateHandler implements ICommandHandler<UpdateArrivalGa
   ) {}
 
   async execute(command: UpdateArrivalGateCommand): Promise<void> {
-    const { flightId, initiatorId, arrivalGateId } = command;
+    const { flightId, actor, arrivalGateId } = command;
 
     const flight = await this.flightsRepository.findOneBy({ id: flightId });
     if (!flight) {
@@ -53,8 +54,8 @@ export class UpdateArrivalGateHandler implements ICommandHandler<UpdateArrivalGa
       flightId,
       rotationId: flight.rotationId,
       type: FlightEventType.ArrivalGateWasChanged,
-      scope: FlightEventScope.User,
-      actorId: initiatorId,
+      scope: scopeForActor(actor),
+      actorId: actor.sub,
     };
     this.eventEmitter.emit(FlightEventType.ArrivalGateWasChanged, event);
   }

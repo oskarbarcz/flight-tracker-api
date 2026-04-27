@@ -481,11 +481,7 @@ export class ManagementController {
     );
 
     await this.commandBus.execute(
-      new UpdateDepartureGateCommand(
-        id,
-        request.user.sub,
-        body.departureGateId,
-      ),
+      new UpdateDepartureGateCommand(id, request.user, body.departureGateId),
     );
 
     return this.queryBus.execute(new GetFlightByIdQuery(id));
@@ -529,7 +525,7 @@ export class ManagementController {
     await this.commandBus.execute(
       new UpdateDepartureRunwayCommand(
         id,
-        request.user.sub,
+        request.user,
         body.departureRunwayId,
       ),
     );
@@ -573,7 +569,7 @@ export class ManagementController {
     );
 
     await this.commandBus.execute(
-      new UpdateArrivalGateCommand(id, request.user.sub, body.arrivalGateId),
+      new UpdateArrivalGateCommand(id, request.user, body.arrivalGateId),
     );
 
     return this.queryBus.execute(new GetFlightByIdQuery(id));
@@ -615,11 +611,7 @@ export class ManagementController {
     );
 
     await this.commandBus.execute(
-      new UpdateArrivalRunwayCommand(
-        id,
-        request.user.sub,
-        body.arrivalRunwayId,
-      ),
+      new UpdateArrivalRunwayCommand(id, request.user, body.arrivalRunwayId),
     );
 
     return this.queryBus.execute(new GetFlightByIdQuery(id));
