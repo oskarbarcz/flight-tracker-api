@@ -157,7 +157,7 @@ Feature: Update flight arrival gate
       [
         {
           "id": "@uuid",
-          "scope": "user",
+          "scope": "operations",
           "type": "flight.arrival-gate-changed",
           "payload": {},
           "actor": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
@@ -174,6 +174,21 @@ Feature: Update flight arrival gate
       { "arrivalGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
       """
     Then the response status should be 200
+    When I send a "GET" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/events"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "@uuid",
+          "scope": "user",
+          "type": "flight.arrival-gate-changed",
+          "payload": {},
+          "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "createdAt": "@date('within 1 minute from now')"
+        }
+      ]
+      """
     And I set database to initial state
 
   Scenario: As operations I cannot clear arrival gate with null

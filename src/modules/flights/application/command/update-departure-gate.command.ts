@@ -8,12 +8,13 @@ import {
 import { FlightStatus } from '../../model/flight.model';
 import { NewFlightEvent } from '../../infra/http/request/event.dto';
 import { FlightEventType } from '../../../../core/events/flight';
-import { FlightEventScope } from '../../model/event.model';
+import { scopeForActor } from '../../model/event.model';
+import { JwtUser } from '../../../auth/infra/http/request/jwt-user.dto';
 
 export class UpdateDepartureGateCommand {
   constructor(
     public readonly flightId: string,
-    public readonly initiatorId: string,
+    public readonly actor: JwtUser,
     public readonly departureGateId: string,
   ) {}
 }
@@ -26,7 +27,7 @@ export class UpdateDepartureGateHandler implements ICommandHandler<UpdateDepartu
   ) {}
 
   async execute(command: UpdateDepartureGateCommand): Promise<void> {
-    const { flightId, initiatorId, departureGateId } = command;
+    const { flightId, actor, departureGateId } = command;
 
     const flight = await this.flightsRepository.findOneBy({ id: flightId });
     if (!flight) {
@@ -47,8 +48,8 @@ export class UpdateDepartureGateHandler implements ICommandHandler<UpdateDepartu
       flightId,
       rotationId: flight.rotationId,
       type: FlightEventType.DepartureGateWasChanged,
-      scope: FlightEventScope.User,
-      actorId: initiatorId,
+      scope: scopeForActor(actor),
+      actorId: actor.sub,
     };
     this.eventEmitter.emit(FlightEventType.DepartureGateWasChanged, event);
   }
