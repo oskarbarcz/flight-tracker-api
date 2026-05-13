@@ -10,6 +10,12 @@ import { AdsbModule } from '../../core/provider/adsb/adsb.module';
 import { PathController } from './infra/http/controller/path.controller';
 import { DiversionRepository } from './infra/database/repository/diversion.repository';
 import { DiversionController } from './infra/http/controller/diversion.controller';
+import { EmergencyRepository } from './infra/database/repository/emergency.repository';
+import { EmergencyController } from './infra/http/controller/emergency.controller';
+import { DeclareEmergencyHandler } from './application/command/emergency/declare-emergency.command';
+import { UpdateEmergencyHandler } from './application/command/emergency/update-emergency.command';
+import { ResolveEmergencyHandler } from './application/command/emergency/resolve-emergency.command';
+import { ListFlightEmergenciesHandler } from './application/query/emergency/list-flight-emergencies.query';
 import { DiscordService } from './infra/service/discord.service';
 import { DiscordModule } from '../../core/provider/discord/discord.module';
 import { MarkFlightAsReadyHandler } from './application/command/mark-as-ready.command';
@@ -52,6 +58,7 @@ import { RotationsController } from './infra/http/controller/rotations.controlle
     ManagementController,
     EventsController,
     DiversionController,
+    EmergencyController,
     OfpController,
     ActionsController,
     PathController,
@@ -63,6 +70,11 @@ import { RotationsController } from './infra/http/controller/rotations.controlle
     FlightsRepository,
     EventsRepository,
     DiversionRepository,
+    EmergencyRepository,
+    DeclareEmergencyHandler,
+    UpdateEmergencyHandler,
+    ResolveEmergencyHandler,
+    ListFlightEmergenciesHandler,
     MarkFlightAsReadyHandler,
     GetFlightByIdHandler,
     ListAllFlightsHandler,

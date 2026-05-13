@@ -144,6 +144,7 @@ Feature: Update flight arrival gate
         "arrivalGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
         "arrivalRunwayId": "32121288-2550-4b81-a558-9a7193ef6c97",
         "isFlightDiverted": false,
+        "isEmergencyDeclared": false,
         "source": "manual",
         "tracking": "private",
         "rotationId": "bd8f2d64-a647-42da-be63-c6589915e6c9",

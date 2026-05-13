@@ -164,6 +164,7 @@ Feature: Finish offboarding for flight that started onboarding
         "arrivalGateId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
+        "isEmergencyDeclared": false,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,

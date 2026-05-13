@@ -164,6 +164,7 @@ Feature: Report arrival
         "arrivalGateId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
+        "isEmergencyDeclared": false,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,

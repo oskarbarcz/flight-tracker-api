@@ -152,9 +152,7 @@ Feature: Update gate
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "deicing": [
-            "deicing must be one of the following values: no, possible, recommended, mandatory"
-          ]
+          "deicing": ["deicing must be one of the following values: no, possible, recommended, mandatory"]
         }
       }
       """

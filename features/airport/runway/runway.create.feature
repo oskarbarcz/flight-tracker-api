@@ -157,9 +157,7 @@ Feature: Create runway
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "designator": [
-            "designator must be a runway end designator (01-36 with optional L/C/R suffix)"
-          ]
+          "designator": ["designator must be a runway end designator (01-36 with optional L/C/R suffix)"]
         }
       }
       """
@@ -185,9 +183,7 @@ Feature: Create runway
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "magneticHeading": [
-            "magneticHeading must not be greater than 359"
-          ]
+          "magneticHeading": ["magneticHeading must not be greater than 359"]
         }
       }
       """

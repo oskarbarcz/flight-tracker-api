@@ -115,11 +115,13 @@ export type FlightIdAndCallsign = Prisma.FlightGetPayload<{
   select: typeof flightIdAndCallsign;
 }>;
 
-export type DiversionStatus = {
+export type DerivedFlightStatus = {
   isFlightDiverted: boolean;
+  isEmergencyDeclared: boolean;
 };
 
-export type FlightResponse = FlightWithAircraftAndAirports & DiversionStatus;
+export type FlightResponse = FlightWithAircraftAndAirports &
+  DerivedFlightStatus;
 
 type FlightsWithCount = {
   flights: FlightResponse[];
@@ -204,6 +206,7 @@ export class FlightsRepository {
     return {
       ...flight,
       isFlightDiverted: await this.isFlightDiverted(flight.id),
+      isEmergencyDeclared: await this.isEmergencyDeclared(flight.id),
     };
   }
 
@@ -318,16 +321,25 @@ export class FlightsRepository {
     ]);
 
     const flightIds = flights.map((f) => f.id);
-    const diversions = await this.prisma.diversion.findMany({
-      where: { flightId: { in: flightIds } },
-      select: { flightId: true },
-    });
+    const [diversions, emergencies] = await Promise.all([
+      this.prisma.diversion.findMany({
+        where: { flightId: { in: flightIds } },
+        select: { flightId: true },
+      }),
+      this.prisma.emergencyDeclaration.findMany({
+        where: { flightId: { in: flightIds }, resolvedAt: null },
+        select: { flightId: true },
+        distinct: ['flightId'],
+      }),
+    ]);
     const divertedFlightIds = new Set(diversions.map((d) => d.flightId));
+    const emergencyFlightIds = new Set(emergencies.map((e) => e.flightId));
 
     return {
       flights: flights.map((flight) => ({
         ...flight,
         isFlightDiverted: divertedFlightIds.has(flight.id),
+        isEmergencyDeclared: emergencyFlightIds.has(flight.id),
       })),
       totalCount,
     };
@@ -420,6 +432,13 @@ export class FlightsRepository {
     });
 
     return count === 1;
+  }
+
+  private async isEmergencyDeclared(flightId: string): Promise<boolean> {
+    const count = await this.prisma.emergencyDeclaration.count({
+      where: { flightId, resolvedAt: null },
+    });
+    return count > 0;
   }
 
   private async isFlightDiverted(flightId: string): Promise<boolean> {

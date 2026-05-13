@@ -138,6 +138,7 @@ Feature: Change flight visibility
         "arrivalGateId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
+        "isEmergencyDeclared": false,
         "source": "manual",
         "tracking": "disabled",
         "rotationId": null,
