@@ -134,6 +134,7 @@ Feature: Update flight departure gate
         "arrivalGateId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
+        "isEmergencyDeclared": false,
         "source": "manual",
         "tracking": "private",
         "rotationId": null,

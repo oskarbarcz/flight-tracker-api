@@ -92,9 +92,7 @@ Feature: Update runway
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "surfaceType": [
-            "surfaceType must be one of the following values: asphalt, concrete, grass, gravel, unknown"
-          ]
+          "surfaceType": ["surfaceType must be one of the following values: asphalt, concrete, grass, gravel, unknown"]
         }
       }
       """

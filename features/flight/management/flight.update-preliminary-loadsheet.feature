@@ -156,6 +156,7 @@ Feature: Update flight preliminary loadsheet
         "arrivalGateId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
+        "isEmergencyDeclared": false,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,

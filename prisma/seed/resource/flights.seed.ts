@@ -12,6 +12,14 @@ import {
   DiversionReporterRole,
   DiversionSeverity,
 } from '../../../src/modules/flights/model/diversion.model';
+import {
+  DangerousGoodsClass,
+  EmergencyCategory,
+  EmergencyIntention,
+  EmergencyThreatLevel,
+  EmergencyUrgency,
+  SquawkCode,
+} from '../../../src/modules/flights/model/emergency.model';
 import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 
 const prisma = new PrismaService();
@@ -3795,6 +3803,204 @@ async function loadDLH81(): Promise<void> {
   });
 }
 
+/**
+ * DLH880 | b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b
+ * Frankfurt (EDDF) -> Paris CDG (LFPG)
+ * status: In cruise — active emergency declared (electrical generator failure)
+ */
+async function loadDLH880(): Promise<void> {
+  const data = {
+    id: 'b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b',
+    departureGateId: null,
+    departureRunwayId: '6bbf43a4-9242-4f04-b195-6a7bcd1f14c4',
+    arrivalGateId: null,
+    arrivalRunwayId: null,
+    flightNumber: 'LH880',
+    callsign: 'DLH880',
+    atcCallsign: 'DLH880',
+    isEtops: false,
+    captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+    status: FlightStatus.InCruise,
+    tracking: FlightTracking.Public,
+    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330 D-AIMC, Lufthansa
+    operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa
+    timesheet: {
+      scheduled: {
+        offBlockTime: new Date('2025-01-01 09:30'),
+        takeoffTime: new Date('2025-01-01 09:50'),
+        arrivalTime: new Date('2025-01-01 11:05'),
+        onBlockTime: new Date('2025-01-01 11:15'),
+      },
+      estimated: {
+        offBlockTime: new Date('2025-01-01 09:30'),
+        takeoffTime: new Date('2025-01-01 09:50'),
+        arrivalTime: new Date('2025-01-01 11:00'),
+        onBlockTime: new Date('2025-01-01 11:10'),
+      },
+      actual: {
+        offBlockTime: new Date('2025-01-01 09:35'),
+        takeoffTime: new Date('2025-01-01 09:55'),
+        arrivalTime: null,
+        onBlockTime: null,
+      },
+    } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 4,
+        },
+        passengers: 178,
+        payload: 18.2,
+        cargo: 1.5,
+        zeroFuelWeight: 75.4,
+        blockFuel: 9.8,
+      },
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 4,
+        },
+        passengers: 176,
+        payload: 17.9,
+        cargo: 1.4,
+        zeroFuelWeight: 75.1,
+        blockFuel: 9.6,
+      },
+    } as Prisma.InputJsonValue & Loadsheets,
+    source: FlightSource.Manual,
+    createdAt: new Date('2025-01-01 06:00'),
+    greatCircleDistance: 480,
+    totalFuelBurned: 5800,
+    route: null,
+  };
+
+  const departureAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
+  });
+
+  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: '79b8f884-f67d-4585-b540-36b0be7f551e' }, // Paris CDG
+  });
+
+  const flight = await prisma.flight.create({ data });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: departureAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Departure,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: arrivalAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Destination,
+    },
+  });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: '2f1d6c47-4e0b-4a51-86c1-9be07f4a2c10',
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7', // Alice Doe, Operations
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 06:00'),
+      },
+      {
+        id: '5a3e7811-2c4f-4a82-9c11-7b9e2d8c4f50',
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 06:10'),
+      },
+      {
+        id: '7e1f9b22-3d5a-4b81-9e2d-1c4f8a3e6b71',
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 06:20'),
+      },
+      {
+        id: '9c2a4d33-5e6b-4f72-9a3c-2d5e7b8c1f43',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 08:30'),
+      },
+      {
+        id: '0d3b5e44-6f7c-4083-9b4d-3e6f8c9d2a54',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 09:00'),
+      },
+      {
+        id: '1e4c6f55-708d-4194-9c5e-4f709d0e3b65',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 09:25'),
+      },
+      {
+        id: '2f5d7066-819e-42a5-8d6f-50819e1f4c76',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 09:35'),
+      },
+      {
+        id: '3a6e8177-92af-43b6-8e70-619a2f0d5d87',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.TakeoffWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 09:55'),
+      },
+      {
+        id: '4b7f9288-a3b0-44c7-8f81-72ab3a1e6e98',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.EmergencyWasDeclared,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 10:15'),
+      },
+    ],
+  });
+
+  await prisma.emergencyDeclaration.create({
+    data: {
+      id: 'a77e0b1c-2944-4bdf-9e6a-0b1c2d3e4f5a',
+      flightId: flight.id,
+      reportedBy: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
+      urgency: EmergencyUrgency.PanPan,
+      threatLevel: EmergencyThreatLevel.Medium,
+      category: EmergencyCategory.Ata24ElectricalPower,
+      squawk: SquawkCode.General,
+      intention: EmergencyIntention.Divert,
+      lastKnownPosition: { longitude: 6.789, latitude: 49.512 },
+      soulsOnBoard: 182,
+      fuelEnduranceMinutes: 45,
+      dangerousGoodsOnBoard: [DangerousGoodsClass.Class9Miscellaneous],
+      freeText:
+        'Generator #1 offline, running on APU and remaining bus. Requesting priority handling, divert intended.',
+      declarationTime: new Date('2025-01-01 10:15'),
+    },
+  });
+}
+
 export async function loadFlights(): Promise<void> {
   await loadDLH450();
   await loadAAL4905();
@@ -3816,4 +4022,5 @@ export async function loadFlights(): Promise<void> {
   await loadDLH43();
   await loadDLH102();
   await loadDLH81();
+  await loadDLH880();
 }

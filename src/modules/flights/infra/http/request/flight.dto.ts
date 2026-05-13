@@ -29,6 +29,7 @@ export class CreateFlightRequest extends OmitType(Flight, [
   'rotation',
   'source',
   'isFlightDiverted',
+  'isEmergencyDeclared',
   'createdAt',
   'departureGateId',
   'departureRunwayId',

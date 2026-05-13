@@ -45,19 +45,19 @@ model Airport {
 }
 
 model Runway {
-  id               String @id @default(uuid()) @db.Uuid
-  airportId        String @db.Uuid
-  designator       String @db.VarChar(4)
-  length           Int
-  width            Int
-  displace         Int?
-  trueHeading      Int?
-  magneticHeading  Int
-  elevation        Int?
-  surfaceType      String @db.VarChar(16)
-  lightingType     String @db.VarChar(16)
+  id              String @id @default(uuid()) @db.Uuid
+  airportId       String @db.Uuid
+  designator      String @db.VarChar(4)
+  length          Int
+  width           Int
+  displace        Int?
+  trueHeading     Int?
+  magneticHeading Int
+  elevation       Int?
+  surfaceType     String @db.VarChar(16)
+  lightingType    String @db.VarChar(16)
 
-  airport         Airport  @relation(fields: [airportId], references: [id], onDelete: Cascade)
+  airport          Airport  @relation(fields: [airportId], references: [id], onDelete: Cascade)
   departureFlights Flight[] @relation("FlightDepartureRunway")
   arrivalFlights   Flight[] @relation("FlightArrivalRunway")
 
@@ -160,18 +160,19 @@ model Flight {
   arrivalGateId       String?        @db.Uuid
   arrivalRunwayId     String?        @db.Uuid
 
-  operator             Operator            @relation(fields: [operatorId], references: [id])
-  rotation             Rotation?           @relation(fields: [rotationId], references: [id])
-  captain              User?               @relation("FlightCaptain", fields: [captainId], references: [id])
-  aircraft             Aircraft            @relation(fields: [aircraftId], references: [id])
+  operator             Operator               @relation(fields: [operatorId], references: [id])
+  rotation             Rotation?              @relation(fields: [rotationId], references: [id])
+  captain              User?                  @relation("FlightCaptain", fields: [captainId], references: [id])
+  aircraft             Aircraft               @relation(fields: [aircraftId], references: [id])
   airports             AirportsOnFlights[]
   flightEvent          FlightEvent[]
   diversion            Diversion[]
-  userPerformingFlight User[]              @relation("UserCurrentFlight")
-  departureGate        Gate?               @relation("FlightDepartureGate", fields: [departureGateId], references: [id], onDelete: SetNull)
-  departureRunway      Runway?             @relation("FlightDepartureRunway", fields: [departureRunwayId], references: [id], onDelete: SetNull)
-  arrivalGate          Gate?               @relation("FlightArrivalGate", fields: [arrivalGateId], references: [id], onDelete: SetNull)
-  arrivalRunway        Runway?             @relation("FlightArrivalRunway", fields: [arrivalRunwayId], references: [id], onDelete: SetNull)
+  emergency            EmergencyDeclaration[]
+  userPerformingFlight User[]                 @relation("UserCurrentFlight")
+  departureGate        Gate?                  @relation("FlightDepartureGate", fields: [departureGateId], references: [id], onDelete: SetNull)
+  departureRunway      Runway?                @relation("FlightDepartureRunway", fields: [departureRunwayId], references: [id], onDelete: SetNull)
+  arrivalGate          Gate?                  @relation("FlightArrivalGate", fields: [arrivalGateId], references: [id], onDelete: SetNull)
+  arrivalRunway        Runway?                @relation("FlightArrivalRunway", fields: [arrivalRunwayId], references: [id], onDelete: SetNull)
 
   @@map("flight")
 }
@@ -197,6 +198,32 @@ model Diversion {
   airport Airport @relation(fields: [airportId], references: [id])
 
   @@map("flight_diversion")
+}
+
+model EmergencyDeclaration {
+  id                    String    @id @default(uuid()) @db.Uuid
+  flightId              String    @db.Uuid
+  reportedBy            String    @db.Uuid
+  urgency               String
+  threatLevel           String
+  category              String
+  squawk                String?
+  intention             String
+  lastKnownPosition     Json?
+  soulsOnBoard          Int
+  fuelEnduranceMinutes  Int
+  dangerousGoodsOnBoard String[]
+  freeText              String
+  declarationTime       DateTime  @default(now())
+  resolvedAt            DateTime?
+  resolvedBy            String?   @db.Uuid
+
+  flight   Flight @relation(fields: [flightId], references: [id])
+  reporter User   @relation("EmergencyReporter", fields: [reportedBy], references: [id])
+  resolver User?  @relation("EmergencyResolver", fields: [resolvedBy], references: [id])
+
+  @@index([flightId])
+  @@map("flight_emergency")
 }
 
 model AirportsOnFlights {
@@ -225,13 +252,15 @@ model User {
   totalGreatCircleDistance Int      @default(0)
   totalFuelBurned          Int      @default(0)
 
-  rotations       Rotation[]
-  jwtRefreshToken JwtRefreshToken[]
-  currentFlight   Flight?           @relation("UserCurrentFlight", fields: [currentFlightId], references: [id])
-  currentRotation Rotation?         @relation(fields: [currentRotationId], references: [id], name: "CurrentRotation")
-  flightEvent     FlightEvent[]
-  diversion       Diversion[]
-  allFlights      Flight[]          @relation("FlightCaptain")
+  rotations           Rotation[]
+  jwtRefreshToken     JwtRefreshToken[]
+  currentFlight       Flight?                @relation("UserCurrentFlight", fields: [currentFlightId], references: [id])
+  currentRotation     Rotation?              @relation(fields: [currentRotationId], references: [id], name: "CurrentRotation")
+  flightEvent         FlightEvent[]
+  diversion           Diversion[]
+  emergenciesReported EmergencyDeclaration[] @relation("EmergencyReporter")
+  emergenciesResolved EmergencyDeclaration[] @relation("EmergencyResolver")
+  allFlights          Flight[]               @relation("FlightCaptain")
 
   @@map("user")
 }
