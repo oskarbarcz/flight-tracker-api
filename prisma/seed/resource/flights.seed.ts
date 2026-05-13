@@ -1354,6 +1354,10 @@ async function loadAAL4912(): Promise<void> {
         arrivalTime: null,
         onBlockTime: null,
       },
+      predicted: {
+        arrivalTime: new Date('2025-01-01 15:55'),
+        onBlockTime: new Date('2025-01-01 16:12'),
+      },
     } as Prisma.InputJsonValue,
     loadsheets: {
       preliminary: {

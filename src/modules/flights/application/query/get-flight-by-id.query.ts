@@ -89,6 +89,12 @@ export class GetFlightByIdHandler implements IQueryHandler<GetFlightByIdQuery> {
       ) as Partial<Schedule>;
     }
 
+    if (timesheet.predicted) {
+      result.predicted = this.convertSchedule(
+        timesheet.predicted,
+      ) as Partial<Schedule>;
+    }
+
     return result;
   }
 }

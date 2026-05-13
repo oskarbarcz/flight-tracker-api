@@ -72,8 +72,44 @@ export class FullTimesheet extends PartialType(EstimatedTimesheet) {
     type: Schedule,
   })
   actual?: Partial<Schedule>;
+
+  @ApiProperty({
+    description:
+      'Predicted timesheet reported by the crew based on FMC readouts or ATC advisories',
+    type: Schedule,
+    required: false,
+  })
+  predicted?: Partial<Schedule>;
 }
 
 export type FilledTimesheet = {
   [K in keyof FullTimesheet]: NonNullable<FullTimesheet[K]>;
+};
+
+export type SchedulePatch = {
+  [K in keyof Schedule]?: Date | null;
+};
+
+const scheduleKeys: ReadonlyArray<keyof Schedule> = [
+  'offBlockTime',
+  'takeoffTime',
+  'arrivalTime',
+  'onBlockTime',
+];
+
+export const mergeSchedulePatch = (
+  current: Partial<Schedule> | undefined,
+  patch: SchedulePatch,
+): Partial<Schedule> => {
+  const result: Partial<Schedule> = { ...current };
+  for (const key of scheduleKeys) {
+    const value = patch[key];
+    if (value === undefined) continue;
+    if (value === null) {
+      delete result[key];
+    } else {
+      result[key] = value;
+    }
+  }
+  return result;
 };

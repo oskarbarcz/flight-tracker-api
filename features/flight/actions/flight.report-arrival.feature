@@ -59,6 +59,12 @@ Feature: Report arrival
             "onBlockTime": null,
             "takeoffTime": "2025-01-01T13:25:00.000Z",
             "offBlockTime": "2025-01-01T13:10:00.000Z"
+          },
+          "predicted": {
+            "arrivalTime": "2025-01-01T15:55:00.000Z",
+            "onBlockTime": "2025-01-01T16:12:00.000Z",
+            "takeoffTime": null,
+            "offBlockTime": null
           }
         },
         "loadsheets": {
