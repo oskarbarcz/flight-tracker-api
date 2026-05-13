@@ -1,6 +1,7 @@
 import { ScheduledTimesheet } from '../../../model/timesheet.model';
 import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
 import {
+  IsDate,
   IsEnum,
   IsInt,
   IsNotEmpty,
@@ -132,4 +133,62 @@ export class UpdateArrivalRunwayRequest {
   })
   @IsUUID()
   arrivalRunwayId!: string;
+}
+
+export class UpdatePredictedTimesheetRequest {
+  @ApiProperty({
+    description:
+      'Predicted time when the aircraft leaves the gates. ' +
+      'Omit to preserve the current value, send null to clear it.',
+    example: '2025-01-01T12:00:00.000Z',
+    type: Date,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @Type(() => Date)
+  @IsDate()
+  offBlockTime?: Date | null;
+
+  @ApiProperty({
+    description:
+      'Predicted time when the aircraft takes off. ' +
+      'Omit to preserve the current value, send null to clear it.',
+    example: '2025-01-01T12:15:00.000Z',
+    type: Date,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @Type(() => Date)
+  @IsDate()
+  takeoffTime?: Date | null;
+
+  @ApiProperty({
+    description:
+      'Predicted time when the aircraft lands. ' +
+      'Omit to preserve the current value, send null to clear it.',
+    example: '2025-01-01T21:00:00.000Z',
+    type: Date,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @Type(() => Date)
+  @IsDate()
+  arrivalTime?: Date | null;
+
+  @ApiProperty({
+    description:
+      'Predicted time when the aircraft parks at the gates. ' +
+      'Omit to preserve the current value, send null to clear it.',
+    example: '2025-01-01T21:10:00.000Z',
+    type: Date,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @Type(() => Date)
+  @IsDate()
+  onBlockTime?: Date | null;
 }

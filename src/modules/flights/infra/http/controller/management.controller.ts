@@ -40,6 +40,7 @@ import {
   UpdateDepartureGateRequest,
   UpdateDepartureRunwayRequest,
   UpdateFlightVisibilityRequest,
+  UpdatePredictedTimesheetRequest,
 } from '../request/flight.dto';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
@@ -59,6 +60,7 @@ import { FlightDoesNotExistError } from '../request/errors.dto';
 import { GetFlightTrackingQuery } from '../../../application/query/get-flight-tracking.query';
 import { Schedule } from '../../../model/timesheet.model';
 import { UpdateScheduledTimesheetCommand } from '../../../application/command/update-scheduled-timesheet.command';
+import { UpdatePredictedTimesheetCommand } from '../../../application/command/update-predicted-timesheet.command';
 import { UpdatePreliminaryLoadsheetCommand } from '../../../application/command/update-preliminary-loadsheet.command';
 import { Loadsheet } from '../../../model/loadsheet.model';
 import { ChangeFlightVisibilityCommand } from '../../../application/command/change-flight-visibility.command';
@@ -398,6 +400,35 @@ export class ManagementController {
       schedule,
     );
     await this.commandBus.execute(command);
+  }
+
+  @ApiOperation({
+    summary: 'Update flight predicted timesheet',
+    description:
+      'Partial-merge update of the predicted timesheet ' +
+      '(`arrivalTime`, `onBlockTime`, `takeoffTime`, `offBlockTime`). ' +
+      'Omitted fields preserve the stored value; explicit `null` clears it. ' +
+      'Each field is rejected once its matching actual event has been reported.',
+  })
+  @ApiBearerAuth('jwt')
+  @ApiParam({ name: 'id', description: 'Flight unique identifier' })
+  @ApiBody({ type: UpdatePredictedTimesheetRequest })
+  @ApiNoContentResponse()
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @Patch('/:id/timesheet/predicted')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Role(UserRole.CabinCrew)
+  async updatePredictedTimesheet(
+    @UuidParam('id') id: string,
+    @Req() request: AuthorizedRequest,
+    @Body() body: UpdatePredictedTimesheetRequest,
+  ): Promise<void> {
+    await this.commandBus.execute(
+      new UpdatePredictedTimesheetCommand(id, request.user, body),
+    );
   }
 
   @ApiOperation({

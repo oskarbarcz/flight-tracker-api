@@ -2,6 +2,7 @@ export enum FlightEventType {
   FlightWasCreated = 'flight.created',
   PreliminaryLoadsheetWasUpdated = 'flight.preliminary-loadsheet-updated',
   ScheduledTimesheetWasUpdated = 'flight.scheduled-timesheet-updated',
+  PredictedTimesheetWasUpdated = 'flight.predicted-timesheet-updated',
   DepartureGateWasChanged = 'flight.departure-gate-changed',
   DepartureRunwayWasChanged = 'flight.departure-runway-changed',
   ArrivalGateWasChanged = 'flight.arrival-gate-changed',

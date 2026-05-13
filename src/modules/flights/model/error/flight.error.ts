@@ -58,3 +58,35 @@ export class InvalidStatusToUpdateArrivalRunwayError extends UnprocessableEntity
     super('Cannot update arrival runway after taxiing in.');
   }
 }
+
+export class InvalidStatusToPredictOffBlockError extends UnprocessableEntityException {
+  constructor() {
+    super(
+      'Cannot update predicted off-block time after flight has reported off-block.',
+    );
+  }
+}
+
+export class InvalidStatusToPredictTakeoffError extends UnprocessableEntityException {
+  constructor() {
+    super(
+      'Cannot update predicted takeoff time after flight has reported takeoff.',
+    );
+  }
+}
+
+export class InvalidStatusToPredictArrivalError extends UnprocessableEntityException {
+  constructor() {
+    super(
+      'Cannot update predicted arrival time after flight has reported arrival.',
+    );
+  }
+}
+
+export class InvalidStatusToPredictOnBlockError extends UnprocessableEntityException {
+  constructor() {
+    super(
+      'Cannot update predicted on-block time after flight has reported on-block.',
+    );
+  }
+}

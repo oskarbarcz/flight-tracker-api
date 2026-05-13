@@ -78,6 +78,12 @@ Feature: Report a flight diversion
             "onBlockTime": "2025-01-01T16:18:00.000Z",
             "takeoffTime": "2025-01-01T13:15:00.000Z",
             "offBlockTime": "2025-01-01T13:00:00.000Z"
+          },
+          "predicted": {
+            "arrivalTime": "2025-01-01T15:55:00.000Z",
+            "onBlockTime": "2025-01-01T16:12:00.000Z",
+            "takeoffTime": null,
+            "offBlockTime": null
           }
         },
         "loadsheets": {
@@ -275,6 +281,12 @@ Feature: Report a flight diversion
             "onBlockTime": "2025-01-01T16:18:00.000Z",
             "takeoffTime": "2025-01-01T13:15:00.000Z",
             "offBlockTime": "2025-01-01T13:00:00.000Z"
+          },
+          "predicted": {
+            "arrivalTime": "2025-01-01T15:55:00.000Z",
+            "onBlockTime": "2025-01-01T16:12:00.000Z",
+            "takeoffTime": null,
+            "offBlockTime": null
           }
         },
         "loadsheets": {

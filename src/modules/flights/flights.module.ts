@@ -34,6 +34,7 @@ import { StartOffboardingHandler } from './application/command/start-offboarding
 import { UpdatePreliminaryLoadsheetHandler } from './application/command/update-preliminary-loadsheet.command';
 import { CloseFlightHandler } from './application/command/close-flight.command';
 import { UpdateScheduledTimesheetHandler } from './application/command/update-scheduled-timesheet.command';
+import { UpdatePredictedTimesheetHandler } from './application/command/update-predicted-timesheet.command';
 import { CreateFlightHandler } from './application/command/create-flight.command';
 import { CheckFlightExistsHandler } from './application/query/check-flight-exists.query';
 import { GetFlightRotationInfoHandler } from './application/query/get-flight-rotation-info.query';
@@ -90,6 +91,7 @@ import { RotationsController } from './infra/http/controller/rotations.controlle
     FinishOffboardingHandler,
     UpdatePreliminaryLoadsheetHandler,
     UpdateScheduledTimesheetHandler,
+    UpdatePredictedTimesheetHandler,
     CloseFlightHandler,
     CreateFlightHandler,
     CreateFlightFromSimbriefHandler,
