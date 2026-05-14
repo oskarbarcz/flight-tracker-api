@@ -50,26 +50,11 @@ export class UpdatePreliminaryLoadsheetAction {
     description: 'Updated preliminary loadsheet',
     type: Loadsheet,
   })
-  @ApiNoContentResponse({
-    description: 'Flight loadsheet was updated successfully',
-  })
-  @ApiBadRequestResponse({
-    description:
-      'Flight id is not valid uuid v4 or domain logic error occurred',
-    type: GenericBadRequestResponse,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Flight with given it does not exist',
-    type: GenericNotFoundResponse,
-  })
+  @ApiNoContentResponse()
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Patch('/:id/loadsheet/preliminary')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.Operations)

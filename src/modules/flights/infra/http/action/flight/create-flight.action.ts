@@ -41,22 +41,10 @@ export class CreateFlightAction {
   })
   @ApiBearerAuth('jwt')
   @ApiBody({ type: CreateFlightRequest })
-  @ApiCreatedResponse({
-    description: 'Flight was created',
-    type: GetFlightResponse,
-  })
-  @ApiBadRequestResponse({
-    description: 'Validation failed',
-    type: GenericBadRequestResponse,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
+  @ApiCreatedResponse({ type: GetFlightResponse })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
   @ApiNotFoundResponse({
     description: 'Airports or aircraft does not exist',
     type: GenericNotFoundResponse,

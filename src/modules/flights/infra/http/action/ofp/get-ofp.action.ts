@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -22,6 +23,7 @@ export class GetOfpAction {
   constructor(private readonly queryBus: QueryBus) {}
 
   @ApiOperation({ summary: 'Retrieve operational flight plan for flight' })
+  @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',

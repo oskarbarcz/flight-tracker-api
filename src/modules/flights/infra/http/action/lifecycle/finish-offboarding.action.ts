@@ -37,26 +37,11 @@ export class FinishOffboardingAction {
     name: 'id',
     description: 'Flight unique identifier',
   })
-  @ApiNoContentResponse({
-    description: 'Offboarding finish reported successfully',
-  })
-  @ApiBadRequestResponse({
-    description:
-      'Flight id is not valid uuid v4 or domain logic error occurred',
-    type: GenericBadRequestResponse,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Flight with given it does not exist',
-    type: GenericNotFoundResponse,
-  })
+  @ApiNoContentResponse()
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Post('/:id/finish-offboarding')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)

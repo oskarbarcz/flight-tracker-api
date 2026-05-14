@@ -36,26 +36,11 @@ export class RemoveFlightAction {
     name: 'id',
     description: 'Flight unique identifier',
   })
-  @ApiNoContentResponse({
-    description: 'Flight was removed successfully',
-  })
-  @ApiBadRequestResponse({
-    description:
-      'Flight id is not valid uuid v4 or flight has been scheduled and cannot be removed',
-    type: GenericBadRequestResponse,
-  })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
-  @ApiForbiddenResponse({
-    description: 'User is not allowed to perform this action',
-    type: ForbiddenResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Flight with given it does not exist',
-    type: GenericNotFoundResponse,
-  })
+  @ApiNoContentResponse()
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @ApiForbiddenResponse({ type: ForbiddenResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Delete(':id')
   @Role(UserRole.Operations)
   @HttpCode(HttpStatus.NO_CONTENT)

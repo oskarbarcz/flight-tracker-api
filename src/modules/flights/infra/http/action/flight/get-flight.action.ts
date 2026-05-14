@@ -5,6 +5,7 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiParam,
+  ApiTags,
 } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
 import { GetFlightResponse } from '../../request/flight.dto';
@@ -18,6 +19,7 @@ import { FlightDoesNotExistError } from '../../request/errors.dto';
 import { GetFlightQuery } from '../../../../application/query/get-flight.query';
 import { GetFlightTrackingQuery } from '../../../../application/query/get-flight-tracking.query';
 
+@ApiTags('flight')
 @Controller('api/v1/flight')
 export class GetFlightAction {
   constructor(private readonly queryBus: QueryBus) {}
@@ -27,18 +29,9 @@ export class GetFlightAction {
     name: 'id',
     description: 'Flight unique identifier',
   })
-  @ApiOkResponse({
-    description: 'Flight was found',
-    type: GetFlightResponse,
-  })
-  @ApiBadRequestResponse({
-    description: 'Flight id is not valid uuid v4',
-    type: GenericBadRequestResponse,
-  })
-  @ApiNotFoundResponse({
-    description: 'Flight with given it does not exist',
-    type: GenericNotFoundResponse,
-  })
+  @ApiOkResponse({ type: GetFlightResponse })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
+  @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Get(':id')
   @SkipAuth()
   async run(

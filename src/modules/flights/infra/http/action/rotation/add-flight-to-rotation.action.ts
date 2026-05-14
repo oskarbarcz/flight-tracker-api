@@ -35,9 +35,7 @@ export class AddFlightToRotationAction {
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'flightId', description: 'Flight unique identifier' })
   @ApiParam({ name: 'rotationId', description: 'Rotation unique identifier' })
-  @ApiNoContentResponse({
-    description: 'Flight was assigned to rotation successfully',
-  })
+  @ApiNoContentResponse()
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })

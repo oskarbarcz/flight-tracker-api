@@ -57,10 +57,7 @@ export class ListFlightsAction {
       },
     },
   })
-  @ApiUnauthorizedResponse({
-    description: 'User is not authorized (token is missing)',
-    type: UnauthorizedResponse,
-  })
+  @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @Get()
   @SkipAuth()
   async run(

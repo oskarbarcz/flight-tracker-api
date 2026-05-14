@@ -35,9 +35,7 @@ export class RemoveFlightFromRotationAction {
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'flightId', description: 'Flight unique identifier' })
   @ApiParam({ name: 'rotationId', description: 'Rotation unique identifier' })
-  @ApiNoContentResponse({
-    description: 'Flight was removed from rotation successfully',
-  })
+  @ApiNoContentResponse()
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })

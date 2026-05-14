@@ -48,9 +48,7 @@ export class ReportDiversionAction {
     description: 'Flight unique identifier',
   })
   @ApiBody({ type: ReportDiversionRequest })
-  @ApiNoContentResponse({
-    description: 'Flight diversion was successfully reported',
-  })
+  @ApiNoContentResponse()
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })
