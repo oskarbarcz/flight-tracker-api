@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { GetFlightByIdQuery } from '../query/get-flight-by-id.query';
+import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import {
@@ -21,7 +21,7 @@ export class RemoveFlightHandler implements ICommandHandler<RemoveFlightCommand>
 
   async execute(command: RemoveFlightCommand): Promise<void> {
     const { flightId } = command;
-    const query = new GetFlightByIdQuery(flightId);
+    const query = new GetFlightQuery(flightId);
     const flight = await this.queryBus.execute(query);
 
     if (!flight) {

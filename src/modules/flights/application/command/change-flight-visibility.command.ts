@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { GetFlightByIdQuery } from '../query/get-flight-by-id.query';
+import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightTracking } from '../../model/flight.model';
 import { NotFoundException } from '@nestjs/common';
 import { FlightDoesNotExistError } from '../../infra/http/request/errors.dto';
@@ -21,7 +21,7 @@ export class ChangeFlightVisibilityHandler implements ICommandHandler<ChangeFlig
 
   async execute(command: ChangeFlightVisibilityCommand): Promise<void> {
     const { flightId, visibility } = command;
-    const query = new GetFlightByIdQuery(flightId);
+    const query = new GetFlightQuery(flightId);
     const flight = await this.queryBus.execute(query);
 
     if (!flight) {

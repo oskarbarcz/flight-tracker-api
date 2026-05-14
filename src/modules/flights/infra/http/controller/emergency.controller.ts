@@ -35,7 +35,7 @@ import {
 import { DeclareEmergencyCommand } from '../../../application/command/emergency/declare-emergency.command';
 import { UpdateEmergencyCommand } from '../../../application/command/emergency/update-emergency.command';
 import { ResolveEmergencyCommand } from '../../../application/command/emergency/resolve-emergency.command';
-import { ListFlightEmergenciesQuery } from '../../../application/query/emergency/list-flight-emergencies.query';
+import { ListEmergenciesQuery } from '../../../application/query/emergency/list-emergencies.query';
 import { UuidParam } from '../../../../../core/validation/uuid.param';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
@@ -161,6 +161,6 @@ export class EmergencyController {
   public async list(
     @UuidParam('flightId') flightId: string,
   ): Promise<GetEmergencyResponse[]> {
-    return this.queryBus.execute(new ListFlightEmergenciesQuery(flightId));
+    return this.queryBus.execute(new ListEmergenciesQuery(flightId));
   }
 }

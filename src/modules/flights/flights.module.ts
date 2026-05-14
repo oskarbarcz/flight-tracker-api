@@ -15,11 +15,11 @@ import { EmergencyController } from './infra/http/controller/emergency.controlle
 import { DeclareEmergencyHandler } from './application/command/emergency/declare-emergency.command';
 import { UpdateEmergencyHandler } from './application/command/emergency/update-emergency.command';
 import { ResolveEmergencyHandler } from './application/command/emergency/resolve-emergency.command';
-import { ListFlightEmergenciesHandler } from './application/query/emergency/list-flight-emergencies.query';
+import { ListEmergenciesHandler } from './application/query/emergency/list-emergencies.query';
 import { DiscordService } from './infra/service/discord.service';
 import { DiscordModule } from '../../core/provider/discord/discord.module';
 import { MarkFlightAsReadyHandler } from './application/command/mark-as-ready.command';
-import { GetFlightByIdHandler } from './application/query/get-flight-by-id.query';
+import { GetFlightHandler } from './application/query/get-flight.query';
 import { ListAllFlightsHandler } from './application/query/list-all-flights.query';
 import { RemoveFlightHandler } from './application/command/remove-flight.command';
 import { CheckInPilotForFlightHandler } from './application/command/check-in-pilot.command';
@@ -36,13 +36,11 @@ import { CloseFlightHandler } from './application/command/close-flight.command';
 import { UpdateScheduledTimesheetHandler } from './application/command/update-scheduled-timesheet.command';
 import { UpdatePredictedTimesheetHandler } from './application/command/update-predicted-timesheet.command';
 import { CreateFlightHandler } from './application/command/create-flight.command';
-import { CheckFlightExistsHandler } from './application/query/check-flight-exists.query';
-import { GetFlightRotationInfoHandler } from './application/query/get-flight-rotation-info.query';
 import { SimbriefModule } from '../../core/provider/simbrief/simbrief.module';
 import { CreateFlightFromSimbriefHandler } from './application/command/create-flight-from-simbrief.command';
 import { OfpController } from './infra/http/controller/ofp.controller';
-import { GetOfpByFlightIdHandler } from './application/query/get-ofp-by-flight-id.query';
-import { GetFlightPathHandler } from './application/query/get-flight-path.query';
+import { GetOfpHandler } from './application/query/get-ofp.query';
+import { GetPathHandler } from './application/query/path/get-path.query';
 import { GetFlightTrackingHandler } from './application/query/get-flight-tracking.query';
 import { ChangeFlightVisibilityHandler } from './application/command/change-flight-visibility.command';
 import { UpdateDepartureGateHandler } from './application/command/update-departure-gate.command';
@@ -52,6 +50,9 @@ import { UpdateArrivalRunwayHandler } from './application/command/update-arrival
 import { AddFlightToRotationHandler } from './application/command/rotation/add-flight-to-rotation.command';
 import { RemoveFlightFromRotationHandler } from './application/command/rotation/remove-flight-from-rotation.command';
 import { RotationsController } from './infra/http/controller/rotations.controller';
+import { ListEventsHandler } from './application/query/events/list-events.query';
+import { GetDiversionHandler } from './application/query/diversion/get-diversion.query';
+import { ReportFlightDiversionHandler } from './application/command/diversion/report-flight-diversion.command';
 
 @Module({
   imports: [PrismaModule, DiscordModule, AdsbModule, SimbriefModule],
@@ -75,9 +76,9 @@ import { RotationsController } from './infra/http/controller/rotations.controlle
     DeclareEmergencyHandler,
     UpdateEmergencyHandler,
     ResolveEmergencyHandler,
-    ListFlightEmergenciesHandler,
+    ListEmergenciesHandler,
     MarkFlightAsReadyHandler,
-    GetFlightByIdHandler,
+    GetFlightHandler,
     ListAllFlightsHandler,
     RemoveFlightHandler,
     CheckInPilotForFlightHandler,
@@ -95,10 +96,8 @@ import { RotationsController } from './infra/http/controller/rotations.controlle
     CloseFlightHandler,
     CreateFlightHandler,
     CreateFlightFromSimbriefHandler,
-    CheckFlightExistsHandler,
-    GetFlightRotationInfoHandler,
-    GetOfpByFlightIdHandler,
-    GetFlightPathHandler,
+    GetOfpHandler,
+    GetPathHandler,
     GetFlightTrackingHandler,
     ChangeFlightVisibilityHandler,
     UpdateDepartureGateHandler,
@@ -107,6 +106,9 @@ import { RotationsController } from './infra/http/controller/rotations.controlle
     UpdateArrivalRunwayHandler,
     AddFlightToRotationHandler,
     RemoveFlightFromRotationHandler,
+    ListEventsHandler,
+    GetDiversionHandler,
+    ReportFlightDiversionHandler,
   ],
 })
 export class FlightsModule {}

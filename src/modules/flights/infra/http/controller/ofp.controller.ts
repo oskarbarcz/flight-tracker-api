@@ -12,7 +12,7 @@ import { UuidParam } from '../../../../../core/validation/uuid.param';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
 import { FlightOfpDetails } from '../../../model/flight.model';
-import { GetOfpByFlightIdQuery } from '../../../application/query/get-ofp-by-flight-id.query';
+import { GetOfpQuery } from '../../../application/query/get-ofp.query';
 import { QueryBus } from '@nestjs/cqrs';
 import { GenericNotFoundResponse } from '../../../../../core/http/response/not-found.response';
 
@@ -32,7 +32,7 @@ export class OfpController {
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Get('/:id/ofp')
   async getFlightOfp(@UuidParam('id') id: string): Promise<FlightOfpDetails> {
-    const query = new GetOfpByFlightIdQuery(id);
+    const query = new GetOfpQuery(id);
     return this.queryBus.execute(query);
   }
 }

@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
-import { GetFlightByIdQuery } from '../../query/get-flight-by-id.query';
+import { GetFlightQuery } from '../../query/get-flight.query';
 import { FlightStatus } from '../../../model/flight.model';
 import { FlightDoesNotExistError } from '../../../model/error/flight.error';
 import {
@@ -48,9 +48,7 @@ export class DeclareEmergencyHandler implements ICommandHandler<
   ): Promise<GetEmergencyResponse> {
     const { flightId, actor, payload } = command;
 
-    const flight = await this.queryBus.execute(
-      new GetFlightByIdQuery(flightId),
-    );
+    const flight = await this.queryBus.execute(new GetFlightQuery(flightId));
 
     if (!flight) {
       throw new FlightDoesNotExistError();

@@ -48,7 +48,7 @@ import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
 import { UserRole } from 'prisma/client/client';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
 import { SkipAuth } from '../../../../../core/http/auth/decorator/skip-auth.decorator';
-import { GetFlightByIdQuery } from '../../../application/query/get-flight-by-id.query';
+import { GetFlightQuery } from '../../../application/query/get-flight.query';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ListAllFlightsQuery } from '../../../application/query/list-all-flights.query';
 import { RemoveFlightCommand } from '../../../application/command/remove-flight.command';
@@ -121,7 +121,7 @@ export class ManagementController {
     );
     await this.commandBus.execute(command);
 
-    const getFlightQuery = new GetFlightByIdQuery(flightId);
+    const getFlightQuery = new GetFlightQuery(flightId);
     return this.queryBus.execute(getFlightQuery);
   }
 
@@ -215,7 +215,7 @@ export class ManagementController {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    const query = new GetFlightByIdQuery(id);
+    const query = new GetFlightQuery(id);
     return this.queryBus.execute(query);
   }
 
@@ -257,7 +257,7 @@ export class ManagementController {
     const command = new CreateFlightCommand(flightId, input, request.user.sub);
     await this.commandBus.execute(command);
 
-    const query = new GetFlightByIdQuery(flightId);
+    const query = new GetFlightQuery(flightId);
     return this.queryBus.execute(query);
   }
 
@@ -499,7 +499,7 @@ export class ManagementController {
     @Body() body: UpdateDepartureGateRequest,
   ): Promise<GetFlightResponse> {
     const flight: GetFlightResponse = await this.queryBus.execute(
-      new GetFlightByIdQuery(id),
+      new GetFlightQuery(id),
     );
     const departureAirportId = flight.airports.find(
       (airport) => airport.type === AirportType.Departure,
@@ -515,7 +515,7 @@ export class ManagementController {
       new UpdateDepartureGateCommand(id, request.user, body.departureGateId),
     );
 
-    return this.queryBus.execute(new GetFlightByIdQuery(id));
+    return this.queryBus.execute(new GetFlightQuery(id));
   }
 
   @ApiOperation({
@@ -541,7 +541,7 @@ export class ManagementController {
     @Body() body: UpdateDepartureRunwayRequest,
   ): Promise<GetFlightResponse> {
     const flight: GetFlightResponse = await this.queryBus.execute(
-      new GetFlightByIdQuery(id),
+      new GetFlightQuery(id),
     );
     const departureAirportId = flight.airports.find(
       (airport) => airport.type === AirportType.Departure,
@@ -561,7 +561,7 @@ export class ManagementController {
       ),
     );
 
-    return this.queryBus.execute(new GetFlightByIdQuery(id));
+    return this.queryBus.execute(new GetFlightQuery(id));
   }
 
   @ApiOperation({
@@ -587,7 +587,7 @@ export class ManagementController {
     @Body() body: UpdateArrivalGateRequest,
   ): Promise<GetFlightResponse> {
     const flight: GetFlightResponse = await this.queryBus.execute(
-      new GetFlightByIdQuery(id),
+      new GetFlightQuery(id),
     );
     const arrivalAirportId = flight.airports.find(
       (airport) => airport.type === AirportType.Destination,
@@ -603,7 +603,7 @@ export class ManagementController {
       new UpdateArrivalGateCommand(id, request.user, body.arrivalGateId),
     );
 
-    return this.queryBus.execute(new GetFlightByIdQuery(id));
+    return this.queryBus.execute(new GetFlightQuery(id));
   }
 
   @ApiOperation({
@@ -629,7 +629,7 @@ export class ManagementController {
     @Body() body: UpdateArrivalRunwayRequest,
   ): Promise<GetFlightResponse> {
     const flight: GetFlightResponse = await this.queryBus.execute(
-      new GetFlightByIdQuery(id),
+      new GetFlightQuery(id),
     );
     const arrivalAirportId = flight.airports.find(
       (airport) => airport.type === AirportType.Destination,
@@ -645,6 +645,6 @@ export class ManagementController {
       new UpdateArrivalRunwayCommand(id, request.user, body.arrivalRunwayId),
     );
 
-    return this.queryBus.execute(new GetFlightByIdQuery(id));
+    return this.queryBus.execute(new GetFlightQuery(id));
   }
 }

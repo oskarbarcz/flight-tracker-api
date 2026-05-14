@@ -14,7 +14,7 @@ import { FlightPathElement, FlightTracking } from '../../../model/flight.model';
 import { SkipAuth } from '../../../../../core/http/auth/decorator/skip-auth.decorator';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
 import { QueryBus } from '@nestjs/cqrs';
-import { GetFlightPathQuery } from '../../../application/query/get-flight-path.query';
+import { GetPathQuery } from '../../../application/query/path/get-path.query';
 import { FlightDoesNotExistError } from '../request/errors.dto';
 import { GetFlightTrackingQuery } from '../../../application/query/get-flight-tracking.query';
 
@@ -49,7 +49,7 @@ export class PathController {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    const query = new GetFlightPathQuery(id);
+    const query = new GetPathQuery(id);
     return this.queryBus.execute(query);
   }
 }

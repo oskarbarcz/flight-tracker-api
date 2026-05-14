@@ -8,20 +8,19 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { QueryBus } from '@nestjs/cqrs';
 import { UuidParam } from '../../../../../core/validation/uuid.param';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
-import { EventsRepository } from '../../database/repository/events.repository';
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
 import { UserRole } from 'prisma/client/client';
 import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
 import { FlightEventResponse } from '../request/event.dto';
-import { FlightEventScope } from '../../../model/event.model';
-import { FlightEventType } from '../../../../../core/events/flight';
+import { ListEventsQuery } from '../../../application/query/events/list-events.query';
 
 @ApiTags('flight events')
 @Controller('api/v1/flight')
 export class EventsController {
-  constructor(private readonly flightEventsRepository: EventsRepository) {}
+  constructor(private readonly queryBus: QueryBus) {}
 
   @ApiOperation({ summary: 'Retrieve events for a flight' })
   @ApiBearerAuth('jwt')
@@ -37,12 +36,7 @@ export class EventsController {
   async findEventsForFlight(
     @UuidParam('id') id: string,
   ): Promise<FlightEventResponse[]> {
-    const events = await this.flightEventsRepository.findForFlight(id);
-    return events.map((event) => ({
-      ...event,
-      scope: event.scope as FlightEventScope,
-      type: event.type as FlightEventType,
-      payload: event.payload as object,
-    }));
+    const query = new ListEventsQuery(id);
+    return this.queryBus.execute(query);
   }
 }

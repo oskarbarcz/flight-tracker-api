@@ -16,17 +16,17 @@ import {
 } from '../../../airports/model/airport.model';
 import { GetFlightResponse } from '../../infra/http/request/flight.dto';
 
-export class GetFlightByIdQuery extends Query<GetFlightResponse> {
+export class GetFlightQuery extends Query<GetFlightResponse> {
   constructor(public readonly flightId: string) {
     super();
   }
 }
 
-@QueryHandler(GetFlightByIdQuery)
-export class GetFlightByIdHandler implements IQueryHandler<GetFlightByIdQuery> {
+@QueryHandler(GetFlightQuery)
+export class GetFlightHandler implements IQueryHandler<GetFlightQuery> {
   constructor(private repository: FlightsRepository) {}
 
-  async execute(query: GetFlightByIdQuery) {
+  async execute(query: GetFlightQuery) {
     const flight = await this.repository.findOneBy({
       id: query.flightId,
     });
