@@ -9,17 +9,17 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
-import { UuidParam } from '../../../../../core/validation/uuid.param';
-import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
-import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
 import { UserRole } from 'prisma/client/client';
-import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
-import { FlightEventResponse } from '../request/event.dto';
-import { ListEventsQuery } from '../../../application/query/events/list-events.query';
+import { FlightEventResponse } from '../../request/event.dto';
+import { UnauthorizedResponse } from '../../../../../../core/http/response/unauthorized.response';
+import { ForbiddenResponse } from '../../../../../../core/http/response/forbidden.response';
+import { Role } from '../../../../../../core/http/auth/decorator/role.decorator';
+import { UuidParam } from '../../../../../../core/validation/uuid.param';
+import { ListEventsQuery } from '../../../../application/query/events/list-events.query';
 
 @ApiTags('flight events')
 @Controller('api/v1/flight')
-export class EventsController {
+export class ListEventsAction {
   constructor(private readonly queryBus: QueryBus) {}
 
   @ApiOperation({ summary: 'Retrieve events for a flight' })
@@ -33,9 +33,7 @@ export class EventsController {
   @ApiForbiddenResponse({ type: ForbiddenResponse })
   @Get('/:id/events')
   @Role(UserRole.CabinCrew, UserRole.Operations)
-  async findEventsForFlight(
-    @UuidParam('id') id: string,
-  ): Promise<FlightEventResponse[]> {
+  async run(@UuidParam('id') id: string): Promise<FlightEventResponse[]> {
     const query = new ListEventsQuery(id);
     return this.queryBus.execute(query);
   }
