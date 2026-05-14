@@ -1,0 +1,100 @@
+import {
+  FlightSource,
+  FlightStatus,
+  FlightTracking,
+} from '../../model/flight.model';
+import { QueryHandler, Query, IQueryHandler } from '@nestjs/cqrs';
+import { FlightsRepository } from '../../infra/database/repository/flights.repository';
+import { FlightDoesNotExistError } from '../../model/error/flight.error';
+import { FullTimesheet, Schedule } from '../../model/timesheet.model';
+import { Loadsheets } from '../../model/loadsheet.model';
+import {
+  AirportType,
+  AirportWithType,
+  Continent,
+  Coordinates,
+} from '../../../airports/model/airport.model';
+import { GetFlightResponse } from '../../infra/http/request/flight.dto';
+
+export class GetFlightQuery extends Query<GetFlightResponse> {
+  constructor(public readonly flightId: string) {
+    super();
+  }
+}
+
+@QueryHandler(GetFlightQuery)
+export class GetFlightHandler implements IQueryHandler<GetFlightQuery> {
+  constructor(private repository: FlightsRepository) {}
+
+  async execute(query: GetFlightQuery) {
+    const flight = await this.repository.findOneBy({
+      id: query.flightId,
+    });
+
+    if (!flight) {
+      throw new FlightDoesNotExistError();
+    }
+
+    return {
+      ...flight,
+      status: flight.status as FlightStatus,
+      timesheet: this.convertTimesheetDates(flight.timesheet as FullTimesheet),
+      loadsheets: flight.loadsheets as unknown as Loadsheets,
+      airports: flight.airports.map(
+        (airportOnFlight): AirportWithType => ({
+          ...airportOnFlight.airport,
+          location: airportOnFlight.airport.location as unknown as Coordinates,
+          continent: airportOnFlight.airport.continent as Continent,
+          type: airportOnFlight.airportType as AirportType,
+        }),
+      ),
+      departureGateId: flight.departureGateId,
+      departureRunwayId: flight.departureRunwayId,
+      arrivalGateId: flight.arrivalGateId,
+      arrivalRunwayId: flight.arrivalRunwayId,
+      source: flight.source as FlightSource,
+      tracking: flight.tracking as FlightTracking,
+    };
+  }
+
+  private convertSchedule = (
+    schedule: Schedule | Partial<Schedule> | undefined,
+  ): Schedule | Partial<Schedule> | undefined => {
+    if (!schedule) return undefined;
+
+    return {
+      offBlockTime: schedule.offBlockTime
+        ? new Date(schedule.offBlockTime)
+        : null,
+      takeoffTime: schedule.takeoffTime ? new Date(schedule.takeoffTime) : null,
+      arrivalTime: schedule.arrivalTime ? new Date(schedule.arrivalTime) : null,
+      onBlockTime: schedule.onBlockTime ? new Date(schedule.onBlockTime) : null,
+    };
+  };
+
+  private convertTimesheetDates(timesheet: FullTimesheet): FullTimesheet {
+    const result: FullTimesheet = {};
+
+    if (timesheet.scheduled) {
+      result.scheduled = this.convertSchedule(timesheet.scheduled) as Schedule;
+    }
+
+    if (timesheet.estimated) {
+      result.estimated = this.convertSchedule(timesheet.estimated) as Schedule;
+    }
+
+    if (timesheet.actual) {
+      result.actual = this.convertSchedule(
+        timesheet.actual,
+      ) as Partial<Schedule>;
+    }
+
+    if (timesheet.predicted) {
+      result.predicted = this.convertSchedule(
+        timesheet.predicted,
+      ) as Partial<Schedule>;
+    }
+
+    return result;
+  }
+}

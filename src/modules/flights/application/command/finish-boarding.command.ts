@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { GetFlightByIdQuery } from '../query/get-flight-by-id.query';
+import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
 import {
   NotFoundException,
@@ -34,7 +34,7 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
 
   async execute(command: FinishBoardingCommand): Promise<void> {
     const { flightId, initiatorId, finalLoadsheet } = command;
-    const query = new GetFlightByIdQuery(flightId);
+    const query = new GetFlightQuery(flightId);
     const flight = await this.queryBus.execute(query);
 
     if (!flight) {

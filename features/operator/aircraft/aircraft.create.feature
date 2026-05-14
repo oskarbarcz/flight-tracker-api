@@ -74,7 +74,7 @@ Feature: Create aircraft for operator
 
   Scenario: As a cabin crew I cannot create aircraft with correct data
     Given I am signed in as "cabin crew"
-    When I send a "POST" request to "/api/v1/aircraft" with body:
+    When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
       """json
       {
         "icaoCode": "B748",
@@ -82,8 +82,7 @@ Feature: Create aircraft for operator
         "selcal": "SL-PR",
         "fullName": "Boeing 747-8 Intercontinental",
         "registration": "SP-LRA",
-        "livery": "Sunshine",
-        "operatorId": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
+        "livery": "Sunshine"
       }
       """
     Then the response status should be 403
