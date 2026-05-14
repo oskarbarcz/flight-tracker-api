@@ -52,7 +52,7 @@ Feature: Delete aircraft
 
   Scenario: As a cabin crew I cannot delete aircraft
     Given I am signed in as "cabin crew"
-    When I send a "DELETE" request to "/api/v1/aircraft/3f34bc59-c9c3-4ad0-88fa-2cc570298602"
+    When I send a "DELETE" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/3f34bc59-c9c3-4ad0-88fa-2cc570298602"
     Then the response status should be 403
     And the response body should contain:
       """json
