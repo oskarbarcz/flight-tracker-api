@@ -17,7 +17,11 @@ Feature: Get runway
         "magneticHeading": 107,
         "elevation": 110,
         "surfaceType": "asphalt",
-        "lightingType": "HIRL"
+        "lightingType": "HIRL",
+        "coordinates": {
+          "latitude": 52.15674,
+          "longitude": 21.00541
+        }
       }
       """
 
@@ -38,7 +42,11 @@ Feature: Get runway
         "magneticHeading": 107,
         "elevation": 110,
         "surfaceType": "asphalt",
-        "lightingType": "HIRL"
+        "lightingType": "HIRL",
+        "coordinates": {
+          "latitude": 52.15674,
+          "longitude": 21.00541
+        }
       }
       """
 
@@ -59,7 +67,11 @@ Feature: Get runway
         "magneticHeading": 107,
         "elevation": 110,
         "surfaceType": "asphalt",
-        "lightingType": "HIRL"
+        "lightingType": "HIRL",
+        "coordinates": {
+          "latitude": 52.15674,
+          "longitude": 21.00541
+        }
       }
       """
 

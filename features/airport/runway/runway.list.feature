@@ -18,7 +18,11 @@ Feature: List runways at an airport
           "magneticHeading": 107,
           "elevation": 110,
           "surfaceType": "asphalt",
-          "lightingType": "HIRL"
+          "lightingType": "HIRL",
+          "coordinates": {
+            "latitude": 52.15674,
+            "longitude": 21.00541
+          }
         },
         {
           "id": "caeefbc3-d620-4af1-b5c7-175485a56db1",
@@ -31,7 +35,11 @@ Feature: List runways at an airport
           "magneticHeading": 147,
           "elevation": 110,
           "surfaceType": "asphalt",
-          "lightingType": "HIRL"
+          "lightingType": "HIRL",
+          "coordinates": {
+            "latitude": 52.13676,
+            "longitude": 20.99332
+          }
         },
         {
           "id": "338cccf0-431c-44c5-99bf-ae1c8a8b372a",
@@ -44,7 +52,11 @@ Feature: List runways at an airport
           "magneticHeading": 287,
           "elevation": 110,
           "surfaceType": "asphalt",
-          "lightingType": "HIRL"
+          "lightingType": "HIRL",
+          "coordinates": {
+            "latitude": 52.17476,
+            "longitude": 20.92884
+          }
         },
         {
           "id": "fbf2e4f1-acc0-4084-8da7-6587fc0809f4",
@@ -57,7 +69,11 @@ Feature: List runways at an airport
           "magneticHeading": 327,
           "elevation": 110,
           "surfaceType": "asphalt",
-          "lightingType": "HIRL"
+          "lightingType": "HIRL",
+          "coordinates": {
+            "latitude": 52.19474,
+            "longitude": 20.94092
+          }
         }
       ]
       """
@@ -80,7 +96,11 @@ Feature: List runways at an airport
           "magneticHeading": 107,
           "elevation": 110,
           "surfaceType": "asphalt",
-          "lightingType": "HIRL"
+          "lightingType": "HIRL",
+          "coordinates": {
+            "latitude": 52.15674,
+            "longitude": 21.00541
+          }
         },
         {
           "id": "caeefbc3-d620-4af1-b5c7-175485a56db1",
@@ -93,7 +113,11 @@ Feature: List runways at an airport
           "magneticHeading": 147,
           "elevation": 110,
           "surfaceType": "asphalt",
-          "lightingType": "HIRL"
+          "lightingType": "HIRL",
+          "coordinates": {
+            "latitude": 52.13676,
+            "longitude": 20.99332
+          }
         },
         {
           "id": "338cccf0-431c-44c5-99bf-ae1c8a8b372a",
@@ -106,7 +130,11 @@ Feature: List runways at an airport
           "magneticHeading": 287,
           "elevation": 110,
           "surfaceType": "asphalt",
-          "lightingType": "HIRL"
+          "lightingType": "HIRL",
+          "coordinates": {
+            "latitude": 52.17476,
+            "longitude": 20.92884
+          }
         },
         {
           "id": "fbf2e4f1-acc0-4084-8da7-6587fc0809f4",
@@ -119,7 +147,11 @@ Feature: List runways at an airport
           "magneticHeading": 327,
           "elevation": 110,
           "surfaceType": "asphalt",
-          "lightingType": "HIRL"
+          "lightingType": "HIRL",
+          "coordinates": {
+            "latitude": 52.19474,
+            "longitude": 20.94092
+          }
         }
       ]
       """
@@ -142,7 +174,11 @@ Feature: List runways at an airport
           "magneticHeading": 107,
           "elevation": 110,
           "surfaceType": "asphalt",
-          "lightingType": "HIRL"
+          "lightingType": "HIRL",
+          "coordinates": {
+            "latitude": 52.15674,
+            "longitude": 21.00541
+          }
         },
         {
           "id": "caeefbc3-d620-4af1-b5c7-175485a56db1",
@@ -155,7 +191,11 @@ Feature: List runways at an airport
           "magneticHeading": 147,
           "elevation": 110,
           "surfaceType": "asphalt",
-          "lightingType": "HIRL"
+          "lightingType": "HIRL",
+          "coordinates": {
+            "latitude": 52.13676,
+            "longitude": 20.99332
+          }
         },
         {
           "id": "338cccf0-431c-44c5-99bf-ae1c8a8b372a",
@@ -168,7 +208,11 @@ Feature: List runways at an airport
           "magneticHeading": 287,
           "elevation": 110,
           "surfaceType": "asphalt",
-          "lightingType": "HIRL"
+          "lightingType": "HIRL",
+          "coordinates": {
+            "latitude": 52.17476,
+            "longitude": 20.92884
+          }
         },
         {
           "id": "fbf2e4f1-acc0-4084-8da7-6587fc0809f4",
@@ -181,7 +225,11 @@ Feature: List runways at an airport
           "magneticHeading": 327,
           "elevation": 110,
           "surfaceType": "asphalt",
-          "lightingType": "HIRL"
+          "lightingType": "HIRL",
+          "coordinates": {
+            "latitude": 52.19474,
+            "longitude": 20.94092
+          }
         }
       ]
       """

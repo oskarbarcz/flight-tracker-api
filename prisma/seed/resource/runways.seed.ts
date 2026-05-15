@@ -16,6 +16,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 111,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.05623, longitude: 8.62802 },
     },
     {
       id: '290a31a8-ba88-436c-b9ab-d8a5c57ea81f',
@@ -29,6 +30,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 111,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.03763, longitude: 8.51992 },
     },
     {
       id: '5ae7e0f1-392a-4140-bb2a-4efee09fe9f1',
@@ -42,6 +44,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 111,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.05623, longitude: 8.62802 },
     },
     {
       id: 'b0fb79c5-840a-4005-a4f5-b5b8131ca1c9',
@@ -55,6 +58,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 111,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.03763, longitude: 8.51992 },
     },
     {
       id: 'e20b5116-0da1-4dd6-b283-96493b19962f',
@@ -68,6 +72,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 111,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.05344, longitude: 8.6118 },
     },
     {
       id: '01847392-32d8-4b6b-98e7-ee7b700677c5',
@@ -81,6 +86,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 111,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.04042, longitude: 8.53614 },
     },
     {
       id: '2fea3a8b-3fa8-41d4-ac9b-97004ebf2509',
@@ -94,6 +100,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 111,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.01119, longitude: 8.56812 },
     },
 
     // EPWA — Warsaw Chopin (elevation ~110m)
@@ -109,6 +116,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 110,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 52.15674, longitude: 21.00541 },
     },
     {
       id: 'caeefbc3-d620-4af1-b5c7-175485a56db1',
@@ -122,6 +130,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 110,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 52.13676, longitude: 20.99332 },
     },
     {
       id: '338cccf0-431c-44c5-99bf-ae1c8a8b372a',
@@ -135,6 +144,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 110,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 52.17476, longitude: 20.92884 },
     },
     {
       id: 'fbf2e4f1-acc0-4084-8da7-6587fc0809f4',
@@ -148,6 +158,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 110,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 52.19474, longitude: 20.94092 },
     },
 
     // KJFK — New York John F. Kennedy (elevation ~4m)
@@ -163,6 +174,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 4,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 40.66935, longitude: -73.755 },
     },
     {
       id: '8324e63e-24ab-44d6-9e57-68be895f8afe',
@@ -176,6 +188,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 4,
       surfaceType: 'concrete',
       lightingType: 'HIRL',
+      coordinates: { latitude: 40.6608, longitude: -73.76204 },
     },
     {
       id: '638de008-7d77-4ad7-ab4e-2f05c4f7b710',
@@ -189,6 +202,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 4,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 40.62679, longitude: -73.7475 },
     },
     {
       id: 'd3bded3e-febe-4f1e-9a37-75bf0bf11aee',
@@ -202,6 +216,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 4,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 40.62025, longitude: -73.73369 },
     },
     {
       id: 'eb89ade5-d0d1-42cc-a437-9a81a554dc0d',
@@ -215,6 +230,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 4,
       surfaceType: 'concrete',
       lightingType: 'HIRL',
+      coordinates: { latitude: 40.6218, longitude: -73.79416 },
     },
     {
       id: '2d43a458-02ca-4089-9bdd-b0eaa96d6433',
@@ -228,6 +244,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 4,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 40.61325, longitude: -73.8012 },
     },
     {
       id: '12881dbb-929e-466c-86a7-3639d8472269',
@@ -241,6 +258,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 4,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 40.66235, longitude: -73.82251 },
     },
     {
       id: '5caaed05-d5ec-4129-bfd2-3b2a2cf9f39f',
@@ -254,6 +272,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 4,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 40.65581, longitude: -73.8087 },
     },
 
     // LFPG — Paris Charles de Gaulle (elevation ~119m)
@@ -269,6 +288,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 119,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.03597, longitude: 8.62936 },
     },
     {
       id: 'e05f6cb7-8dad-4038-bfd3-1990557ca666',
@@ -282,6 +302,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 119,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.03502, longitude: 8.60822 },
     },
     {
       id: 'd54a2ec4-b4d4-4db2-bf7e-e801d45721d0',
@@ -295,6 +316,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 119,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.03136, longitude: 8.62921 },
     },
     {
       id: '7097045b-70cf-4837-9160-8219308a0443',
@@ -308,6 +330,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 119,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.03206, longitude: 8.60826 },
     },
     {
       id: 'f3d879de-f12a-48b4-a5f7-7922a57956e4',
@@ -321,6 +344,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 119,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.03069, longitude: 8.51175 },
     },
     {
       id: '06f80c07-6197-4c18-afeb-94dee39b0a44',
@@ -334,6 +358,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 119,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.03164, longitude: 8.53289 },
     },
     {
       id: 'fa2036b8-1350-4ebc-a0d2-fd4267f957f7',
@@ -347,6 +372,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 119,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.03531, longitude: 8.5119 },
     },
     {
       id: '9d0477f1-2933-4af9-9408-3ea22f6c31ca',
@@ -360,6 +386,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 119,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 50.0346, longitude: 8.53285 },
     },
 
     // CYYR — Goose Bay (elevation ~49m)
@@ -375,6 +402,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 49,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 53.3352, longitude: -60.3665 },
     },
     {
       id: 'f7b104c0-5505-4721-ab4d-874ed784d982',
@@ -388,6 +416,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 49,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 53.29966, longitude: -60.38204 },
     },
     {
       id: 'bb3c2ef3-15d5-4653-8487-1a8d684ab64a',
@@ -401,6 +430,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 49,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 53.30314, longitude: -60.45238 },
     },
     {
       id: '23082b92-ef6c-4877-969b-5cb30aebacbc',
@@ -414,6 +444,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 49,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 53.33868, longitude: -60.43685 },
     },
 
     // BIKF — Reykjavik Keflavik (elevation ~52m)
@@ -429,6 +460,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 52,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 64.15609, longitude: -21.92117 },
     },
     {
       id: '51118617-eb02-4e1b-bef4-982c7b3b0974',
@@ -442,6 +474,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 52,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 64.11707, longitude: -21.88488 },
     },
     {
       id: 'a9020c68-a41d-4d64-a16c-4502a7dd4099',
@@ -455,6 +488,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 52,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 64.10391, longitude: -21.96003 },
     },
     {
       id: '4092c774-580d-4480-8c4a-dfc27ab6a201',
@@ -468,6 +502,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 52,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 64.14293, longitude: -21.99632 },
     },
 
     // CYYT — St. John's Intl (elevation ~141m)
@@ -483,6 +518,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 141,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 47.6182, longitude: -52.71743 },
     },
     {
       id: '7c34c22d-d0e4-43bb-b0db-da90a253e4f8',
@@ -496,6 +532,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 141,
       surfaceType: 'asphalt',
       lightingType: 'MIRL',
+      coordinates: { latitude: 47.60797, longitude: -52.73916 },
     },
     {
       id: 'f69f7848-3e16-4546-8113-9b3ed2610552',
@@ -509,6 +546,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 141,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 47.61902, longitude: -52.78646 },
     },
     {
       id: '6b88fc6e-b642-48ef-84e2-24bc04a72921',
@@ -522,6 +560,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 141,
       surfaceType: 'asphalt',
       lightingType: 'MIRL',
+      coordinates: { latitude: 47.62925, longitude: -52.76473 },
     },
 
     // KPHL — Philadelphia Intl (elevation ~11m)
@@ -537,6 +576,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 11,
       surfaceType: 'asphalt',
       lightingType: 'MIRL',
+      coordinates: { latitude: 39.8751, longitude: -75.22272 },
     },
     {
       id: '880c5052-2a94-49e3-8178-3b63359494c8',
@@ -550,6 +590,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 11,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 39.87213, longitude: -75.20603 },
     },
     {
       id: '5d2dc3af-5f11-405d-8d66-67f467297367',
@@ -563,6 +604,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 11,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 39.87209, longitude: -75.20784 },
     },
     {
       id: '394d17c1-4297-43c5-ba86-726461156d1b',
@@ -576,6 +618,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 11,
       surfaceType: 'asphalt',
       lightingType: 'MIRL',
+      coordinates: { latitude: 39.85827, longitude: -75.23739 },
     },
     {
       id: 'e13bc709-4e34-41b8-8537-55965dc057e3',
@@ -589,6 +632,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 11,
       surfaceType: 'asphalt',
       lightingType: 'MIRL',
+      coordinates: { latitude: 39.86716, longitude: -75.26426 },
     },
     {
       id: '8b35ca2e-8b58-4021-b37c-b9d08c2ea4c3',
@@ -602,6 +646,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 11,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 39.87017, longitude: -75.27914 },
     },
     {
       id: 'b6a0f863-d46a-4d44-8102-59f395e0a851',
@@ -615,6 +660,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 11,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 39.87013, longitude: -75.28095 },
     },
     {
       id: '98f8d86b-6d5c-439c-b1c2-e8d7c5a888fb',
@@ -628,6 +674,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 11,
       surfaceType: 'asphalt',
       lightingType: 'MIRL',
+      coordinates: { latitude: 39.88399, longitude: -75.24959 },
     },
 
     // KBOS — Boston Logan (elevation ~6m)
@@ -643,6 +690,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 6,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 42.38372, longitude: -71.00341 },
     },
     {
       id: 'affab21d-be0d-4281-bb94-4944122e91e9',
@@ -656,6 +704,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 6,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 42.38914, longitude: -70.99967 },
     },
     {
       id: '39cdf097-9733-4ab1-a42b-256d24a97851',
@@ -669,6 +718,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 6,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 42.36983, longitude: -70.99168 },
     },
     {
       id: '771a5721-3e3a-467c-ac80-7cf80e8497e4',
@@ -682,6 +732,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 6,
       surfaceType: 'asphalt',
       lightingType: 'MIRL',
+      coordinates: { latitude: 42.3563, longitude: -71.00183 },
     },
     {
       id: '2121ac7d-6c2f-4bd8-8c33-838589b1e522',
@@ -695,6 +746,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 6,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 42.34811, longitude: -70.99589 },
     },
     {
       id: 'ef71e294-d69e-4b34-a99d-8600dc242427',
@@ -708,6 +760,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 6,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 42.34435, longitude: -70.99115 },
     },
     {
       id: '3d9db961-3a91-4287-9fd5-4eea336e3344',
@@ -721,6 +774,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 6,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 42.33994, longitude: -71.03359 },
     },
     {
       id: '08bbd3f0-3c9b-4032-863d-ba15c492f62b',
@@ -734,6 +788,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 6,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 42.34536, longitude: -71.02985 },
     },
     {
       id: 'a32aeb2f-5f88-4a4b-9976-3791ef481815',
@@ -747,6 +802,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 6,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 42.35925, longitude: -71.04158 },
     },
     {
       id: 'eb5f37c2-9f1a-4d61-90a5-6b2379273859',
@@ -760,6 +816,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 6,
       surfaceType: 'asphalt',
       lightingType: 'MIRL',
+      coordinates: { latitude: 42.37278, longitude: -71.03143 },
     },
     {
       id: '06467ecc-9a99-46d8-aa96-d9956601302f',
@@ -773,6 +830,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 6,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 42.38473, longitude: -71.04211 },
     },
     {
       id: '7352a003-b3a5-489e-b9e2-aef1439c0f87',
@@ -786,6 +844,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 6,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 42.38097, longitude: -71.03737 },
     },
 
     // EDDW — Bremen (elevation ~4m)
@@ -801,6 +860,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 4,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 53.0475, longitude: 8.81711 },
     },
     {
       id: 'bfe24fb8-6016-4949-8992-cc2d91801db9',
@@ -814,6 +874,7 @@ export async function loadRunways(): Promise<void> {
       elevation: 4,
       surfaceType: 'asphalt',
       lightingType: 'HIRL',
+      coordinates: { latitude: 53.0475, longitude: 8.75623 },
     },
   ];
 

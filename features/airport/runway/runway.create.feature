@@ -10,7 +10,11 @@ Feature: Create runway
         "width": 45,
         "magneticHeading": 47,
         "surfaceType": "asphalt",
-        "lightingType": "MIRL"
+        "lightingType": "MIRL",
+        "coordinates": {
+          "latitude": 52.18,
+          "longitude": 20.99
+        }
       }
       """
     Then the response status should be 403
@@ -33,7 +37,11 @@ Feature: Create runway
         "width": 45,
         "magneticHeading": 47,
         "surfaceType": "asphalt",
-        "lightingType": "MIRL"
+        "lightingType": "MIRL",
+        "coordinates": {
+          "latitude": 52.18,
+          "longitude": 20.99
+        }
       }
       """
     Then the response status should be 201
@@ -50,7 +58,11 @@ Feature: Create runway
         "magneticHeading": 47,
         "elevation": null,
         "surfaceType": "asphalt",
-        "lightingType": "MIRL"
+        "lightingType": "MIRL",
+        "coordinates": {
+          "latitude": 52.18,
+          "longitude": 20.99
+        }
       }
       """
     And I set database to initial state
@@ -68,7 +80,11 @@ Feature: Create runway
         "magneticHeading": 227,
         "elevation": 110,
         "surfaceType": "concrete",
-        "lightingType": "ALS"
+        "lightingType": "ALS",
+        "coordinates": {
+          "latitude": 52.14,
+          "longitude": 20.93
+        }
       }
       """
     Then the response status should be 201
@@ -85,7 +101,11 @@ Feature: Create runway
         "magneticHeading": 227,
         "elevation": 110,
         "surfaceType": "concrete",
-        "lightingType": "ALS"
+        "lightingType": "ALS",
+        "coordinates": {
+          "latitude": 52.14,
+          "longitude": 20.93
+        }
       }
       """
     And I set database to initial state
@@ -100,7 +120,11 @@ Feature: Create runway
         "width": 45,
         "magneticHeading": 47,
         "surfaceType": "asphalt",
-        "lightingType": "MIRL"
+        "lightingType": "MIRL",
+        "coordinates": {
+          "latitude": 52.18,
+          "longitude": 20.99
+        }
       }
       """
     Then the response status should be 403
@@ -123,7 +147,11 @@ Feature: Create runway
         "width": 45,
         "magneticHeading": 47,
         "surfaceType": "asphalt",
-        "lightingType": "MIRL"
+        "lightingType": "MIRL",
+        "coordinates": {
+          "latitude": 52.18,
+          "longitude": 20.99
+        }
       }
       """
     Then the response status should be 404
@@ -146,7 +174,11 @@ Feature: Create runway
         "width": 45,
         "magneticHeading": 47,
         "surfaceType": "asphalt",
-        "lightingType": "MIRL"
+        "lightingType": "MIRL",
+        "coordinates": {
+          "latitude": 52.18,
+          "longitude": 20.99
+        }
       }
       """
     Then the response status should be 400
@@ -172,7 +204,11 @@ Feature: Create runway
         "width": 45,
         "magneticHeading": 540,
         "surfaceType": "asphalt",
-        "lightingType": "MIRL"
+        "lightingType": "MIRL",
+        "coordinates": {
+          "latitude": 52.18,
+          "longitude": 20.99
+        }
       }
       """
     Then the response status should be 400
@@ -188,7 +224,8 @@ Feature: Create runway
       }
       """
 
-  Scenario: As an unauthorized user I cannot create runway
+  Scenario: As operations I cannot create runway without end coordinates
+    Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/runway" with body:
       """json
       {
@@ -198,6 +235,35 @@ Feature: Create runway
         "magneticHeading": 47,
         "surfaceType": "asphalt",
         "lightingType": "MIRL"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "coordinates": ["coordinates should not be empty"]
+        }
+      }
+      """
+
+  Scenario: As an unauthorized user I cannot create runway
+    When I send a "POST" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/runway" with body:
+      """json
+      {
+        "designator": "05",
+        "length": 2000,
+        "width": 45,
+        "magneticHeading": 47,
+        "surfaceType": "asphalt",
+        "lightingType": "MIRL",
+        "coordinates": {
+          "latitude": 52.18,
+          "longitude": 20.99
+        }
       }
       """
     Then the response status should be 401

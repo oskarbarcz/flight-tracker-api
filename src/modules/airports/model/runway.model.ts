@@ -10,6 +10,8 @@ import {
   MaxLength,
   Min,
 } from 'class-validator';
+import { Type } from 'class-transformer';
+import { Coordinates } from './airport.model';
 
 export type RunwayId = string & {};
 
@@ -133,4 +135,12 @@ export class Runway {
   })
   @IsEnum(LightingType)
   lightingType!: LightingType;
+
+  @ApiProperty({
+    description: 'Coordinates of the runway end opposite the threshold',
+    type: Coordinates,
+  })
+  @Type(() => Coordinates)
+  @IsNotEmpty()
+  coordinates!: Coordinates;
 }

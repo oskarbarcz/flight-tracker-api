@@ -56,6 +56,7 @@ model Runway {
   elevation       Int?
   surfaceType     String @db.VarChar(16)
   lightingType    String @db.VarChar(16)
+  coordinates     Json
 
   airport          Airport  @relation(fields: [airportId], references: [id], onDelete: Cascade)
   departureFlights Flight[] @relation("FlightDepartureRunway")
