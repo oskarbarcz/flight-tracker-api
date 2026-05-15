@@ -4,7 +4,8 @@ import { AirportsRepository } from '../../../infra/database/airports.repository'
 import { GetRunwayResponse } from '../../../infra/http/request/runway.dto';
 import { AirportNotFoundError } from '../../../model/error/airport.error';
 import { RunwayNotFoundError } from '../../../model/error/runway.error';
-import { Runway } from '../../../model/runway.model';
+import { LightingType, SurfaceType } from '../../../model/runway.model';
+import { Coordinates } from '../../../model/airport.model';
 
 export class GetRunwayByIdQuery extends Query<GetRunwayResponse> {
   constructor(
@@ -38,6 +39,11 @@ export class GetRunwayByIdHandler implements IQueryHandler<GetRunwayByIdQuery> {
       throw new RunwayNotFoundError();
     }
 
-    return runway as unknown as Runway;
+    return {
+      ...runway,
+      surfaceType: runway.surfaceType as SurfaceType,
+      lightingType: runway.lightingType as LightingType,
+      coordinates: runway.coordinates as unknown as Coordinates,
+    };
   }
 }
