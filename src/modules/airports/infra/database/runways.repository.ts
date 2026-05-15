@@ -18,6 +18,7 @@ const selectRunway = {
   elevation: true,
   surfaceType: true,
   lightingType: true,
+  coordinates: true,
 } as const satisfies Prisma.RunwaySelect;
 
 type RunwayView = Prisma.RunwayGetPayload<{
@@ -38,6 +39,7 @@ export class RunwaysRepository {
         id: runwayId,
         airportId,
         ...data,
+        coordinates: data.coordinates as unknown as Prisma.JsonObject,
       },
       select: selectRunway,
     });
@@ -63,7 +65,12 @@ export class RunwaysRepository {
   async update(id: string, data: UpdateRunwayRequest): Promise<void> {
     await this.prisma.runway.update({
       where: { id },
-      data: { ...data },
+      data: {
+        ...data,
+        coordinates: data.coordinates as unknown as
+          | Prisma.JsonObject
+          | undefined,
+      },
     });
   }
 

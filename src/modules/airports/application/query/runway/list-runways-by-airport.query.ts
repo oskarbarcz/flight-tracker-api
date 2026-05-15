@@ -26,6 +26,6 @@ export class ListRunwaysByAirportHandler implements IQueryHandler<ListRunwaysByA
     }
 
     const runways = await this.runwaysRepository.findAll(query.airportId);
-    return runways as Runway[];
+    return runways as unknown as Runway[];
   }
 }

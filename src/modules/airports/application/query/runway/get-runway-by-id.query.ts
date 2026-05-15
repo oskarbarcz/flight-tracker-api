@@ -38,6 +38,6 @@ export class GetRunwayByIdHandler implements IQueryHandler<GetRunwayByIdQuery> {
       throw new RunwayNotFoundError();
     }
 
-    return runway as Runway;
+    return runway as unknown as Runway;
   }
 }

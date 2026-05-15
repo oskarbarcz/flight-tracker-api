@@ -24,7 +24,11 @@ Feature: Update runway
         "length": 2900,
         "displace": 150,
         "surfaceType": "concrete",
-        "lightingType": "ALS"
+        "lightingType": "ALS",
+        "coordinates": {
+          "latitude": 52.157,
+          "longitude": 21.006
+        }
       }
       """
     Then the response status should be 200
@@ -41,7 +45,11 @@ Feature: Update runway
         "magneticHeading": 107,
         "elevation": 110,
         "surfaceType": "concrete",
-        "lightingType": "ALS"
+        "lightingType": "ALS",
+        "coordinates": {
+          "latitude": 52.157,
+          "longitude": 21.006
+        }
       }
       """
     And I set database to initial state
