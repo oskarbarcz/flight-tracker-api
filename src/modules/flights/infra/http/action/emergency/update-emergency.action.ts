@@ -1,4 +1,11 @@
-import { Body, Controller, HttpCode, HttpStatus, Patch } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Patch,
+  Req,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -19,6 +26,7 @@ import { UnauthorizedResponse } from '../../../../../../core/http/response/unaut
 import { ForbiddenResponse } from '../../../../../../core/http/response/forbidden.response';
 import { Role } from '../../../../../../core/http/auth/decorator/role.decorator';
 import { UuidParam } from '../../../../../../core/validation/uuid.param';
+import { AuthorizedRequest } from '../../../../../../core/http/request/authorized.request';
 import { UpdateEmergencyCommand } from '../../../../application/command/emergency/update-emergency.command';
 
 @ApiTags('flight emergency')
@@ -52,9 +60,15 @@ export class UpdateEmergencyAction {
   public async run(
     @UuidParam('flightId') flightId: string,
     @UuidParam('emergencyId') emergencyId: string,
+    @Req() request: AuthorizedRequest,
     @Body() body: UpdateEmergencyRequest,
   ): Promise<void> {
-    const command = new UpdateEmergencyCommand(flightId, emergencyId, body);
+    const command = new UpdateEmergencyCommand(
+      flightId,
+      emergencyId,
+      request.user,
+      body,
+    );
     await this.commandBus.execute(command);
   }
 }
