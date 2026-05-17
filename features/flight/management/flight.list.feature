@@ -4,25 +4,31 @@ Feature: Get flights list
     Given I am signed in as "admin"
     When I send a "GET" request to "/api/v1/flight"
     Then the response status should be 200
-    And the response header "X-Total-Count" should be "21"
+    And the response header "X-Total-Count" should be "23"
 
   Scenario: As operations I can get flight
     Given I am signed in as "operations"
     When I send a "GET" request to "/api/v1/flight"
     Then the response status should be 200
-    And the response header "X-Total-Count" should be "21"
+    And the response header "X-Total-Count" should be "23"
 
   Scenario: As a cabin crew I can get flight
     Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight"
     Then the response status should be 200
-    And the response header "X-Total-Count" should be "21"
+    And the response header "X-Total-Count" should be "23"
 
   Scenario: As cabin crew I can get flight filtered by flight phase
     Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight?phase=upcoming"
     Then the response status should be 200
     And the response header "X-Total-Count" should be "6"
+
+  Scenario: As operations I can list flights with unresolved emergencies
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight?phase=emergency"
+    Then the response status should be 200
+    And the response header "X-Total-Count" should be "2"
 
   Scenario: As cabin crew I cannot get flight filtered by incorrect flight phase
     Given I am signed in as "cabin crew"
@@ -35,7 +41,7 @@ Feature: Get flights list
         "message": "Request validation failed.",
         "error": "Bad Request",
         "violations": {
-          "phase": ["phase must be one of the following values: upcoming, ongoing, finished"]
+          "phase": ["phase must be one of the following values: upcoming, ongoing, finished, emergency"]
         }
       }
       """
@@ -44,7 +50,7 @@ Feature: Get flights list
     Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight?limit=2&page=3"
     Then the response status should be 200
-    And the response header "X-Total-Count" should be "21"
+    And the response header "X-Total-Count" should be "23"
 
   Scenario: As cabin crew I cannot get flight filtered by incorrect pagination
     Given I am signed in as "cabin crew"
@@ -66,4 +72,4 @@ Feature: Get flights list
   Scenario: As an unauthorized user I can get flights list with public flights only
     When I send a "GET" request to "/api/v1/flight"
     Then the response status should be 200
-    And the response header "X-Total-Count" should be "14"
+    And the response header "X-Total-Count" should be "16"

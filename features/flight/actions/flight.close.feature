@@ -734,3 +734,304 @@ Feature: Close flight
         "statusCode": 401
       }
       """
+
+  Scenario: As a cabin crew I cannot close flight with an unresolved emergency
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04/close"
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Cannot close flight with an unresolved emergency.",
+        "error": "Bad Request",
+        "statusCode": 400
+      }
+      """
+
+  Scenario: As a cabin crew I can close flight after resolving its outstanding emergency
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04/close"
+    Then the response status should be 400
+    When I send a "DELETE" request to "/api/v1/flight/5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04/emergency/aa18ec01-1bf2-4d65-8c43-92ef10ea7311"
+    Then the response status should be 204
+    When I send a "POST" request to "/api/v1/flight/5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04/close"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04",
+        "flightNumber": "AA4918",
+        "callsign": "AAL4918",
+        "atcCallsign": "AAL18J",
+        "isEtops": false,
+        "status": "closed",
+        "timesheet": {
+          "scheduled": {
+            "arrivalTime": "2025-01-01T16:00:00.000Z",
+            "onBlockTime": "2025-01-01T16:18:00.000Z",
+            "takeoffTime": "2025-01-01T13:15:00.000Z",
+            "offBlockTime": "2025-01-01T13:00:00.000Z"
+          },
+          "estimated": {
+            "arrivalTime": "2025-01-01T15:50:00.000Z",
+            "onBlockTime": "2025-01-01T16:08:00.000Z",
+            "takeoffTime": "2025-01-01T13:15:00.000Z",
+            "offBlockTime": "2025-01-01T13:00:00.000Z"
+          },
+          "actual": {
+            "arrivalTime": "2025-01-01T16:10:00.000Z",
+            "onBlockTime": "2025-01-01T16:28:00.000Z",
+            "takeoffTime": "2025-01-01T13:25:00.000Z",
+            "offBlockTime": "2025-01-01T13:10:00.000Z"
+          }
+        },
+        "loadsheets": {
+          "preliminary": {
+            "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
+            "passengers": 358,
+            "payload": 39.7,
+            "cargo": 8.2,
+            "zeroFuelWeight": 208.1,
+            "blockFuel": 12.5
+          },
+          "final": {
+            "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
+            "passengers": 354,
+            "payload": 27.8,
+            "cargo": 8.6,
+            "zeroFuelWeight": 202.1,
+            "blockFuel": 11.7
+          }
+        },
+        "aircraft": {
+          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "icaoCode": "B77W",
+          "shortName": "Boeing 777",
+          "fullName": "Boeing 777-300ER",
+          "registration": "N78881",
+          "selcal": "KY-JO",
+          "livery": "Team USA (2023)",
+          "operator": {
+            "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+            "icaoCode": "AAL",
+            "iataCode": "AA",
+            "shortName": "American Airlines",
+            "fullName": "American Airlines, Inc.",
+            "callsign": "AMERICAN"
+          }
+        },
+        "operator": {
+          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+          "icaoCode": "AAL",
+          "iataCode": "AA",
+          "shortName": "American Airlines",
+          "fullName": "American Airlines, Inc.",
+          "callsign": "AMERICAN"
+        },
+        "airports": [
+          {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "icaoCode": "KBOS",
+            "iataCode": "BOS",
+            "city": "Boston",
+            "name": "Boston Logan Intl",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": { "longitude": -71.01663, "latitude": 42.36454 },
+            "type": "departure"
+          },
+          {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "icaoCode": "KPHL",
+            "iataCode": "PHL",
+            "city": "Philadelphia",
+            "name": "Philadelphia Intl",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "type": "destination",
+            "continent": "north_america",
+            "location": { "longitude": -75.24349, "latitude": 39.87113 }
+          },
+          {
+            "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+            "icaoCode": "KJFK",
+            "iataCode": "JFK",
+            "city": "New York",
+            "name": "New York JFK",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": { "longitude": -73.7781, "latitude": 40.6413 },
+            "type": "destination_alternate"
+          }
+        ],
+        "departureGateId": null,
+        "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
+        "arrivalGateId": null,
+        "arrivalRunwayId": null,
+        "isFlightDiverted": false,
+        "isEmergencyDeclared": false,
+        "source": "manual",
+        "tracking": "public",
+        "rotationId": null,
+        "createdAt": "2025-01-01T00:00:00.000Z"
+      }
+      """
+    When I send a "GET" request to "/api/v1/flight/5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04/emergency"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "aa18ec01-1bf2-4d65-8c43-92ef10ea7311",
+          "urgency": "panpan",
+          "threatLevel": "high",
+          "category": "medical-emergency",
+          "squawk": "7700",
+          "intention": "immediate-landing",
+          "lastKnownPosition": { "longitude": -73.42, "latitude": 41.08 },
+          "soulsOnBoard": 362,
+          "fuelEnduranceMinutes": 95,
+          "dangerousGoodsOnBoard": [],
+          "freeText": "Passenger in seat 24B suffering suspected cardiac arrest. CPR in progress, requesting priority handling and medical team at gate.",
+          "declarationTime": "2025-01-01T14:35:00.000Z",
+          "reportedBy": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "resolvedAt": "@date('within 1 minute from now')",
+          "resolvedBy": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" }
+        }
+      ]
+      """
+    And I set database to initial state
+
+  Scenario: As a cabin crew I can close flight whose emergency was already resolved in flight
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/7d8a3c91-5e62-4b41-9c08-2f6b1d7e3a45/close"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/7d8a3c91-5e62-4b41-9c08-2f6b1d7e3a45"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "7d8a3c91-5e62-4b41-9c08-2f6b1d7e3a45",
+        "flightNumber": "AA4919",
+        "callsign": "AAL4919",
+        "atcCallsign": "AAL19J",
+        "isEtops": false,
+        "status": "closed",
+        "timesheet": {
+          "scheduled": {
+            "arrivalTime": "2025-01-01T16:00:00.000Z",
+            "onBlockTime": "2025-01-01T16:18:00.000Z",
+            "takeoffTime": "2025-01-01T13:15:00.000Z",
+            "offBlockTime": "2025-01-01T13:00:00.000Z"
+          },
+          "estimated": {
+            "arrivalTime": "2025-01-01T15:50:00.000Z",
+            "onBlockTime": "2025-01-01T16:08:00.000Z",
+            "takeoffTime": "2025-01-01T13:15:00.000Z",
+            "offBlockTime": "2025-01-01T13:00:00.000Z"
+          },
+          "actual": {
+            "arrivalTime": "2025-01-01T16:10:00.000Z",
+            "onBlockTime": "2025-01-01T16:28:00.000Z",
+            "takeoffTime": "2025-01-01T13:25:00.000Z",
+            "offBlockTime": "2025-01-01T13:10:00.000Z"
+          }
+        },
+        "loadsheets": {
+          "preliminary": {
+            "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
+            "passengers": 341,
+            "payload": 38.6,
+            "cargo": 7.9,
+            "zeroFuelWeight": 207.0,
+            "blockFuel": 12.4
+          },
+          "final": {
+            "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
+            "passengers": 339,
+            "payload": 27.4,
+            "cargo": 8.2,
+            "zeroFuelWeight": 201.4,
+            "blockFuel": 11.6
+          }
+        },
+        "aircraft": {
+          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "icaoCode": "B77W",
+          "shortName": "Boeing 777",
+          "fullName": "Boeing 777-300ER",
+          "registration": "N78881",
+          "selcal": "KY-JO",
+          "livery": "Team USA (2023)",
+          "operator": {
+            "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+            "icaoCode": "AAL",
+            "iataCode": "AA",
+            "shortName": "American Airlines",
+            "fullName": "American Airlines, Inc.",
+            "callsign": "AMERICAN"
+          }
+        },
+        "operator": {
+          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+          "icaoCode": "AAL",
+          "iataCode": "AA",
+          "shortName": "American Airlines",
+          "fullName": "American Airlines, Inc.",
+          "callsign": "AMERICAN"
+        },
+        "airports": [
+          {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "icaoCode": "KBOS",
+            "iataCode": "BOS",
+            "city": "Boston",
+            "name": "Boston Logan Intl",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": { "longitude": -71.01663, "latitude": 42.36454 },
+            "type": "departure"
+          },
+          {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "icaoCode": "KPHL",
+            "iataCode": "PHL",
+            "city": "Philadelphia",
+            "name": "Philadelphia Intl",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "type": "destination",
+            "continent": "north_america",
+            "location": { "longitude": -75.24349, "latitude": 39.87113 }
+          },
+          {
+            "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+            "icaoCode": "KJFK",
+            "iataCode": "JFK",
+            "city": "New York",
+            "name": "New York JFK",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": { "longitude": -73.7781, "latitude": 40.6413 },
+            "type": "destination_alternate"
+          }
+        ],
+        "departureGateId": null,
+        "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
+        "arrivalGateId": null,
+        "arrivalRunwayId": null,
+        "isFlightDiverted": false,
+        "isEmergencyDeclared": false,
+        "source": "manual",
+        "tracking": "public",
+        "rotationId": null,
+        "createdAt": "2025-01-01T00:00:00.000Z"
+      }
+      """
+    And I set database to initial state

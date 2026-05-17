@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   NotFoundException,
   UnprocessableEntityException,
@@ -29,5 +30,11 @@ export class EmergencyNotFoundError extends NotFoundException {
 export class EmergencyAlreadyResolvedError extends UnprocessableEntityException {
   constructor() {
     super('This emergency has already been resolved.');
+  }
+}
+
+export class UnresolvedEmergencyCannotCloseFlightError extends BadRequestException {
+  constructor() {
+    super('Cannot close flight with an unresolved emergency.');
   }
 }

@@ -33,7 +33,7 @@ Feature: Delete aircraft
       """json
       {
         "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
-        "icaoCode": "CFG",
+        "icaoCode": "CDG",
         "iataCode": "DE",
         "shortName": "Condor",
         "fullName": "Condor Flugdienst",
