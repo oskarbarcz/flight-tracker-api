@@ -2856,6 +2856,494 @@ async function loadAAL4917(): Promise<void> {
 }
 
 /**
+ * AAL4918 | 5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04
+ * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
+ * status: Offboarding finished — unresolved medical emergency declared in cruise
+ */
+async function loadAAL4918(): Promise<void> {
+  const data = {
+    id: '5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
+    arrivalGateId: null,
+    arrivalRunwayId: null,
+    flightNumber: 'AA4918',
+    callsign: 'AAL4918',
+    atcCallsign: 'AAL18J',
+    isEtops: false,
+    captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+    status: FlightStatus.OffboardingFinished,
+    tracking: FlightTracking.Public,
+    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
+    timesheet: {
+      scheduled: {
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
+      },
+      estimated: {
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
+      },
+      actual: {
+        offBlockTime: new Date('2025-01-01 13:10'),
+        takeoffTime: new Date('2025-01-01 13:25'),
+        arrivalTime: new Date('2025-01-01 16:10'),
+        onBlockTime: new Date('2025-01-01 16:28'),
+      },
+    } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 358,
+        payload: 39.7,
+        cargo: 8.2,
+        zeroFuelWeight: 208.1,
+        blockFuel: 12.5,
+      },
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 354,
+        payload: 27.8,
+        cargo: 8.6,
+        zeroFuelWeight: 202.1,
+        blockFuel: 11.7,
+      },
+    } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
+  };
+
+  const departureAirport = await prisma.airport.findFirstOrThrow({
+    // Boston Logan
+    where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
+  });
+
+  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+    // Philadelphia
+    where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
+  });
+
+  const alternateAirport = await prisma.airport.findFirstOrThrow({
+    // New York JFK
+    where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
+  });
+
+  const flight = await prisma.flight.create({ data: data });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: departureAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Departure,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: arrivalAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Destination,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: alternateAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.DestinationAlternate,
+    },
+  });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: 'aa18001c-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7', // Alice Doe, Operations
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: 'aa18002c-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: 'aa18003c-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: 'aa18004c-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+      {
+        id: 'aa18005c-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:40'),
+      },
+      {
+        id: 'aa18006c-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:05'),
+      },
+      {
+        id: 'aa18007c-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:10'),
+      },
+      {
+        id: 'aa18008c-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.TakeoffWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:25'),
+      },
+      {
+        id: 'aa18009c-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.EmergencyWasDeclared,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 14:35'),
+      },
+      {
+        id: 'aa1800ac-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.ArrivalWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:10'),
+      },
+      {
+        id: 'aa1800bc-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OnBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:28'),
+      },
+      {
+        id: 'aa1800cc-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffboardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:30'),
+      },
+      {
+        id: 'aa1800dc-1bf2-4d65-8c43-92ef10ea7311',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffboardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:50'),
+      },
+    ],
+  });
+
+  await prisma.emergencyDeclaration.create({
+    data: {
+      id: 'aa18ec01-1bf2-4d65-8c43-92ef10ea7311',
+      flightId: flight.id,
+      reportedBy: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
+      urgency: EmergencyUrgency.PanPan,
+      threatLevel: EmergencyThreatLevel.High,
+      category: EmergencyCategory.MedicalEmergency,
+      squawk: SquawkCode.General,
+      intention: EmergencyIntention.ImmediateLanding,
+      lastKnownPosition: { longitude: -73.42, latitude: 41.08 },
+      soulsOnBoard: 362,
+      fuelEnduranceMinutes: 95,
+      dangerousGoodsOnBoard: [],
+      freeText:
+        'Passenger in seat 24B suffering suspected cardiac arrest. CPR in progress, requesting priority handling and medical team at gate.',
+      declarationTime: new Date('2025-01-01 14:35'),
+    },
+  });
+}
+
+/**
+ * AAL4919 | 7d8a3c91-5e62-4b41-9c08-2f6b1d7e3a45
+ * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
+ * status: Offboarding finished — bird strike emergency declared and resolved in cruise
+ */
+async function loadAAL4919(): Promise<void> {
+  const data = {
+    id: '7d8a3c91-5e62-4b41-9c08-2f6b1d7e3a45',
+    departureGateId: null,
+    departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
+    arrivalGateId: null,
+    arrivalRunwayId: null,
+    flightNumber: 'AA4919',
+    callsign: 'AAL4919',
+    atcCallsign: 'AAL19J',
+    isEtops: false,
+    captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+    status: FlightStatus.OffboardingFinished,
+    tracking: FlightTracking.Public,
+    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
+    timesheet: {
+      scheduled: {
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
+      },
+      estimated: {
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
+      },
+      actual: {
+        offBlockTime: new Date('2025-01-01 13:10'),
+        takeoffTime: new Date('2025-01-01 13:25'),
+        arrivalTime: new Date('2025-01-01 16:10'),
+        onBlockTime: new Date('2025-01-01 16:28'),
+      },
+    } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 341,
+        payload: 38.6,
+        cargo: 7.9,
+        zeroFuelWeight: 207.0,
+        blockFuel: 12.4,
+      },
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 339,
+        payload: 27.4,
+        cargo: 8.2,
+        zeroFuelWeight: 201.4,
+        blockFuel: 11.6,
+      },
+    } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
+    greatCircleDistance: 230,
+    totalFuelBurned: 2800,
+  };
+
+  const departureAirport = await prisma.airport.findFirstOrThrow({
+    // Boston Logan
+    where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
+  });
+
+  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+    // Philadelphia
+    where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
+  });
+
+  const alternateAirport = await prisma.airport.findFirstOrThrow({
+    // New York JFK
+    where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
+  });
+
+  const flight = await prisma.flight.create({ data: data });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: departureAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Departure,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: arrivalAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Destination,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: alternateAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.DestinationAlternate,
+    },
+  });
+
+  await prisma.flightEvent.createMany({
+    data: [
+      {
+        id: 'aa19001c-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7', // Alice Doe, Operations
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:00'),
+      },
+      {
+        id: 'aa19002c-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.PreliminaryLoadsheetWasUpdated,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:05'),
+      },
+      {
+        id: 'aa19003c-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: '721ab705-8608-4386-86b4-2f391a3655a7',
+        flightId: flight.id,
+        type: FlightEventType.FlightWasReleased,
+        scope: FlightEventScope.operations,
+        createdAt: new Date('2025-01-01 11:10'),
+      },
+      {
+        id: 'aa19004c-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
+        flightId: flight.id,
+        type: FlightEventType.PilotCheckedIn,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:00'),
+      },
+      {
+        id: 'aa19005c-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 12:40'),
+      },
+      {
+        id: 'aa19006c-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.BoardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:05'),
+      },
+      {
+        id: 'aa19007c-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:10'),
+      },
+      {
+        id: 'aa19008c-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.TakeoffWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:25'),
+      },
+      {
+        id: 'aa19009c-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.EmergencyWasDeclared,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 13:32'),
+      },
+      {
+        id: 'aa1900ac-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.ArrivalWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:10'),
+      },
+      {
+        id: 'aa1900bc-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OnBlockWasReported,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:28'),
+      },
+      {
+        id: 'aa1900cc-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffboardingWasStarted,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:30'),
+      },
+      {
+        id: 'aa1900dc-2c7f-4e98-bd13-83ad7106cf42',
+        actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+        flightId: flight.id,
+        type: FlightEventType.OffboardingWasFinished,
+        scope: FlightEventScope.user,
+        createdAt: new Date('2025-01-01 16:50'),
+      },
+    ],
+  });
+
+  await prisma.emergencyDeclaration.create({
+    data: {
+      id: 'aa19ec01-2c7f-4e98-bd13-83ad7106cf42',
+      flightId: flight.id,
+      reportedBy: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
+      urgency: EmergencyUrgency.PanPan,
+      threatLevel: EmergencyThreatLevel.Medium,
+      category: EmergencyCategory.BirdStrike,
+      squawk: SquawkCode.General,
+      intention: EmergencyIntention.Continue,
+      lastKnownPosition: { longitude: -71.05, latitude: 42.31 },
+      soulsOnBoard: 347,
+      fuelEnduranceMinutes: 175,
+      dangerousGoodsOnBoard: [],
+      freeText:
+        'Bird strike on climb-out, multiple impacts on radome and left wing. No engine vibration, parameters nominal, continuing to destination under monitoring.',
+      declarationTime: new Date('2025-01-01 13:32'),
+      resolvedAt: new Date('2025-01-01 14:05'),
+      resolvedBy: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
+    },
+  });
+}
+
+/**
  * DLH40 | 48760636-9520-4863-b32f-f3618556feb7
  * Rotation 2025-01
  * Boston Frankfurt (EDDF) -> New York JFK (KJFK)
@@ -3812,7 +4300,7 @@ async function loadDLH880(): Promise<void> {
   const data = {
     id: 'b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b',
     departureGateId: null,
-    departureRunwayId: '6bbf43a4-9242-4f04-b195-6a7bcd1f14c4',
+    departureRunwayId: '290a31a8-ba88-436c-b9ab-d8a5c57ea81f',
     arrivalGateId: null,
     arrivalRunwayId: null,
     flightNumber: 'LH880',
@@ -4016,6 +4504,8 @@ export async function loadFlights(): Promise<void> {
   await loadAAL4915();
   await loadAAL4916();
   await loadAAL4917();
+  await loadAAL4918();
+  await loadAAL4919();
   await loadDLH40();
   await loadDLH41();
   await loadDLH42();

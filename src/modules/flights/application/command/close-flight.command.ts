@@ -40,6 +40,8 @@ export class CloseFlightHandler implements ICommandHandler<CloseFlightCommand> {
       throw new UnprocessableEntityException(InvalidStatusToCloseFlight);
     }
 
+    await this.flightsRepository.assertNoUnresolvedEmergency(flightId);
+
     await this.flightsRepository.updateStatus(flightId, FlightStatus.Closed);
 
     const event: NewFlightEvent = {

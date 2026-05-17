@@ -34,6 +34,7 @@ export enum FlightPhase {
   Upcoming = 'upcoming',
   Ongoing = 'ongoing',
   Finished = 'finished',
+  Emergency = 'emergency',
 }
 
 export enum FlightSource {

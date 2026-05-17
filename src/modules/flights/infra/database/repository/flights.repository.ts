@@ -25,6 +25,7 @@ import {
   DepartureAirportNotFoundError,
   DestinationAirportNotFoundError,
 } from '../../http/request/errors.dto';
+import { UnresolvedEmergencyCannotCloseFlightError } from '../../../model/error/emergency.error';
 import { Prisma } from '../../../../../../prisma/client/client';
 
 export const flightWithAircraftAndAirportsFields = {
@@ -303,6 +304,8 @@ export class FlightsRepository {
       };
     } else if (filters?.phase === FlightPhase.Finished) {
       where.status = FlightStatus.Closed;
+    } else if (filters?.phase === FlightPhase.Emergency) {
+      where.emergency = { some: { resolvedAt: null } };
     }
 
     if (onlyPublic) {
@@ -439,6 +442,12 @@ export class FlightsRepository {
       where: { flightId, resolvedAt: null },
     });
     return count > 0;
+  }
+
+  public async assertNoUnresolvedEmergency(flightId: string): Promise<void> {
+    if (await this.isEmergencyDeclared(flightId)) {
+      throw new UnresolvedEmergencyCannotCloseFlightError();
+    }
   }
 
   private async isFlightDiverted(flightId: string): Promise<boolean> {
