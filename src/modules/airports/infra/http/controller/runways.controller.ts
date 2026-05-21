@@ -27,6 +27,7 @@ import { UserRole } from 'prisma/client/client';
 import { v4 } from 'uuid';
 import { UuidParam } from '../../../../../core/validation/uuid.param';
 import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
+import { SkipAuth } from '../../../../../core/http/auth/decorator/skip-auth.decorator';
 import { GenericBadRequestResponse } from '../../../../../core/http/response/bad-request.response';
 import { GenericNotFoundResponse } from '../../../../../core/http/response/not-found.response';
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
@@ -84,6 +85,7 @@ export class RunwaysController {
   @ApiOkResponse({ type: GetRunwayResponse, isArray: true })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @SkipAuth()
   @Get()
   async findAll(
     @UuidParam('airportId') airportId: string,
@@ -100,6 +102,7 @@ export class RunwaysController {
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @SkipAuth()
   @Get(':runwayId')
   async findOne(
     @UuidParam('airportId') airportId: string,

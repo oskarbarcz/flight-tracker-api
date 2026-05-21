@@ -479,8 +479,8 @@ Feature: Close flight
             "timezone": "Atlantic/Reykjavik",
             "continent": "europe",
             "location": {
-              "latitude": 64.13,
-              "longitude": -21.9406
+              "latitude": 63.985,
+              "longitude": -22.6056
             },
             "type": "etops_alternate"
           },

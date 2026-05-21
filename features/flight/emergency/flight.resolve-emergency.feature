@@ -113,7 +113,7 @@ Feature: Resolve a flight emergency
             "country": "France",
             "timezone": "Europe/Paris",
             "continent": "europe",
-            "location": { "longitude": 8.570556, "latitude": 50.033333 },
+            "location": { "longitude": 2.55412, "latitude": 49.00896 },
             "type": "destination"
           }
         ],
@@ -256,7 +256,7 @@ Feature: Resolve a flight emergency
             "country": "France",
             "timezone": "Europe/Paris",
             "continent": "europe",
-            "location": { "longitude": 8.570556, "latitude": 50.033333 },
+            "location": { "longitude": 2.55412, "latitude": 49.00896 },
             "type": "destination"
           }
         ],

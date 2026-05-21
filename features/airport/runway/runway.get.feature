@@ -19,8 +19,8 @@ Feature: Get runway
         "surfaceType": "asphalt",
         "lightingType": "HIRL",
         "coordinates": {
-          "latitude": 52.15674,
-          "longitude": 21.00541
+          "latitude": 52.1715,
+          "longitude": 20.9467
         }
       }
       """
@@ -44,8 +44,8 @@ Feature: Get runway
         "surfaceType": "asphalt",
         "lightingType": "HIRL",
         "coordinates": {
-          "latitude": 52.15674,
-          "longitude": 21.00541
+          "latitude": 52.1715,
+          "longitude": 20.9467
         }
       }
       """
@@ -69,8 +69,8 @@ Feature: Get runway
         "surfaceType": "asphalt",
         "lightingType": "HIRL",
         "coordinates": {
-          "latitude": 52.15674,
-          "longitude": 21.00541
+          "latitude": 52.1715,
+          "longitude": 20.9467
         }
       }
       """
@@ -111,16 +111,5 @@ Feature: Get runway
         "message": "Validation failed (uuid v 4 is expected)",
         "error": "Bad Request",
         "statusCode": 400
-      }
-      """
-
-  Scenario: As an unauthorized user I cannot get one runway
-    When I send a "GET" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/runway/0aaaf26f-29df-45d3-8330-f85f9838de2f"
-    Then the response status should be 401
-    And the response body should contain:
-      """json
-      {
-        "message": "Unauthorized",
-        "statusCode": 401
       }
       """

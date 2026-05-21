@@ -59,8 +59,8 @@ Feature: List airports
           "timezone": "Europe/Paris",
           "continent": "europe",
           "location": {
-            "longitude": 8.570556,
-            "latitude": 50.033333
+            "longitude": 2.55412,
+            "latitude": 49.00896
           }
         },
         {
@@ -87,8 +87,8 @@ Feature: List airports
           "timezone": "Atlantic/Reykjavik",
           "continent": "europe",
           "location": {
-            "longitude": -21.9406,
-            "latitude": 64.13
+            "longitude": -22.6056,
+            "latitude": 63.985
           }
         },
         {
@@ -205,8 +205,8 @@ Feature: List airports
           "timezone": "Europe/Paris",
           "continent": "europe",
           "location": {
-            "longitude": 8.570556,
-            "latitude": 50.033333
+            "longitude": 2.55412,
+            "latitude": 49.00896
           }
         },
         {
@@ -219,8 +219,8 @@ Feature: List airports
           "timezone": "Atlantic/Reykjavik",
           "continent": "europe",
           "location": {
-            "longitude": -21.9406,
-            "latitude": 64.13
+            "longitude": -22.6056,
+            "latitude": 63.985
           }
         },
         {
