@@ -58,8 +58,8 @@ export async function loadAirports(): Promise<void> {
     timezone: 'Europe/Paris',
     continent: Continent.Europe,
     location: {
-      longitude: 8.570556,
-      latitude: 50.033333,
+      longitude: 2.55412,
+      latitude: 49.00896,
     },
   };
 
@@ -88,8 +88,8 @@ export async function loadAirports(): Promise<void> {
     timezone: 'Atlantic/Reykjavik',
     continent: Continent.Europe,
     location: {
-      longitude: -21.9406,
-      latitude: 64.13,
+      longitude: -22.6056,
+      latitude: 63.985,
     },
   };
 

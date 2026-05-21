@@ -137,7 +137,7 @@ export class Runway {
   lightingType!: LightingType;
 
   @ApiProperty({
-    description: 'Coordinates of the runway end opposite the threshold',
+    description: 'Coordinates of the runway threshold for this designator',
     type: Coordinates,
   })
   @Type(() => Coordinates)

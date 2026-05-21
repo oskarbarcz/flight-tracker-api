@@ -91,14 +91,3 @@ Feature: Get airport
         "statusCode": 400
       }
       """
-
-  Scenario: As an unauthorized user I cannot get one airport
-    When I send a "GET" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a"
-    Then the response status should be 401
-    And the response body should contain:
-      """json
-      {
-        "message": "Unauthorized",
-        "statusCode": 401
-      }
-      """

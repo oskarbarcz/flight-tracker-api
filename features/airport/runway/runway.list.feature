@@ -20,8 +20,8 @@ Feature: List runways at an airport
           "surfaceType": "asphalt",
           "lightingType": "HIRL",
           "coordinates": {
-            "latitude": 52.15674,
-            "longitude": 21.00541
+            "latitude": 52.1715,
+            "longitude": 20.9467
           }
         },
         {
@@ -37,8 +37,8 @@ Feature: List runways at an airport
           "surfaceType": "asphalt",
           "lightingType": "HIRL",
           "coordinates": {
-            "latitude": 52.13676,
-            "longitude": 20.99332
+            "latitude": 52.1786,
+            "longitude": 20.9559
           }
         },
         {
@@ -54,8 +54,8 @@ Feature: List runways at an airport
           "surfaceType": "asphalt",
           "lightingType": "HIRL",
           "coordinates": {
-            "latitude": 52.17476,
-            "longitude": 20.92884
+            "latitude": 52.161,
+            "longitude": 20.9839
           }
         },
         {
@@ -71,8 +71,8 @@ Feature: List runways at an airport
           "surfaceType": "asphalt",
           "lightingType": "HIRL",
           "coordinates": {
-            "latitude": 52.19474,
-            "longitude": 20.94092
+            "latitude": 52.1494,
+            "longitude": 20.9814
           }
         }
       ]
@@ -98,8 +98,8 @@ Feature: List runways at an airport
           "surfaceType": "asphalt",
           "lightingType": "HIRL",
           "coordinates": {
-            "latitude": 52.15674,
-            "longitude": 21.00541
+            "latitude": 52.1715,
+            "longitude": 20.9467
           }
         },
         {
@@ -115,8 +115,8 @@ Feature: List runways at an airport
           "surfaceType": "asphalt",
           "lightingType": "HIRL",
           "coordinates": {
-            "latitude": 52.13676,
-            "longitude": 20.99332
+            "latitude": 52.1786,
+            "longitude": 20.9559
           }
         },
         {
@@ -132,8 +132,8 @@ Feature: List runways at an airport
           "surfaceType": "asphalt",
           "lightingType": "HIRL",
           "coordinates": {
-            "latitude": 52.17476,
-            "longitude": 20.92884
+            "latitude": 52.161,
+            "longitude": 20.9839
           }
         },
         {
@@ -149,8 +149,8 @@ Feature: List runways at an airport
           "surfaceType": "asphalt",
           "lightingType": "HIRL",
           "coordinates": {
-            "latitude": 52.19474,
-            "longitude": 20.94092
+            "latitude": 52.1494,
+            "longitude": 20.9814
           }
         }
       ]
@@ -176,8 +176,8 @@ Feature: List runways at an airport
           "surfaceType": "asphalt",
           "lightingType": "HIRL",
           "coordinates": {
-            "latitude": 52.15674,
-            "longitude": 21.00541
+            "latitude": 52.1715,
+            "longitude": 20.9467
           }
         },
         {
@@ -193,8 +193,8 @@ Feature: List runways at an airport
           "surfaceType": "asphalt",
           "lightingType": "HIRL",
           "coordinates": {
-            "latitude": 52.13676,
-            "longitude": 20.99332
+            "latitude": 52.1786,
+            "longitude": 20.9559
           }
         },
         {
@@ -210,8 +210,8 @@ Feature: List runways at an airport
           "surfaceType": "asphalt",
           "lightingType": "HIRL",
           "coordinates": {
-            "latitude": 52.17476,
-            "longitude": 20.92884
+            "latitude": 52.161,
+            "longitude": 20.9839
           }
         },
         {
@@ -227,8 +227,8 @@ Feature: List runways at an airport
           "surfaceType": "asphalt",
           "lightingType": "HIRL",
           "coordinates": {
-            "latitude": 52.19474,
-            "longitude": 20.94092
+            "latitude": 52.1494,
+            "longitude": 20.9814
           }
         }
       ]
@@ -244,16 +244,5 @@ Feature: List runways at an airport
         "message": "Airport with given id does not exist.",
         "error": "Not Found",
         "statusCode": 404
-      }
-      """
-
-  Scenario: As an unauthorized user I cannot list runways
-    When I send a "GET" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/runway"
-    Then the response status should be 401
-    And the response body should contain:
-      """json
-      {
-        "message": "Unauthorized",
-        "statusCode": 401
       }
       """

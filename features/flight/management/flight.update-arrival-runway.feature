@@ -123,7 +123,7 @@ Feature: Update flight arrival runway
             "timezone": "Atlantic/Reykjavik",
             "type": "etops_alternate",
             "continent": "europe",
-            "location": { "longitude": -21.9406, "latitude": 64.13 }
+            "location": { "longitude": -22.6056, "latitude": 63.985 }
           },
           {
             "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
