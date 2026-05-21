@@ -23,7 +23,7 @@ export enum Continent {
 export class Coordinates {
   @ApiProperty({
     description: 'Airport longitude in decimal degrees',
-    example: 8.570556,
+    example: 8.55835,
   })
   @IsNumber({ allowNaN: false, allowInfinity: false })
   @Min(-180)
@@ -32,7 +32,7 @@ export class Coordinates {
 
   @ApiProperty({
     description: 'Airport latitude in decimal degrees',
-    example: 50.033333,
+    example: 50.026706,
   })
   @IsNumber({ allowNaN: false, allowInfinity: false })
   @Min(-90)

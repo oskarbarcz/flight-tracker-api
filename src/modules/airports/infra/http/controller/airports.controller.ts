@@ -110,6 +110,7 @@ export class AirportsController {
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @SkipAuth()
   @Get(':id')
   async findOne(@UuidParam('id') id: string): Promise<GetAirportResponse> {
     const query = new GetAirportByIdQuery(id);
