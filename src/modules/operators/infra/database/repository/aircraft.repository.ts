@@ -3,16 +3,12 @@ import { PrismaService } from '../../../../../core/provider/prisma/prisma.servic
 import { Aircraft as AircraftEntity, Prisma } from 'prisma/client/client';
 import {
   CreateAircraftRequest,
-  LegacyCreateAircraftRequest,
-  LegacyUpdateAircraftRequest,
   UpdateAircraftRequest,
 } from '../../http/request/aircraft.request';
 
 const aircraftWithOperatorFields = {
   id: true,
-  icaoCode: true,
-  shortName: true,
-  fullName: true,
+  type: true,
   registration: true,
   selcal: true,
   livery: true,
@@ -31,35 +27,24 @@ const aircraftWithOperatorFields = {
 
 const aircraft = {
   id: true,
-  icaoCode: true,
-  shortName: true,
-  fullName: true,
+  type: true,
   registration: true,
   selcal: true,
   livery: true,
   operatorId: false,
 } as const satisfies Prisma.AircraftSelect;
 
-type AircraftWithOperator = Prisma.AircraftGetPayload<{
+export type AircraftWithOperator = Prisma.AircraftGetPayload<{
   select: typeof aircraftWithOperatorFields;
 }>;
 
-type Aircraft = Prisma.AircraftGetPayload<{
+export type AircraftRow = Prisma.AircraftGetPayload<{
   select: typeof aircraft;
 }>;
 
 @Injectable()
 export class AircraftRepository {
   constructor(private readonly prisma: PrismaService) {}
-
-  async legacyCreate(
-    id: string,
-    data: LegacyCreateAircraftRequest,
-  ): Promise<void> {
-    await this.prisma.aircraft.create({
-      data: { id, ...data },
-    });
-  }
 
   async create(
     id: string,
@@ -77,7 +62,7 @@ export class AircraftRepository {
     });
   }
 
-  async findAllForOperator(operatorId: string): Promise<Aircraft[]> {
+  async findAllForOperator(operatorId: string): Promise<AircraftRow[]> {
     return this.prisma.aircraft.findMany({
       where: { operatorId },
       select: aircraft,
@@ -95,21 +80,10 @@ export class AircraftRepository {
 
   async findOneBy(
     criteria: Partial<Record<keyof AircraftEntity, any>>,
-  ): Promise<Aircraft | null> {
+  ): Promise<AircraftRow | null> {
     return this.prisma.aircraft.findFirst({
       where: criteria,
       select: aircraft,
-    });
-  }
-
-  async legacyUpdate(
-    id: string,
-    data: LegacyUpdateAircraftRequest,
-  ): Promise<AircraftWithOperator> {
-    return this.prisma.aircraft.update({
-      where: { id },
-      data: data,
-      select: aircraftWithOperatorFields,
     });
   }
 
@@ -125,7 +99,7 @@ export class AircraftRepository {
   }
 
   async exists(
-    criteria: Partial<Record<keyof Aircraft, any>>,
+    criteria: Partial<Record<keyof AircraftRow, any>>,
   ): Promise<boolean> {
     const count = await this.prisma.aircraft.count({
       where: criteria,

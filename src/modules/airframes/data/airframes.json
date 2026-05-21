@@ -1,0 +1,2334 @@
+[
+  {
+    "type": "A148",
+    "name": "Antonov An-148",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "A225",
+    "name": "Antonov An-225",
+    "cruiseSpeed": {
+      "value": 0.74,
+      "unit": "mach"
+    },
+    "serviceCeiling": 36000,
+    "performanceCode": "D",
+    "weightCategory": "super"
+  },
+  {
+    "type": "BCS1",
+    "name": "A220-100",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "BCS3",
+    "name": "A220-300",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "A306",
+    "name": "A300B4-600",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 40000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A3ST",
+    "name": "A300F4-608ST",
+    "cruiseSpeed": {
+      "value": 0.68,
+      "unit": "mach"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A30B",
+    "name": "A300B4-200",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 40000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A30F",
+    "name": "A300F4-600R",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 40000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A310",
+    "name": "A310-304",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A318",
+    "name": "A318-100",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 39000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "A319",
+    "name": "A319-100",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 39000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "A320",
+    "name": "A320-200",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 39000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "A20N",
+    "name": "A320-200N",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 39100,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "A321",
+    "name": "A321-200",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 39000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "A21N",
+    "name": "A321-200N",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 39100,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "A332",
+    "name": "A330-200",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A333",
+    "name": "A330-300",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A338",
+    "name": "A330-800",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41400,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A339",
+    "name": "A330-900",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41400,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A342",
+    "name": "A340-200",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41100,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A343",
+    "name": "A340-300",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41100,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A345",
+    "name": "A340-500",
+    "cruiseSpeed": {
+      "value": 0.83,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A346",
+    "name": "A340-600",
+    "cruiseSpeed": {
+      "value": 0.83,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A359",
+    "name": "A350-900",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43100,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A35K",
+    "name": "A350-1000",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41400,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "A388",
+    "name": "A380-800",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43000,
+    "performanceCode": "D",
+    "weightCategory": "super"
+  },
+  {
+    "type": "AEST",
+    "name": "Aerostar 600",
+    "cruiseSpeed": {
+      "value": 160.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "AT43",
+    "name": "ATR-42-300",
+    "cruiseSpeed": {
+      "value": 240.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "AT45",
+    "name": "ATR-42-500",
+    "cruiseSpeed": {
+      "value": 240.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "AT46",
+    "name": "ATR-42-600",
+    "cruiseSpeed": {
+      "value": 240.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "AT72",
+    "name": "ATR-72-201",
+    "cruiseSpeed": {
+      "value": 240.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "AT73",
+    "name": "ATR-72-211",
+    "cruiseSpeed": {
+      "value": 240.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "AT75",
+    "name": "ATR-72-500",
+    "cruiseSpeed": {
+      "value": 240.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "AT76",
+    "name": "ATR-72-600",
+    "cruiseSpeed": {
+      "value": 240.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B190",
+    "name": "B1900D",
+    "cruiseSpeed": {
+      "value": 215.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "B350",
+    "name": "King Air 350",
+    "cruiseSpeed": {
+      "value": 240.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "B461",
+    "name": "BAe 146-100",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B462",
+    "name": "BAe 146-200",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B463",
+    "name": "BAe 146-300",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B703",
+    "name": "B707-320C",
+    "cruiseSpeed": {
+      "value": 0.82,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41300,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B712",
+    "name": "B717-200",
+    "cruiseSpeed": {
+      "value": 0.76,
+      "unit": "mach"
+    },
+    "serviceCeiling": 37000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B721",
+    "name": "B727-100",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 42000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B722",
+    "name": "B727-200",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 42000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "R722",
+    "name": "B727-200 Super 27",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 42000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B732",
+    "name": "B737-200",
+    "cruiseSpeed": {
+      "value": 0.74,
+      "unit": "mach"
+    },
+    "serviceCeiling": 37000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B733",
+    "name": "B737-300",
+    "cruiseSpeed": {
+      "value": 0.74,
+      "unit": "mach"
+    },
+    "serviceCeiling": 37000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B734",
+    "name": "B737-400",
+    "cruiseSpeed": {
+      "value": 0.74,
+      "unit": "mach"
+    },
+    "serviceCeiling": 37000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B735",
+    "name": "B737-500",
+    "cruiseSpeed": {
+      "value": 0.74,
+      "unit": "mach"
+    },
+    "serviceCeiling": 37000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B736",
+    "name": "B737-600",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B737",
+    "name": "B737-700",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "BBJ1",
+    "name": "B737 BBJ",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B738",
+    "name": "B737-800",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "BBJ2",
+    "name": "B737 BBJ2",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B38M",
+    "name": "B737 MAX 8",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B739",
+    "name": "B737-900",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "BBJ3",
+    "name": "B737 BBJ3",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B741",
+    "name": "B747-100B",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B742",
+    "name": "B747-200B",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B744",
+    "name": "B747-400",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B74F",
+    "name": "B747-400F",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B748",
+    "name": "B747-8",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43100,
+    "performanceCode": "D",
+    "weightCategory": "super"
+  },
+  {
+    "type": "B48F",
+    "name": "B747-8F",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43100,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B752",
+    "name": "B757-200",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 42000,
+    "performanceCode": "C",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B75F",
+    "name": "B757-200PF",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 42000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B753",
+    "name": "B757-300",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 42000,
+    "performanceCode": "C",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B762",
+    "name": "B767-200ER",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43100,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B763",
+    "name": "B767-300ER",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B76F",
+    "name": "B767-300F",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B764",
+    "name": "B767-400ER",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B772",
+    "name": "B777-200ER",
+    "cruiseSpeed": {
+      "value": 0.84,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B77F",
+    "name": "B777-F",
+    "cruiseSpeed": {
+      "value": 0.84,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B77L",
+    "name": "B777-200LR",
+    "cruiseSpeed": {
+      "value": 0.84,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B77W",
+    "name": "B777-300ER",
+    "cruiseSpeed": {
+      "value": 0.84,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B788",
+    "name": "B787-8",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43100,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B789",
+    "name": "B787-9",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43100,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "B78X",
+    "name": "B787-10",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43100,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "BE9L",
+    "name": "King Air C90B",
+    "cruiseSpeed": {
+      "value": 180.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 30000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "BE20",
+    "name": "King Air 200",
+    "cruiseSpeed": {
+      "value": 230.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "BE24",
+    "name": "Beechcraft C24R",
+    "cruiseSpeed": {
+      "value": 135.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 14000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "BE36",
+    "name": "Bonanza A36",
+    "cruiseSpeed": {
+      "value": 160.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 18500,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "BT36",
+    "name": "Bonanza B36TC",
+    "cruiseSpeed": {
+      "value": 160.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B36T",
+    "name": "Bonanza B36TP",
+    "cruiseSpeed": {
+      "value": 180.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "BE58",
+    "name": "Baron 58",
+    "cruiseSpeed": {
+      "value": 175.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 20000,
+    "performanceCode": "A",
+    "weightCategory": "light"
+  },
+  {
+    "type": "B58T",
+    "name": "Baron 58P",
+    "cruiseSpeed": {
+      "value": 180.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "BE60",
+    "name": "Duke B60",
+    "cruiseSpeed": {
+      "value": 190.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 30000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "BE6G",
+    "name": "Grand Duke",
+    "cruiseSpeed": {
+      "value": 200.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 30000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "B60T",
+    "name": "Turbine Duke",
+    "cruiseSpeed": {
+      "value": 200.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 28000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "BN2P",
+    "name": "BN-2 Islander",
+    "cruiseSpeed": {
+      "value": 140.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 19500,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "C130",
+    "name": "C-130K Hercules",
+    "cruiseSpeed": {
+      "value": 280.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "C",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "C160",
+    "name": "Transall C-160",
+    "cruiseSpeed": {
+      "value": 140.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 27000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "C172",
+    "name": "Cessna 172R",
+    "cruiseSpeed": {
+      "value": 105.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 12000,
+    "performanceCode": "A",
+    "weightCategory": "light"
+  },
+  {
+    "type": "C17",
+    "name": "C-17A Globemaster",
+    "cruiseSpeed": {
+      "value": 0.74,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "C182",
+    "name": "Cessna 182T",
+    "cruiseSpeed": {
+      "value": 120.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 20000,
+    "performanceCode": "A",
+    "weightCategory": "light"
+  },
+  {
+    "type": "R182",
+    "name": "Cessna 182RG",
+    "cruiseSpeed": {
+      "value": 120.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 14300,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "C208",
+    "name": "Cessna 208B",
+    "cruiseSpeed": {
+      "value": 150.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 20000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "C310",
+    "name": "Cessna 310R",
+    "cruiseSpeed": {
+      "value": 165.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 19800,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "C337",
+    "name": "Cessna 337H",
+    "cruiseSpeed": {
+      "value": 140.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 19500,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "C404",
+    "name": "C404 Titan",
+    "cruiseSpeed": {
+      "value": 205.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 12000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "C408",
+    "name": "Cessna 408",
+    "cruiseSpeed": {
+      "value": 187.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 20000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "C414",
+    "name": "Cessna 414AW",
+    "cruiseSpeed": {
+      "value": 140.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 30800,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "C46",
+    "name": "Curtiss C-46D",
+    "cruiseSpeed": {
+      "value": 180.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 20000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "C510",
+    "name": "C510 Mustang",
+    "cruiseSpeed": {
+      "value": 0.57,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "C25A",
+    "name": "Citation CJ2",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "C25B",
+    "name": "Citation CJ3",
+    "cruiseSpeed": {
+      "value": 0.72,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "C525",
+    "name": "Citation CJ1",
+    "cruiseSpeed": {
+      "value": 0.63,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "C25C",
+    "name": "Citation CJ4",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "C550",
+    "name": "Citation II",
+    "cruiseSpeed": {
+      "value": 0.64,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "C56X",
+    "name": "Citation 560XL",
+    "cruiseSpeed": {
+      "value": 0.72,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "C680",
+    "name": "Sovereign+",
+    "cruiseSpeed": {
+      "value": 0.76,
+      "unit": "mach"
+    },
+    "serviceCeiling": 47000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "C700",
+    "name": "Longitude",
+    "cruiseSpeed": {
+      "value": 0.82,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "C750",
+    "name": "Citation X",
+    "cruiseSpeed": {
+      "value": 0.86,
+      "unit": "mach"
+    },
+    "serviceCeiling": 51000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "C919",
+    "name": "C919-100",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 39800,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "CL30",
+    "name": "Challenger 300",
+    "cruiseSpeed": {
+      "value": 0.82,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "CL35",
+    "name": "Challenger 350",
+    "cruiseSpeed": {
+      "value": 0.82,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "CL60",
+    "name": "Challenger 650",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "CONI",
+    "name": "L-049",
+    "cruiseSpeed": {
+      "value": 190.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25300,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "CONS",
+    "name": "L-1049G",
+    "cruiseSpeed": {
+      "value": 187.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25300,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "CRJ2",
+    "name": "CRJ-200",
+    "cruiseSpeed": {
+      "value": 0.72,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "CRJ5",
+    "name": "CRJ-550",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "CRJ7",
+    "name": "CRJ-700",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "CRJ9",
+    "name": "CRJ-900",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "CRJX",
+    "name": "CRJ-1000",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "D328",
+    "name": "Dornier 328-100",
+    "cruiseSpeed": {
+      "value": 240.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "DA42",
+    "name": "Diamond DA42",
+    "cruiseSpeed": {
+      "value": 160.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 18000,
+    "performanceCode": "A",
+    "weightCategory": "light"
+  },
+  {
+    "type": "DA62",
+    "name": "Diamond DA62",
+    "cruiseSpeed": {
+      "value": 150.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 20000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "DC10",
+    "name": "DC-10-30",
+    "cruiseSpeed": {
+      "value": 0.82,
+      "unit": "mach"
+    },
+    "serviceCeiling": 42000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "DC3",
+    "name": "Douglas DC-3",
+    "cruiseSpeed": {
+      "value": 180.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 20000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "DC6",
+    "name": "Douglas DC-6",
+    "cruiseSpeed": {
+      "value": 230.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 24000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "DC85",
+    "name": "DC-8-55",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 42000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "DC86",
+    "name": "DC-8-63",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 42000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "DH8A",
+    "name": "DHC8-102",
+    "cruiseSpeed": {
+      "value": 195.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "DH8B",
+    "name": "DHC8-200",
+    "cruiseSpeed": {
+      "value": 200.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "DH8C",
+    "name": "DHC8-311",
+    "cruiseSpeed": {
+      "value": 200.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "DH8D",
+    "name": "DHC8-402",
+    "cruiseSpeed": {
+      "value": 280.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "DHC2",
+    "name": "Beaver",
+    "cruiseSpeed": {
+      "value": 110.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 12000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "DHC6",
+    "name": "Twin Otter",
+    "cruiseSpeed": {
+      "value": 140.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 14000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "DHC7",
+    "name": "Dash 7",
+    "cruiseSpeed": {
+      "value": 125.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 20400,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "E110",
+    "name": "EMB-110",
+    "cruiseSpeed": {
+      "value": 230.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "E135",
+    "name": "ERJ-135LR",
+    "cruiseSpeed": {
+      "value": 0.74,
+      "unit": "mach"
+    },
+    "serviceCeiling": 37000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "E13L",
+    "name": "Legacy 600",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "E140",
+    "name": "ERJ-140LR",
+    "cruiseSpeed": {
+      "value": 0.74,
+      "unit": "mach"
+    },
+    "serviceCeiling": 37000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "E145",
+    "name": "ERJ-145LR",
+    "cruiseSpeed": {
+      "value": 0.74,
+      "unit": "mach"
+    },
+    "serviceCeiling": 37000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "E170",
+    "name": "ERJ-170",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "E175",
+    "name": "ERJ-175",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "E190",
+    "name": "ERJ-190",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "E19L",
+    "name": "Lineage 1000",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "E195",
+    "name": "ERJ-195",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "E50P",
+    "name": "Phenom 100",
+    "cruiseSpeed": {
+      "value": 0.65,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "E55P",
+    "name": "Phenom 300",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "EA50",
+    "name": "Eclipse 550",
+    "cruiseSpeed": {
+      "value": 0.6,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "EVAL",
+    "name": "Eviation Alice",
+    "cruiseSpeed": {
+      "value": 220.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 32000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "F28",
+    "name": "Fokker F28",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "F50",
+    "name": "Fokker F50",
+    "cruiseSpeed": {
+      "value": 210.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "F70",
+    "name": "Fokker 70",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "F100",
+    "name": "Fokker 100",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "F406",
+    "name": "Cessna F406",
+    "cruiseSpeed": {
+      "value": 210.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 30000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "FA50",
+    "name": "Falcon 50",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 49000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "FA8X",
+    "name": "Falcon 8X",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 51000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "GLF4",
+    "name": "GLF.IV-SP",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "GLF6",
+    "name": "GLF.VI G650",
+    "cruiseSpeed": {
+      "value": 0.85,
+      "unit": "mach"
+    },
+    "serviceCeiling": 51000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "H25B",
+    "name": "Hawker 800A",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "HDJT",
+    "name": "Hondajet",
+    "cruiseSpeed": {
+      "value": 0.72,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43500,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "IL76",
+    "name": "Ilyushin IL-76",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "JS41",
+    "name": "BAe JS-41",
+    "cruiseSpeed": {
+      "value": 200.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "KODI",
+    "name": "Kodiak 100",
+    "cruiseSpeed": {
+      "value": 160.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "L101",
+    "name": "L1011-500",
+    "cruiseSpeed": {
+      "value": 0.83,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "L410",
+    "name": "Let L-410",
+    "cruiseSpeed": {
+      "value": 220.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 30000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "LJ25",
+    "name": "Learjet 25",
+    "cruiseSpeed": {
+      "value": 0.77,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "LJ35",
+    "name": "Learjet 35A",
+    "cruiseSpeed": {
+      "value": 0.75,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "LJ45",
+    "name": "Learjet 45",
+    "cruiseSpeed": {
+      "value": 0.76,
+      "unit": "mach"
+    },
+    "serviceCeiling": 51000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "MD11",
+    "name": "MD-11",
+    "cruiseSpeed": {
+      "value": 0.82,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43000,
+    "performanceCode": "D",
+    "weightCategory": "heavy"
+  },
+  {
+    "type": "MD1F",
+    "name": "MD-11F",
+    "cruiseSpeed": {
+      "value": 0.82,
+      "unit": "mach"
+    },
+    "serviceCeiling": 43000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "MD82",
+    "name": "DC-9-82",
+    "cruiseSpeed": {
+      "value": 0.76,
+      "unit": "mach"
+    },
+    "serviceCeiling": 37000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "MD83",
+    "name": "DC-9-83",
+    "cruiseSpeed": {
+      "value": 0.76,
+      "unit": "mach"
+    },
+    "serviceCeiling": 37000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "MD88",
+    "name": "MD-88",
+    "cruiseSpeed": {
+      "value": 0.77,
+      "unit": "mach"
+    },
+    "serviceCeiling": 37000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "MD90",
+    "name": "MD-90-30",
+    "cruiseSpeed": {
+      "value": 0.77,
+      "unit": "mach"
+    },
+    "serviceCeiling": 37000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "MU2",
+    "name": "MU-2B-60",
+    "cruiseSpeed": {
+      "value": 190.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 30000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "P06T",
+    "name": "Tecnam P2006T",
+    "cruiseSpeed": {
+      "value": 120.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 14000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "P180",
+    "name": "P.180 Avanti II",
+    "cruiseSpeed": {
+      "value": 0.62,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "P18E",
+    "name": "P.180 Avanti EVO",
+    "cruiseSpeed": {
+      "value": 0.62,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "P212",
+    "name": "Tecnam P2012",
+    "cruiseSpeed": {
+      "value": 165.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 19500,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "P46T",
+    "name": "Piper M500",
+    "cruiseSpeed": {
+      "value": 170.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 30000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "M600",
+    "name": "Piper M600",
+    "cruiseSpeed": {
+      "value": 170.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 30000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "PA24",
+    "name": "Piper Comanche",
+    "cruiseSpeed": {
+      "value": 140.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 20000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "PA31",
+    "name": "Piper Chieftain",
+    "cruiseSpeed": {
+      "value": 170.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 24000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "PA34",
+    "name": "Piper Seneca",
+    "cruiseSpeed": {
+      "value": 150.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "A",
+    "weightCategory": "light"
+  },
+  {
+    "type": "PA44",
+    "name": "Piper Seminole",
+    "cruiseSpeed": {
+      "value": 150.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 17100,
+    "performanceCode": "A",
+    "weightCategory": "light"
+  },
+  {
+    "type": "PC12",
+    "name": "Pilatus PC12",
+    "cruiseSpeed": {
+      "value": 220.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 30000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "PC24",
+    "name": "Pilatus PC24",
+    "cruiseSpeed": {
+      "value": 0.74,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "PRM1",
+    "name": "Beech Premier IA",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 45000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "RJ70",
+    "name": "Avro RJ70",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "RJ85",
+    "name": "Avro RJ85",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "RJ1H",
+    "name": "Avro RJ100",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "SB20",
+    "name": "Saab 2000",
+    "cruiseSpeed": {
+      "value": 280.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "SF34",
+    "name": "Saab 340B",
+    "cruiseSpeed": {
+      "value": 195.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "B",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "SF50",
+    "name": "Vision Jet",
+    "cruiseSpeed": {
+      "value": 0.56,
+      "unit": "mach"
+    },
+    "serviceCeiling": 31000,
+    "performanceCode": "C",
+    "weightCategory": "light"
+  },
+  {
+    "type": "SH33",
+    "name": "Short 330",
+    "cruiseSpeed": {
+      "value": 187.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 20000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "SH36",
+    "name": "Short 360",
+    "cruiseSpeed": {
+      "value": 187.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 20000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "SR22",
+    "name": "Cirrus SR22",
+    "cruiseSpeed": {
+      "value": 165.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 17500,
+    "performanceCode": "A",
+    "weightCategory": "light"
+  },
+  {
+    "type": "SR2T",
+    "name": "Cirrus SR22T",
+    "cruiseSpeed": {
+      "value": 165.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 25000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "STAR",
+    "name": "Starship 2000A",
+    "cruiseSpeed": {
+      "value": 180.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "SU95",
+    "name": "Superjet 100",
+    "cruiseSpeed": {
+      "value": 0.78,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "SW4",
+    "name": "Metroliner",
+    "cruiseSpeed": {
+      "value": 190.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 31000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "T134",
+    "name": "Tu-134A-3",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 39000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "T154",
+    "name": "Tu-154B2",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 39700,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "T204",
+    "name": "Tu-204-100B",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 42000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "TBM8",
+    "name": "TBM 850",
+    "cruiseSpeed": {
+      "value": 210.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 31000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "TBM9",
+    "name": "TBM 900",
+    "cruiseSpeed": {
+      "value": 210.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 31000,
+    "performanceCode": "B",
+    "weightCategory": "light"
+  },
+  {
+    "type": "VC10",
+    "name": "Vickers VC-10",
+    "cruiseSpeed": {
+      "value": 0.82,
+      "unit": "mach"
+    },
+    "serviceCeiling": 41300,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "YK40",
+    "name": "Yak-40",
+    "cruiseSpeed": {
+      "value": 0.7,
+      "unit": "mach"
+    },
+    "serviceCeiling": 35000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "YK42",
+    "name": "Yak-42",
+    "cruiseSpeed": {
+      "value": 0.8,
+      "unit": "mach"
+    },
+    "serviceCeiling": 42000,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  },
+  {
+    "type": "YS11",
+    "name": "NAMC YS-11",
+    "cruiseSpeed": {
+      "value": 190.0,
+      "unit": "knots"
+    },
+    "serviceCeiling": 22900,
+    "performanceCode": "C",
+    "weightCategory": "medium"
+  }
+]

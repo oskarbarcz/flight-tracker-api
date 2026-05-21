@@ -1,19 +1,47 @@
-import { ApiProperty, OmitType, PartialType } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Aircraft } from '../../../model/aircraft.model';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, Length } from 'class-validator';
 import { LegacyOperatorResponse } from './operator.request';
 
-export class LegacyCreateAircraftRequest extends OmitType(Aircraft, [
-  'id',
-] as const) {
+export class CreateAircraftRequest {
   @ApiProperty({
-    description: 'Aircraft operator',
-    deprecated: true,
+    description:
+      'ICAO aircraft type designator (4-letter code). Must match an airframe defined in the curated airframes list.',
+    example: 'B77W',
   })
   @IsString()
   @IsNotEmpty()
-  operatorId!: string;
+  @Length(4, 4)
+  type!: string;
+
+  @ApiProperty({
+    description: 'Aircraft registration matching act of registration',
+    example: 'D-AIMC',
+  })
+  @IsString()
+  @IsNotEmpty()
+  registration!: string;
+
+  @ApiProperty({
+    description: 'Aircraft SELCAL code',
+    example: 'KR-QL',
+  })
+  @IsString()
+  @IsNotEmpty()
+  selcal!: string;
+
+  @ApiProperty({
+    description: 'Aircraft livery description and age',
+    example: 'Boeing House (2024)',
+  })
+  @IsString()
+  @IsNotEmpty()
+  livery!: string;
 }
+
+export class UpdateAircraftRequest extends PartialType(CreateAircraftRequest) {}
+
+export class GetAircraftResponse extends Aircraft {}
 
 export class LegacyCreateAircraftResponse extends Aircraft {
   @ApiProperty({
@@ -23,19 +51,3 @@ export class LegacyCreateAircraftResponse extends Aircraft {
   })
   operator!: LegacyOperatorResponse | null;
 }
-
-export class LegacyUpdateAircraftRequest extends PartialType(
-  LegacyCreateAircraftRequest,
-) {}
-
-export class LegacyUpdateAircraftResponse extends PartialType(
-  LegacyCreateAircraftResponse,
-) {}
-
-export class CreateAircraftRequest extends OmitType(Aircraft, [
-  'id',
-] as const) {}
-
-export class UpdateAircraftRequest extends PartialType(CreateAircraftRequest) {}
-
-export class GetAircraftResponse extends Aircraft {}

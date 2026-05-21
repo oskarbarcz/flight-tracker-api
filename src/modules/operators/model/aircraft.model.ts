@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty } from 'class-validator';
+import { Airframe } from '../../airframes/model/airframe.model';
 
 export class Aircraft {
   @ApiProperty({
@@ -9,29 +10,10 @@ export class Aircraft {
   id!: string;
 
   @ApiProperty({
-    description: 'Aircraft type ICAO code',
-    example: 'B77W',
+    description: 'Airframe that describes this aircraft type',
+    type: Airframe,
   })
-  @IsString()
-  @IsNotEmpty()
-  icaoCode!: string;
-
-  @ApiProperty({
-    description: 'Aircraft short name',
-    example: 'Boeing 777',
-  })
-  @IsString()
-  @IsNotEmpty()
-  shortName!: string;
-
-  @ApiProperty({
-    description:
-      'Aircraft name containing manufacturer and some configuration options',
-    example: 'Boeing 777-300ER Rolls-Royce',
-  })
-  @IsString()
-  @IsNotEmpty()
-  fullName!: string;
+  airframe!: Airframe;
 
   @ApiProperty({
     description: 'Aircraft registration matching act of registration',

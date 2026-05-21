@@ -96,9 +96,14 @@ Feature: Check in pilot for flight
         },
         "aircraft": {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
-          "icaoCode": "B77W",
-          "shortName": "Boeing 777",
-          "fullName": "Boeing 777-300ER",
+          "airframe": {
+          "type": "B77W",
+          "name": "B777-300ER",
+          "cruiseSpeed": { "value": 0.84, "unit": "mach" },
+          "serviceCeiling": 43000,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
           "registration": "N78881",
           "selcal": "KY-JO",
           "livery": "Team USA (2023)",
@@ -299,9 +304,14 @@ Feature: Check in pilot for flight
         },
         "aircraft": {
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
-          "icaoCode": "A339",
-          "shortName": "Airbus A330",
-          "fullName": "Airbus A330-900 neo",
+          "airframe": {
+          "type": "A339",
+          "name": "A330-900",
+          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+          "serviceCeiling": 41400,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
           "registration": "D-AIMC",
           "selcal": "LR-CK",
           "livery": "Fanhansa (2024)",

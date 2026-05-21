@@ -11,9 +11,7 @@ datasource db {
 
 model Aircraft {
   id           String  @id @default(uuid()) @db.Uuid
-  icaoCode     String  @db.VarChar(4)
-  shortName    String
-  fullName     String
+  type         String  @db.VarChar(4)
   registration String  @unique
   selcal       String
   livery       String

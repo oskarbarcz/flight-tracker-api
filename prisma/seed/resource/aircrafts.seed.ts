@@ -4,9 +4,7 @@ import { PrismaService } from '../../../src/core/provider/prisma/prisma.service'
 export async function loadAircraft(): Promise<void> {
   const a330: Aircraft = {
     id: '9f5da1a4-f09e-4961-8299-82d688337d1f',
-    icaoCode: 'A339',
-    shortName: 'Airbus A330',
-    fullName: 'Airbus A330-900 neo',
+    type: 'A339',
     registration: 'D-AIMC',
     selcal: 'LR-CK',
     livery: 'Fanhansa (2024)',
@@ -15,9 +13,7 @@ export async function loadAircraft(): Promise<void> {
 
   const a321: Aircraft = {
     id: '7d27a031-5abb-415f-bde5-1aa563ad394e',
-    icaoCode: 'A321',
-    shortName: 'Airbus A321',
-    fullName: 'Airbus A331-251 SL ACT-2',
+    type: 'A321',
     registration: 'D-AIDA',
     selcal: 'SK-PK',
     livery: 'Sunshine (2024)',
@@ -26,9 +22,7 @@ export async function loadAircraft(): Promise<void> {
 
   const a319: Aircraft = {
     id: '3f34bc59-c9c3-4ad0-88fa-2cc570298602',
-    icaoCode: 'A319',
-    shortName: 'Airbus A319',
-    fullName: 'Airbus A319-200(neo)',
+    type: 'A319',
     registration: 'D-AIDK',
     selcal: 'MS-KL',
     livery: 'Water (2024)',
@@ -37,9 +31,7 @@ export async function loadAircraft(): Promise<void> {
 
   const b773: Aircraft = {
     id: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98',
-    icaoCode: 'B77W',
-    shortName: 'Boeing 777',
-    fullName: 'Boeing 777-300ER',
+    type: 'B77W',
     registration: 'N78881',
     selcal: 'KY-JO',
     livery: 'Team USA (2023)',

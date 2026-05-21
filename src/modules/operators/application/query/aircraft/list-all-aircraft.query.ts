@@ -3,6 +3,8 @@ import { OperatorNotFoundError } from '../../../model/error/operator.error';
 import { OperatorsRepository } from '../../../infra/database/repository/operators.repository';
 import { GetAircraftResponse } from '../../../infra/http/request/aircraft.request';
 import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
+import { findAirframeByType } from '../../../../airframes/data/airframes';
+import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
 
 export class ListAllAircraftQuery extends Query<GetAircraftResponse[]> {
   constructor(public readonly operatorId: string) {
@@ -26,6 +28,18 @@ export class ListAllAircraftHandler implements IQueryHandler<ListAllAircraftQuer
       throw new OperatorNotFoundError();
     }
 
-    return this.aircraftRepository.findAllForOperator(query.operatorId);
+    const aircrafts = await this.aircraftRepository.findAllForOperator(
+      query.operatorId,
+    );
+
+    return aircrafts.map(({ type, ...rest }) => {
+      const airframe = findAirframeByType(type);
+
+      if (!airframe) {
+        throw new AirframeNotFoundError();
+      }
+
+      return { ...rest, airframe };
+    });
   }
 }

@@ -5,10 +5,8 @@ Feature: Create aircraft for operator
     When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
       """json
       {
-        "icaoCode": "B748",
-        "shortName": "747-8i",
+        "type": "B748",
         "selcal": "SL-PR",
-        "fullName": "Boeing 747-8 Intercontinental",
         "registration": "SP-LRA",
         "livery": "Sunshine"
       }
@@ -28,10 +26,8 @@ Feature: Create aircraft for operator
     When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
       """json
       {
-        "icaoCode": "B748",
-        "shortName": "747-8i",
+        "type": "B748",
         "selcal": "SL-PR",
-        "fullName": "Boeing 747-8 Intercontinental",
         "registration": "SP-LRA",
         "livery": "Sunshine"
       }
@@ -41,10 +37,15 @@ Feature: Create aircraft for operator
       """json
       {
         "id": "@uuid",
-        "icaoCode": "B748",
-        "shortName": "747-8i",
+        "airframe": {
+          "type": "B748",
+          "name": "B747-8",
+          "cruiseSpeed": { "value": 0.85, "unit": "mach" },
+          "serviceCeiling": 43100,
+          "performanceCode": "D",
+          "weightCategory": "super"
+        },
         "selcal": "SL-PR",
-        "fullName": "Boeing 747-8 Intercontinental",
         "registration": "SP-LRA",
         "livery": "Sunshine"
       }
@@ -77,10 +78,8 @@ Feature: Create aircraft for operator
     When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
       """json
       {
-        "icaoCode": "B748",
-        "shortName": "747-8i",
+        "type": "B748",
         "selcal": "SL-PR",
-        "fullName": "Boeing 747-8 Intercontinental",
         "registration": "SP-LRA",
         "livery": "Sunshine"
       }
@@ -100,8 +99,7 @@ Feature: Create aircraft for operator
     When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
       """json
       {
-        "icaoCode": "B748",
-        "fullName": "Boeing 747-8 Intercontinental",
+        "type": "B748",
         "livery": "Sunshine"
       }
       """
@@ -114,8 +112,7 @@ Feature: Create aircraft for operator
         "statusCode": 400,
         "violations": {
           "registration": ["registration should not be empty", "registration must be a string"],
-          "selcal": ["selcal should not be empty", "selcal must be a string"],
-          "shortName": ["shortName should not be empty", "shortName must be a string"]
+          "selcal": ["selcal should not be empty", "selcal must be a string"]
         }
       }
       """
@@ -125,10 +122,8 @@ Feature: Create aircraft for operator
     When I send a "POST" request to "/api/v1/operator/16b531c3-d817-4326-841c-2a4c243f9c1f/aircraft" with body:
       """json
       {
-        "icaoCode": "B748",
-        "shortName": "747-8i",
+        "type": "B748",
         "selcal": "SL-PR",
-        "fullName": "Boeing 747-8 Intercontinental",
         "registration": "SP-LRA",
         "livery": "Sunshine"
       }
@@ -143,15 +138,34 @@ Feature: Create aircraft for operator
       }
       """
 
+  Scenario: As operations I cannot create aircraft with unknown airframe type
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
+      """json
+      {
+        "type": "ZZZZ",
+        "selcal": "SL-PR",
+        "registration": "SP-LRA",
+        "livery": "Sunshine"
+      }
+      """
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 404,
+        "error": "Not Found",
+        "message": "Airframe with given type not found."
+      }
+      """
+
   Scenario: As operations I cannot create aircraft with existing registration
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
       """json
       {
-        "icaoCode": "B748",
-        "shortName": "747-8i",
+        "type": "B748",
         "selcal": "SL-PR",
-        "fullName": "Boeing 747-8 Intercontinental",
         "registration": "D-AIMC",
         "livery": "Sunshine"
       }
@@ -171,10 +185,8 @@ Feature: Create aircraft for operator
     When I send a "POST" request to "/api/v1/operator/incorrect-uuid/aircraft" with body:
       """json
       {
-        "icaoCode": "B748",
-        "shortName": "747-8i",
+        "type": "B748",
         "selcal": "SL-PR",
-        "fullName": "Boeing 747-8 Intercontinental",
         "registration": "SP-LRA",
         "livery": "Sunshine"
       }
@@ -193,10 +205,8 @@ Feature: Create aircraft for operator
     When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
       """json
       {
-        "icaoCode": "B748",
-        "shortName": "747-8i",
+        "type": "B748",
         "selcal": "SL-PR",
-        "fullName": "Boeing 747-8 Intercontinental",
         "registration": "SP-LRA",
         "livery": "Sunshine"
       }

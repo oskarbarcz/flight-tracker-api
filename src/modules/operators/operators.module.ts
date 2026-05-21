@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { OperatorsController } from './infra/http/controller/operators.controller';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
+import { AirframesModule } from '../airframes/airframes.module';
 import { OperatorsRepository } from './infra/database/repository/operators.repository';
 import { CreateOperatorHandler } from './application/command/create-operator.command';
 import { UpdateOperatorHandler } from './application/command/update-operator.command';
@@ -29,7 +30,7 @@ import { AssertRotationExistsHandler } from './application/query/rotation/assert
 import { AircraftListener } from './application/event/listener/aircraft.listener';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, AirframesModule],
   controllers: [OperatorsController, AircraftController, RotationsController],
   providers: [
     OperatorsRepository,
