@@ -4,6 +4,8 @@ import { AircraftRepository } from '../../../infra/database/repository/aircraft.
 import { AircraftNotFoundError } from '../../../model/error/aircraft.error';
 import { OperatorsRepository } from '../../../infra/database/repository/operators.repository';
 import { OperatorNotFoundError } from '../../../model/error/operator.error';
+import { findAirframeByType } from '../../../../airframes/data/airframes';
+import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
 
 export class GetAircraftByIdQuery extends Query<GetAircraftResponse> {
   constructor(
@@ -39,6 +41,18 @@ export class GetAircraftByIdHandler implements IQueryHandler<GetAircraftByIdQuer
       throw new AircraftNotFoundError();
     }
 
-    return aircraft;
+    const airframe = findAirframeByType(aircraft.type);
+
+    if (!airframe) {
+      throw new AirframeNotFoundError();
+    }
+
+    return {
+      id: aircraft.id,
+      airframe,
+      registration: aircraft.registration,
+      selcal: aircraft.selcal,
+      livery: aircraft.livery,
+    };
   }
 }

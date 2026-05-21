@@ -92,11 +92,11 @@ export class OperatorsRepository {
 
   private async getUniqueAircraftTypes(operatorId: string): Promise<string[]> {
     const types = await this.prisma.aircraft.findMany({
-      select: { icaoCode: true },
+      select: { type: true },
       where: { operatorId },
-      distinct: ['icaoCode'],
+      distinct: ['type'],
     });
 
-    return types.map((type) => type.icaoCode);
+    return types.map((row) => row.type);
   }
 }

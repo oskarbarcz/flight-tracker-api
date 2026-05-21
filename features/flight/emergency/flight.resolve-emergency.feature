@@ -63,9 +63,14 @@ Feature: Resolve a flight emergency
         },
         "aircraft": {
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
-          "icaoCode": "A339",
-          "shortName": "Airbus A330",
-          "fullName": "Airbus A330-900 neo",
+          "airframe": {
+          "type": "A339",
+          "name": "A330-900",
+          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+          "serviceCeiling": 41400,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
           "registration": "D-AIMC",
           "selcal": "LR-CK",
           "livery": "Fanhansa (2024)",
@@ -201,9 +206,14 @@ Feature: Resolve a flight emergency
         },
         "aircraft": {
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
-          "icaoCode": "A339",
-          "shortName": "Airbus A330",
-          "fullName": "Airbus A330-900 neo",
+          "airframe": {
+          "type": "A339",
+          "name": "A330-900",
+          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+          "serviceCeiling": 41400,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
           "registration": "D-AIMC",
           "selcal": "LR-CK",
           "livery": "Fanhansa (2024)",

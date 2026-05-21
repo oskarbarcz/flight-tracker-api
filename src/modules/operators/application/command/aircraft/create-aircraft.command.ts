@@ -4,6 +4,8 @@ import { OperatorNotFoundError } from '../../../model/error/operator.error';
 import { CreateAircraftRequest } from '../../../infra/http/request/aircraft.request';
 import { AircraftWithRegistrationAlreadyExistsError } from '../../../model/error/aircraft.error';
 import { OperatorsRepository } from '../../../infra/database/repository/operators.repository';
+import { findAirframeByType } from '../../../../airframes/data/airframes';
+import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
 
 export class CreateAircraftCommand {
   constructor(
@@ -23,12 +25,14 @@ export class CreateAircraftHandler implements ICommandHandler<CreateAircraftComm
   async execute(command: CreateAircraftCommand): Promise<void> {
     const { operatorId, aircraftId, data } = command;
 
-    const operatorExists = await this.operatorsRepository.exists(
-      command.operatorId,
-    );
+    const operatorExists = await this.operatorsRepository.exists(operatorId);
 
     if (!operatorExists) {
       throw new OperatorNotFoundError();
+    }
+
+    if (!findAirframeByType(data.type)) {
+      throw new AirframeNotFoundError();
     }
 
     const registrationExists = await this.aircraftRepository.exists({

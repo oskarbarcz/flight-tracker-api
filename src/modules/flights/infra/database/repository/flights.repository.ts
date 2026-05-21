@@ -27,6 +27,9 @@ import {
 } from '../../http/request/errors.dto';
 import { UnresolvedEmergencyCannotCloseFlightError } from '../../../model/error/emergency.error';
 import { Prisma } from '../../../../../../prisma/client/client';
+import { Airframe } from '../../../../airframes/model/airframe.model';
+import { findAirframeByType } from '../../../../airframes/data/airframes';
+import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
 
 export const flightWithAircraftAndAirportsFields = {
   id: true,
@@ -58,9 +61,7 @@ export const flightWithAircraftAndAirportsFields = {
   aircraft: {
     select: {
       id: true,
-      icaoCode: true,
-      shortName: true,
-      fullName: true,
+      type: true,
       registration: true,
       selcal: true,
       livery: true,
@@ -108,9 +109,17 @@ const flightIdAndCallsign = {
   callsign: true,
 } as const satisfies Prisma.FlightSelect;
 
-export type FlightWithAircraftAndAirports = Prisma.FlightGetPayload<{
+type FlightWithRawAircraft = Prisma.FlightGetPayload<{
   select: typeof flightWithAircraftAndAirportsFields;
 }>;
+
+type RawAircraft = FlightWithRawAircraft['aircraft'];
+type AircraftWithAirframe = Omit<RawAircraft, 'type'> & { airframe: Airframe };
+
+export type FlightWithAircraftAndAirports = Omit<
+  FlightWithRawAircraft,
+  'aircraft'
+> & { aircraft: AircraftWithAirframe };
 
 export type FlightIdAndCallsign = Prisma.FlightGetPayload<{
   select: typeof flightIdAndCallsign;
@@ -123,6 +132,23 @@ export type DerivedFlightStatus = {
 
 export type FlightResponse = FlightWithAircraftAndAirports &
   DerivedFlightStatus;
+
+function expandAircraftAirframe(aircraft: RawAircraft): AircraftWithAirframe {
+  const airframe = findAirframeByType(aircraft.type);
+
+  if (!airframe) {
+    throw new AirframeNotFoundError();
+  }
+
+  return {
+    id: aircraft.id,
+    airframe,
+    registration: aircraft.registration,
+    selcal: aircraft.selcal,
+    livery: aircraft.livery,
+    operator: aircraft.operator,
+  };
+}
 
 type FlightsWithCount = {
   flights: FlightResponse[];
@@ -206,6 +232,7 @@ export class FlightsRepository {
 
     return {
       ...flight,
+      aircraft: expandAircraftAirframe(flight.aircraft),
       isFlightDiverted: await this.isFlightDiverted(flight.id),
       isEmergencyDeclared: await this.isEmergencyDeclared(flight.id),
     };
@@ -341,6 +368,7 @@ export class FlightsRepository {
     return {
       flights: flights.map((flight) => ({
         ...flight,
+        aircraft: expandAircraftAirframe(flight.aircraft),
         isFlightDiverted: divertedFlightIds.has(flight.id),
         isEmergencyDeclared: emergencyFlightIds.has(flight.id),
       })),

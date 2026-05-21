@@ -7,13 +7,18 @@ Feature: Get aircraft
     And the response body should contain:
       """json
       {
-        "fullName": "Airbus A330-900 neo",
-        "icaoCode": "A339",
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+        "airframe": {
+          "type": "A339",
+          "name": "A330-900",
+          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+          "serviceCeiling": 41400,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
-        "selcal": "LR-CK",
-        "shortName": "Airbus A330"
+        "selcal": "LR-CK"
       }
       """
 
@@ -24,13 +29,18 @@ Feature: Get aircraft
     And the response body should contain:
       """json
       {
-        "fullName": "Airbus A330-900 neo",
-        "icaoCode": "A339",
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+        "airframe": {
+          "type": "A339",
+          "name": "A330-900",
+          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+          "serviceCeiling": 41400,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
-        "selcal": "LR-CK",
-        "shortName": "Airbus A330"
+        "selcal": "LR-CK"
       }
       """
 
@@ -41,13 +51,18 @@ Feature: Get aircraft
     And the response body should contain:
       """json
       {
-        "fullName": "Airbus A330-900 neo",
-        "icaoCode": "A339",
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+        "airframe": {
+          "type": "A339",
+          "name": "A330-900",
+          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+          "serviceCeiling": 41400,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
-        "selcal": "LR-CK",
-        "shortName": "Airbus A330"
+        "selcal": "LR-CK"
       }
       """
 

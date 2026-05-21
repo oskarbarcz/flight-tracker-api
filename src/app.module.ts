@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AirportsModule } from './modules/airports/airports.module';
+import { AirframesModule } from './modules/airframes/airframes.module';
 import { OperatorsModule } from './modules/operators/operators.module';
 import { FlightsModule } from './modules/flights/flights.module';
 import { UsersModule } from './modules/users/users.module';
@@ -16,6 +17,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 @Module({
   imports: [
     AirportsModule,
+    AirframesModule,
     OperatorsModule,
     FlightsModule,
     UsersModule,
