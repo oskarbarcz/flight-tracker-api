@@ -229,6 +229,13 @@ export class Flight {
   isEmergencyDeclared!: boolean;
 
   @ApiProperty({
+    description:
+      'Flag if a flight path has been recorded for this flight and can be retrieved from the flight path endpoint',
+    example: false,
+  })
+  hasFlightPath!: boolean;
+
+  @ApiProperty({
     description: 'Timestamp when the flight record was created',
     example: '2025-01-01T00:00:00.000Z',
     type: 'string',

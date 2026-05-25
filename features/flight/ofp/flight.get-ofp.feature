@@ -72,19 +72,20 @@ Feature: Get OFP for flight
     And the response body should contain:
       """json
       {
-        "message": "Flight with given id does not exist or no OFP for flight",
+        "message": "Flight with given id does not exist.",
         "error": "Not Found",
         "statusCode": 404
       }
       """
 
-  Scenario: As an unauthorized user I cannot get OFP for flight
-    When I send a "GET" request to "/api/v1/flight/17d2f703-957d-4ad1-a620-3c187a70c26a/ofp"
-    Then the response status should be 401
+  Scenario: As an unauthorized user I can get OFP for private flight
+    When I send a "GET" request to "/api/v1/flight/11087d20-ead0-4b7e-97ee-f1ef0ea29e4f/ofp"
+    Then the response status should be 200
     And the response body should contain:
       """json
       {
-        "message": "Unauthorized",
-        "statusCode": 401
+        "ofpContent": "<div><h2>Simbrief OFP</h2><p>Mock OFP</p></div>",
+        "ofpDocumentUrl": "https://www.simbrief.com/ofp/flightplans/EDDFKJFK_PDF_1769431274.pdf",
+        "runwayAnalysis": "TAKEOFF AND LANDING REPORT DLH81"
       }
       """

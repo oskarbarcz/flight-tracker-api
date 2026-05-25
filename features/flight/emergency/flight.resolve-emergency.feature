@@ -126,6 +126,7 @@ Feature: Resolve a flight emergency
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": true,
+        "hasFlightPath": false,
         "createdAt": "2025-01-01T06:00:00.000Z"
       }
       """
@@ -269,6 +270,7 @@ Feature: Resolve a flight emergency
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "createdAt": "2025-01-01T06:00:00.000Z"
       }
       """

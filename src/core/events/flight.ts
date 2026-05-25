@@ -21,6 +21,7 @@ export enum FlightEventType {
   OffboardingWasFinished = 'flight.offboarding-finished',
   FlightWasClosed = 'flight.closed',
   FlightTrackWasSaved = 'flight.track-saved',
+  LivePositionReceived = 'flight.live-position-received',
   EmergencyWasDeclared = 'flight.emergency-declared',
   EmergencyWasUpdated = 'flight.emergency-updated',
   EmergencyWasResolved = 'flight.emergency-resolved',

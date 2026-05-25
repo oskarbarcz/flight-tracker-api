@@ -158,6 +158,9 @@ model Flight {
   departureRunwayId   String?        @db.Uuid
   arrivalGateId       String?        @db.Uuid
   arrivalRunwayId     String?        @db.Uuid
+  isEmergencyDeclared Boolean        @default(false)
+  isDiversionDeclared Boolean        @default(false)
+  isPathAvailable     Boolean        @default(false)
 
   operator             Operator               @relation(fields: [operatorId], references: [id])
   rotation             Rotation?              @relation(fields: [rotationId], references: [id])

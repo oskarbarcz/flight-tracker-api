@@ -162,6 +162,7 @@ Feature: Update flight preliminary loadsheet
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,

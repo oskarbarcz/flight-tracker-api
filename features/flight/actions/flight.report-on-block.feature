@@ -235,6 +235,7 @@ Feature: Report on-block
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": true,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,

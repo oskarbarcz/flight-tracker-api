@@ -134,6 +134,7 @@ Feature: Mark flight as ready
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,

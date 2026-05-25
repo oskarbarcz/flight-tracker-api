@@ -45,7 +45,7 @@ export class GetFlightAction {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 
-    if (!request.user && tracking === FlightTracking.Private) {
+    if (!request.user && tracking === FlightTracking.Disabled) {
       throw new NotFoundException(FlightDoesNotExistError);
     }
 

@@ -321,6 +321,294 @@
   },
   {
     "httpRequest": {
+      "method": "GET",
+      "path": "/api/v1/position/DLH450"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"],
+        "Access-Control-Allow-Origin": ["*"],
+        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
+        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+      },
+      "body": [
+        {
+          "callsign": "DLH450",
+          "date": "2025-01-01T11:55:00.000Z",
+          "latitude": 50.04693,
+          "longitude": 8.57397,
+          "altitude": 0,
+          "verticalRate": 0,
+          "groundSpeed": 0,
+          "track": 0,
+          "isOnGround": true,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/v1/position/AAL4906"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"],
+        "Access-Control-Allow-Origin": ["*"],
+        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
+        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+      },
+      "body": [
+        {
+          "callsign": "AAL4906",
+          "date": "2025-01-01T12:55:00.000Z",
+          "latitude": 42.36454,
+          "longitude": -71.01663,
+          "altitude": 0,
+          "verticalRate": 0,
+          "groundSpeed": 0,
+          "track": 0,
+          "isOnGround": true,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/v1/position/AAL4907"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"],
+        "Access-Control-Allow-Origin": ["*"],
+        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
+        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+      },
+      "body": [
+        {
+          "callsign": "AAL4907",
+          "date": "2025-01-01T12:55:00.000Z",
+          "latitude": 42.36454,
+          "longitude": -71.01663,
+          "altitude": 0,
+          "verticalRate": 0,
+          "groundSpeed": 0,
+          "track": 0,
+          "isOnGround": true,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/v1/position/AAL4908"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"],
+        "Access-Control-Allow-Origin": ["*"],
+        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
+        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+      },
+      "body": [
+        {
+          "callsign": "AAL4908",
+          "date": "2025-01-01T12:55:00.000Z",
+          "latitude": 42.36454,
+          "longitude": -71.01663,
+          "altitude": 0,
+          "verticalRate": 0,
+          "groundSpeed": 0,
+          "track": 0,
+          "isOnGround": true,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/v1/position/AAL4909"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"],
+        "Access-Control-Allow-Origin": ["*"],
+        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
+        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+      },
+      "body": [
+        {
+          "callsign": "AAL4909",
+          "date": "2025-01-01T12:55:00.000Z",
+          "latitude": 42.36454,
+          "longitude": -71.01663,
+          "altitude": 0,
+          "verticalRate": 0,
+          "groundSpeed": 0,
+          "track": 0,
+          "isOnGround": true,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/v1/position/AAL4910"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"],
+        "Access-Control-Allow-Origin": ["*"],
+        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
+        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+      },
+      "body": [
+        {
+          "callsign": "AAL4910",
+          "date": "2025-01-01T12:55:00.000Z",
+          "latitude": 42.36454,
+          "longitude": -71.01663,
+          "altitude": 0,
+          "verticalRate": 0,
+          "groundSpeed": 0,
+          "track": 0,
+          "isOnGround": true,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/v1/position/DLH41"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"],
+        "Access-Control-Allow-Origin": ["*"],
+        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
+        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+      },
+      "body": [
+        {
+          "callsign": "DLH41",
+          "date": "2025-01-02T03:55:00.000Z",
+          "latitude": 40.6413,
+          "longitude": -73.7781,
+          "altitude": 0,
+          "verticalRate": 0,
+          "groundSpeed": 0,
+          "track": 0,
+          "isOnGround": true,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/v1/position/DLH42"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"],
+        "Access-Control-Allow-Origin": ["*"],
+        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
+        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+      },
+      "body": [
+        {
+          "callsign": "DLH42",
+          "date": "2025-01-02T17:35:00.000Z",
+          "latitude": 50.04693,
+          "longitude": 8.57397,
+          "altitude": 0,
+          "verticalRate": 0,
+          "groundSpeed": 0,
+          "track": 0,
+          "isOnGround": true,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/v1/position/DLH81"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"],
+        "Access-Control-Allow-Origin": ["*"],
+        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
+        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+      },
+      "body": [
+        {
+          "callsign": "DLH81",
+          "date": "2025-01-05T08:55:00.000Z",
+          "latitude": 50.04693,
+          "longitude": 8.57397,
+          "altitude": 0,
+          "verticalRate": 0,
+          "groundSpeed": 0,
+          "track": 0,
+          "isOnGround": true,
+          "squawk": "1000",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
       "method": "OPTIONS",
       "path": "/api/v1/position/.*"
     },

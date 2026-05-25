@@ -150,6 +150,7 @@ Feature: Update flight arrival gate
         "arrivalRunwayId": "32121288-2550-4b81-a558-9a7193ef6c97",
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "source": "manual",
         "tracking": "private",
         "rotationId": "bd8f2d64-a647-42da-be63-c6589915e6c9",
