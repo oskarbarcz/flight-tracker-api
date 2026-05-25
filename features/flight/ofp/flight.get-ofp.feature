@@ -72,7 +72,7 @@ Feature: Get OFP for flight
     And the response body should contain:
       """json
       {
-        "message": "Flight with given id does not exist or no OFP for flight",
+        "message": "Flight with given id does not exist.",
         "error": "Not Found",
         "statusCode": 404
       }
