@@ -54,6 +54,7 @@ export class EventsRepository {
   @OnEvent(FlightEventType.OffboardingWasFinished)
   @OnEvent(FlightEventType.FlightWasClosed)
   @OnEvent(FlightEventType.FlightTrackWasSaved)
+  @OnEvent(FlightEventType.LivePositionReceived)
   @OnEvent(FlightEventType.PreliminaryLoadsheetWasUpdated)
   @OnEvent(FlightEventType.ScheduledTimesheetWasUpdated)
   @OnEvent(FlightEventType.PredictedTimesheetWasUpdated)

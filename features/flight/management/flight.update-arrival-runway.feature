@@ -149,6 +149,7 @@ Feature: Update flight arrival runway
         "arrivalRunwayId": "5ae7e0f1-392a-4140-bb2a-4efee09fe9f1",
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "source": "manual",
         "tracking": "private",
         "rotationId": "bd8f2d64-a647-42da-be63-c6589915e6c9",

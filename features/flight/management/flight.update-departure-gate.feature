@@ -140,6 +140,7 @@ Feature: Update flight departure gate
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "source": "manual",
         "tracking": "private",
         "rotationId": null,

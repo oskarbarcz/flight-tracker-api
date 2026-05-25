@@ -170,6 +170,7 @@ Feature: Close flight
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": true,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
@@ -509,6 +510,7 @@ Feature: Close flight
         "source": "manual",
         "tracking": "private",
         "rotationId": "c2e12afb-a712-45aa-9ba5-fec71868e59a",
+        "hasFlightPath": false,
         "createdAt": "2025-01-01T00:00:00.000Z"
       }
       """
@@ -889,6 +891,7 @@ Feature: Close flight
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
@@ -1048,6 +1051,7 @@ Feature: Close flight
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,

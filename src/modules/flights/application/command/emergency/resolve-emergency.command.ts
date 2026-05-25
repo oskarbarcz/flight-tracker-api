@@ -48,7 +48,7 @@ export class ResolveEmergencyHandler implements ICommandHandler<ResolveEmergency
       throw new EmergencyAlreadyResolvedError();
     }
 
-    await this.emergencyRepository.resolve(emergencyId, actor.sub);
+    await this.emergencyRepository.resolve(flightId, emergencyId, actor.sub);
 
     const event: NewFlightEvent = {
       flightId,

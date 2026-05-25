@@ -83,25 +83,31 @@ export class EmergencyRepository {
     flightId: string,
     data: EmergencyCreateInput,
   ): Promise<GetEmergencyResponse> {
-    const row = await this.prisma.emergencyDeclaration.create({
-      data: {
-        flightId,
-        reportedBy: data.reportedBy,
-        urgency: data.urgency,
-        threatLevel: data.threatLevel,
-        category: data.category,
-        squawk: data.squawk ?? null,
-        intention: data.intention,
-        lastKnownPosition: data.lastKnownPosition
-          ? (data.lastKnownPosition as unknown as Prisma.InputJsonValue)
-          : Prisma.JsonNull,
-        soulsOnBoard: data.soulsOnBoard,
-        fuelEnduranceMinutes: data.fuelEnduranceMinutes,
-        dangerousGoodsOnBoard: data.dangerousGoodsOnBoard,
-        freeText: data.freeText,
-      },
-      select: emergencyWithRelations,
-    });
+    const [row] = await this.prisma.$transaction([
+      this.prisma.emergencyDeclaration.create({
+        data: {
+          flightId,
+          reportedBy: data.reportedBy,
+          urgency: data.urgency,
+          threatLevel: data.threatLevel,
+          category: data.category,
+          squawk: data.squawk ?? null,
+          intention: data.intention,
+          lastKnownPosition: data.lastKnownPosition
+            ? (data.lastKnownPosition as unknown as Prisma.InputJsonValue)
+            : Prisma.JsonNull,
+          soulsOnBoard: data.soulsOnBoard,
+          fuelEnduranceMinutes: data.fuelEnduranceMinutes,
+          dangerousGoodsOnBoard: data.dangerousGoodsOnBoard,
+          freeText: data.freeText,
+        },
+        select: emergencyWithRelations,
+      }),
+      this.prisma.flight.update({
+        where: { id: flightId },
+        data: { isEmergencyDeclared: true },
+      }),
+    ]);
 
     return toResponse(row);
   }
@@ -136,13 +142,30 @@ export class EmergencyRepository {
     });
   }
 
-  public async resolve(emergencyId: string, resolvedBy: string): Promise<void> {
-    await this.prisma.emergencyDeclaration.update({
-      where: { id: emergencyId },
-      data: {
-        resolvedAt: new Date(),
-        resolvedBy,
-      },
+  public async resolve(
+    flightId: string,
+    emergencyId: string,
+    resolvedBy: string,
+  ): Promise<void> {
+    await this.prisma.$transaction(async (tx) => {
+      await tx.emergencyDeclaration.update({
+        where: { id: emergencyId },
+        data: {
+          resolvedAt: new Date(),
+          resolvedBy,
+        },
+      });
+
+      const remainingActive = await tx.emergencyDeclaration.count({
+        where: { flightId, resolvedAt: null },
+      });
+
+      if (remainingActive === 0) {
+        await tx.flight.update({
+          where: { id: flightId },
+          data: { isEmergencyDeclared: false },
+        });
+      }
     });
   }
 

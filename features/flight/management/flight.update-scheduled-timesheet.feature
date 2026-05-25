@@ -150,6 +150,7 @@ Feature: Update flight scheduled timesheet
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,

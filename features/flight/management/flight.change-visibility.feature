@@ -144,6 +144,7 @@ Feature: Change flight visibility
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "source": "manual",
         "tracking": "disabled",
         "rotationId": null,

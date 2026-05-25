@@ -138,6 +138,7 @@ Feature: Get flight
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "source": "manual",
         "tracking": "private",
         "rotationId": null,
@@ -155,9 +156,9 @@ Feature: Get flight
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
     Then the response status should be 200
 
-  Scenario: As an unauthorized user I cannot get private flight
+  Scenario: As an unauthorized user I can get private flight
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
-    Then the response status should be 404
+    Then the response status should be 200
 
   Scenario: As an unauthorized user I can get public flight
     When I send a "GET" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d"
@@ -306,6 +307,7 @@ Feature: Get flight
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,

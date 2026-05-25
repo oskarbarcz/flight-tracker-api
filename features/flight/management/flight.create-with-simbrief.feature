@@ -117,6 +117,7 @@ Feature: Create a flight with Simbrief
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
+        "hasFlightPath": false,
         "rotationId": null,
         "source": "simbrief",
         "tracking": "private",

@@ -89,16 +89,22 @@ export class DiversionRepository {
         ? DiversionReporterRole.Crew
         : DiversionReporterRole.Operations;
 
-    await this.prisma.diversion.create({
-      data: {
-        flightId,
-        ...data,
-        reportedBy: currentUser.sub,
-        reporterRole,
-        decisionTime: new Date(),
-        position: data.position as unknown as Prisma.InputJsonValue,
-      },
-    });
+    await this.prisma.$transaction([
+      this.prisma.diversion.create({
+        data: {
+          flightId,
+          ...data,
+          reportedBy: currentUser.sub,
+          reporterRole,
+          decisionTime: new Date(),
+          position: data.position as unknown as Prisma.InputJsonValue,
+        },
+      }),
+      this.prisma.flight.update({
+        where: { id: flightId },
+        data: { isDiversionDeclared: true },
+      }),
+    ]);
   }
 
   public async get(flightId: string): Promise<GetDiversionResponse> {

@@ -227,6 +227,7 @@ async function loadAAL4905(): Promise<void> {
       },
     } as Prisma.InputJsonValue & Loadsheets,
     createdAt: new Date('2025-01-01 00:00'),
+    isPathAvailable: true,
     positionReports: [
       {
         callsign: 'AAL4913',
@@ -1784,6 +1785,7 @@ async function loadAAL4914(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    isPathAvailable: true,
     positionReports: [
       {
         callsign: 'AAL4914',
@@ -2055,6 +2057,7 @@ async function loadAAL4915(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    isPathAvailable: true,
     positionReports: [
       {
         callsign: 'AAL4915',
@@ -2335,6 +2338,7 @@ async function loadAAL4916(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    isPathAvailable: true,
     positionReports: [
       {
         callsign: 'AAL4916',
@@ -2624,6 +2628,7 @@ async function loadAAL4917(): Promise<void> {
         blockFuel: 11.9,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    isPathAvailable: true,
     positionReports: [
       {
         callsign: 'AAL4917',
@@ -2867,6 +2872,7 @@ async function loadAAL4918(): Promise<void> {
     departureRunwayId: '08a1d5f0-fbfb-4272-9cc4-6821506fe308',
     arrivalGateId: null,
     arrivalRunwayId: null,
+    isEmergencyDeclared: true,
     flightNumber: 'AA4918',
     callsign: 'AAL4918',
     atcCallsign: 'AAL18J',
@@ -3411,6 +3417,7 @@ async function loadDLH40(): Promise<void> {
         blockFuel: 53.0,
       },
     } as Prisma.InputJsonValue & Loadsheets,
+    isPathAvailable: true,
     positionReports: [
       {
         callsign: 'DLH40',
@@ -4071,6 +4078,7 @@ async function loadDLH102(): Promise<void> {
     departureRunwayId: '6bbf43a4-9242-4f04-b195-6a7bcd1f14c4',
     arrivalGateId: null,
     arrivalRunwayId: null,
+    isDiversionDeclared: true,
     flightNumber: 'LH102',
     callsign: 'DLH102',
     atcCallsign: null,
@@ -4303,6 +4311,7 @@ async function loadDLH880(): Promise<void> {
     departureRunwayId: '290a31a8-ba88-436c-b9ab-d8a5c57ea81f',
     arrivalGateId: null,
     arrivalRunwayId: null,
+    isEmergencyDeclared: true,
     flightNumber: 'LH880',
     callsign: 'DLH880',
     atcCallsign: 'DLH880',

@@ -48,6 +48,9 @@ export const flightWithAircraftAndAirportsFields = {
   departureRunwayId: true,
   arrivalGateId: true,
   arrivalRunwayId: true,
+  isEmergencyDeclared: true,
+  isDiversionDeclared: true,
+  isPathAvailable: true,
   operator: {
     select: {
       id: true,
@@ -128,9 +131,13 @@ export type FlightIdAndCallsign = Prisma.FlightGetPayload<{
 export type DerivedFlightStatus = {
   isFlightDiverted: boolean;
   isEmergencyDeclared: boolean;
+  hasFlightPath: boolean;
 };
 
-export type FlightResponse = FlightWithAircraftAndAirports &
+export type FlightResponse = Omit<
+  FlightWithAircraftAndAirports,
+  'isDiversionDeclared' | 'isPathAvailable'
+> &
   DerivedFlightStatus;
 
 function expandAircraftAirframe(aircraft: RawAircraft): AircraftWithAirframe {
@@ -230,11 +237,12 @@ export class FlightsRepository {
       return null;
     }
 
+    const { isDiversionDeclared, isPathAvailable, ...rest } = flight;
     return {
-      ...flight,
+      ...rest,
       aircraft: expandAircraftAirframe(flight.aircraft),
-      isFlightDiverted: await this.isFlightDiverted(flight.id),
-      isEmergencyDeclared: await this.isEmergencyDeclared(flight.id),
+      isFlightDiverted: isDiversionDeclared,
+      hasFlightPath: isPathAvailable,
     };
   }
 
@@ -350,28 +358,15 @@ export class FlightsRepository {
       this.prisma.flight.count({ where }),
     ]);
 
-    const flightIds = flights.map((f) => f.id);
-    const [diversions, emergencies] = await Promise.all([
-      this.prisma.diversion.findMany({
-        where: { flightId: { in: flightIds } },
-        select: { flightId: true },
-      }),
-      this.prisma.emergencyDeclaration.findMany({
-        where: { flightId: { in: flightIds }, resolvedAt: null },
-        select: { flightId: true },
-        distinct: ['flightId'],
-      }),
-    ]);
-    const divertedFlightIds = new Set(diversions.map((d) => d.flightId));
-    const emergencyFlightIds = new Set(emergencies.map((e) => e.flightId));
-
     return {
-      flights: flights.map((flight) => ({
-        ...flight,
-        aircraft: expandAircraftAirframe(flight.aircraft),
-        isFlightDiverted: divertedFlightIds.has(flight.id),
-        isEmergencyDeclared: emergencyFlightIds.has(flight.id),
-      })),
+      flights: flights.map(
+        ({ isDiversionDeclared, isPathAvailable, ...rest }) => ({
+          ...rest,
+          aircraft: expandAircraftAirframe(rest.aircraft),
+          isFlightDiverted: isDiversionDeclared,
+          hasFlightPath: isPathAvailable,
+        }),
+      ),
       totalCount,
     };
   }
@@ -447,14 +442,23 @@ export class FlightsRepository {
     });
   }
 
-  async updateFlightPath(id: string, track: AdsbFlightTrack): Promise<void> {
+  async updateFlightPath(
+    id: string,
+    track: AdsbFlightTrack,
+  ): Promise<{ isFirstReceipt: boolean }> {
     const currentPath = await this.getFlightPath(id);
     const newPath = deduplicatePositionReports([...currentPath, ...track]);
+    const isFirstReceipt = currentPath.length === 0 && newPath.length > 0;
 
     await this.prisma.flight.update({
       where: { id },
-      data: { positionReports: newPath },
+      data: {
+        positionReports: newPath,
+        ...(isFirstReceipt && { isPathAvailable: true }),
+      },
     });
+
+    return { isFirstReceipt };
   }
 
   private async airportExist(airportId: string): Promise<boolean> {
@@ -465,25 +469,13 @@ export class FlightsRepository {
     return count === 1;
   }
 
-  private async isEmergencyDeclared(flightId: string): Promise<boolean> {
+  public async assertNoUnresolvedEmergency(flightId: string): Promise<void> {
     const count = await this.prisma.emergencyDeclaration.count({
       where: { flightId, resolvedAt: null },
     });
-    return count > 0;
-  }
-
-  public async assertNoUnresolvedEmergency(flightId: string): Promise<void> {
-    if (await this.isEmergencyDeclared(flightId)) {
+    if (count > 0) {
       throw new UnresolvedEmergencyCannotCloseFlightError();
     }
-  }
-
-  private async isFlightDiverted(flightId: string): Promise<boolean> {
-    const count = await this.prisma.diversion.count({
-      where: { flightId },
-    });
-
-    return count > 0;
   }
 
   public async exists(flightId: string): Promise<boolean> {
