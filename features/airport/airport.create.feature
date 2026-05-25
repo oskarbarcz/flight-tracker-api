@@ -28,7 +28,7 @@ Feature: Create airport
       }
       """
 
-  Scenario: As operations I can create airport
+  Scenario: As operations I can create airport with boundary shape
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/airport" with body:
       """json
@@ -43,7 +43,13 @@ Feature: Create airport
           "latitude": 25.7933,
           "longitude": -80.2906
         },
-        "continent": "north_america"
+        "continent": "north_america",
+        "shape": [
+          { "latitude": 25.7933, "longitude": -80.2906 },
+          { "latitude": 25.8033, "longitude": -80.2906 },
+          { "latitude": 25.8033, "longitude": -80.2806 },
+          { "latitude": 25.7933, "longitude": -80.2806 }
+        ]
       }
       """
     Then the response status should be 201
@@ -61,10 +67,51 @@ Feature: Create airport
           "latitude": 25.7933,
           "longitude": -80.2906
         },
-        "continent": "north_america"
+        "continent": "north_america",
+        "shape": [
+          { "latitude": 25.7933, "longitude": -80.2906 },
+          { "latitude": 25.8033, "longitude": -80.2906 },
+          { "latitude": 25.8033, "longitude": -80.2806 },
+          { "latitude": 25.7933, "longitude": -80.2806 }
+        ]
       }
       """
     And I set database to initial state
+
+  Scenario: As operations I cannot create airport with a degenerate shape
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "KMIA",
+        "name": "Miami Intl",
+        "iataCode": "MIA",
+        "city": "Miami",
+        "country": "United States of America",
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america",
+        "shape": [
+          { "latitude": 25.7933, "longitude": -80.2906 },
+          { "latitude": 25.8033, "longitude": -80.2906 }
+        ]
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "shape": ["shape must contain at least 3 elements"]
+        }
+      }
+      """
 
   Scenario: As a cabin crew I cannot create airport
     Given I am signed in as "cabin crew"

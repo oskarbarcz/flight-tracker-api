@@ -90,13 +90,13 @@ Feature: Close flight
         "aircraft": {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
           "airframe": {
-          "type": "B77W",
-          "name": "B777-300ER",
-          "cruiseSpeed": { "value": 0.84, "unit": "mach" },
-          "serviceCeiling": 43000,
-          "performanceCode": "D",
-          "weightCategory": "heavy"
-        },
+            "type": "B77W",
+            "name": "B777-300ER",
+            "cruiseSpeed": { "value": 0.84, "unit": "mach" },
+            "serviceCeiling": 43000,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
           "registration": "N78881",
           "selcal": "KY-JO",
           "livery": "Team USA (2023)",
@@ -397,13 +397,13 @@ Feature: Close flight
         "aircraft": {
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
           "airframe": {
-          "type": "A339",
-          "name": "A330-900",
-          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
-          "serviceCeiling": 41400,
-          "performanceCode": "D",
-          "weightCategory": "heavy"
-        },
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
           "registration": "D-AIMC",
           "selcal": "LR-CK",
           "livery": "Fanhansa (2024)",
@@ -820,13 +820,13 @@ Feature: Close flight
         "aircraft": {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
           "airframe": {
-          "type": "B77W",
-          "name": "B777-300ER",
-          "cruiseSpeed": { "value": 0.84, "unit": "mach" },
-          "serviceCeiling": 43000,
-          "performanceCode": "D",
-          "weightCategory": "heavy"
-        },
+            "type": "B77W",
+            "name": "B777-300ER",
+            "cruiseSpeed": { "value": 0.84, "unit": "mach" },
+            "serviceCeiling": 43000,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
           "registration": "N78881",
           "selcal": "KY-JO",
           "livery": "Team USA (2023)",
@@ -980,13 +980,13 @@ Feature: Close flight
         "aircraft": {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
           "airframe": {
-          "type": "B77W",
-          "name": "B777-300ER",
-          "cruiseSpeed": { "value": 0.84, "unit": "mach" },
-          "serviceCeiling": 43000,
-          "performanceCode": "D",
-          "weightCategory": "heavy"
-        },
+            "type": "B77W",
+            "name": "B777-300ER",
+            "cruiseSpeed": { "value": 0.84, "unit": "mach" },
+            "serviceCeiling": 43000,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
           "registration": "N78881",
           "selcal": "KY-JO",
           "livery": "Team USA (2023)",

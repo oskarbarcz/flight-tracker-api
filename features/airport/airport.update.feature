@@ -41,7 +41,8 @@ Feature: Update airport
         "location": {
           "longitude": 8.57397,
           "latitude": 50.04693
-        }
+        },
+        "shape": "@any"
       }
       """
     And I set database to initial state

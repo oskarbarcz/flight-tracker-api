@@ -14,7 +14,8 @@ Feature: List terminals at an airport
           "fullName": "Terminal 1",
           "averageTaxiTime": 12,
           "operatorCodes": ["DLH", "LOT"],
-          "text": null
+          "text": null,
+          "shape": "@any"
         },
         {
           "id": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
@@ -23,7 +24,8 @@ Feature: List terminals at an airport
           "fullName": "Terminal 2",
           "averageTaxiTime": 14,
           "operatorCodes": ["BAW", "AFR"],
-          "text": null
+          "text": null,
+          "shape": "@any"
         }
       ]
       """

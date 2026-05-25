@@ -11,6 +11,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 1',
       averageTaxiTime: 12,
       operatorCodes: ['DLH', 'LOT'],
+      shape: [
+        { latitude: 50.04593, longitude: 8.57297 },
+        { latitude: 50.04593, longitude: 8.57497 },
+        { latitude: 50.04793, longitude: 8.57497 },
+        { latitude: 50.04793, longitude: 8.57297 },
+      ],
     },
     {
       id: '26106c8a-aaee-4b84-bb6c-b5af3389e22f',
@@ -19,6 +25,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 2',
       averageTaxiTime: 14,
       operatorCodes: ['BAW', 'AFR'],
+      shape: [
+        { latitude: 50.04593, longitude: 8.57297 },
+        { latitude: 50.04593, longitude: 8.57497 },
+        { latitude: 50.04793, longitude: 8.57497 },
+        { latitude: 50.04793, longitude: 8.57297 },
+      ],
     },
 
     // EPWA — Warsaw Chopin
@@ -29,6 +41,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal A',
       averageTaxiTime: 9,
       operatorCodes: ['LOT'],
+      shape: [
+        { latitude: 52.16475, longitude: 20.966123 },
+        { latitude: 52.16475, longitude: 20.968123 },
+        { latitude: 52.16675, longitude: 20.968123 },
+        { latitude: 52.16675, longitude: 20.966123 },
+      ],
     },
 
     // KJFK — New York John F. Kennedy
@@ -39,6 +57,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 1',
       averageTaxiTime: 18,
       operatorCodes: ['AFR', 'DLH', 'KLM', 'JAL', 'ETD'],
+      shape: [
+        { latitude: 40.6403, longitude: -73.7791 },
+        { latitude: 40.6403, longitude: -73.7771 },
+        { latitude: 40.6423, longitude: -73.7771 },
+        { latitude: 40.6423, longitude: -73.7791 },
+      ],
     },
     {
       id: 'a0d2e8d1-1101-4f02-9101-9c1f4e2a0002',
@@ -47,6 +71,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 4',
       averageTaxiTime: 20,
       operatorCodes: ['DAL', 'VIR', 'KLM', 'AFR', 'KAL'],
+      shape: [
+        { latitude: 40.6403, longitude: -73.7791 },
+        { latitude: 40.6403, longitude: -73.7771 },
+        { latitude: 40.6423, longitude: -73.7771 },
+        { latitude: 40.6423, longitude: -73.7791 },
+      ],
     },
     {
       id: 'a0d2e8d1-1101-4f03-9101-9c1f4e2a0003',
@@ -55,6 +85,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 5',
       averageTaxiTime: 16,
       operatorCodes: ['JBU'],
+      shape: [
+        { latitude: 40.6403, longitude: -73.7791 },
+        { latitude: 40.6403, longitude: -73.7771 },
+        { latitude: 40.6423, longitude: -73.7771 },
+        { latitude: 40.6423, longitude: -73.7791 },
+      ],
     },
     {
       id: 'a0d2e8d1-1101-4f04-9101-9c1f4e2a0004',
@@ -63,6 +99,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 7',
       averageTaxiTime: 17,
       operatorCodes: ['BAW', 'QFA', 'AAL'],
+      shape: [
+        { latitude: 40.6403, longitude: -73.7791 },
+        { latitude: 40.6403, longitude: -73.7771 },
+        { latitude: 40.6423, longitude: -73.7771 },
+        { latitude: 40.6423, longitude: -73.7791 },
+      ],
     },
     {
       id: 'a0d2e8d1-1101-4f05-9101-9c1f4e2a0005',
@@ -71,6 +113,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 8',
       averageTaxiTime: 19,
       operatorCodes: ['AAL', 'JAL', 'BAW'],
+      shape: [
+        { latitude: 40.6403, longitude: -73.7791 },
+        { latitude: 40.6403, longitude: -73.7771 },
+        { latitude: 40.6423, longitude: -73.7771 },
+        { latitude: 40.6423, longitude: -73.7791 },
+      ],
     },
 
     // LFPG — Paris Charles de Gaulle
@@ -81,6 +129,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 1',
       averageTaxiTime: 14,
       operatorCodes: ['AAL', 'ANA', 'DLH', 'JAL'],
+      shape: [
+        { latitude: 49.00796, longitude: 2.55312 },
+        { latitude: 49.00796, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55312 },
+      ],
     },
     {
       id: 'b3e7c20d-2201-4f02-9101-9d2f5e3a0002',
@@ -89,6 +143,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 2A',
       averageTaxiTime: 15,
       operatorCodes: ['AFR', 'BAW'],
+      shape: [
+        { latitude: 49.00796, longitude: 2.55312 },
+        { latitude: 49.00796, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55312 },
+      ],
     },
     {
       id: 'b3e7c20d-2201-4f03-9101-9d2f5e3a0003',
@@ -97,6 +157,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 2B',
       averageTaxiTime: 15,
       operatorCodes: ['BEL', 'DLH'],
+      shape: [
+        { latitude: 49.00796, longitude: 2.55312 },
+        { latitude: 49.00796, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55312 },
+      ],
     },
     {
       id: 'b3e7c20d-2201-4f04-9101-9d2f5e3a0004',
@@ -105,6 +171,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 2C',
       averageTaxiTime: 15,
       operatorCodes: ['AFR', 'ANA'],
+      shape: [
+        { latitude: 49.00796, longitude: 2.55312 },
+        { latitude: 49.00796, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55312 },
+      ],
     },
     {
       id: 'b3e7c20d-2201-4f05-9101-9d2f5e3a0005',
@@ -113,6 +185,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 2D',
       averageTaxiTime: 15,
       operatorCodes: ['KLM', 'AFR'],
+      shape: [
+        { latitude: 49.00796, longitude: 2.55312 },
+        { latitude: 49.00796, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55312 },
+      ],
     },
     {
       id: 'b3e7c20d-2201-4f06-9101-9d2f5e3a0006',
@@ -121,6 +199,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 2E',
       averageTaxiTime: 16,
       operatorCodes: ['AFR', 'DAL', 'KLM', 'VIR'],
+      shape: [
+        { latitude: 49.00796, longitude: 2.55312 },
+        { latitude: 49.00796, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55312 },
+      ],
     },
     {
       id: 'b3e7c20d-2201-4f07-9101-9d2f5e3a0007',
@@ -129,6 +213,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 2F',
       averageTaxiTime: 13,
       operatorCodes: ['AFR', 'KLM'],
+      shape: [
+        { latitude: 49.00796, longitude: 2.55312 },
+        { latitude: 49.00796, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55312 },
+      ],
     },
     {
       id: 'b3e7c20d-2201-4f08-9101-9d2f5e3a0008',
@@ -137,6 +227,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 2G',
       averageTaxiTime: 12,
       operatorCodes: ['AFR', 'HOP'],
+      shape: [
+        { latitude: 49.00796, longitude: 2.55312 },
+        { latitude: 49.00796, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55312 },
+      ],
     },
     {
       id: 'b3e7c20d-2201-4f09-9101-9d2f5e3a0009',
@@ -145,6 +241,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal 3',
       averageTaxiTime: 11,
       operatorCodes: ['WZZ', 'RYR'],
+      shape: [
+        { latitude: 49.00796, longitude: 2.55312 },
+        { latitude: 49.00796, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55512 },
+        { latitude: 49.00996, longitude: 2.55312 },
+      ],
     },
 
     // CYYR — Goose Bay
@@ -155,6 +257,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Goose Bay Air Terminal Building',
       averageTaxiTime: 6,
       operatorCodes: ['ACA', 'AIE', 'SPR'],
+      shape: [
+        { latitude: 53.318168, longitude: -60.410444 },
+        { latitude: 53.318168, longitude: -60.408444 },
+        { latitude: 53.320168, longitude: -60.408444 },
+        { latitude: 53.320168, longitude: -60.410444 },
+      ],
     },
 
     // BIKF — Reykjavik Keflavik
@@ -165,6 +273,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Leifur Eiriksson Terminal',
       averageTaxiTime: 8,
       operatorCodes: ['ICE', 'FPY'],
+      shape: [
+        { latitude: 63.984, longitude: -22.6066 },
+        { latitude: 63.984, longitude: -22.6046 },
+        { latitude: 63.986, longitude: -22.6046 },
+        { latitude: 63.986, longitude: -22.6066 },
+      ],
     },
 
     // CYYT — St. John's
@@ -175,6 +289,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: "St. John's Air Terminal Building",
       averageTaxiTime: 7,
       operatorCodes: ['ACA', 'WJA', 'SPR'],
+      shape: [
+        { latitude: 47.61761, longitude: -52.752945 },
+        { latitude: 47.61761, longitude: -52.750945 },
+        { latitude: 47.61961, longitude: -52.750945 },
+        { latitude: 47.61961, longitude: -52.752945 },
+      ],
     },
 
     // KPHL — Philadelphia
@@ -185,6 +305,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal A-East',
       averageTaxiTime: 14,
       operatorCodes: ['AAL', 'BAW', 'QTR'],
+      shape: [
+        { latitude: 39.87013, longitude: -75.24449 },
+        { latitude: 39.87013, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24449 },
+      ],
     },
     {
       id: 'f7c1b2e5-6601-4f02-9101-9b6f9f7a0002',
@@ -193,6 +319,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal A-West',
       averageTaxiTime: 13,
       operatorCodes: ['AAL', 'AFR', 'DLH'],
+      shape: [
+        { latitude: 39.87013, longitude: -75.24449 },
+        { latitude: 39.87013, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24449 },
+      ],
     },
     {
       id: 'f7c1b2e5-6601-4f03-9101-9b6f9f7a0003',
@@ -201,6 +333,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal B',
       averageTaxiTime: 12,
       operatorCodes: ['AAL'],
+      shape: [
+        { latitude: 39.87013, longitude: -75.24449 },
+        { latitude: 39.87013, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24449 },
+      ],
     },
     {
       id: 'f7c1b2e5-6601-4f04-9101-9b6f9f7a0004',
@@ -209,6 +347,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal C',
       averageTaxiTime: 12,
       operatorCodes: ['AAL'],
+      shape: [
+        { latitude: 39.87013, longitude: -75.24449 },
+        { latitude: 39.87013, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24449 },
+      ],
     },
     {
       id: 'f7c1b2e5-6601-4f05-9101-9b6f9f7a0005',
@@ -217,6 +361,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal D',
       averageTaxiTime: 13,
       operatorCodes: ['DAL', 'UAL', 'ACA'],
+      shape: [
+        { latitude: 39.87013, longitude: -75.24449 },
+        { latitude: 39.87013, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24449 },
+      ],
     },
     {
       id: 'f7c1b2e5-6601-4f06-9101-9b6f9f7a0006',
@@ -225,6 +375,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal E',
       averageTaxiTime: 14,
       operatorCodes: ['AAL'],
+      shape: [
+        { latitude: 39.87013, longitude: -75.24449 },
+        { latitude: 39.87013, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24449 },
+      ],
     },
     {
       id: 'f7c1b2e5-6601-4f07-9101-9b6f9f7a0007',
@@ -233,6 +389,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal F',
       averageTaxiTime: 11,
       operatorCodes: ['AAL'],
+      shape: [
+        { latitude: 39.87013, longitude: -75.24449 },
+        { latitude: 39.87013, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24249 },
+        { latitude: 39.87213, longitude: -75.24449 },
+      ],
     },
 
     // KBOS — Boston Logan
@@ -243,6 +405,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal A',
       averageTaxiTime: 13,
       operatorCodes: ['DAL', 'WJA'],
+      shape: [
+        { latitude: 42.36354, longitude: -71.01763 },
+        { latitude: 42.36354, longitude: -71.01563 },
+        { latitude: 42.36554, longitude: -71.01563 },
+        { latitude: 42.36554, longitude: -71.01763 },
+      ],
     },
     {
       id: '08d2c3f6-7701-4f02-9101-9c7faf8a0002',
@@ -251,6 +419,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal B',
       averageTaxiTime: 14,
       operatorCodes: ['AAL', 'UAL'],
+      shape: [
+        { latitude: 42.36354, longitude: -71.01763 },
+        { latitude: 42.36354, longitude: -71.01563 },
+        { latitude: 42.36554, longitude: -71.01563 },
+        { latitude: 42.36554, longitude: -71.01763 },
+      ],
     },
     {
       id: '08d2c3f6-7701-4f03-9101-9c7faf8a0003',
@@ -259,6 +433,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal C',
       averageTaxiTime: 14,
       operatorCodes: ['JBU'],
+      shape: [
+        { latitude: 42.36354, longitude: -71.01763 },
+        { latitude: 42.36354, longitude: -71.01563 },
+        { latitude: 42.36554, longitude: -71.01563 },
+        { latitude: 42.36554, longitude: -71.01763 },
+      ],
     },
     {
       id: '08d2c3f6-7701-4f04-9101-9c7faf8a0004',
@@ -267,6 +447,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Terminal E',
       averageTaxiTime: 16,
       operatorCodes: ['BAW', 'VIR', 'DLH', 'AFR'],
+      shape: [
+        { latitude: 42.36354, longitude: -71.01763 },
+        { latitude: 42.36354, longitude: -71.01563 },
+        { latitude: 42.36554, longitude: -71.01563 },
+        { latitude: 42.36554, longitude: -71.01763 },
+      ],
     },
 
     // EDDW — Bremen
@@ -277,6 +463,12 @@ export async function loadTerminals(): Promise<void> {
       fullName: 'Bremen Hauptterminal',
       averageTaxiTime: 5,
       operatorCodes: ['DLH', 'RYR'],
+      shape: [
+        { latitude: 53.0465, longitude: 8.785667 },
+        { latitude: 53.0465, longitude: 8.787667 },
+        { latitude: 53.0485, longitude: 8.787667 },
+        { latitude: 53.0485, longitude: 8.785667 },
+      ],
     },
   ];
 

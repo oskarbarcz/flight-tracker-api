@@ -42,7 +42,8 @@ Feature: Create terminal
         "fullName": "Terminal 3",
         "averageTaxiTime": 10,
         "operatorCodes": ["KLM"],
-        "text": null
+        "text": null,
+        "shape": null
       }
       """
     And I set database to initial state
@@ -69,7 +70,46 @@ Feature: Create terminal
         "fullName": "Terminal 3",
         "averageTaxiTime": 10,
         "operatorCodes": ["KLM"],
-        "text": "Gates 1-20. Remote stands accessed via bus."
+        "text": "Gates 1-20. Remote stands accessed via bus.",
+        "shape": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I can create terminal with shape polygon
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/terminal" with body:
+      """json
+      {
+        "shortName": "T3",
+        "fullName": "Terminal 3",
+        "averageTaxiTime": 10,
+        "operatorCodes": ["KLM"],
+        "shape": [
+          { "latitude": 50.0468, "longitude": 8.5728 },
+          { "latitude": 50.047, "longitude": 8.576 },
+          { "latitude": 50.0455, "longitude": 8.5762 },
+          { "latitude": 50.0453, "longitude": 8.573 }
+        ]
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "shortName": "T3",
+        "fullName": "Terminal 3",
+        "averageTaxiTime": 10,
+        "operatorCodes": ["KLM"],
+        "text": null,
+        "shape": [
+          { "latitude": 50.0468, "longitude": 8.5728 },
+          { "latitude": 50.047, "longitude": 8.576 },
+          { "latitude": 50.0455, "longitude": 8.5762 },
+          { "latitude": 50.0453, "longitude": 8.573 }
+        ]
       }
       """
     And I set database to initial state

@@ -19,7 +19,8 @@ Feature: List airports
           "location": {
             "longitude": 8.57397,
             "latitude": 50.04693
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
@@ -33,7 +34,8 @@ Feature: List airports
           "location": {
             "longitude": 20.967123,
             "latitude": 52.16575
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -47,7 +49,8 @@ Feature: List airports
           "location": {
             "longitude": -73.7781,
             "latitude": 40.6413
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "79b8f884-f67d-4585-b540-36b0be7f551e",
@@ -61,7 +64,8 @@ Feature: List airports
           "location": {
             "longitude": 2.55412,
             "latitude": 49.00896
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "fa8ee2e9-fb94-4416-9ed0-4811efd488ae",
@@ -75,7 +79,8 @@ Feature: List airports
           "location": {
             "longitude": -60.409444,
             "latitude": 53.319168
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
@@ -89,7 +94,8 @@ Feature: List airports
           "location": {
             "longitude": -22.6056,
             "latitude": 63.985
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
@@ -103,7 +109,8 @@ Feature: List airports
           "location": {
             "longitude": -52.751945,
             "latitude": 47.61861
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
@@ -117,7 +124,8 @@ Feature: List airports
           "location": {
             "longitude": -75.24349,
             "latitude": 39.87113
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
@@ -131,7 +139,8 @@ Feature: List airports
           "location": {
             "longitude": -71.01663,
             "latitude": 42.36454
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
@@ -145,7 +154,8 @@ Feature: List airports
           "location": {
             "longitude": 8.786667,
             "latitude": 53.0475
-          }
+          },
+          "shape": "@any"
         }
       ]
       """
@@ -179,7 +189,8 @@ Feature: List airports
           "location": {
             "longitude": 8.57397,
             "latitude": 50.04693
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
@@ -193,7 +204,8 @@ Feature: List airports
           "location": {
             "longitude": 20.967123,
             "latitude": 52.16575
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "79b8f884-f67d-4585-b540-36b0be7f551e",
@@ -207,7 +219,8 @@ Feature: List airports
           "location": {
             "longitude": 2.55412,
             "latitude": 49.00896
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
@@ -221,7 +234,8 @@ Feature: List airports
           "location": {
             "longitude": -22.6056,
             "latitude": 63.985
-          }
+          },
+          "shape": "@any"
         },
         {
           "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
@@ -235,7 +249,8 @@ Feature: List airports
           "location": {
             "longitude": 8.786667,
             "latitude": 53.0475
-          }
+          },
+          "shape": "@any"
         }
       ]
       """

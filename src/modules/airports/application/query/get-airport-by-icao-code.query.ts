@@ -29,6 +29,7 @@ export class GetAirportByIcaoCodeHandler implements IQueryHandler<GetAirportByIc
       ...airport,
       location: airport.location as unknown as Coordinates,
       continent: airport.continent as Continent,
+      shape: airport.shape as unknown as Coordinates[] | null,
     };
   }
 }

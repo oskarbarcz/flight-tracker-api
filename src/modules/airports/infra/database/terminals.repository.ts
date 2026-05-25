@@ -14,6 +14,7 @@ const selectTerminal = {
   averageTaxiTime: true,
   operatorCodes: true,
   text: true,
+  shape: true,
 } as const satisfies Prisma.TerminalSelect;
 
 type TerminalView = Prisma.TerminalGetPayload<{
@@ -34,6 +35,10 @@ export class TerminalsRepository {
         id: terminalId,
         ...data,
         operatorCodes: data.operatorCodes as Prisma.JsonArray,
+        shape:
+          data.shape == null
+            ? Prisma.DbNull
+            : (data.shape as unknown as Prisma.InputJsonValue),
         airport: { connect: { id: airportId } },
       },
       select: selectTerminal,
@@ -66,6 +71,12 @@ export class TerminalsRepository {
           data.operatorCodes !== undefined
             ? (data.operatorCodes as Prisma.JsonArray)
             : undefined,
+        shape:
+          data.shape === undefined
+            ? undefined
+            : data.shape === null
+              ? Prisma.DbNull
+              : (data.shape as unknown as Prisma.InputJsonValue),
       },
     });
   }

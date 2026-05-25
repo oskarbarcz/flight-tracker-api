@@ -13,7 +13,8 @@ Feature: Get terminal
         "fullName": "Terminal 1",
         "averageTaxiTime": 12,
         "operatorCodes": ["DLH", "LOT"],
-        "text": null
+        "text": null,
+        "shape": "@any"
       }
       """
 

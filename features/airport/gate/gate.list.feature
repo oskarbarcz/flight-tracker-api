@@ -26,7 +26,8 @@ Feature: List gates at an airport
           "noiseSensitivityText": null,
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
-          "fuelingOptions": "hydrant"
+          "fuelingOptions": "hydrant",
+          "coordinates": "@any"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
@@ -47,7 +48,8 @@ Feature: List gates at an airport
           "noiseSensitivityText": "Night curfew: no engine runs or pushbacks permitted.",
           "noiseSensitivityStartTime": "21:00",
           "noiseSensitivityEndTime": "05:00",
-          "fuelingOptions": "truck"
+          "fuelingOptions": "truck",
+          "coordinates": "@any"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2201",
@@ -68,7 +70,8 @@ Feature: List gates at an airport
           "noiseSensitivityText": null,
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
-          "fuelingOptions": "hydrant"
+          "fuelingOptions": "hydrant",
+          "coordinates": "@any"
         }
       ]
       """
@@ -99,7 +102,8 @@ Feature: List gates at an airport
           "noiseSensitivityText": null,
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
-          "fuelingOptions": "hydrant"
+          "fuelingOptions": "hydrant",
+          "coordinates": "@any"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
@@ -120,7 +124,8 @@ Feature: List gates at an airport
           "noiseSensitivityText": "Night curfew: no engine runs or pushbacks permitted.",
           "noiseSensitivityStartTime": "21:00",
           "noiseSensitivityEndTime": "05:00",
-          "fuelingOptions": "truck"
+          "fuelingOptions": "truck",
+          "coordinates": "@any"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2201",
@@ -141,7 +146,8 @@ Feature: List gates at an airport
           "noiseSensitivityText": null,
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
-          "fuelingOptions": "hydrant"
+          "fuelingOptions": "hydrant",
+          "coordinates": "@any"
         }
       ]
       """
@@ -172,7 +178,8 @@ Feature: List gates at an airport
           "noiseSensitivityText": null,
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
-          "fuelingOptions": "hydrant"
+          "fuelingOptions": "hydrant",
+          "coordinates": "@any"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
@@ -193,7 +200,8 @@ Feature: List gates at an airport
           "noiseSensitivityText": "Night curfew: no engine runs or pushbacks permitted.",
           "noiseSensitivityStartTime": "21:00",
           "noiseSensitivityEndTime": "05:00",
-          "fuelingOptions": "truck"
+          "fuelingOptions": "truck",
+          "coordinates": "@any"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2201",
@@ -214,7 +222,8 @@ Feature: List gates at an airport
           "noiseSensitivityText": null,
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
-          "fuelingOptions": "hydrant"
+          "fuelingOptions": "hydrant",
+          "coordinates": "@any"
         }
       ]
       """

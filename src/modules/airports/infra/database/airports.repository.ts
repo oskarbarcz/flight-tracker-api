@@ -22,6 +22,7 @@ const selectAirport = {
   timezone: true,
   location: true,
   continent: true,
+  shape: true,
 } as const satisfies Prisma.AirportSelect;
 
 type AirportView = Prisma.AirportGetPayload<{
@@ -49,6 +50,10 @@ export class AirportsRepository {
         id: airportId,
         ...data,
         location: data.location as unknown as Prisma.JsonObject,
+        shape:
+          data.shape == null
+            ? Prisma.DbNull
+            : (data.shape as unknown as Prisma.InputJsonValue),
       },
       select: selectAirport,
     });
@@ -85,6 +90,12 @@ export class AirportsRepository {
       data: {
         ...data,
         location: data.location as unknown as Prisma.JsonObject,
+        shape:
+          data.shape === undefined
+            ? undefined
+            : data.shape === null
+              ? Prisma.DbNull
+              : (data.shape as unknown as Prisma.InputJsonValue),
       },
       select: selectAirport,
     });

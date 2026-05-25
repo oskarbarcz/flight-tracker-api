@@ -72,7 +72,8 @@ Feature: Create gate
         "noiseSensitivityText": null,
         "noiseSensitivityStartTime": null,
         "noiseSensitivityEndTime": null,
-        "fuelingOptions": "hydrant"
+        "fuelingOptions": "hydrant",
+        "coordinates": null
       }
       """
     And I set database to initial state
@@ -123,7 +124,57 @@ Feature: Create gate
         "noiseSensitivityText": "Curfew window, no ops permitted.",
         "noiseSensitivityStartTime": "22:30",
         "noiseSensitivityEndTime": "04:45",
-        "fuelingOptions": "hydrant"
+        "fuelingOptions": "hydrant",
+        "coordinates": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I can create gate with parking coordinates
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate" with body:
+      """json
+      {
+        "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+        "name": "A22",
+        "bridge": "yes",
+        "stairs": "no",
+        "deicing": "possible",
+        "gpu": "bridge",
+        "pca": "bridge",
+        "parkingPositionType": "straight-in",
+        "parkingSpotType": "passenger",
+        "parkingAssistance": "vdgs",
+        "location": "gate",
+        "noiseSensitivity": "no",
+        "fuelingOptions": "hydrant",
+        "coordinates": { "latitude": 50.04694, "longitude": 8.57398 }
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+        "name": "A22",
+        "bridge": "yes",
+        "stairs": "no",
+        "deicing": "possible",
+        "deicingDescription": null,
+        "gpu": "bridge",
+        "pca": "bridge",
+        "parkingPositionType": "straight-in",
+        "parkingSpotType": "passenger",
+        "parkingAssistance": "vdgs",
+        "location": "gate",
+        "noiseSensitivity": "no",
+        "noiseSensitivityText": null,
+        "noiseSensitivityStartTime": null,
+        "noiseSensitivityEndTime": null,
+        "fuelingOptions": "hydrant",
+        "coordinates": { "latitude": 50.04694, "longitude": 8.57398 }
       }
       """
     And I set database to initial state

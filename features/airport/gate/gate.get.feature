@@ -25,7 +25,8 @@ Feature: Get gate
         "noiseSensitivityText": null,
         "noiseSensitivityStartTime": null,
         "noiseSensitivityEndTime": null,
-        "fuelingOptions": "hydrant"
+        "fuelingOptions": "hydrant",
+        "coordinates": "@any"
       }
       """
 
@@ -54,7 +55,8 @@ Feature: Get gate
         "noiseSensitivityText": null,
         "noiseSensitivityStartTime": null,
         "noiseSensitivityEndTime": null,
-        "fuelingOptions": "hydrant"
+        "fuelingOptions": "hydrant",
+        "coordinates": "@any"
       }
       """
 
@@ -83,7 +85,8 @@ Feature: Get gate
         "noiseSensitivityText": null,
         "noiseSensitivityStartTime": null,
         "noiseSensitivityEndTime": null,
-        "fuelingOptions": "hydrant"
+        "fuelingOptions": "hydrant",
+        "coordinates": "@any"
       }
       """
 

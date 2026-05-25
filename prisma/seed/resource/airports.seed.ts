@@ -16,6 +16,12 @@ export async function loadAirports(): Promise<void> {
       longitude: 8.57397,
       latitude: 50.04693,
     },
+    shape: [
+      { latitude: 50.03693, longitude: 8.56397 },
+      { latitude: 50.03693, longitude: 8.58397 },
+      { latitude: 50.05693, longitude: 8.58397 },
+      { latitude: 50.05693, longitude: 8.56397 },
+    ],
   };
 
   const warsaw: Prisma.AirportCreateInput = {
@@ -31,6 +37,12 @@ export async function loadAirports(): Promise<void> {
       longitude: 20.967123,
       latitude: 52.16575,
     },
+    shape: [
+      { latitude: 52.15575, longitude: 20.957123 },
+      { latitude: 52.15575, longitude: 20.977123 },
+      { latitude: 52.17575, longitude: 20.977123 },
+      { latitude: 52.17575, longitude: 20.957123 },
+    ],
   };
 
   const newYork: Prisma.AirportCreateInput = {
@@ -46,6 +58,12 @@ export async function loadAirports(): Promise<void> {
       longitude: -73.7781,
       latitude: 40.6413,
     },
+    shape: [
+      { latitude: 40.6313, longitude: -73.7881 },
+      { latitude: 40.6313, longitude: -73.7681 },
+      { latitude: 40.6513, longitude: -73.7681 },
+      { latitude: 40.6513, longitude: -73.7881 },
+    ],
   };
 
   const paris: Prisma.AirportCreateInput = {
@@ -61,6 +79,12 @@ export async function loadAirports(): Promise<void> {
       longitude: 2.55412,
       latitude: 49.00896,
     },
+    shape: [
+      { latitude: 48.99896, longitude: 2.54412 },
+      { latitude: 48.99896, longitude: 2.56412 },
+      { latitude: 49.01896, longitude: 2.56412 },
+      { latitude: 49.01896, longitude: 2.54412 },
+    ],
   };
 
   const gooseBay: Prisma.AirportCreateInput = {
@@ -76,6 +100,12 @@ export async function loadAirports(): Promise<void> {
       longitude: -60.409444,
       latitude: 53.319168,
     },
+    shape: [
+      { latitude: 53.309168, longitude: -60.419444 },
+      { latitude: 53.309168, longitude: -60.399444 },
+      { latitude: 53.329168, longitude: -60.399444 },
+      { latitude: 53.329168, longitude: -60.419444 },
+    ],
   };
 
   const reykjavik: Prisma.AirportCreateInput = {
@@ -91,6 +121,12 @@ export async function loadAirports(): Promise<void> {
       longitude: -22.6056,
       latitude: 63.985,
     },
+    shape: [
+      { latitude: 63.975, longitude: -22.6156 },
+      { latitude: 63.975, longitude: -22.5956 },
+      { latitude: 63.995, longitude: -22.5956 },
+      { latitude: 63.995, longitude: -22.6156 },
+    ],
   };
 
   const stJohns: Prisma.AirportCreateInput = {
@@ -106,6 +142,12 @@ export async function loadAirports(): Promise<void> {
       longitude: -52.751945,
       latitude: 47.61861,
     },
+    shape: [
+      { latitude: 47.60861, longitude: -52.761945 },
+      { latitude: 47.60861, longitude: -52.741945 },
+      { latitude: 47.62861, longitude: -52.741945 },
+      { latitude: 47.62861, longitude: -52.761945 },
+    ],
   };
 
   const philadelphia: Prisma.AirportCreateInput = {
@@ -121,6 +163,12 @@ export async function loadAirports(): Promise<void> {
       longitude: -75.24349,
       latitude: 39.87113,
     },
+    shape: [
+      { latitude: 39.86113, longitude: -75.25349 },
+      { latitude: 39.86113, longitude: -75.23349 },
+      { latitude: 39.88113, longitude: -75.23349 },
+      { latitude: 39.88113, longitude: -75.25349 },
+    ],
   };
 
   const boston: Prisma.AirportCreateInput = {
@@ -136,6 +184,12 @@ export async function loadAirports(): Promise<void> {
       longitude: -71.01663,
       latitude: 42.36454,
     },
+    shape: [
+      { latitude: 42.35454, longitude: -71.02663 },
+      { latitude: 42.35454, longitude: -71.00663 },
+      { latitude: 42.37454, longitude: -71.00663 },
+      { latitude: 42.37454, longitude: -71.02663 },
+    ],
   };
 
   const bremen: Prisma.AirportCreateInput = {
@@ -151,6 +205,12 @@ export async function loadAirports(): Promise<void> {
       longitude: 8.786667,
       latitude: 53.0475,
     },
+    shape: [
+      { latitude: 53.0375, longitude: 8.776667 },
+      { latitude: 53.0375, longitude: 8.796667 },
+      { latitude: 53.0575, longitude: 8.796667 },
+      { latitude: 53.0575, longitude: 8.776667 },
+    ],
   };
 
   const prisma = new PrismaService();

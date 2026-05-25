@@ -18,7 +18,8 @@ Feature: Get airport
         "location": {
           "longitude": 8.57397,
           "latitude": 50.04693
-        }
+        },
+        "shape": "@any"
       }
       """
 
@@ -40,7 +41,8 @@ Feature: Get airport
         "location": {
           "longitude": 8.57397,
           "latitude": 50.04693
-        }
+        },
+        "shape": "@any"
       }
       """
 
@@ -62,7 +64,8 @@ Feature: Get airport
         "location": {
           "longitude": 8.57397,
           "latitude": 50.04693
-        }
+        },
+        "shape": "@any"
       }
       """
 

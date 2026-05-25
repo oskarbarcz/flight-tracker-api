@@ -1,13 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  ArrayMinSize,
+  IsArray,
   IsEnum,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   IsTimeZone,
   Length,
   Max,
   Min,
+  ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -114,6 +118,21 @@ export class Airport {
   @IsNotEmpty()
   @IsEnum(Continent)
   continent!: Continent;
+
+  @ApiProperty({
+    description: 'Airport boundary polygon as a list of coordinates',
+    type: [Coordinates],
+    minItems: 3,
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  @IsOptional()
+  @IsArray()
+  @ArrayMinSize(3)
+  @ValidateNested({ each: true })
+  @Type(() => Coordinates)
+  shape?: Coordinates[] | null;
 }
 
 export enum AirportType {

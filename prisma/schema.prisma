@@ -33,6 +33,7 @@ model Airport {
   timezone  String
   continent Continent
   location  Json      @default("{\"latitude\": 0, \"longitude\": 0}")
+  shape     Json?
 
   airportsOnFlights AirportsOnFlights[]
   diversion         Diversion[]
@@ -71,6 +72,7 @@ model Terminal {
   averageTaxiTime Int
   operatorCodes   Json    @default("[]")
   text            String? @db.Text
+  shape           Json?
 
   airport Airport @relation(fields: [airportId], references: [id], onDelete: Cascade)
   gates   Gate[]
@@ -98,6 +100,7 @@ model Gate {
   noiseSensitivityStartTime String? @db.VarChar(5)
   noiseSensitivityEndTime   String? @db.VarChar(5)
   fuelingOptions            String  @db.VarChar(32)
+  coordinates               Json?
 
   terminal         Terminal @relation(fields: [terminalId], references: [id], onDelete: Cascade)
   departureFlights Flight[] @relation("FlightDepartureGate")

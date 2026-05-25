@@ -7,9 +7,12 @@ import {
   IsString,
   IsUUID,
   MaxLength,
+  ValidateNested,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 import { YesOrNoString } from 'src/core/types/monada';
 import { TerminalId } from './terminal.model';
+import { Coordinates } from './airport.model';
 
 export type GateId = string & {};
 
@@ -239,4 +242,16 @@ export class Gate {
   })
   @IsEnum(FuelingOptions)
   fuelingOptions!: FuelingOptions;
+
+  @ApiProperty({
+    description: 'Gate parking position coordinates',
+    type: Coordinates,
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => Coordinates)
+  coordinates?: Coordinates | null;
 }
