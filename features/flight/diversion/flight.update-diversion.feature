@@ -78,6 +78,78 @@ Feature: Update a flight diversion
       """json
       [
         {
+          "id": "b1d1e0f0-1111-4111-8111-111111111101",
+          "scope": "operations",
+          "type": "flight.created",
+          "payload": {},
+          "actor": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+          "createdAt": "2025-01-01T11:00:00.000Z"
+        },
+        {
+          "id": "b1d1e0f0-1111-4111-8111-111111111102",
+          "scope": "operations",
+          "type": "flight.preliminary-loadsheet-updated",
+          "payload": {},
+          "actor": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+          "createdAt": "2025-01-01T11:05:00.000Z"
+        },
+        {
+          "id": "b1d1e0f0-1111-4111-8111-111111111103",
+          "scope": "operations",
+          "type": "flight.released",
+          "payload": {},
+          "actor": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+          "createdAt": "2025-01-01T11:10:00.000Z"
+        },
+        {
+          "id": "b1d1e0f0-1111-4111-8111-111111111104",
+          "scope": "user",
+          "type": "flight.pilot-checked-in",
+          "payload": {},
+          "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "createdAt": "2025-01-01T12:00:00.000Z"
+        },
+        {
+          "id": "b1d1e0f0-1111-4111-8111-111111111105",
+          "scope": "user",
+          "type": "flight.boarding-started",
+          "payload": {},
+          "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "createdAt": "2025-01-01T12:40:00.000Z"
+        },
+        {
+          "id": "b1d1e0f0-1111-4111-8111-111111111106",
+          "scope": "user",
+          "type": "flight.boarding-finished",
+          "payload": {},
+          "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "createdAt": "2025-01-01T13:05:00.000Z"
+        },
+        {
+          "id": "b1d1e0f0-1111-4111-8111-111111111107",
+          "scope": "user",
+          "type": "flight.off-block-reported",
+          "payload": {},
+          "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "createdAt": "2025-01-01T13:10:00.000Z"
+        },
+        {
+          "id": "b1d1e0f0-1111-4111-8111-111111111108",
+          "scope": "user",
+          "type": "flight.takeoff-reported",
+          "payload": {},
+          "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "createdAt": "2025-01-01T13:25:00.000Z"
+        },
+        {
+          "id": "b1d1e0f0-1111-4111-8111-111111111109",
+          "scope": "user",
+          "type": "flight.diversion-reported",
+          "payload": {},
+          "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "createdAt": "2025-01-01T14:25:00.000Z"
+        },
+        {
           "id": "@uuid",
           "scope": "operations",
           "type": "flight.diversion-updated",
