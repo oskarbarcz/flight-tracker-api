@@ -1,5 +1,5 @@
 import { Diversion } from '../../../model/diversion.model';
-import { PickType } from '@nestjs/swagger';
+import { PartialType, PickType } from '@nestjs/swagger';
 
 export class ReportDiversionRequest extends PickType(Diversion, [
   'severity',
@@ -12,6 +12,10 @@ export class ReportDiversionRequest extends PickType(Diversion, [
   'airportId',
   'estimatedTimeAtDestination',
 ]) {}
+
+export class UpdateDiversionRequest extends PartialType(
+  ReportDiversionRequest,
+) {}
 
 export class GetDiversionResponse extends PickType(Diversion, [
   'id',

@@ -1,13 +1,9 @@
-import {
-  BadRequestException,
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import {
-  ReportDiversionRequest,
   GetDiversionResponse,
+  ReportDiversionRequest,
+  UpdateDiversionRequest,
 } from '../../http/request/diversion.dto';
 import { Prisma, UserRole } from 'prisma/client/client';
 import { JwtUser } from '../../../../auth/infra/http/request/jwt-user.dto';
@@ -21,6 +17,12 @@ import {
   Continent,
   Coordinates,
 } from '../../../../airports/model/airport.model';
+import { FlightDoesNotExistError } from '../../../model/error/flight.error';
+import {
+  ActiveDiversionAlreadyExistsError,
+  DiversionNotFoundError,
+  InvalidStatusToReportDiversionError,
+} from '../../../model/error/diversion.error';
 
 const diversionWithPayloadQuery = {
   id: true,
@@ -62,9 +64,7 @@ export class DiversionRepository {
     data: ReportDiversionRequest,
   ): Promise<void> {
     if (await this.existsActiveDiversion(flightId)) {
-      throw new ConflictException(
-        'Active diversion already exists for this flight',
-      );
+      throw new ActiveDiversionAlreadyExistsError();
     }
 
     const flight = await this.prisma.flight.findUnique({
@@ -72,16 +72,14 @@ export class DiversionRepository {
     });
 
     if (!flight) {
-      throw new NotFoundException('Flight was not found');
+      throw new FlightDoesNotExistError();
     }
 
     if (
       flight.status !== FlightStatus.InCruise &&
       flight.status !== FlightStatus.TaxiingOut
     ) {
-      throw new BadRequestException(
-        'Diversion can be reported to flights in Taxiing Out or In Cruise status only',
-      );
+      throw new InvalidStatusToReportDiversionError();
     }
 
     const reporterRole: DiversionReporterRole =
@@ -107,6 +105,22 @@ export class DiversionRepository {
     ]);
   }
 
+  public async update(
+    flightId: string,
+    data: UpdateDiversionRequest,
+  ): Promise<void> {
+    const { position, ...rest } = data;
+    const updateData: Prisma.DiversionUpdateInput = { ...rest };
+    if (position !== undefined) {
+      updateData.position = position as unknown as Prisma.InputJsonValue;
+    }
+
+    await this.prisma.diversion.update({
+      where: { flightId },
+      data: updateData,
+    });
+  }
+
   public async get(flightId: string): Promise<GetDiversionResponse> {
     const diversion = (await this.prisma.diversion.findUnique({
       where: { flightId },
@@ -114,9 +128,7 @@ export class DiversionRepository {
     })) as DiversionWithAirport | null;
 
     if (!diversion) {
-      throw new NotFoundException(
-        'Diversion was not reported for this flight.',
-      );
+      throw new DiversionNotFoundError();
     }
 
     return {

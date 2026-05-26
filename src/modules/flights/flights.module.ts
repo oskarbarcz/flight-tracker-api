@@ -45,6 +45,7 @@ import { CloseFlightAction } from './infra/http/action/lifecycle/close-flight.ac
 // diversion
 import { ReportDiversionAction } from './infra/http/action/diversion/report-diversion.action';
 import { GetDiversionAction } from './infra/http/action/diversion/get-diversion.action';
+import { UpdateDiversionAction } from './infra/http/action/diversion/update-diversion.action';
 // emergency
 import { DeclareEmergencyAction } from './infra/http/action/emergency/declare-emergency.action';
 import { UpdateEmergencyAction } from './infra/http/action/emergency/update-emergency.action';
@@ -96,6 +97,7 @@ import { RemoveFlightFromRotationHandler } from './application/command/rotation/
 import { ListEventsHandler } from './application/query/events/list-events.query';
 import { GetDiversionHandler } from './application/query/diversion/get-diversion.query';
 import { ReportFlightDiversionHandler } from './application/command/diversion/report-flight-diversion.command';
+import { UpdateFlightDiversionHandler } from './application/command/diversion/update-flight-diversion.command';
 
 @Module({
   imports: [PrismaModule, DiscordModule, AdsbModule, SimbriefModule],
@@ -133,6 +135,7 @@ import { ReportFlightDiversionHandler } from './application/command/diversion/re
 
     ReportDiversionAction,
     GetDiversionAction,
+    UpdateDiversionAction,
 
     DeclareEmergencyAction,
     UpdateEmergencyAction,
@@ -191,6 +194,7 @@ import { ReportFlightDiversionHandler } from './application/command/diversion/re
     ListEventsHandler,
     GetDiversionHandler,
     ReportFlightDiversionHandler,
+    UpdateFlightDiversionHandler,
   ],
 })
 export class FlightsModule {}

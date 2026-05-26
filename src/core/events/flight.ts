@@ -25,4 +25,6 @@ export enum FlightEventType {
   EmergencyWasDeclared = 'flight.emergency-declared',
   EmergencyWasUpdated = 'flight.emergency-updated',
   EmergencyWasResolved = 'flight.emergency-resolved',
+  DiversionWasReported = 'flight.diversion-reported',
+  DiversionWasUpdated = 'flight.diversion-updated',
 }
