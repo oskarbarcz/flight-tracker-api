@@ -55,6 +55,9 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
               location: airportOnFlight.airport
                 .location as unknown as Coordinates,
               continent: airportOnFlight.airport.continent as Continent,
+              shape: airportOnFlight.airport.shape as unknown as
+                | Coordinates[]
+                | null,
               type: airportOnFlight.airportType as AirportType,
             }),
           ),

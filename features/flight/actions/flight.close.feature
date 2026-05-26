@@ -131,7 +131,13 @@ Feature: Close flight
               "longitude": -71.01663,
               "latitude": 42.36454
             },
-            "type": "departure"
+            "type": "departure",
+            "shape": [
+              { "latitude": 42.35454, "longitude": -71.02663 },
+              { "latitude": 42.35454, "longitude": -71.00663 },
+              { "latitude": 42.37454, "longitude": -71.00663 },
+              { "latitude": 42.37454, "longitude": -71.02663 }
+            ]
           },
           {
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
@@ -146,7 +152,13 @@ Feature: Close flight
             "location": {
               "longitude": -75.24349,
               "latitude": 39.87113
-            }
+            },
+            "shape": [
+              { "latitude": 39.86113, "longitude": -75.25349 },
+              { "latitude": 39.86113, "longitude": -75.23349 },
+              { "latitude": 39.88113, "longitude": -75.23349 },
+              { "latitude": 39.88113, "longitude": -75.25349 }
+            ]
           },
           {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -161,7 +173,13 @@ Feature: Close flight
               "longitude": -73.7781,
               "latitude": 40.6413
             },
-            "type": "destination_alternate"
+            "type": "destination_alternate",
+            "shape": [
+              { "latitude": 40.6313, "longitude": -73.7881 },
+              { "latitude": 40.6313, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7881 }
+            ]
           }
         ],
         "departureGateId": null,
@@ -438,7 +456,13 @@ Feature: Close flight
               "latitude": 40.6413,
               "longitude": -73.7781
             },
-            "type": "departure"
+            "type": "departure",
+            "shape": [
+              { "latitude": 40.6313, "longitude": -73.7881 },
+              { "latitude": 40.6313, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7881 }
+            ]
           },
           {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
@@ -453,7 +477,13 @@ Feature: Close flight
               "latitude": 50.04693,
               "longitude": 8.57397
             },
-            "type": "destination"
+            "type": "destination",
+            "shape": [
+              { "latitude": 50.03693, "longitude": 8.56397 },
+              { "latitude": 50.03693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.56397 }
+            ]
           },
           {
             "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
@@ -468,7 +498,13 @@ Feature: Close flight
               "latitude": 53.0475,
               "longitude": 8.786667
             },
-            "type": "destination_alternate"
+            "type": "destination_alternate",
+            "shape": [
+              { "latitude": 53.0375, "longitude": 8.776667 },
+              { "latitude": 53.0375, "longitude": 8.796667 },
+              { "latitude": 53.0575, "longitude": 8.796667 },
+              { "latitude": 53.0575, "longitude": 8.776667 }
+            ]
           },
           {
             "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
@@ -483,7 +519,13 @@ Feature: Close flight
               "latitude": 63.985,
               "longitude": -22.6056
             },
-            "type": "etops_alternate"
+            "type": "etops_alternate",
+            "shape": [
+              { "latitude": 63.975, "longitude": -22.6156 },
+              { "latitude": 63.975, "longitude": -22.5956 },
+              { "latitude": 63.995, "longitude": -22.5956 },
+              { "latitude": 63.995, "longitude": -22.6156 }
+            ]
           },
           {
             "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
@@ -498,7 +540,13 @@ Feature: Close flight
               "latitude": 47.61861,
               "longitude": -52.751945
             },
-            "type": "etops_alternate"
+            "type": "etops_alternate",
+            "shape": [
+              { "latitude": 47.60861, "longitude": -52.761945 },
+              { "latitude": 47.60861, "longitude": -52.741945 },
+              { "latitude": 47.62861, "longitude": -52.741945 },
+              { "latitude": 47.62861, "longitude": -52.761945 }
+            ]
           }
         ],
         "departureGateId": null,
@@ -858,7 +906,13 @@ Feature: Close flight
             "timezone": "America/New_York",
             "continent": "north_america",
             "location": { "longitude": -71.01663, "latitude": 42.36454 },
-            "type": "departure"
+            "type": "departure",
+            "shape": [
+              { "latitude": 42.35454, "longitude": -71.02663 },
+              { "latitude": 42.35454, "longitude": -71.00663 },
+              { "latitude": 42.37454, "longitude": -71.00663 },
+              { "latitude": 42.37454, "longitude": -71.02663 }
+            ]
           },
           {
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
@@ -870,7 +924,13 @@ Feature: Close flight
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
-            "location": { "longitude": -75.24349, "latitude": 39.87113 }
+            "location": { "longitude": -75.24349, "latitude": 39.87113 },
+            "shape": [
+              { "latitude": 39.86113, "longitude": -75.25349 },
+              { "latitude": 39.86113, "longitude": -75.23349 },
+              { "latitude": 39.88113, "longitude": -75.23349 },
+              { "latitude": 39.88113, "longitude": -75.25349 }
+            ]
           },
           {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -882,7 +942,13 @@ Feature: Close flight
             "timezone": "America/New_York",
             "continent": "north_america",
             "location": { "longitude": -73.7781, "latitude": 40.6413 },
-            "type": "destination_alternate"
+            "type": "destination_alternate",
+            "shape": [
+              { "latitude": 40.6313, "longitude": -73.7881 },
+              { "latitude": 40.6313, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7881 }
+            ]
           }
         ],
         "departureGateId": null,
@@ -1018,7 +1084,13 @@ Feature: Close flight
             "timezone": "America/New_York",
             "continent": "north_america",
             "location": { "longitude": -71.01663, "latitude": 42.36454 },
-            "type": "departure"
+            "type": "departure",
+            "shape": [
+              { "latitude": 42.35454, "longitude": -71.02663 },
+              { "latitude": 42.35454, "longitude": -71.00663 },
+              { "latitude": 42.37454, "longitude": -71.00663 },
+              { "latitude": 42.37454, "longitude": -71.02663 }
+            ]
           },
           {
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
@@ -1030,7 +1102,13 @@ Feature: Close flight
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
-            "location": { "longitude": -75.24349, "latitude": 39.87113 }
+            "location": { "longitude": -75.24349, "latitude": 39.87113 },
+            "shape": [
+              { "latitude": 39.86113, "longitude": -75.25349 },
+              { "latitude": 39.86113, "longitude": -75.23349 },
+              { "latitude": 39.88113, "longitude": -75.23349 },
+              { "latitude": 39.88113, "longitude": -75.25349 }
+            ]
           },
           {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -1042,7 +1120,13 @@ Feature: Close flight
             "timezone": "America/New_York",
             "continent": "north_america",
             "location": { "longitude": -73.7781, "latitude": 40.6413 },
-            "type": "destination_alternate"
+            "type": "destination_alternate",
+            "shape": [
+              { "latitude": 40.6313, "longitude": -73.7881 },
+              { "latitude": 40.6313, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7881 }
+            ]
           }
         ],
         "departureGateId": null,

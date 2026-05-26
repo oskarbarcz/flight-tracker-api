@@ -102,7 +102,13 @@ Feature: Resolve a flight emergency
             "timezone": "Europe/Berlin",
             "continent": "europe",
             "location": { "longitude": 8.57397, "latitude": 50.04693 },
-            "type": "departure"
+            "type": "departure",
+            "shape": [
+              { "latitude": 50.03693, "longitude": 8.56397 },
+              { "latitude": 50.03693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.56397 }
+            ]
           },
           {
             "id": "79b8f884-f67d-4585-b540-36b0be7f551e",
@@ -114,7 +120,13 @@ Feature: Resolve a flight emergency
             "timezone": "Europe/Paris",
             "continent": "europe",
             "location": { "longitude": 2.55412, "latitude": 49.00896 },
-            "type": "destination"
+            "type": "destination",
+            "shape": [
+              { "latitude": 48.99896, "longitude": 2.54412 },
+              { "latitude": 48.99896, "longitude": 2.56412 },
+              { "latitude": 49.01896, "longitude": 2.56412 },
+              { "latitude": 49.01896, "longitude": 2.54412 }
+            ]
           }
         ],
         "rotationId": null,
@@ -246,7 +258,13 @@ Feature: Resolve a flight emergency
             "timezone": "Europe/Berlin",
             "continent": "europe",
             "location": { "longitude": 8.57397, "latitude": 50.04693 },
-            "type": "departure"
+            "type": "departure",
+            "shape": [
+              { "latitude": 50.03693, "longitude": 8.56397 },
+              { "latitude": 50.03693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.56397 }
+            ]
           },
           {
             "id": "79b8f884-f67d-4585-b540-36b0be7f551e",
@@ -258,7 +276,13 @@ Feature: Resolve a flight emergency
             "timezone": "Europe/Paris",
             "continent": "europe",
             "location": { "longitude": 2.55412, "latitude": 49.00896 },
-            "type": "destination"
+            "type": "destination",
+            "shape": [
+              { "latitude": 48.99896, "longitude": 2.54412 },
+              { "latitude": 48.99896, "longitude": 2.56412 },
+              { "latitude": 49.01896, "longitude": 2.56412 },
+              { "latitude": 49.01896, "longitude": 2.54412 }
+            ]
           }
         ],
         "rotationId": null,

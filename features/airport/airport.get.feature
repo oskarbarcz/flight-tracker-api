@@ -19,7 +19,12 @@ Feature: Get airport
           "longitude": 8.57397,
           "latitude": 50.04693
         },
-        "shape": "@any"
+        "shape": [
+          { "latitude": 50.03693, "longitude": 8.56397 },
+          { "latitude": 50.03693, "longitude": 8.58397 },
+          { "latitude": 50.05693, "longitude": 8.58397 },
+          { "latitude": 50.05693, "longitude": 8.56397 }
+        ]
       }
       """
 
@@ -42,7 +47,12 @@ Feature: Get airport
           "longitude": 8.57397,
           "latitude": 50.04693
         },
-        "shape": "@any"
+        "shape": [
+          { "latitude": 50.03693, "longitude": 8.56397 },
+          { "latitude": 50.03693, "longitude": 8.58397 },
+          { "latitude": 50.05693, "longitude": 8.58397 },
+          { "latitude": 50.05693, "longitude": 8.56397 }
+        ]
       }
       """
 
@@ -65,7 +75,12 @@ Feature: Get airport
           "longitude": 8.57397,
           "latitude": 50.04693
         },
-        "shape": "@any"
+        "shape": [
+          { "latitude": 50.03693, "longitude": 8.56397 },
+          { "latitude": 50.03693, "longitude": 8.58397 },
+          { "latitude": 50.05693, "longitude": 8.58397 },
+          { "latitude": 50.05693, "longitude": 8.56397 }
+        ]
       }
       """
 

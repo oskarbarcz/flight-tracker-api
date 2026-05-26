@@ -42,7 +42,12 @@ Feature: Update airport
           "longitude": 8.57397,
           "latitude": 50.04693
         },
-        "shape": "@any"
+        "shape": [
+          { "latitude": 50.03693, "longitude": 8.56397 },
+          { "latitude": 50.03693, "longitude": 8.58397 },
+          { "latitude": 50.05693, "longitude": 8.58397 },
+          { "latitude": 50.05693, "longitude": 8.56397 }
+        ]
       }
       """
     And I set database to initial state

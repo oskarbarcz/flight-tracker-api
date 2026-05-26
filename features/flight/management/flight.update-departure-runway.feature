@@ -82,7 +82,13 @@ Feature: Update flight departure runway
             "timezone": "Europe/Berlin",
             "type": "departure",
             "continent": "europe",
-            "location": { "longitude": 8.57397, "latitude": 50.04693 }
+            "location": { "longitude": 8.57397, "latitude": 50.04693 },
+            "shape": [
+              { "latitude": 50.03693, "longitude": 8.56397 },
+              { "latitude": 50.03693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.56397 }
+            ]
           },
           {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -94,7 +100,13 @@ Feature: Update flight departure runway
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
-            "location": { "longitude": -73.7781, "latitude": 40.6413 }
+            "location": { "longitude": -73.7781, "latitude": 40.6413 },
+            "shape": [
+              { "latitude": 40.6313, "longitude": -73.7881 },
+              { "latitude": 40.6313, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7881 }
+            ]
           },
           {
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
@@ -106,7 +118,13 @@ Feature: Update flight departure runway
             "timezone": "America/New_York",
             "type": "destination_alternate",
             "continent": "north_america",
-            "location": { "longitude": -75.24349, "latitude": 39.87113 }
+            "location": { "longitude": -75.24349, "latitude": 39.87113 },
+            "shape": [
+              { "latitude": 39.86113, "longitude": -75.25349 },
+              { "latitude": 39.86113, "longitude": -75.23349 },
+              { "latitude": 39.88113, "longitude": -75.23349 },
+              { "latitude": 39.88113, "longitude": -75.25349 }
+            ]
           },
           {
             "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
@@ -118,7 +136,13 @@ Feature: Update flight departure runway
             "timezone": "America/New_York",
             "type": "destination_alternate",
             "continent": "north_america",
-            "location": { "longitude": -71.01663, "latitude": 42.36454 }
+            "location": { "longitude": -71.01663, "latitude": 42.36454 },
+            "shape": [
+              { "latitude": 42.35454, "longitude": -71.02663 },
+              { "latitude": 42.35454, "longitude": -71.00663 },
+              { "latitude": 42.37454, "longitude": -71.00663 },
+              { "latitude": 42.37454, "longitude": -71.02663 }
+            ]
           },
           {
             "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
@@ -130,7 +154,13 @@ Feature: Update flight departure runway
             "timezone": "America/St_Johns",
             "continent": "north_america",
             "type": "etops_alternate",
-            "location": { "longitude": -52.751945, "latitude": 47.61861 }
+            "location": { "longitude": -52.751945, "latitude": 47.61861 },
+            "shape": [
+              { "latitude": 47.60861, "longitude": -52.761945 },
+              { "latitude": 47.60861, "longitude": -52.741945 },
+              { "latitude": 47.62861, "longitude": -52.741945 },
+              { "latitude": 47.62861, "longitude": -52.761945 }
+            ]
           }
         ],
         "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
@@ -253,7 +283,13 @@ Feature: Update flight departure runway
             "timezone": "Europe/Berlin",
             "type": "departure",
             "continent": "europe",
-            "location": { "longitude": 8.57397, "latitude": 50.04693 }
+            "location": { "longitude": 8.57397, "latitude": 50.04693 },
+            "shape": [
+              { "latitude": 50.03693, "longitude": 8.56397 },
+              { "latitude": 50.03693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.56397 }
+            ]
           },
           {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -265,7 +301,13 @@ Feature: Update flight departure runway
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
-            "location": { "longitude": -73.7781, "latitude": 40.6413 }
+            "location": { "longitude": -73.7781, "latitude": 40.6413 },
+            "shape": [
+              { "latitude": 40.6313, "longitude": -73.7881 },
+              { "latitude": 40.6313, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7881 }
+            ]
           },
           {
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
@@ -277,7 +319,13 @@ Feature: Update flight departure runway
             "timezone": "America/New_York",
             "type": "destination_alternate",
             "continent": "north_america",
-            "location": { "longitude": -75.24349, "latitude": 39.87113 }
+            "location": { "longitude": -75.24349, "latitude": 39.87113 },
+            "shape": [
+              { "latitude": 39.86113, "longitude": -75.25349 },
+              { "latitude": 39.86113, "longitude": -75.23349 },
+              { "latitude": 39.88113, "longitude": -75.23349 },
+              { "latitude": 39.88113, "longitude": -75.25349 }
+            ]
           },
           {
             "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
@@ -289,7 +337,13 @@ Feature: Update flight departure runway
             "timezone": "America/New_York",
             "type": "destination_alternate",
             "continent": "north_america",
-            "location": { "longitude": -71.01663, "latitude": 42.36454 }
+            "location": { "longitude": -71.01663, "latitude": 42.36454 },
+            "shape": [
+              { "latitude": 42.35454, "longitude": -71.02663 },
+              { "latitude": 42.35454, "longitude": -71.00663 },
+              { "latitude": 42.37454, "longitude": -71.00663 },
+              { "latitude": 42.37454, "longitude": -71.02663 }
+            ]
           },
           {
             "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
@@ -301,7 +355,13 @@ Feature: Update flight departure runway
             "timezone": "America/St_Johns",
             "continent": "north_america",
             "type": "etops_alternate",
-            "location": { "longitude": -52.751945, "latitude": 47.61861 }
+            "location": { "longitude": -52.751945, "latitude": 47.61861 },
+            "shape": [
+              { "latitude": 47.60861, "longitude": -52.761945 },
+              { "latitude": 47.60861, "longitude": -52.741945 },
+              { "latitude": 47.62861, "longitude": -52.741945 },
+              { "latitude": 47.62861, "longitude": -52.761945 }
+            ]
           }
         ],
         "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",

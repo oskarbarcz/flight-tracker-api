@@ -95,6 +95,7 @@ export const flightWithAircraftAndAirportsFields = {
           timezone: true,
           continent: true,
           location: true,
+          shape: true,
         },
       },
     },

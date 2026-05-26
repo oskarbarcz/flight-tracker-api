@@ -125,7 +125,13 @@ Feature: Create a flight
               "longitude": 8.57397,
               "latitude": 50.04693
             },
-            "type": "departure"
+            "type": "departure",
+            "shape": [
+              { "latitude": 50.03693, "longitude": 8.56397 },
+              { "latitude": 50.03693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.56397 }
+            ]
           },
           {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -140,7 +146,13 @@ Feature: Create a flight
               "longitude": -73.7781,
               "latitude": 40.6413
             },
-            "type": "destination"
+            "type": "destination",
+            "shape": [
+              { "latitude": 40.6313, "longitude": -73.7881 },
+              { "latitude": 40.6313, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7881 }
+            ]
           }
         ],
         "departureGateId": null,
@@ -307,7 +319,13 @@ Feature: Create a flight
               "longitude": 8.57397,
               "latitude": 50.04693
             },
-            "type": "departure"
+            "type": "departure",
+            "shape": [
+              { "latitude": 50.03693, "longitude": 8.56397 },
+              { "latitude": 50.03693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.56397 }
+            ]
           },
           {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -322,7 +340,13 @@ Feature: Create a flight
               "longitude": -73.7781,
               "latitude": 40.6413
             },
-            "type": "destination"
+            "type": "destination",
+            "shape": [
+              { "latitude": 40.6313, "longitude": -73.7881 },
+              { "latitude": 40.6313, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7881 }
+            ]
           }
         ],
         "departureGateId": null,
