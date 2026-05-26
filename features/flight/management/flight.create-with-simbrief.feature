@@ -52,13 +52,13 @@ Feature: Create a flight with Simbrief
         "aircraft": {
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
           "airframe": {
-          "type": "A339",
-          "name": "A330-900",
-          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
-          "serviceCeiling": 41400,
-          "performanceCode": "D",
-          "weightCategory": "heavy"
-        },
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
           "registration": "D-AIMC",
           "selcal": "LR-CK",
           "livery": "Fanhansa (2024)",
@@ -93,7 +93,13 @@ Feature: Create a flight with Simbrief
               "latitude": 50.04693,
               "longitude": 8.57397
             },
-            "type": "departure"
+            "type": "departure",
+            "shape": [
+              { "latitude": 50.03693, "longitude": 8.56397 },
+              { "latitude": 50.03693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.58397 },
+              { "latitude": 50.05693, "longitude": 8.56397 }
+            ]
           },
           {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -108,7 +114,13 @@ Feature: Create a flight with Simbrief
               "latitude": 40.6413,
               "longitude": -73.7781
             },
-            "type": "destination"
+            "type": "destination",
+            "shape": [
+              { "latitude": 40.6313, "longitude": -73.7881 },
+              { "latitude": 40.6313, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7681 },
+              { "latitude": 40.6513, "longitude": -73.7881 }
+            ]
           }
         ],
         "departureGateId": null,

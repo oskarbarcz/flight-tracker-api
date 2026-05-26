@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  ArrayMinSize,
   ArrayUnique,
   IsArray,
   IsInt,
@@ -9,7 +10,10 @@ import {
   Length,
   MaxLength,
   Min,
+  ValidateNested,
 } from 'class-validator';
+import { Type } from 'class-transformer';
+import { Coordinates } from './airport.model';
 
 type OperatorIcaoCode = string;
 
@@ -76,4 +80,19 @@ export class Terminal {
   @IsOptional()
   @IsString()
   text?: string | null;
+
+  @ApiProperty({
+    description: 'Terminal footprint polygon as a list of coordinates',
+    type: [Coordinates],
+    minItems: 3,
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  @IsOptional()
+  @IsArray()
+  @ArrayMinSize(3)
+  @ValidateNested({ each: true })
+  @Type(() => Coordinates)
+  shape?: Coordinates[] | null;
 }

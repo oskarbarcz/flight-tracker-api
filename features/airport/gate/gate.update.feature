@@ -52,7 +52,8 @@ Feature: Update gate
         "noiseSensitivityText": "Night curfew.",
         "noiseSensitivityStartTime": "23:00",
         "noiseSensitivityEndTime": "04:30",
-        "fuelingOptions": "hydrant"
+        "fuelingOptions": "hydrant",
+        "coordinates": "@any"
       }
       """
     And I set database to initial state
@@ -85,7 +86,8 @@ Feature: Update gate
         "noiseSensitivityText": null,
         "noiseSensitivityStartTime": null,
         "noiseSensitivityEndTime": null,
-        "fuelingOptions": "hydrant"
+        "fuelingOptions": "hydrant",
+        "coordinates": "@any"
       }
       """
     And I set database to initial state

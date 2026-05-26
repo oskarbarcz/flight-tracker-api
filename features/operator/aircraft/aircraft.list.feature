@@ -10,13 +10,13 @@ Feature: List aircraft
         {
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
           "airframe": {
-          "type": "A339",
-          "name": "A330-900",
-          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
-          "serviceCeiling": 41400,
-          "performanceCode": "D",
-          "weightCategory": "heavy"
-        },
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
           "livery": "Fanhansa (2024)",
           "registration": "D-AIMC",
           "selcal": "LR-CK"

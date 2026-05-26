@@ -4,6 +4,7 @@ import { GetTerminalResponse } from '../../../infra/http/request/terminal.dto';
 import { AirportsRepository } from '../../../infra/database/airports.repository';
 import { AirportNotFoundError } from '../../../model/error/airport.error';
 import { TerminalNotFoundError } from '../../../model/error/terminal.error';
+import { Coordinates } from '../../../model/airport.model';
 
 export class GetTerminalByIdQuery extends Query<GetTerminalResponse> {
   constructor(
@@ -40,6 +41,7 @@ export class GetTerminalByIdHandler implements IQueryHandler<GetTerminalByIdQuer
     return {
       ...terminal,
       operatorCodes: terminal.operatorCodes as string[],
+      shape: terminal.shape as unknown as Coordinates[] | null,
     };
   }
 }

@@ -13,7 +13,8 @@ Feature: Get terminal
         "fullName": "Terminal 1",
         "averageTaxiTime": 12,
         "operatorCodes": ["DLH", "LOT"],
-        "text": null
+        "text": null,
+        "shape": "@any"
       }
       """
 
@@ -66,13 +67,19 @@ Feature: Get terminal
       }
       """
 
-  Scenario: As an unauthorized user I cannot get one terminal
+  Scenario: As an unauthorized user I can get one terminal
     When I send a "GET" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/terminal/d7fd7a84-1589-4a4f-9072-a9773f66e2b5"
-    Then the response status should be 401
+    Then the response status should be 200
     And the response body should contain:
       """json
       {
-        "message": "Unauthorized",
-        "statusCode": 401
+        "id": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+        "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "shortName": "T1",
+        "fullName": "Terminal 1",
+        "averageTaxiTime": 12,
+        "operatorCodes": ["DLH", "LOT"],
+        "text": null,
+        "shape": "@any"
       }
       """

@@ -29,7 +29,8 @@ Feature: Update terminal
         "fullName": "Terminal 1 (renovated)",
         "averageTaxiTime": 20,
         "operatorCodes": ["DLH", "LOT", "KLM"],
-        "text": "Renovated in 2026. New jet-bridges on all gates."
+        "text": "Renovated in 2026. New jet-bridges on all gates.",
+        "shape": "@any"
       }
       """
     And I set database to initial state

@@ -3,6 +3,7 @@ import { TerminalsRepository } from '../../../infra/database/terminals.repositor
 import { GetTerminalResponse } from '../../../infra/http/request/terminal.dto';
 import { AirportsRepository } from '../../../infra/database/airports.repository';
 import { AirportNotFoundError } from '../../../model/error/airport.error';
+import { Coordinates } from '../../../model/airport.model';
 
 export class ListTerminalsByAirportQuery extends Query<GetTerminalResponse[]> {
   constructor(public readonly airportId: string) {
@@ -29,6 +30,7 @@ export class ListTerminalsByAirportHandler implements IQueryHandler<ListTerminal
     return terminals.map((terminal) => ({
       ...terminal,
       operatorCodes: terminal.operatorCodes as string[],
+      shape: terminal.shape as unknown as Coordinates[] | null,
     }));
   }
 }

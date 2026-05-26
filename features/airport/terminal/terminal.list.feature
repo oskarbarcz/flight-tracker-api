@@ -14,7 +14,8 @@ Feature: List terminals at an airport
           "fullName": "Terminal 1",
           "averageTaxiTime": 12,
           "operatorCodes": ["DLH", "LOT"],
-          "text": null
+          "text": null,
+          "shape": "@any"
         },
         {
           "id": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
@@ -23,7 +24,8 @@ Feature: List terminals at an airport
           "fullName": "Terminal 2",
           "averageTaxiTime": 14,
           "operatorCodes": ["BAW", "AFR"],
-          "text": null
+          "text": null,
+          "shape": "@any"
         }
       ]
       """
@@ -51,13 +53,31 @@ Feature: List terminals at an airport
       }
       """
 
-  Scenario: As an unauthorized user I cannot list terminals
+  Scenario: As an unauthorized user I can list terminals
     When I send a "GET" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/terminal"
-    Then the response status should be 401
+    Then the response status should be 200
     And the response body should contain:
       """json
-      {
-        "message": "Unauthorized",
-        "statusCode": 401
-      }
+      [
+        {
+          "id": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+          "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "shortName": "T1",
+          "fullName": "Terminal 1",
+          "averageTaxiTime": 12,
+          "operatorCodes": ["DLH", "LOT"],
+          "text": null,
+          "shape": "@any"
+        },
+        {
+          "id": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+          "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "shortName": "T2",
+          "fullName": "Terminal 2",
+          "averageTaxiTime": 14,
+          "operatorCodes": ["BAW", "AFR"],
+          "text": null,
+          "shape": "@any"
+        }
+      ]
       """

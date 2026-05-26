@@ -25,6 +25,7 @@ export class GetAirportByIdHandler implements IQueryHandler<GetAirportByIdQuery>
       ...airport,
       location: airport.location as unknown as Coordinates,
       continent: airport.continent as Continent,
+      shape: airport.shape as unknown as Coordinates[] | null,
     };
   }
 }

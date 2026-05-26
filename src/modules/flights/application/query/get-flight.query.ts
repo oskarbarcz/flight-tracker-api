@@ -45,6 +45,9 @@ export class GetFlightHandler implements IQueryHandler<GetFlightQuery> {
           ...airportOnFlight.airport,
           location: airportOnFlight.airport.location as unknown as Coordinates,
           continent: airportOnFlight.airport.continent as Continent,
+          shape: airportOnFlight.airport.shape as unknown as
+            | Coordinates[]
+            | null,
           type: airportOnFlight.airportType as AirportType,
         }),
       ),

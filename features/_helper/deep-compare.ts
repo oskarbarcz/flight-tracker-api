@@ -2,6 +2,10 @@ import expect from 'expect';
 import { validate as isUuid } from 'uuid';
 
 export const deepCompare = (actual: any, expected: any) => {
+  if (expected === '@any') {
+    return;
+  }
+
   if (expected === '@uuid') {
     expect(isUuid(actual)).toBe(true);
     return;
