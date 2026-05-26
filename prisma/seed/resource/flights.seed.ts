@@ -4498,6 +4498,136 @@ async function loadDLH880(): Promise<void> {
   });
 }
 
+/**
+ * DLH103 | d5e8f1a2-3b4c-4d5e-9f6a-7b8c9d0e1f2a
+ * Frankfurt (EDDF) -> New York JFK (KJFK), diverted to Bremen (EDDW)
+ * status: Taxiing in - DIVERSION ALREADY EXECUTED (immutable)
+ */
+async function loadDLH103(): Promise<void> {
+  const data = {
+    id: 'd5e8f1a2-3b4c-4d5e-9f6a-7b8c9d0e1f2a',
+    departureGateId: null,
+    departureRunwayId: '6bbf43a4-9242-4f04-b195-6a7bcd1f14c4',
+    arrivalGateId: null,
+    arrivalRunwayId: null,
+    isDiversionDeclared: true,
+    flightNumber: 'LH103',
+    callsign: 'DLH103',
+    atcCallsign: null,
+    isEtops: false,
+    captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+    status: FlightStatus.TaxiingIn,
+    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
+    operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa
+    timesheet: {
+      scheduled: {
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 16:00'),
+        onBlockTime: new Date('2025-01-01 16:18'),
+      },
+      estimated: {
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 15:50'),
+        onBlockTime: new Date('2025-01-01 16:08'),
+      },
+      actual: {
+        offBlockTime: new Date('2025-01-01 13:10'),
+        takeoffTime: new Date('2025-01-01 13:25'),
+        arrivalTime: new Date('2025-01-01 15:40'),
+        onBlockTime: null,
+      },
+    } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 1,
+          cabinCrew: 12,
+        },
+        passengers: 335,
+        payload: 34.9,
+        cargo: 8.4,
+        zeroFuelWeight: 162.3,
+        blockFuel: 47.9,
+      },
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 1,
+          cabinCrew: 12,
+        },
+        passengers: 335,
+        payload: 34.9,
+        cargo: 8.4,
+        zeroFuelWeight: 162.3,
+        blockFuel: 47.9,
+      },
+    } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
+    greatCircleDistance: 3350,
+    totalFuelBurned: 156000,
+    route: null,
+  };
+
+  const departureAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
+  });
+
+  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' }, // New York JFK
+  });
+
+  const alternateAirport = await prisma.airport.findFirstOrThrow({
+    where: { id: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf' }, // Bremen
+  });
+
+  const flight = await prisma.flight.create({ data });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: departureAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Departure,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: arrivalAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Destination,
+    },
+  });
+
+  await prisma.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: alternateAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.DestinationAlternate,
+    },
+  });
+
+  await prisma.diversion.create({
+    data: {
+      id: 'c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f',
+      flightId: flight.id,
+      airportId: alternateAirport.id, // Diverted to Bremen
+      reason: DiversionReason.Weather,
+      severity: DiversionSeverity.Warning,
+      reportedBy: 'e181d983-3b69-4be2-864e-2a7596217ddf', // John Doe, cabin-crew
+      reporterRole: DiversionReporterRole.Crew,
+      position: { latitude: 52.520008, longitude: 13.404954 },
+      notifySecurityOnGround: false,
+      notifyFirefightersOnGround: false,
+      notifyMedicalOnGround: false,
+      decisionTime: new Date('2025-01-01 14:25'),
+      estimatedTimeAtDestination: new Date('2025-01-01 15:30'),
+    },
+  });
+}
+
 export async function loadFlights(): Promise<void> {
   await loadDLH450();
   await loadAAL4905();
@@ -4520,6 +4650,7 @@ export async function loadFlights(): Promise<void> {
   await loadDLH42();
   await loadDLH43();
   await loadDLH102();
+  await loadDLH103();
   await loadDLH81();
   await loadDLH880();
 }

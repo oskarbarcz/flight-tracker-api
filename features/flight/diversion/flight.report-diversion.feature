@@ -254,6 +254,85 @@ Feature: Report a flight diversion
         "estimatedTimeAtDestination": "2025-01-01T16:00:00.000Z"
       }
       """
+    When I send a "GET" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/events"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "7032f11d-51b2-43ba-9cf1-ae1f144f0707",
+          "scope": "operations",
+          "type": "flight.created",
+          "payload": {},
+          "actor": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+          "createdAt": "2025-01-01T11:00:00.000Z"
+        },
+        {
+          "id": "9822a1b2-9715-40a5-94cb-d8b616637457",
+          "scope": "operations",
+          "type": "flight.preliminary-loadsheet-updated",
+          "payload": {},
+          "actor": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+          "createdAt": "2025-01-01T11:05:00.000Z"
+        },
+        {
+          "id": "88651e15-57d0-468f-9231-bd2e1edcff66",
+          "scope": "operations",
+          "type": "flight.released",
+          "payload": {},
+          "actor": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+          "createdAt": "2025-01-01T11:10:00.000Z"
+        },
+        {
+          "id": "3d802611-728b-41cd-a4d1-f9fc91aaca18",
+          "scope": "user",
+          "type": "flight.pilot-checked-in",
+          "payload": {},
+          "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "createdAt": "2025-01-01T12:00:00.000Z"
+        },
+        {
+          "id": "d2794a43-60e2-4abe-9803-ce75dfa2a37b",
+          "scope": "user",
+          "type": "flight.boarding-started",
+          "payload": {},
+          "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "createdAt": "2025-01-01T12:40:00.000Z"
+        },
+        {
+          "id": "2dba1cb5-d25c-4ade-9d46-e30eb8ecb24a",
+          "scope": "user",
+          "type": "flight.boarding-finished",
+          "payload": {},
+          "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "createdAt": "2025-01-01T13:05:00.000Z"
+        },
+        {
+          "id": "d03bb44f-88d8-42cd-aa29-342eda6ebbf3",
+          "scope": "user",
+          "type": "flight.off-block-reported",
+          "payload": {},
+          "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "createdAt": "2025-01-01T13:10:00.000Z"
+        },
+        {
+          "id": "0108b08b-9c45-49ba-a3cb-a3ae172ce92c",
+          "scope": "user",
+          "type": "flight.takeoff-reported",
+          "payload": {},
+          "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+          "createdAt": "2025-01-01T13:25:00.000Z"
+        },
+        {
+          "id": "@uuid",
+          "scope": "operations",
+          "type": "flight.diversion-reported",
+          "payload": {},
+          "actor": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+          "createdAt": "@date('within 1 minute from now')"
+        }
+      ]
+      """
     And I set database to initial state
 
   Scenario: As a cabin crew I can report flight diversion
@@ -565,7 +644,7 @@ Feature: Report a flight diversion
       """json
       {
         "statusCode": 404,
-        "message": "Flight was not found",
+        "message": "Flight with given id does not exist.",
         "error": "Not Found"
       }
       """
