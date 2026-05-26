@@ -1,4 +1,5 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { FlightsRepository } from '../../../infra/database/repository/flights.repository';
 import { AssertRotationExistsQuery } from '../../../../operators/application/query/rotation/assert-rotation-exists.query';
 import {
@@ -7,11 +8,15 @@ import {
   FlightRotationNotMatchingError,
 } from '../../../model/error/flight.error';
 import { FlightStatus } from '../../../model/flight.model';
+import { NewFlightEvent } from '../../../infra/http/request/event.dto';
+import { FlightEventType } from '../../../../../core/events/flight';
+import { FlightEventScope } from '../../../model/event.model';
 
 export class RemoveFlightFromRotationCommand {
   constructor(
     public readonly flightId: string,
     public readonly rotationId: string,
+    public readonly initiatorId: string,
   ) {}
 }
 
@@ -20,10 +25,11 @@ export class RemoveFlightFromRotationHandler implements ICommandHandler<RemoveFl
   constructor(
     private readonly repository: FlightsRepository,
     private readonly queryBus: QueryBus,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async execute(command: RemoveFlightFromRotationCommand): Promise<void> {
-    const { flightId, rotationId } = command;
+    const { flightId, rotationId, initiatorId } = command;
 
     const flight = await this.repository.findOneBy({ id: flightId });
     if (!flight) throw new FlightNotFoundError();
@@ -42,5 +48,14 @@ export class RemoveFlightFromRotationHandler implements ICommandHandler<RemoveFl
       command.flightId,
       command.rotationId,
     );
+
+    const event: NewFlightEvent = {
+      flightId,
+      rotationId,
+      type: FlightEventType.FlightWasRemovedFromRotation,
+      scope: FlightEventScope.Operations,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.FlightWasRemovedFromRotation, event);
   }
 }

@@ -28,6 +28,9 @@ Feature: Update flight preliminary loadsheet
       """
 
   Scenario: As operations I can update flight preliminary loadsheet
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "e91e13a9-09d8-48bf-8453-283cef467b88"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/loadsheet/preliminary" with body:
       """json
@@ -216,6 +219,7 @@ Feature: Update flight preliminary loadsheet
         }
       ]
       """
+    And I should receive a live flight event of type "flight.preliminary-loadsheet-updated" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot update flight preliminary loadsheet

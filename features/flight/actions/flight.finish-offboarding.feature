@@ -27,6 +27,9 @@ Feature: Finish offboarding for flight that started onboarding
       """
 
   Scenario: As a cabin crew I can finish offboarding
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "5aada8ba-60c1-4e93-bcee-b59a7c555fdd"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding"
     Then the response status should be 204
@@ -334,6 +337,7 @@ Feature: Finish offboarding for flight that started onboarding
         }
       ]
       """
+    And I should receive a live flight event of type "flight.offboarding-finished" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot finish offboarding for flight twice

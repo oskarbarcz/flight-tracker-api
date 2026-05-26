@@ -14,6 +14,9 @@ Feature: Mark flight as ready
       """
 
   Scenario: As operations I can mark flight as ready
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "e91e13a9-09d8-48bf-8453-283cef467b88"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
     Then the response status should be 204
@@ -188,6 +191,7 @@ Feature: Mark flight as ready
         }
       ]
       """
+    And I should receive a live flight event of type "flight.released" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot mark flight as ready

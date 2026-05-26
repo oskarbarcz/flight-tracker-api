@@ -22,6 +22,9 @@ Feature: Update flight scheduled timesheet
       """
 
   Scenario: As operations I can update flight scheduled timesheet
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "e91e13a9-09d8-48bf-8453-283cef467b88"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/timesheet/scheduled" with body:
       """json
@@ -204,6 +207,7 @@ Feature: Update flight scheduled timesheet
         }
       ]
       """
+    And I should receive a live flight event of type "flight.scheduled-timesheet-updated" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot update flight scheduled timesheet

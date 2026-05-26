@@ -1,4 +1,5 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { FlightsRepository } from '../../../infra/database/repository/flights.repository';
 import {
   FlightAlreadyAssignedToRotationError,
@@ -7,11 +8,15 @@ import {
 } from '../../../model/error/flight.error';
 import { FlightStatus } from '../../../model/flight.model';
 import { AssertRotationExistsQuery } from '../../../../operators/application/query/rotation/assert-rotation-exists.query';
+import { NewFlightEvent } from '../../../infra/http/request/event.dto';
+import { FlightEventType } from '../../../../../core/events/flight';
+import { FlightEventScope } from '../../../model/event.model';
 
 export class AddFlightToRotationCommand {
   constructor(
     public readonly flightId: string,
     public readonly rotationId: string,
+    public readonly initiatorId: string,
   ) {}
 }
 
@@ -20,10 +25,11 @@ export class AddFlightToRotationHandler implements ICommandHandler<AddFlightToRo
   constructor(
     private readonly repository: FlightsRepository,
     private readonly queryBus: QueryBus,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async execute(command: AddFlightToRotationCommand): Promise<void> {
-    const { flightId, rotationId } = command;
+    const { flightId, rotationId, initiatorId } = command;
 
     const flight = await this.repository.findOneBy({ id: flightId });
 
@@ -35,5 +41,14 @@ export class AddFlightToRotationHandler implements ICommandHandler<AddFlightToRo
 
     await this.queryBus.execute(new AssertRotationExistsQuery(rotationId));
     await this.repository.addRotationForFlight(flightId, rotationId);
+
+    const event: NewFlightEvent = {
+      flightId,
+      rotationId,
+      type: FlightEventType.FlightWasAddedToRotation,
+      scope: FlightEventScope.Operations,
+      actorId: initiatorId,
+    };
+    this.eventEmitter.emit(FlightEventType.FlightWasAddedToRotation, event);
   }
 }

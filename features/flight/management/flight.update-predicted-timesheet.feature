@@ -33,6 +33,9 @@ Feature: Update flight predicted timesheet
       """
 
   Scenario: As cabin crew I can predict a single time and the flight reflects it
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "e91e13a9-09d8-48bf-8453-283cef467b88"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/timesheet/predicted" with body:
       """json
@@ -210,9 +213,13 @@ Feature: Update flight predicted timesheet
         }
       ]
       """
+    And I should receive a live flight event of type "flight.predicted-timesheet-updated" within 2000ms
     And I set database to initial state
 
   Scenario: As cabin crew omitted fields preserve previously stored predicted values
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "e91e13a9-09d8-48bf-8453-283cef467b88"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/timesheet/predicted" with body:
       """json
@@ -403,9 +410,13 @@ Feature: Update flight predicted timesheet
         }
       ]
       """
+    And I should receive a live flight event of type "flight.predicted-timesheet-updated" within 2000ms
     And I set database to initial state
 
   Scenario: As cabin crew explicit null clears a previously predicted value
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "e91e13a9-09d8-48bf-8453-283cef467b88"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/timesheet/predicted" with body:
       """json
@@ -599,6 +610,7 @@ Feature: Update flight predicted timesheet
         }
       ]
       """
+    And I should receive a live flight event of type "flight.predicted-timesheet-updated" within 2000ms
     And I set database to initial state
 
   Scenario: As cabin crew I cannot predict off-block time once flight is taxiing out
@@ -666,12 +678,16 @@ Feature: Update flight predicted timesheet
       """
 
   Scenario: As cabin crew I can still predict a downstream time on a taxiing-out flight
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "7105891a-8008-4b47-b473-c81c97615ad7"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/timesheet/predicted" with body:
       """json
       { "arrivalTime": "2025-01-01T15:55:00.000Z" }
       """
     Then the response status should be 204
+    And I should receive a live flight event of type "flight.predicted-timesheet-updated" within 2000ms
     And I set database to initial state
 
   Scenario: As cabin crew a closed flight rejects every predicted update

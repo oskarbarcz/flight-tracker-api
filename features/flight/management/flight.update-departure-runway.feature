@@ -17,6 +17,9 @@ Feature: Update flight departure runway
       """
 
   Scenario: As operations I can set departure runway
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-runway" with body:
       """json
@@ -215,9 +218,13 @@ Feature: Update flight departure runway
         }
       ]
       """
+    And I should receive a live flight event of type "flight.departure-runway-changed" within 2000ms
     And I set database to initial state
 
   Scenario: As cabin crew I can set departure runway
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-runway" with body:
       """json
@@ -416,6 +423,7 @@ Feature: Update flight departure runway
         }
       ]
       """
+    And I should receive a live flight event of type "flight.departure-runway-changed" within 2000ms
     And I set database to initial state
 
   Scenario: As operations I cannot clear departure runway with null

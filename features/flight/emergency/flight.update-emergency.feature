@@ -25,6 +25,9 @@ Feature: Update an active flight emergency
     Then the response status should be 403
 
   Scenario: As a cabin crew I can update an active emergency
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/flight/b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b/emergency/a77e0b1c-2944-4bdf-9e6a-0b1c2d3e4f5a" with body:
       """json
@@ -150,6 +153,7 @@ Feature: Update an active flight emergency
         }
       ]
       """
+    And I should receive a live flight event of type "flight.emergency-updated" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot update an emergency that does not exist

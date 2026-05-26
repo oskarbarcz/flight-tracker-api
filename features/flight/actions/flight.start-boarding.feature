@@ -27,6 +27,9 @@ Feature: Start boarding
       """
 
   Scenario: As a cabin crew I can start boarding in flight that is checked in
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "b3899775-278e-4496-add1-21385a13d93e"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/start-boarding"
     Then the response status should be 204
@@ -244,6 +247,7 @@ Feature: Start boarding
     And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "Flight **AA 4908** from **Boston (BOS)** to **Philadelphia (PHL)** has started boarding!"
     And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "Estimated block time: **03:08hrs**, Passengers on board: **370**"
     And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "[Flight Tracker](https://flights.barcz.me/map/b3899775-278e-4496-add1-21385a13d93e)"
+    And I should receive a live flight event of type "flight.boarding-started" within 2000ms
     And I set database to initial state
     And I clear Discord messages directory
 

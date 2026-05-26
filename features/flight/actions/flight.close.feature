@@ -27,6 +27,9 @@ Feature: Close flight
       """
 
   Scenario: As a cabin crew I can close flight for flight that finished offboarding
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "38644393-deee-434d-bfd1-7242abdbc4e1"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
     Then the response status should be 204
@@ -360,9 +363,13 @@ Feature: Close flight
         "currentRotationId": null
       }
       """
+    And I should receive a live flight event of type "flight.closed" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I close flight for flight that finished offboarding and is last in rotation
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "d4a25ef2-39cf-484c-af00-a548999e8699"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "Michael Doe"
     When I send a "POST" request to "/api/v1/flight/d4a25ef2-39cf-484c-af00-a548999e8699/close"
     Then the response status should be 204
@@ -727,6 +734,7 @@ Feature: Close flight
         "currentRotationId": null
       }
       """
+    And I should receive a live flight event of type "flight.closed" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot close flight plan for flight twice
@@ -809,6 +817,9 @@ Feature: Close flight
       """
 
   Scenario: As a cabin crew I can close flight after resolving its outstanding emergency
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04/close"
     Then the response status should be 400
@@ -988,9 +999,13 @@ Feature: Close flight
         }
       ]
       """
+    And I should receive a live flight event of type "flight.closed" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I can close flight whose emergency was already resolved in flight
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "7d8a3c91-5e62-4b41-9c08-2f6b1d7e3a45"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/7d8a3c91-5e62-4b41-9c08-2f6b1d7e3a45/close"
     Then the response status should be 204
@@ -1142,4 +1157,5 @@ Feature: Close flight
         "createdAt": "2025-01-01T00:00:00.000Z"
       }
       """
+    And I should receive a live flight event of type "flight.closed" within 2000ms
     And I set database to initial state

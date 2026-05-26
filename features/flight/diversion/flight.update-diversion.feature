@@ -19,6 +19,9 @@ Feature: Update a flight diversion
       """
 
   Scenario: As an operations I can update flight diversion
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "1e9f4176-188f-41a5-a9d1-25a96579f46d"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/flight/1e9f4176-188f-41a5-a9d1-25a96579f46d/diversion" with body:
       """json
@@ -159,9 +162,13 @@ Feature: Update a flight diversion
         }
       ]
       """
+    And I should receive a live flight event of type "flight.diversion-updated" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I can update flight diversion
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "1e9f4176-188f-41a5-a9d1-25a96579f46d"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/flight/1e9f4176-188f-41a5-a9d1-25a96579f46d/diversion" with body:
       """json
@@ -215,9 +222,13 @@ Feature: Update a flight diversion
         }
       }
       """
+    And I should receive a live flight event of type "flight.diversion-updated" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I can partially update flight diversion
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "1e9f4176-188f-41a5-a9d1-25a96579f46d"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/flight/1e9f4176-188f-41a5-a9d1-25a96579f46d/diversion" with body:
       """json
@@ -260,6 +271,7 @@ Feature: Update a flight diversion
         }
       }
       """
+    And I should receive a live flight event of type "flight.diversion-updated" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot update flight diversion when flight has incorrect status

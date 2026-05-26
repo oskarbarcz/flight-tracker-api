@@ -30,6 +30,9 @@ Feature: Report a flight diversion
       """
 
   Scenario: As an operations I can report flight diversion
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/diversion" with body:
       """json
@@ -333,9 +336,13 @@ Feature: Report a flight diversion
         }
       ]
       """
+    And I should receive a live flight event of type "flight.diversion-reported" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I can report flight diversion
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/diversion" with body:
       """json
@@ -560,6 +567,7 @@ Feature: Report a flight diversion
         "estimatedTimeAtDestination": "2025-01-01T16:00:00.000Z"
       }
       """
+    And I should receive a live flight event of type "flight.diversion-reported" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot report flight diversion when flight has incorrect status

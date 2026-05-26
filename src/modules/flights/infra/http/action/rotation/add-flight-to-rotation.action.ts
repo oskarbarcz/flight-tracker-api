@@ -1,4 +1,4 @@
-import { Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Controller, HttpCode, HttpStatus, Post, Req } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -21,6 +21,7 @@ import { ForbiddenResponse } from '../../../../../../core/http/response/forbidde
 import { Role } from '../../../../../../core/http/auth/decorator/role.decorator';
 import { UuidParam } from '../../../../../../core/validation/uuid.param';
 import { AddFlightToRotationCommand } from '../../../../application/command/rotation/add-flight-to-rotation.command';
+import { AuthorizedRequest } from '../../../../../../core/http/request/authorized.request';
 
 @ApiTags('flight rotations')
 @Controller('/api/v1/flight/:flightId/rotation')
@@ -47,8 +48,13 @@ export class AddFlightToRotationAction {
   async run(
     @UuidParam('flightId') flightId: string,
     @UuidParam('rotationId') rotationId: string,
+    @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    const command = new AddFlightToRotationCommand(flightId, rotationId);
+    const command = new AddFlightToRotationCommand(
+      flightId,
+      rotationId,
+      request.user.sub,
+    );
     await this.commandBus.execute(command);
   }
 }

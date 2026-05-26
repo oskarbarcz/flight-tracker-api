@@ -98,6 +98,8 @@ import { ListEventsHandler } from './application/query/events/list-events.query'
 import { GetDiversionHandler } from './application/query/diversion/get-diversion.query';
 import { ReportFlightDiversionHandler } from './application/command/diversion/report-flight-diversion.command';
 import { UpdateFlightDiversionHandler } from './application/command/diversion/update-flight-diversion.command';
+import { FlightEventsGateway } from './infra/gateway/flight-events.gateway';
+import { BroadcastFlightEventListener } from './application/event/listener/broadcast-flight-event.listener';
 
 @Module({
   imports: [PrismaModule, DiscordModule, AdsbModule, SimbriefModule],
@@ -195,6 +197,8 @@ import { UpdateFlightDiversionHandler } from './application/command/diversion/up
     GetDiversionHandler,
     ReportFlightDiversionHandler,
     UpdateFlightDiversionHandler,
+    FlightEventsGateway,
+    BroadcastFlightEventListener,
   ],
 })
 export class FlightsModule {}
