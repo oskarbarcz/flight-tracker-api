@@ -14,6 +14,9 @@ Feature: Add flight to rotation
       """
 
   Scenario: As operations I can add a valid flight to a rotation
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "e91e13a9-09d8-48bf-8453-283cef467b88"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/rotation/bd8f2d64-a647-42da-be63-c6589915e6c9"
     Then the response status should be 204
@@ -47,6 +50,7 @@ Feature: Add flight to rotation
         "updatedAt": "@date('within 1 minute from now')"
       }
       """
+    And I should receive a live flight event of type "flight.added-to-rotation" within 2000ms
     And I set database to initial state
 
   Scenario: As cabin crew I cannot add a flight to a rotation

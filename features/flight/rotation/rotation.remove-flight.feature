@@ -14,6 +14,9 @@ Feature: Remove flights from rotation
       """
 
   Scenario: As operations I can remove a flight from a rotation
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "e8e17e59-67d7-4a6c-a0bd-425ffa6bed66"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "operations"
     When I send a "DELETE" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/rotation/bd8f2d64-a647-42da-be63-c6589915e6c9"
     Then the response status should be 204
@@ -39,6 +42,7 @@ Feature: Remove flights from rotation
         "updatedAt": "@date('within 1 minute from now')"
       }
       """
+    And I should receive a live flight event of type "flight.removed-from-rotation" within 2000ms
     And I set database to initial state
 
   Scenario: As cabin crew I cannot remove a flight from a rotation

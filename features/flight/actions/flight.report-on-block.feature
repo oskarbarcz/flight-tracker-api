@@ -27,6 +27,9 @@ Feature: Report on-block
       """
 
   Scenario: As a cabin crew I can report on-block for flight that reported taxiing
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "04be266c-df78-4bec-9f50-281cc02ce7f2"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/04be266c-df78-4bec-9f50-281cc02ce7f2/report-on-block"
     Then the response status should be 204
@@ -447,6 +450,7 @@ Feature: Report on-block
     And I see Discord "arrival" message for flight "04be266c-df78-4bec-9f50-281cc02ce7f2" containing "Flight **AA 4913** from **Boston (BOS)** to **Philadelphia (PHL)** just arrived!"
     And I see Discord "arrival" message for flight "04be266c-df78-4bec-9f50-281cc02ce7f2" containing "Actual block time:"
     And I see Discord "arrival" message for flight "04be266c-df78-4bec-9f50-281cc02ce7f2" containing "[Flight Tracker](https://flights.barcz.me/map/04be266c-df78-4bec-9f50-281cc02ce7f2)"
+    And I should receive a live flight event of type "flight.on-block-reported" within 2000ms
     And I clear Discord messages directory
     And I set database to initial state
 

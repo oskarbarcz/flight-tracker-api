@@ -27,6 +27,9 @@ Feature: Report takeoff
       """
 
   Scenario: Report takeoff for flight that reported off-block
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "7105891a-8008-4b47-b473-c81c97615ad7"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/report-takeoff"
     Then the response status should be 204
@@ -290,6 +293,7 @@ Feature: Report takeoff
         }
       ]
       """
+    And I should receive a live flight event of type "flight.takeoff-reported" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot report takeoff for flight twice

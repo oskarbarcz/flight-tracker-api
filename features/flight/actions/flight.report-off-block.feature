@@ -27,6 +27,9 @@ Feature: Report off-block
       """
 
   Scenario: As a cabin crew I can report off-block for flight that finished boarding
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "f14a2141-4737-4622-a387-40513ff3baf1"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1/report-off-block"
     Then the response status should be 204
@@ -279,6 +282,7 @@ Feature: Report off-block
         }
       ]
       """
+    And I should receive a live flight event of type "flight.off-block-reported" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot report off-block for flight twice

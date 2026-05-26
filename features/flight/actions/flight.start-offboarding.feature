@@ -27,6 +27,9 @@ Feature: Start offboarding
       """
 
   Scenario: As a cabin crew I can start offboarding for flight that reported on-block
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "17d2f703-957d-4ad1-a620-3c187a70c26a"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/17d2f703-957d-4ad1-a620-3c187a70c26a/start-offboarding"
     Then the response status should be 204
@@ -323,6 +326,7 @@ Feature: Start offboarding
         }
       ]
       """
+    And I should receive a live flight event of type "flight.offboarding-started" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot start offboarding for flight twice

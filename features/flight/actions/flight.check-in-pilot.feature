@@ -43,6 +43,9 @@ Feature: Check in pilot for flight
       """
 
   Scenario: As a cabin crew I can check in pilot for flight
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "23952e79-6b38-49ed-a1db-bd4d9b3cedab"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
       """json
@@ -268,9 +271,13 @@ Feature: Check in pilot for flight
         "currentRotationId": null
       }
       """
+    And I should receive a live flight event of type "flight.pilot-checked-in" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I can check in pilot for flight that starts rotation
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "006f0754-1ed7-4ae1-9f91-fae2d446a6e7"
+    Then I should receive flight event history within 2000ms
     Given I am signed in as "Alan Doe"
     When I send a "POST" request to "/api/v1/flight/006f0754-1ed7-4ae1-9f91-fae2d446a6e7/check-in" with body:
       """json
@@ -548,6 +555,7 @@ Feature: Check in pilot for flight
         "currentRotationId": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1"
       }
       """
+    And I should receive a live flight event of type "flight.pilot-checked-in" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot check in pilot for flight twice
