@@ -11,6 +11,8 @@ import { NewFlightEvent } from '../../infra/http/request/event.dto';
 import { FlightEventType } from '../../../../core/events/flight';
 import { FlightEventScope } from '../../model/event.model';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { IsFlightDelayClearedQuery } from '../query/delay/is-flight-delay-cleared.query';
+import { FlightHasUnacceptedDelayError } from '../../model/error/delay.error';
 
 export class CloseFlightCommand {
   constructor(
@@ -41,6 +43,13 @@ export class CloseFlightHandler implements ICommandHandler<CloseFlightCommand> {
     }
 
     await this.flightsRepository.assertNoUnresolvedEmergency(flightId);
+
+    const delayCleared = await this.queryBus.execute(
+      new IsFlightDelayClearedQuery(flightId),
+    );
+    if (!delayCleared) {
+      throw new FlightHasUnacceptedDelayError();
+    }
 
     await this.flightsRepository.updateStatus(flightId, FlightStatus.Closed);
 
