@@ -3,34 +3,25 @@ import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { AdsbModule } from '../../core/provider/adsb/adsb.module';
 import { DiscordModule } from '../../core/provider/discord/discord.module';
 import { SimbriefModule } from '../../core/provider/simbrief/simbrief.module';
-
 import { FlightsRepository } from './infra/database/repository/flights.repository';
 import { EventsRepository } from './infra/database/repository/events.repository';
 import { DiversionRepository } from './infra/database/repository/diversion.repository';
 import { EmergencyRepository } from './infra/database/repository/emergency.repository';
-import { PositionService } from './infra/service/position.service';
 import { DiscordService } from './infra/service/discord.service';
-
-// flight CRUD
 import { CreateFlightAction } from './infra/http/action/flight/create-flight.action';
 import { CreateFlightFromSimbriefAction } from './infra/http/action/flight/create-flight-from-simbrief.action';
+import { PositionService } from './infra/service/position.service';
 import { ListFlightsAction } from './infra/http/action/flight/list-flights.action';
 import { GetFlightAction } from './infra/http/action/flight/get-flight.action';
 import { RemoveFlightAction } from './infra/http/action/flight/remove-flight.action';
-// loadsheet
 import { UpdatePreliminaryLoadsheetAction } from './infra/http/action/loadsheet/update-preliminary-loadsheet.action';
-// timesheet
 import { UpdateScheduledTimesheetAction } from './infra/http/action/timesheet/update-scheduled-timesheet.action';
 import { UpdatePredictedTimesheetAction } from './infra/http/action/timesheet/update-predicted-timesheet.action';
-// tracking
 import { ChangeFlightVisibilityAction } from './infra/http/action/tracking/change-flight-visibility.action';
-// gate
 import { UpdateDepartureGateAction } from './infra/http/action/gate/update-departure-gate.action';
 import { UpdateArrivalGateAction } from './infra/http/action/gate/update-arrival-gate.action';
-// runway
 import { UpdateDepartureRunwayAction } from './infra/http/action/runway/update-departure-runway.action';
 import { UpdateArrivalRunwayAction } from './infra/http/action/runway/update-arrival-runway.action';
-// lifecycle
 import { MarkFlightAsReadyAction } from './infra/http/action/lifecycle/mark-flight-as-ready.action';
 import { CheckInPilotAction } from './infra/http/action/lifecycle/check-in-pilot.action';
 import { StartBoardingAction } from './infra/http/action/lifecycle/start-boarding.action';
@@ -42,25 +33,18 @@ import { ReportOnBlockAction } from './infra/http/action/lifecycle/report-on-blo
 import { StartOffboardingAction } from './infra/http/action/lifecycle/start-offboarding.action';
 import { FinishOffboardingAction } from './infra/http/action/lifecycle/finish-offboarding.action';
 import { CloseFlightAction } from './infra/http/action/lifecycle/close-flight.action';
-// diversion
 import { ReportDiversionAction } from './infra/http/action/diversion/report-diversion.action';
 import { GetDiversionAction } from './infra/http/action/diversion/get-diversion.action';
 import { UpdateDiversionAction } from './infra/http/action/diversion/update-diversion.action';
-// emergency
 import { DeclareEmergencyAction } from './infra/http/action/emergency/declare-emergency.action';
 import { UpdateEmergencyAction } from './infra/http/action/emergency/update-emergency.action';
 import { ResolveEmergencyAction } from './infra/http/action/emergency/resolve-emergency.action';
 import { ListEmergenciesAction } from './infra/http/action/emergency/list-emergencies.action';
-// events
 import { ListEventsAction } from './infra/http/action/events/list-events.action';
-// ofp
 import { GetOfpAction } from './infra/http/action/ofp/get-ofp.action';
-// path
 import { GetPathAction } from './infra/http/action/path/get-path.action';
-// rotation
 import { AddFlightToRotationAction } from './infra/http/action/rotation/add-flight-to-rotation.action';
 import { RemoveFlightFromRotationAction } from './infra/http/action/rotation/remove-flight-from-rotation.action';
-
 import { DeclareEmergencyHandler } from './application/command/emergency/declare-emergency.command';
 import { UpdateEmergencyHandler } from './application/command/emergency/update-emergency.command';
 import { ResolveEmergencyHandler } from './application/command/emergency/resolve-emergency.command';
@@ -100,6 +84,21 @@ import { ReportFlightDiversionHandler } from './application/command/diversion/re
 import { UpdateFlightDiversionHandler } from './application/command/diversion/update-flight-diversion.command';
 import { FlightEventsGateway } from './infra/gateway/flight-events.gateway';
 import { BroadcastFlightEventListener } from './application/event/listener/broadcast-flight-event.listener';
+import { OffBlockDelayListener } from './application/event/listener/off-block-delay.listener';
+import { DelayRepository } from './infra/database/repository/delay.repository';
+import { GetDelayRequestHandler } from './application/query/delay/get-delay-request.query';
+import { IsFlightDelayClearedHandler } from './application/query/delay/is-flight-delay-cleared.query';
+import { ListDelayRequestsHandler } from './application/query/delay/list-delay-requests.query';
+import { ReportDelayHandler } from './application/command/delay/report-delay.command';
+import { RemoveDelayReportHandler } from './application/command/delay/remove-delay-report.command';
+import { AcceptDelayReportHandler } from './application/command/delay/accept-delay-report.command';
+import { RejectDelayReportHandler } from './application/command/delay/reject-delay-report.command';
+import { GetDelayRequestAction } from './infra/http/action/delay/get-delay-request.action';
+import { ListDelayReportsAction } from './infra/http/action/delay/list-delay-reports.action';
+import { ReportDelayAction } from './infra/http/action/delay/report-delay.action';
+import { RemoveDelayReportAction } from './infra/http/action/delay/remove-delay-report.action';
+import { AcceptDelayReportAction } from './infra/http/action/delay/accept-delay-report.action';
+import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-report.action';
 
 @Module({
   imports: [PrismaModule, DiscordModule, AdsbModule, SimbriefModule],
@@ -107,22 +106,17 @@ import { BroadcastFlightEventListener } from './application/event/listener/broad
     CreateFlightAction,
     CreateFlightFromSimbriefAction,
     ListFlightsAction,
+    ListDelayReportsAction,
     GetFlightAction,
     RemoveFlightAction,
-
     UpdatePreliminaryLoadsheetAction,
-
     UpdateScheduledTimesheetAction,
     UpdatePredictedTimesheetAction,
-
     ChangeFlightVisibilityAction,
-
     UpdateDepartureGateAction,
     UpdateArrivalGateAction,
-
     UpdateDepartureRunwayAction,
     UpdateArrivalRunwayAction,
-
     MarkFlightAsReadyAction,
     CheckInPilotAction,
     StartBoardingAction,
@@ -134,24 +128,23 @@ import { BroadcastFlightEventListener } from './application/event/listener/broad
     StartOffboardingAction,
     FinishOffboardingAction,
     CloseFlightAction,
-
     ReportDiversionAction,
     GetDiversionAction,
     UpdateDiversionAction,
-
     DeclareEmergencyAction,
     UpdateEmergencyAction,
     ResolveEmergencyAction,
     ListEmergenciesAction,
-
     ListEventsAction,
-
     GetOfpAction,
-
     GetPathAction,
-
     AddFlightToRotationAction,
     RemoveFlightFromRotationAction,
+    GetDelayRequestAction,
+    ReportDelayAction,
+    RemoveDelayReportAction,
+    AcceptDelayReportAction,
+    RejectDelayReportAction,
   ],
   providers: [
     PositionService,
@@ -199,6 +192,15 @@ import { BroadcastFlightEventListener } from './application/event/listener/broad
     UpdateFlightDiversionHandler,
     FlightEventsGateway,
     BroadcastFlightEventListener,
+    OffBlockDelayListener,
+    DelayRepository,
+    GetDelayRequestHandler,
+    IsFlightDelayClearedHandler,
+    ListDelayRequestsHandler,
+    ReportDelayHandler,
+    RemoveDelayReportHandler,
+    AcceptDelayReportHandler,
+    RejectDelayReportHandler,
   ],
 })
 export class FlightsModule {}

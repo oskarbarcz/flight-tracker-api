@@ -984,7 +984,6 @@ Feature: Close flight
           "id": "aa18ec01-1bf2-4d65-8c43-92ef10ea7311",
           "urgency": "panpan",
           "threatLevel": "high",
-          "category": "medical-emergency",
           "squawk": "7700",
           "intention": "immediate-landing",
           "lastKnownPosition": { "longitude": -73.42, "latitude": 41.08 },
@@ -1158,4 +1157,72 @@ Feature: Close flight
       }
       """
     And I should receive a live flight event of type "flight.closed" within 2000ms
+    And I set database to initial state
+
+  Scenario: As a cabin crew I can close flight whose delay allocation is fully settled
+    Given I am signed in as "cabin crew"
+    When I send a "GET" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/delay"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "de1a0000-0000-4000-8000-000000000002",
+        "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
+        "totalDelayMinutes": 10,
+        "allocatedMinutes": 10,
+        "isReconciled": true,
+        "isSettled": true,
+        "reports": [
+          {
+            "id": "de1a0000-0000-4000-8000-000000000021",
+            "delayMinutes": 6,
+            "reasonCode": "RLL",
+            "freeText": null,
+            "rejectionReason": null,
+            "status": "accepted",
+            "reportedBy": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+            "decidedBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+            "decidedAt": "2025-01-01T13:20:00.000Z",
+            "createdAt": "2025-01-01T13:16:00.000Z"
+          },
+          {
+            "id": "de1a0000-0000-4000-8000-000000000022",
+            "delayMinutes": 4,
+            "reasonCode": "ATZ",
+            "freeText": null,
+            "rejectionReason": null,
+            "status": "accepted",
+            "reportedBy": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+            "decidedBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+            "decidedAt": "2025-01-01T13:21:00.000Z",
+            "createdAt": "2025-01-01T13:17:00.000Z"
+          }
+        ],
+        "createdAt": "2025-01-01T13:15:00.000Z"
+      }
+      """
+    When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
+    Then the response status should be 204
+    And I set database to initial state
+
+  Scenario: As a cabin crew I cannot close flight while it has an unaccepted delay report
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/delay" with body:
+      """json
+      {
+        "delayMinutes": 3,
+        "reasonCode": "OTH"
+      }
+      """
+    Then the response status should be 201
+    When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Entity",
+        "message": "Cannot close flight: its delay must be fully allocated and every report accepted."
+      }
+      """
     And I set database to initial state

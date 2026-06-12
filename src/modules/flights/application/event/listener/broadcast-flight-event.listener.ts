@@ -35,6 +35,10 @@ export class BroadcastFlightEventListener {
   @OnEvent(FlightEventType.EmergencyWasResolved)
   @OnEvent(FlightEventType.DiversionWasReported)
   @OnEvent(FlightEventType.DiversionWasUpdated)
+  @OnEvent(FlightEventType.DelayRequestWasCreated)
+  @OnEvent(FlightEventType.DelayReportWasFiled)
+  @OnEvent(FlightEventType.DelayReportWasAccepted)
+  @OnEvent(FlightEventType.DelayReportWasRejected)
   async onFlightEvent(event: NewFlightEvent): Promise<void> {
     await this.gateway.publishToFlight(event);
   }

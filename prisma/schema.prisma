@@ -173,6 +173,7 @@ model Flight {
   flightEvent          FlightEvent[]
   diversion            Diversion[]
   emergency            EmergencyDeclaration[]
+  delayRequest     DelayRequest?
   userPerformingFlight User[]                 @relation("UserCurrentFlight")
   departureGate        Gate?                  @relation("FlightDepartureGate", fields: [departureGateId], references: [id], onDelete: SetNull)
   departureRunway      Runway?                @relation("FlightDepartureRunway", fields: [departureRunwayId], references: [id], onDelete: SetNull)
@@ -231,6 +232,40 @@ model EmergencyDeclaration {
   @@map("flight_emergency")
 }
 
+model DelayRequest {
+  id                String   @id @default(uuid()) @db.Uuid
+  flightId          String   @unique @db.Uuid
+  totalDelayMinutes Int
+  createdAt         DateTime @default(now())
+
+  flight  Flight            @relation(fields: [flightId], references: [id])
+  reports DelayReport[]
+
+  @@map("delay_request")
+}
+
+model DelayReport {
+  id           String            @id @default(uuid()) @db.Uuid
+  requestId    String            @db.Uuid
+  delayMinutes    Int
+  reasonCode      DelayReasonCode
+  freeText        String?
+  status          DelayReportStatus @default(pending)
+  reportedById    String            @db.Uuid
+  decidedById     String?           @db.Uuid
+  rejectionReason String?
+  decidedAt       DateTime?
+  createdAt       DateTime          @default(now())
+
+  request    DelayRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  reportedBy User             @relation("DelayReportReporter", fields: [reportedById], references: [id])
+  decidedBy  User?            @relation("DelayReportDecider", fields: [decidedById], references: [id])
+
+  @@index([requestId])
+  @@index([status])
+  @@map("delay_report")
+}
+
 model AirportsOnFlights {
   airportId   String @db.Uuid
   flightId    String @db.Uuid
@@ -257,15 +292,17 @@ model User {
   totalGreatCircleDistance Int      @default(0)
   totalFuelBurned          Int      @default(0)
 
-  rotations           Rotation[]
-  jwtRefreshToken     JwtRefreshToken[]
-  currentFlight       Flight?                @relation("UserCurrentFlight", fields: [currentFlightId], references: [id])
-  currentRotation     Rotation?              @relation(fields: [currentRotationId], references: [id], name: "CurrentRotation")
-  flightEvent         FlightEvent[]
-  diversion           Diversion[]
-  emergenciesReported EmergencyDeclaration[] @relation("EmergencyReporter")
-  emergenciesResolved EmergencyDeclaration[] @relation("EmergencyResolver")
-  allFlights          Flight[]               @relation("FlightCaptain")
+  rotations                Rotation[]
+  jwtRefreshToken          JwtRefreshToken[]
+  currentFlight            Flight?                @relation("UserCurrentFlight", fields: [currentFlightId], references: [id])
+  currentRotation          Rotation?              @relation(fields: [currentRotationId], references: [id], name: "CurrentRotation")
+  flightEvent              FlightEvent[]
+  diversion                Diversion[]
+  emergenciesReported      EmergencyDeclaration[] @relation("EmergencyReporter")
+  emergenciesResolved      EmergencyDeclaration[] @relation("EmergencyResolver")
+  allFlights               Flight[]               @relation("FlightCaptain")
+  delayReportsReported DelayReport[]      @relation("DelayReportReporter")
+  delayReportsDecided  DelayReport[]      @relation("DelayReportDecider")
 
   @@map("user")
 }
@@ -323,6 +360,39 @@ enum FlightEventScope {
   system
   operations
   user
+}
+
+enum DelayReasonCode {
+  AMZ
+  ATZ
+  AMC
+  RLL
+  RLP
+  RLS
+  RLV
+  ESR
+  END
+  ESM
+  GBT
+  GBJ
+  GBS
+  ODI
+  ORA
+  ORO
+  OFL
+  OAD
+  OSM
+  OTH
+
+  @@map("delay_reason_code")
+}
+
+enum DelayReportStatus {
+  pending
+  accepted
+  rejected
+
+  @@map("delay_report_status")
 }
 
 enum Continent {
