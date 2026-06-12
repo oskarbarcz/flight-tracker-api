@@ -173,7 +173,7 @@ model Flight {
   flightEvent          FlightEvent[]
   diversion            Diversion[]
   emergency            EmergencyDeclaration[]
-  delayRequest     DelayRequest?
+  delayRequest         DelayRequest?
   userPerformingFlight User[]                 @relation("UserCurrentFlight")
   departureGate        Gate?                  @relation("FlightDepartureGate", fields: [departureGateId], references: [id], onDelete: SetNull)
   departureRunway      Runway?                @relation("FlightDepartureRunway", fields: [departureRunwayId], references: [id], onDelete: SetNull)
@@ -238,15 +238,15 @@ model DelayRequest {
   totalDelayMinutes Int
   createdAt         DateTime @default(now())
 
-  flight  Flight            @relation(fields: [flightId], references: [id])
+  flight  Flight        @relation(fields: [flightId], references: [id])
   reports DelayReport[]
 
   @@map("delay_request")
 }
 
 model DelayReport {
-  id           String            @id @default(uuid()) @db.Uuid
-  requestId    String            @db.Uuid
+  id              String            @id @default(uuid()) @db.Uuid
+  requestId       String            @db.Uuid
   delayMinutes    Int
   reasonCode      DelayReasonCode
   freeText        String?
@@ -258,8 +258,8 @@ model DelayReport {
   createdAt       DateTime          @default(now())
 
   request    DelayRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
-  reportedBy User             @relation("DelayReportReporter", fields: [reportedById], references: [id])
-  decidedBy  User?            @relation("DelayReportDecider", fields: [decidedById], references: [id])
+  reportedBy User         @relation("DelayReportReporter", fields: [reportedById], references: [id])
+  decidedBy  User?        @relation("DelayReportDecider", fields: [decidedById], references: [id])
 
   @@index([requestId])
   @@index([status])
@@ -292,17 +292,17 @@ model User {
   totalGreatCircleDistance Int      @default(0)
   totalFuelBurned          Int      @default(0)
 
-  rotations                Rotation[]
-  jwtRefreshToken          JwtRefreshToken[]
-  currentFlight            Flight?                @relation("UserCurrentFlight", fields: [currentFlightId], references: [id])
-  currentRotation          Rotation?              @relation(fields: [currentRotationId], references: [id], name: "CurrentRotation")
-  flightEvent              FlightEvent[]
-  diversion                Diversion[]
-  emergenciesReported      EmergencyDeclaration[] @relation("EmergencyReporter")
-  emergenciesResolved      EmergencyDeclaration[] @relation("EmergencyResolver")
-  allFlights               Flight[]               @relation("FlightCaptain")
-  delayReportsReported DelayReport[]      @relation("DelayReportReporter")
-  delayReportsDecided  DelayReport[]      @relation("DelayReportDecider")
+  rotations            Rotation[]
+  jwtRefreshToken      JwtRefreshToken[]
+  currentFlight        Flight?                @relation("UserCurrentFlight", fields: [currentFlightId], references: [id])
+  currentRotation      Rotation?              @relation(fields: [currentRotationId], references: [id], name: "CurrentRotation")
+  flightEvent          FlightEvent[]
+  diversion            Diversion[]
+  emergenciesReported  EmergencyDeclaration[] @relation("EmergencyReporter")
+  emergenciesResolved  EmergencyDeclaration[] @relation("EmergencyResolver")
+  allFlights           Flight[]               @relation("FlightCaptain")
+  delayReportsReported DelayReport[]          @relation("DelayReportReporter")
+  delayReportsDecided  DelayReport[]          @relation("DelayReportDecider")
 
   @@map("user")
 }

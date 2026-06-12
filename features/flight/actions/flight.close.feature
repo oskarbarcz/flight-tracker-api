@@ -984,6 +984,7 @@ Feature: Close flight
           "id": "aa18ec01-1bf2-4d65-8c43-92ef10ea7311",
           "urgency": "panpan",
           "threatLevel": "high",
+          "category": "medical-emergency",
           "squawk": "7700",
           "intention": "immediate-landing",
           "lastKnownPosition": { "longitude": -73.42, "latitude": 41.08 },
