@@ -43,7 +43,7 @@ export class OffBlockDelayListener {
       flightId,
       rotationId: flight.rotationId,
       type: FlightEventType.DelayRequestWasCreated,
-      scope: FlightEventScope.System,
+      scope: FlightEventScope.Operations,
       actorId: null,
     };
     this.eventEmitter.emit(FlightEventType.DelayRequestWasCreated, created);
