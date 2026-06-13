@@ -33,6 +33,7 @@ Feature: Report off-block
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1/report-off-block"
     Then the response status should be 204
+    And I should receive a live flight event of type "flight.delay-request-created" within 2000ms
     When I send a "GET" request to "/api/v1/flight/f14a2141-4737-4622-a387-40513ff3baf1"
     Then the response status should be 200
     And the response body should contain:
@@ -278,6 +279,14 @@ Feature: Report off-block
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"
           },
+          "createdAt": "@date('within 1 minute from now')"
+        },
+        {
+          "id": "@uuid",
+          "scope": "operations",
+          "type": "flight.delay-request-created",
+          "payload": {},
+          "actor": null,
           "createdAt": "@date('within 1 minute from now')"
         }
       ]
