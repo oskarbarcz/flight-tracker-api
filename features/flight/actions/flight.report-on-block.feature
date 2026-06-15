@@ -200,12 +200,7 @@ Feature: Report on-block
               "latitude": 42.36454
             },
             "type": "departure",
-            "shape": [
-              { "latitude": 42.35454, "longitude": -71.02663 },
-              { "latitude": 42.35454, "longitude": -71.00663 },
-              { "latitude": 42.37454, "longitude": -71.00663 },
-              { "latitude": 42.37454, "longitude": -71.02663 }
-            ]
+            "shape": "@coordinates"
           },
           {
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
@@ -221,12 +216,7 @@ Feature: Report on-block
               "longitude": -75.24349,
               "latitude": 39.87113
             },
-            "shape": [
-              { "latitude": 39.86113, "longitude": -75.25349 },
-              { "latitude": 39.86113, "longitude": -75.23349 },
-              { "latitude": 39.88113, "longitude": -75.23349 },
-              { "latitude": 39.88113, "longitude": -75.25349 }
-            ]
+            "shape": "@coordinates"
           },
           {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -242,12 +232,7 @@ Feature: Report on-block
               "latitude": 40.6413
             },
             "type": "destination_alternate",
-            "shape": [
-              { "latitude": 40.6313, "longitude": -73.7881 },
-              { "latitude": 40.6313, "longitude": -73.7681 },
-              { "latitude": 40.6513, "longitude": -73.7681 },
-              { "latitude": 40.6513, "longitude": -73.7881 }
-            ]
+            "shape": "@coordinates"
           }
         ],
         "departureGateId": null,

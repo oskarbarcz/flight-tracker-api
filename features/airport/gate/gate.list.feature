@@ -27,7 +27,7 @@ Feature: List gates at an airport
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
           "fuelingOptions": "hydrant",
-          "coordinates": "@any"
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
@@ -49,7 +49,7 @@ Feature: List gates at an airport
           "noiseSensitivityStartTime": "21:00",
           "noiseSensitivityEndTime": "05:00",
           "fuelingOptions": "truck",
-          "coordinates": "@any"
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2201",
@@ -71,7 +71,7 @@ Feature: List gates at an airport
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
           "fuelingOptions": "hydrant",
-          "coordinates": "@any"
+          "coordinates": "@coordinates"
         }
       ]
       """
@@ -103,7 +103,7 @@ Feature: List gates at an airport
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
           "fuelingOptions": "hydrant",
-          "coordinates": "@any"
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
@@ -125,7 +125,7 @@ Feature: List gates at an airport
           "noiseSensitivityStartTime": "21:00",
           "noiseSensitivityEndTime": "05:00",
           "fuelingOptions": "truck",
-          "coordinates": "@any"
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2201",
@@ -147,7 +147,7 @@ Feature: List gates at an airport
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
           "fuelingOptions": "hydrant",
-          "coordinates": "@any"
+          "coordinates": "@coordinates"
         }
       ]
       """
@@ -179,7 +179,7 @@ Feature: List gates at an airport
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
           "fuelingOptions": "hydrant",
-          "coordinates": "@any"
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
@@ -201,7 +201,7 @@ Feature: List gates at an airport
           "noiseSensitivityStartTime": "21:00",
           "noiseSensitivityEndTime": "05:00",
           "fuelingOptions": "truck",
-          "coordinates": "@any"
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2201",
@@ -223,7 +223,7 @@ Feature: List gates at an airport
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
           "fuelingOptions": "hydrant",
-          "coordinates": "@any"
+          "coordinates": "@coordinates"
         }
       ]
       """
@@ -267,7 +267,7 @@ Feature: List gates at an airport
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
           "fuelingOptions": "hydrant",
-          "coordinates": "@any"
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
@@ -289,7 +289,7 @@ Feature: List gates at an airport
           "noiseSensitivityStartTime": "21:00",
           "noiseSensitivityEndTime": "05:00",
           "fuelingOptions": "truck",
-          "coordinates": "@any"
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2201",
@@ -311,7 +311,7 @@ Feature: List gates at an airport
           "noiseSensitivityStartTime": null,
           "noiseSensitivityEndTime": null,
           "fuelingOptions": "hydrant",
-          "coordinates": "@any"
+          "coordinates": "@coordinates"
         }
       ]
       """

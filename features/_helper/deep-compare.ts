@@ -11,6 +11,11 @@ export const deepCompare = (actual: any, expected: any) => {
     return;
   }
 
+  if (expected === '@coordinates') {
+    validateCoordinates(actual);
+    return;
+  }
+
   if (expected === '@jwt_access_token') {
     validateJwtAccessToken(actual);
     return;
@@ -50,6 +55,34 @@ export const deepCompare = (actual: any, expected: any) => {
     deepCompare(actual[key], expected[key]);
   }
 };
+
+function isCoordinate(value: any): boolean {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    Object.keys(value).length === 2 &&
+    typeof value.latitude === 'number' &&
+    typeof value.longitude === 'number' &&
+    value.latitude >= -90 &&
+    value.latitude <= 90 &&
+    value.longitude >= -180 &&
+    value.longitude <= 180
+  );
+}
+
+// Matches either a single { latitude, longitude } point (e.g. a gate position)
+// or a non-empty polygon: an array of such points (e.g. an airport/terminal shape).
+function validateCoordinates(actual: any) {
+  if (Array.isArray(actual)) {
+    expect(actual.length).toBeGreaterThan(0);
+    for (const point of actual) {
+      expect(isCoordinate(point)).toBe(true);
+    }
+    return;
+  }
+
+  expect(isCoordinate(actual)).toBe(true);
+}
 
 function extractPayloadFromJwt(token: string): Record<string, string> {
   return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());

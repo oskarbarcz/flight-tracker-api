@@ -15,7 +15,7 @@ Feature: List terminals at an airport
           "averageTaxiTime": 12,
           "operatorCodes": ["DLH", "LOT"],
           "text": null,
-          "shape": "@any"
+          "shape": "@coordinates"
         },
         {
           "id": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
@@ -25,7 +25,7 @@ Feature: List terminals at an airport
           "averageTaxiTime": 14,
           "operatorCodes": ["BAW", "AFR"],
           "text": null,
-          "shape": "@any"
+          "shape": "@coordinates"
         }
       ]
       """
@@ -67,7 +67,7 @@ Feature: List terminals at an airport
           "averageTaxiTime": 12,
           "operatorCodes": ["DLH", "LOT"],
           "text": null,
-          "shape": "@any"
+          "shape": "@coordinates"
         },
         {
           "id": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
@@ -77,7 +77,7 @@ Feature: List terminals at an airport
           "averageTaxiTime": 14,
           "operatorCodes": ["BAW", "AFR"],
           "text": null,
-          "shape": "@any"
+          "shape": "@coordinates"
         }
       ]
       """

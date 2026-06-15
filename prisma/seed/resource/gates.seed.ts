@@ -42,7 +42,7 @@ export async function loadGates(): Promise<void> {
       noiseSensitivityStartTime: '21:00',
       noiseSensitivityEndTime: '05:00',
       fuelingOptions: 'truck',
-      coordinates: { latitude: 50.04693, longitude: 8.57397 },
+      coordinates: { latitude: 50.048797, longitude: 8.569462 },
     },
 
     // EDDF — Frankfurt T2
@@ -84,7 +84,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 52.16575, longitude: 20.967123 },
+      coordinates: { latitude: 52.173136, longitude: 20.969341 },
     },
 
     // KJFK — Terminal 1
@@ -108,7 +108,7 @@ export async function loadGates(): Promise<void> {
       noiseSensitivityStartTime: '00:00',
       noiseSensitivityEndTime: '06:00',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 40.6413, longitude: -73.7781 },
+      coordinates: { latitude: 40.643304, longitude: -73.780546 },
     },
     {
       id: '2a01a002-0000-4001-9101-000000000002',
@@ -126,7 +126,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 40.6413, longitude: -73.7781 },
+      coordinates: { latitude: 40.64195, longitude: -73.783613 },
     },
 
     // KJFK — Terminal 4
@@ -146,7 +146,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 40.6413, longitude: -73.7781 },
+      coordinates: { latitude: 40.643304, longitude: -73.780546 },
     },
     {
       id: '2a04a002-0000-4001-9101-000000040002',
@@ -164,7 +164,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 40.6413, longitude: -73.7781 },
+      coordinates: { latitude: 40.639835, longitude: -73.780883 },
     },
 
     // KJFK — Terminal 5
@@ -184,7 +184,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 40.6413, longitude: -73.7781 },
+      coordinates: { latitude: 40.650501, longitude: -73.783297 },
     },
     {
       id: '2a05a002-0000-4001-9101-000000050002',
@@ -202,7 +202,7 @@ export async function loadGates(): Promise<void> {
       location: 'remote',
       noiseSensitivity: 'no',
       fuelingOptions: 'truck',
-      coordinates: { latitude: 40.6413, longitude: -73.7781 },
+      coordinates: { latitude: 40.648983, longitude: -73.789978 },
     },
 
     // KJFK — Terminal 7
@@ -222,7 +222,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 40.6413, longitude: -73.7781 },
+      coordinates: { latitude: 40.649272, longitude: -73.783925 },
     },
     {
       id: '2a07a002-0000-4001-9101-000000070002',
@@ -240,7 +240,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 40.6413, longitude: -73.7781 },
+      coordinates: { latitude: 40.648377, longitude: -73.791402 },
     },
 
     // KJFK — Terminal 8
@@ -260,7 +260,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 40.6413, longitude: -73.7781 },
+      coordinates: { latitude: 40.64799, longitude: -73.792317 },
     },
     {
       id: '2a08a002-0000-4001-9101-000000080002',
@@ -278,7 +278,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 40.6413, longitude: -73.7781 },
+      coordinates: { latitude: 40.649735, longitude: -73.794118 },
     },
 
     // LFPG — Terminal 1
@@ -298,7 +298,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 49.00896, longitude: 2.55412 },
+      coordinates: { latitude: 49.015979, longitude: 2.543913 },
     },
 
     // LFPG — Terminal 2A
@@ -318,7 +318,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 49.00896, longitude: 2.55412 },
+      coordinates: { latitude: 49.002299, longitude: 2.558243 },
     },
 
     // LFPG — Terminal 2B
@@ -418,7 +418,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 49.00896, longitude: 2.55412 },
+      coordinates: { latitude: 49.006508, longitude: 2.574264 },
     },
 
     // LFPG — Terminal 2G
@@ -438,7 +438,7 @@ export async function loadGates(): Promise<void> {
       location: 'remote',
       noiseSensitivity: 'no',
       fuelingOptions: 'truck',
-      coordinates: { latitude: 49.00896, longitude: 2.55412 },
+      coordinates: { latitude: 49.003475, longitude: 2.556203 },
     },
 
     // LFPG — Terminal 3
@@ -458,7 +458,7 @@ export async function loadGates(): Promise<void> {
       location: 'remote',
       noiseSensitivity: 'no',
       fuelingOptions: 'truck',
-      coordinates: { latitude: 49.00896, longitude: 2.55412 },
+      coordinates: { latitude: 49.014785, longitude: 2.538702 },
     },
 
     // CYYR — Goose Bay Main Terminal
@@ -540,7 +540,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'truck',
-      coordinates: { latitude: 47.61861, longitude: -52.751945 },
+      coordinates: { latitude: 47.613567, longitude: -52.744369 },
     },
 
     // KPHL — Terminal A-East
@@ -560,7 +560,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 39.87113, longitude: -75.24349 },
+      coordinates: { latitude: 39.874885, longitude: -75.248284 },
     },
 
     // KPHL — Terminal A-West
@@ -600,7 +600,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 39.87113, longitude: -75.24349 },
+      coordinates: { latitude: 39.874753, longitude: -75.243876 },
     },
 
     // KPHL — Terminal C
@@ -620,7 +620,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 39.87113, longitude: -75.24349 },
+      coordinates: { latitude: 39.87479, longitude: -75.24052 },
     },
 
     // KPHL — Terminal D
@@ -640,7 +640,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 39.87113, longitude: -75.24349 },
+      coordinates: { latitude: 39.875481, longitude: -75.237749 },
     },
 
     // KPHL — Terminal E
@@ -660,7 +660,7 @@ export async function loadGates(): Promise<void> {
       location: 'remote',
       noiseSensitivity: 'no',
       fuelingOptions: 'truck',
-      coordinates: { latitude: 39.87113, longitude: -75.24349 },
+      coordinates: { latitude: 39.877761, longitude: -75.236245 },
     },
 
     // KPHL — Terminal F
@@ -680,7 +680,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 39.87113, longitude: -75.24349 },
+      coordinates: { latitude: 39.881828, longitude: -75.237073 },
     },
 
     // KBOS — Terminal A
@@ -704,7 +704,7 @@ export async function loadGates(): Promise<void> {
       noiseSensitivityStartTime: '23:00',
       noiseSensitivityEndTime: '06:00',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 42.36454, longitude: -71.01663 },
+      coordinates: { latitude: 42.364654, longitude: -71.022864 },
     },
     {
       id: '8a01a002-0000-4001-9101-000050100002',
@@ -722,7 +722,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 42.36454, longitude: -71.01663 },
+      coordinates: { latitude: 42.363948, longitude: -71.021385 },
     },
 
     // KBOS — Terminal B
@@ -742,7 +742,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 42.36454, longitude: -71.01663 },
+      coordinates: { latitude: 42.363167, longitude: -71.016897 },
     },
     {
       id: '8a02a002-0000-4001-9101-000050200002',
@@ -760,7 +760,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 42.36454, longitude: -71.01663 },
+      coordinates: { latitude: 42.363389, longitude: -71.016854 },
     },
 
     // KBOS — Terminal C
@@ -780,7 +780,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 42.36454, longitude: -71.01663 },
+      coordinates: { latitude: 42.367786, longitude: -71.01531 },
     },
     {
       id: '8a03a002-0000-4001-9101-000050300002',
@@ -798,7 +798,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 42.36454, longitude: -71.01663 },
+      coordinates: { latitude: 42.36546, longitude: -71.014497 },
     },
 
     // KBOS — Terminal E
@@ -818,7 +818,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 42.36454, longitude: -71.01663 },
+      coordinates: { latitude: 42.368132, longitude: -71.018139 },
     },
     {
       id: '8a04a002-0000-4001-9101-000050400002',
@@ -836,7 +836,7 @@ export async function loadGates(): Promise<void> {
       location: 'gate',
       noiseSensitivity: 'no',
       fuelingOptions: 'hydrant',
-      coordinates: { latitude: 42.36454, longitude: -71.01663 },
+      coordinates: { latitude: 42.37118, longitude: -71.020537 },
     },
 
     // EDDW — Bremen Hauptterminal
@@ -860,7 +860,7 @@ export async function loadGates(): Promise<void> {
       noiseSensitivityStartTime: '22:00',
       noiseSensitivityEndTime: '06:00',
       fuelingOptions: 'truck',
-      coordinates: { latitude: 53.0475, longitude: 8.786667 },
+      coordinates: { latitude: 53.051918, longitude: 8.783696 },
     },
   ];
 

@@ -53,7 +53,7 @@ Feature: Update gate
         "noiseSensitivityStartTime": "23:00",
         "noiseSensitivityEndTime": "04:30",
         "fuelingOptions": "hydrant",
-        "coordinates": "@any"
+        "coordinates": "@coordinates"
       }
       """
     And I set database to initial state
@@ -87,7 +87,7 @@ Feature: Update gate
         "noiseSensitivityStartTime": null,
         "noiseSensitivityEndTime": null,
         "fuelingOptions": "hydrant",
-        "coordinates": "@any"
+        "coordinates": "@coordinates"
       }
       """
     And I set database to initial state
