@@ -14,7 +14,7 @@ Feature: Get terminal
         "averageTaxiTime": 12,
         "operatorCodes": ["DLH", "LOT"],
         "text": null,
-        "shape": "@any"
+        "shape": "@coordinates"
       }
       """
 
@@ -80,6 +80,6 @@ Feature: Get terminal
         "averageTaxiTime": 12,
         "operatorCodes": ["DLH", "LOT"],
         "text": null,
-        "shape": "@any"
+        "shape": "@coordinates"
       }
       """

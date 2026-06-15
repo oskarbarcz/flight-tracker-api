@@ -30,7 +30,7 @@ Feature: Update terminal
         "averageTaxiTime": 20,
         "operatorCodes": ["DLH", "LOT", "KLM"],
         "text": "Renovated in 2026. New jet-bridges on all gates.",
-        "shape": "@any"
+        "shape": "@coordinates"
       }
       """
     And I set database to initial state
