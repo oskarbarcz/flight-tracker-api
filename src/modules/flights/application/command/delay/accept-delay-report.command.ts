@@ -1,9 +1,8 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { FlightEventType } from '../../../../../core/events/flight';
-import { scopeForActor } from '../../../model/event.model';
+import { FlightEventScope } from '../../../model/event.model';
 import { NewFlightEvent } from '../../../infra/http/request/event.dto';
-import { JwtUser } from '../../../../auth/infra/http/request/jwt-user.dto';
 import { DelayRepository } from '../../../infra/database/repository/delay.repository';
 import { DelayReportStatus } from '../../../model/delay-report.model';
 import {
@@ -15,7 +14,7 @@ export class AcceptDelayReportCommand {
   constructor(
     public readonly flightId: string,
     public readonly reportId: string,
-    public readonly actor: JwtUser,
+    public readonly userId: string,
   ) {}
 }
 
@@ -30,7 +29,7 @@ export class AcceptDelayReportHandler implements ICommandHandler<
   ) {}
 
   async execute(command: AcceptDelayReportCommand): Promise<void> {
-    const { flightId, reportId, actor } = command;
+    const { flightId, reportId, userId } = command;
 
     const report = await this.delayRepository.findReport(flightId, reportId);
     if (!report) {
@@ -43,15 +42,15 @@ export class AcceptDelayReportHandler implements ICommandHandler<
     await this.delayRepository.decideReport(
       reportId,
       DelayReportStatus.accepted,
-      actor.sub,
+      userId,
       null,
     );
 
     const event: NewFlightEvent = {
       flightId,
       type: FlightEventType.DelayReportWasAccepted,
-      scope: scopeForActor(actor),
-      actorId: actor.sub,
+      scope: FlightEventScope.Operations,
+      actorId: userId,
     };
     this.eventEmitter.emit(FlightEventType.DelayReportWasAccepted, event);
   }

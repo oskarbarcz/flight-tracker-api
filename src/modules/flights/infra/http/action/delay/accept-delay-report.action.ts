@@ -52,8 +52,11 @@ export class AcceptDelayReportAction {
     @UuidParam('reportId') reportId: string,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    await this.commandBus.execute(
-      new AcceptDelayReportCommand(flightId, reportId, request.user),
+    const command = new AcceptDelayReportCommand(
+      flightId,
+      reportId,
+      request.user.sub,
     );
+    await this.commandBus.execute(command);
   }
 }
