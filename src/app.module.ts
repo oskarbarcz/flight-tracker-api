@@ -3,6 +3,7 @@ import { AirportsModule } from './modules/airports/airports.module';
 import { AirframesModule } from './modules/airframes/airframes.module';
 import { OperatorsModule } from './modules/operators/operators.module';
 import { FlightsModule } from './modules/flights/flights.module';
+import { AutomationsModule } from './modules/automations/automations.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
@@ -20,6 +21,7 @@ import { CqrsModule } from '@nestjs/cqrs';
     AirframesModule,
     OperatorsModule,
     FlightsModule,
+    AutomationsModule,
     UsersModule,
     AuthModule,
     JwtModule,
