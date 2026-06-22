@@ -52,6 +52,7 @@ import { ListEmergenciesHandler } from './application/query/emergency/list-emerg
 import { MarkFlightAsReadyHandler } from './application/command/mark-as-ready.command';
 import { GetFlightHandler } from './application/query/get-flight.query';
 import { ListAllFlightsHandler } from './application/query/list-all-flights.query';
+import { GetAircraftFlightHistoryHandler } from './application/query/get-aircraft-flight-history.query';
 import { RemoveFlightHandler } from './application/command/remove-flight.command';
 import { CheckInPilotForFlightHandler } from './application/command/check-in-pilot.command';
 import { StartBoardingHandler } from './application/command/start-boarding.command';
@@ -160,6 +161,7 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     MarkFlightAsReadyHandler,
     GetFlightHandler,
     ListAllFlightsHandler,
+    GetAircraftFlightHistoryHandler,
     RemoveFlightHandler,
     CheckInPilotForFlightHandler,
     StartBoardingHandler,

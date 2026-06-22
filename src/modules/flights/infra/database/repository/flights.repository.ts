@@ -102,6 +102,23 @@ export const flightWithAircraftAndAirportsFields = {
   },
 } as const satisfies Prisma.FlightSelect;
 
+const flightHistoryFields = {
+  id: true,
+  flightNumber: true,
+  status: true,
+  timesheet: true,
+  airports: {
+    select: {
+      airportType: true,
+      airport: { select: { id: true, name: true, iataCode: true } },
+    },
+  },
+} as const satisfies Prisma.FlightSelect;
+
+export type FlightHistoryRow = Prisma.FlightGetPayload<{
+  select: typeof flightHistoryFields;
+}>;
+
 const flightOfp = {
   ofpContent: true,
   ofpDocumentUrl: true,
@@ -370,6 +387,29 @@ export class FlightsRepository {
       ),
       totalCount,
     };
+  }
+
+  async findHistoryByAircraftId(
+    aircraftId: string,
+  ): Promise<{ flights: FlightHistoryRow[]; totalCount: number }> {
+    const where: Prisma.FlightWhereInput = { aircraftId };
+
+    const [flights, totalCount] = await Promise.all([
+      this.prisma.flight.findMany({
+        where,
+        select: flightHistoryFields,
+        // newest first; flightNumber + id keep the order stable when flights
+        // share a createdAt
+        orderBy: [
+          { createdAt: 'desc' },
+          { flightNumber: 'asc' },
+          { id: 'asc' },
+        ],
+      }),
+      this.prisma.flight.count({ where }),
+    ]);
+
+    return { flights, totalCount };
   }
 
   async remove(id: string): Promise<void> {
