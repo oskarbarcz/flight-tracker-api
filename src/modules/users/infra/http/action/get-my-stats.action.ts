@@ -6,19 +6,19 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { QueryBus } from '@nestjs/cqrs';
+import { CacheKey } from '@nestjs/cache-manager';
 import { GetUserStatsResponse } from '../request/get-user.dto';
+import { GetUserStatsQuery } from '../../../application/query/get-user-stats.query';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
-import { QueryBus } from '@nestjs/cqrs';
-import { GetUserStatsQuery } from '../../../application/query/get-user-stats.query';
 import { UserAwareCacheInterceptor } from '../../../../../core/cache/user-aware-cache.interceptor';
-import { CacheKey } from '@nestjs/cache-manager';
 import { CACHE_KEYS } from '../../../../../core/cache/cache.key';
 
 @ApiTags('user')
 @Controller('/api/v1/user')
 @UseInterceptors(UserAwareCacheInterceptor)
-export class StatsController {
+export class GetMyStatsAction {
   constructor(private readonly queryBus: QueryBus) {}
 
   @ApiOperation({
@@ -35,7 +35,7 @@ export class StatsController {
   })
   @CacheKey(CACHE_KEYS.USER_STATS)
   @Get('/me/stats')
-  getMyStats(@Req() request: AuthorizedRequest): Promise<GetUserStatsResponse> {
+  run(@Req() request: AuthorizedRequest): Promise<GetUserStatsResponse> {
     const query = new GetUserStatsQuery(request.user.sub);
     return this.queryBus.execute(query);
   }

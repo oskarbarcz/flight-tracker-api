@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../../http/request/create-user.dto';
 import { UpdateUserDto } from '../../http/request/update-user.dto';
-import { v4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import {
@@ -9,20 +8,8 @@ import {
   ListUsersFilters,
   GetUserStatsResponse,
 } from '../../http/request/get-user.dto';
-import { OnEvent } from '@nestjs/event-emitter';
-import {
-  FlightEventType,
-  PilotCheckedInEvent,
-  OnBlockWasReportedEvent,
-  FlightWasClosedEvent,
-} from '../../../../../core/domain/events/dto/flight.events';
 import { User } from '../../../../../../prisma/client/client';
 import { UserRole } from '../../../../../../prisma/client/enums';
-import {
-  FilledSchedule,
-  FilledTimesheet,
-} from '../../../../flights/model/timesheet.model';
-import { scheduleToBlockTimeInMinutes } from '../../../../flights/infra/helper/dates';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
 import { CACHE_KEYS, cacheByUser } from '../../../../../core/cache/cache.key';
@@ -43,7 +30,7 @@ export class UsersRepository {
     private readonly prisma: PrismaService,
   ) {}
 
-  async create(data: CreateUserDto): Promise<GetUserDto> {
+  async create(id: string, data: CreateUserDto): Promise<void> {
     const userWithSameEmail = await this.findOneBy({
       email: data.email,
     });
@@ -69,9 +56,9 @@ export class UsersRepository {
       this.BCRYPT_SALT_ROUNDS,
     );
 
-    const user: User = await this.prisma.user.create({
+    await this.prisma.user.create({
       data: {
-        id: v4(),
+        id,
         ...data,
         currentFlightId: null,
         password: hashedPassword,
@@ -79,8 +66,6 @@ export class UsersRepository {
         lastAirportUpdatedAt: null,
       },
     });
-
-    return this.returnWithoutPassword(user);
   }
 
   async findAll(filters: ListUsersFilters): Promise<GetUserDto[]> {
@@ -138,7 +123,7 @@ export class UsersRepository {
     return !isMatch ? null : this.returnWithoutPassword(user);
   }
 
-  async update(id: string, data: UpdateUserDto): Promise<GetUserDto> {
+  async update(id: string, data: UpdateUserDto): Promise<void> {
     const user: User | null = await this.findOneBy({ id });
 
     if (!user) {
@@ -154,7 +139,7 @@ export class UsersRepository {
       throw new OnlyCabinCrewCanHaveHomeAirportError();
     }
 
-    const updatedUser = await this.prisma.user.update({
+    await this.prisma.user.update({
       where: { id },
       data,
     });
@@ -170,89 +155,51 @@ export class UsersRepository {
         data: { password: hashedPassword },
       });
     }
-
-    return this.returnWithoutPassword(updatedUser);
   }
 
-  @OnEvent(FlightEventType.PilotCheckedIn)
-  async onFlightCheckedIn(event: PilotCheckedInEvent): Promise<void> {
+  async setCurrentFlight(
+    userId: string,
+    flightId: string | null,
+  ): Promise<void> {
     await this.prisma.user.update({
-      where: { id: event.payload.actorId as string },
-      data: { currentFlightId: event.payload.flightId },
-    });
-
-    if (!event.payload.rotationId) {
-      return;
-    }
-
-    await this.prisma.user.update({
-      where: { id: event.payload.actorId as string },
-      data: { currentRotationId: event.payload.rotationId },
+      where: { id: userId },
+      data: { currentFlightId: flightId },
     });
   }
 
-  @OnEvent(FlightEventType.OnBlockWasReported)
-  async onOnBlockWasReported(event: OnBlockWasReportedEvent): Promise<void> {
-    const flight = await this.prisma.flight.findFirstOrThrow({
-      select: {
-        captainId: true,
-        greatCircleDistance: true,
-        totalFuelBurned: true,
-        timesheet: true,
-      },
-      where: { id: event.payload.flightId },
-    });
-
-    const timesheet = flight.timesheet as FilledTimesheet;
-    const blockTime = scheduleToBlockTimeInMinutes(
-      timesheet.actual as FilledSchedule,
-    );
-
+  async setCurrentRotation(
+    userId: string,
+    rotationId: string | null,
+  ): Promise<void> {
     await this.prisma.user.update({
-      where: { id: flight.captainId as string },
+      where: { id: userId },
+      data: { currentRotationId: rotationId },
+    });
+  }
+
+  async addCompletedFlightStats(
+    userId: string,
+    stats: {
+      greatCircleDistance: number;
+      totalFuelBurned: number;
+      blockTime: number;
+    },
+    landingAirportId: string,
+    landedAt: Date,
+  ): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: userId },
       data: {
-        totalGreatCircleDistance: { increment: flight.greatCircleDistance },
-        totalFuelBurned: { increment: flight.totalFuelBurned },
-        totalFlightTime: { increment: blockTime },
-        lastAirportId: event.payload.landingAirportId,
-        lastAirportUpdatedAt: new Date(),
+        totalGreatCircleDistance: { increment: stats.greatCircleDistance },
+        totalFuelBurned: { increment: stats.totalFuelBurned },
+        totalFlightTime: { increment: stats.blockTime },
+        lastAirportId: landingAirportId,
+        lastAirportUpdatedAt: landedAt,
       },
     });
     // remove user stats from an indefinite cache
-    const cacheKey = cacheByUser(
-      CACHE_KEYS.USER_STATS,
-      flight.captainId as string,
-    );
+    const cacheKey = cacheByUser(CACHE_KEYS.USER_STATS, userId);
     await this.cacheManager.del(cacheKey);
-  }
-
-  @OnEvent(FlightEventType.FlightWasClosed)
-  async onFlightClose(event: FlightWasClosedEvent): Promise<void> {
-    await this.prisma.user.update({
-      where: { id: event.payload.actorId as string },
-      data: { currentFlightId: null },
-    });
-
-    // flight has no rotation
-    if (!event.payload.rotationId) {
-      return;
-    }
-
-    const lastFlightInRotation = await this.prisma.flight.findFirst({
-      select: { id: true },
-      where: { rotationId: event.payload.rotationId },
-      orderBy: { createdAt: 'desc' },
-    });
-
-    // flight is not last in rotation
-    if (lastFlightInRotation?.id !== event.payload.flightId) {
-      return;
-    }
-
-    await this.prisma.user.update({
-      where: { id: event.payload.actorId as string },
-      data: { currentRotationId: null },
-    });
   }
 
   private async findOneBy(
