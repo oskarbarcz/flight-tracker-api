@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
 
 import { GetFlightQuery } from '../../query/get-flight.query';
 import { FlightStatus } from '../../../model/flight.model';
@@ -14,8 +14,7 @@ import {
 } from '../../../infra/http/request/emergency.dto';
 import { EmergencyRepository } from '../../../infra/database/repository/emergency.repository';
 import { JwtUser } from '../../../../auth/infra/http/request/jwt-user.dto';
-import { NewFlightEvent } from '../../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../../core/events/flight';
+import { EmergencyWasDeclaredEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../../model/event.model';
 
 const allowedStatuses: ReadonlySet<FlightStatus> = new Set([
@@ -40,7 +39,7 @@ export class DeclareEmergencyHandler implements ICommandHandler<
   constructor(
     private readonly queryBus: QueryBus,
     private readonly emergencyRepository: EmergencyRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(
@@ -75,14 +74,14 @@ export class DeclareEmergencyHandler implements ICommandHandler<
       reportedBy: actor.sub,
     });
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.EmergencyWasDeclared,
-      scope: FlightEventScope.User,
-      actorId: actor.sub,
-    };
-    this.eventEmitter.emit(FlightEventType.EmergencyWasDeclared, event);
+    this.domainEvents.emit(
+      new EmergencyWasDeclaredEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: FlightEventScope.User,
+        actorId: actor.sub,
+      }),
+    );
 
     return created;
   }

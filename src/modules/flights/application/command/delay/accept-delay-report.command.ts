@@ -1,8 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { EventEmitter2 } from '@nestjs/event-emitter';
-import { FlightEventType } from '../../../../../core/events/flight';
+import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
+import { DelayReportWasAcceptedEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../../model/event.model';
-import { NewFlightEvent } from '../../../infra/http/request/event.dto';
 import { DelayRepository } from '../../../infra/database/repository/delay.repository';
 import { DelayReportStatus } from '../../../model/delay-report.model';
 import {
@@ -25,7 +24,7 @@ export class AcceptDelayReportHandler implements ICommandHandler<
 > {
   constructor(
     private readonly delayRepository: DelayRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: AcceptDelayReportCommand): Promise<void> {
@@ -46,12 +45,12 @@ export class AcceptDelayReportHandler implements ICommandHandler<
       null,
     );
 
-    const event: NewFlightEvent = {
-      flightId,
-      type: FlightEventType.DelayReportWasAccepted,
-      scope: FlightEventScope.Operations,
-      actorId: userId,
-    };
-    this.eventEmitter.emit(FlightEventType.DelayReportWasAccepted, event);
+    this.domainEvents.emit(
+      new DelayReportWasAcceptedEvent({
+        flightId,
+        scope: FlightEventScope.Operations,
+        actorId: userId,
+      }),
+    );
   }
 }

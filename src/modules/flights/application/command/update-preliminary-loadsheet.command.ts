@@ -11,10 +11,9 @@ import {
 } from '../../infra/http/request/errors.dto';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { Loadsheet, Loadsheets } from '../../model/loadsheet.model';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { PreliminaryLoadsheetWasUpdatedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 
 export class UpdatePreliminaryLoadsheetCommand {
   constructor(
@@ -29,7 +28,7 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: UpdatePreliminaryLoadsheetCommand): Promise<void> {
@@ -49,16 +48,13 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
 
     const loadsheets: Loadsheets = { preliminary: loadsheet, final: null };
     await this.flightsRepository.updateLoadsheets(flightId, loadsheets);
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.PreliminaryLoadsheetWasUpdated,
-      scope: FlightEventScope.Operations,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(
-      FlightEventType.PreliminaryLoadsheetWasUpdated,
-      event,
+    this.domainEvents.emit(
+      new PreliminaryLoadsheetWasUpdatedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: FlightEventScope.Operations,
+        actorId: initiatorId,
+      }),
     );
   }
 }

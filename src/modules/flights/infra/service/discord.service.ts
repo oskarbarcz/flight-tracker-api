@@ -1,6 +1,9 @@
 import { OnEvent } from '@nestjs/event-emitter';
-import { FlightEventType } from '../../../../core/events/flight';
-import { NewFlightEvent } from '../http/request/event.dto';
+import {
+  FlightEventType,
+  BoardingWasStartedEvent,
+  OnBlockWasReportedEvent,
+} from '../../../../core/domain/events/dto/flight.events';
 import { DiscordClient } from '../../../../core/provider/discord/client/discord.client';
 import {
   AirportType,
@@ -18,8 +21,10 @@ export class DiscordService {
   ) {}
 
   @OnEvent(FlightEventType.BoardingWasStarted)
-  public async onBoardingStarted(event: NewFlightEvent): Promise<void> {
-    const query = new GetFlightQuery(event.flightId);
+  public async onBoardingStarted(
+    event: BoardingWasStartedEvent,
+  ): Promise<void> {
+    const query = new GetFlightQuery(event.payload.flightId);
     const flight = await this.queryBus.execute(query);
 
     const departure = flight.airports.find(
@@ -48,15 +53,17 @@ export class DiscordService {
       `[Flight Tracker](https://flights.barcz.me/map/${flight.id})!`;
 
     await this.client.sendMessage({
-      flightId: event.flightId,
+      flightId: event.payload.flightId,
       content,
       type: 'departure',
     });
   }
 
   @OnEvent(FlightEventType.OnBlockWasReported)
-  public async onOnblockReported(event: NewFlightEvent): Promise<void> {
-    const query = new GetFlightQuery(event.flightId);
+  public async onOnblockReported(
+    event: OnBlockWasReportedEvent,
+  ): Promise<void> {
+    const query = new GetFlightQuery(event.payload.flightId);
     const flight = await this.queryBus.execute(query);
 
     const departure = flight.airports.find(
@@ -84,7 +91,7 @@ export class DiscordService {
       `[Flight Tracker](https://flights.barcz.me/map/${flight.id})!`;
 
     await this.client.sendMessage({
-      flightId: event.flightId,
+      flightId: event.payload.flightId,
       content,
       type: 'arrival',
     });

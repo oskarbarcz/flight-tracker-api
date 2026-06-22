@@ -10,15 +10,21 @@ datasource db {
 }
 
 model Aircraft {
-  id           String  @id @default(uuid()) @db.Uuid
-  type         String  @db.VarChar(4)
-  registration String  @unique
-  selcal       String
-  livery       String
-  operatorId   String? @db.Uuid
+  id                   String    @id @default(uuid()) @db.Uuid
+  type                 String    @db.VarChar(4)
+  registration         String    @unique
+  selcal               String
+  livery               String
+  currentState         AircraftState @default(idle)
+  operatorId           String?   @db.Uuid
+  baseAirportId        String?   @db.Uuid
+  lastAirportId        String?   @db.Uuid
+  lastAirportUpdatedAt DateTime?
 
-  operator Operator? @relation(fields: [operatorId], references: [id])
-  flight   Flight[]
+  operator     Operator? @relation(fields: [operatorId], references: [id])
+  baseAirport  Airport?  @relation("AircraftBaseAirport", fields: [baseAirportId], references: [id], onDelete: SetNull)
+  lastAirport  Airport?  @relation("AircraftLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
+  flight       Flight[]
 
   @@map("aircraft")
 }
@@ -39,6 +45,8 @@ model Airport {
   diversion         Diversion[]
   terminals         Terminal[]
   runways           Runway[]
+  baseForAircraft   Aircraft[]          @relation("AircraftBaseAirport")
+  lastForAircraft   Aircraft[]          @relation("AircraftLastAirport")
 
   @@map("airport")
 }
@@ -402,6 +410,13 @@ enum Continent {
   north_america
   south_america
   oceania
+}
+
+enum AircraftState {
+  idle
+  planned
+  checked_in
+  cruise
 }
 
 enum FlightSource {

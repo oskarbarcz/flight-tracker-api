@@ -83,8 +83,8 @@ import { GetDiversionHandler } from './application/query/diversion/get-diversion
 import { ReportFlightDiversionHandler } from './application/command/diversion/report-flight-diversion.command';
 import { UpdateFlightDiversionHandler } from './application/command/diversion/update-flight-diversion.command';
 import { FlightEventsGateway } from './infra/gateway/flight-events.gateway';
-import { BroadcastFlightEventListener } from './application/event/listener/broadcast-flight-event.listener';
-import { OffBlockDelayListener } from './application/event/listener/off-block-delay.listener';
+import { BroadcastFlightEventListener } from './application/event/internal/broadcast-flight-event.listener';
+import { OffBlockDelayListener } from './application/event/internal/off-block-delay.listener';
 import { DelayRepository } from './infra/database/repository/delay.repository';
 import { GetDelayRequestHandler } from './application/query/delay/get-delay-request.query';
 import { IsFlightDelayClearedHandler } from './application/query/delay/is-flight-delay-cleared.query';

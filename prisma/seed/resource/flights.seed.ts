@@ -6,7 +6,7 @@ import {
 import { FlightEventScope, Prisma } from '../../client/client';
 import { AirportType } from '../../../src/modules/airports/model/airport.model';
 import { Loadsheets } from '../../../src/modules/flights/model/loadsheet.model';
-import { FlightEventType } from '../../../src/core/events/flight';
+import { FlightEventType } from '../../../src/core/domain/events/dto/flight.events';
 import {
   DiversionReason,
   DiversionReporterRole,

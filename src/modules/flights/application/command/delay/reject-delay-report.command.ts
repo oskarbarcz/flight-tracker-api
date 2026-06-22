@@ -1,8 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { EventEmitter2 } from '@nestjs/event-emitter';
-import { FlightEventType } from '../../../../../core/events/flight';
+import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
+import { DelayReportWasRejectedEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { scopeForActor } from '../../../model/event.model';
-import { NewFlightEvent } from '../../../infra/http/request/event.dto';
 import { JwtUser } from '../../../../auth/infra/http/request/jwt-user.dto';
 import { DelayRepository } from '../../../infra/database/repository/delay.repository';
 import { DelayReportStatus } from '../../../model/delay-report.model';
@@ -27,7 +26,7 @@ export class RejectDelayReportHandler implements ICommandHandler<
 > {
   constructor(
     private readonly delayRepository: DelayRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: RejectDelayReportCommand): Promise<void> {
@@ -48,12 +47,12 @@ export class RejectDelayReportHandler implements ICommandHandler<
       rejectionReason,
     );
 
-    const event: NewFlightEvent = {
-      flightId,
-      type: FlightEventType.DelayReportWasRejected,
-      scope: scopeForActor(actor),
-      actorId: actor.sub,
-    };
-    this.eventEmitter.emit(FlightEventType.DelayReportWasRejected, event);
+    this.domainEvents.emit(
+      new DelayReportWasRejectedEvent({
+        flightId,
+        scope: scopeForActor(actor),
+        actorId: actor.sub,
+      }),
+    );
   }
 }

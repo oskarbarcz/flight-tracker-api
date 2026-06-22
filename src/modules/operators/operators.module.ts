@@ -27,7 +27,8 @@ import { ListAllRotationsQueryHandler } from './application/query/rotation/list-
 import { RemoveRotationHandler } from './application/command/rotation/remove-rotation.command';
 import { UpdateRotationHandler } from './application/command/rotation/update-rotation.command';
 import { AssertRotationExistsHandler } from './application/query/rotation/assert-rotation-exists.query';
-import { AircraftListener } from './application/event/listener/aircraft.listener';
+import { AircraftLifecycleListener } from './application/event/internal/aircraft-lifecycle.listener';
+import { FlightLifecycleListener } from './application/event/external/flight-lifecycle.listener';
 
 @Module({
   imports: [PrismaModule, AirframesModule],
@@ -56,7 +57,8 @@ import { AircraftListener } from './application/event/listener/aircraft.listener
     GetRotationByIdHandler,
     ListAllRotationsQueryHandler,
     AssertRotationExistsHandler,
-    AircraftListener,
+    AircraftLifecycleListener,
+    FlightLifecycleListener,
   ],
 })
 export class OperatorsModule {}

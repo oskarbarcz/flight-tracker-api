@@ -10,10 +10,9 @@ import {
   InvalidStatusToReportArrivedError,
 } from '../../infra/http/request/errors.dto';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { ArrivalWasReportedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { Schedule } from '../../model/timesheet.model';
 
 export class ReportArrivalCommand {
@@ -28,7 +27,7 @@ export class ReportArrivalHandler implements ICommandHandler<ReportArrivalComman
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: ReportArrivalCommand): Promise<void> {
@@ -50,13 +49,13 @@ export class ReportArrivalHandler implements ICommandHandler<ReportArrivalComman
     await this.flightsRepository.updateStatus(flightId, FlightStatus.TaxiingIn);
     await this.flightsRepository.updateTimesheet(flightId, timesheet);
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.ArrivalWasReported,
-      scope: FlightEventScope.User,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.ArrivalWasReported, event);
+    this.domainEvents.emit(
+      new ArrivalWasReportedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: FlightEventScope.User,
+        actorId: initiatorId,
+      }),
+    );
   }
 }

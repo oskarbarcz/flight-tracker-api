@@ -1,14 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { FlightEventType } from '../../../core/events/flight';
+import {
+  FlightEventScope,
+  FlightEventType,
+} from '../../../core/domain/events/dto/flight.events';
 import { InputJsonValue } from '../../../../prisma/client/internal/prismaNamespace';
 import { UserRole } from 'prisma/client/client';
 import { JwtUser } from '../../auth/infra/http/request/jwt-user.dto';
 
-export enum FlightEventScope {
-  System = 'system',
-  Operations = 'operations',
-  User = 'user',
-}
+export { FlightEventScope };
 
 export const scopeForActor = (actor: JwtUser): FlightEventScope =>
   actor.role === UserRole.Operations.toLowerCase()

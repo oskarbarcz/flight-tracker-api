@@ -1,10 +1,9 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { BadRequestException } from '@nestjs/common';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { FlightWasCreatedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { GetUserSimbriefIdQuery } from '../../../users/application/query/get-user-simbrief-id.query';
 import { SimbriefClient } from '../../../../core/provider/simbrief/client/simbrief.client';
 import { GetAirportByIcaoCodeQuery } from '../../../airports/application/query/get-airport-by-icao-code.query';
@@ -26,7 +25,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     private readonly queryBus: QueryBus,
     private readonly simbriefClient: SimbriefClient,
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: CreateFlightFromSimbriefCommand): Promise<void> {
@@ -109,13 +108,14 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       Number(ofp.general.total_burn),
     );
 
-    const event: NewFlightEvent = {
-      flightId: flightId,
-      type: FlightEventType.FlightWasCreated,
-      scope: FlightEventScope.Operations,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.FlightWasCreated, event);
+    this.domainEvents.emit(
+      new FlightWasCreatedEvent({
+        flightId: flightId,
+        scope: FlightEventScope.Operations,
+        actorId: initiatorId,
+        aircraftId: flightData.aircraftId,
+      }),
+    );
   }
 
   private ofpWeightToTons(input: string): number {

@@ -10,10 +10,9 @@ import {
   InvalidStatusToCheckInError,
 } from '../../infra/http/request/errors.dto';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { PilotCheckedInEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { Schedule } from '../../model/timesheet.model';
 
 export class CheckInPilotCommand {
@@ -29,7 +28,7 @@ export class CheckInPilotForFlightHandler implements ICommandHandler<CheckInPilo
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: CheckInPilotCommand): Promise<void> {
@@ -57,13 +56,14 @@ export class CheckInPilotForFlightHandler implements ICommandHandler<CheckInPilo
       await this.flightsRepository.updateTimesheet(flightId, timesheet),
     ]);
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.PilotCheckedIn,
-      scope: FlightEventScope.User,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.PilotCheckedIn, event);
+    this.domainEvents.emit(
+      new PilotCheckedInEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: FlightEventScope.User,
+        actorId: initiatorId,
+        aircraftId: flight.aircraft.id,
+      }),
+    );
   }
 }

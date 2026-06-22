@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import {
   FlightDoesNotExistError,
@@ -14,8 +14,7 @@ import {
   Schedule,
   mergeSchedulePatch,
 } from '../../model/timesheet.model';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { PredictedTimesheetWasUpdatedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { scopeForActor } from '../../model/event.model';
 import { JwtUser } from '../../../auth/infra/http/request/jwt-user.dto';
 import { UpdatePredictedTimesheetRequest } from '../../infra/http/request/flight.dto';
@@ -84,7 +83,7 @@ export class UpdatePredictedTimesheetCommand {
 export class UpdatePredictedTimesheetHandler implements ICommandHandler<UpdatePredictedTimesheetCommand> {
   constructor(
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: UpdatePredictedTimesheetCommand): Promise<void> {
@@ -110,13 +109,13 @@ export class UpdatePredictedTimesheetHandler implements ICommandHandler<UpdatePr
     };
     await this.flightsRepository.updateTimesheet(flightId, nextTimesheet);
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.PredictedTimesheetWasUpdated,
-      scope: scopeForActor(actor),
-      actorId: actor.sub,
-    };
-    this.eventEmitter.emit(FlightEventType.PredictedTimesheetWasUpdated, event);
+    this.domainEvents.emit(
+      new PredictedTimesheetWasUpdatedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: scopeForActor(actor),
+        actorId: actor.sub,
+      }),
+    );
   }
 }

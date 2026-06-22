@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
 import { FlightsRepository } from '../../../infra/database/repository/flights.repository';
 import { AssertRotationExistsQuery } from '../../../../operators/application/query/rotation/assert-rotation-exists.query';
 import {
@@ -8,8 +8,7 @@ import {
   FlightRotationNotMatchingError,
 } from '../../../model/error/flight.error';
 import { FlightStatus } from '../../../model/flight.model';
-import { NewFlightEvent } from '../../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../../core/events/flight';
+import { FlightWasRemovedFromRotationEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../../model/event.model';
 
 export class RemoveFlightFromRotationCommand {
@@ -25,7 +24,7 @@ export class RemoveFlightFromRotationHandler implements ICommandHandler<RemoveFl
   constructor(
     private readonly repository: FlightsRepository,
     private readonly queryBus: QueryBus,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: RemoveFlightFromRotationCommand): Promise<void> {
@@ -49,13 +48,13 @@ export class RemoveFlightFromRotationHandler implements ICommandHandler<RemoveFl
       command.rotationId,
     );
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId,
-      type: FlightEventType.FlightWasRemovedFromRotation,
-      scope: FlightEventScope.Operations,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.FlightWasRemovedFromRotation, event);
+    this.domainEvents.emit(
+      new FlightWasRemovedFromRotationEvent({
+        flightId,
+        rotationId,
+        scope: FlightEventScope.Operations,
+        actorId: initiatorId,
+      }),
+    );
   }
 }

@@ -10,10 +10,9 @@ import {
   InvalidStatusToStartOffboardingError,
 } from '../../infra/http/request/errors.dto';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { OffboardingWasStartedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 
 export class StartOffboardingCommand {
   constructor(
@@ -27,7 +26,7 @@ export class StartOffboardingHandler implements ICommandHandler<StartOffboarding
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: StartOffboardingCommand): Promise<void> {
@@ -50,13 +49,13 @@ export class StartOffboardingHandler implements ICommandHandler<StartOffboarding
       FlightStatus.OffboardingStarted,
     );
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.OffboardingWasStarted,
-      scope: FlightEventScope.User,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.OffboardingWasStarted, event);
+    this.domainEvents.emit(
+      new OffboardingWasStartedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: FlightEventScope.User,
+        actorId: initiatorId,
+      }),
+    );
   }
 }

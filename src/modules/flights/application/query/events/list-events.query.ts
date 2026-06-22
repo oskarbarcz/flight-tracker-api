@@ -2,7 +2,7 @@ import { IQueryHandler, Query, QueryHandler } from '@nestjs/cqrs';
 import { EventsRepository } from '../../../infra/database/repository/events.repository';
 import { FlightEventResponse } from '../../../infra/http/request/event.dto';
 import { FlightEventScope } from '../../../model/event.model';
-import { FlightEventType } from '../../../../../core/events/flight';
+import { FlightEventType } from '../../../../../core/domain/events/dto/flight.events';
 
 export class ListEventsQuery extends Query<FlightEventResponse[]> {
   constructor(public readonly flightId: string) {

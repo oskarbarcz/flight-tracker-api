@@ -10,10 +10,9 @@ import {
   InvalidStatusToStartBoardingError,
 } from '../../infra/http/request/errors.dto';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { BoardingWasStartedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 
 export class StartBoardingCommand {
   constructor(
@@ -27,7 +26,7 @@ export class StartBoardingHandler implements ICommandHandler<StartBoardingComman
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: StartBoardingCommand): Promise<void> {
@@ -47,13 +46,13 @@ export class StartBoardingHandler implements ICommandHandler<StartBoardingComman
       flightId,
       FlightStatus.BoardingStarted,
     );
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.BoardingWasStarted,
-      scope: FlightEventScope.User,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.BoardingWasStarted, event);
+    this.domainEvents.emit(
+      new BoardingWasStartedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: FlightEventScope.User,
+        actorId: initiatorId,
+      }),
+    );
   }
 }

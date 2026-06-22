@@ -10,10 +10,9 @@ import {
   InvalidStatusToChangeScheduleError,
 } from '../../infra/http/request/errors.dto';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { ScheduledTimesheetWasUpdatedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { FullTimesheet, Schedule } from '../../model/timesheet.model';
 
 export class UpdateScheduledTimesheetCommand {
@@ -29,7 +28,7 @@ export class UpdateScheduledTimesheetHandler implements ICommandHandler<UpdateSc
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: UpdateScheduledTimesheetCommand): Promise<void> {
@@ -49,13 +48,13 @@ export class UpdateScheduledTimesheetHandler implements ICommandHandler<UpdateSc
 
     const timesheet: FullTimesheet = { scheduled: schedule };
     await this.flightsRepository.updateTimesheet(flightId, timesheet);
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.ScheduledTimesheetWasUpdated,
-      scope: FlightEventScope.Operations,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.ScheduledTimesheetWasUpdated, event);
+    this.domainEvents.emit(
+      new ScheduledTimesheetWasUpdatedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: FlightEventScope.Operations,
+        actorId: initiatorId,
+      }),
+    );
   }
 }

@@ -15,8 +15,12 @@ import {
   GetUserStatsResponse,
 } from '../../http/request/get-user.dto';
 import { OnEvent } from '@nestjs/event-emitter';
-import { NewFlightEvent } from '../../../../flights/infra/http/request/event.dto';
-import { FlightEventType } from '../../../../../core/events/flight';
+import {
+  FlightEventType,
+  PilotCheckedInEvent,
+  OnBlockWasReportedEvent,
+  FlightWasClosedEvent,
+} from '../../../../../core/domain/events/dto/flight.events';
 import { User } from '../../../../../../prisma/client/client';
 import { UserRole } from '../../../../../../prisma/client/enums';
 import {
@@ -159,24 +163,24 @@ export class UsersRepository {
   }
 
   @OnEvent(FlightEventType.PilotCheckedIn)
-  async onFlightCheckedIn(event: NewFlightEvent): Promise<void> {
+  async onFlightCheckedIn(event: PilotCheckedInEvent): Promise<void> {
     await this.prisma.user.update({
-      where: { id: event.actorId as string },
-      data: { currentFlightId: event.flightId },
+      where: { id: event.payload.actorId as string },
+      data: { currentFlightId: event.payload.flightId },
     });
 
-    if (!event.rotationId) {
+    if (!event.payload.rotationId) {
       return;
     }
 
     await this.prisma.user.update({
-      where: { id: event.actorId as string },
-      data: { currentRotationId: event.rotationId },
+      where: { id: event.payload.actorId as string },
+      data: { currentRotationId: event.payload.rotationId },
     });
   }
 
   @OnEvent(FlightEventType.OnBlockWasReported)
-  async onOnBlockWasReported(event: NewFlightEvent): Promise<void> {
+  async onOnBlockWasReported(event: OnBlockWasReportedEvent): Promise<void> {
     const flight = await this.prisma.flight.findFirstOrThrow({
       select: {
         captainId: true,
@@ -184,7 +188,7 @@ export class UsersRepository {
         totalFuelBurned: true,
         timesheet: true,
       },
-      where: { id: event.flightId },
+      where: { id: event.payload.flightId },
     });
 
     const timesheet = flight.timesheet as FilledTimesheet;
@@ -210,30 +214,30 @@ export class UsersRepository {
   }
 
   @OnEvent(FlightEventType.FlightWasClosed)
-  async onFlightClose(event: NewFlightEvent): Promise<void> {
+  async onFlightClose(event: FlightWasClosedEvent): Promise<void> {
     await this.prisma.user.update({
-      where: { id: event.actorId as string },
+      where: { id: event.payload.actorId as string },
       data: { currentFlightId: null },
     });
 
     // flight has no rotation
-    if (!event.rotationId) {
+    if (!event.payload.rotationId) {
       return;
     }
 
     const lastFlightInRotation = await this.prisma.flight.findFirst({
       select: { id: true },
-      where: { rotationId: event.rotationId },
+      where: { rotationId: event.payload.rotationId },
       orderBy: { createdAt: 'desc' },
     });
 
     // flight is not last in rotation
-    if (lastFlightInRotation?.id !== event.flightId) {
+    if (lastFlightInRotation?.id !== event.payload.flightId) {
       return;
     }
 
     await this.prisma.user.update({
-      where: { id: event.actorId as string },
+      where: { id: event.payload.actorId as string },
       data: { currentRotationId: null },
     });
   }
