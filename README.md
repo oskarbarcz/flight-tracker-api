@@ -30,31 +30,34 @@ Project is using **Node.js** and **TypeScript** as the main technology.
 This app uses docker-based virtualization to run. To set up the project, follow these steps:
 
 1. Clone the project by running:
-    ```shell
-    git@github.com:oskarbarcz/flight-tracker-api.git
-    ```
+
+   ```shell
+   git@github.com:oskarbarcz/flight-tracker-api.git
+   ```
 
 2. Prepare an environment variable file by copying `.env.example` to `.env` and fill it with your data.
-    ```shell
-    cd flight-tracker-api
-    cp .env.dist .env
-    ```
+
+   ```shell
+   cd flight-tracker-api
+   cp .env.dist .env
+   ```
 
 3. Use docker compose to set up the environment
-    ```shell
-    docker compose up -d --build
-    ```
-    Packages, database schema, seed data will be configured automatically.
+
+   ```shell
+   docker compose up -d --build
+   ```
+
+   Packages, database schema, seed data will be configured automatically.
 
 4. Your project should be up and running. Open the browser and go to [http://localhost/api](http://localhost/api) to see the
    api documentation.
-    The default credentials for the API are:
-    
-    | Role       | Username               | Password |
-    |------------|------------------------|----------|
-    | Cabin crew | cabin-crew@example.com | P@$$w0rd |
-    | Operations | operations@example.com | P@$$w0rd |
-    | Admin      | admin@example.com      | P@$$w0rd |
+   The default credentials for the API are:
+   | Role       | Username               | Password |
+   | ---------- | ---------------------- | -------- |
+   | Cabin crew | cabin-crew@example.com | P@$$w0rd |
+   | Operations | operations@example.com | P@$$w0rd |
+   | Admin      | admin@example.com      | P@$$w0rd |
 
 ### WebSocket flight events
 
@@ -72,14 +75,14 @@ polling `GET /api/v1/flight/:id/events`.
 **Messages the client sends**
 
 | Event         | Payload                | Effect                                                                                                            |
-|---------------|------------------------|-------------------------------------------------------------------------------------------------------------------|
+| ------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `subscribe`   | `{ flightId: string }` | Join the per-flight room and receive the historical event stream then live updates. `flightId` must be a UUID v4. |
 | `unsubscribe` | `{ flightId: string }` | Leave the room. The server stops emitting events for that flight on this socket.                                  |
 
 **Messages the server emits**
 
 | Event                    | Payload                 | Notes                                                                                                                              |
-|--------------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------ | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `flight.events`          | `FlightEventResponse[]` | Initial history replay sent once per `subscribe`, ordered by `createdAt` ascending. Same shape as `GET /api/v1/flight/:id/events`. |
 | `flight.event`           | `NewFlightEvent`        | Live lifecycle event broadcast to all sockets subscribed to that flight room.                                                      |
 | `flight.subscribe.error` | `{ flightId, message }` | Emitted when `subscribe` cannot be fulfilled (e.g. the flight ID does not exist).                                                  |

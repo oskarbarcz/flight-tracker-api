@@ -11,6 +11,7 @@ import { ListAllOperatorsHandler } from './application/query/list-all-operators.
 import { CheckOperatorExistsHandler } from './application/query/check-operator-exists.query';
 import { GetOperatorByIcaoCodeHandler } from './application/query/get-operator-by-icao-code.query';
 import { AircraftController } from './infra/http/controller/aircraft.controller';
+import { GetAircraftFlightHistoryAction } from './infra/http/action/get-aircraft-flight-history.action';
 import { CreateAircraftHandler } from './application/command/aircraft/create-aircraft.command';
 import { AircraftRepository } from './infra/database/repository/aircraft.repository';
 import { GetAircraftByIdHandler } from './application/query/aircraft/get-aircraft-by-id.query';
@@ -32,7 +33,12 @@ import { FlightLifecycleListener } from './application/event/external/flight-lif
 
 @Module({
   imports: [PrismaModule, AirframesModule],
-  controllers: [OperatorsController, AircraftController, RotationsController],
+  controllers: [
+    OperatorsController,
+    AircraftController,
+    GetAircraftFlightHistoryAction,
+    RotationsController,
+  ],
   providers: [
     OperatorsRepository,
     AircraftRepository,
