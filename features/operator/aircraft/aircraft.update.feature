@@ -66,7 +66,9 @@ Feature: Update aircraft
         "avgFleetAge": 14.2,
         "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/lufthansa.png",
         "backgroundUrl": null,
-        "continent": "europe"
+        "continent": "europe",
+        "alliance": "star_alliance",
+        "group": "lufthansa_group"
       }
       """
     And I set database to initial state

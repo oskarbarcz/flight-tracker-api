@@ -51,7 +51,9 @@ Feature: Create operator
         "avgFleetAge": 5,
         "logoUrl": null,
         "backgroundUrl": null,
-        "continent": "europe"
+        "continent": "europe",
+        "alliance": null,
+        "group": null
       }
       """
     And I set database to initial state
@@ -91,7 +93,9 @@ Feature: Create operator
         "backgroundUrl": "https://example.com/background.png",
         "continent": "europe",
         "fleetSize": 0,
-        "fleetTypes": []
+        "fleetTypes": [],
+        "alliance": null,
+        "group": null
       }
       """
     And I set database to initial state
