@@ -10,11 +10,12 @@ import {
   InvalidStatusToReportOnBlockError,
 } from '../../infra/http/request/errors.dto';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { DiversionRepository } from '../../infra/database/repository/diversion.repository';
+import { OnBlockWasReportedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { Schedule } from '../../model/timesheet.model';
+import { AirportType } from '../../../airports/model/airport.model';
 
 export class ReportOnBlockCommand {
   constructor(
@@ -28,7 +29,8 @@ export class ReportOnBlockHandler implements ICommandHandler<ReportOnBlockComman
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly diversionRepository: DiversionRepository,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: ReportOnBlockCommand): Promise<void> {
@@ -50,13 +52,21 @@ export class ReportOnBlockHandler implements ICommandHandler<ReportOnBlockComman
     await this.flightsRepository.updateStatus(flightId, FlightStatus.OnBlock);
     await this.flightsRepository.updateTimesheet(flightId, timesheet);
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.OnBlockWasReported,
-      scope: FlightEventScope.User,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.OnBlockWasReported, event);
+    const landingAirportId = flight.isFlightDiverted
+      ? (await this.diversionRepository.get(flightId)).airport.id
+      : flight.airports.find(
+          (airport) => airport.type === AirportType.Destination,
+        )!.id;
+
+    this.domainEvents.emit(
+      new OnBlockWasReportedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: FlightEventScope.User,
+        actorId: initiatorId,
+        aircraftId: flight.aircraft.id,
+        landingAirportId,
+      }),
+    );
   }
 }

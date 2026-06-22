@@ -41,7 +41,11 @@ Feature: Update aircraft
         },
         "livery": "Lufthansa Classic (2024)",
         "registration": "D-AIMC",
-        "selcal": "LR-CK"
+        "selcal": "LR-CK",
+        "currentState": "idle",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "lastAirportId": null,
+        "lastAirportUpdatedAt": null
       }
       """
     When I send a "GET" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
@@ -90,7 +94,11 @@ Feature: Update aircraft
         },
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
-        "selcal": "LR-CK"
+        "selcal": "LR-CK",
+        "currentState": "idle",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "lastAirportId": null,
+        "lastAirportUpdatedAt": null
       }
       """
     And I set database to initial state

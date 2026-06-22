@@ -6,6 +6,7 @@ import { OperatorsRepository } from '../../../infra/database/repository/operator
 import { OperatorNotFoundError } from '../../../model/error/operator.error';
 import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
+import { AircraftState } from '../../../model/aircraft.model';
 
 export class GetAircraftByIdQuery extends Query<GetAircraftResponse> {
   constructor(
@@ -53,6 +54,10 @@ export class GetAircraftByIdHandler implements IQueryHandler<GetAircraftByIdQuer
       registration: aircraft.registration,
       selcal: aircraft.selcal,
       livery: aircraft.livery,
+      currentState: aircraft.currentState as unknown as AircraftState,
+      baseAirportId: aircraft.baseAirportId,
+      lastAirportId: aircraft.lastAirportId,
+      lastAirportUpdatedAt: aircraft.lastAirportUpdatedAt,
     };
   }
 }

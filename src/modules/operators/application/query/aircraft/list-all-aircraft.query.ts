@@ -5,6 +5,7 @@ import { GetAircraftResponse } from '../../../infra/http/request/aircraft.reques
 import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
 import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
+import { AircraftState } from '../../../model/aircraft.model';
 
 export class ListAllAircraftQuery extends Query<GetAircraftResponse[]> {
   constructor(public readonly operatorId: string) {
@@ -39,7 +40,11 @@ export class ListAllAircraftHandler implements IQueryHandler<ListAllAircraftQuer
         throw new AirframeNotFoundError();
       }
 
-      return { ...rest, airframe };
+      return {
+        ...rest,
+        airframe,
+        currentState: rest.currentState as unknown as AircraftState,
+      };
     });
   }
 }

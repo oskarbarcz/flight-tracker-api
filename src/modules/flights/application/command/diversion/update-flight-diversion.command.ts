@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
 
 import { DiversionRepository } from '../../../infra/database/repository/diversion.repository';
 import { UpdateDiversionRequest } from '../../../infra/http/request/diversion.dto';
@@ -11,8 +11,7 @@ import {
   InvalidStatusToReportDiversionError,
 } from '../../../model/error/diversion.error';
 import { FlightStatus } from '../../../model/flight.model';
-import { NewFlightEvent } from '../../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../../core/events/flight';
+import { DiversionWasUpdatedEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { scopeForActor } from '../../../model/event.model';
 
 export class UpdateFlightDiversionCommand {
@@ -28,7 +27,7 @@ export class UpdateFlightDiversionHandler implements ICommandHandler<UpdateFligh
   constructor(
     private readonly queryBus: QueryBus,
     private readonly diversionRepository: DiversionRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: UpdateFlightDiversionCommand): Promise<void> {
@@ -55,13 +54,13 @@ export class UpdateFlightDiversionHandler implements ICommandHandler<UpdateFligh
 
     await this.diversionRepository.update(flightId, payload);
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.DiversionWasUpdated,
-      scope: scopeForActor(actor),
-      actorId: actor.sub,
-    };
-    this.eventEmitter.emit(FlightEventType.DiversionWasUpdated, event);
+    this.domainEvents.emit(
+      new DiversionWasUpdatedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: scopeForActor(actor),
+        actorId: actor.sub,
+      }),
+    );
   }
 }

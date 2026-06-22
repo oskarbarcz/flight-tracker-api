@@ -1,8 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
-import { NewFlightEvent } from '../../http/request/event.dto';
 import { OnEvent } from '@nestjs/event-emitter';
-import { FlightEventType } from '../../../../../core/events/flight';
+import {
+  FlightEventType,
+  FlightLifecycleEvent,
+} from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope, Prisma } from 'prisma/client/client';
 
 const flightEventWithActor = {
@@ -73,14 +75,14 @@ export class EventsRepository {
   @OnEvent(FlightEventType.DelayReportWasFiled)
   @OnEvent(FlightEventType.DelayReportWasAccepted)
   @OnEvent(FlightEventType.DelayReportWasRejected)
-  async saveEvent(event: NewFlightEvent): Promise<void> {
+  async saveEvent(event: FlightLifecycleEvent): Promise<void> {
     await this.prisma.flightEvent.create({
       data: {
-        flightId: event.flightId,
-        scope: event.scope,
+        flightId: event.payload.flightId,
+        scope: event.payload.scope,
         type: event.type,
-        payload: event.payload,
-        actorId: event.actorId,
+        payload: event.payload.payload,
+        actorId: event.payload.actorId,
       },
     });
   }

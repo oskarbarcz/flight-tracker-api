@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
 
 import {
   EmergencyAlreadyResolvedError,
@@ -9,8 +9,7 @@ import { EmergencyRepository } from '../../../infra/database/repository/emergenc
 import { JwtUser } from '../../../../auth/infra/http/request/jwt-user.dto';
 import { GetFlightQuery } from '../../query/get-flight.query';
 import { FlightDoesNotExistError } from '../../../model/error/flight.error';
-import { NewFlightEvent } from '../../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../../core/events/flight';
+import { EmergencyWasResolvedEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../../model/event.model';
 
 export class ResolveEmergencyCommand {
@@ -26,7 +25,7 @@ export class ResolveEmergencyHandler implements ICommandHandler<ResolveEmergency
   constructor(
     private readonly queryBus: QueryBus,
     private readonly emergencyRepository: EmergencyRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: ResolveEmergencyCommand): Promise<void> {
@@ -50,13 +49,13 @@ export class ResolveEmergencyHandler implements ICommandHandler<ResolveEmergency
 
     await this.emergencyRepository.resolve(flightId, emergencyId, actor.sub);
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.EmergencyWasResolved,
-      scope: FlightEventScope.User,
-      actorId: actor.sub,
-    };
-    this.eventEmitter.emit(FlightEventType.EmergencyWasResolved, event);
+    this.domainEvents.emit(
+      new EmergencyWasResolvedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: FlightEventScope.User,
+        actorId: actor.sub,
+      }),
+    );
   }
 }

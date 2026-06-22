@@ -1,12 +1,11 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
 
 import { DiversionRepository } from '../../../infra/database/repository/diversion.repository';
 import { ReportDiversionRequest } from '../../../infra/http/request/diversion.dto';
 import { JwtUser } from '../../../../auth/infra/http/request/jwt-user.dto';
 import { GetFlightQuery } from '../../query/get-flight.query';
-import { NewFlightEvent } from '../../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../../core/events/flight';
+import { DiversionWasReportedEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { scopeForActor } from '../../../model/event.model';
 
 export class ReportFlightDiversionCommand {
@@ -22,7 +21,7 @@ export class ReportFlightDiversionHandler implements ICommandHandler<ReportFligh
   constructor(
     private readonly queryBus: QueryBus,
     private readonly diversionRepository: DiversionRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: ReportFlightDiversionCommand): Promise<void> {
@@ -33,13 +32,13 @@ export class ReportFlightDiversionHandler implements ICommandHandler<ReportFligh
     const query = new GetFlightQuery(flightId);
     const flight = await this.queryBus.execute(query);
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.DiversionWasReported,
-      scope: scopeForActor(actor),
-      actorId: actor.sub,
-    };
-    this.eventEmitter.emit(FlightEventType.DiversionWasReported, event);
+    this.domainEvents.emit(
+      new DiversionWasReportedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: scopeForActor(actor),
+        actorId: actor.sub,
+      }),
+    );
   }
 }

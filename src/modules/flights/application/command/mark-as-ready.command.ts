@@ -6,11 +6,10 @@ import {
   InvalidStatusToMarkAsReadyError,
   PreliminaryLoadsheetMissingError,
 } from '../../infra/http/request/errors.dto';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { FlightWasReleasedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 
 export class MarkAsReadyCommand {
   constructor(
@@ -24,7 +23,7 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: MarkAsReadyCommand): Promise<void> {
@@ -42,13 +41,13 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
     }
 
     await this.flightsRepository.updateStatus(flightId, FlightStatus.Ready);
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.FlightWasReleased,
-      scope: FlightEventScope.User,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.FlightWasReleased, event);
+    this.domainEvents.emit(
+      new FlightWasReleasedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: FlightEventScope.User,
+        actorId: initiatorId,
+      }),
+    );
   }
 }

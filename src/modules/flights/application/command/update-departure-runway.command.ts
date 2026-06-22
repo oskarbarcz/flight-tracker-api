@@ -1,13 +1,12 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import {
   FlightDoesNotExistError,
   InvalidStatusToUpdateDepartureRunwayError,
 } from '../../model/error/flight.error';
 import { FlightStatus } from '../../model/flight.model';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { DepartureRunwayWasChangedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { scopeForActor } from '../../model/event.model';
 import { JwtUser } from '../../../auth/infra/http/request/jwt-user.dto';
 
@@ -23,7 +22,7 @@ export class UpdateDepartureRunwayCommand {
 export class UpdateDepartureRunwayHandler implements ICommandHandler<UpdateDepartureRunwayCommand> {
   constructor(
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: UpdateDepartureRunwayCommand): Promise<void> {
@@ -51,13 +50,13 @@ export class UpdateDepartureRunwayHandler implements ICommandHandler<UpdateDepar
       departureRunwayId,
     );
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.DepartureRunwayWasChanged,
-      scope: scopeForActor(actor),
-      actorId: actor.sub,
-    };
-    this.eventEmitter.emit(FlightEventType.DepartureRunwayWasChanged, event);
+    this.domainEvents.emit(
+      new DepartureRunwayWasChangedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: scopeForActor(actor),
+        actorId: actor.sub,
+      }),
+    );
   }
 }

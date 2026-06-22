@@ -1,8 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { EventEmitter2 } from '@nestjs/event-emitter';
-import { FlightEventType } from '../../../../../core/events/flight';
+import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
+import { DelayReportWasFiledEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { scopeForActor } from '../../../model/event.model';
-import { NewFlightEvent } from '../../../infra/http/request/event.dto';
 import { JwtUser } from '../../../../auth/infra/http/request/jwt-user.dto';
 import { DelayRepository } from '../../../infra/database/repository/delay.repository';
 import { ReportDelayRequest } from '../../../infra/http/request/delay.dto';
@@ -23,7 +22,7 @@ export class ReportDelayHandler implements ICommandHandler<
 > {
   constructor(
     private readonly delayRepository: DelayRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: ReportDelayCommand): Promise<void> {
@@ -41,12 +40,12 @@ export class ReportDelayHandler implements ICommandHandler<
       reportedById: actor.sub,
     });
 
-    const event: NewFlightEvent = {
-      flightId,
-      type: FlightEventType.DelayReportWasFiled,
-      scope: scopeForActor(actor),
-      actorId: actor.sub,
-    };
-    this.eventEmitter.emit(FlightEventType.DelayReportWasFiled, event);
+    this.domainEvents.emit(
+      new DelayReportWasFiledEvent({
+        flightId,
+        scope: scopeForActor(actor),
+        actorId: actor.sub,
+      }),
+    );
   }
 }

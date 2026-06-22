@@ -6,10 +6,9 @@ import {
   OperatorForAircraftNotFoundError,
 } from '../../infra/http/request/errors.dto';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { FlightWasCreatedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { CreateFlightRequest } from '../../infra/http/request/flight.dto';
 import { CheckAircraftExistsQuery } from '../../../operators/application/query/aircraft/check-aircraft-exists.query';
 import { CheckOperatorExistsQuery } from '../../../operators/application/query/check-operator-exists.query';
@@ -27,7 +26,7 @@ export class CreateFlightHandler implements ICommandHandler<CreateFlightCommand>
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: CreateFlightCommand): Promise<void> {
@@ -55,12 +54,13 @@ export class CreateFlightHandler implements ICommandHandler<CreateFlightCommand>
 
     await this.flightsRepository.create(flightId, flightData);
 
-    const event: NewFlightEvent = {
-      flightId: flightId,
-      type: FlightEventType.FlightWasCreated,
-      scope: FlightEventScope.Operations,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.FlightWasCreated, event);
+    this.domainEvents.emit(
+      new FlightWasCreatedEvent({
+        flightId: flightId,
+        scope: FlightEventScope.Operations,
+        actorId: initiatorId,
+        aircraftId: flightData.aircraftId,
+      }),
+    );
   }
 }

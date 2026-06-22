@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { FlightEventType } from '../../../../../core/events/flight';
-import { NewFlightEvent } from '../../../infra/http/request/event.dto';
+import {
+  FlightEventType,
+  FlightLifecycleEvent,
+} from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventsGateway } from '../../../infra/gateway/flight-events.gateway';
 
 @Injectable()
@@ -39,7 +41,7 @@ export class BroadcastFlightEventListener {
   @OnEvent(FlightEventType.DelayReportWasFiled)
   @OnEvent(FlightEventType.DelayReportWasAccepted)
   @OnEvent(FlightEventType.DelayReportWasRejected)
-  async onFlightEvent(event: NewFlightEvent): Promise<void> {
-    await this.gateway.publishToFlight(event);
+  async onFlightEvent(event: FlightLifecycleEvent): Promise<void> {
+    await this.gateway.publishToFlight({ type: event.type, ...event.payload });
   }
 }

@@ -1,13 +1,12 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import {
   FlightDoesNotExistError,
   InvalidStatusToUpdateArrivalGateError,
 } from '../../model/error/flight.error';
 import { FlightStatus } from '../../model/flight.model';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { ArrivalGateWasChangedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { scopeForActor } from '../../model/event.model';
 import { JwtUser } from '../../../auth/infra/http/request/jwt-user.dto';
 
@@ -23,7 +22,7 @@ export class UpdateArrivalGateCommand {
 export class UpdateArrivalGateHandler implements ICommandHandler<UpdateArrivalGateCommand> {
   constructor(
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: UpdateArrivalGateCommand): Promise<void> {
@@ -50,13 +49,13 @@ export class UpdateArrivalGateHandler implements ICommandHandler<UpdateArrivalGa
 
     await this.flightsRepository.updateArrivalGate(flightId, arrivalGateId);
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.ArrivalGateWasChanged,
-      scope: scopeForActor(actor),
-      actorId: actor.sub,
-    };
-    this.eventEmitter.emit(FlightEventType.ArrivalGateWasChanged, event);
+    this.domainEvents.emit(
+      new ArrivalGateWasChangedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: scopeForActor(actor),
+        actorId: actor.sub,
+      }),
+    );
   }
 }

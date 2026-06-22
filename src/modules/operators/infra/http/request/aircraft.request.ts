@@ -1,5 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { Aircraft } from '../../../model/aircraft.model';
+import { Aircraft, AircraftState } from '../../../model/aircraft.model';
 import { IsNotEmpty, IsString, Length } from 'class-validator';
 import { LegacyOperatorResponse } from './operator.request';
 
@@ -41,7 +41,40 @@ export class CreateAircraftRequest {
 
 export class UpdateAircraftRequest extends PartialType(CreateAircraftRequest) {}
 
-export class GetAircraftResponse extends Aircraft {}
+export class GetAircraftResponse extends Aircraft {
+  @ApiProperty({
+    description:
+      'Current operational state of the aircraft, driven by the lifecycle ' +
+      'of the flight it is assigned to',
+    enum: AircraftState,
+    example: AircraftState.Idle,
+  })
+  currentState!: AircraftState;
+
+  @ApiProperty({
+    description: 'Home base airport unique identifier',
+    example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
+    nullable: true,
+    default: null,
+  })
+  baseAirportId!: string | null;
+
+  @ApiProperty({
+    description: 'Identifier of the airport where the aircraft last landed',
+    example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
+    nullable: true,
+    default: null,
+  })
+  lastAirportId!: string | null;
+
+  @ApiProperty({
+    description: 'Timestamp when the last airport was recorded',
+    example: '2025-01-01T00:00:00.000Z',
+    nullable: true,
+    default: null,
+  })
+  lastAirportUpdatedAt!: Date | null;
+}
 
 export class LegacyCreateAircraftResponse extends Aircraft {
   @ApiProperty({

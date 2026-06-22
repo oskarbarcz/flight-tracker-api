@@ -2,6 +2,13 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty } from 'class-validator';
 import { Airframe } from '../../airframes/model/airframe.model';
 
+export enum AircraftState {
+  Idle = 'idle',
+  Planned = 'planned',
+  CheckedIn = 'checked_in',
+  Cruise = 'cruise',
+}
+
 export class Aircraft {
   @ApiProperty({
     description: 'Aircraft unique system identifier',

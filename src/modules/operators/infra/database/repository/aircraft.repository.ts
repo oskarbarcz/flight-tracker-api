@@ -1,10 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
-import { Aircraft as AircraftEntity, Prisma } from 'prisma/client/client';
+import {
+  AircraftState as PrismaAircraftState,
+  Aircraft as AircraftEntity,
+  Prisma,
+} from 'prisma/client/client';
 import {
   CreateAircraftRequest,
   UpdateAircraftRequest,
 } from '../../http/request/aircraft.request';
+import { AircraftState } from '../../../model/aircraft.model';
 
 const aircraftWithOperatorFields = {
   id: true,
@@ -12,6 +17,10 @@ const aircraftWithOperatorFields = {
   registration: true,
   selcal: true,
   livery: true,
+  currentState: true,
+  baseAirportId: true,
+  lastAirportId: true,
+  lastAirportUpdatedAt: true,
   operator: {
     select: {
       id: true,
@@ -31,6 +40,10 @@ const aircraft = {
   registration: true,
   selcal: true,
   livery: true,
+  currentState: true,
+  baseAirportId: true,
+  lastAirportId: true,
+  lastAirportUpdatedAt: true,
   operatorId: false,
 } as const satisfies Prisma.AircraftSelect;
 
@@ -91,6 +104,24 @@ export class AircraftRepository {
     await this.prisma.aircraft.update({
       where: { id },
       data: data,
+    });
+  }
+
+  async updateState(id: string, state: AircraftState): Promise<void> {
+    await this.prisma.aircraft.update({
+      where: { id },
+      data: { currentState: state as unknown as PrismaAircraftState },
+    });
+  }
+
+  async updateLastLocation(
+    id: string,
+    airportId: string,
+    when: Date,
+  ): Promise<void> {
+    await this.prisma.aircraft.update({
+      where: { id },
+      data: { lastAirportId: airportId, lastAirportUpdatedAt: when },
     });
   }
 

@@ -10,10 +10,9 @@ import {
   InvalidStatusToReportOffBlockError,
 } from '../../infra/http/request/errors.dto';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { NewFlightEvent } from '../../infra/http/request/event.dto';
-import { FlightEventType } from '../../../../core/events/flight';
+import { OffBlockWasReportedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 
 export class ReportOffBlockCommand {
   constructor(
@@ -27,7 +26,7 @@ export class ReportOffBlockHandler implements ICommandHandler<ReportOffBlockComm
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: ReportOffBlockCommand): Promise<void> {
@@ -59,13 +58,14 @@ export class ReportOffBlockHandler implements ICommandHandler<ReportOffBlockComm
     );
     await this.flightsRepository.updateTimesheet(flightId, timesheet);
 
-    const event: NewFlightEvent = {
-      flightId,
-      rotationId: flight.rotationId,
-      type: FlightEventType.OffBlockWasReported,
-      scope: FlightEventScope.User,
-      actorId: initiatorId,
-    };
-    this.eventEmitter.emit(FlightEventType.OffBlockWasReported, event);
+    this.domainEvents.emit(
+      new OffBlockWasReportedEvent({
+        flightId,
+        rotationId: flight.rotationId,
+        scope: FlightEventScope.User,
+        actorId: initiatorId,
+        aircraftId: flight.aircraft.id,
+      }),
+    );
   }
 }
