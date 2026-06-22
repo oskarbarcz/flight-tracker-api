@@ -16,6 +16,9 @@ export async function loadUsers(): Promise<void> {
     totalFlightTime: 0,
     totalGreatCircleDistance: 0,
     totalFuelBurned: 0,
+    homeAirportId: null,
+    lastAirportId: null,
+    lastAirportUpdatedAt: null,
   };
 
   const alice: User = {
@@ -32,6 +35,9 @@ export async function loadUsers(): Promise<void> {
     totalFlightTime: 0,
     totalGreatCircleDistance: 0,
     totalFuelBurned: 0,
+    homeAirportId: null,
+    lastAirportId: null,
+    lastAirportUpdatedAt: null,
   };
 
   const abby: User = {
@@ -48,6 +54,9 @@ export async function loadUsers(): Promise<void> {
     totalFlightTime: 0,
     totalGreatCircleDistance: 0,
     totalFuelBurned: 0,
+    homeAirportId: null,
+    lastAirportId: null,
+    lastAirportUpdatedAt: null,
   };
 
   const claudia: User = {
@@ -64,6 +73,9 @@ export async function loadUsers(): Promise<void> {
     totalFlightTime: 0,
     totalGreatCircleDistance: 0,
     totalFuelBurned: 0,
+    homeAirportId: null,
+    lastAirportId: null,
+    lastAirportUpdatedAt: null,
   };
 
   const rick: User = {
@@ -82,6 +94,9 @@ export async function loadUsers(): Promise<void> {
     totalFlightTime: 1797,
     totalGreatCircleDistance: 7850,
     totalFuelBurned: 326000,
+    homeAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
+    lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
+    lastAirportUpdatedAt: null,
   };
 
   const alan: User = {
@@ -102,6 +117,9 @@ export async function loadUsers(): Promise<void> {
     totalFlightTime: 0,
     totalGreatCircleDistance: 0,
     totalFuelBurned: 0,
+    homeAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
+    lastAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
+    lastAirportUpdatedAt: null,
   };
 
   const michael: User = {
@@ -122,6 +140,9 @@ export async function loadUsers(): Promise<void> {
     totalFlightTime: 0,
     totalGreatCircleDistance: 0,
     totalFuelBurned: 0,
+    homeAirportId: '616cbdd7-ccfc-4687-8cf6-1e7236435046', // EPWA
+    lastAirportId: '616cbdd7-ccfc-4687-8cf6-1e7236435046', // EPWA
+    lastAirportUpdatedAt: null,
   };
 
   const prisma = new PrismaService();

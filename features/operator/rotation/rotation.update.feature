@@ -83,7 +83,7 @@ Feature: Update rotation
     And the response body should contain:
       """json
       {
-        "message": "User with given ID not found.",
+        "message": "User with given id does not exist.",
         "error": "Not Found",
         "statusCode": 404
       }

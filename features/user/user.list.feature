@@ -14,7 +14,10 @@ Feature: List users
           "role": "Admin",
           "pilotLicenseId": null,
           "currentFlightId": null,
-          "currentRotationId": null
+          "currentRotationId": null,
+          "homeAirportId": null,
+          "lastAirportId": null,
+          "lastAirportUpdatedAt": null
         },
         {
           "id": "721ab705-8608-4386-86b4-2f391a3655a7",
@@ -23,7 +26,10 @@ Feature: List users
           "role": "Operations",
           "pilotLicenseId": null,
           "currentFlightId": null,
-          "currentRotationId": null
+          "currentRotationId": null,
+          "homeAirportId": null,
+          "lastAirportId": null,
+          "lastAirportUpdatedAt": null
         },
         {
           "id": "49731efd-2d37-4fcc-8221-8575cba5b722",
@@ -32,7 +38,10 @@ Feature: List users
           "role": "Operations",
           "pilotLicenseId": null,
           "currentFlightId": null,
-          "currentRotationId": null
+          "currentRotationId": null,
+          "homeAirportId": null,
+          "lastAirportId": null,
+          "lastAirportUpdatedAt": null
         },
         {
           "id": "381334df-1e3c-41f5-8513-0e2de3c1662f",
@@ -41,7 +50,10 @@ Feature: List users
           "role": "Operations",
           "pilotLicenseId": null,
           "currentFlightId": null,
-          "currentRotationId": null
+          "currentRotationId": null,
+          "homeAirportId": null,
+          "lastAirportId": null,
+          "lastAirportUpdatedAt": null
         },
         {
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -50,7 +62,10 @@ Feature: List users
           "role": "CabinCrew",
           "pilotLicenseId": "UK-31270",
           "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e",
-          "currentRotationId": null
+          "currentRotationId": null,
+          "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "lastAirportUpdatedAt": null
         },
         {
           "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
@@ -59,7 +74,10 @@ Feature: List users
           "role": "CabinCrew",
           "pilotLicenseId": "UK-34560",
           "currentFlightId": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
-          "currentRotationId": null
+          "currentRotationId": null,
+          "homeAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportUpdatedAt": null
         },
         {
           "id": "629be07f-5e65-429a-9d69-d34b99185f50",
@@ -68,7 +86,10 @@ Feature: List users
           "role": "CabinCrew",
           "pilotLicenseId": "UK-98540",
           "currentFlightId": "d4a25ef2-39cf-484c-af00-a548999e8699",
-          "currentRotationId": "c2e12afb-a712-45aa-9ba5-fec71868e59a"
+          "currentRotationId": "c2e12afb-a712-45aa-9ba5-fec71868e59a",
+          "homeAirportId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+          "lastAirportId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+          "lastAirportUpdatedAt": null
         }
       ]
       """
@@ -124,7 +145,10 @@ Feature: List users
           "role": "CabinCrew",
           "pilotLicenseId": "UK-31270",
           "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e",
-          "currentRotationId": null
+          "currentRotationId": null,
+          "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "lastAirportUpdatedAt": null
         }
       ]
       """

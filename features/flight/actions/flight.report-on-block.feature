@@ -436,6 +436,24 @@ Feature: Report on-block
     And I see Discord "arrival" message for flight "04be266c-df78-4bec-9f50-281cc02ce7f2" containing "Actual block time:"
     And I see Discord "arrival" message for flight "04be266c-df78-4bec-9f50-281cc02ce7f2" containing "[Flight Tracker](https://flights.barcz.me/map/04be266c-df78-4bec-9f50-281cc02ce7f2)"
     And I should receive a live flight event of type "flight.on-block-reported" within 2000ms
+    Given I am signed in as "admin"
+    When I send a "GET" request to "/api/v1/user/fcf6f4bc-290d-43a9-843c-409cd47e143d"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+        "name": "Rick Doe",
+        "email": "cabin-crew@example.com",
+        "role": "CabinCrew",
+        "pilotLicenseId": "UK-31270",
+        "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e",
+        "currentRotationId": null,
+        "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportId": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+        "lastAirportUpdatedAt": "@date('within 1 minute from now')"
+      }
+      """
     And I clear Discord messages directory
     And I set database to initial state
 

@@ -10,21 +10,21 @@ datasource db {
 }
 
 model Aircraft {
-  id                   String    @id @default(uuid()) @db.Uuid
-  type                 String    @db.VarChar(4)
-  registration         String    @unique
+  id                   String        @id @default(uuid()) @db.Uuid
+  type                 String        @db.VarChar(4)
+  registration         String        @unique
   selcal               String
   livery               String
   currentState         AircraftState @default(idle)
-  operatorId           String?   @db.Uuid
-  baseAirportId        String?   @db.Uuid
-  lastAirportId        String?   @db.Uuid
+  operatorId           String?       @db.Uuid
+  baseAirportId        String?       @db.Uuid
+  lastAirportId        String?       @db.Uuid
   lastAirportUpdatedAt DateTime?
 
-  operator     Operator? @relation(fields: [operatorId], references: [id])
-  baseAirport  Airport?  @relation("AircraftBaseAirport", fields: [baseAirportId], references: [id], onDelete: SetNull)
-  lastAirport  Airport?  @relation("AircraftLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
-  flight       Flight[]
+  operator    Operator? @relation(fields: [operatorId], references: [id])
+  baseAirport Airport?  @relation("AircraftBaseAirport", fields: [baseAirportId], references: [id], onDelete: SetNull)
+  lastAirport Airport?  @relation("AircraftLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
+  flight      Flight[]
 
   @@map("aircraft")
 }
@@ -47,6 +47,8 @@ model Airport {
   runways           Runway[]
   baseForAircraft   Aircraft[]          @relation("AircraftBaseAirport")
   lastForAircraft   Aircraft[]          @relation("AircraftLastAirport")
+  homeForUsers      User[]              @relation("UserHomeAirport")
+  lastForUsers      User[]              @relation("UserLastAirport")
 
   @@map("airport")
 }
@@ -287,19 +289,24 @@ model AirportsOnFlights {
 }
 
 model User {
-  id                       String   @id @default(uuid()) @db.Uuid
+  id                       String    @id @default(uuid()) @db.Uuid
   name                     String
-  email                    String   @unique
+  email                    String    @unique
   password                 String
   role                     UserRole
-  pilotLicenseId           String?  @db.VarChar(8)
-  currentFlightId          String?  @unique @db.Uuid
-  currentRotationId        String?  @unique @db.Uuid
+  pilotLicenseId           String?   @db.VarChar(8)
+  currentFlightId          String?   @unique @db.Uuid
+  currentRotationId        String?   @unique @db.Uuid
   simbriefUserId           String?
-  totalFlightTime          Int      @default(0)
-  totalGreatCircleDistance Int      @default(0)
-  totalFuelBurned          Int      @default(0)
+  totalFlightTime          Int       @default(0)
+  totalGreatCircleDistance Int       @default(0)
+  totalFuelBurned          Int       @default(0)
+  homeAirportId            String?   @db.Uuid
+  lastAirportId            String?   @db.Uuid
+  lastAirportUpdatedAt     DateTime?
 
+  homeAirport          Airport?               @relation("UserHomeAirport", fields: [homeAirportId], references: [id], onDelete: SetNull)
+  lastAirport          Airport?               @relation("UserLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
   rotations            Rotation[]
   jwtRefreshToken      JwtRefreshToken[]
   currentFlight        Flight?                @relation("UserCurrentFlight", fields: [currentFlightId], references: [id])

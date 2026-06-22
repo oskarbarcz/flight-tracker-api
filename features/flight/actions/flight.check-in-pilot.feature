@@ -253,7 +253,10 @@ Feature: Check in pilot for flight
         "role": "CabinCrew",
         "pilotLicenseId": "UK-31270",
         "currentFlightId": "23952e79-6b38-49ed-a1db-bd4d9b3cedab",
-        "currentRotationId": null
+        "currentRotationId": null,
+        "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportUpdatedAt": null
       }
       """
     And I should receive a live flight event of type "flight.pilot-checked-in" within 2000ms
@@ -512,7 +515,10 @@ Feature: Check in pilot for flight
         "role": "CabinCrew",
         "pilotLicenseId": "UK-34560",
         "currentFlightId": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
-        "currentRotationId": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1"
+        "currentRotationId": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1",
+        "homeAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "lastAirportUpdatedAt": null
       }
       """
     And I should receive a live flight event of type "flight.pilot-checked-in" within 2000ms

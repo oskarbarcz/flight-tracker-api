@@ -1,21 +1,42 @@
 import { Module } from '@nestjs/common';
 import { UsersRepository } from './infra/database/repository/users.repository';
-import { UsersController } from './infra/http/controller/users.controller';
+import { CreateUserAction } from './infra/http/action/create-user.action';
+import { ListUsersAction } from './infra/http/action/list-users.action';
+import { GetCurrentUserAction } from './infra/http/action/get-current-user.action';
+import { GetUserAction } from './infra/http/action/get-user.action';
+import { UpdateUserAction } from './infra/http/action/update-user.action';
+import { GetMyStatsAction } from './infra/http/action/get-my-stats.action';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { CheckUserExistsHandler } from './application/query/check-user-exists.query';
 import { GetUserSimbriefIdHandler } from './application/query/get-user-simbrief-id.query';
 import { GetUserStatsHandler } from './application/query/get-user-stats.query';
-import { StatsController } from './infra/http/controller/stats.controller';
 import { AssertUserExistsHandler } from './application/query/assert-user-exists.query';
+import { CreateUserHandler } from './application/command/create-user.command';
+import { UpdateUserHandler } from './application/command/update-user.command';
+import { GetUserByIdHandler } from './application/query/get-user-by-id.query';
+import { ListUsersHandler } from './application/query/list-users.query';
+import { FlightLifecycleListener } from './application/event/external/flight-lifecycle.listener';
 
 @Module({
-  controllers: [UsersController, StatsController],
+  controllers: [
+    CreateUserAction,
+    ListUsersAction,
+    GetCurrentUserAction,
+    GetMyStatsAction,
+    GetUserAction,
+    UpdateUserAction,
+  ],
   providers: [
     UsersRepository,
     CheckUserExistsHandler,
     GetUserSimbriefIdHandler,
     GetUserStatsHandler,
     AssertUserExistsHandler,
+    CreateUserHandler,
+    UpdateUserHandler,
+    GetUserByIdHandler,
+    ListUsersHandler,
+    FlightLifecycleListener,
   ],
   imports: [PrismaModule],
   exports: [UsersRepository],

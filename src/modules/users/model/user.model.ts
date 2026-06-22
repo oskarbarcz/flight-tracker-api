@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  IsUUID,
   Matches,
 } from 'class-validator';
 import { UserRole } from '../../../../prisma/client/enums';
@@ -89,4 +90,31 @@ export class User {
     nullable: true,
   })
   currentRotationId!: string | null;
+
+  @ApiProperty({
+    description: 'Home base airport of the pilot (required for CabinCrew)',
+    example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
+    type: 'string',
+    nullable: true,
+    required: false,
+  })
+  @IsUUID()
+  @IsOptional()
+  homeAirportId?: string | null;
+
+  @ApiProperty({
+    description: 'Airport where the pilot most recently landed',
+    example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
+    type: 'string',
+    nullable: true,
+  })
+  lastAirportId!: string | null;
+
+  @ApiProperty({
+    description: 'Timestamp when the last airport was recorded',
+    example: '2025-01-01T00:00:00.000Z',
+    type: 'string',
+    nullable: true,
+  })
+  lastAirportUpdatedAt!: Date | null;
 }

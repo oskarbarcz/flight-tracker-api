@@ -1,12 +1,6 @@
-import {
-  BadRequestException,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../../http/request/create-user.dto';
 import { UpdateUserDto } from '../../http/request/update-user.dto';
-import { v4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import {
@@ -14,23 +8,18 @@ import {
   ListUsersFilters,
   GetUserStatsResponse,
 } from '../../http/request/get-user.dto';
-import { OnEvent } from '@nestjs/event-emitter';
-import {
-  FlightEventType,
-  PilotCheckedInEvent,
-  OnBlockWasReportedEvent,
-  FlightWasClosedEvent,
-} from '../../../../../core/domain/events/dto/flight.events';
 import { User } from '../../../../../../prisma/client/client';
 import { UserRole } from '../../../../../../prisma/client/enums';
-import {
-  FilledSchedule,
-  FilledTimesheet,
-} from '../../../../flights/model/timesheet.model';
-import { scheduleToBlockTimeInMinutes } from '../../../../flights/infra/helper/dates';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
 import { CACHE_KEYS, cacheByUser } from '../../../../../core/cache/cache.key';
+import {
+  CabinCrewMustHaveHomeAirportError,
+  OnlyCabinCrewCanHaveHomeAirportError,
+  OnlyCabinCrewCanHavePilotLicenseError,
+  UserEmailAlreadyExistsError,
+  UserNotFoundError,
+} from '../../../model/error/user.error';
 
 @Injectable()
 export class UsersRepository {
@@ -41,19 +30,25 @@ export class UsersRepository {
     private readonly prisma: PrismaService,
   ) {}
 
-  async create(data: CreateUserDto): Promise<GetUserDto> {
+  async create(id: string, data: CreateUserDto): Promise<void> {
     const userWithSameEmail = await this.findOneBy({
       email: data.email,
     });
 
     if (userWithSameEmail) {
-      throw new BadRequestException('User with given email already exists.');
+      throw new UserEmailAlreadyExistsError();
     }
 
     if (data.role !== UserRole.CabinCrew && data.pilotLicenseId) {
-      throw new BadRequestException(
-        'Only CabinCrew can have a pilot license ID.',
-      );
+      throw new OnlyCabinCrewCanHavePilotLicenseError();
+    }
+
+    if (data.role !== UserRole.CabinCrew && data.homeAirportId) {
+      throw new OnlyCabinCrewCanHaveHomeAirportError();
+    }
+
+    if (data.role === UserRole.CabinCrew && !data.homeAirportId) {
+      throw new CabinCrewMustHaveHomeAirportError();
     }
 
     const hashedPassword = await bcrypt.hash(
@@ -61,16 +56,16 @@ export class UsersRepository {
       this.BCRYPT_SALT_ROUNDS,
     );
 
-    const user: User = await this.prisma.user.create({
+    await this.prisma.user.create({
       data: {
-        id: v4(),
+        id,
         ...data,
         currentFlightId: null,
         password: hashedPassword,
+        lastAirportId: data.homeAirportId ?? null,
+        lastAirportUpdatedAt: null,
       },
     });
-
-    return this.returnWithoutPassword(user);
   }
 
   async findAll(filters: ListUsersFilters): Promise<GetUserDto[]> {
@@ -85,7 +80,7 @@ export class UsersRepository {
     const user: User | null = await this.findOneBy({ id });
 
     if (!user) {
-      throw new NotFoundException('User with given id does not exist.');
+      throw new UserNotFoundError();
     }
 
     return this.returnWithoutPassword(user);
@@ -102,7 +97,7 @@ export class UsersRepository {
     });
 
     if (!user) {
-      throw new NotFoundException('User with given id does not exist.');
+      throw new UserNotFoundError();
     }
 
     return {
@@ -128,21 +123,23 @@ export class UsersRepository {
     return !isMatch ? null : this.returnWithoutPassword(user);
   }
 
-  async update(id: string, data: UpdateUserDto): Promise<GetUserDto> {
+  async update(id: string, data: UpdateUserDto): Promise<void> {
     const user: User | null = await this.findOneBy({ id });
 
     if (!user) {
-      throw new NotFoundException('User with given id does not exist.');
+      throw new UserNotFoundError();
     }
 
     const newRole = data.role ?? user.role;
     if (newRole !== UserRole.CabinCrew && data.pilotLicenseId) {
-      throw new BadRequestException(
-        'Only CabinCrew can have a pilot license ID.',
-      );
+      throw new OnlyCabinCrewCanHavePilotLicenseError();
     }
 
-    const updatedUser = await this.prisma.user.update({
+    if (newRole !== UserRole.CabinCrew && data.homeAirportId) {
+      throw new OnlyCabinCrewCanHaveHomeAirportError();
+    }
+
+    await this.prisma.user.update({
       where: { id },
       data,
     });
@@ -158,88 +155,51 @@ export class UsersRepository {
         data: { password: hashedPassword },
       });
     }
-
-    return this.returnWithoutPassword(updatedUser);
   }
 
-  @OnEvent(FlightEventType.PilotCheckedIn)
-  async onFlightCheckedIn(event: PilotCheckedInEvent): Promise<void> {
+  async setCurrentFlight(
+    userId: string,
+    flightId: string | null,
+  ): Promise<void> {
     await this.prisma.user.update({
-      where: { id: event.payload.actorId as string },
-      data: { currentFlightId: event.payload.flightId },
-    });
-
-    if (!event.payload.rotationId) {
-      return;
-    }
-
-    await this.prisma.user.update({
-      where: { id: event.payload.actorId as string },
-      data: { currentRotationId: event.payload.rotationId },
+      where: { id: userId },
+      data: { currentFlightId: flightId },
     });
   }
 
-  @OnEvent(FlightEventType.OnBlockWasReported)
-  async onOnBlockWasReported(event: OnBlockWasReportedEvent): Promise<void> {
-    const flight = await this.prisma.flight.findFirstOrThrow({
-      select: {
-        captainId: true,
-        greatCircleDistance: true,
-        totalFuelBurned: true,
-        timesheet: true,
-      },
-      where: { id: event.payload.flightId },
-    });
-
-    const timesheet = flight.timesheet as FilledTimesheet;
-    const blockTime = scheduleToBlockTimeInMinutes(
-      timesheet.actual as FilledSchedule,
-    );
-
-    // add miles, block time and fuel burned to captain's stats
+  async setCurrentRotation(
+    userId: string,
+    rotationId: string | null,
+  ): Promise<void> {
     await this.prisma.user.update({
-      where: { id: flight.captainId as string },
+      where: { id: userId },
+      data: { currentRotationId: rotationId },
+    });
+  }
+
+  async addCompletedFlightStats(
+    userId: string,
+    stats: {
+      greatCircleDistance: number;
+      totalFuelBurned: number;
+      blockTime: number;
+    },
+    landingAirportId: string,
+    landedAt: Date,
+  ): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: userId },
       data: {
-        totalGreatCircleDistance: { increment: flight.greatCircleDistance },
-        totalFuelBurned: { increment: flight.totalFuelBurned },
-        totalFlightTime: { increment: blockTime },
+        totalGreatCircleDistance: { increment: stats.greatCircleDistance },
+        totalFuelBurned: { increment: stats.totalFuelBurned },
+        totalFlightTime: { increment: stats.blockTime },
+        lastAirportId: landingAirportId,
+        lastAirportUpdatedAt: landedAt,
       },
     });
     // remove user stats from an indefinite cache
-    const cacheKey = cacheByUser(
-      CACHE_KEYS.USER_STATS,
-      flight.captainId as string,
-    );
+    const cacheKey = cacheByUser(CACHE_KEYS.USER_STATS, userId);
     await this.cacheManager.del(cacheKey);
-  }
-
-  @OnEvent(FlightEventType.FlightWasClosed)
-  async onFlightClose(event: FlightWasClosedEvent): Promise<void> {
-    await this.prisma.user.update({
-      where: { id: event.payload.actorId as string },
-      data: { currentFlightId: null },
-    });
-
-    // flight has no rotation
-    if (!event.payload.rotationId) {
-      return;
-    }
-
-    const lastFlightInRotation = await this.prisma.flight.findFirst({
-      select: { id: true },
-      where: { rotationId: event.payload.rotationId },
-      orderBy: { createdAt: 'desc' },
-    });
-
-    // flight is not last in rotation
-    if (lastFlightInRotation?.id !== event.payload.flightId) {
-      return;
-    }
-
-    await this.prisma.user.update({
-      where: { id: event.payload.actorId as string },
-      data: { currentRotationId: null },
-    });
   }
 
   private async findOneBy(
@@ -259,6 +219,9 @@ export class UsersRepository {
       pilotLicenseId: user.pilotLicenseId,
       currentFlightId: user.currentFlightId,
       currentRotationId: user.currentRotationId,
+      homeAirportId: user.homeAirportId,
+      lastAirportId: user.lastAirportId,
+      lastAirportUpdatedAt: user.lastAirportUpdatedAt,
     };
   }
 
