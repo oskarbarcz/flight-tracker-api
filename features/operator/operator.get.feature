@@ -20,7 +20,9 @@ Feature: Get operator resource
         "avgFleetAge": 9.2,
         "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png",
         "backgroundUrl": null,
-        "continent": "europe"
+        "continent": "europe",
+        "alliance": null,
+        "group": null
       }
       """
 
@@ -44,7 +46,9 @@ Feature: Get operator resource
         "avgFleetAge": 9.2,
         "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png",
         "backgroundUrl": null,
-        "continent": "europe"
+        "continent": "europe",
+        "alliance": null,
+        "group": null
       }
       """
 
@@ -68,7 +72,9 @@ Feature: Get operator resource
         "avgFleetAge": 9.2,
         "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png",
         "backgroundUrl": null,
-        "continent": "europe"
+        "continent": "europe",
+        "alliance": null,
+        "group": null
       }
       """
 

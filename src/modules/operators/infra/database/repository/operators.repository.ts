@@ -1,6 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
-import { Operator, OperatorType } from '../../../model/operator.model';
+import {
+  Operator,
+  OperatorAlliance,
+  OperatorGroup,
+  OperatorType,
+} from '../../../model/operator.model';
 import { Prisma } from 'prisma/client/client';
 import {
   CreateOperatorRequest,
@@ -28,6 +33,8 @@ export class OperatorsRepository {
       ...operator,
       type: operator.type as OperatorType,
       continent: operator.continent as Continent,
+      alliance: operator.alliance as OperatorAlliance | null,
+      group: operator.group as OperatorGroup | null,
       fleetTypes: operator.fleetTypes as string[],
       hubs: operator.hubs as string[],
     }));
@@ -46,6 +53,8 @@ export class OperatorsRepository {
       ...operator,
       type: operator.type as OperatorType,
       continent: operator.continent as Continent,
+      alliance: operator.alliance as OperatorAlliance | null,
+      group: operator.group as OperatorGroup | null,
       fleetTypes: operator.fleetTypes as string[],
       hubs: operator.hubs as string[],
     };

@@ -1,5 +1,10 @@
 import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
-import { OperatorType, Prisma } from '../../client/client';
+import {
+  OperatorAlliance,
+  OperatorGroup,
+  OperatorType,
+  Prisma,
+} from '../../client/client';
 import { Continent } from '../../../src/modules/airports/model/airport.model';
 
 export async function loadOperators(): Promise<void> {
@@ -27,6 +32,8 @@ export async function loadOperators(): Promise<void> {
       'https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png',
     backgroundUrl: null,
     continent: Continent.Europe,
+    alliance: null,
+    group: null,
   };
 
   const lufthansa = {
@@ -45,6 +52,8 @@ export async function loadOperators(): Promise<void> {
       'https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/lufthansa.png',
     backgroundUrl: null,
     continent: Continent.Europe,
+    alliance: OperatorAlliance.star_alliance,
+    group: OperatorGroup.lufthansa_group,
   };
 
   const lot = {
@@ -63,6 +72,8 @@ export async function loadOperators(): Promise<void> {
       'https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/lot_polish.png',
     backgroundUrl: null,
     continent: Continent.Europe,
+    alliance: OperatorAlliance.star_alliance,
+    group: null,
   };
 
   const american = {
@@ -92,6 +103,8 @@ export async function loadOperators(): Promise<void> {
       'https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/american_airlines.png',
     backgroundUrl: null,
     continent: Continent.NorthAmerica,
+    alliance: OperatorAlliance.oneworld,
+    group: null,
   };
 
   const british = {
@@ -110,6 +123,8 @@ export async function loadOperators(): Promise<void> {
       'https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/british_airways.png',
     backgroundUrl: null,
     continent: Continent.Europe,
+    alliance: OperatorAlliance.oneworld,
+    group: OperatorGroup.international_airlines_group,
   };
 
   const prisma = new PrismaService();

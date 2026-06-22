@@ -17,6 +17,33 @@ export enum OperatorType {
   GovernmentMilitary = 'government_military',
 }
 
+export enum OperatorAlliance {
+  StarAlliance = 'star_alliance',
+  SkyTeam = 'sky_team',
+  OneWorld = 'oneworld',
+  VanillaAlliance = 'vanilla_alliance',
+}
+
+export enum OperatorGroup {
+  LufthansaGroup = 'lufthansa_group',
+  InternationalAirlinesGroup = 'international_airlines_group',
+  AirFranceKlm = 'air_france_klm',
+  RyanairHoldings = 'ryanair_holdings',
+  EasyjetGroup = 'easyjet_group',
+  AnaHoldings = 'ana_holdings',
+  JapanAirlinesGroup = 'japan_airlines_group',
+  QantasGroup = 'qantas_group',
+  SingaporeAirlinesGroup = 'singapore_airlines_group',
+  AlaskaAirGroup = 'alaska_air_group',
+  HnaAviationGroup = 'hna_aviation_group',
+  ChinaSouthernAirHolding = 'china_southern_air_holding',
+  ChinaEasternAirHolding = 'china_eastern_air_holding',
+  AirChinaGroup = 'air_china_group',
+  KoreanAirGroup = 'korean_air_group',
+  TurkishAirlinesGroup = 'turkish_airlines_group',
+  EmiratesGroup = 'emirates_group',
+}
+
 export class Operator {
   @ApiProperty({
     description: 'Operator unique system identifier',
@@ -132,6 +159,30 @@ export class Operator {
   @IsNotEmpty()
   @IsEnum(Continent)
   continent!: Continent;
+
+  @ApiProperty({
+    description: 'Airline alliance the operator belongs to',
+    example: OperatorAlliance.StarAlliance,
+    enum: OperatorAlliance,
+    nullable: true,
+    default: null,
+    required: false,
+  })
+  @IsOptional()
+  @IsEnum(OperatorAlliance)
+  alliance?: OperatorAlliance | null;
+
+  @ApiProperty({
+    description: 'Airline group the operator belongs to',
+    example: OperatorGroup.LufthansaGroup,
+    enum: OperatorGroup,
+    nullable: true,
+    default: null,
+    required: false,
+  })
+  @IsOptional()
+  @IsEnum(OperatorGroup)
+  group?: OperatorGroup | null;
 
   @ApiProperty({
     description: 'Operator primary airport hubs (IATA codes)',

@@ -21,7 +21,9 @@ Feature: List operators
           "avgFleetAge": 9.2,
           "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png",
           "backgroundUrl": null,
-          "continent": "europe"
+          "continent": "europe",
+          "alliance": null,
+          "group": null
         },
         {
           "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
@@ -37,7 +39,9 @@ Feature: List operators
           "avgFleetAge": 14.2,
           "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/lufthansa.png",
           "backgroundUrl": null,
-          "continent": "europe"
+          "continent": "europe",
+          "alliance": "star_alliance",
+          "group": "lufthansa_group"
         },
         {
           "id": "1d85d597-c3a1-43cf-b888-10d674ea7a46",
@@ -53,7 +57,9 @@ Feature: List operators
           "avgFleetAge": 11.1,
           "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/lot_polish.png",
           "backgroundUrl": null,
-          "continent": "europe"
+          "continent": "europe",
+          "alliance": "star_alliance",
+          "group": null
         },
         {
           "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
@@ -69,7 +75,9 @@ Feature: List operators
           "avgFleetAge": 14.4,
           "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/american_airlines.png",
           "backgroundUrl": null,
-          "continent": "north_america"
+          "continent": "north_america",
+          "alliance": "oneworld",
+          "group": null
         },
         {
           "id": "5c00f71c-287c-4bca-a738-caf7e2669c65",
@@ -85,7 +93,9 @@ Feature: List operators
           "avgFleetAge": 13.6,
           "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/british_airways.png",
           "backgroundUrl": null,
-          "continent": "europe"
+          "continent": "europe",
+          "alliance": "oneworld",
+          "group": "international_airlines_group"
         }
       ]
       """
