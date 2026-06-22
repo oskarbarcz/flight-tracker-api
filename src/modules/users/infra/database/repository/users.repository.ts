@@ -1,9 +1,4 @@
-import {
-  BadRequestException,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../../http/request/create-user.dto';
 import { UpdateUserDto } from '../../http/request/update-user.dto';
 import { v4 } from 'uuid';
@@ -31,6 +26,13 @@ import { scheduleToBlockTimeInMinutes } from '../../../../flights/infra/helper/d
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
 import { CACHE_KEYS, cacheByUser } from '../../../../../core/cache/cache.key';
+import {
+  CabinCrewMustHaveHomeAirportError,
+  OnlyCabinCrewCanHaveHomeAirportError,
+  OnlyCabinCrewCanHavePilotLicenseError,
+  UserEmailAlreadyExistsError,
+  UserNotFoundError,
+} from '../../../model/error/user.error';
 
 @Injectable()
 export class UsersRepository {
@@ -47,13 +49,19 @@ export class UsersRepository {
     });
 
     if (userWithSameEmail) {
-      throw new BadRequestException('User with given email already exists.');
+      throw new UserEmailAlreadyExistsError();
     }
 
     if (data.role !== UserRole.CabinCrew && data.pilotLicenseId) {
-      throw new BadRequestException(
-        'Only CabinCrew can have a pilot license ID.',
-      );
+      throw new OnlyCabinCrewCanHavePilotLicenseError();
+    }
+
+    if (data.role !== UserRole.CabinCrew && data.homeAirportId) {
+      throw new OnlyCabinCrewCanHaveHomeAirportError();
+    }
+
+    if (data.role === UserRole.CabinCrew && !data.homeAirportId) {
+      throw new CabinCrewMustHaveHomeAirportError();
     }
 
     const hashedPassword = await bcrypt.hash(
@@ -67,6 +75,8 @@ export class UsersRepository {
         ...data,
         currentFlightId: null,
         password: hashedPassword,
+        lastAirportId: data.homeAirportId ?? null,
+        lastAirportUpdatedAt: null,
       },
     });
 
@@ -85,7 +95,7 @@ export class UsersRepository {
     const user: User | null = await this.findOneBy({ id });
 
     if (!user) {
-      throw new NotFoundException('User with given id does not exist.');
+      throw new UserNotFoundError();
     }
 
     return this.returnWithoutPassword(user);
@@ -102,7 +112,7 @@ export class UsersRepository {
     });
 
     if (!user) {
-      throw new NotFoundException('User with given id does not exist.');
+      throw new UserNotFoundError();
     }
 
     return {
@@ -132,14 +142,16 @@ export class UsersRepository {
     const user: User | null = await this.findOneBy({ id });
 
     if (!user) {
-      throw new NotFoundException('User with given id does not exist.');
+      throw new UserNotFoundError();
     }
 
     const newRole = data.role ?? user.role;
     if (newRole !== UserRole.CabinCrew && data.pilotLicenseId) {
-      throw new BadRequestException(
-        'Only CabinCrew can have a pilot license ID.',
-      );
+      throw new OnlyCabinCrewCanHavePilotLicenseError();
+    }
+
+    if (newRole !== UserRole.CabinCrew && data.homeAirportId) {
+      throw new OnlyCabinCrewCanHaveHomeAirportError();
     }
 
     const updatedUser = await this.prisma.user.update({
@@ -196,13 +208,14 @@ export class UsersRepository {
       timesheet.actual as FilledSchedule,
     );
 
-    // add miles, block time and fuel burned to captain's stats
     await this.prisma.user.update({
       where: { id: flight.captainId as string },
       data: {
         totalGreatCircleDistance: { increment: flight.greatCircleDistance },
         totalFuelBurned: { increment: flight.totalFuelBurned },
         totalFlightTime: { increment: blockTime },
+        lastAirportId: event.payload.landingAirportId,
+        lastAirportUpdatedAt: new Date(),
       },
     });
     // remove user stats from an indefinite cache
@@ -259,6 +272,9 @@ export class UsersRepository {
       pilotLicenseId: user.pilotLicenseId,
       currentFlightId: user.currentFlightId,
       currentRotationId: user.currentRotationId,
+      homeAirportId: user.homeAirportId,
+      lastAirportId: user.lastAirportId,
+      lastAirportUpdatedAt: user.lastAirportUpdatedAt,
     };
   }
 

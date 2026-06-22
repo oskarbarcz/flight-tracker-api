@@ -20,7 +20,10 @@ Feature: Update user
         "role": "Admin",
         "pilotLicenseId": null,
         "currentFlightId": null,
-        "currentRotationId": null
+        "currentRotationId": null,
+        "homeAirportId": null,
+        "lastAirportId": null,
+        "lastAirportUpdatedAt": null
       }
       """
     And I set database to initial state
@@ -43,7 +46,10 @@ Feature: Update user
         "role": "Admin",
         "pilotLicenseId": null,
         "currentFlightId": null,
-        "currentRotationId": null
+        "currentRotationId": null,
+        "homeAirportId": null,
+        "lastAirportId": null,
+        "lastAirportUpdatedAt": null
       }
       """
     And I set database to initial state
@@ -66,7 +72,10 @@ Feature: Update user
         "role": "CabinCrew",
         "pilotLicenseId": null,
         "currentFlightId": null,
-        "currentRotationId": null
+        "currentRotationId": null,
+        "homeAirportId": null,
+        "lastAirportId": null,
+        "lastAirportUpdatedAt": null
       }
       """
     And I set database to initial state
@@ -199,7 +208,10 @@ Feature: Update user
         "role": "CabinCrew",
         "pilotLicenseId": "UK-12345",
         "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e",
-        "currentRotationId": null
+        "currentRotationId": null,
+        "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportUpdatedAt": null
       }
       """
     And I set database to initial state
@@ -217,6 +229,24 @@ Feature: Update user
       """json
       {
         "message": "Only CabinCrew can have a pilot license ID.",
+        "error": "Bad Request",
+        "statusCode": 400
+      }
+      """
+
+  Scenario: As an admin I cannot set a home airport for a non cabin crew user
+    Given I am signed in as "admin"
+    When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
+      """json
+      {
+        "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Only CabinCrew can have a home airport.",
         "error": "Bad Request",
         "statusCode": 400
       }

@@ -22,7 +22,10 @@ Feature: Create user
         "role": "Admin",
         "currentFlightId": null,
         "currentRotationId": null,
-        "pilotLicenseId": null
+        "pilotLicenseId": null,
+        "homeAirportId": null,
+        "lastAirportId": null,
+        "lastAirportUpdatedAt": null
       }
       """
     And I set database to initial state
@@ -36,7 +39,8 @@ Feature: Create user
         "email": "bob.doe@example.com",
         "password": "P@$$w0rd",
         "role": "CabinCrew",
-        "pilotLicenseId": "UK-12345"
+        "pilotLicenseId": "UK-12345",
+        "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383"
       }
       """
     Then the response status should be 201
@@ -49,7 +53,10 @@ Feature: Create user
         "role": "CabinCrew",
         "pilotLicenseId": "UK-12345",
         "currentFlightId": null,
-        "currentRotationId": null
+        "currentRotationId": null,
+        "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportUpdatedAt": null
       }
       """
     And I set database to initial state
@@ -71,6 +78,50 @@ Feature: Create user
       """json
       {
         "message": "Only CabinCrew can have a pilot license ID.",
+        "error": "Bad Request",
+        "statusCode": 400
+      }
+      """
+
+  Scenario: As an admin I cannot create cabin crew without a home airport
+    Given I am signed in as "admin"
+    When I send a "POST" request to "/api/v1/user" with body:
+      """json
+      {
+        "name": "Bob Doe",
+        "email": "bob.doe@example.com",
+        "password": "P@$$w0rd",
+        "role": "CabinCrew",
+        "pilotLicenseId": "UK-12345"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "CabinCrew must have a home airport.",
+        "error": "Bad Request",
+        "statusCode": 400
+      }
+      """
+
+  Scenario: As an admin I cannot set a home airport for a non cabin crew user
+    Given I am signed in as "admin"
+    When I send a "POST" request to "/api/v1/user" with body:
+      """json
+      {
+        "name": "Anna Doe",
+        "email": "anna.doe@example.com",
+        "password": "P@$$w0rd",
+        "role": "Admin",
+        "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Only CabinCrew can have a home airport.",
         "error": "Bad Request",
         "statusCode": 400
       }

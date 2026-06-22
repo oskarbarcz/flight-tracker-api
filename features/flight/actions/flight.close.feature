@@ -345,7 +345,10 @@ Feature: Close flight
         "role": "CabinCrew",
         "pilotLicenseId": "UK-31270",
         "currentFlightId": null,
-        "currentRotationId": null
+        "currentRotationId": null,
+        "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportUpdatedAt": null
       }
       """
     And I should receive a live flight event of type "flight.closed" within 2000ms
@@ -691,7 +694,10 @@ Feature: Close flight
         "role": "CabinCrew",
         "pilotLicenseId": "UK-98540",
         "currentFlightId": null,
-        "currentRotationId": null
+        "currentRotationId": null,
+        "homeAirportId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+        "lastAirportId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+        "lastAirportUpdatedAt": null
       }
       """
     And I should receive a live flight event of type "flight.closed" within 2000ms
