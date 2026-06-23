@@ -16,6 +16,11 @@ import { UpdateUserHandler } from './application/command/update-user.command';
 import { GetUserByIdHandler } from './application/query/get-user-by-id.query';
 import { ListUsersHandler } from './application/query/list-users.query';
 import { FlightLifecycleListener } from './application/event/external/flight-lifecycle.listener';
+import { UserTravelRepository } from './infra/database/repository/user-travel.repository';
+import { CreateUserTravelAction } from './infra/http/action/create-user-travel.action';
+import { ListUserTravelAction } from './infra/http/action/list-user-travel.action';
+import { CreateManualTravelHandler } from './application/command/create-manual-travel.command';
+import { ListUserTravelHandler } from './application/query/list-user-travel.query';
 
 @Module({
   controllers: [
@@ -25,9 +30,12 @@ import { FlightLifecycleListener } from './application/event/external/flight-lif
     GetMyStatsAction,
     GetUserAction,
     UpdateUserAction,
+    CreateUserTravelAction,
+    ListUserTravelAction,
   ],
   providers: [
     UsersRepository,
+    UserTravelRepository,
     CheckUserExistsHandler,
     GetUserSimbriefIdHandler,
     GetUserStatsHandler,
@@ -36,6 +44,8 @@ import { FlightLifecycleListener } from './application/event/external/flight-lif
     UpdateUserHandler,
     GetUserByIdHandler,
     ListUsersHandler,
+    CreateManualTravelHandler,
+    ListUserTravelHandler,
     FlightLifecycleListener,
   ],
   imports: [PrismaModule],

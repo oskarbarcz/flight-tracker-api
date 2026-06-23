@@ -98,6 +98,33 @@ Feature: Report on-block
         }
       ]
       """
+    When I send a "GET" request to "/api/v1/user/fcf6f4bc-290d-43a9-843c-409cd47e143d/travel"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "7a000000-0000-4000-8000-0000000000a1",
+          "userId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "type": "performing_flight",
+          "status": "finished",
+          "departureAirport": {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "name": "Boston Logan Intl",
+            "iataCode": "BOS"
+          },
+          "destinationAirport": {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "name": "Philadelphia Intl",
+            "iataCode": "PHL"
+          },
+          "distance": 243,
+          "flightId": "04be266c-df78-4bec-9f50-281cc02ce7f2",
+          "createdAt": "2025-01-01T09:00:00.000Z",
+          "updatedAt": "@date('within 1 minute from now')"
+        }
+      ]
+      """
     When I send a "GET" request to "/api/v1/flight/04be266c-df78-4bec-9f50-281cc02ce7f2"
     Then the response status should be 200
     And the response body should contain:

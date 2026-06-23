@@ -8,6 +8,7 @@ import { loadTerminals } from './resource/terminals.seed';
 import { loadGates } from './resource/gates.seed';
 import { loadRunways } from './resource/runways.seed';
 import { loadDelay } from './resource/delay.seed';
+import { loadUserTravel } from './resource/user-travel.seed';
 
 export async function loadResources() {
   await loadAirports();
@@ -20,4 +21,5 @@ export async function loadResources() {
   await loadRotations();
   await loadFlights();
   await loadDelay();
+  await loadUserTravel();
 }
