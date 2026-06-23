@@ -255,9 +255,76 @@ Feature: Check in pilot for flight
         "currentFlightId": "23952e79-6b38-49ed-a1db-bd4d9b3cedab",
         "currentRotationId": null,
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportUpdatedAt": null
+        "lastAirportId": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+        "lastAirportUpdatedAt": "@date('within 1 minute from now')"
       }
+      """
+    When I send a "GET" request to "/api/v1/user/fcf6f4bc-290d-43a9-843c-409cd47e143d/travel"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "@uuid",
+          "userId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "type": "performing_flight",
+          "status": "pending",
+          "departureAirport": {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "name": "Boston Logan Intl",
+            "iataCode": "BOS"
+          },
+          "destinationAirport": {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "name": "Philadelphia Intl",
+            "iataCode": "PHL"
+          },
+          "distance": 243,
+          "flightId": "23952e79-6b38-49ed-a1db-bd4d9b3cedab",
+          "createdAt": "@date('within 1 minute from now')",
+          "updatedAt": null
+        },
+        {
+          "id": "@uuid",
+          "userId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "type": "dead_head_automatic",
+          "status": "finished",
+          "departureAirport": {
+            "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+            "name": "New York JFK",
+            "iataCode": "JFK"
+          },
+          "destinationAirport": {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "name": "Boston Logan Intl",
+            "iataCode": "BOS"
+          },
+          "distance": 162,
+          "flightId": "23952e79-6b38-49ed-a1db-bd4d9b3cedab",
+          "createdAt": "@date('within 1 minute from now')",
+          "updatedAt": null
+        },
+        {
+          "id": "7a000000-0000-4000-8000-0000000000a1",
+          "userId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "type": "performing_flight",
+          "status": "pending",
+          "departureAirport": {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "name": "Boston Logan Intl",
+            "iataCode": "BOS"
+          },
+          "destinationAirport": {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "name": "Philadelphia Intl",
+            "iataCode": "PHL"
+          },
+          "distance": 243,
+          "flightId": "04be266c-df78-4bec-9f50-281cc02ce7f2",
+          "createdAt": "2025-01-01T09:00:00.000Z",
+          "updatedAt": null
+        }
+      ]
       """
     And I should receive a live flight event of type "flight.pilot-checked-in" within 2000ms
     And I set database to initial state
@@ -517,8 +584,8 @@ Feature: Check in pilot for flight
         "currentFlightId": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
         "currentRotationId": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1",
         "homeAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportUpdatedAt": null
+        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportUpdatedAt": "@date('within 1 minute from now')"
       }
       """
     And I should receive a live flight event of type "flight.pilot-checked-in" within 2000ms

@@ -11,7 +11,7 @@ ALTER TABLE "flight_emergency" DROP CONSTRAINT "flight_emergency_resolvedBy_fkey
 ALTER TABLE "aircraft"
 ADD COLUMN  "baseAirportId"        UUID,
 ADD COLUMN  "lastAirportId"        UUID,
-ADD COLUMN  "lastAirportUpdatedAt" TIMESTAMP(3)
+ADD COLUMN  "lastAirportUpdatedAt" TIMESTAMP(3),
 ADD COLUMN  "currentState"         "AircraftState" NOT NULL DEFAULT 'idle';
 
 -- AddForeignKey

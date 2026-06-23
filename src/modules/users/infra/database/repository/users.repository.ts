@@ -167,6 +167,13 @@ export class UsersRepository {
     });
   }
 
+  async setLastAirport(userId: string, airportId: string): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { lastAirportId: airportId, lastAirportUpdatedAt: new Date() },
+    });
+  }
+
   async setCurrentRotation(
     userId: string,
     rotationId: string | null,

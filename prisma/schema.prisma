@@ -41,14 +41,16 @@ model Airport {
   location  Json      @default("{\"latitude\": 0, \"longitude\": 0}")
   shape     Json?
 
-  airportsOnFlights AirportsOnFlights[]
-  diversion         Diversion[]
-  terminals         Terminal[]
-  runways           Runway[]
-  baseForAircraft   Aircraft[]          @relation("AircraftBaseAirport")
-  lastForAircraft   Aircraft[]          @relation("AircraftLastAirport")
-  homeForUsers      User[]              @relation("UserHomeAirport")
-  lastForUsers      User[]              @relation("UserLastAirport")
+  airportsOnFlights     AirportsOnFlights[]
+  diversion             Diversion[]
+  terminals             Terminal[]
+  runways               Runway[]
+  baseForAircraft       Aircraft[]          @relation("AircraftBaseAirport")
+  lastForAircraft       Aircraft[]          @relation("AircraftLastAirport")
+  homeForUsers          User[]              @relation("UserHomeAirport")
+  lastForUsers          User[]              @relation("UserLastAirport")
+  departureForTravels   UserTravel[]        @relation("UserTravelDepartureAirport")
+  destinationForTravels UserTravel[]        @relation("UserTravelDestinationAirport")
 
   @@map("airport")
 }
@@ -191,6 +193,7 @@ model Flight {
   departureRunway      Runway?                @relation("FlightDepartureRunway", fields: [departureRunwayId], references: [id], onDelete: SetNull)
   arrivalGate          Gate?                  @relation("FlightArrivalGate", fields: [arrivalGateId], references: [id], onDelete: SetNull)
   arrivalRunway        Runway?                @relation("FlightArrivalRunway", fields: [arrivalRunwayId], references: [id], onDelete: SetNull)
+  userTravels          UserTravel[]           @relation("UserTravelFlight")
 
   @@map("flight")
 }
@@ -320,8 +323,45 @@ model User {
   allFlights           Flight[]               @relation("FlightCaptain")
   delayReportsReported DelayReport[]          @relation("DelayReportReporter")
   delayReportsDecided  DelayReport[]          @relation("DelayReportDecider")
+  travels              UserTravel[]
 
   @@map("user")
+}
+
+enum UserTravelType {
+  performing_flight
+  dead_head_manual
+  dead_head_automatic
+
+  @@map("user_travel_type")
+}
+
+enum UserTravelStatus {
+  pending
+  finished
+
+  @@map("user_travel_status")
+}
+
+model UserTravel {
+  id                   String           @id @default(uuid()) @db.Uuid
+  userId               String           @db.Uuid
+  type                 UserTravelType
+  status               UserTravelStatus
+  departureAirportId   String           @db.Uuid
+  destinationAirportId String           @db.Uuid
+  distance             Int
+  flightId             String?          @db.Uuid
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime?
+
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  departureAirport   Airport @relation("UserTravelDepartureAirport", fields: [departureAirportId], references: [id])
+  destinationAirport Airport @relation("UserTravelDestinationAirport", fields: [destinationAirportId], references: [id])
+  flight             Flight? @relation("UserTravelFlight", fields: [flightId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@map("user_travel")
 }
 
 model Rotation {
