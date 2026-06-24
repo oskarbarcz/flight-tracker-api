@@ -24,8 +24,8 @@ export async function loadAircraft(): Promise<void> {
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     currentState: AircraftState.idle,
     baseAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
-    lastAirportId: null,
-    lastAirportUpdatedAt: null,
+    lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
+    lastAirportUpdatedAt: new Date('2025-01-02 18:00'),
   };
 
   const a319: Aircraft = {
@@ -50,8 +50,8 @@ export async function loadAircraft(): Promise<void> {
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     currentState: AircraftState.idle,
     baseAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
-    lastAirportId: null,
-    lastAirportUpdatedAt: null,
+    lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
+    lastAirportUpdatedAt: new Date('2025-01-01 08:00'),
   };
 
   const prisma = new PrismaService();

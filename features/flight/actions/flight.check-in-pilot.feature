@@ -326,6 +326,96 @@ Feature: Check in pilot for flight
         }
       ]
       """
+    When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/a10c21e3-3ac1-4265-9d12-da9baefa2d98/reposition"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "@uuid",
+          "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "type": "performing_flight",
+          "status": "pending",
+          "departureAirport": {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "name": "Boston Logan Intl",
+            "iataCode": "BOS"
+          },
+          "destinationAirport": {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "name": "Philadelphia Intl",
+            "iataCode": "PHL"
+          },
+          "distance": 243,
+          "flightId": "23952e79-6b38-49ed-a1db-bd4d9b3cedab",
+          "createdAt": "@date('within 1 minute from now')",
+          "updatedAt": null
+        },
+        {
+          "id": "@uuid",
+          "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "type": "dead_head_automatic",
+          "status": "finished",
+          "departureAirport": {
+            "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+            "name": "New York JFK",
+            "iataCode": "JFK"
+          },
+          "destinationAirport": {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "name": "Boston Logan Intl",
+            "iataCode": "BOS"
+          },
+          "distance": 162,
+          "flightId": "23952e79-6b38-49ed-a1db-bd4d9b3cedab",
+          "createdAt": "@date('within 1 minute from now')",
+          "updatedAt": null
+        },
+        {
+          "id": "7b000000-0000-4000-8000-0000000000b1",
+          "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "type": "performing_flight",
+          "status": "pending",
+          "departureAirport": {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "name": "Boston Logan Intl",
+            "iataCode": "BOS"
+          },
+          "destinationAirport": {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "name": "Philadelphia Intl",
+            "iataCode": "PHL"
+          },
+          "distance": 243,
+          "flightId": "04be266c-df78-4bec-9f50-281cc02ce7f2",
+          "createdAt": "2025-01-01T09:00:00.000Z",
+          "updatedAt": null
+        }
+      ]
+      """
+    When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/a10c21e3-3ac1-4265-9d12-da9baefa2d98"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "airframe": {
+          "type": "B77W",
+          "name": "B777-300ER",
+          "cruiseSpeed": { "value": 0.84, "unit": "mach" },
+          "serviceCeiling": 43000,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
+        "livery": "Team USA (2023)",
+        "registration": "N78881",
+        "selcal": "KY-JO",
+        "currentState": "checked_in",
+        "baseAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportId": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+        "lastAirportUpdatedAt": "@date('within 1 minute from now')"
+      }
+      """
     And I should receive a live flight event of type "flight.pilot-checked-in" within 2000ms
     And I set database to initial state
 
@@ -584,6 +674,29 @@ Feature: Check in pilot for flight
         "currentFlightId": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
         "currentRotationId": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1",
         "homeAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportUpdatedAt": "@date('within 1 minute from now')"
+      }
+      """
+    When I send a "GET" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+        "airframe": {
+          "type": "A339",
+          "name": "A330-900",
+          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+          "serviceCeiling": 41400,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
+        "livery": "Fanhansa (2024)",
+        "registration": "D-AIMC",
+        "selcal": "LR-CK",
+        "currentState": "checked_in",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": "@date('within 1 minute from now')"
       }
