@@ -16,6 +16,12 @@ import { DiscordModule } from './core/provider/discord/discord.module';
 import { CqrsModule } from '@nestjs/cqrs';
 import { DomainEventsModule } from './core/domain/events/domain-events.module';
 
+// Scheduled (@Cron) jobs run against the live database. On the local/dev env
+// they race the functional suite's TRUNCATE-based reset and cause deadlocks,
+// so the scheduler is opt-out there via SCHEDULER_ENABLED=false. It defaults
+// to enabled everywhere else.
+const schedulerEnabled = process.env.SCHEDULER_ENABLED !== 'false';
+
 @Module({
   imports: [
     AirportsModule,
@@ -30,7 +36,7 @@ import { DomainEventsModule } from './core/domain/events/domain-events.module';
     DiscordModule,
     EventEmitterModule.forRoot(),
     DomainEventsModule,
-    ScheduleModule.forRoot(),
+    ...(schedulerEnabled ? [ScheduleModule.forRoot()] : []),
     CqrsModule.forRoot(),
     ConfigModule.forRoot({ isGlobal: true }),
     CacheModule.register({ isGlobal: true }),
