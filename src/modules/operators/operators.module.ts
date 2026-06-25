@@ -30,6 +30,12 @@ import { UpdateRotationHandler } from './application/command/rotation/update-rot
 import { AssertRotationExistsHandler } from './application/query/rotation/assert-rotation-exists.query';
 import { AircraftLifecycleListener } from './application/event/internal/aircraft-lifecycle.listener';
 import { FlightLifecycleListener } from './application/event/external/flight-lifecycle.listener';
+import { RepositionRepository } from './infra/database/repository/reposition.repository';
+import { CreateManualRepositionHandler } from './application/command/reposition/create-manual-reposition.command';
+import { ListAircraftRepositionHandler } from './application/query/reposition/list-aircraft-reposition.query';
+import { CreateAircraftRepositionAction } from './infra/http/action/create-aircraft-reposition.action';
+import { ListAircraftRepositionAction } from './infra/http/action/list-aircraft-reposition.action';
+import { RepositionFlightLifecycleListener } from './application/event/external/reposition-flight-lifecycle.listener';
 
 @Module({
   imports: [PrismaModule, AirframesModule],
@@ -38,6 +44,8 @@ import { FlightLifecycleListener } from './application/event/external/flight-lif
     AircraftController,
     GetAircraftFlightHistoryAction,
     RotationsController,
+    CreateAircraftRepositionAction,
+    ListAircraftRepositionAction,
   ],
   providers: [
     OperatorsRepository,
@@ -65,6 +73,10 @@ import { FlightLifecycleListener } from './application/event/external/flight-lif
     AssertRotationExistsHandler,
     AircraftLifecycleListener,
     FlightLifecycleListener,
+    RepositionRepository,
+    CreateManualRepositionHandler,
+    ListAircraftRepositionHandler,
+    RepositionFlightLifecycleListener,
   ],
 })
 export class OperatorsModule {}

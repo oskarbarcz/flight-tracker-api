@@ -158,6 +158,29 @@ Feature: Create a flight
         "createdAt": "@date('within 1 minute from now')"
       }
       """
+    When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/a10c21e3-3ac1-4265-9d12-da9baefa2d98"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "airframe": {
+          "type": "B77W",
+          "name": "B777-300ER",
+          "cruiseSpeed": { "value": 0.84, "unit": "mach" },
+          "serviceCeiling": 43000,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
+        "livery": "Team USA (2023)",
+        "registration": "N78881",
+        "selcal": "KY-JO",
+        "currentState": "planned",
+        "baseAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+      }
+      """
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot create a flight

@@ -125,6 +125,69 @@ Feature: Report on-block
         }
       ]
       """
+    When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/a10c21e3-3ac1-4265-9d12-da9baefa2d98/reposition"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "7b000000-0000-4000-8000-0000000000b1",
+          "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "type": "performing_flight",
+          "status": "finished",
+          "departureAirport": {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "name": "Boston Logan Intl",
+            "iataCode": "BOS"
+          },
+          "destinationAirport": {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "name": "Philadelphia Intl",
+            "iataCode": "PHL"
+          },
+          "distance": 243,
+          "flightId": "04be266c-df78-4bec-9f50-281cc02ce7f2",
+          "createdAt": "2025-01-01T09:00:00.000Z",
+          "updatedAt": "@date('within 1 minute from now')"
+        }
+      ]
+      """
+    When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/a10c21e3-3ac1-4265-9d12-da9baefa2d98"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "airframe": {
+          "type": "B77W",
+          "name": "B777-300ER",
+          "cruiseSpeed": { "value": 0.84, "unit": "mach" },
+          "serviceCeiling": 43000,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
+        "livery": "Team USA (2023)",
+        "registration": "N78881",
+        "selcal": "KY-JO",
+        "currentState": "idle",
+        "baseAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportId": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+        "lastAirportUpdatedAt": "@date('within 1 minute from now')"
+      }
+      """
+    When I send a "GET" request to "/api/v1/user/me/stats"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "total": {
+          "blockTime": "@any",
+          "totalFuelBurned": 328800,
+          "totalFlightTime": "@any",
+          "totalGreatCircleDistance": 8080
+        }
+      }
+      """
     When I send a "GET" request to "/api/v1/flight/04be266c-df78-4bec-9f50-281cc02ce7f2"
     Then the response status should be 200
     And the response body should contain:

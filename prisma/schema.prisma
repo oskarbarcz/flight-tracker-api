@@ -21,10 +21,11 @@ model Aircraft {
   lastAirportId        String?       @db.Uuid
   lastAirportUpdatedAt DateTime?
 
-  operator    Operator? @relation(fields: [operatorId], references: [id])
-  baseAirport Airport?  @relation("AircraftBaseAirport", fields: [baseAirportId], references: [id], onDelete: SetNull)
-  lastAirport Airport?  @relation("AircraftLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
+  operator    Operator?            @relation(fields: [operatorId], references: [id])
+  baseAirport Airport?             @relation("AircraftBaseAirport", fields: [baseAirportId], references: [id], onDelete: SetNull)
+  lastAirport Airport?             @relation("AircraftLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
   flight      Flight[]
+  repositions AircraftReposition[]
 
   @@map("aircraft")
 }
@@ -41,16 +42,18 @@ model Airport {
   location  Json      @default("{\"latitude\": 0, \"longitude\": 0}")
   shape     Json?
 
-  airportsOnFlights     AirportsOnFlights[]
-  diversion             Diversion[]
-  terminals             Terminal[]
-  runways               Runway[]
-  baseForAircraft       Aircraft[]          @relation("AircraftBaseAirport")
-  lastForAircraft       Aircraft[]          @relation("AircraftLastAirport")
-  homeForUsers          User[]              @relation("UserHomeAirport")
-  lastForUsers          User[]              @relation("UserLastAirport")
-  departureForTravels   UserTravel[]        @relation("UserTravelDepartureAirport")
-  destinationForTravels UserTravel[]        @relation("UserTravelDestinationAirport")
+  airportsOnFlights         AirportsOnFlights[]
+  diversion                 Diversion[]
+  terminals                 Terminal[]
+  runways                   Runway[]
+  baseForAircraft           Aircraft[]           @relation("AircraftBaseAirport")
+  lastForAircraft           Aircraft[]           @relation("AircraftLastAirport")
+  homeForUsers              User[]               @relation("UserHomeAirport")
+  lastForUsers              User[]               @relation("UserLastAirport")
+  departureForTravels       UserTravel[]         @relation("UserTravelDepartureAirport")
+  destinationForTravels     UserTravel[]         @relation("UserTravelDestinationAirport")
+  departureForRepositions   AircraftReposition[] @relation("AircraftRepositionDepartureAirport")
+  destinationForRepositions AircraftReposition[] @relation("AircraftRepositionDestinationAirport")
 
   @@map("airport")
 }
@@ -194,6 +197,7 @@ model Flight {
   arrivalGate          Gate?                  @relation("FlightArrivalGate", fields: [arrivalGateId], references: [id], onDelete: SetNull)
   arrivalRunway        Runway?                @relation("FlightArrivalRunway", fields: [arrivalRunwayId], references: [id], onDelete: SetNull)
   userTravels          UserTravel[]           @relation("UserTravelFlight")
+  aircraftRepositions  AircraftReposition[]   @relation("AircraftRepositionFlight")
 
   @@map("flight")
 }
@@ -362,6 +366,42 @@ model UserTravel {
 
   @@index([userId])
   @@map("user_travel")
+}
+
+enum AircraftRepositionType {
+  performing_flight
+  dead_head_manual
+  dead_head_automatic
+
+  @@map("aircraft_reposition_type")
+}
+
+enum AircraftRepositionStatus {
+  pending
+  finished
+
+  @@map("aircraft_reposition_status")
+}
+
+model AircraftReposition {
+  id                   String                   @id @default(uuid()) @db.Uuid
+  aircraftId           String                   @db.Uuid
+  type                 AircraftRepositionType
+  status               AircraftRepositionStatus
+  departureAirportId   String                   @db.Uuid
+  destinationAirportId String                   @db.Uuid
+  distance             Int
+  flightId             String?                  @db.Uuid
+  createdAt            DateTime                 @default(now())
+  updatedAt            DateTime?
+
+  aircraft           Aircraft @relation(fields: [aircraftId], references: [id], onDelete: Cascade)
+  departureAirport   Airport  @relation("AircraftRepositionDepartureAirport", fields: [departureAirportId], references: [id])
+  destinationAirport Airport  @relation("AircraftRepositionDestinationAirport", fields: [destinationAirportId], references: [id])
+  flight             Flight?  @relation("AircraftRepositionFlight", fields: [flightId], references: [id], onDelete: SetNull)
+
+  @@index([aircraftId])
+  @@map("aircraft_reposition")
 }
 
 model Rotation {
