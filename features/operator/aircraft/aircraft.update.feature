@@ -42,7 +42,7 @@ Feature: Update aircraft
         "livery": "Lufthansa Classic (2024)",
         "registration": "D-AIMC",
         "selcal": "LR-CK",
-        "currentState": "idle",
+        "currentState": "planned",
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -105,7 +105,7 @@ Feature: Update aircraft
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
         "selcal": "LR-CK",
-        "currentState": "idle",
+        "currentState": "planned",
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",

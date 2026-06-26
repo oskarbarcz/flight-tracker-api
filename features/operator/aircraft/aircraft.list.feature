@@ -20,7 +20,7 @@ Feature: List aircraft
           "livery": "Fanhansa (2024)",
           "registration": "D-AIMC",
           "selcal": "LR-CK",
-          "currentState": "idle",
+          "currentState": "planned",
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -83,7 +83,7 @@ Feature: List aircraft
           "livery": "Lovehansa (2024)",
           "registration": "D-AIME",
           "selcal": "BD-EG",
-          "currentState": "idle",
+          "currentState": "planned",
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -153,7 +153,7 @@ Feature: List aircraft
           "livery": "Retro 1970s (2022)",
           "registration": "D-AIMG",
           "selcal": "BE-FG",
-          "currentState": "idle",
+          "currentState": "cruise",
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -186,7 +186,7 @@ Feature: List aircraft
           "livery": "Siegerflieger (2023)",
           "registration": "D-AIMH",
           "selcal": "CD-EF",
-          "currentState": "idle",
+          "currentState": "cruise",
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -219,7 +219,7 @@ Feature: List aircraft
           "livery": "Cheers to 70 Years (2025)",
           "registration": "D-AIMK",
           "selcal": "CD-EG",
-          "currentState": "idle",
+          "currentState": "planned",
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -252,7 +252,7 @@ Feature: List aircraft
           "livery": "Munich (2024)",
           "registration": "D-AIML",
           "selcal": "CE-FG",
-          "currentState": "idle",
+          "currentState": "cruise",
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",

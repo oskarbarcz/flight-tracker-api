@@ -9,7 +9,7 @@ export async function loadAircraft(): Promise<void> {
     selcal: 'LR-CK',
     livery: 'Fanhansa (2024)',
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa
-    currentState: AircraftState.idle,
+    currentState: AircraftState.planned, // LH450 Created
     baseAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
     lastAirportId: null,
     lastAirportUpdatedAt: null,
@@ -51,7 +51,7 @@ export async function loadAircraft(): Promise<void> {
     selcal: 'KY-JO',
     livery: 'Team USA (2023)',
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
-    currentState: AircraftState.idle,
+    currentState: AircraftState.cruise, // AA4913 TaxiingIn
     baseAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportUpdatedAt: new Date('2025-01-01 08:00'),
@@ -85,6 +85,7 @@ export async function loadAircraft(): Promise<void> {
     baseAirportId: string,
     lastAirportId: string,
     lastAirportUpdatedAt: Date,
+    currentState: AircraftState,
     lastGateId: string | null = null,
   ): Aircraft => ({
     id,
@@ -93,7 +94,7 @@ export async function loadAircraft(): Promise<void> {
     selcal,
     livery,
     operatorId,
-    currentState: AircraftState.idle,
+    currentState,
     baseAirportId,
     lastAirportId,
     lastAirportUpdatedAt,
@@ -112,6 +113,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KPHL,
       aalOnBlock,
+      AircraftState.idle,
     ), // AAL4905 Closed
     mk(
       'ed247c36-58f0-43ff-81fd-ffae548a73e2',
@@ -123,6 +125,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KJFK,
       atBase,
+      AircraftState.planned,
     ), // AAL4907 Created
     mk(
       'e7c6c5e3-84ff-4c5b-a40c-79f178c5b379',
@@ -134,6 +137,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KBOS,
       atCheckIn,
+      AircraftState.checked_in,
     ), // AAL4908 CheckedIn
     mk(
       'a2f425e0-2db0-4d8f-8c4c-b3a95d51eb24',
@@ -145,6 +149,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KBOS,
       atCheckIn,
+      AircraftState.checked_in,
     ), // AAL4909 BoardingStarted
     mk(
       'ffe14007-9147-40a1-a228-573c9c87a2e7',
@@ -156,6 +161,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KBOS,
       atCheckIn,
+      AircraftState.checked_in,
     ), // AAL4910 BoardingFinished
     mk(
       '0fad1757-d650-4a52-b047-f29e9ea5c067',
@@ -167,6 +173,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KBOS,
       atCheckIn,
+      AircraftState.cruise,
     ), // AAL4911 TaxiingOut
     mk(
       '8694eb6d-83e4-4f24-8a72-b67523b4d6bf',
@@ -178,6 +185,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KBOS,
       atCheckIn,
+      AircraftState.cruise,
     ), // AAL4912 InCruise
     mk(
       '3c3f3402-cdb1-4716-9e02-1fe3df12e0e4',
@@ -189,6 +197,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KPHL,
       onBlock,
+      AircraftState.idle,
     ), // AAL4914 OnBlock
     mk(
       '8f27ca75-01e0-4a3f-bcf2-f838e02b9af9',
@@ -200,6 +209,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KPHL,
       onBlock,
+      AircraftState.idle,
     ), // AAL4915 OffboardingStarted
     mk(
       '69811511-fa34-4837-ab5d-dd480aeab8b6',
@@ -211,6 +221,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KPHL,
       onBlock,
+      AircraftState.idle,
     ), // AAL4916 OffboardingFinished
     mk(
       '30a0d850-5440-436d-95a2-fa8fdc79f715',
@@ -222,6 +233,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KPHL,
       onBlock,
+      AircraftState.idle,
     ), // AAL4917 Closed
     mk(
       '7e059d96-260c-44e3-a08c-a216cb76398b',
@@ -233,6 +245,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KPHL,
       onBlock,
+      AircraftState.idle,
     ), // AAL4918 OffboardingFinished
     mk(
       'b0ea1829-61ea-4b50-8bf6-bfccfb4fe5c7',
@@ -244,6 +257,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       KPHL,
       onBlock,
+      AircraftState.idle,
     ), // AAL4919 OffboardingFinished
     // Lufthansa — A339, based EDDF (deadhead only on KJFK-origin return legs)
     mk(
@@ -256,6 +270,7 @@ export async function loadAircraft(): Promise<void> {
       EDDF,
       KJFK,
       dlh40OnBlock,
+      AircraftState.idle,
       '3f2814f7-7dd6-4609-ba6a-878a4f2428b6', // KJFK T1 gate "B22"
     ), // DLH40 Closed (EDDF->KJFK)
     mk(
@@ -268,6 +283,7 @@ export async function loadAircraft(): Promise<void> {
       EDDF,
       EDDF,
       atBase,
+      AircraftState.planned,
       '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101', // EDDF T1 gate "A10"
     ), // DLH41 Created
     mk(
@@ -280,6 +296,7 @@ export async function loadAircraft(): Promise<void> {
       EDDF,
       EDDF,
       onBlock,
+      AircraftState.idle,
     ), // DLH43 OffboardingFinished (KJFK->EDDF)
     mk(
       'ed7ed4bb-95ff-4e79-9331-11212ef727ec',
@@ -291,6 +308,7 @@ export async function loadAircraft(): Promise<void> {
       EDDF,
       KJFK,
       atCheckIn,
+      AircraftState.cruise,
     ), // DLH102 InCruise (KJFK->EDDF)
     mk(
       '5637d186-d9e4-45e4-9940-ae6f6552c9ae',
@@ -302,6 +320,7 @@ export async function loadAircraft(): Promise<void> {
       EDDF,
       EDDF,
       atBase,
+      AircraftState.cruise,
     ), // DLH103 TaxiingIn (EDDF->KJFK)
     mk(
       '785bdfda-291a-4c11-a5d9-b57b5c0b8e5e',
@@ -313,6 +332,7 @@ export async function loadAircraft(): Promise<void> {
       EDDF,
       EDDF,
       atBase,
+      AircraftState.planned,
     ), // DLH81 Ready
     mk(
       'cfedcfae-6e80-4801-8a89-12b2430c908b',
@@ -324,6 +344,7 @@ export async function loadAircraft(): Promise<void> {
       EDDF,
       EDDF,
       atBase,
+      AircraftState.cruise,
     ), // DLH880 InCruise (EDDF->CDG)
   ];
 
