@@ -10,10 +10,14 @@ import {
 } from '../../../../../core/domain/events/dto/flight.events';
 import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
 import { AircraftState } from '../../../model/aircraft.model';
+import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 
 @Injectable()
 export class FlightLifecycleListener {
-  constructor(private readonly aircraftRepository: AircraftRepository) {}
+  constructor(
+    private readonly aircraftRepository: AircraftRepository,
+    private readonly prisma: PrismaService,
+  ) {}
 
   @OnEvent(FlightEventType.FlightWasCreated)
   async onFlightWasCreated(event: FlightWasCreatedEvent): Promise<void> {
@@ -45,9 +49,16 @@ export class FlightLifecycleListener {
       event.payload.aircraftId,
       AircraftState.Idle,
     );
+
+    const flight = await this.prisma.flight.findUnique({
+      where: { id: event.payload.flightId },
+      select: { arrivalGateId: true },
+    });
+
     await this.aircraftRepository.updateLastLocation(
       event.payload.aircraftId,
       event.payload.landingAirportId,
+      flight?.arrivalGateId ?? null,
       new Date(),
     );
   }

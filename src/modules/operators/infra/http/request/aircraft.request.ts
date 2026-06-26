@@ -2,6 +2,7 @@ import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Aircraft, AircraftState } from '../../../model/aircraft.model';
 import { IsNotEmpty, IsString, Length } from 'class-validator';
 import { LegacyOperatorResponse } from './operator.request';
+import { Coordinates } from '../../../../airports/model/airport.model';
 
 export class CreateAircraftRequest {
   @ApiProperty({
@@ -41,6 +42,46 @@ export class CreateAircraftRequest {
 
 export class UpdateAircraftRequest extends PartialType(CreateAircraftRequest) {}
 
+export class AircraftAirport {
+  @ApiProperty({
+    description: 'Airport unique system identifier',
+    example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
+  })
+  id!: string;
+
+  @ApiProperty({ description: 'Airport IATA code', example: 'FRA' })
+  iataCode!: string;
+
+  @ApiProperty({ description: 'Airport name', example: 'Frankfurt Rhein/Main' })
+  name!: string;
+
+  @ApiProperty({ description: 'City the airport serves', example: 'Frankfurt' })
+  city!: string;
+
+  @ApiProperty({
+    description: 'Country the airport is located in',
+    example: 'Germany',
+  })
+  country!: string;
+
+  @ApiProperty({ description: 'Airport coordinates', type: Coordinates })
+  location!: Coordinates;
+}
+
+export class AircraftGate {
+  @ApiProperty({
+    description: 'Gate unique system identifier',
+    example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
+  })
+  id!: string;
+
+  @ApiProperty({ description: 'Gate name', example: 'A14' })
+  name!: string;
+
+  @ApiProperty({ description: 'Gate coordinates', type: Coordinates })
+  coordinates!: Coordinates;
+}
+
 export class GetAircraftResponse extends Aircraft {
   @ApiProperty({
     description:
@@ -52,20 +93,18 @@ export class GetAircraftResponse extends Aircraft {
   currentState!: AircraftState;
 
   @ApiProperty({
-    description: 'Home base airport unique identifier',
-    example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
+    description: 'Home base airport',
+    type: AircraftAirport,
     nullable: true,
-    default: null,
   })
-  baseAirportId!: string | null;
+  baseAirport!: AircraftAirport | null;
 
   @ApiProperty({
-    description: 'Identifier of the airport where the aircraft last landed',
-    example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
+    description: 'Airport where the aircraft last landed',
+    type: AircraftAirport,
     nullable: true,
-    default: null,
   })
-  lastAirportId!: string | null;
+  lastAirport!: AircraftAirport | null;
 
   @ApiProperty({
     description: 'Timestamp when the last airport was recorded',
@@ -74,6 +113,13 @@ export class GetAircraftResponse extends Aircraft {
     default: null,
   })
   lastAirportUpdatedAt!: Date | null;
+
+  @ApiProperty({
+    description: 'Gate where the aircraft last parked',
+    type: AircraftGate,
+    nullable: true,
+  })
+  lastGate!: AircraftGate | null;
 }
 
 export class LegacyCreateAircraftResponse extends Aircraft {

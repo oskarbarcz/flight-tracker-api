@@ -42,10 +42,18 @@ Feature: Update aircraft
         "livery": "Lufthansa Classic (2024)",
         "registration": "D-AIMC",
         "selcal": "LR-CK",
-        "currentState": "idle",
-        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportId": null,
-        "lastAirportUpdatedAt": null
+        "currentState": "planned",
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastGate": null
       }
       """
     When I send a "GET" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
@@ -61,7 +69,7 @@ Feature: Update aircraft
         "callsign": "LUFTHANSA",
         "type": "legacy",
         "hubs": ["FRA", "MUC"],
-        "fleetSize": 1,
+        "fleetSize": 8,
         "fleetTypes": ["A339"],
         "avgFleetAge": 14.2,
         "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/lufthansa.png",
@@ -97,10 +105,18 @@ Feature: Update aircraft
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
         "selcal": "LR-CK",
-        "currentState": "idle",
-        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportId": null,
-        "lastAirportUpdatedAt": null
+        "currentState": "planned",
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastGate": null
       }
       """
     And I set database to initial state

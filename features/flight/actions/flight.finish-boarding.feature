@@ -99,7 +99,7 @@ Feature: Finish flight boarding
           }
         },
         "aircraft": {
-          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "id": "a2f425e0-2db0-4d8f-8c4c-b3a95d51eb24",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
@@ -108,9 +108,9 @@ Feature: Finish flight boarding
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "N78881",
-          "selcal": "KY-JO",
-          "livery": "Team USA (2023)",
+          "registration": "N721AN",
+          "selcal": "AB-CG",
+          "livery": "Polished (2019)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",

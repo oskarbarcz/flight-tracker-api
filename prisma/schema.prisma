@@ -20,10 +20,12 @@ model Aircraft {
   baseAirportId        String?       @db.Uuid
   lastAirportId        String?       @db.Uuid
   lastAirportUpdatedAt DateTime?
+  lastGateId           String?       @db.Uuid
 
   operator    Operator?            @relation(fields: [operatorId], references: [id])
   baseAirport Airport?             @relation("AircraftBaseAirport", fields: [baseAirportId], references: [id], onDelete: SetNull)
   lastAirport Airport?             @relation("AircraftLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
+  lastGate    Gate?                @relation("AircraftLastGate", fields: [lastGateId], references: [id], onDelete: SetNull)
   flight      Flight[]
   repositions AircraftReposition[]
 
@@ -117,9 +119,10 @@ model Gate {
   fuelingOptions            String  @db.VarChar(32)
   coordinates               Json?
 
-  terminal         Terminal @relation(fields: [terminalId], references: [id], onDelete: Cascade)
-  departureFlights Flight[] @relation("FlightDepartureGate")
-  arrivalFlights   Flight[] @relation("FlightArrivalGate")
+  terminal         Terminal   @relation(fields: [terminalId], references: [id], onDelete: Cascade)
+  departureFlights Flight[]   @relation("FlightDepartureGate")
+  arrivalFlights   Flight[]   @relation("FlightArrivalGate")
+  lastSeenAircraft Aircraft[] @relation("AircraftLastGate")
 
   @@map("gate")
 }

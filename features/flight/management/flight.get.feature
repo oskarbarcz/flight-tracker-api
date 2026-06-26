@@ -230,7 +230,7 @@ Feature: Get flight
           }
         },
         "aircraft": {
-          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "id": "8694eb6d-83e4-4f24-8a72-b67523b4d6bf",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
@@ -239,9 +239,9 @@ Feature: Get flight
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "N78881",
-          "selcal": "KY-JO",
-          "livery": "Team USA (2023)",
+          "registration": "N724AN",
+          "selcal": "AB-DG",
+          "livery": "Heritage TWA (2019)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",

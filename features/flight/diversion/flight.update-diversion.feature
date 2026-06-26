@@ -81,7 +81,7 @@ Feature: Update a flight diversion
       """json
       [
         {
-          "id": "b1d1e0f0-1111-4111-8111-111111111101",
+          "id": "fe70e3cb-6811-41eb-96e9-1776c37a9393",
           "scope": "operations",
           "type": "flight.created",
           "payload": {},
@@ -89,7 +89,7 @@ Feature: Update a flight diversion
           "createdAt": "2025-01-01T11:00:00.000Z"
         },
         {
-          "id": "b1d1e0f0-1111-4111-8111-111111111102",
+          "id": "107a860c-31a5-4cdb-ad1d-851ed14617a2",
           "scope": "operations",
           "type": "flight.preliminary-loadsheet-updated",
           "payload": {},
@@ -97,7 +97,7 @@ Feature: Update a flight diversion
           "createdAt": "2025-01-01T11:05:00.000Z"
         },
         {
-          "id": "b1d1e0f0-1111-4111-8111-111111111103",
+          "id": "e0014752-86ce-449c-8c98-27b7c8bf9fc3",
           "scope": "operations",
           "type": "flight.released",
           "payload": {},
@@ -105,7 +105,7 @@ Feature: Update a flight diversion
           "createdAt": "2025-01-01T11:10:00.000Z"
         },
         {
-          "id": "b1d1e0f0-1111-4111-8111-111111111104",
+          "id": "5d9a0c3e-f4fe-4fa8-94fe-7575aa15da39",
           "scope": "user",
           "type": "flight.pilot-checked-in",
           "payload": {},
@@ -113,7 +113,7 @@ Feature: Update a flight diversion
           "createdAt": "2025-01-01T12:00:00.000Z"
         },
         {
-          "id": "b1d1e0f0-1111-4111-8111-111111111105",
+          "id": "d1b7d1b2-6e4c-43a0-9dd0-986489d5a13a",
           "scope": "user",
           "type": "flight.boarding-started",
           "payload": {},
@@ -121,7 +121,7 @@ Feature: Update a flight diversion
           "createdAt": "2025-01-01T12:40:00.000Z"
         },
         {
-          "id": "b1d1e0f0-1111-4111-8111-111111111106",
+          "id": "5927dc9d-64d6-4fd3-8f7e-5820945bbcb3",
           "scope": "user",
           "type": "flight.boarding-finished",
           "payload": {},
@@ -129,7 +129,7 @@ Feature: Update a flight diversion
           "createdAt": "2025-01-01T13:05:00.000Z"
         },
         {
-          "id": "b1d1e0f0-1111-4111-8111-111111111107",
+          "id": "2524ad4e-2335-4d22-bed4-42b795f37d02",
           "scope": "user",
           "type": "flight.off-block-reported",
           "payload": {},
@@ -137,7 +137,7 @@ Feature: Update a flight diversion
           "createdAt": "2025-01-01T13:10:00.000Z"
         },
         {
-          "id": "b1d1e0f0-1111-4111-8111-111111111108",
+          "id": "b8e8a0cb-16cc-4c37-adb8-46ab55e179d0",
           "scope": "user",
           "type": "flight.takeoff-reported",
           "payload": {},
@@ -145,7 +145,7 @@ Feature: Update a flight diversion
           "createdAt": "2025-01-01T13:25:00.000Z"
         },
         {
-          "id": "b1d1e0f0-1111-4111-8111-111111111109",
+          "id": "c11c0944-e7c3-44de-8713-96210871d421",
           "scope": "user",
           "type": "flight.diversion-reported",
           "payload": {},

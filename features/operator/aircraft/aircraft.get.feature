@@ -19,10 +19,18 @@ Feature: Get aircraft
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
         "selcal": "LR-CK",
-        "currentState": "idle",
-        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportId": null,
-        "lastAirportUpdatedAt": null
+        "currentState": "planned",
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastGate": null
       }
       """
 
@@ -45,10 +53,18 @@ Feature: Get aircraft
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
         "selcal": "LR-CK",
-        "currentState": "idle",
-        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportId": null,
-        "lastAirportUpdatedAt": null
+        "currentState": "planned",
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastGate": null
       }
       """
 
@@ -71,10 +87,18 @@ Feature: Get aircraft
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
         "selcal": "LR-CK",
-        "currentState": "idle",
-        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportId": null,
-        "lastAirportUpdatedAt": null
+        "currentState": "planned",
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastGate": null
       }
       """
 

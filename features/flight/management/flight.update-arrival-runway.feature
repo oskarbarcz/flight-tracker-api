@@ -55,7 +55,7 @@ Feature: Update flight arrival runway
           "final": null
         },
         "aircraft": {
-          "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+          "id": "becc1596-dfa0-452b-81ec-3f1f2fa0dce2",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -64,9 +64,9 @@ Feature: Update flight arrival runway
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "D-AIMC",
-          "selcal": "LR-CK",
-          "livery": "Fanhansa (2024)",
+          "registration": "D-AIME",
+          "selcal": "BD-EG",
+          "livery": "Lovehansa (2024)",
           "operator": {
             "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
             "icaoCode": "DLH",
@@ -279,7 +279,7 @@ Feature: Update flight arrival runway
 
   Scenario: As operations I cannot update arrival runway of non-existing flight
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/ffffffff-ffff-4fff-8fff-ffffffffffff/arrival-runway" with body:
+    When I send a "PATCH" request to "/api/v1/flight/58c83720-fb20-4c84-b727-ba6dda14f8d1/arrival-runway" with body:
       """json
       { "arrivalRunwayId": "32121288-2550-4b81-a558-9a7193ef6c97" }
       """

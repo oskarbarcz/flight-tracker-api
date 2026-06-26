@@ -56,7 +56,7 @@ Feature: Update flight arrival gate
           "final": null
         },
         "aircraft": {
-          "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+          "id": "becc1596-dfa0-452b-81ec-3f1f2fa0dce2",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -65,9 +65,9 @@ Feature: Update flight arrival gate
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "D-AIMC",
-          "selcal": "LR-CK",
-          "livery": "Fanhansa (2024)",
+          "registration": "D-AIME",
+          "selcal": "BD-EG",
+          "livery": "Lovehansa (2024)",
           "operator": {
             "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
             "icaoCode": "DLH",
@@ -266,7 +266,7 @@ Feature: Update flight arrival gate
     Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-gate" with body:
       """json
-      { "arrivalGateId": "ffffffff-ffff-4fff-8fff-ffffffffffff" }
+      { "arrivalGateId": "58c83720-fb20-4c84-b727-ba6dda14f8d1" }
       """
     Then the response status should be 422
     And the response body should contain:
@@ -280,7 +280,7 @@ Feature: Update flight arrival gate
 
   Scenario: As operations I cannot update arrival gate of non-existing flight
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/ffffffff-ffff-4fff-8fff-ffffffffffff/arrival-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/58c83720-fb20-4c84-b727-ba6dda14f8d1/arrival-gate" with body:
       """json
       { "arrivalGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
       """

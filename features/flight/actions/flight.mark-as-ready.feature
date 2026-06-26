@@ -55,7 +55,7 @@ Feature: Mark flight as ready
           "final": null
         },
         "aircraft": {
-          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "id": "ed247c36-58f0-43ff-81fd-ffae548a73e2",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
@@ -64,9 +64,9 @@ Feature: Mark flight as ready
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "N78881",
-          "selcal": "KY-JO",
-          "livery": "Team USA (2023)",
+          "registration": "N719AN",
+          "selcal": "AB-CE",
+          "livery": "Flagship (2022)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",

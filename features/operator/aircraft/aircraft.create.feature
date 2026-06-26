@@ -49,9 +49,10 @@ Feature: Create aircraft for operator
         "registration": "SP-LRA",
         "livery": "Sunshine",
         "currentState": "idle",
-        "baseAirportId": null,
-        "lastAirportId": null,
-        "lastAirportUpdatedAt": null
+        "baseAirport": null,
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastGate": null
       }
       """
     When I send a "GET" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"
@@ -67,7 +68,7 @@ Feature: Create aircraft for operator
         "callsign": "LUFTHANSA",
         "type": "legacy",
         "hubs": ["FRA", "MUC"],
-        "fleetSize": 2,
+        "fleetSize": 9,
         "fleetTypes": ["A339", "B748"],
         "avgFleetAge": 14.2,
         "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/lufthansa.png",

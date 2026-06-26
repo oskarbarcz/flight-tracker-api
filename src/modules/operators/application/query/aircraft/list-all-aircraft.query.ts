@@ -1,7 +1,11 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { OperatorNotFoundError } from '../../../model/error/operator.error';
 import { OperatorsRepository } from '../../../infra/database/repository/operators.repository';
-import { GetAircraftResponse } from '../../../infra/http/request/aircraft.request';
+import {
+  AircraftAirport,
+  AircraftGate,
+  GetAircraftResponse,
+} from '../../../infra/http/request/aircraft.request';
 import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
 import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
@@ -33,18 +37,23 @@ export class ListAllAircraftHandler implements IQueryHandler<ListAllAircraftQuer
       query.operatorId,
     );
 
-    return aircrafts.map(({ type, ...rest }) => {
-      const airframe = findAirframeByType(type);
+    return aircrafts.map(
+      ({ type, baseAirport, lastAirport, lastGate, ...rest }) => {
+        const airframe = findAirframeByType(type);
 
-      if (!airframe) {
-        throw new AirframeNotFoundError();
-      }
+        if (!airframe) {
+          throw new AirframeNotFoundError();
+        }
 
-      return {
-        ...rest,
-        airframe,
-        currentState: rest.currentState as unknown as AircraftState,
-      };
-    });
+        return {
+          ...rest,
+          airframe,
+          currentState: rest.currentState as unknown as AircraftState,
+          baseAirport: baseAirport as AircraftAirport | null,
+          lastAirport: lastAirport as AircraftAirport | null,
+          lastGate: lastGate as AircraftGate | null,
+        };
+      },
+    );
   }
 }

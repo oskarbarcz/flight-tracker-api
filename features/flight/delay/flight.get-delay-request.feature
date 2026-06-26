@@ -7,7 +7,7 @@ Feature: Get the delay allocation request for a flight
     And the response body should contain:
       """json
       {
-        "id": "de1a0000-0000-4000-8000-000000000001",
+        "id": "06505a5b-2475-470e-8825-c4a079e4be4b",
         "flightId": "7105891a-8008-4b47-b473-c81c97615ad7",
         "totalDelayMinutes": 10,
         "allocatedMinutes": 10,
@@ -15,7 +15,7 @@ Feature: Get the delay allocation request for a flight
         "isSettled": false,
         "reports": [
           {
-            "id": "de1a0000-0000-4000-8000-000000000011",
+            "id": "aa81d28e-c67f-4ba3-9637-77301ea408a1",
             "delayMinutes": 6,
             "reasonCode": "RLL",
             "freeText": null,
@@ -27,7 +27,7 @@ Feature: Get the delay allocation request for a flight
             "createdAt": "2025-01-01T13:16:00.000Z"
           },
           {
-            "id": "de1a0000-0000-4000-8000-000000000012",
+            "id": "368789fd-0a5c-4e96-9ed2-9c5b2de368d1",
             "delayMinutes": 4,
             "reasonCode": "ATZ",
             "freeText": null,
@@ -50,7 +50,7 @@ Feature: Get the delay allocation request for a flight
     And the response body should contain:
       """json
       {
-        "id": "de1a0000-0000-4000-8000-000000000002",
+        "id": "9d54d8d3-ae4f-4fa4-b4c3-91d12891c81f",
         "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
         "totalDelayMinutes": 10,
         "allocatedMinutes": 10,
@@ -58,7 +58,7 @@ Feature: Get the delay allocation request for a flight
         "isSettled": true,
         "reports": [
           {
-            "id": "de1a0000-0000-4000-8000-000000000021",
+            "id": "4ccb028e-51f5-4d80-9c83-1ab1b3b13c30",
             "delayMinutes": 6,
             "reasonCode": "RLL",
             "freeText": null,
@@ -70,7 +70,7 @@ Feature: Get the delay allocation request for a flight
             "createdAt": "2025-01-01T13:16:00.000Z"
           },
           {
-            "id": "de1a0000-0000-4000-8000-000000000022",
+            "id": "800243c5-0c77-4ace-b4cb-5b2ff499a1c1",
             "delayMinutes": 4,
             "reasonCode": "ATZ",
             "freeText": null,

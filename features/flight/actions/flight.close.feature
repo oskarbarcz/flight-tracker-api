@@ -91,7 +91,7 @@ Feature: Close flight
           }
         },
         "aircraft": {
-          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "id": "69811511-fa34-4837-ab5d-dd480aeab8b6",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
@@ -100,9 +100,9 @@ Feature: Close flight
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "N78881",
-          "selcal": "KY-JO",
-          "livery": "Team USA (2023)",
+          "registration": "N727AN",
+          "selcal": "AB-FG",
+          "livery": "Heritage America West (2022)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",
@@ -351,12 +351,12 @@ Feature: Close flight
         "lastAirportUpdatedAt": null
       }
       """
-    When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/a10c21e3-3ac1-4265-9d12-da9baefa2d98"
+    When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/69811511-fa34-4837-ab5d-dd480aeab8b6"
     Then the response status should be 200
     And the response body should contain:
       """json
       {
-        "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "id": "69811511-fa34-4837-ab5d-dd480aeab8b6",
         "airframe": {
           "type": "B77W",
           "name": "B777-300ER",
@@ -365,13 +365,28 @@ Feature: Close flight
           "performanceCode": "D",
           "weightCategory": "heavy"
         },
-        "livery": "Team USA (2023)",
-        "registration": "N78881",
-        "selcal": "KY-JO",
+        "livery": "Heritage America West (2022)",
+        "registration": "N727AN",
+        "selcal": "AB-FG",
         "currentState": "idle",
-        "baseAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+        "baseAirport": {
+          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "iataCode": "JFK",
+          "name": "New York JFK",
+          "city": "New York",
+          "country": "United States of America",
+          "location": "@coordinates"
+        },
+        "lastAirport": {
+          "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+          "iataCode": "PHL",
+          "name": "Philadelphia Intl",
+          "city": "Philadelphia",
+          "country": "United States of America",
+          "location": "@coordinates"
+        },
+        "lastAirportUpdatedAt": "2025-01-01T16:28:00.000Z",
+        "lastGate": null
       }
       """
     And I should receive a live flight event of type "flight.closed" within 2000ms
@@ -431,7 +446,7 @@ Feature: Close flight
           }
         },
         "aircraft": {
-          "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+          "id": "a9b9205d-53b1-4eec-bb24-548a12159997",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -440,9 +455,9 @@ Feature: Close flight
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "D-AIMC",
-          "selcal": "LR-CK",
-          "livery": "Fanhansa (2024)",
+          "registration": "D-AIMF",
+          "selcal": "BD-FG",
+          "livery": "New Livery (2018)",
           "operator": {
             "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
             "icaoCode": "DLH",
@@ -866,7 +881,7 @@ Feature: Close flight
           }
         },
         "aircraft": {
-          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "id": "7e059d96-260c-44e3-a08c-a216cb76398b",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
@@ -875,9 +890,9 @@ Feature: Close flight
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "N78881",
-          "selcal": "KY-JO",
-          "livery": "Team USA (2023)",
+          "registration": "N729AN",
+          "selcal": "AC-DF",
+          "livery": "Breast Cancer Awareness (2022)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",
@@ -1033,7 +1048,7 @@ Feature: Close flight
           }
         },
         "aircraft": {
-          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "id": "b0ea1829-61ea-4b50-8bf6-bfccfb4fe5c7",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
@@ -1042,9 +1057,9 @@ Feature: Close flight
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "N78881",
-          "selcal": "KY-JO",
-          "livery": "Team USA (2023)",
+          "registration": "N730AN",
+          "selcal": "AC-DG",
+          "livery": "50th Anniversary (2024)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",
@@ -1126,7 +1141,7 @@ Feature: Close flight
     And the response body should contain:
       """json
       {
-        "id": "de1a0000-0000-4000-8000-000000000002",
+        "id": "9d54d8d3-ae4f-4fa4-b4c3-91d12891c81f",
         "flightId": "38644393-deee-434d-bfd1-7242abdbc4e1",
         "totalDelayMinutes": 10,
         "allocatedMinutes": 10,
@@ -1134,7 +1149,7 @@ Feature: Close flight
         "isSettled": true,
         "reports": [
           {
-            "id": "de1a0000-0000-4000-8000-000000000021",
+            "id": "4ccb028e-51f5-4d80-9c83-1ab1b3b13c30",
             "delayMinutes": 6,
             "reasonCode": "RLL",
             "freeText": null,
@@ -1146,7 +1161,7 @@ Feature: Close flight
             "createdAt": "2025-01-01T13:16:00.000Z"
           },
           {
-            "id": "de1a0000-0000-4000-8000-000000000022",
+            "id": "800243c5-0c77-4ace-b4cb-5b2ff499a1c1",
             "delayMinutes": 4,
             "reasonCode": "ATZ",
             "freeText": null,

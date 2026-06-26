@@ -41,9 +41,34 @@ const aircraft = {
   selcal: true,
   livery: true,
   currentState: true,
-  baseAirportId: true,
-  lastAirportId: true,
+  baseAirport: {
+    select: {
+      id: true,
+      iataCode: true,
+      name: true,
+      city: true,
+      country: true,
+      location: true,
+    },
+  },
+  lastAirport: {
+    select: {
+      id: true,
+      iataCode: true,
+      name: true,
+      city: true,
+      country: true,
+      location: true,
+    },
+  },
   lastAirportUpdatedAt: true,
+  lastGate: {
+    select: {
+      id: true,
+      name: true,
+      coordinates: true,
+    },
+  },
   operatorId: false,
 } as const satisfies Prisma.AircraftSelect;
 
@@ -117,11 +142,16 @@ export class AircraftRepository {
   async updateLastLocation(
     id: string,
     airportId: string,
+    gateId: string | null,
     when: Date,
   ): Promise<void> {
     await this.prisma.aircraft.update({
       where: { id },
-      data: { lastAirportId: airportId, lastAirportUpdatedAt: when },
+      data: {
+        lastAirportId: airportId,
+        lastGateId: gateId,
+        lastAirportUpdatedAt: when,
+      },
     });
   }
 

@@ -445,7 +445,7 @@ Feature: Update flight departure runway
 
   Scenario: As operations I cannot update runway of non-existing flight
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/ffffffff-ffff-4fff-8fff-ffffffffffff/departure-runway" with body:
+    When I send a "PATCH" request to "/api/v1/flight/58c83720-fb20-4c84-b727-ba6dda14f8d1/departure-runway" with body:
       """json
       { "departureRunwayId": "32121288-2550-4b81-a558-9a7193ef6c97" }
       """

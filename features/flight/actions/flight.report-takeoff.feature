@@ -91,7 +91,7 @@ Feature: Report takeoff
           }
         },
         "aircraft": {
-          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "id": "0fad1757-d650-4a52-b047-f29e9ea5c067",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
@@ -100,9 +100,9 @@ Feature: Report takeoff
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "N78881",
-          "selcal": "KY-JO",
-          "livery": "Team USA (2023)",
+          "registration": "N723AN",
+          "selcal": "AB-DF",
+          "livery": "AAdvantage (2022)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",
@@ -183,6 +183,7 @@ Feature: Report takeoff
         "createdAt": "2025-01-01T00:00:00.000Z"
       }
       """
+    And I should receive a live flight event of type "flight.takeoff-reported" within 2000ms
     When I send a "GET" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/events"
     Then the response status should be 200
     And the response body should contain:
@@ -278,7 +279,6 @@ Feature: Report takeoff
         }
       ]
       """
-    And I should receive a live flight event of type "flight.takeoff-reported" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot report takeoff for flight twice

@@ -57,7 +57,7 @@ Feature: Delete runway
 
   Scenario: As operations I cannot delete runway that does not exist
     Given I am signed in as "operations"
-    When I send a "DELETE" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/runway/ffffffff-ffff-4fff-8fff-ffffffffffff"
+    When I send a "DELETE" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/runway/58c83720-fb20-4c84-b727-ba6dda14f8d1"
     Then the response status should be 404
     And the response body should contain:
       """json

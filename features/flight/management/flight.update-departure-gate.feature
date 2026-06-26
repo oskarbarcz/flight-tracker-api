@@ -304,7 +304,7 @@ Feature: Update flight departure gate
     Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-gate" with body:
       """json
-      { "departureGateId": "ffffffff-ffff-4fff-8fff-ffffffffffff" }
+      { "departureGateId": "58c83720-fb20-4c84-b727-ba6dda14f8d1" }
       """
     Then the response status should be 422
     And the response body should contain:
@@ -318,7 +318,7 @@ Feature: Update flight departure gate
 
   Scenario: As operations I cannot update gate of non-existing flight
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/ffffffff-ffff-4fff-8fff-ffffffffffff/departure-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/58c83720-fb20-4c84-b727-ba6dda14f8d1/departure-gate" with body:
       """json
       { "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
       """

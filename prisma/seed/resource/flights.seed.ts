@@ -178,7 +178,7 @@ async function loadAAL4905(): Promise<void> {
     status: FlightStatus.Closed,
     tracking: FlightTracking.Public,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: '6c48d613-6582-49de-afbb-89fdc7cac0b7', // N718AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -598,7 +598,7 @@ async function loadAAL4907(): Promise<void> {
     isEtops: false,
     status: FlightStatus.Created,
     tracking: FlightTracking.Public,
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: 'ed247c36-58f0-43ff-81fd-ffae548a73e2', // N719AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -703,7 +703,7 @@ async function loadAAL4908(): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.CheckedIn,
     tracking: FlightTracking.Public,
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: 'e7c6c5e3-84ff-4c5b-a40c-79f178c5b379', // N720AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -846,7 +846,7 @@ async function loadAAL4909(): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.BoardingStarted,
     tracking: FlightTracking.Public,
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: 'a2f425e0-2db0-4d8f-8c4c-b3a95d51eb24', // N721AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -993,7 +993,7 @@ async function loadAAL4910(): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.BoardingFinished,
     tracking: FlightTracking.Public,
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: 'ffe14007-9147-40a1-a228-573c9c87a2e7', // N722AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -1160,7 +1160,7 @@ async function loadAAL4911(): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.TaxiingOut,
     tracking: FlightTracking.Public,
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: '0fad1757-d650-4a52-b047-f29e9ea5c067', // N723AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -1342,7 +1342,7 @@ async function loadAAL4912(): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.InCruise,
     tracking: FlightTracking.Public,
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: '8694eb6d-83e4-4f24-8a72-b67523b4d6bf', // N724AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -1737,7 +1737,7 @@ async function loadAAL4914(): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.OnBlock,
     tracking: FlightTracking.Public,
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: '3c3f3402-cdb1-4716-9e02-1fe3df12e0e4', // N725AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -2009,7 +2009,7 @@ async function loadAAL4915(): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.OffboardingStarted,
     tracking: FlightTracking.Public,
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: '8f27ca75-01e0-4a3f-bcf2-f838e02b9af9', // N726AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -2290,7 +2290,7 @@ async function loadAAL4916(): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.OffboardingFinished,
     tracking: FlightTracking.Public,
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: '69811511-fa34-4837-ab5d-dd480aeab8b6', // N727AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -2580,7 +2580,7 @@ async function loadAAL4917(): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.Closed,
     tracking: FlightTracking.Public,
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: '30a0d850-5440-436d-95a2-fa8fdc79f715', // N728AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -2880,7 +2880,7 @@ async function loadAAL4918(): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.OffboardingFinished,
     tracking: FlightTracking.Public,
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: '7e059d96-260c-44e3-a08c-a216cb76398b', // N729AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -3123,7 +3123,7 @@ async function loadAAL4919(): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.OffboardingFinished,
     tracking: FlightTracking.Public,
-    aircraftId: 'a10c21e3-3ac1-4265-9d12-da9baefa2d98', // B77W
+    aircraftId: 'b0ea1829-61ea-4b50-8bf6-bfccfb4fe5c7', // N730AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
       scheduled: {
@@ -3368,7 +3368,7 @@ async function loadDLH40(): Promise<void> {
     isEtops: true,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.Closed,
-    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
+    aircraftId: 'b84e4c67-7565-4846-84c4-ab8215308fbd', // D-AIMD A339
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
     rotationId: 'bd8f2d64-a647-42da-be63-c6589915e6c9', // 2025-01
     timesheet: {
@@ -3567,7 +3567,7 @@ async function loadDLH41(): Promise<void> {
     atcCallsign: null,
     isEtops: true,
     status: FlightStatus.Created,
-    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
+    aircraftId: 'becc1596-dfa0-452b-81ec-3f1f2fa0dce2', // D-AIME A339
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
     rotationId: 'bd8f2d64-a647-42da-be63-c6589915e6c9', // 2025-01
     timesheet: {
@@ -3837,7 +3837,7 @@ async function loadDLH43(): Promise<void> {
     callsign: 'DLH43',
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.OffboardingFinished,
-    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
+    aircraftId: 'a9b9205d-53b1-4eec-bb24-548a12159997', // D-AIMF A339
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
     rotationId: 'c2e12afb-a712-45aa-9ba5-fec71868e59a', // 2025-03
     timesheet: {
@@ -4085,7 +4085,7 @@ async function loadDLH102(): Promise<void> {
     isEtops: true,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.InCruise,
-    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
+    aircraftId: 'ed7ed4bb-95ff-4e79-9331-11212ef727ec', // D-AIMG A339
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
     timesheet: {
       scheduled: {
@@ -4222,7 +4222,7 @@ async function loadDLH102(): Promise<void> {
   await prisma.flightEvent.createMany({
     data: [
       {
-        id: 'b1d1e0f0-1111-4111-8111-111111111101',
+        id: 'fe70e3cb-6811-41eb-96e9-1776c37a9393',
         actorId: '721ab705-8608-4386-86b4-2f391a3655a7', // Alice Doe, Operations
         flightId: flight.id,
         type: FlightEventType.FlightWasCreated,
@@ -4230,7 +4230,7 @@ async function loadDLH102(): Promise<void> {
         createdAt: new Date('2025-01-01 11:00'),
       },
       {
-        id: 'b1d1e0f0-1111-4111-8111-111111111102',
+        id: '107a860c-31a5-4cdb-ad1d-851ed14617a2',
         actorId: '721ab705-8608-4386-86b4-2f391a3655a7', // Alice Doe, Operations
         flightId: flight.id,
         type: FlightEventType.PreliminaryLoadsheetWasUpdated,
@@ -4238,7 +4238,7 @@ async function loadDLH102(): Promise<void> {
         createdAt: new Date('2025-01-01 11:05'),
       },
       {
-        id: 'b1d1e0f0-1111-4111-8111-111111111103',
+        id: 'e0014752-86ce-449c-8c98-27b7c8bf9fc3',
         actorId: '721ab705-8608-4386-86b4-2f391a3655a7', // Alice Doe, Operations
         flightId: flight.id,
         type: FlightEventType.FlightWasReleased,
@@ -4246,7 +4246,7 @@ async function loadDLH102(): Promise<void> {
         createdAt: new Date('2025-01-01 11:10'),
       },
       {
-        id: 'b1d1e0f0-1111-4111-8111-111111111104',
+        id: '5d9a0c3e-f4fe-4fa8-94fe-7575aa15da39',
         actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
         flightId: flight.id,
         type: FlightEventType.PilotCheckedIn,
@@ -4254,7 +4254,7 @@ async function loadDLH102(): Promise<void> {
         createdAt: new Date('2025-01-01 12:00'),
       },
       {
-        id: 'b1d1e0f0-1111-4111-8111-111111111105',
+        id: 'd1b7d1b2-6e4c-43a0-9dd0-986489d5a13a',
         actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
         flightId: flight.id,
         type: FlightEventType.BoardingWasStarted,
@@ -4262,7 +4262,7 @@ async function loadDLH102(): Promise<void> {
         createdAt: new Date('2025-01-01 12:40'),
       },
       {
-        id: 'b1d1e0f0-1111-4111-8111-111111111106',
+        id: '5927dc9d-64d6-4fd3-8f7e-5820945bbcb3',
         actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
         flightId: flight.id,
         type: FlightEventType.BoardingWasFinished,
@@ -4270,7 +4270,7 @@ async function loadDLH102(): Promise<void> {
         createdAt: new Date('2025-01-01 13:05'),
       },
       {
-        id: 'b1d1e0f0-1111-4111-8111-111111111107',
+        id: '2524ad4e-2335-4d22-bed4-42b795f37d02',
         actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
         flightId: flight.id,
         type: FlightEventType.OffBlockWasReported,
@@ -4278,7 +4278,7 @@ async function loadDLH102(): Promise<void> {
         createdAt: new Date('2025-01-01 13:10'),
       },
       {
-        id: 'b1d1e0f0-1111-4111-8111-111111111108',
+        id: 'b8e8a0cb-16cc-4c37-adb8-46ab55e179d0',
         actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
         flightId: flight.id,
         type: FlightEventType.TakeoffWasReported,
@@ -4286,7 +4286,7 @@ async function loadDLH102(): Promise<void> {
         createdAt: new Date('2025-01-01 13:25'),
       },
       {
-        id: 'b1d1e0f0-1111-4111-8111-111111111109',
+        id: 'c11c0944-e7c3-44de-8713-96210871d421',
         actorId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d', // Rick Doe, Cabin Crew
         flightId: flight.id,
         type: FlightEventType.DiversionWasReported,
@@ -4315,7 +4315,7 @@ async function loadDLH81(): Promise<void> {
     isEtops: true,
     captainId: null,
     status: FlightStatus.Ready,
-    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
+    aircraftId: '785bdfda-291a-4c11-a5d9-b57b5c0b8e5e', // D-AIMK A339
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
     source: FlightSource.Simbrief,
     timesheet: {
@@ -4396,7 +4396,7 @@ async function loadDLH880(): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.InCruise,
     tracking: FlightTracking.Public,
-    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330 D-AIMC, Lufthansa
+    aircraftId: 'cfedcfae-6e80-4801-8a89-12b2430c908b', // D-AIML A339
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa
     timesheet: {
       scheduled: {
@@ -4594,7 +4594,7 @@ async function loadDLH103(): Promise<void> {
     isEtops: false,
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.TaxiingIn,
-    aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
+    aircraftId: '5637d186-d9e4-45e4-9940-ae6f6552c9ae', // D-AIMH A339
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa
     timesheet: {
       scheduled: {

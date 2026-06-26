@@ -92,7 +92,7 @@ Feature: Report off-block
           }
         },
         "aircraft": {
-          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "id": "ffe14007-9147-40a1-a228-573c9c87a2e7",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
@@ -101,9 +101,9 @@ Feature: Report off-block
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "N78881",
-          "selcal": "KY-JO",
-          "livery": "Team USA (2023)",
+          "registration": "N722AN",
+          "selcal": "AB-DE",
+          "livery": "Standard (2020)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",
@@ -276,12 +276,12 @@ Feature: Report off-block
         }
       ]
       """
-    When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/a10c21e3-3ac1-4265-9d12-da9baefa2d98"
+    When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/ffe14007-9147-40a1-a228-573c9c87a2e7"
     Then the response status should be 200
     And the response body should contain:
       """json
       {
-        "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "id": "ffe14007-9147-40a1-a228-573c9c87a2e7",
         "airframe": {
           "type": "B77W",
           "name": "B777-300ER",
@@ -290,13 +290,28 @@ Feature: Report off-block
           "performanceCode": "D",
           "weightCategory": "heavy"
         },
-        "livery": "Team USA (2023)",
-        "registration": "N78881",
-        "selcal": "KY-JO",
+        "livery": "Standard (2020)",
+        "registration": "N722AN",
+        "selcal": "AB-DE",
         "currentState": "cruise",
-        "baseAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+        "baseAirport": {
+          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "iataCode": "JFK",
+          "name": "New York JFK",
+          "city": "New York",
+          "country": "United States of America",
+          "location": "@coordinates"
+        },
+        "lastAirport": {
+          "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+          "iataCode": "BOS",
+          "name": "Boston Logan Intl",
+          "city": "Boston",
+          "country": "United States of America",
+          "location": "@coordinates"
+        },
+        "lastAirportUpdatedAt": "2025-01-01T12:00:00.000Z",
+        "lastGate": null
       }
       """
     And I should receive a live flight event of type "flight.off-block-reported" within 2000ms
