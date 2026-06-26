@@ -183,6 +183,7 @@ Feature: Report takeoff
         "createdAt": "2025-01-01T00:00:00.000Z"
       }
       """
+    And I should receive a live flight event of type "flight.takeoff-reported" within 2000ms
     When I send a "GET" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/events"
     Then the response status should be 200
     And the response body should contain:
@@ -278,7 +279,6 @@ Feature: Report takeoff
         }
       ]
       """
-    And I should receive a live flight event of type "flight.takeoff-reported" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot report takeoff for flight twice
