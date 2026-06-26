@@ -416,14 +416,16 @@ Feature: Check in pilot for flight
           "iataCode": "JFK",
           "name": "New York JFK",
           "city": "New York",
-          "country": "United States of America"
+          "country": "United States of America",
+          "location": "@coordinates"
         },
         "lastAirport": {
           "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
           "iataCode": "BOS",
           "name": "Boston Logan Intl",
           "city": "Boston",
-          "country": "United States of America"
+          "country": "United States of America",
+          "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
         "lastGate": null
@@ -714,14 +716,16 @@ Feature: Check in pilot for flight
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany"
+          "country": "Germany",
+          "location": "@coordinates"
         },
         "lastAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
           "name": "New York JFK",
           "city": "New York",
-          "country": "United States of America"
+          "country": "United States of America",
+          "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
         "lastGate": null

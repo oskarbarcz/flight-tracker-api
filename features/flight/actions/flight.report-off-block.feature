@@ -299,14 +299,16 @@ Feature: Report off-block
           "iataCode": "JFK",
           "name": "New York JFK",
           "city": "New York",
-          "country": "United States of America"
+          "country": "United States of America",
+          "location": "@coordinates"
         },
         "lastAirport": {
           "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
           "iataCode": "BOS",
           "name": "Boston Logan Intl",
           "city": "Boston",
-          "country": "United States of America"
+          "country": "United States of America",
+          "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T12:00:00.000Z",
         "lastGate": null

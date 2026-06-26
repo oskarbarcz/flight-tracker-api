@@ -85,6 +85,7 @@ export async function loadAircraft(): Promise<void> {
     baseAirportId: string,
     lastAirportId: string,
     lastAirportUpdatedAt: Date,
+    lastGateId: string | null = null,
   ): Aircraft => ({
     id,
     type,
@@ -96,7 +97,7 @@ export async function loadAircraft(): Promise<void> {
     baseAirportId,
     lastAirportId,
     lastAirportUpdatedAt,
-    lastGateId: null,
+    lastGateId,
   });
 
   const fleet: Aircraft[] = [
@@ -255,6 +256,7 @@ export async function loadAircraft(): Promise<void> {
       EDDF,
       KJFK,
       dlh40OnBlock,
+      '3f2814f7-7dd6-4609-ba6a-878a4f2428b6', // KJFK T1 gate "B22"
     ), // DLH40 Closed (EDDF->KJFK)
     mk(
       'becc1596-dfa0-452b-81ec-3f1f2fa0dce2',
@@ -266,6 +268,7 @@ export async function loadAircraft(): Promise<void> {
       EDDF,
       EDDF,
       atBase,
+      '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101', // EDDF T1 gate "A10"
     ), // DLH41 Created
     mk(
       'a9b9205d-53b1-4eec-bb24-548a12159997',

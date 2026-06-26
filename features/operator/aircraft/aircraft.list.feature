@@ -26,7 +26,8 @@ Feature: List aircraft
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirport": null,
           "lastAirportUpdatedAt": null,
@@ -51,17 +52,23 @@ Feature: List aircraft
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirport": {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "iataCode": "JFK",
             "name": "New York JFK",
             "city": "New York",
-            "country": "United States of America"
+            "country": "United States of America",
+            "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-02T02:45:00.000Z",
-          "lastGate": null
+          "lastGate": {
+            "id": "3f2814f7-7dd6-4609-ba6a-878a4f2428b6",
+            "name": "B22",
+            "coordinates": "@coordinates"
+          }
         },
         {
           "id": "becc1596-dfa0-452b-81ec-3f1f2fa0dce2",
@@ -82,17 +89,23 @@ Feature: List aircraft
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
-          "lastGate": null
+          "lastGate": {
+            "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+            "name": "A10",
+            "coordinates": "@coordinates"
+          }
         },
         {
           "id": "a9b9205d-53b1-4eec-bb24-548a12159997",
@@ -113,14 +126,16 @@ Feature: List aircraft
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-01T16:28:00.000Z",
           "lastGate": null
@@ -144,14 +159,16 @@ Feature: List aircraft
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirport": {
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "iataCode": "JFK",
             "name": "New York JFK",
             "city": "New York",
-            "country": "United States of America"
+            "country": "United States of America",
+            "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-01T12:00:00.000Z",
           "lastGate": null
@@ -175,14 +192,16 @@ Feature: List aircraft
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
           "lastGate": null
@@ -206,14 +225,16 @@ Feature: List aircraft
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
           "lastGate": null
@@ -237,14 +258,16 @@ Feature: List aircraft
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
             "name": "Frankfurt Rhein/Main",
             "city": "Frankfurt",
-            "country": "Germany"
+            "country": "Germany",
+            "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
           "lastGate": null

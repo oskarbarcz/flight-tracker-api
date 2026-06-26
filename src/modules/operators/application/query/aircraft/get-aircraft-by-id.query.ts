@@ -1,5 +1,9 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { GetAircraftResponse } from '../../../infra/http/request/aircraft.request';
+import {
+  AircraftAirport,
+  AircraftGate,
+  GetAircraftResponse,
+} from '../../../infra/http/request/aircraft.request';
 import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
 import { AircraftNotFoundError } from '../../../model/error/aircraft.error';
 import { OperatorsRepository } from '../../../infra/database/repository/operators.repository';
@@ -55,10 +59,10 @@ export class GetAircraftByIdHandler implements IQueryHandler<GetAircraftByIdQuer
       selcal: aircraft.selcal,
       livery: aircraft.livery,
       currentState: aircraft.currentState as unknown as AircraftState,
-      baseAirport: aircraft.baseAirport,
-      lastAirport: aircraft.lastAirport,
+      baseAirport: aircraft.baseAirport as AircraftAirport | null,
+      lastAirport: aircraft.lastAirport as AircraftAirport | null,
       lastAirportUpdatedAt: aircraft.lastAirportUpdatedAt,
-      lastGate: aircraft.lastGate,
+      lastGate: aircraft.lastGate as AircraftGate | null,
     };
   }
 }

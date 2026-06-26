@@ -137,14 +137,16 @@ Feature: Reposition an aircraft
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany"
+          "country": "Germany",
+          "location": "@coordinates"
         },
         "lastAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany"
+          "country": "Germany",
+          "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
         "lastGate": null

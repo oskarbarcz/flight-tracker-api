@@ -181,14 +181,16 @@ Feature: Create a flight
           "iataCode": "JFK",
           "name": "New York JFK",
           "city": "New York",
-          "country": "United States of America"
+          "country": "United States of America",
+          "location": "@coordinates"
         },
         "lastAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
           "name": "New York JFK",
           "city": "New York",
-          "country": "United States of America"
+          "country": "United States of America",
+          "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
         "lastGate": null

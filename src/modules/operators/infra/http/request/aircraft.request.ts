@@ -2,6 +2,7 @@ import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Aircraft, AircraftState } from '../../../model/aircraft.model';
 import { IsNotEmpty, IsString, Length } from 'class-validator';
 import { LegacyOperatorResponse } from './operator.request';
+import { Coordinates } from '../../../../airports/model/airport.model';
 
 export class CreateAircraftRequest {
   @ApiProperty({
@@ -62,6 +63,9 @@ export class AircraftAirport {
     example: 'Germany',
   })
   country!: string;
+
+  @ApiProperty({ description: 'Airport coordinates', type: Coordinates })
+  location!: Coordinates;
 }
 
 export class AircraftGate {
@@ -73,6 +77,9 @@ export class AircraftGate {
 
   @ApiProperty({ description: 'Gate name', example: 'A14' })
   name!: string;
+
+  @ApiProperty({ description: 'Gate coordinates', type: Coordinates })
+  coordinates!: Coordinates;
 }
 
 export class GetAircraftResponse extends Aircraft {

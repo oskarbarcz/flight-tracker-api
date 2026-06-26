@@ -48,6 +48,7 @@ const aircraft = {
       name: true,
       city: true,
       country: true,
+      location: true,
     },
   },
   lastAirport: {
@@ -57,6 +58,7 @@ const aircraft = {
       name: true,
       city: true,
       country: true,
+      location: true,
     },
   },
   lastAirportUpdatedAt: true,
@@ -64,6 +66,7 @@ const aircraft = {
     select: {
       id: true,
       name: true,
+      coordinates: true,
     },
   },
   operatorId: false,

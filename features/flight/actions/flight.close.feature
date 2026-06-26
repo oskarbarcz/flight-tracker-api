@@ -374,14 +374,16 @@ Feature: Close flight
           "iataCode": "JFK",
           "name": "New York JFK",
           "city": "New York",
-          "country": "United States of America"
+          "country": "United States of America",
+          "location": "@coordinates"
         },
         "lastAirport": {
           "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
           "iataCode": "PHL",
           "name": "Philadelphia Intl",
           "city": "Philadelphia",
-          "country": "United States of America"
+          "country": "United States of America",
+          "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T16:28:00.000Z",
         "lastGate": null
