@@ -24,6 +24,132 @@ Feature: List aircraft
           "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "lastAirportId": null,
           "lastAirportUpdatedAt": null
+        },
+        {
+          "id": "ac000000-0000-4000-8000-000000000014",
+          "airframe": {
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
+          "livery": "Star Alliance (2023)",
+          "registration": "D-AIMD",
+          "selcal": "BD-EF",
+          "currentState": "idle",
+          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+        },
+        {
+          "id": "ac000000-0000-4000-8000-000000000015",
+          "airframe": {
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
+          "livery": "Lovehansa (2024)",
+          "registration": "D-AIME",
+          "selcal": "BD-EG",
+          "currentState": "idle",
+          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+        },
+        {
+          "id": "ac000000-0000-4000-8000-000000000016",
+          "airframe": {
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
+          "livery": "New Livery (2018)",
+          "registration": "D-AIMF",
+          "selcal": "BD-FG",
+          "currentState": "idle",
+          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+        },
+        {
+          "id": "ac000000-0000-4000-8000-000000000017",
+          "airframe": {
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
+          "livery": "Retro 1970s (2022)",
+          "registration": "D-AIMG",
+          "selcal": "BE-FG",
+          "currentState": "idle",
+          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+        },
+        {
+          "id": "ac000000-0000-4000-8000-000000000018",
+          "airframe": {
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
+          "livery": "Siegerflieger (2023)",
+          "registration": "D-AIMH",
+          "selcal": "CD-EF",
+          "currentState": "idle",
+          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+        },
+        {
+          "id": "ac000000-0000-4000-8000-000000000019",
+          "airframe": {
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
+          "livery": "Cheers to 70 Years (2025)",
+          "registration": "D-AIMK",
+          "selcal": "CD-EG",
+          "currentState": "idle",
+          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+        },
+        {
+          "id": "ac000000-0000-4000-8000-000000000020",
+          "airframe": {
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
+          "livery": "Munich (2024)",
+          "registration": "D-AIML",
+          "selcal": "CE-FG",
+          "currentState": "idle",
+          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
         }
       ]
       """

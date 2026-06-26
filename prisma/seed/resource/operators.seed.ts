@@ -45,7 +45,7 @@ export async function loadOperators(): Promise<void> {
     callsign: 'LUFTHANSA',
     type: OperatorType.legacy,
     hubs: ['FRA', 'MUC'] as Prisma.InputJsonValue,
-    fleetSize: 1,
+    fleetSize: 8,
     fleetTypes: ['A339'] as Prisma.InputJsonValue,
     avgFleetAge: 14.2,
     logoUrl:
@@ -96,7 +96,7 @@ export async function loadOperators(): Promise<void> {
       'PHX',
       'DCA',
     ] as Prisma.InputJsonValue,
-    fleetSize: 1,
+    fleetSize: 14,
     fleetTypes: ['B77W'] as Prisma.InputJsonValue,
     avgFleetAge: 14.4,
     logoUrl:

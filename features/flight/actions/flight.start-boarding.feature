@@ -74,7 +74,7 @@ Feature: Start boarding
           "final": null
         },
         "aircraft": {
-          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "id": "ac000000-0000-4000-8000-000000000003",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
@@ -83,9 +83,9 @@ Feature: Start boarding
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "N78881",
-          "selcal": "KY-JO",
-          "livery": "Team USA (2023)",
+          "registration": "N720AN",
+          "selcal": "AB-CF",
+          "livery": "Astrojet (2021)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",

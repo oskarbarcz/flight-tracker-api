@@ -91,7 +91,7 @@ Feature: Close flight
           }
         },
         "aircraft": {
-          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "id": "ac000000-0000-4000-8000-000000000010",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
@@ -100,9 +100,9 @@ Feature: Close flight
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "N78881",
-          "selcal": "KY-JO",
-          "livery": "Team USA (2023)",
+          "registration": "N727AN",
+          "selcal": "AB-FG",
+          "livery": "Heritage America West (2022)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",
@@ -351,12 +351,12 @@ Feature: Close flight
         "lastAirportUpdatedAt": null
       }
       """
-    When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/a10c21e3-3ac1-4265-9d12-da9baefa2d98"
+    When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/ac000000-0000-4000-8000-000000000010"
     Then the response status should be 200
     And the response body should contain:
       """json
       {
-        "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "id": "ac000000-0000-4000-8000-000000000010",
         "airframe": {
           "type": "B77W",
           "name": "B777-300ER",
@@ -365,9 +365,9 @@ Feature: Close flight
           "performanceCode": "D",
           "weightCategory": "heavy"
         },
-        "livery": "Team USA (2023)",
-        "registration": "N78881",
-        "selcal": "KY-JO",
+        "livery": "Heritage America West (2022)",
+        "registration": "N727AN",
+        "selcal": "AB-FG",
         "currentState": "idle",
         "baseAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
@@ -431,7 +431,7 @@ Feature: Close flight
           }
         },
         "aircraft": {
-          "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+          "id": "ac000000-0000-4000-8000-000000000016",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -440,9 +440,9 @@ Feature: Close flight
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "D-AIMC",
-          "selcal": "LR-CK",
-          "livery": "Fanhansa (2024)",
+          "registration": "D-AIMF",
+          "selcal": "BD-FG",
+          "livery": "New Livery (2018)",
           "operator": {
             "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
             "icaoCode": "DLH",
@@ -866,7 +866,7 @@ Feature: Close flight
           }
         },
         "aircraft": {
-          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "id": "ac000000-0000-4000-8000-000000000012",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
@@ -875,9 +875,9 @@ Feature: Close flight
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "N78881",
-          "selcal": "KY-JO",
-          "livery": "Team USA (2023)",
+          "registration": "N729AN",
+          "selcal": "AC-DF",
+          "livery": "Breast Cancer Awareness (2022)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",
@@ -1033,7 +1033,7 @@ Feature: Close flight
           }
         },
         "aircraft": {
-          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "id": "ac000000-0000-4000-8000-000000000013",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
@@ -1042,9 +1042,9 @@ Feature: Close flight
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "N78881",
-          "selcal": "KY-JO",
-          "livery": "Team USA (2023)",
+          "registration": "N730AN",
+          "selcal": "AC-DG",
+          "livery": "50th Anniversary (2024)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
             "icaoCode": "AAL",

@@ -61,7 +61,7 @@ Feature: Update aircraft
         "callsign": "LUFTHANSA",
         "type": "legacy",
         "hubs": ["FRA", "MUC"],
-        "fleetSize": 1,
+        "fleetSize": 8,
         "fleetTypes": ["A339"],
         "avgFleetAge": 14.2,
         "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/lufthansa.png",

@@ -67,7 +67,7 @@ Feature: Create aircraft for operator
         "callsign": "LUFTHANSA",
         "type": "legacy",
         "hubs": ["FRA", "MUC"],
-        "fleetSize": 2,
+        "fleetSize": 9,
         "fleetTypes": ["A339", "B748"],
         "avgFleetAge": 14.2,
         "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/lufthansa.png",

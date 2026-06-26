@@ -56,7 +56,7 @@ Feature: Update flight arrival gate
           "final": null
         },
         "aircraft": {
-          "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+          "id": "ac000000-0000-4000-8000-000000000015",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -65,9 +65,9 @@ Feature: Update flight arrival gate
             "performanceCode": "D",
             "weightCategory": "heavy"
           },
-          "registration": "D-AIMC",
-          "selcal": "LR-CK",
-          "livery": "Fanhansa (2024)",
+          "registration": "D-AIME",
+          "selcal": "BD-EG",
+          "livery": "Lovehansa (2024)",
           "operator": {
             "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
             "icaoCode": "DLH",
