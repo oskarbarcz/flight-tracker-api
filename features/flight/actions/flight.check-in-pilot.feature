@@ -305,7 +305,7 @@ Feature: Check in pilot for flight
           "updatedAt": null
         },
         {
-          "id": "7a000000-0000-4000-8000-0000000000a1",
+          "id": "b92a34c1-3d77-4a6b-9d11-80c95ccc01db",
           "userId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
           "type": "performing_flight",
           "status": "pending",
@@ -372,7 +372,7 @@ Feature: Check in pilot for flight
           "updatedAt": null
         },
         {
-          "id": "7b000000-0000-4000-8000-0000000000b1",
+          "id": "4072bdb0-5a63-4d02-abc5-40d5d18a7abc",
           "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
           "type": "performing_flight",
           "status": "pending",
@@ -411,9 +411,22 @@ Feature: Check in pilot for flight
         "registration": "N78881",
         "selcal": "KY-JO",
         "currentState": "checked_in",
-        "baseAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportId": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
-        "lastAirportUpdatedAt": "@date('within 1 minute from now')"
+        "baseAirport": {
+          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "iataCode": "JFK",
+          "name": "New York JFK",
+          "city": "New York",
+          "country": "United States of America"
+        },
+        "lastAirport": {
+          "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+          "iataCode": "BOS",
+          "name": "Boston Logan Intl",
+          "city": "Boston",
+          "country": "United States of America"
+        },
+        "lastAirportUpdatedAt": "@date('within 1 minute from now')",
+        "lastGate": null
       }
       """
     And I should receive a live flight event of type "flight.pilot-checked-in" within 2000ms
@@ -696,9 +709,22 @@ Feature: Check in pilot for flight
         "registration": "D-AIMC",
         "selcal": "LR-CK",
         "currentState": "checked_in",
-        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportUpdatedAt": "@date('within 1 minute from now')"
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany"
+        },
+        "lastAirport": {
+          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "iataCode": "JFK",
+          "name": "New York JFK",
+          "city": "New York",
+          "country": "United States of America"
+        },
+        "lastAirportUpdatedAt": "@date('within 1 minute from now')",
+        "lastGate": null
       }
       """
     And I should receive a live flight event of type "flight.pilot-checked-in" within 2000ms

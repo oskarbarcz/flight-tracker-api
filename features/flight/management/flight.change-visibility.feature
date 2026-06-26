@@ -62,7 +62,7 @@ Feature: Change flight visibility
           "final": null
         },
         "aircraft": {
-          "id": "ac000000-0000-4000-8000-000000000002",
+          "id": "ed247c36-58f0-43ff-81fd-ffae548a73e2",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",

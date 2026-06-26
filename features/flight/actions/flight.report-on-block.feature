@@ -104,7 +104,7 @@ Feature: Report on-block
       """json
       [
         {
-          "id": "7a000000-0000-4000-8000-0000000000a1",
+          "id": "b92a34c1-3d77-4a6b-9d11-80c95ccc01db",
           "userId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
           "type": "performing_flight",
           "status": "finished",
@@ -131,7 +131,7 @@ Feature: Report on-block
       """json
       [
         {
-          "id": "7b000000-0000-4000-8000-0000000000b1",
+          "id": "4072bdb0-5a63-4d02-abc5-40d5d18a7abc",
           "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
           "type": "performing_flight",
           "status": "finished",
@@ -170,9 +170,22 @@ Feature: Report on-block
         "registration": "N78881",
         "selcal": "KY-JO",
         "currentState": "idle",
-        "baseAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportId": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
-        "lastAirportUpdatedAt": "@date('within 1 minute from now')"
+        "baseAirport": {
+          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "iataCode": "JFK",
+          "name": "New York JFK",
+          "city": "New York",
+          "country": "United States of America"
+        },
+        "lastAirport": {
+          "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+          "iataCode": "PHL",
+          "name": "Philadelphia Intl",
+          "city": "Philadelphia",
+          "country": "United States of America"
+        },
+        "lastAirportUpdatedAt": "@date('within 1 minute from now')",
+        "lastGate": null
       }
       """
     When I send a "GET" request to "/api/v1/user/me/stats"

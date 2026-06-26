@@ -99,6 +99,7 @@ export class RepositionFlightLifecycleListener {
       await this.aircraftRepository.updateLastLocation(
         aircraftId,
         departureAirportId,
+        null,
         new Date(),
       );
     }

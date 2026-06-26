@@ -8,7 +8,7 @@ Feature: List user travel history
       """json
       [
         {
-          "id": "7a000000-0000-4000-8000-000000000004",
+          "id": "3d3a4355-fc36-492e-be46-6183559359d1",
           "userId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "type": "performing_flight",
           "status": "pending",
@@ -28,7 +28,7 @@ Feature: List user travel history
           "updatedAt": null
         },
         {
-          "id": "7a000000-0000-4000-8000-000000000003",
+          "id": "9df8f9c1-8ffa-43f6-a8e5-66f249f6b6cb",
           "userId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "type": "performing_flight",
           "status": "finished",
@@ -48,7 +48,7 @@ Feature: List user travel history
           "updatedAt": "2025-01-02T18:00:00.000Z"
         },
         {
-          "id": "7a000000-0000-4000-8000-000000000002",
+          "id": "bd05cae0-dd40-4456-a4cd-9e5f0a95f868",
           "userId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "type": "dead_head_automatic",
           "status": "finished",
@@ -68,7 +68,7 @@ Feature: List user travel history
           "updatedAt": null
         },
         {
-          "id": "7a000000-0000-4000-8000-000000000001",
+          "id": "4f997097-32f2-4ed1-834a-0c71d7efc113",
           "userId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "type": "dead_head_manual",
           "status": "finished",
@@ -98,7 +98,7 @@ Feature: List user travel history
       """json
       [
         {
-          "id": "7a000000-0000-4000-8000-000000000004",
+          "id": "3d3a4355-fc36-492e-be46-6183559359d1",
           "userId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "type": "performing_flight",
           "status": "pending",
@@ -118,7 +118,7 @@ Feature: List user travel history
           "updatedAt": null
         },
         {
-          "id": "7a000000-0000-4000-8000-000000000003",
+          "id": "9df8f9c1-8ffa-43f6-a8e5-66f249f6b6cb",
           "userId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "type": "performing_flight",
           "status": "finished",
@@ -138,7 +138,7 @@ Feature: List user travel history
           "updatedAt": "2025-01-02T18:00:00.000Z"
         },
         {
-          "id": "7a000000-0000-4000-8000-000000000002",
+          "id": "bd05cae0-dd40-4456-a4cd-9e5f0a95f868",
           "userId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "type": "dead_head_automatic",
           "status": "finished",
@@ -158,7 +158,7 @@ Feature: List user travel history
           "updatedAt": null
         },
         {
-          "id": "7a000000-0000-4000-8000-000000000001",
+          "id": "4f997097-32f2-4ed1-834a-0c71d7efc113",
           "userId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "type": "dead_head_manual",
           "status": "finished",
@@ -188,7 +188,7 @@ Feature: List user travel history
       """json
       [
         {
-          "id": "7a000000-0000-4000-8000-000000000004",
+          "id": "3d3a4355-fc36-492e-be46-6183559359d1",
           "userId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "type": "performing_flight",
           "status": "pending",
@@ -208,7 +208,7 @@ Feature: List user travel history
           "updatedAt": null
         },
         {
-          "id": "7a000000-0000-4000-8000-000000000003",
+          "id": "9df8f9c1-8ffa-43f6-a8e5-66f249f6b6cb",
           "userId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "type": "performing_flight",
           "status": "finished",
@@ -228,7 +228,7 @@ Feature: List user travel history
           "updatedAt": "2025-01-02T18:00:00.000Z"
         },
         {
-          "id": "7a000000-0000-4000-8000-000000000002",
+          "id": "bd05cae0-dd40-4456-a4cd-9e5f0a95f868",
           "userId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "type": "dead_head_automatic",
           "status": "finished",
@@ -248,7 +248,7 @@ Feature: List user travel history
           "updatedAt": null
         },
         {
-          "id": "7a000000-0000-4000-8000-000000000001",
+          "id": "4f997097-32f2-4ed1-834a-0c71d7efc113",
           "userId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "type": "dead_head_manual",
           "status": "finished",

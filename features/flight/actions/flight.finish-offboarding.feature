@@ -91,7 +91,7 @@ Feature: Finish offboarding for flight that started onboarding
           }
         },
         "aircraft": {
-          "id": "ac000000-0000-4000-8000-000000000009",
+          "id": "8f27ca75-01e0-4a3f-bcf2-f838e02b9af9",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",

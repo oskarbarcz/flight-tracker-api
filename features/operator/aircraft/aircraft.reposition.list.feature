@@ -8,7 +8,7 @@ Feature: List aircraft reposition history
       """json
       [
         {
-          "id": "7b000000-0000-4000-8000-0000000000a1",
+          "id": "fbea95e8-0fca-4326-af0a-d9ea352da337",
           "aircraftId": "7d27a031-5abb-415f-bde5-1aa563ad394e",
           "type": "performing_flight",
           "status": "pending",
@@ -28,7 +28,7 @@ Feature: List aircraft reposition history
           "updatedAt": null
         },
         {
-          "id": "7b000000-0000-4000-8000-000000000003",
+          "id": "2ef171c4-ab94-4628-bf89-194f2af84e0f",
           "aircraftId": "7d27a031-5abb-415f-bde5-1aa563ad394e",
           "type": "performing_flight",
           "status": "finished",
@@ -48,7 +48,7 @@ Feature: List aircraft reposition history
           "updatedAt": "2025-01-02T14:00:00.000Z"
         },
         {
-          "id": "7b000000-0000-4000-8000-000000000002",
+          "id": "87ba25c3-4b50-4b92-b828-9d6d799b9acd",
           "aircraftId": "7d27a031-5abb-415f-bde5-1aa563ad394e",
           "type": "dead_head_automatic",
           "status": "finished",
@@ -68,7 +68,7 @@ Feature: List aircraft reposition history
           "updatedAt": null
         },
         {
-          "id": "7b000000-0000-4000-8000-000000000001",
+          "id": "5a6ce555-8325-42a1-bef9-235a4af67fa1",
           "aircraftId": "7d27a031-5abb-415f-bde5-1aa563ad394e",
           "type": "dead_head_manual",
           "status": "finished",

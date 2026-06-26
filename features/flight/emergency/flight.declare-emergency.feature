@@ -267,7 +267,7 @@ Feature: Declare a flight emergency
 
   Scenario: As a cabin crew I cannot declare an emergency on a flight that does not exist
     Given I am signed in as "cabin crew"
-    When I send a "POST" request to "/api/v1/flight/11111111-1111-4111-8111-111111111111/emergency" with body:
+    When I send a "POST" request to "/api/v1/flight/edbd22fe-860a-403d-ac8d-34657810be5e/emergency" with body:
       """json
       {
         "urgency": "panpan",

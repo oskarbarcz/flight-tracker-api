@@ -65,7 +65,7 @@ Feature: Resolve a flight emergency
           }
         },
         "aircraft": {
-          "id": "ac000000-0000-4000-8000-000000000020",
+          "id": "cfedcfae-6e80-4801-8a89-12b2430c908b",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -211,7 +211,7 @@ Feature: Resolve a flight emergency
           }
         },
         "aircraft": {
-          "id": "ac000000-0000-4000-8000-000000000020",
+          "id": "cfedcfae-6e80-4801-8a89-12b2430c908b",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -395,7 +395,7 @@ Feature: Resolve a flight emergency
 
   Scenario: As a cabin crew I cannot resolve an emergency that does not exist
     Given I am signed in as "cabin crew"
-    When I send a "DELETE" request to "/api/v1/flight/b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b/emergency/11111111-1111-4111-8111-111111111111"
+    When I send a "DELETE" request to "/api/v1/flight/b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b/emergency/edbd22fe-860a-403d-ac8d-34657810be5e"
     Then the response status should be 404
     And the response body should contain:
       """json

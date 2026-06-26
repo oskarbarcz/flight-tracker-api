@@ -55,9 +55,10 @@ export class GetAircraftByIdHandler implements IQueryHandler<GetAircraftByIdQuer
       selcal: aircraft.selcal,
       livery: aircraft.livery,
       currentState: aircraft.currentState as unknown as AircraftState,
-      baseAirportId: aircraft.baseAirportId,
-      lastAirportId: aircraft.lastAirportId,
+      baseAirport: aircraft.baseAirport,
+      lastAirport: aircraft.lastAirport,
       lastAirportUpdatedAt: aircraft.lastAirportUpdatedAt,
+      lastGate: aircraft.lastGate,
     };
   }
 }

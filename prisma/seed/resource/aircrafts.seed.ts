@@ -13,6 +13,7 @@ export async function loadAircraft(): Promise<void> {
     baseAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
     lastAirportId: null,
     lastAirportUpdatedAt: null,
+    lastGateId: null,
   };
 
   const a321: Aircraft = {
@@ -26,6 +27,7 @@ export async function loadAircraft(): Promise<void> {
     baseAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
     lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportUpdatedAt: new Date('2025-01-02 18:00'),
+    lastGateId: null,
   };
 
   const a319: Aircraft = {
@@ -39,6 +41,7 @@ export async function loadAircraft(): Promise<void> {
     baseAirportId: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf', // EDDW
     lastAirportId: null,
     lastAirportUpdatedAt: null,
+    lastGateId: null,
   };
 
   const b773: Aircraft = {
@@ -52,259 +55,273 @@ export async function loadAircraft(): Promise<void> {
     baseAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportUpdatedAt: new Date('2025-01-01 08:00'),
+    lastGateId: null,
   };
 
   // One dedicated aircraft per flight fixture, so each flight-status fixture
   // owns its movement/reposition history instead of sharing a330/b773.
+  // lastAirportId reflects where the aircraft actually is given its flight's
+  // progress: destination once it has reported on-block, departure once the
+  // pilot has checked in (after the deadhead to it), otherwise the base.
   const AAL = '1f630d38-ad24-47cc-950b-3783e71bbd10'; // American Airlines
   const DLH = '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d'; // Lufthansa
   const KJFK = '3c721cc6-c653-4fad-be43-dc9d6a149383';
+  const KBOS = 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3';
+  const KPHL = 'e764251b-bb25-4e8b-8cc7-11b0397b4554';
   const EDDF = 'f35c094a-bec5-4803-be32-bd80a14b441a';
-  const lastAirportUpdatedAt = new Date('2025-01-01 08:00');
+  const atBase = new Date('2025-01-01 08:00');
+  const atCheckIn = new Date('2025-01-01 12:00');
+  const aalOnBlock = new Date('2025-01-01 16:18');
+  const onBlock = new Date('2025-01-01 16:28');
+  const dlh40OnBlock = new Date('2025-01-02 02:45');
+
+  const mk = (
+    id: string,
+    type: string,
+    registration: string,
+    selcal: string,
+    livery: string,
+    operatorId: string,
+    baseAirportId: string,
+    lastAirportId: string,
+    lastAirportUpdatedAt: Date,
+  ): Aircraft => ({
+    id,
+    type,
+    registration,
+    selcal,
+    livery,
+    operatorId,
+    currentState: AircraftState.idle,
+    baseAirportId,
+    lastAirportId,
+    lastAirportUpdatedAt,
+    lastGateId: null,
+  });
 
   const fleet: Aircraft[] = [
     // American — B77W, based KJFK (deadhead KJFK -> KBOS on every checked-in leg)
-    {
-      id: 'ac000000-0000-4000-8000-000000000001',
-      type: 'B77W',
-      registration: 'N718AN',
-      selcal: 'AB-CD',
-      livery: 'Oneworld (2023)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000002',
-      type: 'B77W',
-      registration: 'N719AN',
-      selcal: 'AB-CE',
-      livery: 'Flagship (2022)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000003',
-      type: 'B77W',
-      registration: 'N720AN',
-      selcal: 'AB-CF',
-      livery: 'Astrojet (2021)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000004',
-      type: 'B77W',
-      registration: 'N721AN',
-      selcal: 'AB-CG',
-      livery: 'Polished (2019)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000005',
-      type: 'B77W',
-      registration: 'N722AN',
-      selcal: 'AB-DE',
-      livery: 'Standard (2020)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000006',
-      type: 'B77W',
-      registration: 'N723AN',
-      selcal: 'AB-DF',
-      livery: 'AAdvantage (2022)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000007',
-      type: 'B77W',
-      registration: 'N724AN',
-      selcal: 'AB-DG',
-      livery: 'Heritage TWA (2019)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000008',
-      type: 'B77W',
-      registration: 'N725AN',
-      selcal: 'AB-EF',
-      livery: 'Heritage US Airways (2020)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000009',
-      type: 'B77W',
-      registration: 'N726AN',
-      selcal: 'AB-EG',
-      livery: 'Heritage Reno Air (2021)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000010',
-      type: 'B77W',
-      registration: 'N727AN',
-      selcal: 'AB-FG',
-      livery: 'Heritage America West (2022)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000011',
-      type: 'B77W',
-      registration: 'N728AN',
-      selcal: 'AC-DE',
-      livery: 'Stand Up To Cancer (2023)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000012',
-      type: 'B77W',
-      registration: 'N729AN',
-      selcal: 'AC-DF',
-      livery: 'Breast Cancer Awareness (2022)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000013',
-      type: 'B77W',
-      registration: 'N730AN',
-      selcal: 'AC-DG',
-      livery: '50th Anniversary (2024)',
-      operatorId: AAL,
-      currentState: AircraftState.idle,
-      baseAirportId: KJFK,
-      lastAirportId: KJFK,
-      lastAirportUpdatedAt,
-    },
+    mk(
+      '6c48d613-6582-49de-afbb-89fdc7cac0b7',
+      'B77W',
+      'N718AN',
+      'AB-CD',
+      'Oneworld (2023)',
+      AAL,
+      KJFK,
+      KPHL,
+      aalOnBlock,
+    ), // AAL4905 Closed
+    mk(
+      'ed247c36-58f0-43ff-81fd-ffae548a73e2',
+      'B77W',
+      'N719AN',
+      'AB-CE',
+      'Flagship (2022)',
+      AAL,
+      KJFK,
+      KJFK,
+      atBase,
+    ), // AAL4907 Created
+    mk(
+      'e7c6c5e3-84ff-4c5b-a40c-79f178c5b379',
+      'B77W',
+      'N720AN',
+      'AB-CF',
+      'Astrojet (2021)',
+      AAL,
+      KJFK,
+      KBOS,
+      atCheckIn,
+    ), // AAL4908 CheckedIn
+    mk(
+      'a2f425e0-2db0-4d8f-8c4c-b3a95d51eb24',
+      'B77W',
+      'N721AN',
+      'AB-CG',
+      'Polished (2019)',
+      AAL,
+      KJFK,
+      KBOS,
+      atCheckIn,
+    ), // AAL4909 BoardingStarted
+    mk(
+      'ffe14007-9147-40a1-a228-573c9c87a2e7',
+      'B77W',
+      'N722AN',
+      'AB-DE',
+      'Standard (2020)',
+      AAL,
+      KJFK,
+      KBOS,
+      atCheckIn,
+    ), // AAL4910 BoardingFinished
+    mk(
+      '0fad1757-d650-4a52-b047-f29e9ea5c067',
+      'B77W',
+      'N723AN',
+      'AB-DF',
+      'AAdvantage (2022)',
+      AAL,
+      KJFK,
+      KBOS,
+      atCheckIn,
+    ), // AAL4911 TaxiingOut
+    mk(
+      '8694eb6d-83e4-4f24-8a72-b67523b4d6bf',
+      'B77W',
+      'N724AN',
+      'AB-DG',
+      'Heritage TWA (2019)',
+      AAL,
+      KJFK,
+      KBOS,
+      atCheckIn,
+    ), // AAL4912 InCruise
+    mk(
+      '3c3f3402-cdb1-4716-9e02-1fe3df12e0e4',
+      'B77W',
+      'N725AN',
+      'AB-EF',
+      'Heritage US Airways (2020)',
+      AAL,
+      KJFK,
+      KPHL,
+      onBlock,
+    ), // AAL4914 OnBlock
+    mk(
+      '8f27ca75-01e0-4a3f-bcf2-f838e02b9af9',
+      'B77W',
+      'N726AN',
+      'AB-EG',
+      'Heritage Reno Air (2021)',
+      AAL,
+      KJFK,
+      KPHL,
+      onBlock,
+    ), // AAL4915 OffboardingStarted
+    mk(
+      '69811511-fa34-4837-ab5d-dd480aeab8b6',
+      'B77W',
+      'N727AN',
+      'AB-FG',
+      'Heritage America West (2022)',
+      AAL,
+      KJFK,
+      KPHL,
+      onBlock,
+    ), // AAL4916 OffboardingFinished
+    mk(
+      '30a0d850-5440-436d-95a2-fa8fdc79f715',
+      'B77W',
+      'N728AN',
+      'AC-DE',
+      'Stand Up To Cancer (2023)',
+      AAL,
+      KJFK,
+      KPHL,
+      onBlock,
+    ), // AAL4917 Closed
+    mk(
+      '7e059d96-260c-44e3-a08c-a216cb76398b',
+      'B77W',
+      'N729AN',
+      'AC-DF',
+      'Breast Cancer Awareness (2022)',
+      AAL,
+      KJFK,
+      KPHL,
+      onBlock,
+    ), // AAL4918 OffboardingFinished
+    mk(
+      'b0ea1829-61ea-4b50-8bf6-bfccfb4fe5c7',
+      'B77W',
+      'N730AN',
+      'AC-DG',
+      '50th Anniversary (2024)',
+      AAL,
+      KJFK,
+      KPHL,
+      onBlock,
+    ), // AAL4919 OffboardingFinished
     // Lufthansa — A339, based EDDF (deadhead only on KJFK-origin return legs)
-    {
-      id: 'ac000000-0000-4000-8000-000000000014',
-      type: 'A339',
-      registration: 'D-AIMD',
-      selcal: 'BD-EF',
-      livery: 'Star Alliance (2023)',
-      operatorId: DLH,
-      currentState: AircraftState.idle,
-      baseAirportId: EDDF,
-      lastAirportId: EDDF,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000015',
-      type: 'A339',
-      registration: 'D-AIME',
-      selcal: 'BD-EG',
-      livery: 'Lovehansa (2024)',
-      operatorId: DLH,
-      currentState: AircraftState.idle,
-      baseAirportId: EDDF,
-      lastAirportId: EDDF,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000016',
-      type: 'A339',
-      registration: 'D-AIMF',
-      selcal: 'BD-FG',
-      livery: 'New Livery (2018)',
-      operatorId: DLH,
-      currentState: AircraftState.idle,
-      baseAirportId: EDDF,
-      lastAirportId: EDDF,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000017',
-      type: 'A339',
-      registration: 'D-AIMG',
-      selcal: 'BE-FG',
-      livery: 'Retro 1970s (2022)',
-      operatorId: DLH,
-      currentState: AircraftState.idle,
-      baseAirportId: EDDF,
-      lastAirportId: EDDF,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000018',
-      type: 'A339',
-      registration: 'D-AIMH',
-      selcal: 'CD-EF',
-      livery: 'Siegerflieger (2023)',
-      operatorId: DLH,
-      currentState: AircraftState.idle,
-      baseAirportId: EDDF,
-      lastAirportId: EDDF,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000019',
-      type: 'A339',
-      registration: 'D-AIMK',
-      selcal: 'CD-EG',
-      livery: 'Cheers to 70 Years (2025)',
-      operatorId: DLH,
-      currentState: AircraftState.idle,
-      baseAirportId: EDDF,
-      lastAirportId: EDDF,
-      lastAirportUpdatedAt,
-    },
-    {
-      id: 'ac000000-0000-4000-8000-000000000020',
-      type: 'A339',
-      registration: 'D-AIML',
-      selcal: 'CE-FG',
-      livery: 'Munich (2024)',
-      operatorId: DLH,
-      currentState: AircraftState.idle,
-      baseAirportId: EDDF,
-      lastAirportId: EDDF,
-      lastAirportUpdatedAt,
-    },
+    mk(
+      'b84e4c67-7565-4846-84c4-ab8215308fbd',
+      'A339',
+      'D-AIMD',
+      'BD-EF',
+      'Star Alliance (2023)',
+      DLH,
+      EDDF,
+      KJFK,
+      dlh40OnBlock,
+    ), // DLH40 Closed (EDDF->KJFK)
+    mk(
+      'becc1596-dfa0-452b-81ec-3f1f2fa0dce2',
+      'A339',
+      'D-AIME',
+      'BD-EG',
+      'Lovehansa (2024)',
+      DLH,
+      EDDF,
+      EDDF,
+      atBase,
+    ), // DLH41 Created
+    mk(
+      'a9b9205d-53b1-4eec-bb24-548a12159997',
+      'A339',
+      'D-AIMF',
+      'BD-FG',
+      'New Livery (2018)',
+      DLH,
+      EDDF,
+      EDDF,
+      onBlock,
+    ), // DLH43 OffboardingFinished (KJFK->EDDF)
+    mk(
+      'ed7ed4bb-95ff-4e79-9331-11212ef727ec',
+      'A339',
+      'D-AIMG',
+      'BE-FG',
+      'Retro 1970s (2022)',
+      DLH,
+      EDDF,
+      KJFK,
+      atCheckIn,
+    ), // DLH102 InCruise (KJFK->EDDF)
+    mk(
+      '5637d186-d9e4-45e4-9940-ae6f6552c9ae',
+      'A339',
+      'D-AIMH',
+      'CD-EF',
+      'Siegerflieger (2023)',
+      DLH,
+      EDDF,
+      EDDF,
+      atBase,
+    ), // DLH103 TaxiingIn (EDDF->KJFK)
+    mk(
+      '785bdfda-291a-4c11-a5d9-b57b5c0b8e5e',
+      'A339',
+      'D-AIMK',
+      'CD-EG',
+      'Cheers to 70 Years (2025)',
+      DLH,
+      EDDF,
+      EDDF,
+      atBase,
+    ), // DLH81 Ready
+    mk(
+      'cfedcfae-6e80-4801-8a89-12b2430c908b',
+      'A339',
+      'D-AIML',
+      'CE-FG',
+      'Munich (2024)',
+      DLH,
+      EDDF,
+      EDDF,
+      atBase,
+    ), // DLH880 InCruise (EDDF->CDG)
   ];
 
   const prisma = new PrismaService();

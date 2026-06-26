@@ -33,7 +33,7 @@ Feature: Request a manual dead-head travel
           "updatedAt": null
         },
         {
-          "id": "7a000000-0000-4000-8000-0000000000a1",
+          "id": "b92a34c1-3d77-4a6b-9d11-80c95ccc01db",
           "userId": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
           "type": "performing_flight",
           "status": "pending",

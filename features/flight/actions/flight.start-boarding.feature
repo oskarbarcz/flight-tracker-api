@@ -74,7 +74,7 @@ Feature: Start boarding
           "final": null
         },
         "aircraft": {
-          "id": "ac000000-0000-4000-8000-000000000003",
+          "id": "e7c6c5e3-84ff-4c5b-a40c-79f178c5b379",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",

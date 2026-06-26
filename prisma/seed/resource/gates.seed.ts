@@ -89,9 +89,9 @@ export async function loadGates(): Promise<void> {
 
     // KJFK — Terminal 1
     {
-      id: '2a01a001-0000-4001-9101-000000000001',
+      id: 'c38c1139-f62a-4bd8-bd14-38b0ab5b4bfb',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
-      terminalId: 'a0d2e8d1-1101-4f01-9101-9c1f4e2a0001',
+      terminalId: 'a7da9825-8019-478d-a309-1fb6b53aac42',
       name: 'A2',
       bridge: 'yes',
       stairs: 'no',
@@ -111,9 +111,9 @@ export async function loadGates(): Promise<void> {
       coordinates: { latitude: 40.643304, longitude: -73.780546 },
     },
     {
-      id: '2a01a002-0000-4001-9101-000000000002',
+      id: '3f2814f7-7dd6-4609-ba6a-878a4f2428b6',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
-      terminalId: 'a0d2e8d1-1101-4f01-9101-9c1f4e2a0001',
+      terminalId: 'a7da9825-8019-478d-a309-1fb6b53aac42',
       name: 'B22',
       bridge: 'yes',
       stairs: 'no',
@@ -131,9 +131,9 @@ export async function loadGates(): Promise<void> {
 
     // KJFK — Terminal 4
     {
-      id: '2a04a001-0000-4001-9101-000000040001',
+      id: 'c7f9a428-94a7-45d1-9f41-359b42df78c5',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
-      terminalId: 'a0d2e8d1-1101-4f02-9101-9c1f4e2a0002',
+      terminalId: 'e49ca9e7-91f2-406e-81e6-3b95131f8de4',
       name: 'A2',
       bridge: 'yes',
       stairs: 'no',
@@ -149,9 +149,9 @@ export async function loadGates(): Promise<void> {
       coordinates: { latitude: 40.643304, longitude: -73.780546 },
     },
     {
-      id: '2a04a002-0000-4001-9101-000000040002',
+      id: '971dbcc5-6846-42d2-b63d-8800426e428e',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
-      terminalId: 'a0d2e8d1-1101-4f02-9101-9c1f4e2a0002',
+      terminalId: 'e49ca9e7-91f2-406e-81e6-3b95131f8de4',
       name: 'B31',
       bridge: 'yes',
       stairs: 'no',
@@ -169,9 +169,9 @@ export async function loadGates(): Promise<void> {
 
     // KJFK — Terminal 5
     {
-      id: '2a05a001-0000-4001-9101-000000050001',
+      id: '66960547-4cbd-4aa4-9de3-eaf0168784d7',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
-      terminalId: 'a0d2e8d1-1101-4f03-9101-9c1f4e2a0003',
+      terminalId: '592039df-d9e4-4100-aedd-9b244ac925ea',
       name: '5',
       bridge: 'yes',
       stairs: 'no',
@@ -187,9 +187,9 @@ export async function loadGates(): Promise<void> {
       coordinates: { latitude: 40.650501, longitude: -73.783297 },
     },
     {
-      id: '2a05a002-0000-4001-9101-000000050002',
+      id: '2e2a935e-8f88-47b7-a9ac-93c1ffe50413',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
-      terminalId: 'a0d2e8d1-1101-4f03-9101-9c1f4e2a0003',
+      terminalId: '592039df-d9e4-4100-aedd-9b244ac925ea',
       name: '16',
       bridge: 'no',
       stairs: 'with-bus-transport',
@@ -207,9 +207,9 @@ export async function loadGates(): Promise<void> {
 
     // KJFK — Terminal 7
     {
-      id: '2a07a001-0000-4001-9101-000000070001',
+      id: '8093d0cb-724d-4d88-866a-b4855414ff31',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
-      terminalId: 'a0d2e8d1-1101-4f04-9101-9c1f4e2a0004',
+      terminalId: '51f61626-90b9-45b7-b6d5-b77eff65ee9d',
       name: '1',
       bridge: 'yes',
       stairs: 'no',
@@ -225,9 +225,9 @@ export async function loadGates(): Promise<void> {
       coordinates: { latitude: 40.649272, longitude: -73.783925 },
     },
     {
-      id: '2a07a002-0000-4001-9101-000000070002',
+      id: 'f63db16a-2a38-4905-a9d8-57a022e6ade8',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
-      terminalId: 'a0d2e8d1-1101-4f04-9101-9c1f4e2a0004',
+      terminalId: '51f61626-90b9-45b7-b6d5-b77eff65ee9d',
       name: '12',
       bridge: 'yes',
       stairs: 'no',
@@ -245,9 +245,9 @@ export async function loadGates(): Promise<void> {
 
     // KJFK — Terminal 8
     {
-      id: '2a08a001-0000-4001-9101-000000080001',
+      id: '24d6f6bb-4584-4ecb-acb3-75eac537428c',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
-      terminalId: 'a0d2e8d1-1101-4f05-9101-9c1f4e2a0005',
+      terminalId: '87813a68-dd8d-4539-b2c1-08ad31a1e9f2',
       name: '8',
       bridge: 'yes',
       stairs: 'no',
@@ -263,9 +263,9 @@ export async function loadGates(): Promise<void> {
       coordinates: { latitude: 40.64799, longitude: -73.792317 },
     },
     {
-      id: '2a08a002-0000-4001-9101-000000080002',
+      id: '7193ae0c-e68e-4c78-a8b5-fe42da97cc28',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
-      terminalId: 'a0d2e8d1-1101-4f05-9101-9c1f4e2a0005',
+      terminalId: '87813a68-dd8d-4539-b2c1-08ad31a1e9f2',
       name: '36',
       bridge: 'yes',
       stairs: 'no',
@@ -283,9 +283,9 @@ export async function loadGates(): Promise<void> {
 
     // LFPG — Terminal 1
     {
-      id: '3b01b001-0000-4001-9101-000000100001',
+      id: '5da4248a-f9b7-46e0-a973-a5fccf4e2129',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
-      terminalId: 'b3e7c20d-2201-4f01-9101-9d2f5e3a0001',
+      terminalId: 'b74d1002-ad6f-4d97-a878-71d990a3c811',
       name: '30',
       bridge: 'yes',
       stairs: 'no',
@@ -303,9 +303,9 @@ export async function loadGates(): Promise<void> {
 
     // LFPG — Terminal 2A
     {
-      id: '3b02b001-0000-4001-9101-000000200001',
+      id: 'b8312f90-cd69-49c6-8247-728911fd44bf',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
-      terminalId: 'b3e7c20d-2201-4f02-9101-9d2f5e3a0002',
+      terminalId: '4fa7345d-be33-4896-a3f7-fc9313af5ddd',
       name: 'A30',
       bridge: 'yes',
       stairs: 'no',
@@ -323,9 +323,9 @@ export async function loadGates(): Promise<void> {
 
     // LFPG — Terminal 2B
     {
-      id: '3b03b001-0000-4001-9101-000000300001',
+      id: '157b3240-b4f6-434b-8427-07eca0d6016c',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
-      terminalId: 'b3e7c20d-2201-4f03-9101-9d2f5e3a0003',
+      terminalId: '52f82035-9f0e-4de2-986b-e66dfda568ec',
       name: 'B40',
       bridge: 'yes',
       stairs: 'no',
@@ -343,9 +343,9 @@ export async function loadGates(): Promise<void> {
 
     // LFPG — Terminal 2C
     {
-      id: '3b04b001-0000-4001-9101-000000400001',
+      id: '3457492a-6c1e-4e54-90bb-327d8842b4ea',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
-      terminalId: 'b3e7c20d-2201-4f04-9101-9d2f5e3a0004',
+      terminalId: '5d78bb4c-4a52-4ad1-b414-b45658f651de',
       name: 'C50',
       bridge: 'yes',
       stairs: 'no',
@@ -363,9 +363,9 @@ export async function loadGates(): Promise<void> {
 
     // LFPG — Terminal 2D
     {
-      id: '3b05b001-0000-4001-9101-000000500001',
+      id: '6d720c19-9d00-4be2-8c6a-a28e8e0f918a',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
-      terminalId: 'b3e7c20d-2201-4f05-9101-9d2f5e3a0005',
+      terminalId: 'eb00095b-f756-4778-8697-08dc04f68b20',
       name: 'D60',
       bridge: 'yes',
       stairs: 'no',
@@ -383,9 +383,9 @@ export async function loadGates(): Promise<void> {
 
     // LFPG — Terminal 2E
     {
-      id: '3b06b001-0000-4001-9101-000000600001',
+      id: '32b66b94-a93b-4448-8610-ee9038b31e77',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
-      terminalId: 'b3e7c20d-2201-4f06-9101-9d2f5e3a0006',
+      terminalId: '3da719b7-385b-43b5-844b-5b0d4d001e93',
       name: 'K20',
       bridge: 'yes',
       stairs: 'no',
@@ -403,9 +403,9 @@ export async function loadGates(): Promise<void> {
 
     // LFPG — Terminal 2F
     {
-      id: '3b07b001-0000-4001-9101-000000700001',
+      id: 'fde31b51-3aef-4a87-8f7b-e42a1faa4fa9',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
-      terminalId: 'b3e7c20d-2201-4f07-9101-9d2f5e3a0007',
+      terminalId: '093ca44b-d957-4172-a44f-e6468efbd761',
       name: 'F30',
       bridge: 'yes',
       stairs: 'no',
@@ -423,9 +423,9 @@ export async function loadGates(): Promise<void> {
 
     // LFPG — Terminal 2G
     {
-      id: '3b08b001-0000-4001-9101-000000800001',
+      id: 'c401c054-6b41-4a2f-a38a-60993e7f20ae',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
-      terminalId: 'b3e7c20d-2201-4f08-9101-9d2f5e3a0008',
+      terminalId: 'c90ffc41-36ba-45f3-aff1-cc1605ce46ad',
       name: 'G10',
       bridge: 'no',
       stairs: 'with-passenger-walking',
@@ -443,9 +443,9 @@ export async function loadGates(): Promise<void> {
 
     // LFPG — Terminal 3
     {
-      id: '3b09b001-0000-4001-9101-000000900001',
+      id: '82246aff-6a10-4a28-9b54-4ee60f51147f',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
-      terminalId: 'b3e7c20d-2201-4f09-9101-9d2f5e3a0009',
+      terminalId: 'adfe2cc7-77f5-487e-b6db-6d09d2582697',
       name: '50',
       bridge: 'no',
       stairs: 'with-bus-transport',
@@ -463,9 +463,9 @@ export async function loadGates(): Promise<void> {
 
     // CYYR — Goose Bay Main Terminal
     {
-      id: '4c01c001-0000-4001-9101-000010000001',
+      id: '64ed6c9a-0ba6-4139-bb0f-a89a366de95d',
       airportId: 'fa8ee2e9-fb94-4416-9ed0-4811efd488ae',
-      terminalId: 'c4f8e9b2-3301-4f01-9101-9e3f6f4a0001',
+      terminalId: '419b38a7-2083-4134-b1df-ce41162c9280',
       name: '1',
       bridge: 'no',
       stairs: 'with-passenger-walking',
@@ -485,9 +485,9 @@ export async function loadGates(): Promise<void> {
 
     // BIKF — Reykjavik Leifur Eiriksson Terminal
     {
-      id: '5d01d001-0000-4001-9101-000020000001',
+      id: 'a42f8ee7-aa47-4e0a-bcd1-8aa63491acb7',
       airportId: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a',
-      terminalId: 'd5a9f0c3-4401-4f01-9101-9f4f7f5a0001',
+      terminalId: '1109190a-b9cb-43c7-a55e-1e3a5257e8f7',
       name: 'D2',
       bridge: 'yes',
       stairs: 'no',
@@ -503,9 +503,9 @@ export async function loadGates(): Promise<void> {
       coordinates: { latitude: 63.985, longitude: -22.6056 },
     },
     {
-      id: '5d01d002-0000-4001-9101-000020000002',
+      id: 'b5a6c772-14dd-4223-b1ce-c7dc9aa21574',
       airportId: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a',
-      terminalId: 'd5a9f0c3-4401-4f01-9101-9f4f7f5a0001',
+      terminalId: '1109190a-b9cb-43c7-a55e-1e3a5257e8f7',
       name: 'A4',
       bridge: 'yes',
       stairs: 'no',
@@ -523,9 +523,9 @@ export async function loadGates(): Promise<void> {
 
     // CYYT — St. John's ATB
     {
-      id: '6e01e001-0000-4001-9101-000030000001',
+      id: '4638202f-c77c-4d31-ae9e-0e1d89d20736',
       airportId: '6cf1fcd8-d072-46b5-8132-bd885b43dd97',
-      terminalId: 'e6b0a1d4-5501-4f01-9101-9a5f8f6a0001',
+      terminalId: 'ceed33c4-3d86-4f1b-94e7-eaa190483035',
       name: '1',
       bridge: 'yes',
       stairs: 'no',
@@ -545,9 +545,9 @@ export async function loadGates(): Promise<void> {
 
     // KPHL — Terminal A-East
     {
-      id: '7f01f001-0000-4001-9101-000040100001',
+      id: 'aa0dafb5-51a6-49a1-9706-daab22c0c5fa',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
-      terminalId: 'f7c1b2e5-6601-4f01-9101-9b6f9f7a0001',
+      terminalId: 'd7a108e0-1de6-4a6f-85a8-d18fa0d3911c',
       name: 'A14',
       bridge: 'yes',
       stairs: 'no',
@@ -565,9 +565,9 @@ export async function loadGates(): Promise<void> {
 
     // KPHL — Terminal A-West
     {
-      id: '7f02f001-0000-4001-9101-000040200001',
+      id: 'b5ac8c09-e087-4e7a-8ec1-f76c7e537602',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
-      terminalId: 'f7c1b2e5-6601-4f02-9101-9b6f9f7a0002',
+      terminalId: 'd8070021-ffd3-456c-a195-e3185c3c3d7c',
       name: 'A1',
       bridge: 'yes',
       stairs: 'no',
@@ -585,9 +585,9 @@ export async function loadGates(): Promise<void> {
 
     // KPHL — Terminal B
     {
-      id: '7f03f001-0000-4001-9101-000040300001',
+      id: 'e5118011-dfc9-499d-95c4-429bfe8053bf',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
-      terminalId: 'f7c1b2e5-6601-4f03-9101-9b6f9f7a0003',
+      terminalId: '61d5ca07-a5d7-4ebd-94da-9b56eb702f88',
       name: 'B6',
       bridge: 'yes',
       stairs: 'no',
@@ -605,9 +605,9 @@ export async function loadGates(): Promise<void> {
 
     // KPHL — Terminal C
     {
-      id: '7f04f001-0000-4001-9101-000040400001',
+      id: '8fbd0308-3988-4e2a-9260-7c0f82ba7887',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
-      terminalId: 'f7c1b2e5-6601-4f04-9101-9b6f9f7a0004',
+      terminalId: '96bfdc88-01b2-43b4-b2c9-d1c8a85e490f',
       name: 'C25',
       bridge: 'yes',
       stairs: 'no',
@@ -625,9 +625,9 @@ export async function loadGates(): Promise<void> {
 
     // KPHL — Terminal D
     {
-      id: '7f05f001-0000-4001-9101-000040500001',
+      id: '07ce6138-25e5-4347-88a4-4e0e20d3b91e',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
-      terminalId: 'f7c1b2e5-6601-4f05-9101-9b6f9f7a0005',
+      terminalId: '0ef99006-355e-4826-b0e5-071a56ea202c',
       name: 'D9',
       bridge: 'yes',
       stairs: 'no',
@@ -645,9 +645,9 @@ export async function loadGates(): Promise<void> {
 
     // KPHL — Terminal E
     {
-      id: '7f06f001-0000-4001-9101-000040600001',
+      id: 'ce309d07-6e4a-4cdc-b620-eb7a249eec24',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
-      terminalId: 'f7c1b2e5-6601-4f06-9101-9b6f9f7a0006',
+      terminalId: '69f947e5-b07e-4b06-94ea-8744daf37970',
       name: 'E15',
       bridge: 'no',
       stairs: 'with-bus-transport',
@@ -665,9 +665,9 @@ export async function loadGates(): Promise<void> {
 
     // KPHL — Terminal F
     {
-      id: '7f07f001-0000-4001-9101-000040700001',
+      id: '899bc668-4e1a-4ce2-b72a-e18ee3bffe5c',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
-      terminalId: 'f7c1b2e5-6601-4f07-9101-9b6f9f7a0007',
+      terminalId: '573d8fe2-58ab-43ff-83b8-9951e7178c79',
       name: 'F30',
       bridge: 'yes',
       stairs: 'no',
@@ -685,9 +685,9 @@ export async function loadGates(): Promise<void> {
 
     // KBOS — Terminal A
     {
-      id: '8a01a001-0000-4001-9101-000050100001',
+      id: '4ce42952-8861-468b-9657-84e123133884',
       airportId: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
-      terminalId: '08d2c3f6-7701-4f01-9101-9c7faf8a0001',
+      terminalId: '374ad856-886a-4cd1-9353-a06b22a8eaa9',
       name: 'A4',
       bridge: 'yes',
       stairs: 'no',
@@ -707,9 +707,9 @@ export async function loadGates(): Promise<void> {
       coordinates: { latitude: 42.364654, longitude: -71.022864 },
     },
     {
-      id: '8a01a002-0000-4001-9101-000050100002',
+      id: '4d8b8279-7deb-4009-9374-2a5b4dae973d',
       airportId: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
-      terminalId: '08d2c3f6-7701-4f01-9101-9c7faf8a0001',
+      terminalId: '374ad856-886a-4cd1-9353-a06b22a8eaa9',
       name: 'A8',
       bridge: 'yes',
       stairs: 'no',
@@ -727,9 +727,9 @@ export async function loadGates(): Promise<void> {
 
     // KBOS — Terminal B
     {
-      id: '8a02a001-0000-4001-9101-000050200001',
+      id: 'd08ea4b5-7702-4f05-8237-b5b1c739f9ae',
       airportId: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
-      terminalId: '08d2c3f6-7701-4f02-9101-9c7faf8a0002',
+      terminalId: 'b963b4fa-c326-4634-8f0e-5ee8a3003443',
       name: 'B30',
       bridge: 'yes',
       stairs: 'no',
@@ -745,9 +745,9 @@ export async function loadGates(): Promise<void> {
       coordinates: { latitude: 42.363167, longitude: -71.016897 },
     },
     {
-      id: '8a02a002-0000-4001-9101-000050200002',
+      id: '5a3878dc-fb1e-412e-9eb0-69759682ee24',
       airportId: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
-      terminalId: '08d2c3f6-7701-4f02-9101-9c7faf8a0002',
+      terminalId: 'b963b4fa-c326-4634-8f0e-5ee8a3003443',
       name: 'B36',
       bridge: 'yes',
       stairs: 'no',
@@ -765,9 +765,9 @@ export async function loadGates(): Promise<void> {
 
     // KBOS — Terminal C
     {
-      id: '8a03a001-0000-4001-9101-000050300001',
+      id: '148b7f78-6b7f-4402-9c89-a872c5c8bd28',
       airportId: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
-      terminalId: '08d2c3f6-7701-4f03-9101-9c7faf8a0003',
+      terminalId: '1c0da133-4f4b-4c78-b57c-59b10a846a6c',
       name: 'C15',
       bridge: 'yes',
       stairs: 'no',
@@ -783,9 +783,9 @@ export async function loadGates(): Promise<void> {
       coordinates: { latitude: 42.367786, longitude: -71.01531 },
     },
     {
-      id: '8a03a002-0000-4001-9101-000050300002',
+      id: '095f55fc-c4a4-4f53-b121-a48c92e0e780',
       airportId: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
-      terminalId: '08d2c3f6-7701-4f03-9101-9c7faf8a0003',
+      terminalId: '1c0da133-4f4b-4c78-b57c-59b10a846a6c',
       name: 'C30',
       bridge: 'yes',
       stairs: 'no',
@@ -803,9 +803,9 @@ export async function loadGates(): Promise<void> {
 
     // KBOS — Terminal E
     {
-      id: '8a04a001-0000-4001-9101-000050400001',
+      id: 'af8ef34b-0881-41b8-8a4e-a07cdee80b8b',
       airportId: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
-      terminalId: '08d2c3f6-7701-4f04-9101-9c7faf8a0004',
+      terminalId: '0f6597b8-8d79-41dd-9bb0-59619e6a534a',
       name: 'E1A',
       bridge: 'yes',
       stairs: 'no',
@@ -821,9 +821,9 @@ export async function loadGates(): Promise<void> {
       coordinates: { latitude: 42.368132, longitude: -71.018139 },
     },
     {
-      id: '8a04a002-0000-4001-9101-000050400002',
+      id: '85f4f8f0-61ff-4b7d-b7f9-cf17b6e583ae',
       airportId: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
-      terminalId: '08d2c3f6-7701-4f04-9101-9c7faf8a0004',
+      terminalId: '0f6597b8-8d79-41dd-9bb0-59619e6a534a',
       name: 'E10',
       bridge: 'yes',
       stairs: 'no',
@@ -841,9 +841,9 @@ export async function loadGates(): Promise<void> {
 
     // EDDW — Bremen Hauptterminal
     {
-      id: '9b01b001-0000-4001-9101-000060000001',
+      id: '83456027-c380-4d53-953d-288a022efe2d',
       airportId: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf',
-      terminalId: '19e3d4a7-8801-4f01-9101-9d8fbf9a0001',
+      terminalId: '2b70a9cc-5c9e-4239-90d6-de30e60e2b27',
       name: '5',
       bridge: 'yes',
       stairs: 'no',

@@ -83,7 +83,7 @@ export async function loadTerminals(): Promise<void> {
 
     // KJFK — New York John F. Kennedy
     {
-      id: 'a0d2e8d1-1101-4f01-9101-9c1f4e2a0001',
+      id: 'a7da9825-8019-478d-a309-1fb6b53aac42',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
       shortName: 'T1',
       fullName: 'Terminal 1',
@@ -114,7 +114,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'a0d2e8d1-1101-4f02-9101-9c1f4e2a0002',
+      id: 'e49ca9e7-91f2-406e-81e6-3b95131f8de4',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
       shortName: 'T4',
       fullName: 'Terminal 4',
@@ -141,7 +141,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'a0d2e8d1-1101-4f03-9101-9c1f4e2a0003',
+      id: '592039df-d9e4-4100-aedd-9b244ac925ea',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
       shortName: 'T5',
       fullName: 'Terminal 5',
@@ -169,7 +169,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'a0d2e8d1-1101-4f04-9101-9c1f4e2a0004',
+      id: '51f61626-90b9-45b7-b6d5-b77eff65ee9d',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
       shortName: 'T7',
       fullName: 'Terminal 7',
@@ -193,7 +193,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'a0d2e8d1-1101-4f05-9101-9c1f4e2a0005',
+      id: '87813a68-dd8d-4539-b2c1-08ad31a1e9f2',
       airportId: '3c721cc6-c653-4fad-be43-dc9d6a149383',
       shortName: 'T8',
       fullName: 'Terminal 8',
@@ -220,7 +220,7 @@ export async function loadTerminals(): Promise<void> {
 
     // LFPG — Paris Charles de Gaulle
     {
-      id: 'b3e7c20d-2201-4f01-9101-9d2f5e3a0001',
+      id: 'b74d1002-ad6f-4d97-a878-71d990a3c811',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
       shortName: 'T1',
       fullName: 'Terminal 1',
@@ -246,7 +246,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'b3e7c20d-2201-4f02-9101-9d2f5e3a0002',
+      id: '4fa7345d-be33-4896-a3f7-fc9313af5ddd',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
       shortName: 'T2A',
       fullName: 'Terminal 2A',
@@ -268,7 +268,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'b3e7c20d-2201-4f03-9101-9d2f5e3a0003',
+      id: '52f82035-9f0e-4de2-986b-e66dfda568ec',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
       shortName: 'T2B',
       fullName: 'Terminal 2B',
@@ -291,7 +291,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'b3e7c20d-2201-4f04-9101-9d2f5e3a0004',
+      id: '5d78bb4c-4a52-4ad1-b414-b45658f651de',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
       shortName: 'T2C',
       fullName: 'Terminal 2C',
@@ -323,7 +323,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'b3e7c20d-2201-4f05-9101-9d2f5e3a0005',
+      id: 'eb00095b-f756-4778-8697-08dc04f68b20',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
       shortName: 'T2D',
       fullName: 'Terminal 2D',
@@ -354,7 +354,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'b3e7c20d-2201-4f06-9101-9d2f5e3a0006',
+      id: '3da719b7-385b-43b5-844b-5b0d4d001e93',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
       shortName: 'T2E',
       fullName: 'Terminal 2E',
@@ -382,7 +382,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'b3e7c20d-2201-4f07-9101-9d2f5e3a0007',
+      id: '093ca44b-d957-4172-a44f-e6468efbd761',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
       shortName: 'T2F',
       fullName: 'Terminal 2F',
@@ -403,7 +403,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'b3e7c20d-2201-4f08-9101-9d2f5e3a0008',
+      id: 'c90ffc41-36ba-45f3-aff1-cc1605ce46ad',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
       shortName: 'T2G',
       fullName: 'Terminal 2G',
@@ -434,7 +434,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'b3e7c20d-2201-4f09-9101-9d2f5e3a0009',
+      id: 'adfe2cc7-77f5-487e-b6db-6d09d2582697',
       airportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
       shortName: 'T3',
       fullName: 'Terminal 3',
@@ -452,7 +452,7 @@ export async function loadTerminals(): Promise<void> {
 
     // CYYR — Goose Bay
     {
-      id: 'c4f8e9b2-3301-4f01-9101-9e3f6f4a0001',
+      id: '419b38a7-2083-4134-b1df-ce41162c9280',
       airportId: 'fa8ee2e9-fb94-4416-9ed0-4811efd488ae',
       shortName: 'MT',
       fullName: 'Goose Bay Air Terminal Building',
@@ -476,7 +476,7 @@ export async function loadTerminals(): Promise<void> {
 
     // BIKF — Reykjavik Keflavik
     {
-      id: 'd5a9f0c3-4401-4f01-9101-9f4f7f5a0001',
+      id: '1109190a-b9cb-43c7-a55e-1e3a5257e8f7',
       airportId: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a',
       shortName: 'LET',
       fullName: 'Leifur Eiriksson Terminal',
@@ -504,7 +504,7 @@ export async function loadTerminals(): Promise<void> {
 
     // CYYT — St. John's
     {
-      id: 'e6b0a1d4-5501-4f01-9101-9a5f8f6a0001',
+      id: 'ceed33c4-3d86-4f1b-94e7-eaa190483035',
       airportId: '6cf1fcd8-d072-46b5-8132-bd885b43dd97',
       shortName: 'ATB',
       fullName: "St. John's Air Terminal Building",
@@ -536,7 +536,7 @@ export async function loadTerminals(): Promise<void> {
 
     // KPHL — Philadelphia
     {
-      id: 'f7c1b2e5-6601-4f01-9101-9b6f9f7a0001',
+      id: 'd7a108e0-1de6-4a6f-85a8-d18fa0d3911c',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
       shortName: 'A-East',
       fullName: 'Terminal A-East',
@@ -557,7 +557,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'f7c1b2e5-6601-4f02-9101-9b6f9f7a0002',
+      id: 'd8070021-ffd3-456c-a195-e3185c3c3d7c',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
       shortName: 'A-West',
       fullName: 'Terminal A-West',
@@ -573,7 +573,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'f7c1b2e5-6601-4f03-9101-9b6f9f7a0003',
+      id: '61d5ca07-a5d7-4ebd-94da-9b56eb702f88',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
       shortName: 'B',
       fullName: 'Terminal B',
@@ -600,7 +600,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'f7c1b2e5-6601-4f04-9101-9b6f9f7a0004',
+      id: '96bfdc88-01b2-43b4-b2c9-d1c8a85e490f',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
       shortName: 'C',
       fullName: 'Terminal C',
@@ -631,7 +631,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'f7c1b2e5-6601-4f05-9101-9b6f9f7a0005',
+      id: '0ef99006-355e-4826-b0e5-071a56ea202c',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
       shortName: 'D',
       fullName: 'Terminal D',
@@ -653,7 +653,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'f7c1b2e5-6601-4f06-9101-9b6f9f7a0006',
+      id: '69f947e5-b07e-4b06-94ea-8744daf37970',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
       shortName: 'E',
       fullName: 'Terminal E',
@@ -681,7 +681,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: 'f7c1b2e5-6601-4f07-9101-9b6f9f7a0007',
+      id: '573d8fe2-58ab-43ff-83b8-9951e7178c79',
       airportId: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
       shortName: 'F',
       fullName: 'Terminal F',
@@ -715,7 +715,7 @@ export async function loadTerminals(): Promise<void> {
 
     // KBOS — Boston Logan
     {
-      id: '08d2c3f6-7701-4f01-9101-9c7faf8a0001',
+      id: '374ad856-886a-4cd1-9353-a06b22a8eaa9',
       airportId: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
       shortName: 'A',
       fullName: 'Terminal A',
@@ -742,7 +742,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: '08d2c3f6-7701-4f02-9101-9c7faf8a0002',
+      id: 'b963b4fa-c326-4634-8f0e-5ee8a3003443',
       airportId: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
       shortName: 'B',
       fullName: 'Terminal B',
@@ -769,7 +769,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: '08d2c3f6-7701-4f03-9101-9c7faf8a0003',
+      id: '1c0da133-4f4b-4c78-b57c-59b10a846a6c',
       airportId: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
       shortName: 'C',
       fullName: 'Terminal C',
@@ -798,7 +798,7 @@ export async function loadTerminals(): Promise<void> {
       ],
     },
     {
-      id: '08d2c3f6-7701-4f04-9101-9c7faf8a0004',
+      id: '0f6597b8-8d79-41dd-9bb0-59619e6a534a',
       airportId: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
       shortName: 'E',
       fullName: 'Terminal E',
@@ -826,7 +826,7 @@ export async function loadTerminals(): Promise<void> {
 
     // EDDW — Bremen
     {
-      id: '19e3d4a7-8801-4f01-9101-9d8fbf9a0001',
+      id: '2b70a9cc-5c9e-4239-90d6-de30e60e2b27',
       airportId: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf',
       shortName: 'HT',
       fullName: 'Bremen Hauptterminal',

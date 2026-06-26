@@ -33,7 +33,7 @@ Feature: Reposition an aircraft
           "updatedAt": null
         },
         {
-          "id": "7b000000-0000-4000-8000-0000000000a1",
+          "id": "fbea95e8-0fca-4326-af0a-d9ea352da337",
           "aircraftId": "7d27a031-5abb-415f-bde5-1aa563ad394e",
           "type": "performing_flight",
           "status": "pending",
@@ -53,7 +53,7 @@ Feature: Reposition an aircraft
           "updatedAt": null
         },
         {
-          "id": "7b000000-0000-4000-8000-000000000003",
+          "id": "2ef171c4-ab94-4628-bf89-194f2af84e0f",
           "aircraftId": "7d27a031-5abb-415f-bde5-1aa563ad394e",
           "type": "performing_flight",
           "status": "finished",
@@ -73,7 +73,7 @@ Feature: Reposition an aircraft
           "updatedAt": "2025-01-02T14:00:00.000Z"
         },
         {
-          "id": "7b000000-0000-4000-8000-000000000002",
+          "id": "87ba25c3-4b50-4b92-b828-9d6d799b9acd",
           "aircraftId": "7d27a031-5abb-415f-bde5-1aa563ad394e",
           "type": "dead_head_automatic",
           "status": "finished",
@@ -93,7 +93,7 @@ Feature: Reposition an aircraft
           "updatedAt": null
         },
         {
-          "id": "7b000000-0000-4000-8000-000000000001",
+          "id": "5a6ce555-8325-42a1-bef9-235a4af67fa1",
           "aircraftId": "7d27a031-5abb-415f-bde5-1aa563ad394e",
           "type": "dead_head_manual",
           "status": "finished",
@@ -132,9 +132,22 @@ Feature: Reposition an aircraft
         "registration": "D-AIDA",
         "selcal": "SK-PK",
         "currentState": "idle",
-        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportUpdatedAt": "@date('within 1 minute from now')"
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany"
+        },
+        "lastAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany"
+        },
+        "lastAirportUpdatedAt": "@date('within 1 minute from now')",
+        "lastGate": null
       }
       """
     And I set database to initial state

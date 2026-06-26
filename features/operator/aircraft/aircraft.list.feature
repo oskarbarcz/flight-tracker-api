@@ -21,12 +21,19 @@ Feature: List aircraft
           "registration": "D-AIMC",
           "selcal": "LR-CK",
           "currentState": "idle",
-          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportId": null,
-          "lastAirportUpdatedAt": null
+          "baseAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirport": null,
+          "lastAirportUpdatedAt": null,
+          "lastGate": null
         },
         {
-          "id": "ac000000-0000-4000-8000-000000000014",
+          "id": "b84e4c67-7565-4846-84c4-ab8215308fbd",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -39,12 +46,25 @@ Feature: List aircraft
           "registration": "D-AIMD",
           "selcal": "BD-EF",
           "currentState": "idle",
-          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+          "baseAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirport": {
+            "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+            "iataCode": "JFK",
+            "name": "New York JFK",
+            "city": "New York",
+            "country": "United States of America"
+          },
+          "lastAirportUpdatedAt": "2025-01-02T02:45:00.000Z",
+          "lastGate": null
         },
         {
-          "id": "ac000000-0000-4000-8000-000000000015",
+          "id": "becc1596-dfa0-452b-81ec-3f1f2fa0dce2",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -57,12 +77,25 @@ Feature: List aircraft
           "registration": "D-AIME",
           "selcal": "BD-EG",
           "currentState": "idle",
-          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+          "baseAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
+          "lastGate": null
         },
         {
-          "id": "ac000000-0000-4000-8000-000000000016",
+          "id": "a9b9205d-53b1-4eec-bb24-548a12159997",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -75,12 +108,25 @@ Feature: List aircraft
           "registration": "D-AIMF",
           "selcal": "BD-FG",
           "currentState": "idle",
-          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+          "baseAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirportUpdatedAt": "2025-01-01T16:28:00.000Z",
+          "lastGate": null
         },
         {
-          "id": "ac000000-0000-4000-8000-000000000017",
+          "id": "ed7ed4bb-95ff-4e79-9331-11212ef727ec",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -93,12 +139,25 @@ Feature: List aircraft
           "registration": "D-AIMG",
           "selcal": "BE-FG",
           "currentState": "idle",
-          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+          "baseAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirport": {
+            "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+            "iataCode": "JFK",
+            "name": "New York JFK",
+            "city": "New York",
+            "country": "United States of America"
+          },
+          "lastAirportUpdatedAt": "2025-01-01T12:00:00.000Z",
+          "lastGate": null
         },
         {
-          "id": "ac000000-0000-4000-8000-000000000018",
+          "id": "5637d186-d9e4-45e4-9940-ae6f6552c9ae",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -111,12 +170,25 @@ Feature: List aircraft
           "registration": "D-AIMH",
           "selcal": "CD-EF",
           "currentState": "idle",
-          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+          "baseAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
+          "lastGate": null
         },
         {
-          "id": "ac000000-0000-4000-8000-000000000019",
+          "id": "785bdfda-291a-4c11-a5d9-b57b5c0b8e5e",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -129,12 +201,25 @@ Feature: List aircraft
           "registration": "D-AIMK",
           "selcal": "CD-EG",
           "currentState": "idle",
-          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+          "baseAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
+          "lastGate": null
         },
         {
-          "id": "ac000000-0000-4000-8000-000000000020",
+          "id": "cfedcfae-6e80-4801-8a89-12b2430c908b",
           "airframe": {
             "type": "A339",
             "name": "A330-900",
@@ -147,9 +232,22 @@ Feature: List aircraft
           "registration": "D-AIML",
           "selcal": "CE-FG",
           "currentState": "idle",
-          "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+          "baseAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main",
+            "city": "Frankfurt",
+            "country": "Germany"
+          },
+          "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
+          "lastGate": null
         }
       ]
       """

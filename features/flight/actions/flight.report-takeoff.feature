@@ -91,7 +91,7 @@ Feature: Report takeoff
           }
         },
         "aircraft": {
-          "id": "ac000000-0000-4000-8000-000000000006",
+          "id": "0fad1757-d650-4a52-b047-f29e9ea5c067",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",

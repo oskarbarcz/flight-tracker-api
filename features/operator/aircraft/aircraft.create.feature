@@ -49,9 +49,10 @@ Feature: Create aircraft for operator
         "registration": "SP-LRA",
         "livery": "Sunshine",
         "currentState": "idle",
-        "baseAirportId": null,
-        "lastAirportId": null,
-        "lastAirportUpdatedAt": null
+        "baseAirport": null,
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastGate": null
       }
       """
     When I send a "GET" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d"

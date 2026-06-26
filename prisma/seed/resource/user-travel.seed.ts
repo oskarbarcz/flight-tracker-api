@@ -20,7 +20,7 @@ export async function loadUserTravel(): Promise<void> {
       {
         // pending leg Rick is performing on AAL4913 (KBOS -> KPHL);
         // flipped to finished when the flight reports on-block
-        id: '7a000000-0000-4000-8000-0000000000a1',
+        id: 'b92a34c1-3d77-4a6b-9d11-80c95ccc01db',
         userId: RICK,
         type: UserTravelType.performing_flight,
         status: UserTravelStatus.pending,
@@ -32,7 +32,7 @@ export async function loadUserTravel(): Promise<void> {
         updatedAt: null,
       },
       {
-        id: '7a000000-0000-4000-8000-000000000001',
+        id: '4f997097-32f2-4ed1-834a-0c71d7efc113',
         userId: ALAN,
         type: UserTravelType.dead_head_manual,
         status: UserTravelStatus.finished,
@@ -44,7 +44,7 @@ export async function loadUserTravel(): Promise<void> {
         updatedAt: null,
       },
       {
-        id: '7a000000-0000-4000-8000-000000000002',
+        id: 'bd05cae0-dd40-4456-a4cd-9e5f0a95f868',
         userId: ALAN,
         type: UserTravelType.dead_head_automatic,
         status: UserTravelStatus.finished,
@@ -56,7 +56,7 @@ export async function loadUserTravel(): Promise<void> {
         updatedAt: null,
       },
       {
-        id: '7a000000-0000-4000-8000-000000000003',
+        id: '9df8f9c1-8ffa-43f6-a8e5-66f249f6b6cb',
         userId: ALAN,
         type: UserTravelType.performing_flight,
         status: UserTravelStatus.finished,
@@ -68,7 +68,7 @@ export async function loadUserTravel(): Promise<void> {
         updatedAt: new Date('2025-01-02 18:00'),
       },
       {
-        id: '7a000000-0000-4000-8000-000000000004',
+        id: '3d3a4355-fc36-492e-be46-6183559359d1',
         userId: ALAN,
         type: UserTravelType.performing_flight,
         status: UserTravelStatus.pending,

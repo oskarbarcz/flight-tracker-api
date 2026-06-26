@@ -5,7 +5,7 @@ Feature: Reject a delay allocation report
     When I subscribe to flight events for "7105891a-8008-4b47-b473-c81c97615ad7"
     Then I should receive flight event history within 2000ms
     Given I am signed in as "operations"
-    When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay/de1a0000-0000-4000-8000-000000000012/reject" with body:
+    When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay/368789fd-0a5c-4e96-9ed2-9c5b2de368d1/reject" with body:
       """json
       {
         "rejectionReason": "Wrong code — this was a ramp delay, not ATC."
@@ -17,7 +17,7 @@ Feature: Reject a delay allocation report
 
   Scenario: As an operations I cannot reject a report that does not exist
     Given I am signed in as "operations"
-    When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay/11111111-1111-4111-8111-111111111111/reject" with body:
+    When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay/edbd22fe-860a-403d-ac8d-34657810be5e/reject" with body:
       """json
       {
         "rejectionReason": "Wrong code."
@@ -27,7 +27,7 @@ Feature: Reject a delay allocation report
 
   Scenario: As an operations I cannot reject an already-accepted report
     Given I am signed in as "operations"
-    When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/delay/de1a0000-0000-4000-8000-000000000021/reject" with body:
+    When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/delay/4ccb028e-51f5-4d80-9c83-1ab1b3b13c30/reject" with body:
       """json
       {
         "rejectionReason": "Wrong code."
@@ -45,7 +45,7 @@ Feature: Reject a delay allocation report
 
   Scenario: As a cabin crew I cannot reject a report
     Given I am signed in as "cabin crew"
-    When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay/de1a0000-0000-4000-8000-000000000011/reject"
+    When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay/aa81d28e-c67f-4ba3-9637-77301ea408a1/reject"
     Then the response status should be 403
     And the response body should contain:
       """json
@@ -58,7 +58,7 @@ Feature: Reject a delay allocation report
 
   Scenario: As an admin I cannot reject a report
     Given I am signed in as "admin"
-    When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay/de1a0000-0000-4000-8000-000000000011/reject"
+    When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay/aa81d28e-c67f-4ba3-9637-77301ea408a1/reject"
     Then the response status should be 403
     And the response body should contain:
       """json
@@ -70,7 +70,7 @@ Feature: Reject a delay allocation report
       """
 
   Scenario: As an unauthorized user I cannot reject a report
-    When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay/de1a0000-0000-4000-8000-000000000011/reject"
+    When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay/aa81d28e-c67f-4ba3-9637-77301ea408a1/reject"
     Then the response status should be 401
     And the response body should contain:
       """json

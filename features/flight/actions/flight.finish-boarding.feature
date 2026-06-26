@@ -99,7 +99,7 @@ Feature: Finish flight boarding
           }
         },
         "aircraft": {
-          "id": "ac000000-0000-4000-8000-000000000004",
+          "id": "a2f425e0-2db0-4d8f-8c4c-b3a95d51eb24",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",

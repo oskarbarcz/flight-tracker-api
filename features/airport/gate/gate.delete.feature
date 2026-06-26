@@ -57,7 +57,7 @@ Feature: Delete gate
 
   Scenario: As operations I cannot delete gate that does not exist
     Given I am signed in as "operations"
-    When I send a "DELETE" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/ffffffff-ffff-4fff-8fff-ffffffffffff"
+    When I send a "DELETE" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/58c83720-fb20-4c84-b727-ba6dda14f8d1"
     Then the response status should be 404
     And the response body should contain:
       """json

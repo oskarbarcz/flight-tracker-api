@@ -158,7 +158,7 @@ Feature: Update an active flight emergency
 
   Scenario: As a cabin crew I cannot update an emergency that does not exist
     Given I am signed in as "cabin crew"
-    When I send a "PATCH" request to "/api/v1/flight/b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b/emergency/11111111-1111-4111-8111-111111111111" with body:
+    When I send a "PATCH" request to "/api/v1/flight/b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b/emergency/edbd22fe-860a-403d-ac8d-34657810be5e" with body:
       """json
       { "threatLevel": "high" }
       """

@@ -53,11 +53,11 @@ This app uses docker-based virtualization to run. To set up the project, follow 
 4. Your project should be up and running. Open the browser and go to [http://localhost/api](http://localhost/api) to see the
    api documentation.
    The default credentials for the API are:
-   | Role       | Username               | Password |
+   | Role | Username | Password |
    | ---------- | ---------------------- | -------- |
    | Cabin crew | cabin-crew@example.com | P@$$w0rd |
    | Operations | operations@example.com | P@$$w0rd |
-   | Admin      | admin@example.com      | P@$$w0rd |
+   | Admin | admin@example.com | P@$$w0rd |
 
 ### WebSocket flight events
 

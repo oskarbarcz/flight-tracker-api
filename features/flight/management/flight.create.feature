@@ -176,9 +176,22 @@ Feature: Create a flight
         "registration": "N78881",
         "selcal": "KY-JO",
         "currentState": "planned",
-        "baseAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z"
+        "baseAirport": {
+          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "iataCode": "JFK",
+          "name": "New York JFK",
+          "city": "New York",
+          "country": "United States of America"
+        },
+        "lastAirport": {
+          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "iataCode": "JFK",
+          "name": "New York JFK",
+          "city": "New York",
+          "country": "United States of America"
+        },
+        "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
+        "lastGate": null
       }
       """
     And I set database to initial state

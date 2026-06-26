@@ -20,9 +20,16 @@ Feature: Get aircraft
         "registration": "D-AIMC",
         "selcal": "LR-CK",
         "currentState": "idle",
-        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportId": null,
-        "lastAirportUpdatedAt": null
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany"
+        },
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastGate": null
       }
       """
 
@@ -46,9 +53,16 @@ Feature: Get aircraft
         "registration": "D-AIMC",
         "selcal": "LR-CK",
         "currentState": "idle",
-        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportId": null,
-        "lastAirportUpdatedAt": null
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany"
+        },
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastGate": null
       }
       """
 
@@ -72,9 +86,16 @@ Feature: Get aircraft
         "registration": "D-AIMC",
         "selcal": "LR-CK",
         "currentState": "idle",
-        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportId": null,
-        "lastAirportUpdatedAt": null
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany"
+        },
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastGate": null
       }
       """
 

@@ -97,7 +97,7 @@ Feature: Report arrival
           }
         },
         "aircraft": {
-          "id": "ac000000-0000-4000-8000-000000000007",
+          "id": "8694eb6d-83e4-4f24-8a72-b67523b4d6bf",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",

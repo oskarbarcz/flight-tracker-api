@@ -91,7 +91,7 @@ Feature: Start offboarding
           }
         },
         "aircraft": {
-          "id": "ac000000-0000-4000-8000-000000000008",
+          "id": "3c3f3402-cdb1-4716-9e02-1fe3df12e0e4",
           "airframe": {
             "type": "B77W",
             "name": "B777-300ER",
