@@ -6,6 +6,8 @@ import {
 } from '../../../model/error/aircraft.error';
 import { OperatorsRepository } from '../../../infra/database/repository/operators.repository';
 import { OperatorNotFoundError } from '../../../model/error/operator.error';
+import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
+import { AircraftRemovedEvent } from '../../../../../core/domain/events/dto/aircraft.event';
 
 export class RemoveAircraftCommand {
   constructor(
@@ -19,6 +21,7 @@ export class RemoveAircraftHandler implements ICommandHandler<RemoveAircraftComm
   constructor(
     private readonly aircraftRepository: AircraftRepository,
     private readonly operatorsRepository: OperatorsRepository,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: RemoveAircraftCommand): Promise<void> {
@@ -49,6 +52,8 @@ export class RemoveAircraftHandler implements ICommandHandler<RemoveAircraftComm
     }
 
     await this.aircraftRepository.remove(aircraftId);
-    await this.operatorsRepository.updateFleet(operatorId);
+    await this.domainEvents.emitAsync(
+      new AircraftRemovedEvent({ aircraftId, operatorId }),
+    );
   }
 }

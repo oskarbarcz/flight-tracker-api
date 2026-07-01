@@ -11,7 +11,7 @@ type AircraftEventPayload = { aircraftId: string; operatorId: string };
 abstract class AircraftLifecycleEvent extends DomainEvent {
   public static readonly name: string;
 
-  protected constructor(public readonly payload: AircraftEventPayload) {
+  constructor(public readonly payload: AircraftEventPayload) {
     super();
   }
 }

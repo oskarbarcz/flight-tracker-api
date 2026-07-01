@@ -7,7 +7,10 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  UseInterceptors,
 } from '@nestjs/common';
+import { CacheInterceptor, CacheKey } from '@nestjs/cache-manager';
+import { CACHE_KEYS } from '../../../../../core/cache/cache.key';
 import { UuidParam } from '../../../../../core/validation/uuid.param';
 import {
   ApiBearerAuth,
@@ -83,6 +86,8 @@ export class OperatorsController {
   @ApiBearerAuth('jwt')
   @ApiOkResponse({ type: Operator, isArray: true })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey(CACHE_KEYS.OPERATORS_LIST)
   @Get()
   findAll(): Promise<Operator[]> {
     const query = new ListAllOperatorsQuery();

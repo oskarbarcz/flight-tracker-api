@@ -6,6 +6,8 @@ import { UpdateAircraftRequest } from '../../../infra/http/request/aircraft.requ
 import { AircraftNotFoundError } from '../../../model/error/aircraft.error';
 import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
+import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
+import { AircraftEditedEvent } from '../../../../../core/domain/events/dto/aircraft.event';
 
 export class UpdateAircraftCommand {
   constructor(
@@ -20,6 +22,7 @@ export class UpdateAircraftHandler implements ICommandHandler<UpdateAircraftComm
   constructor(
     private readonly aircraftRepository: AircraftRepository,
     private readonly operatorsRepository: OperatorsRepository,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: UpdateAircraftCommand): Promise<void> {
@@ -44,6 +47,8 @@ export class UpdateAircraftHandler implements ICommandHandler<UpdateAircraftComm
     }
 
     await this.aircraftRepository.update(aircraftId, data);
-    await this.operatorsRepository.updateFleet(operatorId);
+    await this.domainEvents.emitAsync(
+      new AircraftEditedEvent({ aircraftId, operatorId }),
+    );
   }
 }

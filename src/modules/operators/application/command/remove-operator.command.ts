@@ -4,6 +4,8 @@ import {
   OperatorInUseError,
   OperatorNotFoundError,
 } from '../../model/error/operator.error';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
+import { OperatorRemovedEvent } from '../../../../core/domain/events/dto/operator.event';
 
 export class RemoveOperatorCommand {
   constructor(public readonly operatorId: string) {}
@@ -11,7 +13,10 @@ export class RemoveOperatorCommand {
 
 @CommandHandler(RemoveOperatorCommand)
 export class RemoveOperatorHandler implements ICommandHandler<RemoveOperatorCommand> {
-  constructor(private readonly repository: OperatorsRepository) {}
+  constructor(
+    private readonly repository: OperatorsRepository,
+    private readonly domainEvents: DomainEventEmitter,
+  ) {}
 
   async execute(command: RemoveOperatorCommand): Promise<void> {
     const { operatorId } = command;
@@ -35,5 +40,6 @@ export class RemoveOperatorHandler implements ICommandHandler<RemoveOperatorComm
     }
 
     await this.repository.remove(operatorId);
+    this.domainEvents.emit(new OperatorRemovedEvent({ operatorId }));
   }
 }
