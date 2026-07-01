@@ -6,6 +6,8 @@ import { AircraftWithRegistrationAlreadyExistsError } from '../../../model/error
 import { OperatorsRepository } from '../../../infra/database/repository/operators.repository';
 import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
+import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
+import { AircraftCreatedEvent } from '../../../../../core/domain/events/dto/aircraft.event';
 
 export class CreateAircraftCommand {
   constructor(
@@ -20,6 +22,7 @@ export class CreateAircraftHandler implements ICommandHandler<CreateAircraftComm
   constructor(
     private readonly aircraftRepository: AircraftRepository,
     private readonly operatorsRepository: OperatorsRepository,
+    private readonly domainEvents: DomainEventEmitter,
   ) {}
 
   async execute(command: CreateAircraftCommand): Promise<void> {
@@ -44,6 +47,8 @@ export class CreateAircraftHandler implements ICommandHandler<CreateAircraftComm
     }
 
     await this.aircraftRepository.create(aircraftId, operatorId, data);
-    await this.operatorsRepository.updateFleet(operatorId);
+    await this.domainEvents.emitAsync(
+      new AircraftCreatedEvent({ aircraftId, operatorId }),
+    );
   }
 }

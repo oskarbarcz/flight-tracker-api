@@ -29,6 +29,7 @@ import { RemoveRotationHandler } from './application/command/rotation/remove-rot
 import { UpdateRotationHandler } from './application/command/rotation/update-rotation.command';
 import { AssertRotationExistsHandler } from './application/query/rotation/assert-rotation-exists.query';
 import { AircraftLifecycleListener } from './application/event/internal/aircraft-lifecycle.listener';
+import { OperatorCacheListener } from './application/event/internal/operator-cache.listener';
 import { FlightLifecycleListener } from './application/event/external/flight-lifecycle.listener';
 import { RepositionRepository } from './infra/database/repository/reposition.repository';
 import { CreateManualRepositionHandler } from './application/command/reposition/create-manual-reposition.command';
@@ -72,6 +73,7 @@ import { RepositionFlightLifecycleListener } from './application/event/external/
     ListAllRotationsQueryHandler,
     AssertRotationExistsHandler,
     AircraftLifecycleListener,
+    OperatorCacheListener,
     FlightLifecycleListener,
     RepositionRepository,
     CreateManualRepositionHandler,

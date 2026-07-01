@@ -2,6 +2,8 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { OperatorsRepository } from '../../infra/database/repository/operators.repository';
 import { OperatorNotFoundError } from '../../model/error/operator.error';
 import { UpdateOperatorRequest } from '../../infra/http/request/operator.request';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
+import { OperatorUpdatedEvent } from '../../../../core/domain/events/dto/operator.event';
 
 export class UpdateOperatorCommand {
   constructor(
@@ -12,7 +14,10 @@ export class UpdateOperatorCommand {
 
 @CommandHandler(UpdateOperatorCommand)
 export class UpdateOperatorHandler implements ICommandHandler<UpdateOperatorCommand> {
-  constructor(private readonly repository: OperatorsRepository) {}
+  constructor(
+    private readonly repository: OperatorsRepository,
+    private readonly domainEvents: DomainEventEmitter,
+  ) {}
 
   async execute(command: UpdateOperatorCommand): Promise<void> {
     const { operatorId, data } = command;
@@ -24,5 +29,6 @@ export class UpdateOperatorHandler implements ICommandHandler<UpdateOperatorComm
     }
 
     await this.repository.update(operatorId, data);
+    this.domainEvents.emit(new OperatorUpdatedEvent({ operatorId }));
   }
 }

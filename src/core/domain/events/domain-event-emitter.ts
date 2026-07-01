@@ -9,4 +9,11 @@ export class DomainEventEmitter {
   emit(event: DomainEvent): void {
     this.emitter.emit((event.constructor as typeof DomainEvent).name, event);
   }
+
+  async emitAsync(event: DomainEvent): Promise<void> {
+    await this.emitter.emitAsync(
+      (event.constructor as typeof DomainEvent).name,
+      event,
+    );
+  }
 }
