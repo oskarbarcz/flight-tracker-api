@@ -39,7 +39,8 @@ Feature: Create gate
         "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
         "name": "A20",
         "category": "schengen",
-        "parkingPositionId": null
+        "parkingPositionId": null,
+        "coordinates": null
       }
       """
     And I set database to initial state
@@ -64,7 +65,8 @@ Feature: Create gate
         "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
         "name": "A21",
         "category": "non-schengen",
-        "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
+        "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64",
+        "coordinates": null
       }
       """
     And I set database to initial state
@@ -89,7 +91,34 @@ Feature: Create gate
         "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
         "name": "A22",
         "category": "domestic",
-        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+        "coordinates": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I can create gate with coordinates
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate" with body:
+      """json
+      {
+        "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+        "name": "A23",
+        "category": "schengen",
+        "coordinates": { "latitude": 50.04898, "longitude": 8.56946 }
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+        "name": "A23",
+        "category": "schengen",
+        "parkingPositionId": null,
+        "coordinates": { "latitude": 50.04898, "longitude": 8.56946 }
       }
       """
     And I set database to initial state

@@ -13,7 +13,8 @@ Feature: List gates at an airport
           "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
           "name": "A10",
           "category": "schengen",
-          "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
+          "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
@@ -21,7 +22,8 @@ Feature: List gates at an airport
           "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
           "name": "A11",
           "category": "schengen",
-          "parkingPositionId": "ae098e8f-b088-41a6-a566-880c7dd5e931"
+          "parkingPositionId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2201",
@@ -29,7 +31,8 @@ Feature: List gates at an airport
           "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
           "name": "B5",
           "category": "non-schengen",
-          "parkingPositionId": "df5a931d-3b2e-4767-bdd4-1c14689e0e13"
+          "parkingPositionId": "df5a931d-3b2e-4767-bdd4-1c14689e0e13",
+          "coordinates": "@coordinates"
         }
       ]
       """
@@ -47,7 +50,8 @@ Feature: List gates at an airport
           "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
           "name": "A10",
           "category": "schengen",
-          "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
+          "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
@@ -55,7 +59,8 @@ Feature: List gates at an airport
           "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
           "name": "A11",
           "category": "schengen",
-          "parkingPositionId": "ae098e8f-b088-41a6-a566-880c7dd5e931"
+          "parkingPositionId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2201",
@@ -63,7 +68,8 @@ Feature: List gates at an airport
           "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
           "name": "B5",
           "category": "non-schengen",
-          "parkingPositionId": "df5a931d-3b2e-4767-bdd4-1c14689e0e13"
+          "parkingPositionId": "df5a931d-3b2e-4767-bdd4-1c14689e0e13",
+          "coordinates": "@coordinates"
         }
       ]
       """
@@ -81,7 +87,8 @@ Feature: List gates at an airport
           "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
           "name": "A10",
           "category": "schengen",
-          "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
+          "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
@@ -89,7 +96,8 @@ Feature: List gates at an airport
           "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
           "name": "A11",
           "category": "schengen",
-          "parkingPositionId": "ae098e8f-b088-41a6-a566-880c7dd5e931"
+          "parkingPositionId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2201",
@@ -97,7 +105,8 @@ Feature: List gates at an airport
           "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
           "name": "B5",
           "category": "non-schengen",
-          "parkingPositionId": "df5a931d-3b2e-4767-bdd4-1c14689e0e13"
+          "parkingPositionId": "df5a931d-3b2e-4767-bdd4-1c14689e0e13",
+          "coordinates": "@coordinates"
         }
       ]
       """
@@ -127,7 +136,8 @@ Feature: List gates at an airport
           "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
           "name": "A10",
           "category": "schengen",
-          "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
+          "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
@@ -135,7 +145,8 @@ Feature: List gates at an airport
           "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
           "name": "A11",
           "category": "schengen",
-          "parkingPositionId": "ae098e8f-b088-41a6-a566-880c7dd5e931"
+          "parkingPositionId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+          "coordinates": "@coordinates"
         },
         {
           "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2201",
@@ -143,7 +154,8 @@ Feature: List gates at an airport
           "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
           "name": "B5",
           "category": "non-schengen",
-          "parkingPositionId": "df5a931d-3b2e-4767-bdd4-1c14689e0e13"
+          "parkingPositionId": "df5a931d-3b2e-4767-bdd4-1c14689e0e13",
+          "coordinates": "@coordinates"
         }
       ]
       """

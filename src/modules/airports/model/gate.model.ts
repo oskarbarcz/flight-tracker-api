@@ -6,9 +6,12 @@ import {
   IsString,
   IsUUID,
   MaxLength,
+  ValidateNested,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 import { TerminalId } from './terminal.model';
 import { ParkingPositionId } from './parking-position.model';
+import { Coordinates } from './airport.model';
 
 export type GateId = string & {};
 
@@ -70,4 +73,16 @@ export class Gate {
   @IsOptional()
   @IsUUID()
   parkingPositionId?: ParkingPositionId | null;
+
+  @ApiProperty({
+    description: 'Gate coordinates',
+    type: Coordinates,
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => Coordinates)
+  coordinates?: Coordinates | null;
 }
