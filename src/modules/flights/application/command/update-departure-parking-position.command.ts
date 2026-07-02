@@ -3,30 +3,30 @@ import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import {
   FlightDoesNotExistError,
-  InvalidStatusToUpdateDepartureGateError,
+  InvalidStatusToUpdateDepartureParkingPositionError,
 } from '../../model/error/flight.error';
 import { FlightStatus } from '../../model/flight.model';
-import { DepartureGateWasChangedEvent } from '../../../../core/domain/events/dto/flight.events';
+import { DepartureParkingPositionWasChangedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { scopeForActor } from '../../model/event.model';
 import { JwtUser } from '../../../auth/infra/http/request/jwt-user.dto';
 
-export class UpdateDepartureGateCommand {
+export class UpdateDepartureParkingPositionCommand {
   constructor(
     public readonly flightId: string,
     public readonly actor: JwtUser,
-    public readonly departureGateId: string,
+    public readonly departureParkingPositionId: string,
   ) {}
 }
 
-@CommandHandler(UpdateDepartureGateCommand)
-export class UpdateDepartureGateHandler implements ICommandHandler<UpdateDepartureGateCommand> {
+@CommandHandler(UpdateDepartureParkingPositionCommand)
+export class UpdateDepartureParkingPositionHandler implements ICommandHandler<UpdateDepartureParkingPositionCommand> {
   constructor(
     private readonly flightsRepository: FlightsRepository,
     private readonly domainEvents: DomainEventEmitter,
   ) {}
 
-  async execute(command: UpdateDepartureGateCommand): Promise<void> {
-    const { flightId, actor, departureGateId } = command;
+  async execute(command: UpdateDepartureParkingPositionCommand): Promise<void> {
+    const { flightId, actor, departureParkingPositionId } = command;
 
     const flight = await this.flightsRepository.findOneBy({ id: flightId });
     if (!flight) {
@@ -38,13 +38,16 @@ export class UpdateDepartureGateHandler implements ICommandHandler<UpdateDepartu
       FlightStatus.Ready,
     ];
     if (!preCheckInStatuses.includes(flight.status)) {
-      throw new InvalidStatusToUpdateDepartureGateError();
+      throw new InvalidStatusToUpdateDepartureParkingPositionError();
     }
 
-    await this.flightsRepository.updateDepartureGate(flightId, departureGateId);
+    await this.flightsRepository.updateDepartureParkingPosition(
+      flightId,
+      departureParkingPositionId,
+    );
 
     this.domainEvents.emit(
-      new DepartureGateWasChangedEvent({
+      new DepartureParkingPositionWasChangedEvent({
         flightId,
         rotationId: flight.rotationId,
         scope: scopeForActor(actor),

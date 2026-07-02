@@ -44,9 +44,9 @@ export const flightWithAircraftAndAirportsFields = {
   source: true,
   tracking: true,
   createdAt: true,
-  departureGateId: true,
+  departureParkingPositionId: true,
   departureRunwayId: true,
-  arrivalGateId: true,
+  arrivalParkingPositionId: true,
   arrivalRunwayId: true,
   isEmergencyDeclared: true,
   isDiversionDeclared: true,
@@ -524,13 +524,13 @@ export class FlightsRepository {
     return count > 0;
   }
 
-  async updateDepartureGate(
+  async updateDepartureParkingPosition(
     flightId: string,
-    departureGateId: string,
+    departureParkingPositionId: string,
   ): Promise<void> {
     await this.prisma.flight.update({
       where: { id: flightId },
-      data: { departureGateId },
+      data: { departureParkingPositionId },
     });
   }
 
@@ -544,13 +544,13 @@ export class FlightsRepository {
     });
   }
 
-  async updateArrivalGate(
+  async updateArrivalParkingPosition(
     flightId: string,
-    arrivalGateId: string,
+    arrivalParkingPositionId: string,
   ): Promise<void> {
     await this.prisma.flight.update({
       where: { id: flightId },
-      data: { arrivalGateId },
+      data: { arrivalParkingPositionId },
     });
   }
 

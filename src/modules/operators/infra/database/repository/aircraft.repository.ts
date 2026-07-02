@@ -62,7 +62,7 @@ const aircraft = {
     },
   },
   lastAirportUpdatedAt: true,
-  lastGate: {
+  lastParkingPosition: {
     select: {
       id: true,
       name: true,
@@ -142,14 +142,14 @@ export class AircraftRepository {
   async updateLastLocation(
     id: string,
     airportId: string,
-    gateId: string | null,
+    parkingPositionId: string | null,
     when: Date,
   ): Promise<void> {
     await this.prisma.aircraft.update({
       where: { id },
       data: {
         lastAirportId: airportId,
-        lastGateId: gateId,
+        lastParkingPositionId: parkingPositionId,
         lastAirportUpdatedAt: when,
       },
     });

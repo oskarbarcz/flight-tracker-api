@@ -1,10 +1,10 @@
-Feature: Update flight departure gate
+Feature: Update flight departure parking position
 
-  Scenario: As an admin I cannot update departure gate
+  Scenario: As an admin I cannot update departure parking position
     Given I am signed in as "admin"
-    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-parking-position" with body:
       """json
-      { "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 403
     And the response body should contain:
@@ -16,14 +16,14 @@ Feature: Update flight departure gate
       }
       """
 
-  Scenario: As operations I can set departure gate
+  Scenario: As operations I can set departure parking position
     Given I open a WebSocket connection as "cabin crew"
     When I subscribe to flight events for "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
     Then I should receive flight event history within 2000ms
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-parking-position" with body:
       """json
-      { "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 200
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
@@ -142,9 +142,9 @@ Feature: Update flight departure gate
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
         "departureRunwayId": "32121288-2550-4b81-a558-9a7193ef6c97",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
@@ -187,24 +187,24 @@ Feature: Update flight departure gate
         {
           "id": "@uuid",
           "scope": "operations",
-          "type": "flight.departure-gate-changed",
+          "type": "flight.departure-parking-position-changed",
           "payload": {},
           "actor": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
           "createdAt": "@date('within 1 minute from now')"
         }
       ]
       """
-    And I should receive a live flight event of type "flight.departure-gate-changed" within 2000ms
+    And I should receive a live flight event of type "flight.departure-parking-position-changed" within 2000ms
     And I set database to initial state
 
-  Scenario: As cabin crew I can set departure gate
+  Scenario: As cabin crew I can set departure parking position
     Given I open a WebSocket connection as "cabin crew"
     When I subscribe to flight events for "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
     Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
-    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-parking-position" with body:
       """json
-      { "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 200
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/events"
@@ -239,21 +239,21 @@ Feature: Update flight departure gate
         {
           "id": "@uuid",
           "scope": "user",
-          "type": "flight.departure-gate-changed",
+          "type": "flight.departure-parking-position-changed",
           "payload": {},
           "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
           "createdAt": "@date('within 1 minute from now')"
         }
       ]
       """
-    And I should receive a live flight event of type "flight.departure-gate-changed" within 2000ms
+    And I should receive a live flight event of type "flight.departure-parking-position-changed" within 2000ms
     And I set database to initial state
 
-  Scenario: As operations I cannot clear departure gate with null
+  Scenario: As operations I cannot clear departure parking position with null
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-parking-position" with body:
       """json
-      { "departureGateId": null }
+      { "departureParkingPositionId": null }
       """
     Then the response status should be 400
     And the response body should contain:
@@ -263,64 +263,64 @@ Feature: Update flight departure gate
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "departureGateId": ["departureGateId must be a UUID"]
+          "departureParkingPositionId": ["departureParkingPositionId must be a UUID"]
         }
       }
       """
 
-  Scenario: As operations I cannot update gate after pilot checked in
+  Scenario: As operations I cannot update departure parking position after pilot checked in
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/48760636-9520-4863-b32f-f3618556feb7/departure-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/48760636-9520-4863-b32f-f3618556feb7/departure-parking-position" with body:
       """json
-      { "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 422
     And the response body should contain:
       """json
       {
-        "message": "Cannot update departure gate, because pilot is already checked in.",
+        "message": "Cannot update departure parking position, because pilot is already checked in.",
         "error": "Unprocessable Entity",
         "statusCode": 422
       }
       """
 
-  Scenario: As cabin crew I cannot update gate after pilot checked in
+  Scenario: As cabin crew I cannot update departure parking position after pilot checked in
     Given I am signed in as "cabin crew"
-    When I send a "PATCH" request to "/api/v1/flight/48760636-9520-4863-b32f-f3618556feb7/departure-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/48760636-9520-4863-b32f-f3618556feb7/departure-parking-position" with body:
       """json
-      { "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 422
     And the response body should contain:
       """json
       {
-        "message": "Cannot update departure gate, because pilot is already checked in.",
+        "message": "Cannot update departure parking position, because pilot is already checked in.",
         "error": "Unprocessable Entity",
         "statusCode": 422
       }
       """
 
-  Scenario: As operations I cannot assign gate that does not belong to departure airport
+  Scenario: As operations I cannot assign a parking position that does not belong to departure airport
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-parking-position" with body:
       """json
-      { "departureGateId": "58c83720-fb20-4c84-b727-ba6dda14f8d1" }
+      { "departureParkingPositionId": "58c83720-fb20-4c84-b727-ba6dda14f8d1" }
       """
     Then the response status should be 422
     And the response body should contain:
       """json
       {
-        "message": "Gate does not belong to the given airport.",
+        "message": "Parking position does not belong to the given airport.",
         "error": "Unprocessable Entity",
         "statusCode": 422
       }
       """
 
-  Scenario: As operations I cannot update gate of non-existing flight
+  Scenario: As operations I cannot update parking position of non-existing flight
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/58c83720-fb20-4c84-b727-ba6dda14f8d1/departure-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/58c83720-fb20-4c84-b727-ba6dda14f8d1/departure-parking-position" with body:
       """json
-      { "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 404
     And the response body should contain:
@@ -332,11 +332,11 @@ Feature: Update flight departure gate
       }
       """
 
-  Scenario: As operations I cannot update gate with invalid uuid in body
+  Scenario: As operations I cannot update parking position with invalid uuid in body
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-parking-position" with body:
       """json
-      { "departureGateId": "not-a-uuid" }
+      { "departureParkingPositionId": "not-a-uuid" }
       """
     Then the response status should be 400
     And the response body should contain:
@@ -346,15 +346,15 @@ Feature: Update flight departure gate
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "departureGateId": ["departureGateId must be a UUID"]
+          "departureParkingPositionId": ["departureParkingPositionId must be a UUID"]
         }
       }
       """
 
-  Scenario: As an unauthorized user I cannot update gate
-    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-gate" with body:
+  Scenario: As an unauthorized user I cannot update parking position
+    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-parking-position" with body:
       """json
-      { "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 401
     And the response body should contain:

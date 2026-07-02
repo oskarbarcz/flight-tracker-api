@@ -149,7 +149,7 @@ Feature: Reposition an aircraft
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
-        "lastGate": null
+        "lastParkingPosition": null
       }
       """
     And I set database to initial state

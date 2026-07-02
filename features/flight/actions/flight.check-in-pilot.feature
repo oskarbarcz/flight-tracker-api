@@ -177,9 +177,9 @@ Feature: Check in pilot for flight
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
@@ -428,7 +428,7 @@ Feature: Check in pilot for flight
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
-        "lastGate": null
+        "lastParkingPosition": null
       }
       """
     And I should receive a live flight event of type "flight.pilot-checked-in" within 2000ms
@@ -600,9 +600,9 @@ Feature: Check in pilot for flight
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": "6bbf43a4-9242-4f04-b195-6a7bcd1f14c4",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
@@ -728,7 +728,7 @@ Feature: Check in pilot for flight
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
-        "lastGate": null
+        "lastParkingPosition": null
       }
       """
     And I should receive a live flight event of type "flight.pilot-checked-in" within 2000ms

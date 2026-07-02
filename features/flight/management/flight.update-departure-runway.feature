@@ -141,9 +141,9 @@ Feature: Update flight departure runway
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
         "departureRunwayId": "5ae7e0f1-392a-4140-bb2a-4efee09fe9f1",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
@@ -321,9 +321,9 @@ Feature: Update flight departure runway
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
         "departureRunwayId": "5ae7e0f1-392a-4140-bb2a-4efee09fe9f1",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,

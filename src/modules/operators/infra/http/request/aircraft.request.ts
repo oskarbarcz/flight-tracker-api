@@ -68,17 +68,20 @@ export class AircraftAirport {
   location!: Coordinates;
 }
 
-export class AircraftGate {
+export class AircraftParkingPosition {
   @ApiProperty({
-    description: 'Gate unique system identifier',
+    description: 'Parking position unique system identifier',
     example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
   })
   id!: string;
 
-  @ApiProperty({ description: 'Gate name', example: 'A14' })
+  @ApiProperty({ description: 'Parking position name', example: '445' })
   name!: string;
 
-  @ApiProperty({ description: 'Gate coordinates', type: Coordinates })
+  @ApiProperty({
+    description: 'Parking position coordinates',
+    type: Coordinates,
+  })
   coordinates!: Coordinates;
 }
 
@@ -115,11 +118,11 @@ export class GetAircraftResponse extends Aircraft {
   lastAirportUpdatedAt!: Date | null;
 
   @ApiProperty({
-    description: 'Gate where the aircraft last parked',
-    type: AircraftGate,
+    description: 'Parking position where the aircraft last parked',
+    type: AircraftParkingPosition,
     nullable: true,
   })
-  lastGate!: AircraftGate | null;
+  lastParkingPosition!: AircraftParkingPosition | null;
 }
 
 export class LegacyCreateAircraftResponse extends Aircraft {

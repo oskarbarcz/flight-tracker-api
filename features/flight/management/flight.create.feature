@@ -145,9 +145,9 @@ Feature: Create a flight
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": null,
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
@@ -193,7 +193,7 @@ Feature: Create a flight
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
-        "lastGate": null
+        "lastParkingPosition": null
       }
       """
     And I set database to initial state
@@ -367,9 +367,9 @@ Feature: Create a flight
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": null,
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,

@@ -12,9 +12,9 @@ export enum FlightEventType {
   PreliminaryLoadsheetWasUpdated = 'flight.preliminary-loadsheet-updated',
   ScheduledTimesheetWasUpdated = 'flight.scheduled-timesheet-updated',
   PredictedTimesheetWasUpdated = 'flight.predicted-timesheet-updated',
-  DepartureGateWasChanged = 'flight.departure-gate-changed',
+  DepartureParkingPositionWasChanged = 'flight.departure-parking-position-changed',
   DepartureRunwayWasChanged = 'flight.departure-runway-changed',
-  ArrivalGateWasChanged = 'flight.arrival-gate-changed',
+  ArrivalParkingPositionWasChanged = 'flight.arrival-parking-position-changed',
   ArrivalRunwayWasChanged = 'flight.arrival-runway-changed',
   FlightWasAddedToRotation = 'flight.added-to-rotation',
   FlightWasRemovedFromRotation = 'flight.removed-from-rotation',
@@ -88,16 +88,16 @@ export class PredictedTimesheetWasUpdatedEvent extends FlightLifecycleEvent {
   static readonly name = FlightEventType.PredictedTimesheetWasUpdated;
 }
 
-export class DepartureGateWasChangedEvent extends FlightLifecycleEvent {
-  static readonly name = FlightEventType.DepartureGateWasChanged;
+export class DepartureParkingPositionWasChangedEvent extends FlightLifecycleEvent {
+  static readonly name = FlightEventType.DepartureParkingPositionWasChanged;
 }
 
 export class DepartureRunwayWasChangedEvent extends FlightLifecycleEvent {
   static readonly name = FlightEventType.DepartureRunwayWasChanged;
 }
 
-export class ArrivalGateWasChangedEvent extends FlightLifecycleEvent {
-  static readonly name = FlightEventType.ArrivalGateWasChanged;
+export class ArrivalParkingPositionWasChangedEvent extends FlightLifecycleEvent {
+  static readonly name = FlightEventType.ArrivalParkingPositionWasChanged;
 }
 
 export class ArrivalRunwayWasChangedEvent extends FlightLifecycleEvent {

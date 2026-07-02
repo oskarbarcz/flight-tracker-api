@@ -31,7 +31,7 @@ Feature: List aircraft
           },
           "lastAirport": null,
           "lastAirportUpdatedAt": null,
-          "lastGate": null
+          "lastParkingPosition": null
         },
         {
           "id": "b84e4c67-7565-4846-84c4-ab8215308fbd",
@@ -64,9 +64,9 @@ Feature: List aircraft
             "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-02T02:45:00.000Z",
-          "lastGate": {
-            "id": "3f2814f7-7dd6-4609-ba6a-878a4f2428b6",
-            "name": "B22",
+          "lastParkingPosition": {
+            "id": "e74b3184-4bdd-4055-b8ce-62d7d95df0fb",
+            "name": "B20B",
             "coordinates": "@coordinates"
           }
         },
@@ -101,9 +101,9 @@ Feature: List aircraft
             "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
-          "lastGate": {
-            "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
-            "name": "A10",
+          "lastParkingPosition": {
+            "id": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+            "name": "B 42",
             "coordinates": "@coordinates"
           }
         },
@@ -138,7 +138,7 @@ Feature: List aircraft
             "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-01T16:28:00.000Z",
-          "lastGate": null
+          "lastParkingPosition": null
         },
         {
           "id": "ed7ed4bb-95ff-4e79-9331-11212ef727ec",
@@ -171,7 +171,7 @@ Feature: List aircraft
             "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-01T12:00:00.000Z",
-          "lastGate": null
+          "lastParkingPosition": null
         },
         {
           "id": "5637d186-d9e4-45e4-9940-ae6f6552c9ae",
@@ -204,7 +204,7 @@ Feature: List aircraft
             "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
-          "lastGate": null
+          "lastParkingPosition": null
         },
         {
           "id": "785bdfda-291a-4c11-a5d9-b57b5c0b8e5e",
@@ -237,7 +237,7 @@ Feature: List aircraft
             "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
-          "lastGate": null
+          "lastParkingPosition": null
         },
         {
           "id": "cfedcfae-6e80-4801-8a89-12b2430c908b",
@@ -270,7 +270,7 @@ Feature: List aircraft
             "location": "@coordinates"
           },
           "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
-          "lastGate": null
+          "lastParkingPosition": null
         }
       ]
       """

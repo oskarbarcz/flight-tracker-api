@@ -13,7 +13,7 @@ export async function loadAircraft(): Promise<void> {
     baseAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
     lastAirportId: null,
     lastAirportUpdatedAt: null,
-    lastGateId: null,
+    lastParkingPositionId: null,
   };
 
   const a321: Aircraft = {
@@ -27,7 +27,7 @@ export async function loadAircraft(): Promise<void> {
     baseAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
     lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportUpdatedAt: new Date('2025-01-02 18:00'),
-    lastGateId: null,
+    lastParkingPositionId: null,
   };
 
   const a319: Aircraft = {
@@ -41,7 +41,7 @@ export async function loadAircraft(): Promise<void> {
     baseAirportId: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf', // EDDW
     lastAirportId: null,
     lastAirportUpdatedAt: null,
-    lastGateId: null,
+    lastParkingPositionId: null,
   };
 
   const b773: Aircraft = {
@@ -55,7 +55,7 @@ export async function loadAircraft(): Promise<void> {
     baseAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportUpdatedAt: new Date('2025-01-01 08:00'),
-    lastGateId: null,
+    lastParkingPositionId: null,
   };
 
   // One dedicated aircraft per flight fixture, so each flight-status fixture
@@ -86,7 +86,7 @@ export async function loadAircraft(): Promise<void> {
     lastAirportId: string,
     lastAirportUpdatedAt: Date,
     currentState: AircraftState,
-    lastGateId: string | null = null,
+    lastParkingPositionId: string | null = null,
   ): Aircraft => ({
     id,
     type,
@@ -98,7 +98,7 @@ export async function loadAircraft(): Promise<void> {
     baseAirportId,
     lastAirportId,
     lastAirportUpdatedAt,
-    lastGateId,
+    lastParkingPositionId,
   });
 
   const fleet: Aircraft[] = [
@@ -271,7 +271,7 @@ export async function loadAircraft(): Promise<void> {
       KJFK,
       dlh40OnBlock,
       AircraftState.idle,
-      '3f2814f7-7dd6-4609-ba6a-878a4f2428b6', // KJFK T1 gate "B22"
+      'e74b3184-4bdd-4055-b8ce-62d7d95df0fb', // KJFK T1 gate "B22" parking position
     ), // DLH40 Closed (EDDF->KJFK)
     mk(
       'becc1596-dfa0-452b-81ec-3f1f2fa0dce2',
@@ -284,7 +284,7 @@ export async function loadAircraft(): Promise<void> {
       EDDF,
       atBase,
       AircraftState.planned,
-      '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101', // EDDF T1 gate "A10"
+      'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9', // EDDF T1 gate "A10" parking position
     ), // DLH41 Created
     mk(
       'a9b9205d-53b1-4eec-bb24-548a12159997',
