@@ -12,7 +12,8 @@ Feature: Get gate
         "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
         "name": "A10",
         "category": "schengen",
-        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+        "coordinates": "@coordinates"
       }
       """
 
@@ -28,7 +29,8 @@ Feature: Get gate
         "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
         "name": "A10",
         "category": "schengen",
-        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+        "coordinates": "@coordinates"
       }
       """
 
@@ -44,7 +46,8 @@ Feature: Get gate
         "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
         "name": "A10",
         "category": "schengen",
-        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+        "coordinates": "@coordinates"
       }
       """
 
@@ -98,6 +101,7 @@ Feature: Get gate
         "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
         "name": "A10",
         "category": "schengen",
-        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+        "coordinates": "@coordinates"
       }
       """
