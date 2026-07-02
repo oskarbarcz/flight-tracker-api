@@ -35,9 +35,11 @@ export class FlightIncorrectStateToChangeRotationError extends BadRequestExcepti
   }
 }
 
-export class InvalidStatusToUpdateDepartureGateError extends UnprocessableEntityException {
+export class InvalidStatusToUpdateDepartureParkingPositionError extends UnprocessableEntityException {
   constructor() {
-    super('Cannot update departure gate, because pilot is already checked in.');
+    super(
+      'Cannot update departure parking position, because pilot is already checked in.',
+    );
   }
 }
 
@@ -47,9 +49,11 @@ export class InvalidStatusToUpdateDepartureRunwayError extends UnprocessableEnti
   }
 }
 
-export class InvalidStatusToUpdateArrivalGateError extends UnprocessableEntityException {
+export class InvalidStatusToUpdateArrivalParkingPositionError extends UnprocessableEntityException {
   constructor() {
-    super('Cannot update arrival gate after on-block was reported.');
+    super(
+      'Cannot update arrival parking position after on-block was reported.',
+    );
   }
 }
 

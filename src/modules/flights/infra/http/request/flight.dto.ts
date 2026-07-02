@@ -32,9 +32,9 @@ export class CreateFlightRequest extends OmitType(Flight, [
   'isEmergencyDeclared',
   'hasFlightPath',
   'createdAt',
-  'departureGateId',
+  'departureParkingPositionId',
   'departureRunwayId',
-  'arrivalGateId',
+  'arrivalParkingPositionId',
   'arrivalRunwayId',
 ]) {
   @ApiProperty({
@@ -100,13 +100,13 @@ export class UpdateFlightVisibilityRequest extends PickType(Flight, [
   'tracking',
 ]) {}
 
-export class UpdateDepartureGateRequest {
+export class UpdateDepartureParkingPositionRequest {
   @ApiProperty({
-    description: 'Departure gate unique identifier',
-    example: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
+    description: 'Departure parking position unique identifier',
+    example: 'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9',
   })
   @IsUUID()
-  departureGateId!: string;
+  departureParkingPositionId!: string;
 }
 
 export class UpdateDepartureRunwayRequest {
@@ -118,13 +118,13 @@ export class UpdateDepartureRunwayRequest {
   departureRunwayId!: string;
 }
 
-export class UpdateArrivalGateRequest {
+export class UpdateArrivalParkingPositionRequest {
   @ApiProperty({
-    description: 'Arrival gate unique identifier',
-    example: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
+    description: 'Arrival parking position unique identifier',
+    example: 'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9',
   })
   @IsUUID()
-  arrivalGateId!: string;
+  arrivalParkingPositionId!: string;
 }
 
 export class UpdateArrivalRunwayRequest {

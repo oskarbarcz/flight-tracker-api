@@ -11,22 +11,8 @@ Feature: Get gate
         "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
         "name": "A10",
-        "bridge": "yes",
-        "stairs": "no",
-        "deicing": "possible",
-        "deicingDescription": null,
-        "gpu": "bridge",
-        "pca": "bridge",
-        "parkingPositionType": "straight-in",
-        "parkingSpotType": "passenger",
-        "parkingAssistance": "vdgs",
-        "location": "gate",
-        "noiseSensitivity": "no",
-        "noiseSensitivityText": null,
-        "noiseSensitivityStartTime": null,
-        "noiseSensitivityEndTime": null,
-        "fuelingOptions": "hydrant",
-        "coordinates": "@coordinates"
+        "category": "schengen",
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
       }
       """
 
@@ -41,22 +27,8 @@ Feature: Get gate
         "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
         "name": "A10",
-        "bridge": "yes",
-        "stairs": "no",
-        "deicing": "possible",
-        "deicingDescription": null,
-        "gpu": "bridge",
-        "pca": "bridge",
-        "parkingPositionType": "straight-in",
-        "parkingSpotType": "passenger",
-        "parkingAssistance": "vdgs",
-        "location": "gate",
-        "noiseSensitivity": "no",
-        "noiseSensitivityText": null,
-        "noiseSensitivityStartTime": null,
-        "noiseSensitivityEndTime": null,
-        "fuelingOptions": "hydrant",
-        "coordinates": "@coordinates"
+        "category": "schengen",
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
       }
       """
 
@@ -71,22 +43,8 @@ Feature: Get gate
         "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
         "name": "A10",
-        "bridge": "yes",
-        "stairs": "no",
-        "deicing": "possible",
-        "deicingDescription": null,
-        "gpu": "bridge",
-        "pca": "bridge",
-        "parkingPositionType": "straight-in",
-        "parkingSpotType": "passenger",
-        "parkingAssistance": "vdgs",
-        "location": "gate",
-        "noiseSensitivity": "no",
-        "noiseSensitivityText": null,
-        "noiseSensitivityStartTime": null,
-        "noiseSensitivityEndTime": null,
-        "fuelingOptions": "hydrant",
-        "coordinates": "@coordinates"
+        "category": "schengen",
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
       }
       """
 
@@ -139,21 +97,7 @@ Feature: Get gate
         "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
         "name": "A10",
-        "bridge": "yes",
-        "stairs": "no",
-        "deicing": "possible",
-        "deicingDescription": null,
-        "gpu": "bridge",
-        "pca": "bridge",
-        "parkingPositionType": "straight-in",
-        "parkingSpotType": "passenger",
-        "parkingAssistance": "vdgs",
-        "location": "gate",
-        "noiseSensitivity": "no",
-        "noiseSensitivityText": null,
-        "noiseSensitivityStartTime": null,
-        "noiseSensitivityEndTime": null,
-        "fuelingOptions": "hydrant",
-        "coordinates": "@coordinates"
+        "category": "schengen",
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
       }
       """

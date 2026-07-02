@@ -187,7 +187,7 @@ Feature: Report on-block
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
-        "lastGate": null
+        "lastParkingPosition": null
       }
       """
     When I send a "GET" request to "/api/v1/user/me/stats"
@@ -340,9 +340,9 @@ Feature: Report on-block
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,

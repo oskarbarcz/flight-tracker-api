@@ -52,13 +52,13 @@ export class FlightLifecycleListener {
 
     const flight = await this.prisma.flight.findUnique({
       where: { id: event.payload.flightId },
-      select: { arrivalGateId: true },
+      select: { arrivalParkingPositionId: true },
     });
 
     await this.aircraftRepository.updateLastLocation(
       event.payload.aircraftId,
       event.payload.landingAirportId,
-      flight?.arrivalGateId ?? null,
+      flight?.arrivalParkingPositionId ?? null,
       new Date(),
     );
   }

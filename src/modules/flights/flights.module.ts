@@ -18,8 +18,8 @@ import { UpdatePreliminaryLoadsheetAction } from './infra/http/action/loadsheet/
 import { UpdateScheduledTimesheetAction } from './infra/http/action/timesheet/update-scheduled-timesheet.action';
 import { UpdatePredictedTimesheetAction } from './infra/http/action/timesheet/update-predicted-timesheet.action';
 import { ChangeFlightVisibilityAction } from './infra/http/action/tracking/change-flight-visibility.action';
-import { UpdateDepartureGateAction } from './infra/http/action/gate/update-departure-gate.action';
-import { UpdateArrivalGateAction } from './infra/http/action/gate/update-arrival-gate.action';
+import { UpdateDepartureParkingPositionAction } from './infra/http/action/parking-position/update-departure-parking-position.action';
+import { UpdateArrivalParkingPositionAction } from './infra/http/action/parking-position/update-arrival-parking-position.action';
 import { UpdateDepartureRunwayAction } from './infra/http/action/runway/update-departure-runway.action';
 import { UpdateArrivalRunwayAction } from './infra/http/action/runway/update-arrival-runway.action';
 import { MarkFlightAsReadyAction } from './infra/http/action/lifecycle/mark-flight-as-ready.action';
@@ -73,9 +73,9 @@ import { GetOfpHandler } from './application/query/get-ofp.query';
 import { GetPathHandler } from './application/query/path/get-path.query';
 import { GetFlightTrackingHandler } from './application/query/get-flight-tracking.query';
 import { ChangeFlightVisibilityHandler } from './application/command/change-flight-visibility.command';
-import { UpdateDepartureGateHandler } from './application/command/update-departure-gate.command';
+import { UpdateDepartureParkingPositionHandler } from './application/command/update-departure-parking-position.command';
 import { UpdateDepartureRunwayHandler } from './application/command/update-departure-runway.command';
-import { UpdateArrivalGateHandler } from './application/command/update-arrival-gate.command';
+import { UpdateArrivalParkingPositionHandler } from './application/command/update-arrival-parking-position.command';
 import { UpdateArrivalRunwayHandler } from './application/command/update-arrival-runway.command';
 import { AddFlightToRotationHandler } from './application/command/rotation/add-flight-to-rotation.command';
 import { RemoveFlightFromRotationHandler } from './application/command/rotation/remove-flight-from-rotation.command';
@@ -114,8 +114,8 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     UpdateScheduledTimesheetAction,
     UpdatePredictedTimesheetAction,
     ChangeFlightVisibilityAction,
-    UpdateDepartureGateAction,
-    UpdateArrivalGateAction,
+    UpdateDepartureParkingPositionAction,
+    UpdateArrivalParkingPositionAction,
     UpdateDepartureRunwayAction,
     UpdateArrivalRunwayAction,
     MarkFlightAsReadyAction,
@@ -182,9 +182,9 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     GetPathHandler,
     GetFlightTrackingHandler,
     ChangeFlightVisibilityHandler,
-    UpdateDepartureGateHandler,
+    UpdateDepartureParkingPositionHandler,
     UpdateDepartureRunwayHandler,
-    UpdateArrivalGateHandler,
+    UpdateArrivalParkingPositionHandler,
     UpdateArrivalRunwayHandler,
     AddFlightToRotationHandler,
     RemoveFlightFromRotationHandler,

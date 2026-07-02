@@ -180,13 +180,13 @@ export class Flight {
   tracking: FlightTracking = FlightTracking.Private;
 
   @ApiProperty({
-    description: 'Departure gate unique identifier',
-    example: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
+    description: 'Departure parking position unique identifier',
+    example: 'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9',
     required: false,
     nullable: true,
     default: null,
   })
-  departureGateId!: string | null;
+  departureParkingPositionId!: string | null;
 
   @ApiProperty({
     description: 'Departure runway unique identifier',
@@ -198,13 +198,13 @@ export class Flight {
   departureRunwayId!: string | null;
 
   @ApiProperty({
-    description: 'Arrival gate unique identifier',
-    example: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
+    description: 'Arrival parking position unique identifier',
+    example: 'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9',
     required: false,
     nullable: true,
     default: null,
   })
-  arrivalGateId!: string | null;
+  arrivalParkingPositionId!: string | null;
 
   @ApiProperty({
     description: 'Arrival runway unique identifier',

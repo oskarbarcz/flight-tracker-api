@@ -150,9 +150,9 @@ Feature: Update flight scheduled timesheet
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,

@@ -137,9 +137,9 @@ Feature: Get flight
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
         "departureRunwayId": "32121288-2550-4b81-a558-9a7193ef6c97",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
@@ -309,9 +309,9 @@ Feature: Get flight
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,

@@ -22,6 +22,17 @@ import { UpdateGateHandler } from './application/command/gates/update-gate.comma
 import { RemoveGateHandler } from './application/command/gates/remove-gate.command';
 import { GetGateByIdHandler } from './application/query/gate/get-gate-by-id.query';
 import { ListGatesByAirportHandler } from './application/query/gate/list-gates-by-airport.query';
+import { ParkingPositionsRepository } from './infra/database/parking-positions.repository';
+import { CreateParkingPositionAction } from './infra/http/action/parking-position/create-parking-position.action';
+import { ListParkingPositionsAction } from './infra/http/action/parking-position/list-parking-positions.action';
+import { GetParkingPositionAction } from './infra/http/action/parking-position/get-parking-position.action';
+import { UpdateParkingPositionAction } from './infra/http/action/parking-position/update-parking-position.action';
+import { RemoveParkingPositionAction } from './infra/http/action/parking-position/remove-parking-position.action';
+import { CreateParkingPositionHandler } from './application/command/parking-positions/create-parking-position.command';
+import { UpdateParkingPositionHandler } from './application/command/parking-positions/update-parking-position.command';
+import { RemoveParkingPositionHandler } from './application/command/parking-positions/remove-parking-position.command';
+import { GetParkingPositionByIdHandler } from './application/query/parking-position/get-parking-position-by-id.query';
+import { ListParkingPositionsByAirportHandler } from './application/query/parking-position/list-parking-positions-by-airport.query';
 import { RunwaysRepository } from './infra/database/runways.repository';
 import { RunwaysController } from './infra/http/controller/runways.controller';
 import { CreateRunwayHandler } from './application/command/runways/create-runway.command';
@@ -29,7 +40,7 @@ import { UpdateRunwayHandler } from './application/command/runways/update-runway
 import { RemoveRunwayHandler } from './application/command/runways/remove-runway.command';
 import { GetRunwayByIdHandler } from './application/query/runway/get-runway-by-id.query';
 import { ListRunwaysByAirportHandler } from './application/query/runway/list-runways-by-airport.query';
-import { AssertGateBelongsToAirportHandler } from './application/assert/assert-gate-belongs-to-airport.command';
+import { AssertParkingPositionBelongsToAirportHandler } from './application/assert/assert-parking-position-belongs-to-airport.command';
 import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert-runway-belongs-to-airport.command';
 
 @Module({
@@ -38,12 +49,18 @@ import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert
     AirportsController,
     TerminalsController,
     GatesController,
+    CreateParkingPositionAction,
+    ListParkingPositionsAction,
+    GetParkingPositionAction,
+    UpdateParkingPositionAction,
+    RemoveParkingPositionAction,
     RunwaysController,
   ],
   providers: [
     AirportsRepository,
     TerminalsRepository,
     GatesRepository,
+    ParkingPositionsRepository,
     RunwaysRepository,
     CreateAirportHandler,
     UpdateAirportHandler,
@@ -61,12 +78,17 @@ import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert
     RemoveGateHandler,
     GetGateByIdHandler,
     ListGatesByAirportHandler,
+    CreateParkingPositionHandler,
+    UpdateParkingPositionHandler,
+    RemoveParkingPositionHandler,
+    GetParkingPositionByIdHandler,
+    ListParkingPositionsByAirportHandler,
     CreateRunwayHandler,
     UpdateRunwayHandler,
     RemoveRunwayHandler,
     GetRunwayByIdHandler,
     ListRunwaysByAirportHandler,
-    AssertGateBelongsToAirportHandler,
+    AssertParkingPositionBelongsToAirportHandler,
     AssertRunwayBelongsToAirportHandler,
   ],
 })

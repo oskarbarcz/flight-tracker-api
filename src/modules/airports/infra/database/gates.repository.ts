@@ -8,22 +8,8 @@ const selectGate = {
   airportId: true,
   terminalId: true,
   name: true,
-  bridge: true,
-  stairs: true,
-  deicing: true,
-  deicingDescription: true,
-  gpu: true,
-  pca: true,
-  parkingPositionType: true,
-  parkingSpotType: true,
-  parkingAssistance: true,
-  location: true,
-  noiseSensitivity: true,
-  noiseSensitivityText: true,
-  noiseSensitivityStartTime: true,
-  noiseSensitivityEndTime: true,
-  fuelingOptions: true,
-  coordinates: true,
+  category: true,
+  parkingPositionId: true,
 } as const satisfies Prisma.GateSelect;
 
 type GateView = Prisma.GateGetPayload<{
@@ -44,10 +30,6 @@ export class GatesRepository {
         id: gateId,
         airportId,
         ...data,
-        coordinates:
-          data.coordinates == null
-            ? Prisma.DbNull
-            : (data.coordinates as unknown as Prisma.InputJsonValue),
       },
       select: selectGate,
     });
@@ -73,15 +55,7 @@ export class GatesRepository {
   async update(id: string, data: UpdateGateRequest): Promise<void> {
     await this.prisma.gate.update({
       where: { id },
-      data: {
-        ...data,
-        coordinates:
-          data.coordinates === undefined
-            ? undefined
-            : data.coordinates === null
-              ? Prisma.DbNull
-              : (data.coordinates as unknown as Prisma.InputJsonValue),
-      },
+      data,
     });
   }
 

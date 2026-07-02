@@ -113,9 +113,9 @@ Feature: Create a flight with Simbrief
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": null,
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,

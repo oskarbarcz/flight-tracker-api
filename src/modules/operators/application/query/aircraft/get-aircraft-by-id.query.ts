@@ -1,7 +1,7 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import {
   AircraftAirport,
-  AircraftGate,
+  AircraftParkingPosition,
   GetAircraftResponse,
 } from '../../../infra/http/request/aircraft.request';
 import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
@@ -62,7 +62,8 @@ export class GetAircraftByIdHandler implements IQueryHandler<GetAircraftByIdQuer
       baseAirport: aircraft.baseAirport as AircraftAirport | null,
       lastAirport: aircraft.lastAirport as AircraftAirport | null,
       lastAirportUpdatedAt: aircraft.lastAirportUpdatedAt,
-      lastGate: aircraft.lastGate as AircraftGate | null,
+      lastParkingPosition:
+        aircraft.lastParkingPosition as AircraftParkingPosition | null,
     };
   }
 }

@@ -10,24 +10,24 @@ datasource db {
 }
 
 model Aircraft {
-  id                   String        @id @default(uuid()) @db.Uuid
-  type                 String        @db.VarChar(4)
-  registration         String        @unique
-  selcal               String
-  livery               String
-  currentState         AircraftState @default(idle)
-  operatorId           String?       @db.Uuid
-  baseAirportId        String?       @db.Uuid
-  lastAirportId        String?       @db.Uuid
-  lastAirportUpdatedAt DateTime?
-  lastGateId           String?       @db.Uuid
+  id                    String        @id @default(uuid()) @db.Uuid
+  type                  String        @db.VarChar(4)
+  registration          String        @unique
+  selcal                String
+  livery                String
+  currentState          AircraftState @default(idle)
+  operatorId            String?       @db.Uuid
+  baseAirportId         String?       @db.Uuid
+  lastAirportId         String?       @db.Uuid
+  lastAirportUpdatedAt  DateTime?
+  lastParkingPositionId String?       @db.Uuid
 
-  operator    Operator?            @relation(fields: [operatorId], references: [id])
-  baseAirport Airport?             @relation("AircraftBaseAirport", fields: [baseAirportId], references: [id], onDelete: SetNull)
-  lastAirport Airport?             @relation("AircraftLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
-  lastGate    Gate?                @relation("AircraftLastGate", fields: [lastGateId], references: [id], onDelete: SetNull)
-  flight      Flight[]
-  repositions AircraftReposition[]
+  operator            Operator?            @relation(fields: [operatorId], references: [id])
+  baseAirport         Airport?             @relation("AircraftBaseAirport", fields: [baseAirportId], references: [id], onDelete: SetNull)
+  lastAirport         Airport?             @relation("AircraftLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
+  lastParkingPosition ParkingPosition?     @relation("AircraftLastParkingPosition", fields: [lastParkingPositionId], references: [id], onDelete: SetNull)
+  flight              Flight[]
+  repositions         AircraftReposition[]
 
   @@map("aircraft")
 }
@@ -98,6 +98,20 @@ model Terminal {
 }
 
 model Gate {
+  id                String  @id @default(uuid()) @db.Uuid
+  airportId         String  @db.Uuid
+  terminalId        String  @db.Uuid
+  name              String  @db.VarChar(16)
+  category          String  @db.VarChar(32)
+  parkingPositionId String? @db.Uuid
+
+  terminal        Terminal         @relation(fields: [terminalId], references: [id], onDelete: Cascade)
+  parkingPosition ParkingPosition? @relation(fields: [parkingPositionId], references: [id], onDelete: SetNull)
+
+  @@map("gate")
+}
+
+model ParkingPosition {
   id                        String  @id @default(uuid()) @db.Uuid
   airportId                 String  @db.Uuid
   terminalId                String  @db.Uuid
@@ -108,9 +122,9 @@ model Gate {
   deicingDescription        String? @db.Text
   gpu                       String  @db.VarChar(32)
   pca                       String  @db.VarChar(32)
-  parkingPositionType       String  @db.VarChar(32)
-  parkingSpotType           String  @db.VarChar(32)
-  parkingAssistance         String  @db.VarChar(32)
+  type                      String  @db.VarChar(32)
+  spotType                  String  @db.VarChar(32)
+  assistance                String  @db.VarChar(32)
   location                  String  @db.VarChar(32)
   noiseSensitivity          String  @db.VarChar(32)
   noiseSensitivityText      String? @db.Text
@@ -119,12 +133,12 @@ model Gate {
   fuelingOptions            String  @db.VarChar(32)
   coordinates               Json?
 
-  terminal         Terminal   @relation(fields: [terminalId], references: [id], onDelete: Cascade)
-  departureFlights Flight[]   @relation("FlightDepartureGate")
-  arrivalFlights   Flight[]   @relation("FlightArrivalGate")
-  lastSeenAircraft Aircraft[] @relation("AircraftLastGate")
+  gates            Gate[]
+  departureFlights Flight[]   @relation("FlightDepartureParkingPosition")
+  arrivalFlights   Flight[]   @relation("FlightArrivalParkingPosition")
+  lastSeenAircraft Aircraft[] @relation("AircraftLastParkingPosition")
 
-  @@map("gate")
+  @@map("parking_position")
 }
 
 model Operator {
@@ -153,54 +167,54 @@ model Operator {
 }
 
 model Flight {
-  id                  String         @id @default(uuid()) @db.Uuid
-  flightNumber        String
-  callsign            String
-  atcCallsign         String?
-  status              String
-  aircraftId          String         @db.Uuid
-  timesheet           Json
-  loadsheets          Json           @default("{\"final\": null, \"preliminary\": null}")
-  operatorId          String         @db.Uuid
-  rotationId          String?        @db.Uuid
-  captainId           String?        @db.Uuid
-  source              FlightSource   @default(manual)
-  tracking            FlightTracking @default(private)
-  createdAt           DateTime       @default(now())
-  positionReports     Json           @default("[]")
-  runwayAnalysis      String?
-  ofpContent          String?
-  ofpDocumentUrl      String?
-  simbriefRequestId   Int?
-  simbriefSequenceId  String?
-  isEtops             Boolean        @default(false)
-  greatCircleDistance Int            @default(1)
-  totalFuelBurned     Int            @default(1)
-  route               String?
-  departureGateId     String?        @db.Uuid
-  departureRunwayId   String?        @db.Uuid
-  arrivalGateId       String?        @db.Uuid
-  arrivalRunwayId     String?        @db.Uuid
-  isEmergencyDeclared Boolean        @default(false)
-  isDiversionDeclared Boolean        @default(false)
-  isPathAvailable     Boolean        @default(false)
+  id                         String         @id @default(uuid()) @db.Uuid
+  flightNumber               String
+  callsign                   String
+  atcCallsign                String?
+  status                     String
+  aircraftId                 String         @db.Uuid
+  timesheet                  Json
+  loadsheets                 Json           @default("{\"final\": null, \"preliminary\": null}")
+  operatorId                 String         @db.Uuid
+  rotationId                 String?        @db.Uuid
+  captainId                  String?        @db.Uuid
+  source                     FlightSource   @default(manual)
+  tracking                   FlightTracking @default(private)
+  createdAt                  DateTime       @default(now())
+  positionReports            Json           @default("[]")
+  runwayAnalysis             String?
+  ofpContent                 String?
+  ofpDocumentUrl             String?
+  simbriefRequestId          Int?
+  simbriefSequenceId         String?
+  isEtops                    Boolean        @default(false)
+  greatCircleDistance        Int            @default(1)
+  totalFuelBurned            Int            @default(1)
+  route                      String?
+  departureParkingPositionId String?        @db.Uuid
+  departureRunwayId          String?        @db.Uuid
+  arrivalParkingPositionId   String?        @db.Uuid
+  arrivalRunwayId            String?        @db.Uuid
+  isEmergencyDeclared        Boolean        @default(false)
+  isDiversionDeclared        Boolean        @default(false)
+  isPathAvailable            Boolean        @default(false)
 
-  operator             Operator               @relation(fields: [operatorId], references: [id])
-  rotation             Rotation?              @relation(fields: [rotationId], references: [id])
-  captain              User?                  @relation("FlightCaptain", fields: [captainId], references: [id])
-  aircraft             Aircraft               @relation(fields: [aircraftId], references: [id])
-  airports             AirportsOnFlights[]
-  flightEvent          FlightEvent[]
-  diversion            Diversion[]
-  emergency            EmergencyDeclaration[]
-  delayRequest         DelayRequest?
-  userPerformingFlight User[]                 @relation("UserCurrentFlight")
-  departureGate        Gate?                  @relation("FlightDepartureGate", fields: [departureGateId], references: [id], onDelete: SetNull)
-  departureRunway      Runway?                @relation("FlightDepartureRunway", fields: [departureRunwayId], references: [id], onDelete: SetNull)
-  arrivalGate          Gate?                  @relation("FlightArrivalGate", fields: [arrivalGateId], references: [id], onDelete: SetNull)
-  arrivalRunway        Runway?                @relation("FlightArrivalRunway", fields: [arrivalRunwayId], references: [id], onDelete: SetNull)
-  userTravels          UserTravel[]           @relation("UserTravelFlight")
-  aircraftRepositions  AircraftReposition[]   @relation("AircraftRepositionFlight")
+  operator                 Operator               @relation(fields: [operatorId], references: [id])
+  rotation                 Rotation?              @relation(fields: [rotationId], references: [id])
+  captain                  User?                  @relation("FlightCaptain", fields: [captainId], references: [id])
+  aircraft                 Aircraft               @relation(fields: [aircraftId], references: [id])
+  airports                 AirportsOnFlights[]
+  flightEvent              FlightEvent[]
+  diversion                Diversion[]
+  emergency                EmergencyDeclaration[]
+  delayRequest             DelayRequest?
+  userPerformingFlight     User[]                 @relation("UserCurrentFlight")
+  departureParkingPosition ParkingPosition?       @relation("FlightDepartureParkingPosition", fields: [departureParkingPositionId], references: [id], onDelete: SetNull)
+  departureRunway          Runway?                @relation("FlightDepartureRunway", fields: [departureRunwayId], references: [id], onDelete: SetNull)
+  arrivalParkingPosition   ParkingPosition?       @relation("FlightArrivalParkingPosition", fields: [arrivalParkingPositionId], references: [id], onDelete: SetNull)
+  arrivalRunway            Runway?                @relation("FlightArrivalRunway", fields: [arrivalRunwayId], references: [id], onDelete: SetNull)
+  userTravels              UserTravel[]           @relation("UserTravelFlight")
+  aircraftRepositions      AircraftReposition[]   @relation("AircraftRepositionFlight")
 
   @@map("flight")
 }

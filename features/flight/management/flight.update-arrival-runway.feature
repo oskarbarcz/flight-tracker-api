@@ -151,9 +151,9 @@ Feature: Update flight arrival runway
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": "6bbf43a4-9242-4f04-b195-6a7bcd1f14c4",
-        "arrivalGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "arrivalParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
         "arrivalRunwayId": "5ae7e0f1-392a-4140-bb2a-4efee09fe9f1",
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,

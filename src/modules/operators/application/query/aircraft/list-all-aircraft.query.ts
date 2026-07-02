@@ -3,7 +3,7 @@ import { OperatorNotFoundError } from '../../../model/error/operator.error';
 import { OperatorsRepository } from '../../../infra/database/repository/operators.repository';
 import {
   AircraftAirport,
-  AircraftGate,
+  AircraftParkingPosition,
   GetAircraftResponse,
 } from '../../../infra/http/request/aircraft.request';
 import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
@@ -38,7 +38,7 @@ export class ListAllAircraftHandler implements IQueryHandler<ListAllAircraftQuer
     );
 
     return aircrafts.map(
-      ({ type, baseAirport, lastAirport, lastGate, ...rest }) => {
+      ({ type, baseAirport, lastAirport, lastParkingPosition, ...rest }) => {
         const airframe = findAirframeByType(type);
 
         if (!airframe) {
@@ -51,7 +51,8 @@ export class ListAllAircraftHandler implements IQueryHandler<ListAllAircraftQuer
           currentState: rest.currentState as unknown as AircraftState,
           baseAirport: baseAirport as AircraftAirport | null,
           lastAirport: lastAirport as AircraftAirport | null,
-          lastGate: lastGate as AircraftGate | null,
+          lastParkingPosition:
+            lastParkingPosition as AircraftParkingPosition | null,
         };
       },
     );

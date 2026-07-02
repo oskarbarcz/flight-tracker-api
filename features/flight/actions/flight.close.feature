@@ -170,9 +170,9 @@ Feature: Close flight
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
@@ -386,7 +386,7 @@ Feature: Close flight
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T16:28:00.000Z",
-        "lastGate": null
+        "lastParkingPosition": null
       }
       """
     And I should receive a live flight event of type "flight.closed" within 2000ms
@@ -557,9 +557,9 @@ Feature: Close flight
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": "6bbf43a4-9242-4f04-b195-6a7bcd1f14c4",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
@@ -951,9 +951,9 @@ Feature: Close flight
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
@@ -1118,9 +1118,9 @@ Feature: Close flight
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,

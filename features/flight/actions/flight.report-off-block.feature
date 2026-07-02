@@ -171,9 +171,9 @@ Feature: Report off-block
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
-        "arrivalGateId": null,
+        "arrivalParkingPositionId": null,
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
@@ -311,7 +311,7 @@ Feature: Report off-block
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T12:00:00.000Z",
-        "lastGate": null
+        "lastParkingPosition": null
       }
       """
     And I should receive a live flight event of type "flight.off-block-reported" within 2000ms

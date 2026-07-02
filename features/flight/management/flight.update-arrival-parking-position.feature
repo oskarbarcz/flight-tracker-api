@@ -1,10 +1,10 @@
-Feature: Update flight arrival gate
+Feature: Update flight arrival parking position
 
-  Scenario: As an admin I cannot update arrival gate
+  Scenario: As an admin I cannot update arrival parking position
     Given I am signed in as "admin"
-    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-parking-position" with body:
       """json
-      { "arrivalGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "arrivalParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 403
     And the response body should contain:
@@ -16,14 +16,14 @@ Feature: Update flight arrival gate
       }
       """
 
-  Scenario: As operations I can set arrival gate
+  Scenario: As operations I can set arrival parking position
     Given I open a WebSocket connection as "cabin crew"
     When I subscribe to flight events for "e8e17e59-67d7-4a6c-a0bd-425ffa6bed66"
     Then I should receive flight event history within 2000ms
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-parking-position" with body:
       """json
-      { "arrivalGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "arrivalParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 200
     When I send a "GET" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66"
@@ -152,9 +152,9 @@ Feature: Update flight arrival gate
             "shape": "@coordinates"
           }
         ],
-        "departureGateId": null,
+        "departureParkingPositionId": null,
         "departureRunwayId": "6bbf43a4-9242-4f04-b195-6a7bcd1f14c4",
-        "arrivalGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "arrivalParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
         "arrivalRunwayId": "32121288-2550-4b81-a558-9a7193ef6c97",
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
@@ -173,24 +173,24 @@ Feature: Update flight arrival gate
         {
           "id": "@uuid",
           "scope": "operations",
-          "type": "flight.arrival-gate-changed",
+          "type": "flight.arrival-parking-position-changed",
           "payload": {},
           "actor": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
           "createdAt": "@date('within 1 minute from now')"
         }
       ]
       """
-    And I should receive a live flight event of type "flight.arrival-gate-changed" within 2000ms
+    And I should receive a live flight event of type "flight.arrival-parking-position-changed" within 2000ms
     And I set database to initial state
 
-  Scenario: As cabin crew I can set arrival gate
+  Scenario: As cabin crew I can set arrival parking position
     Given I open a WebSocket connection as "cabin crew"
     When I subscribe to flight events for "e8e17e59-67d7-4a6c-a0bd-425ffa6bed66"
     Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
-    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-parking-position" with body:
       """json
-      { "arrivalGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "arrivalParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 200
     When I send a "GET" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/events"
@@ -201,21 +201,21 @@ Feature: Update flight arrival gate
         {
           "id": "@uuid",
           "scope": "user",
-          "type": "flight.arrival-gate-changed",
+          "type": "flight.arrival-parking-position-changed",
           "payload": {},
           "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
           "createdAt": "@date('within 1 minute from now')"
         }
       ]
       """
-    And I should receive a live flight event of type "flight.arrival-gate-changed" within 2000ms
+    And I should receive a live flight event of type "flight.arrival-parking-position-changed" within 2000ms
     And I set database to initial state
 
-  Scenario: As operations I cannot clear arrival gate with null
+  Scenario: As operations I cannot clear arrival parking position with null
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-parking-position" with body:
       """json
-      { "arrivalGateId": null }
+      { "arrivalParkingPositionId": null }
       """
     Then the response status should be 400
     And the response body should contain:
@@ -225,64 +225,64 @@ Feature: Update flight arrival gate
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "arrivalGateId": ["arrivalGateId must be a UUID"]
+          "arrivalParkingPositionId": ["arrivalParkingPositionId must be a UUID"]
         }
       }
       """
 
-  Scenario: As operations I cannot update arrival gate after on-block was reported
+  Scenario: As operations I cannot update arrival parking position after on-block was reported
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/d4a25ef2-39cf-484c-af00-a548999e8699/arrival-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/d4a25ef2-39cf-484c-af00-a548999e8699/arrival-parking-position" with body:
       """json
-      { "arrivalGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "arrivalParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 422
     And the response body should contain:
       """json
       {
-        "message": "Cannot update arrival gate after on-block was reported.",
+        "message": "Cannot update arrival parking position after on-block was reported.",
         "error": "Unprocessable Entity",
         "statusCode": 422
       }
       """
 
-  Scenario: As cabin crew I cannot update arrival gate after on-block was reported
+  Scenario: As cabin crew I cannot update arrival parking position after on-block was reported
     Given I am signed in as "cabin crew"
-    When I send a "PATCH" request to "/api/v1/flight/d4a25ef2-39cf-484c-af00-a548999e8699/arrival-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/d4a25ef2-39cf-484c-af00-a548999e8699/arrival-parking-position" with body:
       """json
-      { "arrivalGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "arrivalParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 422
     And the response body should contain:
       """json
       {
-        "message": "Cannot update arrival gate after on-block was reported.",
+        "message": "Cannot update arrival parking position after on-block was reported.",
         "error": "Unprocessable Entity",
         "statusCode": 422
       }
       """
 
-  Scenario: As operations I cannot assign gate that does not belong to arrival airport
+  Scenario: As operations I cannot assign a parking position that does not belong to arrival airport
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-parking-position" with body:
       """json
-      { "arrivalGateId": "58c83720-fb20-4c84-b727-ba6dda14f8d1" }
+      { "arrivalParkingPositionId": "58c83720-fb20-4c84-b727-ba6dda14f8d1" }
       """
     Then the response status should be 422
     And the response body should contain:
       """json
       {
-        "message": "Gate does not belong to the given airport.",
+        "message": "Parking position does not belong to the given airport.",
         "error": "Unprocessable Entity",
         "statusCode": 422
       }
       """
 
-  Scenario: As operations I cannot update arrival gate of non-existing flight
+  Scenario: As operations I cannot update arrival parking position of non-existing flight
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/58c83720-fb20-4c84-b727-ba6dda14f8d1/arrival-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/58c83720-fb20-4c84-b727-ba6dda14f8d1/arrival-parking-position" with body:
       """json
-      { "arrivalGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "arrivalParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 404
     And the response body should contain:
@@ -294,11 +294,11 @@ Feature: Update flight arrival gate
       }
       """
 
-  Scenario: As operations I cannot update arrival gate with invalid uuid in body
+  Scenario: As operations I cannot update arrival parking position with invalid uuid in body
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-parking-position" with body:
       """json
-      { "arrivalGateId": "not-a-uuid" }
+      { "arrivalParkingPositionId": "not-a-uuid" }
       """
     Then the response status should be 400
     And the response body should contain:
@@ -308,15 +308,15 @@ Feature: Update flight arrival gate
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "arrivalGateId": ["arrivalGateId must be a UUID"]
+          "arrivalParkingPositionId": ["arrivalParkingPositionId must be a UUID"]
         }
       }
       """
 
-  Scenario: As an unauthorized user I cannot update arrival gate
-    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-gate" with body:
+  Scenario: As an unauthorized user I cannot update arrival parking position
+    When I send a "PATCH" request to "/api/v1/flight/e8e17e59-67d7-4a6c-a0bd-425ffa6bed66/arrival-parking-position" with body:
       """json
-      { "arrivalGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "arrivalParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 401
     And the response body should contain:

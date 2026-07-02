@@ -4,7 +4,7 @@ Feature: Update gate
     Given I am signed in as "admin"
     When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" with body:
       """json
-      { "deicing": "mandatory" }
+      { "name": "A10R" }
       """
     Then the response status should be 403
     And the response body should contain:
@@ -16,19 +16,11 @@ Feature: Update gate
       }
       """
 
-  Scenario: As operations I can update gate with deicing description and noise curfew
+  Scenario: As operations I can update gate name
     Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" with body:
       """json
-      {
-        "name": "A10R",
-        "deicing": "mandatory",
-        "deicingDescription": "Central deicing pad; expect delays in winter.",
-        "noiseSensitivity": "yes",
-        "noiseSensitivityText": "Night curfew.",
-        "noiseSensitivityStartTime": "23:00",
-        "noiseSensitivityEndTime": "04:30"
-      }
+      { "name": "A10R" }
       """
     Then the response status should be 200
     And the response body should contain:
@@ -38,22 +30,8 @@ Feature: Update gate
         "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
         "name": "A10R",
-        "bridge": "yes",
-        "stairs": "no",
-        "deicing": "mandatory",
-        "deicingDescription": "Central deicing pad; expect delays in winter.",
-        "gpu": "bridge",
-        "pca": "bridge",
-        "parkingPositionType": "straight-in",
-        "parkingSpotType": "passenger",
-        "parkingAssistance": "vdgs",
-        "location": "gate",
-        "noiseSensitivity": "yes",
-        "noiseSensitivityText": "Night curfew.",
-        "noiseSensitivityStartTime": "23:00",
-        "noiseSensitivityEndTime": "04:30",
-        "fuelingOptions": "hydrant",
-        "coordinates": "@coordinates"
+        "category": "schengen",
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
       }
       """
     And I set database to initial state
@@ -72,25 +50,50 @@ Feature: Update gate
         "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
         "name": "A10",
-        "bridge": "yes",
-        "stairs": "no",
-        "deicing": "possible",
-        "deicingDescription": null,
-        "gpu": "bridge",
-        "pca": "bridge",
-        "parkingPositionType": "straight-in",
-        "parkingSpotType": "passenger",
-        "parkingAssistance": "vdgs",
-        "location": "gate",
-        "noiseSensitivity": "no",
-        "noiseSensitivityText": null,
-        "noiseSensitivityStartTime": null,
-        "noiseSensitivityEndTime": null,
-        "fuelingOptions": "hydrant",
-        "coordinates": "@coordinates"
+        "category": "schengen",
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
       }
       """
     And I set database to initial state
+
+  Scenario: As operations I can update gate category
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" with body:
+      """json
+      { "category": "international" }
+      """
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+        "name": "A10",
+        "category": "international",
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot update gate with invalid category
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" with body:
+      """json
+      { "category": "eu" }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "category": ["category must be one of the following values: schengen, non-schengen, domestic, international"]
+        }
+      }
+      """
 
   Scenario: As operations I cannot reassign gate to a terminal that does not belong to airport
     Given I am signed in as "operations"
@@ -108,11 +111,47 @@ Feature: Update gate
       }
       """
 
+  Scenario: As operations I can reassign gate to another parking position
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" with body:
+      """json
+      { "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64" }
+      """
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+        "name": "A10",
+        "category": "schengen",
+        "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot reassign gate to a parking position that does not exist
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" with body:
+      """json
+      { "parkingPositionId": "58c83720-fb20-4c84-b727-ba6dda14f8d1" }
+      """
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "message": "Parking position with given id does not exist.",
+        "error": "Not Found",
+        "statusCode": 404
+      }
+      """
+
   Scenario: As a cabin crew I cannot update gate
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" with body:
       """json
-      { "deicing": "mandatory" }
+      { "name": "A10R" }
       """
     Then the response status should be 403
     And the response body should contain:
@@ -128,7 +167,7 @@ Feature: Update gate
     Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" with body:
       """json
-      { "deicing": "mandatory" }
+      { "name": "A10R" }
       """
     Then the response status should be 404
     And the response body should contain:
@@ -144,7 +183,7 @@ Feature: Update gate
     Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" with body:
       """json
-      { "deicing": "perhaps" }
+      { "name": "" }
       """
     Then the response status should be 400
     And the response body should contain:
@@ -154,7 +193,7 @@ Feature: Update gate
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "deicing": ["deicing must be one of the following values: no, possible, recommended, mandatory"]
+          "name": ["name should not be empty"]
         }
       }
       """
@@ -162,7 +201,7 @@ Feature: Update gate
   Scenario: As an unauthorized user I cannot update gate
     When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" with body:
       """json
-      { "deicing": "mandatory" }
+      { "name": "A10R" }
       """
     Then the response status should be 401
     And the response body should contain:

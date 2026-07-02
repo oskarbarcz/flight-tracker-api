@@ -40,9 +40,9 @@ Feature: Subscribe to flight events over WebSocket
     Then I should receive flight event history within 2000ms
     When I unsubscribe from flight events for "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-gate" with body:
+    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-parking-position" with body:
       """json
-      { "departureGateId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101" }
+      { "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
       """
     Then the response status should be 200
     And I should not receive any live flight event within 500ms
