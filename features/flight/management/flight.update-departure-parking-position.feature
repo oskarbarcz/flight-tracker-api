@@ -137,7 +137,7 @@ Feature: Update flight departure parking position
             "country": "Canada",
             "timezone": "America/St_Johns",
             "continent": "north_america",
-            "type": "etops_alternate",
+            "type": "etops_entry",
             "location": { "longitude": -52.751945, "latitude": 47.61861 },
             "shape": "@coordinates"
           }

@@ -52,12 +52,17 @@ This app uses docker-based virtualization to run. To set up the project, follow 
 
 4. Your project should be up and running. Open the browser and go to [http://localhost/api](http://localhost/api) to see the
    api documentation.
-   The default credentials for the API are:
-   | Role | Username | Password |
-   | ---------- | ---------------------- | -------- |
-   | Cabin crew | cabin-crew@example.com | P@$$w0rd |
-   | Operations | operations@example.com | P@$$w0rd |
-   | Admin | admin@example.com | P@$$w0rd |
+   The seeded API users (all share the password `P@$$w0rd`) are:
+   | Name | Role | Username | Notes |
+   | ----------- | ---------- | ----------------------- | ---------------------------------------------------- |
+   | John Doe | Admin | admin@example.com | |
+   | Alice Doe | Operations | operations@example.com | |
+   | Abby Doe | Operations | abby.doe@example.com | SimBrief connected (valid flight plan) |
+   | Claudia Doe | Operations | claudia.doe@example.com | SimBrief connected (plan references unknown aircraft) |
+   | Diana Doe | Operations | diana.doe@example.com | SimBrief connected (plan references unknown alternate) |
+   | Rick Doe | Cabin crew | cabin-crew@example.com | |
+   | Alan Doe | Cabin crew | alan.doe@example.com | |
+   | Michael Doe | Cabin crew | michael.doe@example.com | |
 
 ### WebSocket flight events
 

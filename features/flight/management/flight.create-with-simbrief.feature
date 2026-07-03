@@ -111,6 +111,86 @@ Feature: Create a flight with Simbrief
             },
             "type": "destination",
             "shape": "@coordinates"
+          },
+          {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "icaoCode": "KBOS",
+            "iataCode": "BOS",
+            "city": "Boston",
+            "name": "Boston Logan Intl",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": {
+              "latitude": 42.36454,
+              "longitude": -71.01663
+            },
+            "type": "destination_alternate",
+            "shape": "@coordinates"
+          },
+          {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "icaoCode": "KPHL",
+            "iataCode": "PHL",
+            "city": "Philadelphia",
+            "name": "Philadelphia Intl",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": {
+              "latitude": 39.87113,
+              "longitude": -75.24349
+            },
+            "type": "destination_alternate",
+            "shape": "@coordinates"
+          },
+          {
+            "id": "fa8ee2e9-fb94-4416-9ed0-4811efd488ae",
+            "icaoCode": "CYYR",
+            "iataCode": "YYR",
+            "city": "Goose Bay",
+            "name": "Goose Bay Intl",
+            "country": "Canada",
+            "timezone": "America/Goose_Bay",
+            "continent": "north_america",
+            "location": {
+              "latitude": 53.319168,
+              "longitude": -60.409444
+            },
+            "type": "enroute_alternate",
+            "shape": "@coordinates"
+          },
+          {
+            "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
+            "icaoCode": "BIKF",
+            "iataCode": "KEF",
+            "city": "Reykjavik",
+            "name": "Reykjavik Keflavik",
+            "country": "Iceland",
+            "timezone": "Atlantic/Reykjavik",
+            "continent": "europe",
+            "location": {
+              "latitude": 63.985,
+              "longitude": -22.6056
+            },
+            "type": "etops_entry",
+            "shape": "@coordinates"
+          },
+          {
+            "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
+            "icaoCode": "CYYT",
+            "iataCode": "YYT",
+            "city": "St. Johns",
+            "name": "St. Johns Intl",
+            "country": "Canada",
+            "timezone": "America/St_Johns",
+            "continent": "north_america",
+            "location": {
+              "latitude": 47.61861,
+              "longitude": -52.751945
+            },
+            "type": "etops_exit",
+            "shape": "@coordinates"
           }
         ],
         "departureParkingPositionId": null,
@@ -151,6 +231,19 @@ Feature: Create a flight with Simbrief
         "statusCode": 404,
         "error": "Not Found",
         "message": "Aircraft with given registration not found."
+      }
+      """
+
+  Scenario: As operations user with a SimBrief plan referencing an unknown alternate airport I cannot create a flight
+    Given I am signed in as "operations with Simbrief ID but non existing alternate airport"
+    When I send a "POST" request to "/api/v1/flight/create-with-simbrief"
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 404,
+        "error": "Not Found",
+        "message": "Airport with given ICAO code does not exist."
       }
       """
 

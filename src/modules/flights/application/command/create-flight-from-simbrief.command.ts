@@ -10,7 +10,17 @@ import { GetAirportByIcaoCodeQuery } from '../../../airports/application/query/g
 import { GetAircraftByRegistrationQuery } from '../../../operators/application/query/aircraft/get-aircraft-by-registration.query';
 import { GetOperatorByIcaoCodeQuery } from '../../../operators/application/query/get-operator-by-icao-code.query';
 import { FlightTracking } from '../../model/flight.model';
-import { CreateFlightRequest } from '../../infra/http/request/flight.dto';
+import {
+  AlternateAirportRequest,
+  CreateFlightRequest,
+} from '../../infra/http/request/flight.dto';
+import { AirportType } from '../../../airports/model/airport.model';
+import { OperationalFlightPlan } from '../../../../core/provider/simbrief/type/simbrief.types';
+
+type AlternateAirportCandidate = {
+  icaoCode: string;
+  type: AirportType;
+};
 
 export class CreateFlightFromSimbriefCommand {
   constructor(
@@ -51,13 +61,20 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       ofp.general.icao_airline,
     );
 
-    const [departureAirport, destinationAirport, aircraft, operator] =
-      await Promise.all([
+    const alternateCandidates = this.collectAlternateCandidates(ofp);
+
+    const [
+      [departureAirport, destinationAirport, aircraft, operator],
+      alternateAirports,
+    ] = await Promise.all([
+      Promise.all([
         this.queryBus.execute(departureAirportQuery),
         this.queryBus.execute(destinationAirportQuery),
         this.queryBus.execute(aircraftQuery),
         this.queryBus.execute(operatorQuery),
-      ]);
+      ]),
+      this.resolveAlternateAirports(alternateCandidates),
+    ]);
 
     const flightData = {
       id: flightId,
@@ -92,6 +109,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
           zeroFuelWeight: this.ofpWeightToTons(ofp.weights.est_zfw),
         },
       },
+      alternateAirports,
     } as CreateFlightRequest;
 
     await this.flightsRepository.create(flightId, flightData);
@@ -114,6 +132,48 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
         scope: FlightEventScope.Operations,
         actorId: initiatorId,
         aircraftId: flightData.aircraftId,
+      }),
+    );
+  }
+
+  private collectAlternateCandidates(
+    ofp: OperationalFlightPlan,
+  ): AlternateAirportCandidate[] {
+    const candidates: AlternateAirportCandidate[] = ofp.alternate.map(
+      (airport) => ({
+        icaoCode: airport.icao_code,
+        type: AirportType.DestinationAlternate,
+      }),
+    );
+
+    if (ofp.enroute_altn) {
+      candidates.push({
+        icaoCode: ofp.enroute_altn.icao_code,
+        type: AirportType.EnrouteAlternate,
+      });
+    }
+
+    if (ofp.etops) {
+      candidates.push(
+        { icaoCode: ofp.etops.entry.icao_code, type: AirportType.EtopsEntry },
+        { icaoCode: ofp.etops.exit.icao_code, type: AirportType.EtopsExit },
+      );
+    }
+
+    return candidates;
+  }
+
+  private async resolveAlternateAirports(
+    candidates: AlternateAirportCandidate[],
+  ): Promise<AlternateAirportRequest[]> {
+    // Each alternate is resolved with the same query as the origin/destination,
+    // so an unknown ICAO throws NotFoundException and aborts the whole import.
+    return Promise.all(
+      candidates.map(async (candidate) => {
+        const query = new GetAirportByIcaoCodeQuery(candidate.icaoCode);
+        const airport = await this.queryBus.execute(query);
+
+        return { airportId: airport.id, type: candidate.type };
       }),
     );
   }

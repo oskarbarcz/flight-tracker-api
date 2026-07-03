@@ -55,7 +55,7 @@ export type OperationalFlightPlan = {
   origin: Airport;
   destination: Airport;
   alternate: Airport[];
-  enroute_altn?: Airport[];
+  enroute_altn?: Airport;
   etops?: {
     entry: Airport;
     exit: Airport;

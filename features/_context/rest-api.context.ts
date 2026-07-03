@@ -9,6 +9,7 @@ type ApiUserType =
   | 'operations'
   | 'operations with valid Simbrief ID'
   | 'operations with Simbrief ID but non existing aircraft'
+  | 'operations with Simbrief ID but non existing alternate airport'
   | 'cabin crew';
 
 import * as https from 'node:https';
@@ -32,6 +33,10 @@ const apiUsers = {
   },
   'operations with Simbrief ID but non existing aircraft': {
     email: 'claudia.doe@example.com',
+    password: 'P@$$w0rd',
+  },
+  'operations with Simbrief ID but non existing alternate airport': {
+    email: 'diana.doe@example.com',
     password: 'P@$$w0rd',
   },
   'Alan Doe': {

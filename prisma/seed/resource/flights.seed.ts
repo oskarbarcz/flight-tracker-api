@@ -122,7 +122,7 @@ async function loadDLH450(): Promise<void> {
     data: {
       airport: { connect: { id: dlh450etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: AirportType.EtopsAlternate,
+      airportType: AirportType.EtopsEntry,
     },
   });
 
@@ -3499,11 +3499,11 @@ async function loadDLH40(): Promise<void> {
   });
 
   const etopsAlternateAirport = await prisma.airport.findFirstOrThrow({
-    where: { id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97' }, // St. John's
+    where: { id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a' }, // Reykjavik
   });
 
   const etops2AlternateAirport = await prisma.airport.findFirstOrThrow({
-    where: { id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a' }, // Reykjavik
+    where: { id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97' }, // St. John's
   });
 
   const flight = await prisma.flight.create({ data });
@@ -3536,7 +3536,7 @@ async function loadDLH40(): Promise<void> {
     data: {
       airport: { connect: { id: etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: AirportType.EtopsAlternate,
+      airportType: AirportType.EtopsEntry,
     },
   });
 
@@ -3544,7 +3544,7 @@ async function loadDLH40(): Promise<void> {
     data: {
       airport: { connect: { id: etops2AlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: AirportType.EtopsAlternate,
+      airportType: AirportType.EtopsExit,
     },
   });
 }
@@ -3649,7 +3649,7 @@ async function loadDLH41(): Promise<void> {
     data: {
       airport: { connect: { id: etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: AirportType.EtopsAlternate,
+      airportType: AirportType.EtopsEntry,
     },
   });
 
@@ -3657,7 +3657,7 @@ async function loadDLH41(): Promise<void> {
     data: {
       airport: { connect: { id: etops2AlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: AirportType.EtopsAlternate,
+      airportType: AirportType.EtopsExit,
     },
   });
 }
@@ -3761,7 +3761,7 @@ async function loadDLH42(): Promise<void> {
     data: {
       airport: { connect: { id: etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: AirportType.EtopsAlternate,
+      airportType: AirportType.EtopsEntry,
     },
   });
 
@@ -3769,7 +3769,7 @@ async function loadDLH42(): Promise<void> {
     data: {
       airport: { connect: { id: etops2AlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: AirportType.EtopsAlternate,
+      airportType: AirportType.EtopsExit,
     },
   });
 
@@ -3932,7 +3932,7 @@ async function loadDLH43(): Promise<void> {
     data: {
       airport: { connect: { id: etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: AirportType.EtopsAlternate,
+      airportType: AirportType.EtopsEntry,
     },
   });
 
@@ -3940,7 +3940,7 @@ async function loadDLH43(): Promise<void> {
     data: {
       airport: { connect: { id: etops2AlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: AirportType.EtopsAlternate,
+      airportType: AirportType.EtopsExit,
     },
   });
 
@@ -4189,7 +4189,7 @@ async function loadDLH102(): Promise<void> {
     data: {
       airport: { connect: { id: etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: AirportType.EtopsAlternate,
+      airportType: AirportType.EtopsEntry,
     },
   });
 
@@ -4197,7 +4197,7 @@ async function loadDLH102(): Promise<void> {
     data: {
       airport: { connect: { id: etops2AlternateAirport.id } },
       flight: { connect: { id: flight.id } },
-      airportType: AirportType.EtopsAlternate,
+      airportType: AirportType.EtopsExit,
     },
   });
 

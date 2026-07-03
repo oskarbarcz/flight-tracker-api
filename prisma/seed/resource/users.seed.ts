@@ -145,8 +145,27 @@ export async function loadUsers(): Promise<void> {
     lastAirportUpdatedAt: null,
   };
 
+  const diana: User = {
+    id: '3e6903a8-f4ab-484a-98f6-c3b45d6c64bb',
+    name: 'Diana Doe',
+    email: 'diana.doe@example.com',
+    role: UserRole.Operations,
+    // password: 'P@$$w0rd' — bcrypt with 12 rounds
+    password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
+    pilotLicenseId: null,
+    currentFlightId: null,
+    currentRotationId: null,
+    simbriefUserId: '111222',
+    totalFlightTime: 0,
+    totalGreatCircleDistance: 0,
+    totalFuelBurned: 0,
+    homeAirportId: null,
+    lastAirportId: null,
+    lastAirportUpdatedAt: null,
+  };
+
   const prisma = new PrismaService();
-  for (const user of [john, alice, claudia, abby, rick, alan, michael]) {
+  for (const user of [john, alice, claudia, abby, rick, alan, michael, diana]) {
     await prisma.user.create({ data: user });
   }
 }

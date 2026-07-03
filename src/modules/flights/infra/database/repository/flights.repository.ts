@@ -30,6 +30,7 @@ import { Prisma } from '../../../../../../prisma/client/client';
 import { Airframe } from '../../../../airframes/model/airframe.model';
 import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
+import { AirportType } from '../../../../airports/model/airport.model';
 
 export const flightWithAircraftAndAirportsFields = {
   id: true,
@@ -205,6 +206,8 @@ export class FlightsRepository {
       throw new NotFoundException(DestinationAirportNotFoundError);
     }
 
+    const alternateAirports = flightData.alternateAirports ?? [];
+
     const loadsheets = {
       preliminary: flightData.loadsheets.preliminary,
       final: null,
@@ -226,20 +229,30 @@ export class FlightsRepository {
       },
     });
 
-    await this.prisma.airportsOnFlights.create({
-      data: {
+    const airportRows = [
+      {
         airportId: flightData.departureAirportId,
-        flightId: flightId,
-        airportType: 'departure',
+        flightId,
+        airportType: AirportType.Departure,
       },
-    });
-
-    await this.prisma.airportsOnFlights.create({
-      data: {
+      {
         airportId: flightData.destinationAirportId,
-        flightId: flightId,
-        airportType: 'destination',
+        flightId,
+        airportType: AirportType.Destination,
       },
+      ...alternateAirports.map((alternate) => ({
+        airportId: alternate.airportId,
+        flightId,
+        airportType: alternate.type,
+      })),
+    ];
+
+    // Departure and destination are listed first so that, on a composite-key
+    // collision (an alternate that equals the origin/destination, or a repeated
+    // alternate), skipDuplicates keeps the primary airport type.
+    await this.prisma.airportsOnFlights.createMany({
+      data: airportRows,
+      skipDuplicates: true,
     });
   }
 

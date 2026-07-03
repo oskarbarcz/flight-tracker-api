@@ -133,7 +133,7 @@ Feature: Update flight arrival parking position
             "name": "Reykjavik Keflavik",
             "country": "Iceland",
             "timezone": "Atlantic/Reykjavik",
-            "type": "etops_alternate",
+            "type": "etops_entry",
             "continent": "europe",
             "location": { "longitude": -22.6056, "latitude": 63.985 },
             "shape": "@coordinates"
@@ -146,7 +146,7 @@ Feature: Update flight arrival parking position
             "name": "St. Johns Intl",
             "country": "Canada",
             "timezone": "America/St_Johns",
-            "type": "etops_alternate",
+            "type": "etops_exit",
             "continent": "north_america",
             "location": { "longitude": -52.751945, "latitude": 47.61861 },
             "shape": "@coordinates"

@@ -1,6 +1,7 @@
 import { ScheduledTimesheet } from '../../../model/timesheet.model';
 import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
 import {
+  IsArray,
   IsDate,
   IsEnum,
   IsInt,
@@ -10,12 +11,31 @@ import {
   IsUUID,
   Max,
   Min,
+  ValidateNested,
 } from 'class-validator';
 import { Loadsheets } from '../../../model/loadsheet.model';
 import { Type } from 'class-transformer';
 import { Flight, FlightPhase } from '../../../model/flight.model';
+import { AirportType } from '../../../../airports/model/airport.model';
 
 class PreliminaryLoadsheetOnly extends OmitType(Loadsheets, ['final']) {}
+
+export class AlternateAirportRequest {
+  @ApiProperty({
+    description: 'System unique identifier of the alternate airport',
+    example: 'fe75ec7d-afbe-4514-a935-40c54f475278',
+  })
+  @IsUUID()
+  airportId!: string;
+
+  @ApiProperty({
+    description: 'Alternate airport type',
+    enum: AirportType,
+    example: AirportType.DestinationAlternate,
+  })
+  @IsEnum(AirportType)
+  type!: AirportType;
+}
 
 export class CreateFlightRequest extends OmitType(Flight, [
   'id',
@@ -69,6 +89,18 @@ export class CreateFlightRequest extends OmitType(Flight, [
   @Type(() => PreliminaryLoadsheetOnly)
   @IsNotEmpty()
   loadsheets!: PreliminaryLoadsheetOnly;
+
+  @ApiProperty({
+    description: 'Destination, ETOPS and enroute alternate airports',
+    type: [AlternateAirportRequest],
+    required: false,
+    default: [],
+  })
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => AlternateAirportRequest)
+  alternateAirports?: AlternateAirportRequest[];
 }
 
 export class GetFlightResponse extends OmitType(Flight, [

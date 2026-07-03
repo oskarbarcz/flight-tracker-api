@@ -138,8 +138,10 @@ export class Airport {
 export enum AirportType {
   Departure = 'departure',
   Destination = 'destination',
-  EtopsAlternate = 'etops_alternate',
   DestinationAlternate = 'destination_alternate',
+  EtopsEntry = 'etops_entry',
+  EtopsExit = 'etops_exit',
+  EnrouteAlternate = 'enroute_alternate',
 }
 
 export class AirportWithType extends Airport {
