@@ -1,6 +1,12 @@
 import { Prisma } from '../../client/client';
 import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 
+// Most coordinates below are real `aeroway=gate` nodes sourced from OpenStreetMap
+// via Overpass, matched to each seeded gate by ref (falling back to nearest terminal
+// when a ref like KJFK's "A2" is reused across terminals). Where no OSM gate node
+// exists for a name (e.g. EDDF's A10/B5, LFPG's A30/B40/C50/K20/G10, BIKF, CYYR's
+// only gate), the coordinate is copied from the gate's linked parking position
+// instead of inventing one.
 export async function loadGates(): Promise<void> {
   const gates: Prisma.GateCreateManyInput[] = [
     // EDDF — Frankfurt T1
@@ -11,6 +17,7 @@ export async function loadGates(): Promise<void> {
       name: 'A10',
       category: 'schengen',
       parkingPositionId: 'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9',
+      coordinates: { latitude: 50.047131, longitude: 8.574266 },
     },
 
     {
@@ -20,6 +27,7 @@ export async function loadGates(): Promise<void> {
       name: 'A11',
       category: 'schengen',
       parkingPositionId: 'ae098e8f-b088-41a6-a566-880c7dd5e931',
+      coordinates: { latitude: 50.048797, longitude: 8.569462 },
     },
 
     // EDDF — Frankfurt T2
@@ -30,6 +38,7 @@ export async function loadGates(): Promise<void> {
       name: 'B5',
       category: 'non-schengen',
       parkingPositionId: 'df5a931d-3b2e-4767-bdd4-1c14689e0e13',
+      coordinates: { latitude: 50.046416, longitude: 8.574424 },
     },
 
     // EPWA — Warsaw TA
@@ -40,6 +49,7 @@ export async function loadGates(): Promise<void> {
       name: '21',
       category: 'schengen',
       parkingPositionId: '012e3707-a09f-44ce-8e9e-b418eed3d818',
+      coordinates: { latitude: 52.173136, longitude: 20.969341 },
     },
 
     {
@@ -49,6 +59,7 @@ export async function loadGates(): Promise<void> {
       name: '10',
       category: 'schengen',
       parkingPositionId: '5537f377-dc35-41a9-9eda-c4db2f9a6431',
+      coordinates: { latitude: 52.173992, longitude: 20.969256 },
     },
 
     {
@@ -58,6 +69,7 @@ export async function loadGates(): Promise<void> {
       name: '11',
       category: 'non-schengen',
       parkingPositionId: '8edd1dd1-cae2-4fd3-8c35-54c82c42540b',
+      coordinates: { latitude: 52.174289, longitude: 20.968988 },
     },
 
     {
@@ -67,6 +79,7 @@ export async function loadGates(): Promise<void> {
       name: '12',
       category: 'international',
       parkingPositionId: 'cf78a695-d0eb-4e40-9c4d-6b81344e0515',
+      coordinates: { latitude: 52.174328, longitude: 20.96896 },
     },
 
     {
@@ -76,6 +89,7 @@ export async function loadGates(): Promise<void> {
       name: '13',
       category: 'schengen',
       parkingPositionId: 'a18d7aa6-309a-4bf2-9d8d-d4662e305abf',
+      coordinates: { latitude: 52.174508, longitude: 20.9686 },
     },
 
     {
@@ -85,6 +99,7 @@ export async function loadGates(): Promise<void> {
       name: '14',
       category: 'non-schengen',
       parkingPositionId: '3254f9a2-7680-41bb-89f1-962aa8065fa4',
+      coordinates: { latitude: 52.174493, longitude: 20.968553 },
     },
 
     // KJFK — Terminal 1
@@ -95,6 +110,7 @@ export async function loadGates(): Promise<void> {
       name: 'A2',
       category: 'international',
       parkingPositionId: 'f426d84e-bc33-4f2e-b60f-f401ede88276',
+      coordinates: { latitude: 40.642769, longitude: -73.780621 },
     },
 
     {
@@ -104,6 +120,7 @@ export async function loadGates(): Promise<void> {
       name: 'B22',
       category: 'international',
       parkingPositionId: 'e74b3184-4bdd-4055-b8ce-62d7d95df0fb',
+      coordinates: { latitude: 40.64195, longitude: -73.783613 },
     },
 
     // KJFK — Terminal 4
@@ -114,6 +131,7 @@ export async function loadGates(): Promise<void> {
       name: 'A2',
       category: 'international',
       parkingPositionId: '50ae9c78-f004-4cfb-a7f0-5c6d3d2e839e',
+      coordinates: { latitude: 40.643304, longitude: -73.780546 },
     },
 
     {
@@ -123,6 +141,7 @@ export async function loadGates(): Promise<void> {
       name: 'B31',
       category: 'international',
       parkingPositionId: '60fb0200-9601-4d70-b74f-284bbf110b04',
+      coordinates: { latitude: 40.639836, longitude: -73.780883 },
     },
 
     // KJFK — Terminal 5
@@ -133,6 +152,7 @@ export async function loadGates(): Promise<void> {
       name: '5',
       category: 'domestic',
       parkingPositionId: 'b31050da-2513-4d6c-a126-94445d459708',
+      coordinates: { latitude: 40.650501, longitude: -73.783297 },
     },
 
     {
@@ -142,6 +162,7 @@ export async function loadGates(): Promise<void> {
       name: '16',
       category: 'domestic',
       parkingPositionId: '767cd8c0-b406-4b03-ab85-edd3662062b8',
+      coordinates: { latitude: 40.648983, longitude: -73.789978 },
     },
 
     // KJFK — Terminal 7
@@ -152,6 +173,7 @@ export async function loadGates(): Promise<void> {
       name: '1',
       category: 'international',
       parkingPositionId: '09163a54-695a-4a25-a925-7dd5565a523b',
+      coordinates: { latitude: 40.649272, longitude: -73.783925 },
     },
 
     {
@@ -161,6 +183,7 @@ export async function loadGates(): Promise<void> {
       name: '12',
       category: 'international',
       parkingPositionId: '209ecc4f-e628-45ab-bb3c-bfe0ff0a9333',
+      coordinates: { latitude: 40.648377, longitude: -73.791402 },
     },
 
     // KJFK — Terminal 8
@@ -171,6 +194,7 @@ export async function loadGates(): Promise<void> {
       name: '8',
       category: 'domestic',
       parkingPositionId: '699b2a46-2514-47e3-8636-1b5cb889a653',
+      coordinates: { latitude: 40.64799, longitude: -73.792317 },
     },
 
     {
@@ -180,6 +204,7 @@ export async function loadGates(): Promise<void> {
       name: '36',
       category: 'international',
       parkingPositionId: '9569141a-b04e-4821-ae5a-86a0b957626b',
+      coordinates: { latitude: 40.649735, longitude: -73.794118 },
     },
 
     // LFPG — Terminal 1
@@ -190,6 +215,7 @@ export async function loadGates(): Promise<void> {
       name: '30',
       category: 'non-schengen',
       parkingPositionId: '2d5ad855-ba9f-4763-b2be-5b332cf0f5d2',
+      coordinates: { latitude: 49.015979, longitude: 2.543913 },
     },
 
     // LFPG — Terminal 2A
@@ -200,6 +226,7 @@ export async function loadGates(): Promise<void> {
       name: 'A30',
       category: 'schengen',
       parkingPositionId: '4ee007ef-1ffe-44ff-8fb7-1b6e7032b33f',
+      coordinates: { latitude: 49.002299, longitude: 2.558243 },
     },
 
     // LFPG — Terminal 2B
@@ -210,6 +237,7 @@ export async function loadGates(): Promise<void> {
       name: 'B40',
       category: 'schengen',
       parkingPositionId: 'dc8c5412-e571-423e-8932-9b73b04ae6f8',
+      coordinates: { latitude: 49.00896, longitude: 2.55412 },
     },
 
     // LFPG — Terminal 2C
@@ -220,6 +248,7 @@ export async function loadGates(): Promise<void> {
       name: 'C50',
       category: 'schengen',
       parkingPositionId: '677b380b-75a3-4322-a686-a99e803c5cc0',
+      coordinates: { latitude: 49.00896, longitude: 2.55412 },
     },
 
     // LFPG — Terminal 2D
@@ -230,6 +259,7 @@ export async function loadGates(): Promise<void> {
       name: 'D60',
       category: 'schengen',
       parkingPositionId: 'f0f1b1d7-27b3-47c0-bbf8-67f69418a609',
+      coordinates: { latitude: 49.004959, longitude: 2.567434 },
     },
 
     // LFPG — Terminal 2E
@@ -240,6 +270,7 @@ export async function loadGates(): Promise<void> {
       name: 'K20',
       category: 'non-schengen',
       parkingPositionId: '7dba9a37-54a8-48fc-bf13-fa0ad243f505',
+      coordinates: { latitude: 49.00896, longitude: 2.55412 },
     },
 
     // LFPG — Terminal 2F
@@ -250,6 +281,7 @@ export async function loadGates(): Promise<void> {
       name: 'F30',
       category: 'non-schengen',
       parkingPositionId: '501cdc2c-da73-4ac1-bf85-93277a61ba3f',
+      coordinates: { latitude: 49.006508, longitude: 2.574264 },
     },
 
     // LFPG — Terminal 2G
@@ -260,6 +292,7 @@ export async function loadGates(): Promise<void> {
       name: 'G10',
       category: 'schengen',
       parkingPositionId: '28587120-4472-4651-b77b-36d02b0dd033',
+      coordinates: { latitude: 49.003475, longitude: 2.556203 },
     },
 
     // LFPG — Terminal 3
@@ -270,6 +303,7 @@ export async function loadGates(): Promise<void> {
       name: '50',
       category: 'non-schengen',
       parkingPositionId: '64f639bb-4f64-42e2-86bb-b6b6e8ebe9af',
+      coordinates: { latitude: 49.014785, longitude: 2.538702 },
     },
 
     // CYYR — Goose Bay Main Terminal
@@ -280,6 +314,7 @@ export async function loadGates(): Promise<void> {
       name: '1',
       category: 'international',
       parkingPositionId: '710fc7de-b3e5-404a-b4f0-6d31a7862194',
+      coordinates: { latitude: 53.319168, longitude: -60.409444 },
     },
 
     // BIKF — Reykjavik Leifur Eiriksson Terminal
@@ -290,6 +325,7 @@ export async function loadGates(): Promise<void> {
       name: 'D2',
       category: 'schengen',
       parkingPositionId: '94806a1b-3b2a-4213-9245-8cf2b383a898',
+      coordinates: { latitude: 63.985, longitude: -22.6056 },
     },
 
     {
@@ -299,6 +335,7 @@ export async function loadGates(): Promise<void> {
       name: 'A4',
       category: 'non-schengen',
       parkingPositionId: 'efbca774-780b-4c29-bed6-35a36f58194c',
+      coordinates: { latitude: 63.985, longitude: -22.6056 },
     },
 
     // CYYT — St. John's ATB
@@ -309,6 +346,7 @@ export async function loadGates(): Promise<void> {
       name: '1',
       category: 'international',
       parkingPositionId: '329f0e1c-383b-471f-8da3-fb4b8004df7e',
+      coordinates: { latitude: 47.613567, longitude: -52.744368 },
     },
 
     // KPHL — Terminal A-East
@@ -319,6 +357,7 @@ export async function loadGates(): Promise<void> {
       name: 'A14',
       category: 'international',
       parkingPositionId: '009c150e-1a83-4c5b-8ba1-8e6d775b51f8',
+      coordinates: { latitude: 39.874885, longitude: -75.248284 },
     },
 
     // KPHL — Terminal A-West
@@ -329,6 +368,7 @@ export async function loadGates(): Promise<void> {
       name: 'A1',
       category: 'domestic',
       parkingPositionId: 'dce84e76-b92d-4531-a32a-33e52718b299',
+      coordinates: { latitude: 39.873348, longitude: -75.244392 },
     },
 
     // KPHL — Terminal B
@@ -339,6 +379,7 @@ export async function loadGates(): Promise<void> {
       name: 'B6',
       category: 'domestic',
       parkingPositionId: 'b2630ac0-15b3-4238-bc1b-13db6cc6939f',
+      coordinates: { latitude: 39.874753, longitude: -75.243876 },
     },
 
     // KPHL — Terminal C
@@ -349,6 +390,7 @@ export async function loadGates(): Promise<void> {
       name: 'C25',
       category: 'domestic',
       parkingPositionId: 'c15d983a-c1a1-41f8-be82-7082b3b1fcae',
+      coordinates: { latitude: 39.87479, longitude: -75.240519 },
     },
 
     // KPHL — Terminal D
@@ -359,6 +401,7 @@ export async function loadGates(): Promise<void> {
       name: 'D9',
       category: 'domestic',
       parkingPositionId: '94205e30-626d-4053-bc8e-97e119ef8e7e',
+      coordinates: { latitude: 39.875481, longitude: -75.237749 },
     },
 
     // KPHL — Terminal E
@@ -369,6 +412,7 @@ export async function loadGates(): Promise<void> {
       name: 'E15',
       category: 'international',
       parkingPositionId: 'c337e7e6-3d59-463d-85e6-6a6311d3e972',
+      coordinates: { latitude: 39.877761, longitude: -75.236245 },
     },
 
     // KPHL — Terminal F
@@ -379,6 +423,7 @@ export async function loadGates(): Promise<void> {
       name: 'F30',
       category: 'domestic',
       parkingPositionId: '7cd86525-7a91-45a4-8461-61e42f63c089',
+      coordinates: { latitude: 39.881828, longitude: -75.237073 },
     },
 
     // KBOS — Terminal A
@@ -389,6 +434,7 @@ export async function loadGates(): Promise<void> {
       name: 'A4',
       category: 'domestic',
       parkingPositionId: 'b79dab35-27e0-4bc4-849a-2f2a277e3838',
+      coordinates: { latitude: 42.364654, longitude: -71.022864 },
     },
 
     {
@@ -398,6 +444,7 @@ export async function loadGates(): Promise<void> {
       name: 'A8',
       category: 'domestic',
       parkingPositionId: '10803705-cdb6-4f34-9057-f3bb1894b484',
+      coordinates: { latitude: 42.363948, longitude: -71.021385 },
     },
 
     // KBOS — Terminal B
@@ -408,6 +455,7 @@ export async function loadGates(): Promise<void> {
       name: 'B30',
       category: 'domestic',
       parkingPositionId: '2ab63efc-009d-47ae-9a8b-7d07a010392a',
+      coordinates: { latitude: 42.363167, longitude: -71.016897 },
     },
 
     {
@@ -417,6 +465,7 @@ export async function loadGates(): Promise<void> {
       name: 'B36',
       category: 'international',
       parkingPositionId: 'fe676b1d-4b11-4edc-a5a7-c0174dec1055',
+      coordinates: { latitude: 42.363389, longitude: -71.016854 },
     },
 
     // KBOS — Terminal C
@@ -427,6 +476,7 @@ export async function loadGates(): Promise<void> {
       name: 'C15',
       category: 'domestic',
       parkingPositionId: '2bd3c522-5a43-48b6-a718-14d651bcc0b3',
+      coordinates: { latitude: 42.367786, longitude: -71.01531 },
     },
 
     {
@@ -436,6 +486,7 @@ export async function loadGates(): Promise<void> {
       name: 'C30',
       category: 'domestic',
       parkingPositionId: '24b698fb-3075-4a5b-9c0a-aa8a27f00a60',
+      coordinates: { latitude: 42.36546, longitude: -71.014497 },
     },
 
     // KBOS — Terminal E
@@ -446,6 +497,7 @@ export async function loadGates(): Promise<void> {
       name: 'E1A',
       category: 'international',
       parkingPositionId: 'ef7b0d87-9944-4fe1-b0f2-61d0127ad19e',
+      coordinates: { latitude: 42.368132, longitude: -71.018139 },
     },
 
     {
@@ -455,6 +507,7 @@ export async function loadGates(): Promise<void> {
       name: 'E10',
       category: 'international',
       parkingPositionId: 'b6d53cc3-4f97-4c4b-9e2f-cff161c24f5f',
+      coordinates: { latitude: 42.37118, longitude: -71.020536 },
     },
 
     // EDDW — Bremen Hauptterminal
@@ -465,6 +518,7 @@ export async function loadGates(): Promise<void> {
       name: '5',
       category: 'schengen',
       parkingPositionId: '16f06be2-a4b3-4105-ba52-9d6a1235818e',
+      coordinates: { latitude: 53.051918, longitude: 8.783696 },
     },
   ];
 
