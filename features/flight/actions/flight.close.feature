@@ -180,7 +180,13 @@ Feature: Close flight
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": 1797
+        }
       }
       """
     When I send a "GET" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/events"
@@ -567,7 +573,13 @@ Feature: Close flight
         "tracking": "private",
         "rotationId": "c2e12afb-a712-45aa-9ba5-fec71868e59a",
         "hasFlightPath": false,
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": 1797
+        }
       }
       """
     When I send a "GET" request to "/api/v1/flight/d4a25ef2-39cf-484c-af00-a548999e8699/events"
@@ -961,7 +973,13 @@ Feature: Close flight
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": 1797
+        }
       }
       """
     When I send a "GET" request to "/api/v1/flight/5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04/emergency"
@@ -1128,7 +1146,13 @@ Feature: Close flight
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": 1797
+        }
       }
       """
     And I should receive a live flight event of type "flight.closed" within 2000ms

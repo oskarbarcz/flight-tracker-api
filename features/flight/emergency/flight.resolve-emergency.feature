@@ -132,7 +132,13 @@ Feature: Resolve a flight emergency
         "isFlightDiverted": false,
         "isEmergencyDeclared": true,
         "hasFlightPath": false,
-        "createdAt": "2025-01-01T06:00:00.000Z"
+        "createdAt": "2025-01-01T06:00:00.000Z",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": 1797
+        }
       }
       """
     When I send a "DELETE" request to "/api/v1/flight/b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b/emergency/a77e0b1c-2944-4bdf-9e6a-0b1c2d3e4f5a"
@@ -278,7 +284,13 @@ Feature: Resolve a flight emergency
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
-        "createdAt": "2025-01-01T06:00:00.000Z"
+        "createdAt": "2025-01-01T06:00:00.000Z",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": 1797
+        }
       }
       """
     When I send a "POST" request to "/api/v1/flight/b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b/emergency" with body:

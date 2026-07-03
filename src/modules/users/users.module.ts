@@ -15,6 +15,7 @@ import { CreateUserHandler } from './application/command/create-user.command';
 import { UpdateUserHandler } from './application/command/update-user.command';
 import { GetUserByIdHandler } from './application/query/get-user-by-id.query';
 import { ListUsersHandler } from './application/query/list-users.query';
+import { GetPilotHandler } from './application/query/get-pilot.query';
 import { FlightLifecycleListener } from './application/event/external/flight-lifecycle.listener';
 import { UserTravelRepository } from './infra/database/repository/user-travel.repository';
 import { CreateUserTravelAction } from './infra/http/action/create-user-travel.action';
@@ -44,6 +45,7 @@ import { ListUserTravelHandler } from './application/query/list-user-travel.quer
     UpdateUserHandler,
     GetUserByIdHandler,
     ListUsersHandler,
+    GetPilotHandler,
     CreateManualTravelHandler,
     ListUserTravelHandler,
     FlightLifecycleListener,

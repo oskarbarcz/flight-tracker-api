@@ -203,7 +203,8 @@ Feature: Create a flight with Simbrief
         "rotationId": null,
         "source": "simbrief",
         "tracking": "private",
-        "createdAt": "@date('within 1 minute from now')"
+        "createdAt": "@date('within 1 minute from now')",
+        "pilot": null
       }
       """
     And I set database to initial state

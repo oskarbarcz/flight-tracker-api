@@ -180,7 +180,13 @@ Feature: Report takeoff
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": 1797
+        }
       }
       """
     And I should receive a live flight event of type "flight.takeoff-reported" within 2000ms

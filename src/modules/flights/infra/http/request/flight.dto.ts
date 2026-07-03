@@ -17,6 +17,7 @@ import { Loadsheets } from '../../../model/loadsheet.model';
 import { Type } from 'class-transformer';
 import { Flight, FlightPhase } from '../../../model/flight.model';
 import { AirportType } from '../../../../airports/model/airport.model';
+import { FlightPilotDto } from '../../../../users/infra/http/request/get-user.dto';
 
 class PreliminaryLoadsheetOnly extends OmitType(Loadsheets, ['final']) {}
 
@@ -107,7 +108,15 @@ export class GetFlightResponse extends OmitType(Flight, [
   'rotation',
   'aircraftId',
   'operatorId',
-]) {}
+]) {
+  @ApiProperty({
+    type: FlightPilotDto,
+    nullable: true,
+    description:
+      'Pilot checked in for the flight, or null if none has checked in yet',
+  })
+  pilot!: FlightPilotDto | null;
+}
 
 export class FlightListFilters {
   @IsOptional()

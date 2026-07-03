@@ -147,7 +147,8 @@ Feature: Get flight
         "source": "manual",
         "tracking": "private",
         "rotationId": null,
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": null
       }
       """
 
@@ -319,7 +320,13 @@ Feature: Get flight
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": 1797
+        }
       }
       """
 

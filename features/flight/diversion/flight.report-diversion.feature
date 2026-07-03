@@ -205,7 +205,13 @@ Feature: Report a flight diversion
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": 1797
+        }
       }
       """
     When I send a "GET" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/diversion"
@@ -500,7 +506,13 @@ Feature: Report a flight diversion
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": 1797
+        }
       }
       """
     When I send a "GET" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/diversion"

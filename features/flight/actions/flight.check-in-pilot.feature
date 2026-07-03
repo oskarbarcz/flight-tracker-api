@@ -187,7 +187,13 @@ Feature: Check in pilot for flight
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": 1797
+        }
       }
       """
     When I send a "GET" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/events"
@@ -610,7 +616,13 @@ Feature: Check in pilot for flight
         "source": "manual",
         "tracking": "private",
         "rotationId": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1",
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": {
+          "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+          "name": "Alan Doe",
+          "pilotLicenseId": "UK-34560",
+          "totalFlightTime": 0
+        }
       }
       """
     When I send a "GET" request to "/api/v1/flight/006f0754-1ed7-4ae1-9f91-fae2d446a6e7/events"
