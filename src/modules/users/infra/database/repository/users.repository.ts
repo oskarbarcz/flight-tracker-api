@@ -7,6 +7,7 @@ import {
   GetUserDto,
   ListUsersFilters,
   GetUserStatsResponse,
+  FlightPilotDto,
 } from '../../http/request/get-user.dto';
 import { User } from '../../../../../../prisma/client/client';
 import { UserRole } from '../../../../../../prisma/client/enums';
@@ -20,6 +21,11 @@ import {
   UserEmailAlreadyExistsError,
   UserNotFoundError,
 } from '../../../model/error/user.error';
+
+// Pilot cards are refreshed explicitly whenever the underlying user changes
+// (profile update, flight completion), so this only bounds staleness if an
+// invalidation path is ever missed.
+const PILOT_CARD_TTL_MS = 12 * 60 * 60 * 1000;
 
 @Injectable()
 export class UsersRepository {
@@ -108,6 +114,37 @@ export class UsersRepository {
     };
   }
 
+  /**
+   * Resolves the public pilot card for a user, reading through a per-user cache.
+   * The cache is invalidated whenever the underlying fields change (profile
+   * update, flight completion), so callers can read it as often as they need.
+   */
+  async getPilotCard(id: string): Promise<FlightPilotDto | null> {
+    const cacheKey = cacheByUser(CACHE_KEYS.PILOT_CARD, id);
+
+    const cached = await this.cacheManager.get<FlightPilotDto>(cacheKey);
+    if (cached) {
+      return cached;
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        pilotLicenseId: true,
+        totalFlightTime: true,
+      },
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    await this.cacheManager.set(cacheKey, user, PILOT_CARD_TTL_MS);
+    return user;
+  }
+
   async findByCredentials(
     email: string,
     password: string,
@@ -155,6 +192,9 @@ export class UsersRepository {
         data: { password: hashedPassword },
       });
     }
+
+    // name / pilot license may have changed — drop the cached pilot card
+    await this.cacheManager.del(cacheByUser(CACHE_KEYS.PILOT_CARD, id));
   }
 
   async setCurrentFlight(
@@ -207,6 +247,8 @@ export class UsersRepository {
     // remove user stats from an indefinite cache
     const cacheKey = cacheByUser(CACHE_KEYS.USER_STATS, userId);
     await this.cacheManager.del(cacheKey);
+    // totalFlightTime changed — drop the cached pilot card too
+    await this.cacheManager.del(cacheByUser(CACHE_KEYS.PILOT_CARD, userId));
   }
 
   private async findOneBy(

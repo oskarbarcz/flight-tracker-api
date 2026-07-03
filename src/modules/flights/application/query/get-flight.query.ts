@@ -3,9 +3,11 @@ import {
   FlightStatus,
   FlightTracking,
 } from '../../model/flight.model';
-import { QueryHandler, Query, IQueryHandler } from '@nestjs/cqrs';
+import { QueryHandler, Query, IQueryHandler, QueryBus } from '@nestjs/cqrs';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { FlightDoesNotExistError } from '../../model/error/flight.error';
+import { GetPilotQuery } from '../../../users/application/query/get-pilot.query';
+import { FlightPilotDto } from '../../../users/infra/http/request/get-user.dto';
 import { FullTimesheet, Schedule } from '../../model/timesheet.model';
 import { Loadsheets } from '../../model/loadsheet.model';
 import {
@@ -24,7 +26,10 @@ export class GetFlightQuery extends Query<GetFlightResponse> {
 
 @QueryHandler(GetFlightQuery)
 export class GetFlightHandler implements IQueryHandler<GetFlightQuery> {
-  constructor(private repository: FlightsRepository) {}
+  constructor(
+    private repository: FlightsRepository,
+    private readonly queryBus: QueryBus,
+  ) {}
 
   async execute(query: GetFlightQuery) {
     const flight = await this.repository.findOneBy({
@@ -35,8 +40,10 @@ export class GetFlightHandler implements IQueryHandler<GetFlightQuery> {
       throw new FlightDoesNotExistError();
     }
 
+    const { captainId, ...rest } = flight;
+
     return {
-      ...flight,
+      ...rest,
       status: flight.status as FlightStatus,
       timesheet: this.convertTimesheetDates(flight.timesheet as FullTimesheet),
       loadsheets: flight.loadsheets as unknown as Loadsheets,
@@ -57,7 +64,19 @@ export class GetFlightHandler implements IQueryHandler<GetFlightQuery> {
       arrivalRunwayId: flight.arrivalRunwayId,
       source: flight.source as FlightSource,
       tracking: flight.tracking as FlightTracking,
+      pilot: await this.resolvePilot(captainId),
     };
+  }
+
+  private async resolvePilot(
+    captainId: string | null,
+  ): Promise<FlightPilotDto | null> {
+    if (!captainId) {
+      return null;
+    }
+
+    const pilotQuery = new GetPilotQuery(captainId);
+    return this.queryBus.execute(pilotQuery);
   }
 
   private convertSchedule = (

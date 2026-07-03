@@ -50,3 +50,11 @@ export class PilotDto extends PickType(User, [
   'name',
   'pilotLicenseId',
 ]) {}
+
+export class FlightPilotDto extends PilotDto {
+  @ApiProperty({
+    description: 'Total accumulated block time in minutes',
+    example: 1797,
+  })
+  totalFlightTime!: number;
+}

@@ -43,6 +43,7 @@ export const flightWithAircraftAndAirportsFields = {
   timesheet: true,
   loadsheets: true,
   rotationId: true,
+  captainId: true,
   source: true,
   tracking: true,
   createdAt: true,
