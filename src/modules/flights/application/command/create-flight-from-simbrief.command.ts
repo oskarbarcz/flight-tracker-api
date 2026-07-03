@@ -139,25 +139,36 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
   private collectAlternateCandidates(
     ofp: OperationalFlightPlan,
   ): AlternateAirportCandidate[] {
-    const candidates: AlternateAirportCandidate[] = ofp.alternate.map(
-      (airport) => ({
-        icaoCode: airport.icao_code,
-        type: AirportType.DestinationAlternate,
-      }),
-    );
+    const candidates: AlternateAirportCandidate[] = [];
 
-    if (ofp.enroute_altn) {
+    for (const airport of ofp.alternate ?? []) {
+      if (airport?.icao_code) {
+        candidates.push({
+          icaoCode: airport.icao_code,
+          type: AirportType.DestinationAlternate,
+        });
+      }
+    }
+
+    if (ofp.enroute_altn?.icao_code) {
       candidates.push({
         icaoCode: ofp.enroute_altn.icao_code,
         type: AirportType.EnrouteAlternate,
       });
     }
 
-    if (ofp.etops) {
-      candidates.push(
-        { icaoCode: ofp.etops.entry.icao_code, type: AirportType.EtopsEntry },
-        { icaoCode: ofp.etops.exit.icao_code, type: AirportType.EtopsExit },
-      );
+    if (ofp.etops?.entry?.icao_code) {
+      candidates.push({
+        icaoCode: ofp.etops.entry.icao_code,
+        type: AirportType.EtopsEntry,
+      });
+    }
+
+    if (ofp.etops?.exit?.icao_code) {
+      candidates.push({
+        icaoCode: ofp.etops.exit.icao_code,
+        type: AirportType.EtopsExit,
+      });
     }
 
     return candidates;
