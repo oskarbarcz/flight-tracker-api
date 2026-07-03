@@ -382,6 +382,174 @@ Feature: Create a flight
       """
     And I set database to initial state
 
+  Scenario: As operations I can create a flight with alternate airports
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/" with body:
+      """json
+      {
+        "flightNumber": "DLH990",
+        "callsign": "DLH990",
+        "isEtops": true,
+        "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+        "alternateAirports": [
+          {
+            "airportId": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "type": "destination_alternate"
+          },
+          {
+            "airportId": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
+            "type": "etops_entry"
+          }
+        ],
+        "timesheet": {
+          "scheduled": {
+            "offBlockTime": "2025-01-01 12:00",
+            "takeoffTime": "2025-01-01 12:15",
+            "arrivalTime": "2025-01-01 21:00",
+            "onBlockTime": "2025-01-01 21:10"
+          }
+        },
+        "loadsheets": {
+          "preliminary": null
+        }
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "flightNumber": "DLH990",
+        "callsign": "DLH990",
+        "atcCallsign": null,
+        "isEtops": true,
+        "status": "created",
+        "timesheet": {
+          "scheduled": {
+            "arrivalTime": "2025-01-01T21:00:00.000Z",
+            "onBlockTime": "2025-01-01T21:10:00.000Z",
+            "takeoffTime": "2025-01-01T12:15:00.000Z",
+            "offBlockTime": "2025-01-01T12:00:00.000Z"
+          }
+        },
+        "loadsheets": {
+          "preliminary": null,
+          "final": null
+        },
+        "aircraft": {
+          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "airframe": {
+            "type": "B77W",
+            "name": "B777-300ER",
+            "cruiseSpeed": { "value": 0.84, "unit": "mach" },
+            "serviceCeiling": 43000,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
+          "registration": "N78881",
+          "selcal": "KY-JO",
+          "livery": "Team USA (2023)",
+          "operator": {
+            "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+            "icaoCode": "AAL",
+            "iataCode": "AA",
+            "shortName": "American Airlines",
+            "fullName": "American Airlines, Inc.",
+            "callsign": "AMERICAN"
+          }
+        },
+        "operator": {
+          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+          "icaoCode": "AAL",
+          "iataCode": "AA",
+          "shortName": "American Airlines",
+          "fullName": "American Airlines, Inc.",
+          "callsign": "AMERICAN"
+        },
+        "airports": [
+          {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "city": "Frankfurt",
+            "name": "Frankfurt Rhein/Main",
+            "country": "Germany",
+            "timezone": "Europe/Berlin",
+            "continent": "europe",
+            "location": {
+              "longitude": 8.57397,
+              "latitude": 50.04693
+            },
+            "type": "departure",
+            "shape": "@coordinates"
+          },
+          {
+            "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+            "icaoCode": "KJFK",
+            "iataCode": "JFK",
+            "city": "New York",
+            "name": "New York JFK",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": {
+              "longitude": -73.7781,
+              "latitude": 40.6413
+            },
+            "type": "destination",
+            "shape": "@coordinates"
+          },
+          {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "icaoCode": "KBOS",
+            "iataCode": "BOS",
+            "city": "Boston",
+            "name": "Boston Logan Intl",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": {
+              "longitude": -71.01663,
+              "latitude": 42.36454
+            },
+            "type": "destination_alternate",
+            "shape": "@coordinates"
+          },
+          {
+            "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
+            "icaoCode": "BIKF",
+            "iataCode": "KEF",
+            "city": "Reykjavik",
+            "name": "Reykjavik Keflavik",
+            "country": "Iceland",
+            "timezone": "Atlantic/Reykjavik",
+            "continent": "europe",
+            "location": {
+              "longitude": -22.6056,
+              "latitude": 63.985
+            },
+            "type": "etops_entry",
+            "shape": "@coordinates"
+          }
+        ],
+        "departureParkingPositionId": null,
+        "departureRunwayId": null,
+        "arrivalParkingPositionId": null,
+        "arrivalRunwayId": null,
+        "isFlightDiverted": false,
+        "isEmergencyDeclared": false,
+        "hasFlightPath": false,
+        "source": "manual",
+        "tracking": "private",
+        "rotationId": null,
+        "createdAt": "@date('within 1 minute from now')"
+      }
+      """
+    And I set database to initial state
+
   Scenario: As operations I cannot create a flight with non existing aircraft
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/" with body:
@@ -481,6 +649,46 @@ Feature: Create a flight
         "statusCode": 404,
         "error": "Not Found",
         "message": "Destination airport on this flight does not exist."
+      }
+      """
+
+  Scenario: As operations I cannot create a flight with a non existing alternate airport
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/" with body:
+      """json
+      {
+        "flightNumber": "DLH990",
+        "callsign": "DLH990",
+        "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+        "alternateAirports": [
+          {
+            "airportId": "5a709a4d-b688-47c0-b1ed-ce20629516a4",
+            "type": "destination_alternate"
+          }
+        ],
+        "timesheet": {
+          "scheduled": {
+            "offBlockTime": "2025-01-01 12:00",
+            "takeoffTime": "2025-01-01 12:15",
+            "arrivalTime": "2025-01-01 21:00",
+            "onBlockTime": "2025-01-01 21:10"
+          }
+        },
+        "loadsheets": {
+          "preliminary": null
+        }
+      }
+      """
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 404,
+        "error": "Not Found",
+        "message": "Alternate airport on this flight does not exist."
       }
       """
 

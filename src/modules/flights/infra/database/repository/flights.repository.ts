@@ -22,6 +22,7 @@ import {
   transformPositionReport,
 } from '../../../../../core/provider/adsb/type/adsb.types';
 import {
+  AlternateAirportNotFoundError,
   DepartureAirportNotFoundError,
   DestinationAirportNotFoundError,
 } from '../../http/request/errors.dto';
@@ -207,6 +208,12 @@ export class FlightsRepository {
     }
 
     const alternateAirports = flightData.alternateAirports ?? [];
+
+    for (const alternate of alternateAirports) {
+      if (!(await this.airportExist(alternate.airportId))) {
+        throw new NotFoundException(AlternateAirportNotFoundError);
+      }
+    }
 
     const loadsheets = {
       preliminary: flightData.loadsheets.preliminary,
