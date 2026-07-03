@@ -22,10 +22,11 @@ import {
   UserNotFoundError,
 } from '../../../model/error/user.error';
 
-// Pilot cards are refreshed explicitly whenever the underlying user changes
-// (profile update, flight completion), so this only bounds staleness if an
-// invalidation path is ever missed.
-const PILOT_CARD_TTL_MS = 12 * 60 * 60 * 1000;
+// Correctness comes from explicit invalidation whenever the underlying user
+// changes (profile update, flight completion). The TTL is only a short backstop
+// for changes the app can't observe (e.g. an out-of-band DB reset), so it stays
+// small to bound staleness rather than acting as the primary cache lifetime.
+const PILOT_CARD_TTL_MS = 1000;
 
 @Injectable()
 export class UsersRepository {

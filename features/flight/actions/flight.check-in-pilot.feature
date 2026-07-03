@@ -192,7 +192,7 @@ Feature: Check in pilot for flight
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
           "name": "Rick Doe",
           "pilotLicenseId": "UK-31270",
-          "totalFlightTime": "@any"
+          "totalFlightTime": 1797
         }
       }
       """
@@ -621,7 +621,7 @@ Feature: Check in pilot for flight
           "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
           "name": "Alan Doe",
           "pilotLicenseId": "UK-34560",
-          "totalFlightTime": "@any"
+          "totalFlightTime": 0
         }
       }
       """

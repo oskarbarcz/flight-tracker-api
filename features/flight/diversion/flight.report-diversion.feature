@@ -210,7 +210,7 @@ Feature: Report a flight diversion
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
           "name": "Rick Doe",
           "pilotLicenseId": "UK-31270",
-          "totalFlightTime": "@any"
+          "totalFlightTime": 1797
         }
       }
       """
@@ -511,7 +511,7 @@ Feature: Report a flight diversion
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
           "name": "Rick Doe",
           "pilotLicenseId": "UK-31270",
-          "totalFlightTime": "@any"
+          "totalFlightTime": 1797
         }
       }
       """
