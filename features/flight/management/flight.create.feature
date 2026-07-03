@@ -155,7 +155,8 @@ Feature: Create a flight
         "source": "manual",
         "tracking": "private",
         "rotationId": null,
-        "createdAt": "@date('within 1 minute from now')"
+        "createdAt": "@date('within 1 minute from now')",
+        "pilot": null
       }
       """
     When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/a10c21e3-3ac1-4265-9d12-da9baefa2d98"
@@ -377,7 +378,8 @@ Feature: Create a flight
         "source": "manual",
         "tracking": "private",
         "rotationId": null,
-        "createdAt": "@date('within 1 minute from now')"
+        "createdAt": "@date('within 1 minute from now')",
+        "pilot": null
       }
       """
     And I set database to initial state
@@ -545,7 +547,8 @@ Feature: Create a flight
         "source": "manual",
         "tracking": "private",
         "rotationId": null,
-        "createdAt": "@date('within 1 minute from now')"
+        "createdAt": "@date('within 1 minute from now')",
+        "pilot": null
       }
       """
     And I set database to initial state

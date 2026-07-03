@@ -151,7 +151,8 @@ Feature: Change flight visibility
         "source": "manual",
         "tracking": "disabled",
         "rotationId": null,
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": null
       }
       """
     And I set database to initial state

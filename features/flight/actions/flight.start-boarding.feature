@@ -163,7 +163,13 @@ Feature: Start boarding
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
-        "createdAt": "2025-01-01T00:00:00.000Z"
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": "@any"
+        }
       }
       """
     When I send a "GET" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/events"
