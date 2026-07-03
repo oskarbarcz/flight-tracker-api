@@ -16,6 +16,12 @@ export const DestinationAirportNotFoundError = {
   message: 'Destination airport on this flight does not exist.',
 };
 
+export const AlternateAirportNotFoundError = {
+  statusCode: 404,
+  error: 'Not Found',
+  message: 'Alternate airport on this flight does not exist.',
+};
+
 export const DestinationAirportSameAsDepartureAirportError = {
   statusCode: 400,
   error: 'Bad Request',

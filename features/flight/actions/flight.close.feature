@@ -537,7 +537,7 @@ Feature: Close flight
               "latitude": 63.985,
               "longitude": -22.6056
             },
-            "type": "etops_alternate",
+            "type": "etops_entry",
             "shape": "@coordinates"
           },
           {
@@ -553,7 +553,7 @@ Feature: Close flight
               "latitude": 47.61861,
               "longitude": -52.751945
             },
-            "type": "etops_alternate",
+            "type": "etops_exit",
             "shape": "@coordinates"
           }
         ],

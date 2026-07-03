@@ -129,7 +129,7 @@ Feature: Get flight
             "country": "Canada",
             "timezone": "America/St_Johns",
             "continent": "north_america",
-            "type": "etops_alternate",
+            "type": "etops_entry",
             "location": {
               "longitude": -52.751945,
               "latitude": 47.61861
