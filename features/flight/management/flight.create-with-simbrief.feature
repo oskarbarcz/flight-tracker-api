@@ -209,6 +209,170 @@ Feature: Create a flight with Simbrief
       """
     And I set database to initial state
 
+  Scenario: As operations user with a SimBrief plan whose ETOPS section is empty I can create a flight
+    Given I am signed in as "operations with Simbrief ID but empty etops"
+    When I send a "POST" request to "/api/v1/flight/create-with-simbrief"
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "flightNumber": "LH80",
+        "callsign": "DLH80",
+        "atcCallsign": "DLH80",
+        "isEtops": true,
+        "status": "created",
+        "timesheet": {
+          "scheduled": {
+            "offBlockTime": "2025-01-05T09:00:00.000Z",
+            "takeoffTime": "2025-01-05T09:20:00.000Z",
+            "arrivalTime": "2025-01-05T17:10:00.000Z",
+            "onBlockTime": "2025-01-05T17:25:00.000Z"
+          }
+        },
+        "loadsheets": {
+          "final": null,
+          "preliminary": {
+            "cargo": 8,
+            "payload": 37.9,
+            "blockFuel": 71.6,
+            "flightCrew": {
+              "pilots": 2,
+              "cabinCrew": 12,
+              "reliefPilots": 1
+            },
+            "passengers": 348,
+            "zeroFuelWeight": 206.5
+          }
+        },
+        "aircraft": {
+          "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+          "airframe": {
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
+          "registration": "D-AIMC",
+          "selcal": "LR-CK",
+          "livery": "Fanhansa (2024)",
+          "operator": {
+            "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+            "icaoCode": "DLH",
+            "iataCode": "LH",
+            "shortName": "Lufthansa",
+            "fullName": "Deutsche Lufthansa AG",
+            "callsign": "LUFTHANSA"
+          }
+        },
+        "operator": {
+          "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+          "icaoCode": "DLH",
+          "iataCode": "LH",
+          "shortName": "Lufthansa",
+          "fullName": "Deutsche Lufthansa AG",
+          "callsign": "LUFTHANSA"
+        },
+        "airports": [
+          {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "city": "Frankfurt",
+            "name": "Frankfurt Rhein/Main",
+            "country": "Germany",
+            "timezone": "Europe/Berlin",
+            "continent": "europe",
+            "location": {
+              "latitude": 50.04693,
+              "longitude": 8.57397
+            },
+            "type": "departure",
+            "shape": "@coordinates"
+          },
+          {
+            "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+            "icaoCode": "KJFK",
+            "iataCode": "JFK",
+            "city": "New York",
+            "name": "New York JFK",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": {
+              "latitude": 40.6413,
+              "longitude": -73.7781
+            },
+            "type": "destination",
+            "shape": "@coordinates"
+          },
+          {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "icaoCode": "KBOS",
+            "iataCode": "BOS",
+            "city": "Boston",
+            "name": "Boston Logan Intl",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": {
+              "latitude": 42.36454,
+              "longitude": -71.01663
+            },
+            "type": "destination_alternate",
+            "shape": "@coordinates"
+          },
+          {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "icaoCode": "KPHL",
+            "iataCode": "PHL",
+            "city": "Philadelphia",
+            "name": "Philadelphia Intl",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "location": {
+              "latitude": 39.87113,
+              "longitude": -75.24349
+            },
+            "type": "destination_alternate",
+            "shape": "@coordinates"
+          },
+          {
+            "id": "fa8ee2e9-fb94-4416-9ed0-4811efd488ae",
+            "icaoCode": "CYYR",
+            "iataCode": "YYR",
+            "city": "Goose Bay",
+            "name": "Goose Bay Intl",
+            "country": "Canada",
+            "timezone": "America/Goose_Bay",
+            "continent": "north_america",
+            "location": {
+              "latitude": 53.319168,
+              "longitude": -60.409444
+            },
+            "type": "enroute_alternate",
+            "shape": "@coordinates"
+          }
+        ],
+        "departureParkingPositionId": null,
+        "departureRunwayId": null,
+        "arrivalParkingPositionId": null,
+        "arrivalRunwayId": null,
+        "isFlightDiverted": false,
+        "isEmergencyDeclared": false,
+        "hasFlightPath": false,
+        "rotationId": null,
+        "source": "simbrief",
+        "tracking": "private",
+        "createdAt": "@date('within 1 minute from now')",
+        "pilot": null
+      }
+      """
+    And I set database to initial state
+
   Scenario: As a cabin crew I cannot create a flight
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/create-with-simbrief"
