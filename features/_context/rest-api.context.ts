@@ -8,6 +8,7 @@ type ApiUserType =
   | 'admin'
   | 'operations'
   | 'operations with valid Simbrief ID'
+  | 'operations with Simbrief ID but empty etops'
   | 'operations with Simbrief ID but non existing aircraft'
   | 'operations with Simbrief ID but non existing alternate airport'
   | 'cabin crew';
@@ -29,6 +30,10 @@ const apiUsers = {
   },
   'operations with valid Simbrief ID': {
     email: 'abby.doe@example.com',
+    password: 'P@$$w0rd',
+  },
+  'operations with Simbrief ID but empty etops': {
+    email: 'emma.doe@example.com',
     password: 'P@$$w0rd',
   },
   'operations with Simbrief ID but non existing aircraft': {
