@@ -187,11 +187,11 @@
         "alternate": [
           {
             "icao_code": "KBOS"
-          },
-          {
-            "icao_code": "EGLL"
           }
         ],
+        "enroute_altn": {
+          "icao_code": "EGLL"
+        },
         "fuel": {
           "plan_ramp": "71636"
         },
