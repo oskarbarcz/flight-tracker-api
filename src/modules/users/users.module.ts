@@ -22,6 +22,10 @@ import { CreateUserTravelAction } from './infra/http/action/create-user-travel.a
 import { ListUserTravelAction } from './infra/http/action/list-user-travel.action';
 import { CreateManualTravelHandler } from './application/command/create-manual-travel.command';
 import { ListUserTravelHandler } from './application/query/list-user-travel.query';
+import { UserAircraftRepository } from './infra/database/repository/user-aircraft.repository';
+import { GetMyAircraftAction } from './infra/http/action/get-my-aircraft.action';
+import { ListUserAircraftHandler } from './application/query/list-user-aircraft.query';
+import { UserAircraftListener } from './application/event/external/user-aircraft.listener';
 
 @Module({
   controllers: [
@@ -29,6 +33,7 @@ import { ListUserTravelHandler } from './application/query/list-user-travel.quer
     ListUsersAction,
     GetCurrentUserAction,
     GetMyStatsAction,
+    GetMyAircraftAction,
     GetUserAction,
     UpdateUserAction,
     CreateUserTravelAction,
@@ -37,6 +42,7 @@ import { ListUserTravelHandler } from './application/query/list-user-travel.quer
   providers: [
     UsersRepository,
     UserTravelRepository,
+    UserAircraftRepository,
     CheckUserExistsHandler,
     GetUserSimbriefIdHandler,
     GetUserStatsHandler,
@@ -48,7 +54,9 @@ import { ListUserTravelHandler } from './application/query/list-user-travel.quer
     GetPilotHandler,
     CreateManualTravelHandler,
     ListUserTravelHandler,
+    ListUserAircraftHandler,
     FlightLifecycleListener,
+    UserAircraftListener,
   ],
   imports: [PrismaModule],
   exports: [UsersRepository],
