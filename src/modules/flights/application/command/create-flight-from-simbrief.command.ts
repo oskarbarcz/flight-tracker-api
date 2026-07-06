@@ -1,4 +1,9 @@
-import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
+import {
+  CommandBus,
+  CommandHandler,
+  ICommandHandler,
+  QueryBus,
+} from '@nestjs/cqrs';
 import { BadRequestException } from '@nestjs/common';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { FlightWasCreatedEvent } from '../../../../core/domain/events/dto/flight.events';
@@ -6,7 +11,7 @@ import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { GetUserSimbriefIdQuery } from '../../../users/application/query/get-user-simbrief-id.query';
 import { SimbriefClient } from '../../../../core/provider/simbrief/client/simbrief.client';
-import { GetAirportByIcaoCodeQuery } from '../../../airports/application/query/get-airport-by-icao-code.query';
+import { ImportAirportByIcaoCommand } from '../../../airports/application/command/import-airport-by-icao.command';
 import { GetAircraftByRegistrationQuery } from '../../../operators/application/query/aircraft/get-aircraft-by-registration.query';
 import { GetOperatorByIcaoCodeQuery } from '../../../operators/application/query/get-operator-by-icao-code.query';
 import { FlightTracking } from '../../model/flight.model';
@@ -33,6 +38,7 @@ export class CreateFlightFromSimbriefCommand {
 export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFlightFromSimbriefCommand> {
   constructor(
     private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
     private readonly simbriefClient: SimbriefClient,
     private readonly flightsRepository: FlightsRepository,
     private readonly domainEvents: DomainEventEmitter,
@@ -50,10 +56,10 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
 
     const ofp = await this.simbriefClient.getOperationalFlightPlan(simbriefId);
 
-    const departureAirportQuery = new GetAirportByIcaoCodeQuery(
+    const departureAirportCommand = new ImportAirportByIcaoCommand(
       ofp.origin.icao_code,
     );
-    const destinationAirportQuery = new GetAirportByIcaoCodeQuery(
+    const destinationAirportCommand = new ImportAirportByIcaoCommand(
       ofp.destination.icao_code,
     );
     const aircraftQuery = new GetAircraftByRegistrationQuery(ofp.aircraft.reg);
@@ -64,12 +70,12 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     const alternateCandidates = this.collectAlternateCandidates(ofp);
 
     const [
-      [departureAirport, destinationAirport, aircraft, operator],
+      [departureAirportId, destinationAirportId, aircraft, operator],
       alternateAirports,
     ] = await Promise.all([
       Promise.all([
-        this.queryBus.execute(departureAirportQuery),
-        this.queryBus.execute(destinationAirportQuery),
+        this.commandBus.execute(departureAirportCommand),
+        this.commandBus.execute(destinationAirportCommand),
         this.queryBus.execute(aircraftQuery),
         this.queryBus.execute(operatorQuery),
       ]),
@@ -84,9 +90,9 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       isEtops: ofp.general.is_etops === '1',
       aircraftId: aircraft.id,
       operatorId: operator.id,
-      departureAirportId: departureAirport.id,
+      departureAirportId: departureAirportId,
       tracking: FlightTracking.Private,
-      destinationAirportId: destinationAirport.id,
+      destinationAirportId: destinationAirportId,
       timesheet: {
         scheduled: {
           offBlockTime: this.ofpTimeToDate(ofp.times.sched_out),
@@ -177,14 +183,15 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
   private async resolveAlternateAirports(
     candidates: AlternateAirportCandidate[],
   ): Promise<AlternateAirportRequest[]> {
-    // Each alternate is resolved with the same query as the origin/destination,
-    // so an unknown ICAO throws NotFoundException and aborts the whole import.
+    // Alternates are resolved the same way as origin/destination: any ICAO not
+    // already stored is imported from SkyLink, so an unknown airport no longer
+    // aborts the import.
     return Promise.all(
       candidates.map(async (candidate) => {
-        const query = new GetAirportByIcaoCodeQuery(candidate.icaoCode);
-        const airport = await this.queryBus.execute(query);
+        const command = new ImportAirportByIcaoCommand(candidate.icaoCode);
+        const airportId = await this.commandBus.execute(command);
 
-        return { airportId: airport.id, type: candidate.type };
+        return { airportId, type: candidate.type };
       }),
     );
   }
