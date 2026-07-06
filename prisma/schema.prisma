@@ -28,6 +28,7 @@ model Aircraft {
   lastParkingPosition ParkingPosition?     @relation("AircraftLastParkingPosition", fields: [lastParkingPositionId], references: [id], onDelete: SetNull)
   flight              Flight[]
   repositions         AircraftReposition[]
+  userAircraft        UserAircraft[]
 
   @@map("aircraft")
 }
@@ -216,6 +217,7 @@ model Flight {
   arrivalRunway            Runway?                @relation("FlightArrivalRunway", fields: [arrivalRunwayId], references: [id], onDelete: SetNull)
   userTravels              UserTravel[]           @relation("UserTravelFlight")
   aircraftRepositions      AircraftReposition[]   @relation("AircraftRepositionFlight")
+  userAircraft             UserAircraft[]
 
   @@map("flight")
 }
@@ -346,6 +348,7 @@ model User {
   delayReportsReported DelayReport[]          @relation("DelayReportReporter")
   delayReportsDecided  DelayReport[]          @relation("DelayReportDecider")
   travels              UserTravel[]
+  userAircraft         UserAircraft[]
 
   @@map("user")
 }
@@ -384,6 +387,21 @@ model UserTravel {
 
   @@index([userId])
   @@map("user_travel")
+}
+
+model UserAircraft {
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String   @db.Uuid
+  aircraftId String   @db.Uuid
+  flightId   String   @db.Uuid
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  aircraft Aircraft @relation(fields: [aircraftId], references: [id])
+  flight   Flight   @relation(fields: [flightId], references: [id])
+
+  @@index([userId])
+  @@map("user_aircraft")
 }
 
 enum AircraftRepositionType {
