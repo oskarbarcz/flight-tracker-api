@@ -13,7 +13,21 @@ export class SkyLinkClient {
   async getAirportByIataCode(
     iataCode: string,
   ): Promise<SkylinkAirportResponse> {
-    const url = `${this.baseUrl}/v1/airports?iata=${iataCode}`;
+    return this.findAirportBy('iata', iataCode);
+  }
+
+  async getAirportByIcaoCode(
+    icaoCode: string,
+  ): Promise<SkylinkAirportResponse> {
+    return this.findAirportBy('icao', icaoCode);
+  }
+
+  private async findAirportBy(
+    codeType: 'iata' | 'icao',
+    code: string,
+  ): Promise<SkylinkAirportResponse> {
+    const url = `${this.baseUrl}/v1/airports?${codeType}=${code}`;
+    const label = codeType.toUpperCase();
 
     try {
       const response = await fetch(url, {
@@ -30,20 +44,20 @@ export class SkyLinkClient {
 
       if (body.length === 0) {
         throw new NotFoundException(
-          `No airport found for IATA code: ${iataCode}`,
+          `No airport found for ${label} code: ${code}`,
         );
       }
 
       if (body.length > 1) {
         throw new ConflictException(
-          `Multiple airports found for IATA code: ${iataCode}`,
+          `Multiple airports found for ${label} code: ${code}`,
         );
       }
 
-      this.logger.log(`Using SkyLink to get airport ${iataCode}`);
+      this.logger.log(`Using SkyLink to get airport ${code}`);
       return body[0] as SkylinkAirportResponse;
     } catch (error) {
-      this.logger.error(`Error using SkyLink to get airport ${iataCode}`);
+      this.logger.error(`Error using SkyLink to get airport ${code}`);
       throw error;
     }
   }

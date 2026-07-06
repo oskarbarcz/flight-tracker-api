@@ -2,7 +2,9 @@ import { Module } from '@nestjs/common';
 import { AirportsRepository } from './infra/database/airports.repository';
 import { AirportsController } from './infra/http/controller/airports.controller';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
+import { SkyLinkModule } from '../../core/provider/skylink/skylink.module';
 import { CreateAirportHandler } from './application/command/create-airport.command';
+import { ImportAirportByIcaoHandler } from './application/command/import-airport-by-icao.command';
 import { UpdateAirportHandler } from './application/command/update-airport.command';
 import { RemoveAirportHandler } from './application/command/remove-airport.command';
 import { GetAirportByIdHandler } from './application/query/get-airport-by-id.query';
@@ -44,7 +46,7 @@ import { AssertParkingPositionBelongsToAirportHandler } from './application/asse
 import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert-runway-belongs-to-airport.command';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, SkyLinkModule],
   controllers: [
     AirportsController,
     TerminalsController,
@@ -63,6 +65,7 @@ import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert
     ParkingPositionsRepository,
     RunwaysRepository,
     CreateAirportHandler,
+    ImportAirportByIcaoHandler,
     UpdateAirportHandler,
     RemoveAirportHandler,
     GetAirportByIdHandler,
