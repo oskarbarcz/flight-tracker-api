@@ -1,7 +1,4 @@
-import { UserTravelStatus, UserTravelType } from '../../client/client';
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
-
-const prisma = new PrismaService();
+import { Prisma, UserTravelStatus, UserTravelType } from '../../client/client';
 
 const ALAN = '725f5df2-0c78-4fe8-89a2-52566c89cf7f';
 const RICK = 'fcf6f4bc-290d-43a9-843c-409cd47e143d';
@@ -14,8 +11,10 @@ const KPHL = 'e764251b-bb25-4e8b-8cc7-11b0397b4554';
 const LH42 = '006f0754-1ed7-4ae1-9f91-fae2d446a6e7';
 const AAL4913 = '04be266c-df78-4bec-9f50-281cc02ce7f2';
 
-export async function loadUserTravel(): Promise<void> {
-  await prisma.userTravel.createMany({
+export async function loadUserTravel(
+  tx: Prisma.TransactionClient,
+): Promise<void> {
+  await tx.userTravel.createMany({
     data: [
       {
         // pending leg Rick is performing on AAL4913 (KBOS -> KPHL);

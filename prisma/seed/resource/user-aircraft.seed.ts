@@ -1,6 +1,4 @@
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
-
-const prisma = new PrismaService();
+import { Prisma } from '../../client/client';
 
 const RICK = 'fcf6f4bc-290d-43a9-843c-409cd47e143d';
 
@@ -14,8 +12,10 @@ const AAL4905 = '23da8bc9-a21b-4678-b2e9-1151d3bd15ab'; // American Airlines
 const DLH43 = 'd4a25ef2-39cf-484c-af00-a548999e8699'; // Lufthansa
 const DLH102 = '1e9f4176-188f-41a5-a9d1-25a96579f46d'; // Lufthansa
 
-export async function loadUserAircraft(): Promise<void> {
-  await prisma.userAircraft.createMany({
+export async function loadUserAircraft(
+  tx: Prisma.TransactionClient,
+): Promise<void> {
+  await tx.userAircraft.createMany({
     data: [
       {
         id: 'c0958a49-b1c2-4cb4-b567-69afe9d17d21',

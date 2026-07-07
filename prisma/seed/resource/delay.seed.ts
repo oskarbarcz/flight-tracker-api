@@ -1,13 +1,14 @@
-import { DelayReportStatus, DelayReasonCode } from '../../client/client';
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
-
-const prisma = new PrismaService();
+import {
+  DelayReportStatus,
+  DelayReasonCode,
+  Prisma,
+} from '../../client/client';
 
 const RICK = 'fcf6f4bc-290d-43a9-843c-409cd47e143d';
 const ALICE = '721ab705-8608-4386-86b4-2f391a3655a7';
 
-export async function loadDelay(): Promise<void> {
-  await prisma.delayRequest.create({
+export async function loadDelay(tx: Prisma.TransactionClient): Promise<void> {
+  await tx.delayRequest.create({
     data: {
       id: '06505a5b-2475-470e-8825-c4a079e4be4b',
       flightId: '7105891a-8008-4b47-b473-c81c97615ad7',
@@ -36,7 +37,7 @@ export async function loadDelay(): Promise<void> {
     },
   });
 
-  await prisma.delayRequest.create({
+  await tx.delayRequest.create({
     data: {
       id: '9d54d8d3-ae4f-4fa4-b4c3-91d12891c81f',
       flightId: '38644393-deee-434d-bfd1-7242abdbc4e1',

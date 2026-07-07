@@ -1,4 +1,3 @@
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 import {
   OperatorAlliance,
   OperatorGroup,
@@ -7,7 +6,9 @@ import {
 } from '../../client/client';
 import { Continent } from '../../../src/modules/airports/model/airport.model';
 
-export async function loadOperators(): Promise<void> {
+export async function loadOperators(
+  tx: Prisma.TransactionClient,
+): Promise<void> {
   const condor = {
     id: '5c649579-22eb-4c07-a96c-b74a77f53871',
     icaoCode: 'CFG',
@@ -127,8 +128,7 @@ export async function loadOperators(): Promise<void> {
     group: OperatorGroup.international_airlines_group,
   };
 
-  const prisma = new PrismaService();
   for (const operator of [condor, lufthansa, lot, american, british]) {
-    await prisma.operator.create({ data: operator });
+    await tx.operator.create({ data: operator });
   }
 }

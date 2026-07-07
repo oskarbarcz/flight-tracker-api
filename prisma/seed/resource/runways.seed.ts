@@ -1,7 +1,6 @@
 import { Prisma } from '../../client/client';
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 
-export async function loadRunways(): Promise<void> {
+export async function loadRunways(tx: Prisma.TransactionClient): Promise<void> {
   const runways: Prisma.RunwayCreateManyInput[] = [
     // EDDF — Frankfurt am Main (elevation ~111m)
     {
@@ -878,7 +877,5 @@ export async function loadRunways(): Promise<void> {
     },
   ];
 
-  const prisma = new PrismaService();
-
-  await prisma.runway.createMany({ data: runways });
+  await tx.runway.createMany({ data: runways });
 }

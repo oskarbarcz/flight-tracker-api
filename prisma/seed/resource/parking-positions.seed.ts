@@ -1,5 +1,4 @@
 import { Prisma } from '../../client/client';
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 
 // Most names/coordinates below are real `aeroway=parking_position` refs sourced
 // from OpenStreetMap via Overpass, matched to each gate's real position by nearest
@@ -7,7 +6,9 @@ import { PrismaService } from '../../../src/core/provider/prisma/prisma.service'
 // gate, BIKF's two gates, and LFPG's B40/C50/D60/K20 cluster) still carry a
 // placeholder equal to the gate's own name/coordinates — no confident nearby stand
 // was found for them, so don't invent one; leave as-is until a closer pass is done.
-export async function loadParkingPositions(): Promise<void> {
+export async function loadParkingPositions(
+  tx: Prisma.TransactionClient,
+): Promise<void> {
   const parkingPositions: Prisma.ParkingPositionCreateManyInput[] = [
     // EDDF — Frankfurt T1
     // Spare stand, not yet linked to any gate — used to test linking a gate
@@ -999,7 +1000,5 @@ export async function loadParkingPositions(): Promise<void> {
     },
   ];
 
-  const prisma = new PrismaService();
-
-  await prisma.parkingPosition.createMany({ data: parkingPositions });
+  await tx.parkingPosition.createMany({ data: parkingPositions });
 }

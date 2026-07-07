@@ -1,10 +1,8 @@
 import {
   AircraftRepositionStatus,
   AircraftRepositionType,
+  Prisma,
 } from '../../client/client';
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
-
-const prisma = new PrismaService();
 
 const D_AIDA = '7d27a031-5abb-415f-bde5-1aa563ad394e';
 const N78881 = 'a10c21e3-3ac1-4265-9d12-da9baefa2d98';
@@ -16,8 +14,10 @@ const KPHL = 'e764251b-bb25-4e8b-8cc7-11b0397b4554';
 
 const AAL4913 = '04be266c-df78-4bec-9f50-281cc02ce7f2';
 
-export async function loadAircraftReposition(): Promise<void> {
-  await prisma.aircraftReposition.createMany({
+export async function loadAircraftReposition(
+  tx: Prisma.TransactionClient,
+): Promise<void> {
+  await tx.aircraftReposition.createMany({
     data: [
       {
         // pending leg N78881 is performing on AAL4913 (KBOS -> KPHL);
@@ -373,5 +373,5 @@ export async function loadAircraftReposition(): Promise<void> {
     return records;
   });
 
-  await prisma.aircraftReposition.createMany({ data: generated });
+  await tx.aircraftReposition.createMany({ data: generated });
 }

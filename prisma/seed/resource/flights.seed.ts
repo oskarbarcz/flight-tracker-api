@@ -20,16 +20,12 @@ import {
   EmergencyUrgency,
   SquawkCode,
 } from '../../../src/modules/flights/model/emergency.model';
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
-
-const prisma = new PrismaService();
-
 /**
  * DLH450 | 3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05
  * Frankfurt Rhein/Main (EDDF) -> New York JFK (KJFK)
  * status: Created
  */
-async function loadDLH450(): Promise<void> {
+async function loadDLH450(tx: Prisma.TransactionClient): Promise<void> {
   const dlh450 = {
     id: '3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05',
     departureParkingPositionId: 'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9',
@@ -60,33 +56,33 @@ async function loadDLH450(): Promise<void> {
     totalFuelBurned: 156000,
   };
 
-  const dlh450departureAirport = await prisma.airport.findFirstOrThrow({
+  const dlh450departureAirport = await tx.airport.findFirstOrThrow({
     // Frankfurt
     where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' },
   });
 
-  const dlh450arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const dlh450arrivalAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const dlh450firstAlternateAirport = await prisma.airport.findFirstOrThrow({
+  const dlh450firstAlternateAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
-  const dlh450secondAlternateAirport = await prisma.airport.findFirstOrThrow({
+  const dlh450secondAlternateAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan Intl
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const dlh450etopsAlternateAirport = await prisma.airport.findFirstOrThrow({
+  const dlh450etopsAlternateAirport = await tx.airport.findFirstOrThrow({
     // St. Johns
     where: { id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97' },
   });
 
-  const flight = await prisma.flight.create({ data: dlh450 });
+  const flight = await tx.flight.create({ data: dlh450 });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: dlh450departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -94,7 +90,7 @@ async function loadDLH450(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: dlh450arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -102,7 +98,7 @@ async function loadDLH450(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: dlh450firstAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -110,7 +106,7 @@ async function loadDLH450(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: dlh450secondAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -118,7 +114,7 @@ async function loadDLH450(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: dlh450etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -126,7 +122,7 @@ async function loadDLH450(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: '7b0d3d5a-879c-491c-b6e0-ec051ac9fbc4',
@@ -164,7 +160,7 @@ async function loadDLH450(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Closed
  */
-async function loadAAL4905(): Promise<void> {
+async function loadAAL4905(tx: Prisma.TransactionClient): Promise<void> {
   const ual4905 = {
     id: '23da8bc9-a21b-4678-b2e9-1151d3bd15ab',
     departureParkingPositionId: null,
@@ -294,24 +290,24 @@ async function loadAAL4905(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const ual4905departureAirport = await prisma.airport.findFirstOrThrow({
+  const ual4905departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const ual4905arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const ual4905arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const ual4905alternateAirport = await prisma.airport.findFirstOrThrow({
+  const ual4905alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: ual4905 });
+  const flight = await tx.flight.create({ data: ual4905 });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4905departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -319,7 +315,7 @@ async function loadAAL4905(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4905arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -327,7 +323,7 @@ async function loadAAL4905(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4905alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -335,7 +331,7 @@ async function loadAAL4905(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: 'a9768272-3c05-4ffe-9370-1433869a139f',
@@ -463,7 +459,7 @@ async function loadAAL4905(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Ready
  */
-async function loadAAL4906(): Promise<void> {
+async function loadAAL4906(tx: Prisma.TransactionClient): Promise<void> {
   const ual4906 = {
     id: '23952e79-6b38-49ed-a1db-bd4d9b3cedab',
     departureParkingPositionId: null,
@@ -506,24 +502,24 @@ async function loadAAL4906(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const ual4906departureAirport = await prisma.airport.findFirstOrThrow({
+  const ual4906departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const ual4906arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const ual4906arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const ual4906alternateAirport = await prisma.airport.findFirstOrThrow({
+  const ual4906alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: ual4906 });
+  const flight = await tx.flight.create({ data: ual4906 });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4906departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -531,7 +527,7 @@ async function loadAAL4906(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4906arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -539,7 +535,7 @@ async function loadAAL4906(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4906alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -547,7 +543,7 @@ async function loadAAL4906(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: '784319d9-a6be-41c4-ad5c-9c0f691faffb',
@@ -585,7 +581,7 @@ async function loadAAL4906(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Created
  */
-async function loadAAL4907(): Promise<void> {
+async function loadAAL4907(tx: Prisma.TransactionClient): Promise<void> {
   const ual4907 = {
     id: 'e91e13a9-09d8-48bf-8453-283cef467b88',
     departureParkingPositionId: null,
@@ -628,24 +624,24 @@ async function loadAAL4907(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const ual4907departureAirport = await prisma.airport.findFirstOrThrow({
+  const ual4907departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const ual4907arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const ual4907arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const ual4907alternateAirport = await prisma.airport.findFirstOrThrow({
+  const ual4907alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: ual4907 });
+  const flight = await tx.flight.create({ data: ual4907 });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4907departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -653,7 +649,7 @@ async function loadAAL4907(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4907arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -661,7 +657,7 @@ async function loadAAL4907(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: ual4907alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -669,7 +665,7 @@ async function loadAAL4907(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: 'a1d43d93-0958-45bc-aa5e-3b1c4a081d74',
@@ -689,7 +685,7 @@ async function loadAAL4907(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Checked in
  */
-async function loadAAL4908(): Promise<void> {
+async function loadAAL4908(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: 'b3899775-278e-4496-add1-21385a13d93e',
     departureParkingPositionId: null,
@@ -739,24 +735,24 @@ async function loadAAL4908(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -764,7 +760,7 @@ async function loadAAL4908(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -772,7 +768,7 @@ async function loadAAL4908(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -780,12 +776,12 @@ async function loadAAL4908(): Promise<void> {
     },
   });
 
-  await prisma.user.update({
+  await tx.user.update({
     where: { id: 'fcf6f4bc-290d-43a9-843c-409cd47e143d' }, // Rick Doe user
     data: { currentFlightId: flight.id },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: '6df6997c-98ad-43b1-8d36-72b921bec1c3',
@@ -832,7 +828,7 @@ async function loadAAL4908(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Boarding started
  */
-async function loadAAL4909(): Promise<void> {
+async function loadAAL4909(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '05986dd3-ff01-4112-ad35-ecd85db05c77',
     departureParkingPositionId: null,
@@ -882,24 +878,24 @@ async function loadAAL4909(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -907,7 +903,7 @@ async function loadAAL4909(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -915,7 +911,7 @@ async function loadAAL4909(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -923,7 +919,7 @@ async function loadAAL4909(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: 'f8fe29e2-335e-488e-9fea-b5c4647578ed',
@@ -979,7 +975,7 @@ async function loadAAL4909(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Boarding finished
  */
-async function loadAAL4910(): Promise<void> {
+async function loadAAL4910(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: 'f14a2141-4737-4622-a387-40513ff3baf1',
     departureParkingPositionId: null,
@@ -1040,24 +1036,24 @@ async function loadAAL4910(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1065,7 +1061,7 @@ async function loadAAL4910(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1073,7 +1069,7 @@ async function loadAAL4910(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1081,7 +1077,7 @@ async function loadAAL4910(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: '4e1cae7d-1cc4-493e-ae59-fcd87e97416a',
@@ -1146,7 +1142,7 @@ async function loadAAL4910(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Taxiing out
  */
-async function loadAAL4911(): Promise<void> {
+async function loadAAL4911(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '7105891a-8008-4b47-b473-c81c97615ad7',
     departureParkingPositionId: null,
@@ -1213,24 +1209,24 @@ async function loadAAL4911(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1238,7 +1234,7 @@ async function loadAAL4911(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1246,7 +1242,7 @@ async function loadAAL4911(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1254,7 +1250,7 @@ async function loadAAL4911(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: 'defe2649-c100-47b9-b254-d0db0d568103',
@@ -1328,7 +1324,7 @@ async function loadAAL4911(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: In cruise
  */
-async function loadAAL4912(): Promise<void> {
+async function loadAAL4912(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d',
     departureParkingPositionId: null,
@@ -1399,24 +1395,24 @@ async function loadAAL4912(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1424,7 +1420,7 @@ async function loadAAL4912(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1432,7 +1428,7 @@ async function loadAAL4912(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1440,7 +1436,7 @@ async function loadAAL4912(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: '7032f11d-51b2-43ba-9cf1-ae1f144f0707',
@@ -1523,7 +1519,7 @@ async function loadAAL4912(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Taxiing in
  */
-async function loadAAL4913(): Promise<void> {
+async function loadAAL4913(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '04be266c-df78-4bec-9f50-281cc02ce7f2',
     departureParkingPositionId: null,
@@ -1590,24 +1586,24 @@ async function loadAAL4913(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1615,7 +1611,7 @@ async function loadAAL4913(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1623,7 +1619,7 @@ async function loadAAL4913(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1631,7 +1627,7 @@ async function loadAAL4913(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: '079f2632-c0ab-4dd1-9646-522b5c370fe5',
@@ -1723,7 +1719,7 @@ async function loadAAL4913(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: On block
  */
-async function loadAAL4914(): Promise<void> {
+async function loadAAL4914(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '17d2f703-957d-4ad1-a620-3c187a70c26a',
     departureParkingPositionId: null,
@@ -1853,24 +1849,24 @@ async function loadAAL4914(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1878,7 +1874,7 @@ async function loadAAL4914(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1886,7 +1882,7 @@ async function loadAAL4914(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -1894,7 +1890,7 @@ async function loadAAL4914(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: '8d2510dd-bc5e-48a1-8251-79abb33ec9a4',
@@ -1995,7 +1991,7 @@ async function loadAAL4914(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Offboarding started
  */
-async function loadAAL4915(): Promise<void> {
+async function loadAAL4915(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '5aada8ba-60c1-4e93-bcee-b59a7c555fdd',
     departureParkingPositionId: null,
@@ -2125,24 +2121,24 @@ async function loadAAL4915(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -2150,7 +2146,7 @@ async function loadAAL4915(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -2158,7 +2154,7 @@ async function loadAAL4915(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -2166,7 +2162,7 @@ async function loadAAL4915(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: 'b68d7b8f-a2a6-4c97-aaf0-039ab2541567',
@@ -2276,7 +2272,7 @@ async function loadAAL4915(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Offboarding finished
  */
-async function loadAAL4916(): Promise<void> {
+async function loadAAL4916(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '38644393-deee-434d-bfd1-7242abdbc4e1',
     departureParkingPositionId: null,
@@ -2406,24 +2402,24 @@ async function loadAAL4916(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -2431,7 +2427,7 @@ async function loadAAL4916(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -2439,7 +2435,7 @@ async function loadAAL4916(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -2447,7 +2443,7 @@ async function loadAAL4916(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: '299705bd-4cdc-462f-941e-907061a530d9',
@@ -2566,7 +2562,7 @@ async function loadAAL4916(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Closed
  */
-async function loadAAL4917(): Promise<void> {
+async function loadAAL4917(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: 'd085c107-308d-48e6-9c93-beca6552a8a3',
     departureParkingPositionId: null,
@@ -2696,24 +2692,24 @@ async function loadAAL4917(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -2721,7 +2717,7 @@ async function loadAAL4917(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -2729,7 +2725,7 @@ async function loadAAL4917(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -2737,7 +2733,7 @@ async function loadAAL4917(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: '152225a5-a47f-469d-84ac-13888821d4d2',
@@ -2865,7 +2861,7 @@ async function loadAAL4917(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Offboarding finished — unresolved medical emergency declared in cruise
  */
-async function loadAAL4918(): Promise<void> {
+async function loadAAL4918(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '5f2c6e3d-9b4a-4d18-8e72-1a3c9f5b8d04',
     departureParkingPositionId: null,
@@ -2933,24 +2929,24 @@ async function loadAAL4918(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -2958,7 +2954,7 @@ async function loadAAL4918(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -2966,7 +2962,7 @@ async function loadAAL4918(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -2974,7 +2970,7 @@ async function loadAAL4918(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: 'aa18001c-1bf2-4d65-8c43-92ef10ea7311',
@@ -3083,7 +3079,7 @@ async function loadAAL4918(): Promise<void> {
     ],
   });
 
-  await prisma.emergencyDeclaration.create({
+  await tx.emergencyDeclaration.create({
     data: {
       id: 'aa18ec01-1bf2-4d65-8c43-92ef10ea7311',
       flightId: flight.id,
@@ -3109,7 +3105,7 @@ async function loadAAL4918(): Promise<void> {
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Offboarding finished — bird strike emergency declared and resolved in cruise
  */
-async function loadAAL4919(): Promise<void> {
+async function loadAAL4919(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '7d8a3c91-5e62-4b41-9c08-2f6b1d7e3a45',
     departureParkingPositionId: null,
@@ -3176,24 +3172,24 @@ async function loadAAL4919(): Promise<void> {
     totalFuelBurned: 2800,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     // Boston Logan
     where: { id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3' },
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     // Philadelphia
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' },
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     // New York JFK
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' },
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3201,7 +3197,7 @@ async function loadAAL4919(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3209,7 +3205,7 @@ async function loadAAL4919(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3217,7 +3213,7 @@ async function loadAAL4919(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: 'aa19001c-2c7f-4e98-bd13-83ad7106cf42',
@@ -3326,7 +3322,7 @@ async function loadAAL4919(): Promise<void> {
     ],
   });
 
-  await prisma.emergencyDeclaration.create({
+  await tx.emergencyDeclaration.create({
     data: {
       id: 'aa19ec01-2c7f-4e98-bd13-83ad7106cf42',
       flightId: flight.id,
@@ -3355,7 +3351,7 @@ async function loadAAL4919(): Promise<void> {
  * Boston Frankfurt (EDDF) -> New York JFK (KJFK)
  * status: Closed
  */
-async function loadDLH40(): Promise<void> {
+async function loadDLH40(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '48760636-9520-4863-b32f-f3618556feb7',
     departureParkingPositionId: 'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9',
@@ -3486,29 +3482,29 @@ async function loadDLH40(): Promise<void> {
     route: null,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' }, // New York JFK
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554' }, // Philadelphia
   });
 
-  const etopsAlternateAirport = await prisma.airport.findFirstOrThrow({
+  const etopsAlternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a' }, // Reykjavik
   });
 
-  const etops2AlternateAirport = await prisma.airport.findFirstOrThrow({
+  const etops2AlternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97' }, // St. John's
   });
 
-  const flight = await prisma.flight.create({ data });
+  const flight = await tx.flight.create({ data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3516,7 +3512,7 @@ async function loadDLH40(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3524,7 +3520,7 @@ async function loadDLH40(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3532,7 +3528,7 @@ async function loadDLH40(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3540,7 +3536,7 @@ async function loadDLH40(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: etops2AlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3555,7 +3551,7 @@ async function loadDLH40(): Promise<void> {
  * New York JFK (KJFK) -> Frankfurt (EDDF)
  * status: Created
  */
-async function loadDLH41(): Promise<void> {
+async function loadDLH41(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: 'e8e17e59-67d7-4a6c-a0bd-425ffa6bed66',
     departureParkingPositionId: null,
@@ -3599,29 +3595,29 @@ async function loadDLH41(): Promise<void> {
     route: null,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' }, // New York JFK
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf' }, // Bremen
   });
 
-  const etopsAlternateAirport = await prisma.airport.findFirstOrThrow({
+  const etopsAlternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a' }, // Reykjavik
   });
 
-  const etops2AlternateAirport = await prisma.airport.findFirstOrThrow({
+  const etops2AlternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97' }, // St. John's
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3629,7 +3625,7 @@ async function loadDLH41(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3637,7 +3633,7 @@ async function loadDLH41(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3645,7 +3641,7 @@ async function loadDLH41(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3653,7 +3649,7 @@ async function loadDLH41(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: etops2AlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3668,7 +3664,7 @@ async function loadDLH41(): Promise<void> {
  * Frankfurt (EDDF) -> New York JFK (KJFK)
  * status: Ready
  */
-async function loadDLH42(): Promise<void> {
+async function loadDLH42(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '006f0754-1ed7-4ae1-9f91-fae2d446a6e7',
     departureParkingPositionId: null,
@@ -3711,29 +3707,29 @@ async function loadDLH42(): Promise<void> {
     route: null,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' }, // New York JFK
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf' }, // Bremen
   });
 
-  const etopsAlternateAirport = await prisma.airport.findFirstOrThrow({
+  const etopsAlternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a' }, // Reykjavik
   });
 
-  const etops2AlternateAirport = await prisma.airport.findFirstOrThrow({
+  const etops2AlternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97' }, // St. John's
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3741,7 +3737,7 @@ async function loadDLH42(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3749,7 +3745,7 @@ async function loadDLH42(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3757,7 +3753,7 @@ async function loadDLH42(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3765,7 +3761,7 @@ async function loadDLH42(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: etops2AlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3773,12 +3769,12 @@ async function loadDLH42(): Promise<void> {
     },
   });
 
-  await prisma.user.update({
+  await tx.user.update({
     where: { id: '725f5df2-0c78-4fe8-89a2-52566c89cf7f' }, // Alan Doe user
     data: { currentFlightId: flight.id },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: '9e61ccc9-d6be-4f42-a38f-947cbfe9dcf9',
@@ -3826,7 +3822,7 @@ async function loadDLH42(): Promise<void> {
  * New York JFK (KJFK) -> Frankfurt (EDDF)
  * status: Offboarding finished
  */
-async function loadDLH43(): Promise<void> {
+async function loadDLH43(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: 'd4a25ef2-39cf-484c-af00-a548999e8699',
     departureParkingPositionId: null,
@@ -3882,29 +3878,29 @@ async function loadDLH43(): Promise<void> {
     route: null,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' }, // New York JFK
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf' }, // Bremen
   });
 
-  const etopsAlternateAirport = await prisma.airport.findFirstOrThrow({
+  const etopsAlternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a' }, // Reykjavik
   });
 
-  const etops2AlternateAirport = await prisma.airport.findFirstOrThrow({
+  const etops2AlternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97' }, // St. John's
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3912,7 +3908,7 @@ async function loadDLH43(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3920,7 +3916,7 @@ async function loadDLH43(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3928,7 +3924,7 @@ async function loadDLH43(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3936,7 +3932,7 @@ async function loadDLH43(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: etops2AlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -3944,7 +3940,7 @@ async function loadDLH43(): Promise<void> {
     },
   });
 
-  await prisma.user.update({
+  await tx.user.update({
     where: { id: '629be07f-5e65-429a-9d69-d34b99185f50' }, // Michael Doe user
     data: {
       currentFlightId: flight.id,
@@ -3952,7 +3948,7 @@ async function loadDLH43(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: '865a28a4-5154-4e35-a6d4-e198a1ceaa31',
@@ -4071,7 +4067,7 @@ async function loadDLH43(): Promise<void> {
  * New York JFK (KJFK) -> Frankfurt (EDDF)
  * status: In cruise - DIVERSION TO KJFK
  */
-async function loadDLH102(): Promise<void> {
+async function loadDLH102(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '1e9f4176-188f-41a5-a9d1-25a96579f46d',
     departureParkingPositionId: null,
@@ -4139,29 +4135,29 @@ async function loadDLH102(): Promise<void> {
     route: null,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' }, // New York JFK
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf' }, // Bremen
   });
 
-  const etopsAlternateAirport = await prisma.airport.findFirstOrThrow({
+  const etopsAlternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a' }, // Reykjavik
   });
 
-  const etops2AlternateAirport = await prisma.airport.findFirstOrThrow({
+  const etops2AlternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97' }, // St. John's
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -4169,7 +4165,7 @@ async function loadDLH102(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -4177,7 +4173,7 @@ async function loadDLH102(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -4185,7 +4181,7 @@ async function loadDLH102(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: etopsAlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -4193,7 +4189,7 @@ async function loadDLH102(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: etops2AlternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -4201,7 +4197,7 @@ async function loadDLH102(): Promise<void> {
     },
   });
 
-  await prisma.diversion.create({
+  await tx.diversion.create({
     data: {
       id: '7c1482ce-dc03-4401-8472-0c25eef35de9',
       flightId: flight.id,
@@ -4219,7 +4215,7 @@ async function loadDLH102(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: 'fe70e3cb-6811-41eb-96e9-1776c37a9393',
@@ -4302,7 +4298,7 @@ async function loadDLH102(): Promise<void> {
  * Frankfurt (EDDF) -> New York JFK (KJFK)
  * status: Ready, import from SimBrief
  */
-async function loadDLH81(): Promise<void> {
+async function loadDLH81(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: '11087d20-ead0-4b7e-97ee-f1ef0ea29e4f',
     departureParkingPositionId: 'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9',
@@ -4349,17 +4345,17 @@ async function loadDLH81(): Promise<void> {
     runwayAnalysis: 'TAKEOFF AND LANDING REPORT DLH81',
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' }, // New York JFK
   });
 
-  const flight = await prisma.flight.create({ data: data });
+  const flight = await tx.flight.create({ data: data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -4367,7 +4363,7 @@ async function loadDLH81(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -4381,7 +4377,7 @@ async function loadDLH81(): Promise<void> {
  * Frankfurt (EDDF) -> Paris CDG (LFPG)
  * status: In cruise — active emergency declared (electrical generator failure)
  */
-async function loadDLH880(): Promise<void> {
+async function loadDLH880(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: 'b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b',
     departureParkingPositionId: null,
@@ -4451,17 +4447,17 @@ async function loadDLH880(): Promise<void> {
     route: null,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     where: { id: '79b8f884-f67d-4585-b540-36b0be7f551e' }, // Paris CDG
   });
 
-  const flight = await prisma.flight.create({ data });
+  const flight = await tx.flight.create({ data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -4469,7 +4465,7 @@ async function loadDLH880(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -4477,7 +4473,7 @@ async function loadDLH880(): Promise<void> {
     },
   });
 
-  await prisma.flightEvent.createMany({
+  await tx.flightEvent.createMany({
     data: [
       {
         id: '2f1d6c47-4e0b-4a51-86c1-9be07f4a2c10',
@@ -4554,7 +4550,7 @@ async function loadDLH880(): Promise<void> {
     ],
   });
 
-  await prisma.emergencyDeclaration.create({
+  await tx.emergencyDeclaration.create({
     data: {
       id: 'a77e0b1c-2944-4bdf-9e6a-0b1c2d3e4f5a',
       flightId: flight.id,
@@ -4580,7 +4576,7 @@ async function loadDLH880(): Promise<void> {
  * Frankfurt (EDDF) -> New York JFK (KJFK), diverted to Bremen (EDDW)
  * status: Taxiing in - DIVERSION ALREADY EXECUTED (immutable)
  */
-async function loadDLH103(): Promise<void> {
+async function loadDLH103(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
     id: 'd5e8f1a2-3b4c-4d5e-9f6a-7b8c9d0e1f2a',
     departureParkingPositionId: null,
@@ -4648,21 +4644,21 @@ async function loadDLH103(): Promise<void> {
     route: null,
   };
 
-  const departureAirport = await prisma.airport.findFirstOrThrow({
+  const departureAirport = await tx.airport.findFirstOrThrow({
     where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
   });
 
-  const arrivalAirport = await prisma.airport.findFirstOrThrow({
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
     where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' }, // New York JFK
   });
 
-  const alternateAirport = await prisma.airport.findFirstOrThrow({
+  const alternateAirport = await tx.airport.findFirstOrThrow({
     where: { id: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf' }, // Bremen
   });
 
-  const flight = await prisma.flight.create({ data });
+  const flight = await tx.flight.create({ data });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: departureAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -4670,7 +4666,7 @@ async function loadDLH103(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: arrivalAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -4678,7 +4674,7 @@ async function loadDLH103(): Promise<void> {
     },
   });
 
-  await prisma.airportsOnFlights.create({
+  await tx.airportsOnFlights.create({
     data: {
       airport: { connect: { id: alternateAirport.id } },
       flight: { connect: { id: flight.id } },
@@ -4686,7 +4682,7 @@ async function loadDLH103(): Promise<void> {
     },
   });
 
-  await prisma.diversion.create({
+  await tx.diversion.create({
     data: {
       id: 'c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f',
       flightId: flight.id,
@@ -4705,29 +4701,29 @@ async function loadDLH103(): Promise<void> {
   });
 }
 
-export async function loadFlights(): Promise<void> {
-  await loadDLH450();
-  await loadAAL4905();
-  await loadAAL4906();
-  await loadAAL4907();
-  await loadAAL4908();
-  await loadAAL4909();
-  await loadAAL4910();
-  await loadAAL4911();
-  await loadAAL4912();
-  await loadAAL4913();
-  await loadAAL4914();
-  await loadAAL4915();
-  await loadAAL4916();
-  await loadAAL4917();
-  await loadAAL4918();
-  await loadAAL4919();
-  await loadDLH40();
-  await loadDLH41();
-  await loadDLH42();
-  await loadDLH43();
-  await loadDLH102();
-  await loadDLH103();
-  await loadDLH81();
-  await loadDLH880();
+export async function loadFlights(tx: Prisma.TransactionClient): Promise<void> {
+  await loadDLH450(tx);
+  await loadAAL4905(tx);
+  await loadAAL4906(tx);
+  await loadAAL4907(tx);
+  await loadAAL4908(tx);
+  await loadAAL4909(tx);
+  await loadAAL4910(tx);
+  await loadAAL4911(tx);
+  await loadAAL4912(tx);
+  await loadAAL4913(tx);
+  await loadAAL4914(tx);
+  await loadAAL4915(tx);
+  await loadAAL4916(tx);
+  await loadAAL4917(tx);
+  await loadAAL4918(tx);
+  await loadAAL4919(tx);
+  await loadDLH40(tx);
+  await loadDLH41(tx);
+  await loadDLH42(tx);
+  await loadDLH43(tx);
+  await loadDLH102(tx);
+  await loadDLH103(tx);
+  await loadDLH81(tx);
+  await loadDLH880(tx);
 }

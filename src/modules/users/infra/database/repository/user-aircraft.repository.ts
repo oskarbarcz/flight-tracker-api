@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from 'prisma/client/client';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
-import { UserAircraftEntry } from '../../../model/user-aircraft.model';
+import {
+  UserAircraftEntry,
+  UserAircraftFlightAirport,
+} from '../../../model/user-aircraft.model';
 import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
+import { AirportType } from '../../../../airports/model/airport.model';
 
 const operatorSelect = {
   id: true,
@@ -15,12 +19,21 @@ const operatorSelect = {
 } as const;
 
 const userAircraftSelect = {
-  flightId: true,
   aircraft: {
     select: { id: true, registration: true, type: true, livery: true },
   },
   flight: {
-    select: { operator: { select: operatorSelect } },
+    select: {
+      id: true,
+      flightNumber: true,
+      operator: { select: operatorSelect },
+      airports: {
+        select: {
+          airportType: true,
+          airport: { select: { id: true, iataCode: true } },
+        },
+      },
+    },
   },
 } as const satisfies Prisma.UserAircraftSelect;
 
@@ -57,13 +70,26 @@ export class UserAircraftRepository {
       throw new AirframeNotFoundError();
     }
 
+    const findAirport = (type: AirportType): UserAircraftFlightAirport => {
+      const match = row.flight.airports.find(
+        (entry) => entry.airportType === type,
+      )!.airport;
+
+      return { id: match.id, iataCode: match.iataCode };
+    };
+
     return {
       id: row.aircraft.id,
       registration: row.aircraft.registration,
       airframe,
       livery: row.aircraft.livery,
       operator: row.flight.operator,
-      flightId: row.flightId,
+      flight: {
+        id: row.flight.id,
+        flightNumber: row.flight.flightNumber,
+        departureAirport: findAirport(AirportType.Departure),
+        arrivalAirport: findAirport(AirportType.Destination),
+      },
     };
   }
 }
