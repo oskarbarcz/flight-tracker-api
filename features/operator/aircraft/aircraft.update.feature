@@ -43,6 +43,7 @@ Feature: Update aircraft
         "registration": "D-AIMC",
         "selcal": "LR-CK",
         "currentState": "planned",
+        "etopsThresholdMinutes": 180,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -106,6 +107,7 @@ Feature: Update aircraft
         "registration": "D-AIMC",
         "selcal": "LR-CK",
         "currentState": "planned",
+        "etopsThresholdMinutes": 180,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -120,6 +122,127 @@ Feature: Update aircraft
       }
       """
     And I set database to initial state
+
+  Scenario: As operations I can set the ETOPS certification threshold
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
+      """json
+      {
+        "etopsThresholdMinutes": 120
+      }
+      """
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+        "airframe": {
+          "type": "A339",
+          "name": "A330-900",
+          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+          "serviceCeiling": 41400,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
+        "livery": "Fanhansa (2024)",
+        "registration": "D-AIMC",
+        "selcal": "LR-CK",
+        "currentState": "planned",
+        "etopsThresholdMinutes": 120,
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastParkingPosition": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I can clear the ETOPS certification
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
+      """json
+      {
+        "etopsThresholdMinutes": null
+      }
+      """
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+        "airframe": {
+          "type": "A339",
+          "name": "A330-900",
+          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+          "serviceCeiling": 41400,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
+        "livery": "Fanhansa (2024)",
+        "registration": "D-AIMC",
+        "selcal": "LR-CK",
+        "currentState": "planned",
+        "etopsThresholdMinutes": null,
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastParkingPosition": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot set an invalid ETOPS threshold
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
+      """json
+      {
+        "etopsThresholdMinutes": 100
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "etopsThresholdMinutes": ["etopsThresholdMinutes must be one of the following values: 60, 75, 90, 120, 180"]
+        }
+      }
+      """
+
+  Scenario: As a cabin crew I cannot set the ETOPS threshold
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
+      """json
+      {
+        "etopsThresholdMinutes": 120
+      }
+      """
+    Then the response status should be 403
+    And the response body should contain:
+      """json
+      {
+        "message": "Forbidden resource",
+        "error": "Forbidden",
+        "statusCode": 403
+      }
+      """
 
   Scenario: As a cabin crew I cannot update aircraft
     Given I am signed in as "cabin crew"

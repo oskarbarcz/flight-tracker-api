@@ -21,6 +21,7 @@ Feature: List aircraft
           "registration": "D-AIMC",
           "selcal": "LR-CK",
           "currentState": "planned",
+          "etopsThresholdMinutes": 180,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -47,6 +48,7 @@ Feature: List aircraft
           "registration": "D-AIMD",
           "selcal": "BD-EF",
           "currentState": "idle",
+          "etopsThresholdMinutes": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -84,6 +86,7 @@ Feature: List aircraft
           "registration": "D-AIME",
           "selcal": "BD-EG",
           "currentState": "planned",
+          "etopsThresholdMinutes": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -121,6 +124,7 @@ Feature: List aircraft
           "registration": "D-AIMF",
           "selcal": "BD-FG",
           "currentState": "idle",
+          "etopsThresholdMinutes": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -154,6 +158,7 @@ Feature: List aircraft
           "registration": "D-AIMG",
           "selcal": "BE-FG",
           "currentState": "cruise",
+          "etopsThresholdMinutes": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -187,6 +192,7 @@ Feature: List aircraft
           "registration": "D-AIMH",
           "selcal": "CD-EF",
           "currentState": "cruise",
+          "etopsThresholdMinutes": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -220,6 +226,7 @@ Feature: List aircraft
           "registration": "D-AIMK",
           "selcal": "CD-EG",
           "currentState": "planned",
+          "etopsThresholdMinutes": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -253,6 +260,7 @@ Feature: List aircraft
           "registration": "D-AIML",
           "selcal": "CE-FG",
           "currentState": "cruise",
+          "etopsThresholdMinutes": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",

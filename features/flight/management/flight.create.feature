@@ -177,6 +177,7 @@ Feature: Create a flight
         "registration": "N78881",
         "selcal": "KY-JO",
         "currentState": "planned",
+        "etopsThresholdMinutes": 180,
         "baseAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",

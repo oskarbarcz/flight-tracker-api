@@ -375,6 +375,7 @@ Feature: Close flight
         "registration": "N727AN",
         "selcal": "AB-FG",
         "currentState": "idle",
+        "etopsThresholdMinutes": null,
         "baseAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",

@@ -11,6 +11,7 @@ export async function loadAircraft(
     livery: 'Fanhansa (2024)',
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa
     currentState: AircraftState.planned, // LH450 Created
+    etopsThresholdMinutes: 180,
     baseAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
     lastAirportId: null,
     lastAirportUpdatedAt: null,
@@ -25,6 +26,7 @@ export async function loadAircraft(
     livery: 'Sunshine (2024)',
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     currentState: AircraftState.idle,
+    etopsThresholdMinutes: null,
     baseAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
     lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportUpdatedAt: new Date('2025-01-02 18:00'),
@@ -39,6 +41,7 @@ export async function loadAircraft(
     livery: 'Water (2024)',
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     currentState: AircraftState.idle,
+    etopsThresholdMinutes: null,
     baseAirportId: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf', // EDDW
     lastAirportId: null,
     lastAirportUpdatedAt: null,
@@ -53,6 +56,7 @@ export async function loadAircraft(
     livery: 'Team USA (2023)',
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     currentState: AircraftState.cruise, // AA4913 TaxiingIn
+    etopsThresholdMinutes: 180,
     baseAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportUpdatedAt: new Date('2025-01-01 08:00'),
@@ -88,6 +92,7 @@ export async function loadAircraft(
     lastAirportUpdatedAt: Date,
     currentState: AircraftState,
     lastParkingPositionId: string | null = null,
+    etopsThresholdMinutes: number | null = null,
   ): Aircraft => ({
     id,
     type,
@@ -96,6 +101,7 @@ export async function loadAircraft(
     livery,
     operatorId,
     currentState,
+    etopsThresholdMinutes,
     baseAirportId,
     lastAirportId,
     lastAirportUpdatedAt,

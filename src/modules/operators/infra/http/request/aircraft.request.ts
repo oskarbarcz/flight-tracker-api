@@ -1,6 +1,12 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Aircraft, AircraftState } from '../../../model/aircraft.model';
-import { IsNotEmpty, IsString, Length } from 'class-validator';
+import {
+  IsIn,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Length,
+} from 'class-validator';
 import { LegacyOperatorResponse } from './operator.request';
 import { Coordinates } from '../../../../airports/model/airport.model';
 
@@ -38,6 +44,18 @@ export class CreateAircraftRequest {
   @IsString()
   @IsNotEmpty()
   livery!: string;
+
+  @ApiProperty({
+    description:
+      'ETOPS certification threshold in minutes; omit or null when the aircraft is not ETOPS-certified',
+    enum: [60, 75, 90, 120, 180],
+    nullable: true,
+    required: false,
+    example: 180,
+  })
+  @IsOptional()
+  @IsIn([60, 75, 90, 120, 180])
+  etopsThresholdMinutes?: number | null;
 }
 
 export class UpdateAircraftRequest extends PartialType(CreateAircraftRequest) {}
@@ -123,6 +141,15 @@ export class GetAircraftResponse extends Aircraft {
     nullable: true,
   })
   lastParkingPosition!: AircraftParkingPosition | null;
+
+  @ApiProperty({
+    description:
+      'ETOPS certification threshold in minutes; null when not certified',
+    enum: [60, 75, 90, 120, 180],
+    nullable: true,
+    example: 180,
+  })
+  etopsThresholdMinutes!: number | null;
 }
 
 export class LegacyCreateAircraftResponse extends Aircraft {

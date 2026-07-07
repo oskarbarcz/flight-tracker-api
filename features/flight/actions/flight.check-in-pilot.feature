@@ -417,6 +417,7 @@ Feature: Check in pilot for flight
         "registration": "N78881",
         "selcal": "KY-JO",
         "currentState": "checked_in",
+        "etopsThresholdMinutes": 180,
         "baseAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
@@ -875,6 +876,7 @@ Feature: Check in pilot for flight
         "registration": "D-AIMC",
         "selcal": "LR-CK",
         "currentState": "checked_in",
+        "etopsThresholdMinutes": 180,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",

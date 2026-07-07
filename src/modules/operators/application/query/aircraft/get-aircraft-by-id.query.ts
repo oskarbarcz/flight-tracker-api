@@ -59,6 +59,7 @@ export class GetAircraftByIdHandler implements IQueryHandler<GetAircraftByIdQuer
       selcal: aircraft.selcal,
       livery: aircraft.livery,
       currentState: aircraft.currentState as unknown as AircraftState,
+      etopsThresholdMinutes: aircraft.etopsThresholdMinutes,
       baseAirport: aircraft.baseAirport as AircraftAirport | null,
       lastAirport: aircraft.lastAirport as AircraftAirport | null,
       lastAirportUpdatedAt: aircraft.lastAirportUpdatedAt,
