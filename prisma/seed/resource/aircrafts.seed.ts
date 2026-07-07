@@ -1,7 +1,8 @@
-import { Aircraft, AircraftState } from '../../client/client';
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
+import { Aircraft, AircraftState, Prisma } from '../../client/client';
 
-export async function loadAircraft(): Promise<void> {
+export async function loadAircraft(
+  tx: Prisma.TransactionClient,
+): Promise<void> {
   const a330: Aircraft = {
     id: '9f5da1a4-f09e-4961-8299-82d688337d1f',
     type: 'A339',
@@ -348,8 +349,7 @@ export async function loadAircraft(): Promise<void> {
     ), // DLH880 InCruise (EDDF->CDG)
   ];
 
-  const prisma = new PrismaService();
   for (const aircraft of [a330, a321, a319, b773, ...fleet]) {
-    await prisma.aircraft.create({ data: aircraft });
+    await tx.aircraft.create({ data: aircraft });
   }
 }

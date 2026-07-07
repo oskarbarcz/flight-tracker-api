@@ -1,7 +1,6 @@
-import { User, UserRole } from '../../client/client';
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
+import { Prisma, User, UserRole } from '../../client/client';
 
-export async function loadUsers(): Promise<void> {
+export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
   const john: User = {
     id: 'e181d983-3b69-4be2-864e-2a7596217ddf',
     name: 'John Doe',
@@ -183,7 +182,6 @@ export async function loadUsers(): Promise<void> {
     lastAirportUpdatedAt: null,
   };
 
-  const prisma = new PrismaService();
   for (const user of [
     john,
     alice,
@@ -195,6 +193,6 @@ export async function loadUsers(): Promise<void> {
     diana,
     emma,
   ]) {
-    await prisma.user.create({ data: user });
+    await tx.user.create({ data: user });
   }
 }

@@ -1,9 +1,7 @@
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
+import { Prisma } from '../../client/client';
 
-const prisma = new PrismaService();
-
-async function load012025(): Promise<void> {
-  await prisma.rotation.create({
+async function load012025(tx: Prisma.TransactionClient): Promise<void> {
+  await tx.rotation.create({
     data: {
       id: 'bd8f2d64-a647-42da-be63-c6589915e6c9',
       name: '2025-01',
@@ -15,8 +13,8 @@ async function load012025(): Promise<void> {
   });
 }
 
-async function load022025(): Promise<void> {
-  await prisma.rotation.create({
+async function load022025(tx: Prisma.TransactionClient): Promise<void> {
+  await tx.rotation.create({
     data: {
       id: '4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1',
       name: '2025-02',
@@ -28,8 +26,8 @@ async function load022025(): Promise<void> {
   });
 }
 
-async function load032025(): Promise<void> {
-  await prisma.rotation.create({
+async function load032025(tx: Prisma.TransactionClient): Promise<void> {
+  await tx.rotation.create({
     data: {
       id: 'c2e12afb-a712-45aa-9ba5-fec71868e59a',
       name: '2025-03',
@@ -40,7 +38,7 @@ async function load032025(): Promise<void> {
     },
   });
 
-  await prisma.user.update({
+  await tx.user.update({
     where: { id: '629be07f-5e65-429a-9d69-d34b99185f50' }, // Michael Doe user
     data: {
       currentRotationId: 'c2e12afb-a712-45aa-9ba5-fec71868e59a',
@@ -48,8 +46,10 @@ async function load032025(): Promise<void> {
   });
 }
 
-export async function loadRotations(): Promise<void> {
-  await load012025();
-  await load022025();
-  await load032025();
+export async function loadRotations(
+  tx: Prisma.TransactionClient,
+): Promise<void> {
+  await load012025(tx);
+  await load022025(tx);
+  await load032025(tx);
 }

@@ -1,3 +1,4 @@
+import { PrismaService } from '../../src/core/provider/prisma/prisma.service';
 import { loadAircraft } from './resource/aircrafts.seed';
 import { loadOperators } from './resource/operators.seed';
 import { loadAirports } from './resource/airports.seed';
@@ -14,18 +15,29 @@ import { loadUserAircraft } from './resource/user-aircraft.seed';
 import { loadAircraftReposition } from './resource/aircraft-reposition.seed';
 
 export async function loadResources() {
-  await loadAirports();
-  await loadTerminals();
-  await loadParkingPositions();
-  await loadGates();
-  await loadRunways();
-  await loadOperators();
-  await loadAircraft();
-  await loadUsers();
-  await loadRotations();
-  await loadFlights();
-  await loadDelay();
-  await loadUserTravel();
-  await loadUserAircraft();
-  await loadAircraftReposition();
+  const prisma = new PrismaService();
+
+  try {
+    await prisma.$transaction(
+      async (tx) => {
+        await loadAirports(tx);
+        await loadTerminals(tx);
+        await loadParkingPositions(tx);
+        await loadGates(tx);
+        await loadRunways(tx);
+        await loadOperators(tx);
+        await loadAircraft(tx);
+        await loadUsers(tx);
+        await loadRotations(tx);
+        await loadFlights(tx);
+        await loadDelay(tx);
+        await loadUserTravel(tx);
+        await loadUserAircraft(tx);
+        await loadAircraftReposition(tx);
+      },
+      { maxWait: 15_000, timeout: 120_000 },
+    );
+  } finally {
+    await prisma.$disconnect();
+  }
 }

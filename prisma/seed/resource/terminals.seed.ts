@@ -1,7 +1,8 @@
 import { Prisma } from '../../client/client';
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 
-export async function loadTerminals(): Promise<void> {
+export async function loadTerminals(
+  tx: Prisma.TransactionClient,
+): Promise<void> {
   const terminals: Prisma.TerminalCreateManyInput[] = [
     // EDDF — Frankfurt am Main
     {
@@ -854,7 +855,5 @@ export async function loadTerminals(): Promise<void> {
     },
   ];
 
-  const prisma = new PrismaService();
-
-  await prisma.terminal.createMany({ data: terminals });
+  await tx.terminal.createMany({ data: terminals });
 }

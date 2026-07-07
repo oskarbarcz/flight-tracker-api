@@ -447,7 +447,17 @@ Feature: Check in pilot for flight
         {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
           "registration": "N78881",
-          "airframe": "@any",
+          "airframe": {
+            "type": "B77W",
+            "name": "B777-300ER",
+            "cruiseSpeed": {
+              "value": 0.84,
+              "unit": "mach"
+            },
+            "serviceCeiling": 43000,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
           "livery": "Team USA (2023)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
@@ -457,12 +467,33 @@ Feature: Check in pilot for flight
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
           },
-          "flightId": "23952e79-6b38-49ed-a1db-bd4d9b3cedab"
+          "flight": {
+            "id": "23952e79-6b38-49ed-a1db-bd4d9b3cedab",
+            "flightNumber": "AA4906",
+            "departureAirport": {
+              "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+              "iataCode": "BOS"
+            },
+            "arrivalAirport": {
+              "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+              "iataCode": "PHL"
+            }
+          }
         },
         {
           "id": "ed7ed4bb-95ff-4e79-9331-11212ef727ec",
           "registration": "D-AIMG",
-          "airframe": "@any",
+          "airframe": {
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": {
+              "value": 0.8,
+              "unit": "mach"
+            },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
           "livery": "Retro 1970s (2022)",
           "operator": {
             "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
@@ -472,12 +503,33 @@ Feature: Check in pilot for flight
             "fullName": "Deutsche Lufthansa AG",
             "callsign": "LUFTHANSA"
           },
-          "flightId": "1e9f4176-188f-41a5-a9d1-25a96579f46d"
+          "flight": {
+            "id": "1e9f4176-188f-41a5-a9d1-25a96579f46d",
+            "flightNumber": "LH102",
+            "departureAirport": {
+              "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+              "iataCode": "JFK"
+            },
+            "arrivalAirport": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "iataCode": "FRA"
+            }
+          }
         },
         {
           "id": "a9b9205d-53b1-4eec-bb24-548a12159997",
           "registration": "D-AIMF",
-          "airframe": "@any",
+          "airframe": {
+            "type": "A339",
+            "name": "A330-900",
+            "cruiseSpeed": {
+              "value": 0.8,
+              "unit": "mach"
+            },
+            "serviceCeiling": 41400,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
           "livery": "New Livery (2018)",
           "operator": {
             "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
@@ -487,12 +539,33 @@ Feature: Check in pilot for flight
             "fullName": "Deutsche Lufthansa AG",
             "callsign": "LUFTHANSA"
           },
-          "flightId": "d4a25ef2-39cf-484c-af00-a548999e8699"
+          "flight": {
+            "id": "d4a25ef2-39cf-484c-af00-a548999e8699",
+            "flightNumber": "LH43",
+            "departureAirport": {
+              "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+              "iataCode": "JFK"
+            },
+            "arrivalAirport": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "iataCode": "FRA"
+            }
+          }
         },
         {
           "id": "6c48d613-6582-49de-afbb-89fdc7cac0b7",
           "registration": "N718AN",
-          "airframe": "@any",
+          "airframe": {
+            "type": "B77W",
+            "name": "B777-300ER",
+            "cruiseSpeed": {
+              "value": 0.84,
+              "unit": "mach"
+            },
+            "serviceCeiling": 43000,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
           "livery": "Oneworld (2023)",
           "operator": {
             "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
@@ -502,7 +575,18 @@ Feature: Check in pilot for flight
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
           },
-          "flightId": "23da8bc9-a21b-4678-b2e9-1151d3bd15ab"
+          "flight": {
+            "id": "23da8bc9-a21b-4678-b2e9-1151d3bd15ab",
+            "flightNumber": "AA4905",
+            "departureAirport": {
+              "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+              "iataCode": "BOS"
+            },
+            "arrivalAirport": {
+              "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+              "iataCode": "PHL"
+            }
+          }
         }
       ]
       """

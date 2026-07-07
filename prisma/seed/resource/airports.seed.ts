@@ -1,8 +1,9 @@
 import { Prisma } from '../../client/client';
 import { Continent } from '../../../src/modules/airports/model/airport.model';
-import { PrismaService } from '../../../src/core/provider/prisma/prisma.service';
 
-export async function loadAirports(): Promise<void> {
+export async function loadAirports(
+  tx: Prisma.TransactionClient,
+): Promise<void> {
   const frankfurt: Prisma.AirportCreateInput = {
     id: 'f35c094a-bec5-4803-be32-bd80a14b441a',
     icaoCode: 'EDDF',
@@ -623,9 +624,7 @@ export async function loadAirports(): Promise<void> {
     ],
   };
 
-  const prisma = new PrismaService();
-
-  await prisma.airport.createMany({
+  await tx.airport.createMany({
     data: [
       frankfurt,
       warsaw,

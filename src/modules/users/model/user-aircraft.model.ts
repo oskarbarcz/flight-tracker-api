@@ -1,6 +1,38 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PickType } from '@nestjs/swagger';
 import { Airframe } from '../../airframes/model/airframe.model';
+import { Airport } from '../../airports/model/airport.model';
 import { ShortOperatorResponse } from '../../flights/infra/http/request/operator.request';
+
+export class UserAircraftFlightAirport extends PickType(Airport, [
+  'id',
+  'iataCode',
+]) {}
+
+export class UserAircraftFlight {
+  @ApiProperty({
+    description: 'Flight unique system identifier',
+    example: '23da8bc9-a21b-4678-b2e9-1151d3bd15ab',
+  })
+  id!: string;
+
+  @ApiProperty({
+    description: 'Flight number',
+    example: 'LH43',
+  })
+  flightNumber!: string;
+
+  @ApiProperty({
+    description: 'Departure airport',
+    type: UserAircraftFlightAirport,
+  })
+  departureAirport!: UserAircraftFlightAirport;
+
+  @ApiProperty({
+    description: 'Arrival airport',
+    type: UserAircraftFlightAirport,
+  })
+  arrivalAirport!: UserAircraftFlightAirport;
+}
 
 export class UserAircraftEntry {
   @ApiProperty({
@@ -35,7 +67,7 @@ export class UserAircraftEntry {
 
   @ApiProperty({
     description: 'Flight the aircraft was flown on',
-    example: '23da8bc9-a21b-4678-b2e9-1151d3bd15ab',
+    type: UserAircraftFlight,
   })
-  flightId!: string;
+  flight!: UserAircraftFlight;
 }
