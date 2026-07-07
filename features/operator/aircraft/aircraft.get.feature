@@ -20,6 +20,7 @@ Feature: Get aircraft
         "registration": "D-AIMC",
         "selcal": "LR-CK",
         "currentState": "planned",
+        "etopsThresholdMinutes": 180,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -54,6 +55,7 @@ Feature: Get aircraft
         "registration": "D-AIMC",
         "selcal": "LR-CK",
         "currentState": "planned",
+        "etopsThresholdMinutes": 180,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -88,6 +90,7 @@ Feature: Get aircraft
         "registration": "D-AIMC",
         "selcal": "LR-CK",
         "currentState": "planned",
+        "etopsThresholdMinutes": 180,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",

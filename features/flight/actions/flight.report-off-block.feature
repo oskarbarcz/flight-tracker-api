@@ -300,6 +300,7 @@ Feature: Report off-block
         "registration": "N722AN",
         "selcal": "AB-DE",
         "currentState": "cruise",
+        "etopsThresholdMinutes": null,
         "baseAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",

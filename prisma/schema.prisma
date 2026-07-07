@@ -16,6 +16,7 @@ model Aircraft {
   selcal                String
   livery                String
   currentState          AircraftState @default(idle)
+  etopsThresholdMinutes Int?
   operatorId            String?       @db.Uuid
   baseAirportId         String?       @db.Uuid
   lastAirportId         String?       @db.Uuid

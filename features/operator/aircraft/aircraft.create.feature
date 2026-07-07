@@ -49,6 +49,7 @@ Feature: Create aircraft for operator
         "registration": "SP-LRA",
         "livery": "Sunshine",
         "currentState": "idle",
+        "etopsThresholdMinutes": null,
         "baseAirport": null,
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
@@ -76,6 +77,44 @@ Feature: Create aircraft for operator
         "continent": "europe",
         "alliance": "star_alliance",
         "group": "lufthansa_group"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I create an ETOPS-certified aircraft
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
+      """json
+      {
+        "type": "B748",
+        "selcal": "SL-PR",
+        "registration": "SP-LRA",
+        "livery": "Sunshine",
+        "etopsThresholdMinutes": 180
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "airframe": {
+          "type": "B748",
+          "name": "B747-8",
+          "cruiseSpeed": { "value": 0.85, "unit": "mach" },
+          "serviceCeiling": 43100,
+          "performanceCode": "D",
+          "weightCategory": "super"
+        },
+        "selcal": "SL-PR",
+        "registration": "SP-LRA",
+        "livery": "Sunshine",
+        "currentState": "idle",
+        "etopsThresholdMinutes": 180,
+        "baseAirport": null,
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastParkingPosition": null
       }
       """
     And I set database to initial state

@@ -132,6 +132,7 @@ Feature: Reposition an aircraft
         "registration": "D-AIDA",
         "selcal": "SK-PK",
         "currentState": "idle",
+        "etopsThresholdMinutes": null,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",

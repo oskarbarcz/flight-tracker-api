@@ -41,6 +41,7 @@ const aircraft = {
   selcal: true,
   livery: true,
   currentState: true,
+  etopsThresholdMinutes: true,
   baseAirport: {
     select: {
       id: true,
