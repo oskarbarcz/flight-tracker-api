@@ -53,11 +53,13 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
 
     return {
       flights: flights.map(
-        ({ captainId, ...flight }): GetFlightResponse => ({
+        ({ captainId, actualFuelBurned, ...flight }): GetFlightResponse => ({
           ...flight,
           status: flight.status as FlightStatus,
           timesheet: flight.timesheet as FullTimesheet,
           loadsheets: flight.loadsheets as unknown as Loadsheets,
+          actualFuelBurned:
+            actualFuelBurned === null ? null : actualFuelBurned.toNumber(),
           airports: flight.airports.map(
             (airportOnFlight): AirportWithType => ({
               ...airportOnFlight.airport,

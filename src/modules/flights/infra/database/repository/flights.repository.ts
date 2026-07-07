@@ -54,6 +54,7 @@ export const flightWithAircraftAndAirportsFields = {
   isEmergencyDeclared: true,
   isDiversionDeclared: true,
   isPathAvailable: true,
+  actualFuelBurned: true,
   operator: {
     select: {
       id: true,
@@ -450,6 +451,13 @@ export class FlightsRepository {
     await this.prisma.flight.update({
       where: { id },
       data: { status },
+    });
+  }
+
+  async close(id: string, actualFuelBurned: number | null): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id },
+      data: { status: FlightStatus.Closed, actualFuelBurned },
     });
   }
 

@@ -17,6 +17,7 @@ export class CloseFlightCommand {
   constructor(
     public readonly flightId: string,
     public readonly initiatorId: string,
+    public readonly actualFuelBurned: number | null = null,
   ) {}
 }
 
@@ -29,7 +30,7 @@ export class CloseFlightHandler implements ICommandHandler<CloseFlightCommand> {
   ) {}
 
   async execute(command: CloseFlightCommand): Promise<void> {
-    const { flightId, initiatorId } = command;
+    const { flightId, initiatorId, actualFuelBurned } = command;
     const query = new GetFlightQuery(flightId);
     const flight = await this.queryBus.execute(query);
 
@@ -50,7 +51,7 @@ export class CloseFlightHandler implements ICommandHandler<CloseFlightCommand> {
       throw new FlightHasUnacceptedDelayError();
     }
 
-    await this.flightsRepository.updateStatus(flightId, FlightStatus.Closed);
+    await this.flightsRepository.close(flightId, actualFuelBurned);
 
     this.domainEvents.emit(
       new FlightWasClosedEvent({

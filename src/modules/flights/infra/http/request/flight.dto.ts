@@ -6,6 +6,7 @@ import {
   IsEnum,
   IsInt,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   IsUUID,
@@ -116,6 +117,29 @@ export class GetFlightResponse extends OmitType(Flight, [
       'Pilot checked in for the flight, or null if none has checked in yet',
   })
   pilot!: FlightPilotDto | null;
+
+  @ApiProperty({
+    description:
+      'Actual fuel burned in tons, captured when the flight is closed; null until then. The planned-vs-actual delta is derived against the loadsheet `fuel.trip`.',
+    example: 51.2,
+    type: 'number',
+    nullable: true,
+  })
+  actualFuelBurned!: number | null;
+}
+
+export class CloseFlightRequest {
+  @ApiProperty({
+    description: 'Actual fuel burned during the flight in tons',
+    example: 51.2,
+    required: false,
+    nullable: true,
+    default: null,
+  })
+  @IsOptional()
+  @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 3 })
+  @Min(0)
+  actualFuelBurned?: number | null;
 }
 
 export class FlightListFilters {

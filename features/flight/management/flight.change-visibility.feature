@@ -148,6 +148,7 @@ Feature: Change flight visibility
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "actualFuelBurned": null,
         "source": "manual",
         "tracking": "disabled",
         "rotationId": null,

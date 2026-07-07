@@ -46,7 +46,27 @@ Feature: Create a flight with Simbrief
               "reliefPilots": 1
             },
             "passengers": 348,
-            "zeroFuelWeight": 206.5
+            "zeroFuelWeight": 206.5,
+            "fuel": {
+              "block": 71.6,
+              "taxi": 0.8,
+              "trip": 58,
+              "alternate": 4.2,
+              "reserve": 2.9,
+              "contingencyType": "3%",
+              "contingencyAmount": 1.5,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0.3,
+              "extra": 0.6,
+              "tankering": 0,
+              "etops": 0,
+              "minTakeoff": 70.8,
+              "planTakeoff": 70.8,
+              "planLanding": 12.8,
+              "averageFuelFlow": 5.8,
+              "maxTanks": 111
+            }
           }
         },
         "aircraft": {
@@ -200,6 +220,7 @@ Feature: Create a flight with Simbrief
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "actualFuelBurned": null,
         "rotationId": null,
         "source": "simbrief",
         "tracking": "private",
@@ -242,7 +263,27 @@ Feature: Create a flight with Simbrief
               "reliefPilots": 1
             },
             "passengers": 348,
-            "zeroFuelWeight": 206.5
+            "zeroFuelWeight": 206.5,
+            "fuel": {
+              "block": 71.6,
+              "taxi": 0.8,
+              "trip": 58,
+              "alternate": 4.2,
+              "reserve": 2.9,
+              "contingencyType": "3%",
+              "contingencyAmount": 1.5,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0.3,
+              "extra": 0.6,
+              "tankering": 0,
+              "etops": 0,
+              "minTakeoff": 70.8,
+              "planTakeoff": 70.8,
+              "planLanding": 12.8,
+              "averageFuelFlow": 5.8,
+              "maxTanks": 111
+            }
           }
         },
         "aircraft": {
@@ -364,6 +405,7 @@ Feature: Create a flight with Simbrief
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "actualFuelBurned": null,
         "rotationId": null,
         "source": "simbrief",
         "tracking": "private",
@@ -432,7 +474,27 @@ Feature: Create a flight with Simbrief
               "reliefPilots": 1
             },
             "passengers": 348,
-            "zeroFuelWeight": 206.5
+            "zeroFuelWeight": 206.5,
+            "fuel": {
+              "block": 71.6,
+              "taxi": 0.8,
+              "trip": 58,
+              "alternate": 4.2,
+              "reserve": 2.9,
+              "contingencyType": "3%",
+              "contingencyAmount": 1.5,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0.3,
+              "extra": 0.6,
+              "tankering": 0,
+              "etops": 0,
+              "minTakeoff": 70.8,
+              "planTakeoff": 70.8,
+              "planLanding": 12.8,
+              "averageFuelFlow": 5.8,
+              "maxTanks": 111
+            }
           }
         },
         "aircraft": {
@@ -538,6 +600,7 @@ Feature: Create a flight with Simbrief
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "actualFuelBurned": null,
         "rotationId": null,
         "source": "simbrief",
         "tracking": "private",

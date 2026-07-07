@@ -30,14 +30,17 @@ manually at flight planning for flights not created from SimBrief.
 
 The system SHALL allow the actual fuel burned, in tons, to be captured when a flight is
 closed. Providing it SHALL be optional and its absence SHALL NOT prevent closing the
-flight. When provided, the system SHALL make a delta against the planned trip fuel
-available, presenting the planned trip fuel as the reference.
+flight. When provided, the system SHALL expose the actual fuel burned on the flight
+alongside the planned trip fuel retained in the loadsheet breakdown, so that the
+planned-vs-actual delta can be derived with the planned trip fuel as the reference. The
+delta itself is not returned by the API.
 
 #### Scenario: Actual fuel captured on close
 
 - **WHEN** a flight is closed with an actual-fuel-burned value
 - **THEN** the flight records the actual fuel burned
-- **AND** a delta against the planned trip fuel is available
+- **AND** the actual fuel burned is exposed on the flight
+- **AND** the planned trip fuel remains available in the loadsheet breakdown so the delta can be derived
 
 #### Scenario: Closing without actual fuel is allowed
 
@@ -47,5 +50,5 @@ available, presenting the planned trip fuel as the reference.
 
 #### Scenario: Planned figures shown as reference
 
-- **WHEN** the close-out is presented for a flight with a fuel breakdown
-- **THEN** the planned trip fuel is available as the reference figure
+- **WHEN** a flight with a fuel breakdown is read
+- **THEN** the planned trip fuel is available in the loadsheet breakdown as the reference figure

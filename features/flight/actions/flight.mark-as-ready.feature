@@ -141,6 +141,7 @@ Feature: Mark flight as ready
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,

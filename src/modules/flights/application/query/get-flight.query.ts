@@ -40,13 +40,15 @@ export class GetFlightHandler implements IQueryHandler<GetFlightQuery> {
       throw new FlightDoesNotExistError();
     }
 
-    const { captainId, ...rest } = flight;
+    const { captainId, actualFuelBurned, ...rest } = flight;
 
     return {
       ...rest,
       status: flight.status as FlightStatus,
       timesheet: this.convertTimesheetDates(flight.timesheet as FullTimesheet),
       loadsheets: flight.loadsheets as unknown as Loadsheets,
+      actualFuelBurned:
+        actualFuelBurned === null ? null : actualFuelBurned.toNumber(),
       airports: flight.airports.map(
         (airportOnFlight): AirportWithType => ({
           ...airportOnFlight.airport,
