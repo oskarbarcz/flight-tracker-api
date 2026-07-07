@@ -31,7 +31,12 @@ Feature: Close flight
     When I subscribe to flight events for "38644393-deee-434d-bfd1-7242abdbc4e1"
     Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
-    When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close"
+    When I send a "POST" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1/close" with body:
+      """json
+      {
+        "actualFuelBurned": 10.2
+      }
+      """
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/38644393-deee-434d-bfd1-7242abdbc4e1"
     Then the response status should be 200
@@ -87,7 +92,21 @@ Feature: Close flight
             "payload": 28.3,
             "cargo": 8.9,
             "zeroFuelWeight": 202.9,
-            "blockFuel": 11.9
+            "blockFuel": 11.9,
+            "fuel": {
+              "block": 11.9,
+              "taxi": 0.3,
+              "trip": 9.8,
+              "alternate": 0.9,
+              "reserve": 0.6,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.5,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            }
           }
         },
         "aircraft": {
@@ -177,6 +196,7 @@ Feature: Close flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
+        "actualFuelBurned": 10.2,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
@@ -574,6 +594,7 @@ Feature: Close flight
         "tracking": "private",
         "rotationId": "c2e12afb-a712-45aa-9ba5-fec71868e59a",
         "hasFlightPath": false,
+        "actualFuelBurned": null,
         "createdAt": "2025-01-01T00:00:00.000Z",
         "pilot": {
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -971,6 +992,7 @@ Feature: Close flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,
@@ -1144,6 +1166,7 @@ Feature: Close flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,

@@ -21,6 +21,7 @@ import {
 } from '../../infra/http/request/flight.dto';
 import { AirportType } from '../../../airports/model/airport.model';
 import { OperationalFlightPlan } from '../../../../core/provider/simbrief/type/simbrief.types';
+import { FuelBreakdown } from '../../model/loadsheet.model';
 
 type AlternateAirportCandidate = {
   icaoCode: string;
@@ -113,6 +114,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
           blockFuel: this.ofpWeightToTons(ofp.fuel.plan_ramp),
           payload: this.ofpWeightToTons(ofp.weights.payload),
           zeroFuelWeight: this.ofpWeightToTons(ofp.weights.est_zfw),
+          fuel: this.mapFuelBreakdown(ofp),
         },
       },
       alternateAirports,
@@ -194,6 +196,39 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
         return { airportId, type: candidate.type };
       }),
     );
+  }
+
+  private mapFuelBreakdown(ofp: OperationalFlightPlan): FuelBreakdown {
+    // MEL/ATC/WXX/EXTRA/TANKERING come from the OFP's additional-fuel buckets
+    // (fuel_extra.bucket); `block` stays consistent with the `blockFuel` summary.
+    return {
+      block: this.ofpWeightToTons(ofp.fuel.plan_ramp),
+      taxi: this.ofpWeightToTons(ofp.fuel.taxi),
+      trip: this.ofpWeightToTons(ofp.fuel.enroute_burn),
+      alternate: this.ofpWeightToTons(ofp.fuel.alternate_burn),
+      reserve: this.ofpWeightToTons(ofp.fuel.reserve),
+      contingencyType: ofp.general.cont_rule,
+      contingencyAmount: this.ofpWeightToTons(ofp.fuel.contingency),
+      mel: this.additionalFuelTons(ofp, 'MEL'),
+      atc: this.additionalFuelTons(ofp, 'ATC'),
+      wxx: this.additionalFuelTons(ofp, 'WXX'),
+      extra: this.additionalFuelTons(ofp, 'EXTRA'),
+      tankering: this.additionalFuelTons(ofp, 'TANKERING'),
+      etops: this.ofpWeightToTons(ofp.fuel.etops),
+      minTakeoff: this.ofpWeightToTons(ofp.fuel.min_takeoff),
+      planTakeoff: this.ofpWeightToTons(ofp.fuel.plan_takeoff),
+      planLanding: this.ofpWeightToTons(ofp.fuel.plan_landing),
+      averageFuelFlow: this.ofpWeightToTons(ofp.fuel.avg_fuel_flow),
+      maxTanks: this.ofpWeightToTons(ofp.fuel.max_tanks),
+    };
+  }
+
+  private additionalFuelTons(
+    ofp: OperationalFlightPlan,
+    label: string,
+  ): number {
+    const bucket = ofp.fuel_extra?.bucket?.find((b) => b.label === label);
+    return bucket ? this.ofpWeightToTons(bucket.fuel) : 0;
   }
 
   private ofpWeightToTons(input: string): number {

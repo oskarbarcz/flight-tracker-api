@@ -54,12 +54,12 @@ Definition-of-Done applied inside every group, not a separate issue.
 
 ## 7. Flight fuel breakdown + close-out (independent) — capability `flight-fuel-planning`
 
-- [ ] 7.1 Add `Flight.actualFuelBurned Decimal?` (tons) to `schema.prisma`; generate migration; regenerate client
-- [ ] 7.2 Add nested `fuel` breakdown (block/taxi/trip/alternate/reserve/contingency type+amount/MEL/ATC/WXX/extra/tankering, tons) to the `Loadsheet` DTO; keep `blockFuel` as the summary figure consistent with `fuel.block`
-- [ ] 7.3 Map SimBrief OFP fuel into `loadsheets.preliminary.fuel` in `create-flight-from-simbrief.command`
-- [ ] 7.4 Manual fuel entry via the preliminary/final loadsheet DTOs (non-SimBrief flights)
-- [ ] 7.5 Extend `close-flight.command` with an optional `actualFuelBurned`; expose planned-trip reference + delta
-- [ ] 7.6 Cucumber (seed-based): SimBrief populates breakdown + blockFuel summary; manual entry; close captures actual + delta; close without actual fuel
+- [x] 7.1 Add `Flight.actualFuelBurned Decimal?` (tons) to `schema.prisma`; generate migration; regenerate client
+- [x] 7.2 Add nested `fuel` breakdown (block/taxi/trip/alternate/reserve/contingency type+amount/MEL/ATC/WXX/extra/tankering, tons) to the `Loadsheet` DTO; keep `blockFuel` as the summary figure consistent with `fuel.block`. Also carries the OFP planning figures (etops/minTakeoff/planTakeoff/planLanding/averageFuelFlow/maxTanks) as optional fields
+- [x] 7.3 Map SimBrief OFP fuel into `loadsheets.preliminary.fuel` in `create-flight-from-simbrief.command` (fuel + fuel_extra.bucket + general.cont_rule)
+- [x] 7.4 Manual fuel entry via the preliminary/final loadsheet DTOs (non-SimBrief flights)
+- [x] 7.5 Extend `close-flight.command` with an optional `actualFuelBurned`; expose it on the flight so the planned-vs-actual delta (vs loadsheet `fuel.trip`) is derivable (delta not returned by the API)
+- [x] 7.6 Cucumber (seed-based): SimBrief populates breakdown + blockFuel summary; manual entry; close captures actual + delta; close without actual fuel
 
 ## 8. Definition of Done (applied inside every group above)
 

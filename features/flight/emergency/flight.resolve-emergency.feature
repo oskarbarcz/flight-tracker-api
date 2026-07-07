@@ -132,6 +132,7 @@ Feature: Resolve a flight emergency
         "isFlightDiverted": false,
         "isEmergencyDeclared": true,
         "hasFlightPath": false,
+        "actualFuelBurned": null,
         "createdAt": "2025-01-01T06:00:00.000Z",
         "pilot": {
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -284,6 +285,7 @@ Feature: Resolve a flight emergency
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "actualFuelBurned": null,
         "createdAt": "2025-01-01T06:00:00.000Z",
         "pilot": {
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",

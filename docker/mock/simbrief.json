@@ -23,7 +23,8 @@
           "flight_number": "80",
           "is_etops": "1",
           "gc_distance": "3350",
-          "total_burn": "156000"
+          "total_burn": "156000",
+          "cont_rule": "3%"
         },
         "origin": {
           "icao_code": "EDDF"
@@ -51,7 +52,30 @@
           }
         },
         "fuel": {
-          "plan_ramp": "71636"
+          "taxi": "800",
+          "enroute_burn": "58000",
+          "contingency": "1500",
+          "alternate_burn": "4200",
+          "reserve": "2900",
+          "etops": "0",
+          "extra": "600",
+          "extra_required": "0",
+          "extra_optional": "600",
+          "min_takeoff": "70836",
+          "plan_takeoff": "70836",
+          "plan_ramp": "71636",
+          "plan_landing": "12836",
+          "avg_fuel_flow": "5800",
+          "max_tanks": "111000"
+        },
+        "fuel_extra": {
+          "bucket": [
+            { "label": "MEL", "fuel": "0", "time": "0" },
+            { "label": "ATC", "fuel": "0", "time": "0" },
+            { "label": "WXX", "fuel": "300", "time": "0" },
+            { "label": "EXTRA", "fuel": "600", "time": "0" },
+            { "label": "TANKERING", "fuel": "0", "time": "0" }
+          ]
         },
         "aircraft": {
           "reg": "D-AIMC"
@@ -126,7 +150,30 @@
           }
         },
         "fuel": {
-          "plan_ramp": "71636"
+          "taxi": "800",
+          "enroute_burn": "58000",
+          "contingency": "1500",
+          "alternate_burn": "4200",
+          "reserve": "2900",
+          "etops": "0",
+          "extra": "600",
+          "extra_required": "0",
+          "extra_optional": "600",
+          "min_takeoff": "70836",
+          "plan_takeoff": "70836",
+          "plan_ramp": "71636",
+          "plan_landing": "12836",
+          "avg_fuel_flow": "5800",
+          "max_tanks": "111000"
+        },
+        "fuel_extra": {
+          "bucket": [
+            { "label": "MEL", "fuel": "0", "time": "0" },
+            { "label": "ATC", "fuel": "0", "time": "0" },
+            { "label": "WXX", "fuel": "300", "time": "0" },
+            { "label": "EXTRA", "fuel": "600", "time": "0" },
+            { "label": "TANKERING", "fuel": "0", "time": "0" }
+          ]
         },
         "aircraft": {
           "reg": "D-TEST"
@@ -176,7 +223,8 @@
           "flight_number": "80",
           "is_etops": "1",
           "gc_distance": "3350",
-          "total_burn": "156000"
+          "total_burn": "156000",
+          "cont_rule": "3%"
         },
         "origin": {
           "icao_code": "EDDF"
@@ -193,7 +241,30 @@
           "icao_code": "EGLL"
         },
         "fuel": {
-          "plan_ramp": "71636"
+          "taxi": "800",
+          "enroute_burn": "58000",
+          "contingency": "1500",
+          "alternate_burn": "4200",
+          "reserve": "2900",
+          "etops": "0",
+          "extra": "600",
+          "extra_required": "0",
+          "extra_optional": "600",
+          "min_takeoff": "70836",
+          "plan_takeoff": "70836",
+          "plan_ramp": "71636",
+          "plan_landing": "12836",
+          "avg_fuel_flow": "5800",
+          "max_tanks": "111000"
+        },
+        "fuel_extra": {
+          "bucket": [
+            { "label": "MEL", "fuel": "0", "time": "0" },
+            { "label": "ATC", "fuel": "0", "time": "0" },
+            { "label": "WXX", "fuel": "300", "time": "0" },
+            { "label": "EXTRA", "fuel": "600", "time": "0" },
+            { "label": "TANKERING", "fuel": "0", "time": "0" }
+          ]
         },
         "aircraft": {
           "reg": "D-AIMC"
@@ -247,7 +318,8 @@
           "flight_number": "80",
           "is_etops": "1",
           "gc_distance": "3350",
-          "total_burn": "156000"
+          "total_burn": "156000",
+          "cont_rule": "3%"
         },
         "origin": {
           "icao_code": "EDDF"
@@ -268,7 +340,30 @@
         },
         "etops": {},
         "fuel": {
-          "plan_ramp": "71636"
+          "taxi": "800",
+          "enroute_burn": "58000",
+          "contingency": "1500",
+          "alternate_burn": "4200",
+          "reserve": "2900",
+          "etops": "0",
+          "extra": "600",
+          "extra_required": "0",
+          "extra_optional": "600",
+          "min_takeoff": "70836",
+          "plan_takeoff": "70836",
+          "plan_ramp": "71636",
+          "plan_landing": "12836",
+          "avg_fuel_flow": "5800",
+          "max_tanks": "111000"
+        },
+        "fuel_extra": {
+          "bucket": [
+            { "label": "MEL", "fuel": "0", "time": "0" },
+            { "label": "ATC", "fuel": "0", "time": "0" },
+            { "label": "WXX", "fuel": "300", "time": "0" },
+            { "label": "EXTRA", "fuel": "600", "time": "0" },
+            { "label": "TANKERING", "fuel": "0", "time": "0" }
+          ]
         },
         "aircraft": {
           "reg": "D-AIMC"
@@ -322,7 +417,8 @@
           "flight_number": "80",
           "is_etops": "1",
           "gc_distance": "3350",
-          "total_burn": "156000"
+          "total_burn": "156000",
+          "cont_rule": "3%"
         },
         "origin": {
           "icao_code": "EDDF"
@@ -343,7 +439,30 @@
         },
         "etops": {},
         "fuel": {
-          "plan_ramp": "71636"
+          "taxi": "800",
+          "enroute_burn": "58000",
+          "contingency": "1500",
+          "alternate_burn": "4200",
+          "reserve": "2900",
+          "etops": "0",
+          "extra": "600",
+          "extra_required": "0",
+          "extra_optional": "600",
+          "min_takeoff": "70836",
+          "plan_takeoff": "70836",
+          "plan_ramp": "71636",
+          "plan_landing": "12836",
+          "avg_fuel_flow": "5800",
+          "max_tanks": "111000"
+        },
+        "fuel_extra": {
+          "bucket": [
+            { "label": "MEL", "fuel": "0", "time": "0" },
+            { "label": "ATC", "fuel": "0", "time": "0" },
+            { "label": "WXX", "fuel": "300", "time": "0" },
+            { "label": "EXTRA", "fuel": "600", "time": "0" },
+            { "label": "TANKERING", "fuel": "0", "time": "0" }
+          ]
         },
         "aircraft": {
           "reg": "D-AIMC"

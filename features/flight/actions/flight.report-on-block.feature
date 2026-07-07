@@ -348,6 +348,7 @@ Feature: Report on-block
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
+        "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
         "rotationId": null,

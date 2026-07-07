@@ -1,7 +1,15 @@
-import { Controller, HttpCode, HttpStatus, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Req,
+} from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
+  ApiBody,
   ApiForbiddenResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -20,6 +28,7 @@ import { Role } from '../../../../../../core/http/auth/decorator/role.decorator'
 import { UuidParam } from '../../../../../../core/validation/uuid.param';
 import { AuthorizedRequest } from '../../../../../../core/http/request/authorized.request';
 import { CloseFlightCommand } from '../../../../application/command/close-flight.command';
+import { CloseFlightRequest } from '../../request/flight.dto';
 
 @ApiTags('flight actions')
 @Controller('api/v1/flight')
@@ -37,6 +46,7 @@ export class CloseFlightAction {
     name: 'id',
     description: 'Flight unique identifier',
   })
+  @ApiBody({ type: CloseFlightRequest, required: false })
   @ApiNoContentResponse()
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
@@ -48,8 +58,13 @@ export class CloseFlightAction {
   async run(
     @UuidParam('id') id: string,
     @Req() request: AuthorizedRequest,
+    @Body() body: CloseFlightRequest,
   ): Promise<void> {
-    const command = new CloseFlightCommand(id, request.user.sub);
+    const command = new CloseFlightCommand(
+      id,
+      request.user.sub,
+      body.actualFuelBurned ?? null,
+    );
     await this.commandBus.execute(command);
   }
 }

@@ -9,6 +9,7 @@ type General = {
   is_etops: '0' | '1';
   gc_distance: string;
   total_burn: string;
+  cont_rule: string;
 };
 
 type Airport = {
@@ -28,6 +29,27 @@ export type Times = {
 
 export type Fuel = {
   plan_ramp: string;
+  taxi: string;
+  enroute_burn: string;
+  contingency: string;
+  alternate_burn: string;
+  reserve: string;
+  etops: string;
+  min_takeoff: string;
+  plan_takeoff: string;
+  plan_landing: string;
+  avg_fuel_flow: string;
+  max_tanks: string;
+};
+
+export type FuelExtraBucket = {
+  label: string;
+  fuel: string;
+  time: string;
+};
+
+export type FuelExtra = {
+  bucket: FuelExtraBucket[];
 };
 
 export type Weights = {
@@ -61,6 +83,7 @@ export type OperationalFlightPlan = {
     exit: Airport;
   };
   fuel: Fuel;
+  fuel_extra: FuelExtra;
   aircraft: Aircraft;
   times: Times;
   weights: Weights;

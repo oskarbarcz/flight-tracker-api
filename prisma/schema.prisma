@@ -193,6 +193,7 @@ model Flight {
   isEtops                    Boolean        @default(false)
   greatCircleDistance        Int            @default(1)
   totalFuelBurned            Int            @default(1)
+  actualFuelBurned           Decimal?       @db.Decimal(7, 3)
   route                      String?
   departureParkingPositionId String?        @db.Uuid
   departureRunwayId          String?        @db.Uuid

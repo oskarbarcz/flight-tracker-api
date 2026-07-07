@@ -159,6 +159,7 @@ Feature: Update flight arrival parking position
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "actualFuelBurned": null,
         "source": "manual",
         "tracking": "private",
         "rotationId": "bd8f2d64-a647-42da-be63-c6589915e6c9",
