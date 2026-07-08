@@ -49,6 +49,20 @@ Feature: Change flight visibility
         "loadsheets": {
           "preliminary": {
             "blockFuel": 12.7,
+            "fuel": {
+              "block": 12.7,
+              "taxi": 0.3,
+              "trip": 10.4,
+              "alternate": 0.9,
+              "reserve": 0.6,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.5,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            },
             "cargo": 8.5,
             "flightCrew": {
               "cabinCrew": 6,

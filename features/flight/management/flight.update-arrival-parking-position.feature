@@ -51,7 +51,21 @@ Feature: Update flight arrival parking position
             "payload": 34.9,
             "cargo": 8.4,
             "zeroFuelWeight": 162.3,
-            "blockFuel": 47.9
+            "blockFuel": 47.9,
+            "fuel": {
+              "block": 47.9,
+              "taxi": 0.8,
+              "trip": 39.8,
+              "alternate": 2.9,
+              "reserve": 2.4,
+              "contingencyType": "5%",
+              "contingencyAmount": 2,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            }
           },
           "final": null
         },

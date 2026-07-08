@@ -22,6 +22,11 @@ import {
 import { AirportType } from '../../../airports/model/airport.model';
 import { OperationalFlightPlan } from '../../../../core/provider/simbrief/type/simbrief.types';
 import { FuelBreakdown } from '../../model/loadsheet.model';
+import {
+  AssignCrewToFlightCommand,
+  CrewMember,
+} from '../../../operators/application/command/crew/assign-crew-to-flight.command';
+import { CrewRole } from '../../../operators/model/crew.model';
 
 type AlternateAirportCandidate = {
   icaoCode: string;
@@ -134,6 +139,14 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       Number(ofp.general.total_burn),
     );
 
+    const crewMembers = this.collectCrewMembers(ofp);
+    const assignCrewCommand = new AssignCrewToFlightCommand(
+      flightId,
+      operator.id,
+      crewMembers,
+    );
+    await this.commandBus.execute(assignCrewCommand);
+
     this.domainEvents.emit(
       new FlightWasCreatedEvent({
         flightId: flightId,
@@ -142,6 +155,32 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
         aircraftId: flightData.aircraftId,
       }),
     );
+  }
+
+  private collectCrewMembers(ofp: OperationalFlightPlan): CrewMember[] {
+    const crew = ofp.crew;
+
+    if (!crew) {
+      return [];
+    }
+
+    const members: CrewMember[] = [];
+
+    if (crew.fo) {
+      members.push({ role: CrewRole.fo, name: crew.fo });
+    }
+
+    if (crew.pu) {
+      members.push({ role: CrewRole.pu, name: crew.pu });
+    }
+
+    for (const name of crew.fa ?? []) {
+      if (name) {
+        members.push({ role: CrewRole.fa, name });
+      }
+    }
+
+    return members;
   }
 
   private collectAlternateCandidates(

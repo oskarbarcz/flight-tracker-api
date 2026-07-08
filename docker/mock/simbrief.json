@@ -96,6 +96,14 @@
           "tlr_section": "TAKEOFF AND LANDING REPORT DLH80",
           "plan_html": "<div><h2>Simbrief OFP</h2><p>Mock OFP</p></div>"
         },
+        "crew": {
+          "pilot_id": "371340",
+          "cpt": "..... .....",
+          "fo": "ALBERTO HOLCOMB",
+          "dx": "STEVE HOLCOMB",
+          "pu": "KATRINA LIVINGSTON",
+          "fa": ["VIRGIL RIVERS", "LELA VAUGHN", "CLARA REEVES", "GREGG SIMON"]
+        },
         "files": {
           "directory": "https://www.simbrief.com/ofp/flightplans/",
           "pdf": {
@@ -189,6 +197,14 @@
           "payload": "37932",
           "est_zfw": "206523",
           "pax_count": "348"
+        },
+        "crew": {
+          "pilot_id": "371340",
+          "cpt": "..... .....",
+          "fo": "ALBERTO HOLCOMB",
+          "dx": "STEVE HOLCOMB",
+          "pu": "KATRINA LIVINGSTON",
+          "fa": ["VIRGIL RIVERS", "LELA VAUGHN", "CLARA REEVES", "GREGG SIMON"]
         },
         "files": {
           "directory": "https://www.simbrief.com/ofp/flightplans/",
@@ -285,104 +301,13 @@
           "tlr_section": "TAKEOFF AND LANDING REPORT DLH80",
           "plan_html": "<div><h2>Simbrief OFP</h2><p>Mock OFP</p></div>"
         },
-        "files": {
-          "directory": "https://www.simbrief.com/ofp/flightplans/",
-          "pdf": {
-            "link": "EDDFKJFK_PDF_1769431274.pdf"
-          }
-        }
-      }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/xml.fetcher.php",
-      "queryStringParameters": {
-        "userid": ["333444"],
-        "json": ["2"]
-      }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["application/json; charset=utf-8"]
-      },
-      "body": {
-        "params": {
-          "request_id": "162595443",
-          "sequence_id": "816599746ea5"
-        },
-        "general": {
-          "icao_airline": "DLH",
-          "flight_number": "80",
-          "is_etops": "1",
-          "gc_distance": "3350",
-          "total_burn": "156000",
-          "cont_rule": "3%"
-        },
-        "origin": {
-          "icao_code": "EDDF"
-        },
-        "destination": {
-          "icao_code": "KJFK"
-        },
-        "alternate": [
-          {
-            "icao_code": "KBOS"
-          },
-          {
-            "icao_code": "KPHL"
-          }
-        ],
-        "enroute_altn": {
-          "icao_code": "CYYR"
-        },
-        "etops": {},
-        "fuel": {
-          "taxi": "800",
-          "enroute_burn": "58000",
-          "contingency": "1500",
-          "alternate_burn": "4200",
-          "reserve": "2900",
-          "etops": "0",
-          "extra": "600",
-          "extra_required": "0",
-          "extra_optional": "600",
-          "min_takeoff": "70836",
-          "plan_takeoff": "70836",
-          "plan_ramp": "71636",
-          "plan_landing": "12836",
-          "avg_fuel_flow": "5800",
-          "max_tanks": "111000"
-        },
-        "fuel_extra": {
-          "bucket": [
-            { "label": "MEL", "fuel": "0", "time": "0" },
-            { "label": "ATC", "fuel": "0", "time": "0" },
-            { "label": "WXX", "fuel": "300", "time": "0" },
-            { "label": "EXTRA", "fuel": "600", "time": "0" },
-            { "label": "TANKERING", "fuel": "0", "time": "0" }
-          ]
-        },
-        "aircraft": {
-          "reg": "D-AIMC"
-        },
-        "times": {
-          "sched_out": "1736067600",
-          "sched_off": "1736068800",
-          "sched_on": "1736097000",
-          "sched_in": "1736097900"
-        },
-        "weights": {
-          "cargo": "8004",
-          "payload": "37932",
-          "est_zfw": "206523",
-          "pax_count": "348"
-        },
-        "text": {
-          "tlr_section": "TAKEOFF AND LANDING REPORT DLH80",
-          "plan_html": "<div><h2>Simbrief OFP</h2><p>Mock OFP</p></div>"
+        "crew": {
+          "pilot_id": "371340",
+          "cpt": "..... .....",
+          "fo": "ALBERTO HOLCOMB",
+          "dx": "STEVE HOLCOMB",
+          "pu": "KATRINA LIVINGSTON",
+          "fa": ["VIRGIL RIVERS", "LELA VAUGHN", "CLARA REEVES", "GREGG SIMON"]
         },
         "files": {
           "directory": "https://www.simbrief.com/ofp/flightplans/",
@@ -482,6 +407,121 @@
         "text": {
           "tlr_section": "TAKEOFF AND LANDING REPORT DLH80",
           "plan_html": "<div><h2>Simbrief OFP</h2><p>Mock OFP</p></div>"
+        },
+        "crew": {
+          "pilot_id": "371340",
+          "cpt": "..... .....",
+          "fo": "ALBERTO HOLCOMB",
+          "dx": "STEVE HOLCOMB",
+          "pu": "KATRINA LIVINGSTON",
+          "fa": ["VIRGIL RIVERS", "LELA VAUGHN", "CLARA REEVES", "GREGG SIMON"]
+        },
+        "files": {
+          "directory": "https://www.simbrief.com/ofp/flightplans/",
+          "pdf": {
+            "link": "EDDFKJFK_PDF_1769431274.pdf"
+          }
+        }
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/xml.fetcher.php",
+      "queryStringParameters": {
+        "userid": ["333444"],
+        "json": ["2"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"]
+      },
+      "body": {
+        "params": {
+          "request_id": "162595443",
+          "sequence_id": "816599746ea5"
+        },
+        "general": {
+          "icao_airline": "DLH",
+          "flight_number": "80",
+          "is_etops": "1",
+          "gc_distance": "3350",
+          "total_burn": "156000",
+          "cont_rule": "3%"
+        },
+        "origin": {
+          "icao_code": "EDDF"
+        },
+        "destination": {
+          "icao_code": "KJFK"
+        },
+        "alternate": [
+          {
+            "icao_code": "KBOS"
+          },
+          {
+            "icao_code": "KPHL"
+          }
+        ],
+        "enroute_altn": {
+          "icao_code": "CYYR"
+        },
+        "etops": {},
+        "fuel": {
+          "taxi": "800",
+          "enroute_burn": "58000",
+          "contingency": "1500",
+          "alternate_burn": "4200",
+          "reserve": "2900",
+          "etops": "0",
+          "extra": "600",
+          "extra_required": "0",
+          "extra_optional": "600",
+          "min_takeoff": "70836",
+          "plan_takeoff": "70836",
+          "plan_ramp": "71636",
+          "plan_landing": "12836",
+          "avg_fuel_flow": "5800",
+          "max_tanks": "111000"
+        },
+        "fuel_extra": {
+          "bucket": [
+            { "label": "MEL", "fuel": "0", "time": "0" },
+            { "label": "ATC", "fuel": "0", "time": "0" },
+            { "label": "WXX", "fuel": "300", "time": "0" },
+            { "label": "EXTRA", "fuel": "600", "time": "0" },
+            { "label": "TANKERING", "fuel": "0", "time": "0" }
+          ]
+        },
+        "aircraft": {
+          "reg": "D-AIMC"
+        },
+        "times": {
+          "sched_out": "1736067600",
+          "sched_off": "1736068800",
+          "sched_on": "1736097000",
+          "sched_in": "1736097900"
+        },
+        "weights": {
+          "cargo": "8004",
+          "payload": "37932",
+          "est_zfw": "206523",
+          "pax_count": "348"
+        },
+        "text": {
+          "tlr_section": "TAKEOFF AND LANDING REPORT DLH80",
+          "plan_html": "<div><h2>Simbrief OFP</h2><p>Mock OFP</p></div>"
+        },
+        "crew": {
+          "pilot_id": "371340",
+          "cpt": "..... .....",
+          "fo": "ALBERTO HOLCOMB",
+          "dx": "STEVE HOLCOMB",
+          "pu": "KATRINA LIVINGSTON",
+          "fa": ["VIRGIL RIVERS", "LELA VAUGHN", "CLARA REEVES", "GREGG SIMON"]
         },
         "files": {
           "directory": "https://www.simbrief.com/ofp/flightplans/",

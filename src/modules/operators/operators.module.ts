@@ -37,6 +37,10 @@ import { ListAircraftRepositionHandler } from './application/query/reposition/li
 import { CreateAircraftRepositionAction } from './infra/http/action/create-aircraft-reposition.action';
 import { ListAircraftRepositionAction } from './infra/http/action/list-aircraft-reposition.action';
 import { RepositionFlightLifecycleListener } from './application/event/external/reposition-flight-lifecycle.listener';
+import { ListOperatorCrewAction } from './infra/http/action/list-operator-crew.action';
+import { CrewRepository } from './infra/database/repository/crew.repository';
+import { AssignCrewToFlightHandler } from './application/command/crew/assign-crew-to-flight.command';
+import { ListOperatorCrewQueryHandler } from './application/query/crew/list-operator-crew.query';
 
 @Module({
   imports: [PrismaModule, AirframesModule],
@@ -47,6 +51,7 @@ import { RepositionFlightLifecycleListener } from './application/event/external/
     RotationsController,
     CreateAircraftRepositionAction,
     ListAircraftRepositionAction,
+    ListOperatorCrewAction,
   ],
   providers: [
     OperatorsRepository,
@@ -79,6 +84,9 @@ import { RepositionFlightLifecycleListener } from './application/event/external/
     CreateManualRepositionHandler,
     ListAircraftRepositionHandler,
     RepositionFlightLifecycleListener,
+    CrewRepository,
+    AssignCrewToFlightHandler,
+    ListOperatorCrewQueryHandler,
   ],
 })
 export class OperatorsModule {}

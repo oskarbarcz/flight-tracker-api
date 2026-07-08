@@ -80,7 +80,21 @@ Feature: Close flight
             "payload": 40.3,
             "cargo": 8.5,
             "zeroFuelWeight": 208.9,
-            "blockFuel": 12.7
+            "blockFuel": 12.7,
+            "fuel": {
+              "block": 12.7,
+              "taxi": 0.3,
+              "trip": 10.4,
+              "alternate": 0.9,
+              "reserve": 0.6,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.5,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            }
           },
           "final": {
             "flightCrew": {
@@ -463,6 +477,20 @@ Feature: Close flight
             "cargo": 8.4,
             "payload": 34.9,
             "blockFuel": 47.9,
+            "fuel": {
+              "block": 47.9,
+              "taxi": 0.8,
+              "trip": 39.8,
+              "alternate": 2.9,
+              "reserve": 2.4,
+              "contingencyType": "5%",
+              "contingencyAmount": 2,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            },
             "flightCrew": {
               "pilots": 2,
               "cabinCrew": 12,
@@ -903,7 +931,21 @@ Feature: Close flight
             "payload": 39.7,
             "cargo": 8.2,
             "zeroFuelWeight": 208.1,
-            "blockFuel": 12.5
+            "blockFuel": 12.5,
+            "fuel": {
+              "block": 12.5,
+              "taxi": 0.3,
+              "trip": 10.2,
+              "alternate": 0.9,
+              "reserve": 0.6,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.5,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            }
           },
           "final": {
             "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
@@ -911,7 +953,21 @@ Feature: Close flight
             "payload": 27.8,
             "cargo": 8.6,
             "zeroFuelWeight": 202.1,
-            "blockFuel": 11.7
+            "blockFuel": 11.7,
+            "fuel": {
+              "block": 11.7,
+              "taxi": 0.3,
+              "trip": 9.4,
+              "alternate": 0.9,
+              "reserve": 0.6,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.5,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            }
           }
         },
         "aircraft": {
@@ -1077,7 +1133,21 @@ Feature: Close flight
             "payload": 38.6,
             "cargo": 7.9,
             "zeroFuelWeight": 207.0,
-            "blockFuel": 12.4
+            "blockFuel": 12.4,
+            "fuel": {
+              "block": 12.4,
+              "taxi": 0.3,
+              "trip": 10.1,
+              "alternate": 0.9,
+              "reserve": 0.6,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.5,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            }
           },
           "final": {
             "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
@@ -1085,7 +1155,21 @@ Feature: Close flight
             "payload": 27.4,
             "cargo": 8.2,
             "zeroFuelWeight": 201.4,
-            "blockFuel": 11.6
+            "blockFuel": 11.6,
+            "fuel": {
+              "block": 11.6,
+              "taxi": 0.3,
+              "trip": 9.3,
+              "alternate": 0.9,
+              "reserve": 0.6,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.5,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            }
           }
         },
         "aircraft": {
