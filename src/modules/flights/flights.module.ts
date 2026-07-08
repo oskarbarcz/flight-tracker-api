@@ -41,6 +41,9 @@ import { UpdateEmergencyAction } from './infra/http/action/emergency/update-emer
 import { ResolveEmergencyAction } from './infra/http/action/emergency/resolve-emergency.action';
 import { ListEmergenciesAction } from './infra/http/action/emergency/list-emergencies.action';
 import { ListEventsAction } from './infra/http/action/events/list-events.action';
+import { ListFlightCrewAction } from './infra/http/action/crew/list-flight-crew.action';
+import { AssignFlightCrewAction } from './infra/http/action/crew/assign-flight-crew.action';
+import { UnassignFlightCrewAction } from './infra/http/action/crew/unassign-flight-crew.action';
 import { GetOfpAction } from './infra/http/action/ofp/get-ofp.action';
 import { GetPathAction } from './infra/http/action/path/get-path.action';
 import { AddFlightToRotationAction } from './infra/http/action/rotation/add-flight-to-rotation.action';
@@ -137,6 +140,9 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     ResolveEmergencyAction,
     ListEmergenciesAction,
     ListEventsAction,
+    ListFlightCrewAction,
+    AssignFlightCrewAction,
+    UnassignFlightCrewAction,
     GetOfpAction,
     GetPathAction,
     AddFlightToRotationAction,

@@ -25,7 +25,7 @@ export class AssignCrewToFlightHandler implements ICommandHandler<AssignCrewToFl
   ) {}
 
   async execute(command: AssignCrewToFlightCommand): Promise<void> {
-    const { operatorId, members } = command;
+    const { flightId, operatorId, members } = command;
 
     const operator = await this.operatorsRepository.findOneBy({
       id: operatorId,
@@ -36,18 +36,23 @@ export class AssignCrewToFlightHandler implements ICommandHandler<AssignCrewToFl
     }
 
     const emailDomain = this.toEmailDomain(operator.shortName);
+    const crewIds: string[] = [];
 
     for (const member of members) {
       const name = this.toTitleCase(member.name);
       const email = this.toEmail(name, emailDomain);
 
-      await this.crewRepository.upsert({
+      const crewId = await this.crewRepository.upsert({
         operatorId,
         role: member.role,
         name,
         email,
       });
+
+      crewIds.push(crewId);
     }
+
+    await this.crewRepository.linkToFlight(flightId, crewIds);
   }
 
   private toTitleCase(name: string): string {
