@@ -58,7 +58,7 @@ export class ReportOnBlockHandler implements ICommandHandler<ReportOnBlockComman
           (airport) => airport.type === AirportType.Destination,
         )!.id;
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new OnBlockWasReportedEvent({
         flightId,
         rotationId: flight.rotationId,

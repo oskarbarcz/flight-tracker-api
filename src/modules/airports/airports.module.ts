@@ -44,9 +44,18 @@ import { GetRunwayByIdHandler } from './application/query/runway/get-runway-by-i
 import { ListRunwaysByAirportHandler } from './application/query/runway/list-runways-by-airport.query';
 import { AssertParkingPositionBelongsToAirportHandler } from './application/assert/assert-parking-position-belongs-to-airport.command';
 import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert-runway-belongs-to-airport.command';
+import { WeatherModule } from '../../core/provider/weather/weather.module';
+import { AirportWeatherRepository } from './infra/database/airport-weather.repository';
+import { GetWeatherAction } from './infra/http/action/weather/get-weather.action';
+import { GetAirportWeatherHandler } from './application/query/weather/get-airport-weather.query';
+import { RefreshWeatherHandler } from './application/command/weather/refresh-weather.command';
+import { WatchAirportsHandler } from './application/command/weather/watch-airports.command';
+import { UnwatchFlightAirportsHandler } from './application/command/weather/unwatch-flight-airports.command';
+import { WeatherFlightLifecycleListener } from './application/event/external/weather-flight-lifecycle.listener';
+import { WeatherRefreshService } from './infra/service/weather-refresh.service';
 
 @Module({
-  imports: [PrismaModule, SkyLinkModule],
+  imports: [PrismaModule, SkyLinkModule, WeatherModule],
   controllers: [
     AirportsController,
     TerminalsController,
@@ -57,6 +66,7 @@ import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert
     UpdateParkingPositionAction,
     RemoveParkingPositionAction,
     RunwaysController,
+    GetWeatherAction,
   ],
   providers: [
     AirportsRepository,
@@ -93,6 +103,13 @@ import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert
     ListRunwaysByAirportHandler,
     AssertParkingPositionBelongsToAirportHandler,
     AssertRunwayBelongsToAirportHandler,
+    AirportWeatherRepository,
+    GetAirportWeatherHandler,
+    RefreshWeatherHandler,
+    WatchAirportsHandler,
+    UnwatchFlightAirportsHandler,
+    WeatherFlightLifecycleListener,
+    WeatherRefreshService,
   ],
 })
 export class AirportsModule {}

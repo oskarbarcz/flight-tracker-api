@@ -58,6 +58,10 @@ export type AircraftLandedEventPayload = AircraftFlightEventPayload & {
   landingAirportId: string;
 };
 
+export type PilotCheckedInEventPayload = AircraftFlightEventPayload & {
+  airportIds: string[];
+};
+
 export abstract class FlightLifecycleEvent<
   P extends FlightEventPayload = FlightEventPayload,
 > extends DomainEvent {
@@ -116,7 +120,7 @@ export class FlightWasReleasedEvent extends FlightLifecycleEvent {
   static readonly name = FlightEventType.FlightWasReleased;
 }
 
-export class PilotCheckedInEvent extends FlightLifecycleEvent<AircraftFlightEventPayload> {
+export class PilotCheckedInEvent extends FlightLifecycleEvent<PilotCheckedInEventPayload> {
   static readonly name = FlightEventType.PilotCheckedIn;
 }
 

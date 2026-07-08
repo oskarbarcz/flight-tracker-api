@@ -61,3 +61,12 @@ services:
       - ./docker/mock:/config
     environment:
       - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/simbrief.json
+
+  weather-mock:
+    image: mockserver/mockserver:mockserver-5.15.0
+    ports:
+      - '4080:1080'
+    volumes:
+      - ./docker/mock:/config
+    environment:
+      - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/weather.json

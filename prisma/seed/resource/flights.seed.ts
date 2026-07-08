@@ -4715,6 +4715,101 @@ async function loadDLH103(tx: Prisma.TransactionClient): Promise<void> {
   });
 }
 
+async function loadDLH500(tx: Prisma.TransactionClient): Promise<void> {
+  const data = {
+    id: 'eaa29705-1c4b-47a8-b93f-5789df4cd3ef',
+    departureParkingPositionId: null,
+    departureRunwayId: null,
+    arrivalParkingPositionId: null,
+    arrivalRunwayId: null,
+    isDiversionDeclared: false,
+    flightNumber: 'LH500',
+    callsign: 'DLH500',
+    atcCallsign: null,
+    isEtops: false,
+    captainId: null,
+    status: FlightStatus.TaxiingIn,
+    aircraftId: '5637d186-d9e4-45e4-9940-ae6f6552c9ae',
+    operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d',
+    timesheet: {
+      scheduled: {
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 14:00'),
+        onBlockTime: new Date('2025-01-01 14:12'),
+      },
+      estimated: {
+        offBlockTime: new Date('2025-01-01 13:00'),
+        takeoffTime: new Date('2025-01-01 13:15'),
+        arrivalTime: new Date('2025-01-01 14:00'),
+        onBlockTime: new Date('2025-01-01 14:12'),
+      },
+      actual: {
+        offBlockTime: new Date('2025-01-01 13:05'),
+        takeoffTime: new Date('2025-01-01 13:20'),
+        arrivalTime: new Date('2025-01-01 14:02'),
+        onBlockTime: null,
+      },
+    } as Prisma.InputJsonValue,
+    loadsheets: {
+      preliminary: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 180,
+        payload: 18.2,
+        cargo: 3.1,
+        zeroFuelWeight: 138.4,
+        blockFuel: 12.6,
+      },
+      final: {
+        flightCrew: {
+          pilots: 2,
+          reliefPilots: 0,
+          cabinCrew: 6,
+        },
+        passengers: 180,
+        payload: 18.2,
+        cargo: 3.1,
+        zeroFuelWeight: 138.4,
+        blockFuel: 12.6,
+      },
+    } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
+    greatCircleDistance: 480,
+    totalFuelBurned: 12000,
+    route: null,
+  };
+
+  const departureAirport = await tx.airport.findFirstOrThrow({
+    where: { id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97' },
+  });
+
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
+    where: { id: '616cbdd7-ccfc-4687-8cf6-1e7236435046' },
+  });
+
+  const flight = await tx.flight.create({ data });
+
+  await tx.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: departureAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Departure,
+    },
+  });
+
+  await tx.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: arrivalAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Destination,
+    },
+  });
+}
+
 export async function loadFlights(tx: Prisma.TransactionClient): Promise<void> {
   await loadDLH450(tx);
   await loadAAL4905(tx);
@@ -4738,6 +4833,7 @@ export async function loadFlights(tx: Prisma.TransactionClient): Promise<void> {
   await loadDLH43(tx);
   await loadDLH102(tx);
   await loadDLH103(tx);
+  await loadDLH500(tx);
   await loadDLH81(tx);
   await loadDLH880(tx);
 }
