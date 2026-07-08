@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { FlightsRepository } from '../database/repository/flights.repository';
 import { OnEvent } from '@nestjs/event-emitter';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
@@ -14,6 +14,8 @@ import { trimCallsign } from '../../model/flight.model';
 
 @Injectable()
 export class PositionService {
+  private readonly logger = new Logger(PositionService.name);
+
   constructor(
     private readonly adsbClient: AdsbClient,
     private readonly flightsRepository: FlightsRepository,
@@ -43,17 +45,24 @@ export class PositionService {
     event: OnBlockWasReportedEvent,
   ): Promise<void> {
     const flightId = event.payload.flightId;
-    const flight = await this.flightsRepository.getOneById(flightId);
-    const callsign = trimCallsign(flight.callsign);
 
-    const track = await this.adsbClient.getTrackHistory(callsign);
-    const { isFirstReceipt } = await this.flightsRepository.updateFlightPath(
-      flightId,
-      track,
-    );
+    try {
+      const flight = await this.flightsRepository.getOneById(flightId);
+      const callsign = trimCallsign(flight.callsign);
 
-    if (isFirstReceipt) {
-      this.emitLivePositionReceived(flightId);
+      const track = await this.adsbClient.getTrackHistory(callsign);
+      const { isFirstReceipt } = await this.flightsRepository.updateFlightPath(
+        flightId,
+        track,
+      );
+
+      if (isFirstReceipt) {
+        this.emitLivePositionReceived(flightId);
+      }
+    } catch (error) {
+      this.logger.warn(
+        `Could not back up flight path on on-block for flight ${flightId}: ${error}`,
+      );
     }
   }
 

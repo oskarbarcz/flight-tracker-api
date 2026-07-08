@@ -13,6 +13,7 @@ import { loadDelay } from './resource/delay.seed';
 import { loadUserTravel } from './resource/user-travel.seed';
 import { loadUserAircraft } from './resource/user-aircraft.seed';
 import { loadAircraftReposition } from './resource/aircraft-reposition.seed';
+import { loadWeather } from './resource/weather.seed';
 
 export async function loadResources() {
   const prisma = new PrismaService();
@@ -21,6 +22,7 @@ export async function loadResources() {
     await prisma.$transaction(
       async (tx) => {
         await loadAirports(tx);
+        await loadWeather(tx);
         await loadTerminals(tx);
         await loadParkingPositions(tx);
         await loadGates(tx);

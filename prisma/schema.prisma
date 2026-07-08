@@ -47,6 +47,7 @@ model Airport {
   shape     Json?
 
   airportsOnFlights         AirportsOnFlights[]
+  weather                   AirportWeather?
   diversion                 Diversion[]
   terminals                 Terminal[]
   runways                   Runway[]
@@ -60,6 +61,19 @@ model Airport {
   destinationForRepositions AircraftReposition[] @relation("AircraftRepositionDestinationAirport")
 
   @@map("airport")
+}
+
+model AirportWeather {
+  airportId       String    @id @db.Uuid
+  metar           String?
+  metarLastUpdate DateTime?
+  taf             String?
+  tafLastUpdate   DateTime?
+  watch           Boolean   @default(false)
+
+  airport Airport @relation(fields: [airportId], references: [id], onDelete: Cascade)
+
+  @@map("airport_weather")
 }
 
 model Runway {
