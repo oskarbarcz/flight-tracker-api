@@ -235,6 +235,7 @@ model Flight {
   userTravels              UserTravel[]           @relation("UserTravelFlight")
   aircraftRepositions      AircraftReposition[]   @relation("AircraftRepositionFlight")
   userAircraft             UserAircraft[]
+  crew                     CrewOnFlights[]
 
   @@map("flight")
 }
@@ -481,10 +482,22 @@ model Crew {
   role       CrewRole
   createdAt  DateTime @default(now())
 
-  operator Operator @relation(fields: [operatorId], references: [id], onDelete: Cascade)
+  operator Operator        @relation(fields: [operatorId], references: [id], onDelete: Cascade)
+  flights  CrewOnFlights[]
 
   @@unique([operatorId, role, name])
   @@map("crew")
+}
+
+model CrewOnFlights {
+  crewId   String @db.Uuid
+  flightId String @db.Uuid
+
+  crew   Crew   @relation(fields: [crewId], references: [id], onDelete: Cascade)
+  flight Flight @relation(fields: [flightId], references: [id], onDelete: Cascade)
+
+  @@id([crewId, flightId])
+  @@map("crew_flight")
 }
 
 model JwtRefreshToken {

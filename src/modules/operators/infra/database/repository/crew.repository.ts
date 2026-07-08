@@ -11,8 +11,8 @@ export class CrewRepository {
     role: CrewRole;
     name: string;
     email: string;
-  }): Promise<void> {
-    await this.prisma.crew.upsert({
+  }): Promise<string> {
+    const crew = await this.prisma.crew.upsert({
       where: {
         operatorId_role_name: {
           operatorId: data.operatorId,
@@ -23,6 +23,12 @@ export class CrewRepository {
       create: data,
       update: {},
     });
+
+    return crew.id;
+  }
+
+  async findById(crewId: string): Promise<Crew | null> {
+    return this.prisma.crew.findUnique({ where: { id: crewId } });
   }
 
   async findByOperator(operatorId: string): Promise<Crew[]> {
@@ -30,5 +36,23 @@ export class CrewRepository {
       where: { operatorId },
       orderBy: [{ role: 'asc' }, { name: 'asc' }],
     });
+  }
+
+  async findByFlight(flightId: string): Promise<Crew[]> {
+    return this.prisma.crew.findMany({
+      where: { flights: { some: { flightId } } },
+      orderBy: [{ role: 'asc' }, { name: 'asc' }],
+    });
+  }
+
+  async linkToFlight(flightId: string, crewIds: string[]): Promise<void> {
+    await this.prisma.crewOnFlights.createMany({
+      data: crewIds.map((crewId) => ({ crewId, flightId })),
+      skipDuplicates: true,
+    });
+  }
+
+  async unlinkFromFlight(flightId: string, crewId: string): Promise<void> {
+    await this.prisma.crewOnFlights.deleteMany({ where: { flightId, crewId } });
   }
 }

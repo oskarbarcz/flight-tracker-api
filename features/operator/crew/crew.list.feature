@@ -1,5 +1,10 @@
 Feature: List crew for operator
 
+  Scenario: As an admin I can list operator crew
+    Given I am signed in as "admin"
+    When I send a "GET" request to "/api/v1/operator/1d85d597-c3a1-43cf-b888-10d674ea7a46/crew"
+    Then the response status should be 200
+
   Scenario: As operations I can list operator crew
     Given I am signed in as "operations"
     When I send a "GET" request to "/api/v1/operator/1d85d597-c3a1-43cf-b888-10d674ea7a46/crew"

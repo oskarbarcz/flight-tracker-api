@@ -40,7 +40,10 @@ import { RepositionFlightLifecycleListener } from './application/event/external/
 import { ListOperatorCrewAction } from './infra/http/action/list-operator-crew.action';
 import { CrewRepository } from './infra/database/repository/crew.repository';
 import { AssignCrewToFlightHandler } from './application/command/crew/assign-crew-to-flight.command';
+import { AssignCrewMemberToFlightHandler } from './application/command/crew/assign-crew-member-to-flight.command';
+import { UnassignCrewMemberFromFlightHandler } from './application/command/crew/unassign-crew-member-from-flight.command';
 import { ListOperatorCrewQueryHandler } from './application/query/crew/list-operator-crew.query';
+import { ListFlightCrewQueryHandler } from './application/query/crew/list-flight-crew.query';
 
 @Module({
   imports: [PrismaModule, AirframesModule],
@@ -86,7 +89,10 @@ import { ListOperatorCrewQueryHandler } from './application/query/crew/list-oper
     RepositionFlightLifecycleListener,
     CrewRepository,
     AssignCrewToFlightHandler,
+    AssignCrewMemberToFlightHandler,
+    UnassignCrewMemberFromFlightHandler,
     ListOperatorCrewQueryHandler,
+    ListFlightCrewQueryHandler,
   ],
 })
 export class OperatorsModule {}

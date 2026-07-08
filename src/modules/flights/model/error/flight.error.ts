@@ -94,3 +94,9 @@ export class InvalidStatusToPredictOnBlockError extends UnprocessableEntityExcep
     );
   }
 }
+
+export class InvalidStatusToModifyCrewError extends UnprocessableEntityException {
+  constructor() {
+    super('Cannot assign or unassign crew after boarding has finished.');
+  }
+}
