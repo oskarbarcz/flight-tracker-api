@@ -53,7 +53,21 @@ Feature: Resolve a flight emergency
             "payload": 18.2,
             "cargo": 1.5,
             "zeroFuelWeight": 75.4,
-            "blockFuel": 9.8
+            "blockFuel": 9.8,
+            "fuel": {
+              "block": 9.8,
+              "taxi": 0.3,
+              "trip": 7.6,
+              "alternate": 0.9,
+              "reserve": 0.6,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.4,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            }
           },
           "final": {
             "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 4 },
@@ -61,7 +75,21 @@ Feature: Resolve a flight emergency
             "payload": 17.9,
             "cargo": 1.4,
             "zeroFuelWeight": 75.1,
-            "blockFuel": 9.6
+            "blockFuel": 9.6,
+            "fuel": {
+              "block": 9.6,
+              "taxi": 0.3,
+              "trip": 7.4,
+              "alternate": 0.9,
+              "reserve": 0.6,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.4,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            }
           }
         },
         "aircraft": {
@@ -206,7 +234,21 @@ Feature: Resolve a flight emergency
             "payload": 18.2,
             "cargo": 1.5,
             "zeroFuelWeight": 75.4,
-            "blockFuel": 9.8
+            "blockFuel": 9.8,
+            "fuel": {
+              "block": 9.8,
+              "taxi": 0.3,
+              "trip": 7.6,
+              "alternate": 0.9,
+              "reserve": 0.6,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.4,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            }
           },
           "final": {
             "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 4 },
@@ -214,7 +256,21 @@ Feature: Resolve a flight emergency
             "payload": 17.9,
             "cargo": 1.4,
             "zeroFuelWeight": 75.1,
-            "blockFuel": 9.6
+            "blockFuel": 9.6,
+            "fuel": {
+              "block": 9.6,
+              "taxi": 0.3,
+              "trip": 7.4,
+              "alternate": 0.9,
+              "reserve": 0.6,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.4,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            }
           }
         },
         "aircraft": {

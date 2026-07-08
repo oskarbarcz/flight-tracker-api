@@ -179,6 +179,7 @@ model Operator {
   aircrafts Aircraft[]
   flights   Flight[]
   rotations Rotation[]
+  crew      Crew[]
 
   @@map("operator")
 }
@@ -472,6 +473,20 @@ model Rotation {
   @@map("rotation")
 }
 
+model Crew {
+  id         String   @id @default(uuid()) @db.Uuid
+  name       String
+  email      String
+  operatorId String   @db.Uuid
+  role       CrewRole
+  createdAt  DateTime @default(now())
+
+  operator Operator @relation(fields: [operatorId], references: [id], onDelete: Cascade)
+
+  @@unique([operatorId, role, name])
+  @@map("crew")
+}
+
 model JwtRefreshToken {
   id        String   @id @default(uuid()) @db.Uuid
   userId    String   @db.Uuid
@@ -603,4 +618,10 @@ enum OperatorGroup {
   korean_air_group
   turkish_airlines_group
   emirates_group
+}
+
+enum CrewRole {
+  fo
+  pu
+  fa
 }

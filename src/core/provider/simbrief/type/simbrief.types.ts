@@ -71,6 +71,15 @@ export type Files = {
   };
 };
 
+export type Crew = {
+  pilot_id: string;
+  cpt: string;
+  fo: string;
+  dx: string;
+  pu: string;
+  fa: string[];
+};
+
 export type OperationalFlightPlan = {
   params: Params;
   general: General;
@@ -89,4 +98,5 @@ export type OperationalFlightPlan = {
   weights: Weights;
   text: Text;
   files: Files;
+  crew?: Crew;
 };
