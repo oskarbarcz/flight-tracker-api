@@ -73,7 +73,18 @@ Feature: Change flight visibility
             "payload": 40.3,
             "zeroFuelWeight": 208.9
           },
-          "final": null
+          "final": {
+            "flightCrew": {
+              "pilots": 2,
+              "reliefPilots": 0,
+              "cabinCrew": 6
+            },
+            "passengers": 368,
+            "payload": 39.1,
+            "cargo": 8.2,
+            "zeroFuelWeight": 207.7,
+            "blockFuel": 12.5
+          }
         },
         "aircraft": {
           "id": "ed247c36-58f0-43ff-81fd-ffae548a73e2",

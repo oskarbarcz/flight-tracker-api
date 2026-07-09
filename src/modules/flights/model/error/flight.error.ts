@@ -100,3 +100,9 @@ export class InvalidStatusToModifyCrewError extends UnprocessableEntityException
     super('Cannot assign or unassign crew after boarding has finished.');
   }
 }
+
+export class InconsistentFuelBlockError extends UnprocessableEntityException {
+  constructor() {
+    super('Fuel breakdown block must equal the loadsheet block fuel.');
+  }
+}

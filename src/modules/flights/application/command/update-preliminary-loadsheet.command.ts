@@ -14,6 +14,7 @@ import { Loadsheet, Loadsheets } from '../../model/loadsheet.model';
 import { PreliminaryLoadsheetWasUpdatedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
+import { assertFuelBreakdownConsistent } from '../../model/loadsheet.policy';
 
 export class UpdatePreliminaryLoadsheetCommand {
   constructor(
@@ -46,7 +47,12 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
       );
     }
 
-    const loadsheets: Loadsheets = { preliminary: loadsheet, final: null };
+    assertFuelBreakdownConsistent(loadsheet);
+
+    const loadsheets: Loadsheets = {
+      preliminary: loadsheet,
+      final: flight.loadsheets.final,
+    };
     await this.flightsRepository.updateLoadsheets(flightId, loadsheets);
     this.domainEvents.emit(
       new PreliminaryLoadsheetWasUpdatedEvent({

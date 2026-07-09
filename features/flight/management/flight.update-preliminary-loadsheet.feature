@@ -80,7 +80,18 @@ Feature: Update flight preliminary loadsheet
             "zeroFuelWeight": 197.9,
             "blockFuel": 12.7
           },
-          "final": null
+          "final": {
+            "flightCrew": {
+              "pilots": 2,
+              "reliefPilots": 0,
+              "cabinCrew": 6
+            },
+            "passengers": 368,
+            "payload": 39.1,
+            "cargo": 8.2,
+            "zeroFuelWeight": 207.7,
+            "blockFuel": 12.5
+          }
         },
         "aircraft": {
           "id": "ed247c36-58f0-43ff-81fd-ffae548a73e2",
@@ -236,7 +247,13 @@ Feature: Update flight preliminary loadsheet
           "atc": 0.2,
           "wxx": 0,
           "extra": 0,
-          "tankering": 0
+          "tankering": 0,
+          "etops": 0,
+          "minTakeoff": 12.4,
+          "planTakeoff": 12.4,
+          "planLanding": 2.3,
+          "averageFuelFlow": 5.9,
+          "maxTanks": 145
         }
       }
       """
@@ -284,10 +301,27 @@ Feature: Update flight preliminary loadsheet
               "atc": 0.2,
               "wxx": 0,
               "extra": 0,
-              "tankering": 0
+              "tankering": 0,
+              "etops": 0,
+              "minTakeoff": 12.4,
+              "planTakeoff": 12.4,
+              "planLanding": 2.3,
+              "averageFuelFlow": 5.9,
+              "maxTanks": 145
             }
           },
-          "final": null
+          "final": {
+            "flightCrew": {
+              "pilots": 2,
+              "reliefPilots": 0,
+              "cabinCrew": 6
+            },
+            "passengers": 368,
+            "payload": 39.1,
+            "cargo": 8.2,
+            "zeroFuelWeight": 207.7,
+            "blockFuel": 12.5
+          }
         },
         "aircraft": {
           "id": "ed247c36-58f0-43ff-81fd-ffae548a73e2",
@@ -385,6 +419,47 @@ Feature: Update flight preliminary loadsheet
       }
       """
     And I set database to initial state
+
+  Scenario: As operations I cannot enter a fuel breakdown whose block differs from the block fuel
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 5
+        },
+        "passengers": 360,
+        "payload": 38.5,
+        "cargo": 7.5,
+        "zeroFuelWeight": 197.9,
+        "blockFuel": 12.7,
+        "fuel": {
+          "block": 11.9,
+          "taxi": 0.4,
+          "trip": 9.9,
+          "alternate": 1,
+          "reserve": 0.7,
+          "contingencyType": "5% of trip",
+          "contingencyAmount": 0.5,
+          "mel": 0,
+          "atc": 0.2,
+          "wxx": 0,
+          "extra": 0,
+          "tankering": 0
+        }
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "message": "Fuel breakdown block must equal the loadsheet block fuel.",
+        "error": "Unprocessable Entity",
+        "statusCode": 422
+      }
+      """
 
   Scenario: As a cabin crew I cannot update flight preliminary loadsheet
     Given I am signed in as "cabin crew"

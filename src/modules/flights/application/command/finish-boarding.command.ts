@@ -14,6 +14,7 @@ import { BoardingWasFinishedEvent } from '../../../../core/domain/events/dto/fli
 import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { Loadsheet } from '../../model/loadsheet.model';
+import { assertFuelBreakdownConsistent } from '../../model/loadsheet.policy';
 
 export class FinishBoardingCommand {
   constructor(
@@ -45,6 +46,8 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
         InvalidStatusToFinishBoardingError,
       );
     }
+
+    assertFuelBreakdownConsistent(finalLoadsheet);
 
     await Promise.all([
       await this.flightsRepository.updateLoadsheets(flightId, {

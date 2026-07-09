@@ -49,6 +49,33 @@ export class FinishBoardingAction {
   @ApiBody({
     description: 'Final loadsheet',
     type: Loadsheet,
+    examples: {
+      withFuel: {
+        summary: 'Final loadsheet with a fuel breakdown',
+        value: {
+          flightCrew: { pilots: 2, reliefPilots: 0, cabinCrew: 6 },
+          passengers: 366,
+          payload: 28.3,
+          cargo: 8.9,
+          zeroFuelWeight: 202.9,
+          blockFuel: 11.9,
+          fuel: {
+            block: 11.9,
+            taxi: 0.3,
+            trip: 9.6,
+            alternate: 0.9,
+            reserve: 0.6,
+            contingencyType: '5% of trip',
+            contingencyAmount: 0.5,
+            mel: 0,
+            atc: 0,
+            wxx: 0,
+            extra: 0,
+            tankering: 0,
+          },
+        },
+      },
+    },
   })
   @ApiNoContentResponse()
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
