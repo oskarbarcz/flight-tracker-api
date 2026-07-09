@@ -353,6 +353,22 @@ export class FlightsRepository {
     });
   }
 
+  async findAwaitingFirstPosition(): Promise<FlightIdAndCallsign[]> {
+    const preDepartureStatuses = [
+      FlightStatus.CheckedIn,
+      FlightStatus.BoardingStarted,
+      FlightStatus.BoardingFinished,
+    ];
+
+    return this.prisma.flight.findMany({
+      where: {
+        status: { in: preDepartureStatuses },
+        isPathAvailable: false,
+      },
+      select: flightIdAndCallsign,
+    });
+  }
+
   async findAll(
     filters?: FlightListFilters,
     onlyPublic?: boolean,

@@ -1,5 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { FlightsRepository } from '../database/repository/flights.repository';
+import {
+  FlightIdAndCallsign,
+  FlightsRepository,
+} from '../database/repository/flights.repository';
 import { OnEvent } from '@nestjs/event-emitter';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import {
@@ -22,21 +25,21 @@ export class PositionService {
     private readonly domainEvents: DomainEventEmitter,
   ) {}
 
+  @Cron(CronExpression.EVERY_MINUTE)
+  async detectFirstLivePosition(): Promise<void> {
+    const flights = await this.flightsRepository.findAwaitingFirstPosition();
+
+    for (const flight of flights) {
+      await this.trackFirstPosition(flight);
+    }
+  }
+
   @Cron(CronExpression.EVERY_10_MINUTES)
   async periodicallyBackupFlightPath(): Promise<void> {
     const flights = await this.flightsRepository.findAllTrackable();
 
     for (const flight of flights) {
-      const callsign = trimCallsign(flight.callsign);
-      const track = await this.adsbClient.getTrackHistory(callsign);
-      const { isFirstReceipt } = await this.flightsRepository.updateFlightPath(
-        flight.id,
-        track,
-      );
-
-      if (isFirstReceipt) {
-        this.emitLivePositionReceived(flight.id);
-      }
+      await this.trackFirstPosition(flight);
     }
   }
 
@@ -51,17 +54,29 @@ export class PositionService {
       const callsign = trimCallsign(flight.callsign);
 
       const track = await this.adsbClient.getTrackHistory(callsign);
+      await this.flightsRepository.updateFlightPath(flightId, track);
+    } catch (error) {
+      this.logger.warn(
+        `Could not back up flight path on on-block for flight ${flightId}: ${error}`,
+      );
+    }
+  }
+
+  private async trackFirstPosition(flight: FlightIdAndCallsign): Promise<void> {
+    try {
+      const callsign = trimCallsign(flight.callsign);
+      const track = await this.adsbClient.getTrackHistory(callsign);
       const { isFirstReceipt } = await this.flightsRepository.updateFlightPath(
-        flightId,
+        flight.id,
         track,
       );
 
       if (isFirstReceipt) {
-        this.emitLivePositionReceived(flightId);
+        this.emitLivePositionReceived(flight.id);
       }
     } catch (error) {
       this.logger.warn(
-        `Could not back up flight path on on-block for flight ${flightId}: ${error}`,
+        `Could not track live position for flight ${flight.id}: ${error}`,
       );
     }
   }
