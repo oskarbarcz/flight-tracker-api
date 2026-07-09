@@ -43,7 +43,21 @@ Feature: Finish flight boarding
         "payload": 28.3,
         "cargo": 8.9,
         "zeroFuelWeight": 202.9,
-        "blockFuel": 11.9
+        "blockFuel": 11.9,
+        "fuel": {
+          "block": 11.9,
+          "taxi": 0.3,
+          "trip": 9.6,
+          "alternate": 0.9,
+          "reserve": 0.6,
+          "contingencyType": "5% of trip",
+          "contingencyAmount": 0.5,
+          "mel": 0,
+          "atc": 0,
+          "wxx": 0,
+          "extra": 0,
+          "tankering": 0
+        }
       }
       """
     Then the response status should be 204
@@ -109,7 +123,21 @@ Feature: Finish flight boarding
             "payload": 28.3,
             "cargo": 8.9,
             "zeroFuelWeight": 202.9,
-            "blockFuel": 11.9
+            "blockFuel": 11.9,
+            "fuel": {
+              "block": 11.9,
+              "taxi": 0.3,
+              "trip": 9.6,
+              "alternate": 0.9,
+              "reserve": 0.6,
+              "contingencyType": "5% of trip",
+              "contingencyAmount": 0.5,
+              "mel": 0,
+              "atc": 0,
+              "wxx": 0,
+              "extra": 0,
+              "tankering": 0
+            }
           }
         },
         "aircraft": {
@@ -287,6 +315,47 @@ Feature: Finish flight boarding
       """
     And I should receive a live flight event of type "flight.boarding-finished" within 2000ms
     And I set database to initial state
+
+  Scenario: As a cabin crew I cannot finish boarding with a final fuel breakdown whose block differs from the block fuel
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 6
+        },
+        "passengers": 366,
+        "payload": 28.3,
+        "cargo": 8.9,
+        "zeroFuelWeight": 202.9,
+        "blockFuel": 11.9,
+        "fuel": {
+          "block": 12.5,
+          "taxi": 0.3,
+          "trip": 9.6,
+          "alternate": 0.9,
+          "reserve": 0.6,
+          "contingencyType": "5% of trip",
+          "contingencyAmount": 0.5,
+          "mel": 0,
+          "atc": 0,
+          "wxx": 0,
+          "extra": 0,
+          "tankering": 0
+        }
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "message": "Fuel breakdown block must equal the loadsheet block fuel.",
+        "error": "Unprocessable Entity",
+        "statusCode": 422
+      }
+      """
 
   Scenario: As a cabin crew I cannot finish boarding in flight twice
     Given I am signed in as "cabin crew"
