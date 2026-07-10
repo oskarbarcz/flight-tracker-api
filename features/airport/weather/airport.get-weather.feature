@@ -7,7 +7,7 @@ Feature: Get airport weather
     And the response body should contain:
       """json
       {
-        "metar": "EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG",
+        "metar": "METAR EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG",
         "metarLastUpdate": "2026-07-08T12:00:00.000Z",
         "taf": "TAF EPWA 081100Z 0812/0918 20008KT 9999 SCT040 BECMG 0900/0902 24010KT",
         "tafLastUpdate": "2026-07-08T11:00:00.000Z",
@@ -22,7 +22,7 @@ Feature: Get airport weather
     And the response body should contain:
       """json
       {
-        "metar": "EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG",
+        "metar": "METAR EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG",
         "metarLastUpdate": "2026-07-08T12:00:00.000Z",
         "taf": "TAF EPWA 081100Z 0812/0918 20008KT 9999 SCT040 BECMG 0900/0902 24010KT",
         "tafLastUpdate": "2026-07-08T11:00:00.000Z",
@@ -37,7 +37,7 @@ Feature: Get airport weather
     And the response body should contain:
       """json
       {
-        "metar": "EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG",
+        "metar": "METAR EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG",
         "metarLastUpdate": "2026-07-08T12:00:00.000Z",
         "taf": "TAF EPWA 081100Z 0812/0918 20008KT 9999 SCT040 BECMG 0900/0902 24010KT",
         "tafLastUpdate": "2026-07-08T11:00:00.000Z",
@@ -51,7 +51,7 @@ Feature: Get airport weather
     And the response body should contain:
       """json
       {
-        "metar": "EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG",
+        "metar": "METAR EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG",
         "metarLastUpdate": "2026-07-08T12:00:00.000Z",
         "taf": "TAF EPWA 081100Z 0812/0918 20008KT 9999 SCT040 BECMG 0900/0902 24010KT",
         "tafLastUpdate": "2026-07-08T11:00:00.000Z",
@@ -65,7 +65,7 @@ Feature: Get airport weather
     And the response body should contain:
       """json
       {
-        "metar": "EDDF 081200Z 24008KT 9999 FEW035 22/12 Q1018 NOSIG",
+        "metar": "METAR EDDF 081200Z 24008KT 9999 FEW035 22/12 Q1018 NOSIG",
         "metarLastUpdate": "2026-07-08T12:00:00.000Z",
         "taf": "TAF EDDF 081100Z 0812/0918 24010KT 9999 FEW035 BECMG 0815/0817 27012KT",
         "tafLastUpdate": "2026-07-08T11:00:00.000Z",
@@ -114,7 +114,7 @@ Feature: Get airport weather
     And the response body should contain:
       """json
       {
-        "metar": "KBOS 081154Z 21009KT 10SM FEW040 24/16 A3000",
+        "metar": "METAR KBOS 081154Z 21009KT 10SM FEW040 24/16 A3000",
         "metarLastUpdate": "@date('within 1 minute from now')",
         "taf": "TAF KBOS 081120Z 0812/0918 21010KT P6SM FEW040",
         "tafLastUpdate": "@date('within 1 minute from now')",
@@ -126,7 +126,7 @@ Feature: Get airport weather
     And the response body should contain:
       """json
       {
-        "metar": "KPHL 081154Z 20008KT 10SM SCT045 26/17 A2999",
+        "metar": "METAR KPHL 081154Z 20008KT 10SM SCT045 26/17 A2999",
         "metarLastUpdate": "@date('within 1 minute from now')",
         "taf": "TAF KPHL 081120Z 0812/0918 20010KT P6SM SCT045",
         "tafLastUpdate": "@date('within 1 minute from now')",
@@ -138,7 +138,7 @@ Feature: Get airport weather
     And the response body should contain:
       """json
       {
-        "metar": "KJFK 081151Z 18010KT 10SM FEW050 27/18 A2998 RMK AO2",
+        "metar": "METAR KJFK 081151Z 18010KT 10SM FEW050 27/18 A2998 RMK AO2",
         "metarLastUpdate": "@date('within 1 minute from now')",
         "taf": "TAF KJFK 081120Z 0812/0918 18012KT P6SM FEW050 FM090000 21008KT P6SM SCT060",
         "tafLastUpdate": "@date('within 1 minute from now')",
@@ -154,7 +154,7 @@ Feature: Get airport weather
     And the response body should contain:
       """json
       {
-        "metar": "EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG",
+        "metar": "METAR EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG",
         "metarLastUpdate": "2026-07-08T12:00:00.000Z",
         "taf": "TAF EPWA 081100Z 0812/0918 20008KT 9999 SCT040 BECMG 0900/0902 24010KT",
         "tafLastUpdate": "2026-07-08T11:00:00.000Z",
@@ -168,7 +168,7 @@ Feature: Get airport weather
     And the response body should contain:
       """json
       {
-        "metar": "EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG",
+        "metar": "METAR EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG",
         "metarLastUpdate": "2026-07-08T12:00:00.000Z",
         "taf": "TAF EPWA 081100Z 0812/0918 20008KT 9999 SCT040 BECMG 0900/0902 24010KT",
         "tafLastUpdate": "2026-07-08T11:00:00.000Z",

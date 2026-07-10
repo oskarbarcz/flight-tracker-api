@@ -20,7 +20,11 @@ import {
   CreateFlightRequest,
 } from '../../infra/http/request/flight.dto';
 import { AirportType } from '../../../airports/model/airport.model';
-import { OperationalFlightPlan } from '../../../../core/provider/simbrief/type/simbrief.types';
+import {
+  Crew,
+  OperationalFlightPlan,
+} from '../../../../core/provider/simbrief/type/simbrief.types';
+import { GetRunwayByDesignatorQuery } from '../../../airports/application/query/runway/get-runway-by-designator.query';
 import { FuelBreakdown } from '../../model/loadsheet.model';
 import {
   AssignCrewToFlightCommand,
@@ -111,8 +115,8 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
         preliminary: {
           flightCrew: {
             pilots: 2,
-            reliefPilots: 1,
-            cabinCrew: 12,
+            reliefPilots: 0,
+            cabinCrew: this.countCabinCrew(ofp.crew),
           },
           passengers: Number(ofp.weights.pax_count),
           cargo: this.ofpWeightToTons(ofp.weights.cargo),
@@ -137,6 +141,13 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       ofp.params.sequence_id,
       Number(ofp.general.gc_distance),
       Number(ofp.general.total_burn),
+    );
+
+    await this.assignImportedRunways(
+      flightId,
+      departureAirportId,
+      destinationAirportId,
+      ofp,
     );
 
     const crewMembers = this.collectCrewMembers(ofp);
@@ -181,6 +192,58 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     }
 
     return members;
+  }
+
+  private countCabinCrew(crew?: Crew): number {
+    if (!crew) {
+      return 0;
+    }
+
+    const pursers = crew.pu ? 1 : 0;
+    const flightAttendants = (crew.fa ?? []).filter(Boolean).length;
+
+    return pursers + flightAttendants;
+  }
+
+  private async assignImportedRunways(
+    flightId: string,
+    departureAirportId: string,
+    destinationAirportId: string,
+    ofp: OperationalFlightPlan,
+  ): Promise<void> {
+    const departureRunwayId = await this.resolveRunwayId(
+      departureAirportId,
+      ofp.origin.plan_rwy,
+    );
+    if (departureRunwayId) {
+      await this.flightsRepository.updateDepartureRunway(
+        flightId,
+        departureRunwayId,
+      );
+    }
+
+    const arrivalRunwayId = await this.resolveRunwayId(
+      destinationAirportId,
+      ofp.destination.plan_rwy,
+    );
+    if (arrivalRunwayId) {
+      await this.flightsRepository.updateArrivalRunway(
+        flightId,
+        arrivalRunwayId,
+      );
+    }
+  }
+
+  private async resolveRunwayId(
+    airportId: string,
+    designator?: string,
+  ): Promise<string | null> {
+    if (!designator) {
+      return null;
+    }
+
+    const query = new GetRunwayByDesignatorQuery(airportId, designator);
+    return this.queryBus.execute(query);
   }
 
   private collectAlternateCandidates(

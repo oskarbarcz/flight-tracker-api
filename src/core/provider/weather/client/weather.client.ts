@@ -2,6 +2,8 @@ import { ConfigService } from '@nestjs/config';
 import { Injectable, Logger } from '@nestjs/common';
 import { WeatherReportKind, WeatherReportsByIcao } from '../type/weather.types';
 
+const REPORT_TYPE_TOKENS = new Set(['METAR', 'SPECI', 'TAF']);
+
 @Injectable()
 export class WeatherClient {
   private readonly logger = new Logger(WeatherClient.name);
@@ -66,7 +68,7 @@ export class WeatherClient {
       if (startsNewStation) {
         flush();
         const tokens = rawLine.trim().split(/\s+/);
-        currentIcao = tokens[0] === 'TAF' ? tokens[1] : tokens[0];
+        currentIcao = REPORT_TYPE_TOKENS.has(tokens[0]) ? tokens[1] : tokens[0];
         currentLines = [rawLine.trim()];
       } else {
         currentLines.push(rawLine.trim());

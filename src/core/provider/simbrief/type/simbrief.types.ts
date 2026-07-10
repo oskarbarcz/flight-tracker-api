@@ -14,6 +14,7 @@ type General = {
 
 type Airport = {
   icao_code: string;
+  plan_rwy?: string;
 };
 
 type Aircraft = {

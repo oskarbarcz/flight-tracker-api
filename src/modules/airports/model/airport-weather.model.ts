@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class GetAirportWeatherResponse {
   @ApiProperty({
     description: 'Raw METAR report as provided by the weather source',
-    example: 'EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG',
+    example: 'METAR EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG',
     nullable: true,
   })
   metar!: string | null;

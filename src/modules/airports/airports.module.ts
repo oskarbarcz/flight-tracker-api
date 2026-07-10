@@ -41,6 +41,7 @@ import { CreateRunwayHandler } from './application/command/runways/create-runway
 import { UpdateRunwayHandler } from './application/command/runways/update-runway.command';
 import { RemoveRunwayHandler } from './application/command/runways/remove-runway.command';
 import { GetRunwayByIdHandler } from './application/query/runway/get-runway-by-id.query';
+import { GetRunwayByDesignatorHandler } from './application/query/runway/get-runway-by-designator.query';
 import { ListRunwaysByAirportHandler } from './application/query/runway/list-runways-by-airport.query';
 import { AssertParkingPositionBelongsToAirportHandler } from './application/assert/assert-parking-position-belongs-to-airport.command';
 import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert-runway-belongs-to-airport.command';
@@ -100,6 +101,7 @@ import { WeatherRefreshService } from './infra/service/weather-refresh.service';
     UpdateRunwayHandler,
     RemoveRunwayHandler,
     GetRunwayByIdHandler,
+    GetRunwayByDesignatorHandler,
     ListRunwaysByAirportHandler,
     AssertParkingPositionBelongsToAirportHandler,
     AssertRunwayBelongsToAirportHandler,
