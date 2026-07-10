@@ -27,10 +27,12 @@
           "cont_rule": "3%"
         },
         "origin": {
-          "icao_code": "EDDF"
+          "icao_code": "EDDF",
+          "plan_rwy": "07C"
         },
         "destination": {
-          "icao_code": "KJFK"
+          "icao_code": "KJFK",
+          "plan_rwy": "04L"
         },
         "alternate": [
           {
@@ -133,10 +135,12 @@
           "flight_number": "80"
         },
         "origin": {
-          "icao_code": "EDDF"
+          "icao_code": "EDDF",
+          "plan_rwy": "07C"
         },
         "destination": {
-          "icao_code": "KJFK"
+          "icao_code": "KJFK",
+          "plan_rwy": "04L"
         },
         "alternate": [
           {
@@ -243,10 +247,12 @@
           "cont_rule": "3%"
         },
         "origin": {
-          "icao_code": "EDDF"
+          "icao_code": "EDDF",
+          "plan_rwy": "07C"
         },
         "destination": {
-          "icao_code": "KJFK"
+          "icao_code": "KJFK",
+          "plan_rwy": "04L"
         },
         "alternate": [
           {
@@ -346,10 +352,12 @@
           "cont_rule": "3%"
         },
         "origin": {
-          "icao_code": "EDDF"
+          "icao_code": "EDDF",
+          "plan_rwy": "07C"
         },
         "destination": {
-          "icao_code": "KJFK"
+          "icao_code": "KJFK",
+          "plan_rwy": "04L"
         },
         "alternate": [
           {
@@ -453,10 +461,12 @@
           "cont_rule": "3%"
         },
         "origin": {
-          "icao_code": "EDDF"
+          "icao_code": "EDDF",
+          "plan_rwy": "07C"
         },
         "destination": {
-          "icao_code": "KJFK"
+          "icao_code": "KJFK",
+          "plan_rwy": "04L"
         },
         "alternate": [
           {

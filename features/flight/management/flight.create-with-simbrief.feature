@@ -42,8 +42,8 @@ Feature: Create a flight with Simbrief
             "blockFuel": 71.6,
             "flightCrew": {
               "pilots": 2,
-              "cabinCrew": 12,
-              "reliefPilots": 1
+              "cabinCrew": 5,
+              "reliefPilots": 0
             },
             "passengers": 348,
             "zeroFuelWeight": 206.5,
@@ -214,9 +214,9 @@ Feature: Create a flight with Simbrief
           }
         ],
         "departureParkingPositionId": null,
-        "departureRunwayId": null,
+        "departureRunwayId": "32121288-2550-4b81-a558-9a7193ef6c97",
         "arrivalParkingPositionId": null,
-        "arrivalRunwayId": null,
+        "arrivalRunwayId": "6bbf43a4-9242-4f04-b195-6a7bcd1f14c4",
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
@@ -314,8 +314,8 @@ Feature: Create a flight with Simbrief
             "blockFuel": 71.6,
             "flightCrew": {
               "pilots": 2,
-              "cabinCrew": 12,
-              "reliefPilots": 1
+              "cabinCrew": 5,
+              "reliefPilots": 0
             },
             "passengers": 348,
             "zeroFuelWeight": 206.5,
@@ -454,9 +454,9 @@ Feature: Create a flight with Simbrief
           }
         ],
         "departureParkingPositionId": null,
-        "departureRunwayId": null,
+        "departureRunwayId": "32121288-2550-4b81-a558-9a7193ef6c97",
         "arrivalParkingPositionId": null,
-        "arrivalRunwayId": null,
+        "arrivalRunwayId": "6bbf43a4-9242-4f04-b195-6a7bcd1f14c4",
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
@@ -525,8 +525,8 @@ Feature: Create a flight with Simbrief
             "blockFuel": 71.6,
             "flightCrew": {
               "pilots": 2,
-              "cabinCrew": 12,
-              "reliefPilots": 1
+              "cabinCrew": 5,
+              "reliefPilots": 0
             },
             "passengers": 348,
             "zeroFuelWeight": 206.5,
@@ -649,9 +649,9 @@ Feature: Create a flight with Simbrief
           }
         ],
         "departureParkingPositionId": null,
-        "departureRunwayId": null,
+        "departureRunwayId": "32121288-2550-4b81-a558-9a7193ef6c97",
         "arrivalParkingPositionId": null,
-        "arrivalRunwayId": null,
+        "arrivalRunwayId": "6bbf43a4-9242-4f04-b195-6a7bcd1f14c4",
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
