@@ -7,6 +7,7 @@ import { OnEvent } from '@nestjs/event-emitter';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import {
   FlightEventType,
+  FlightPathWasUpdatedEvent,
   LivePositionReceivedEvent,
   OnBlockWasReportedEvent,
 } from '../../../../core/domain/events/dto/flight.events';
@@ -55,6 +56,7 @@ export class PositionService {
 
       const track = await this.adsbClient.getTrackHistory(callsign);
       await this.flightsRepository.updateFlightPath(flightId, track);
+      this.emitFlightPathWasUpdated(flightId);
     } catch (error) {
       this.logger.warn(
         `Could not back up flight path on on-block for flight ${flightId}: ${error}`,
@@ -71,6 +73,8 @@ export class PositionService {
         track,
       );
 
+      this.emitFlightPathWasUpdated(flight.id);
+
       if (isFirstReceipt) {
         this.emitLivePositionReceived(flight.id);
       }
@@ -84,6 +88,17 @@ export class PositionService {
   private emitLivePositionReceived(flightId: string): void {
     this.domainEvents.emit(
       new LivePositionReceivedEvent({
+        flightId,
+        rotationId: null,
+        scope: FlightEventScope.System,
+        actorId: null,
+      }),
+    );
+  }
+
+  private emitFlightPathWasUpdated(flightId: string): void {
+    this.domainEvents.emit(
+      new FlightPathWasUpdatedEvent({
         flightId,
         rotationId: null,
         scope: FlightEventScope.System,

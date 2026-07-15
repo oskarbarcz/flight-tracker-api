@@ -18,7 +18,9 @@ import { Schedule } from '../../model/timesheet.model';
 export class ReportTakeoffCommand {
   constructor(
     public readonly flightId: string,
-    public readonly initiatorId: string,
+    public readonly initiatorId: string | null = null,
+    public readonly takeoffTime: Date = new Date(),
+    public readonly automaticallyDetected: boolean = false,
   ) {}
 }
 
@@ -31,7 +33,11 @@ export class ReportTakeoffHandler implements ICommandHandler<ReportTakeoffComman
   ) {}
 
   async execute(command: ReportTakeoffCommand): Promise<void> {
-    const { flightId, initiatorId } = command;
+    const { flightId, initiatorId, takeoffTime, automaticallyDetected } =
+      command;
+    const scope = automaticallyDetected
+      ? FlightEventScope.Operations
+      : FlightEventScope.User;
     const query = new GetFlightQuery(flightId);
     const flight = await this.queryBus.execute(query);
 
@@ -46,7 +52,7 @@ export class ReportTakeoffHandler implements ICommandHandler<ReportTakeoffComman
     }
 
     const timesheet = flight.timesheet as { actual: Schedule };
-    timesheet.actual.takeoffTime = new Date();
+    timesheet.actual.takeoffTime = takeoffTime;
 
     await this.flightsRepository.updateStatus(flightId, FlightStatus.InCruise);
     await this.flightsRepository.updateTimesheet(flightId, timesheet);
@@ -55,8 +61,9 @@ export class ReportTakeoffHandler implements ICommandHandler<ReportTakeoffComman
       new TakeoffWasReportedEvent({
         flightId,
         rotationId: flight.rotationId,
-        scope: FlightEventScope.User,
+        scope,
         actorId: initiatorId,
+        payload: { automaticallyDetected },
       }),
     );
   }
