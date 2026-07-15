@@ -35,7 +35,7 @@ export class PositionService {
     }
   }
 
-  @Cron(CronExpression.EVERY_10_MINUTES)
+  @Cron(CronExpression.EVERY_5_MINUTES)
   async periodicallyBackupFlightPath(): Promise<void> {
     const flights = await this.flightsRepository.findAllTrackable();
 
