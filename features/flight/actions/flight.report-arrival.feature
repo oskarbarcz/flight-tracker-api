@@ -329,7 +329,7 @@ Feature: Report arrival
           "id": "@uuid",
           "scope": "user",
           "type": "flight.arrival-reported",
-          "payload": {},
+          "payload": { "automaticallyDetected": false },
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"

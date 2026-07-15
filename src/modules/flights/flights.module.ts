@@ -91,6 +91,7 @@ import { BroadcastFlightEventListener } from './application/event/internal/broad
 import { OffBlockDelayListener } from './application/event/internal/off-block-delay.listener';
 import { DetectTakeoffListener } from './application/event/internal/detect-takeoff.listener';
 import { DetectOffBlockListener } from './application/event/internal/detect-off-block.listener';
+import { DetectArrivalListener } from './application/event/internal/detect-arrival.listener';
 import { DelayRepository } from './infra/database/repository/delay.repository';
 import { GetDelayRequestHandler } from './application/query/delay/get-delay-request.query';
 import { IsFlightDelayClearedHandler } from './application/query/delay/is-flight-delay-cleared.query';
@@ -205,6 +206,7 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     OffBlockDelayListener,
     DetectTakeoffListener,
     DetectOffBlockListener,
+    DetectArrivalListener,
     DelayRepository,
     GetDelayRequestHandler,
     IsFlightDelayClearedHandler,
