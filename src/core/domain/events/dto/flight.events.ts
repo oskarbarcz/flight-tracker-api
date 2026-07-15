@@ -67,6 +67,10 @@ export type TakeoffReportedEventPayload = FlightEventPayload & {
   payload: { automaticallyDetected: boolean };
 };
 
+export type OffBlockReportedEventPayload = AircraftFlightEventPayload & {
+  payload: { automaticallyDetected: boolean };
+};
+
 export abstract class FlightLifecycleEvent<
   P extends FlightEventPayload = FlightEventPayload,
 > extends DomainEvent {
@@ -137,7 +141,7 @@ export class BoardingWasFinishedEvent extends FlightLifecycleEvent {
   static readonly name = FlightEventType.BoardingWasFinished;
 }
 
-export class OffBlockWasReportedEvent extends FlightLifecycleEvent<AircraftFlightEventPayload> {
+export class OffBlockWasReportedEvent extends FlightLifecycleEvent<OffBlockReportedEventPayload> {
   static readonly name = FlightEventType.OffBlockWasReported;
 }
 

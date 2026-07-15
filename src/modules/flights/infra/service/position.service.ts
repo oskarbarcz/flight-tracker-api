@@ -44,6 +44,15 @@ export class PositionService {
     }
   }
 
+  @Cron(CronExpression.EVERY_MINUTE)
+  async trackFlightsAwaitingOffBlock(): Promise<void> {
+    const flights = await this.flightsRepository.findAwaitingOffBlock();
+
+    for (const flight of flights) {
+      await this.trackFirstPosition(flight);
+    }
+  }
+
   @OnEvent(FlightEventType.OnBlockWasReported)
   async storeFlightPathOnFlightEnd(
     event: OnBlockWasReportedEvent,
