@@ -47,7 +47,7 @@ stamps `takeoffTime` (defaulting to `new Date()`). Manual callers pass nothing n
 today's behaviour; the detector passes the crossing timestamp, `initiatorId = null`, and
 `automaticallyDetected = true`.
 
-*Alternative considered:* a dedicated `RegisterDetectedTakeoffCommand`. Rejected to avoid
+_Alternative considered:_ a dedicated `RegisterDetectedTakeoffCommand`. Rejected to avoid
 duplicating the status/timesheet/event write logic across two handlers.
 
 ### The takeoff event carries `{ automaticallyDetected }` and stays visible in the timeline
@@ -59,7 +59,7 @@ derives the event scope from intent: manual → `user` (with the crew actor), au
 `operations` (no actor). Both are persisted and broadcast; the payload flag is the
 discriminator.
 
-*Alternative considered:* `system` scope for the automatic event. Rejected because
+_Alternative considered:_ `system` scope for the automatic event. Rejected because
 `findForFlight` filters `system`-scoped events out of the timeline, which would hide every
 automatic takeoff and make the persisted flag meaningless in the REST list.
 
@@ -80,7 +80,7 @@ The event fires on every backup; the listener does the filtering, so it stays ch
 5. None outside → return. Otherwise dispatch the widened `ReportTakeoffCommand` with that
    position's `date`. The handler's own `taxiing_out` guard makes the dispatch race-safe.
 
-*Alternatives considered:* (a) inline in `PositionService.trackFirstPosition` — cohesive but
+_Alternatives considered:_ (a) inline in `PositionService.trackFirstPosition` — cohesive but
 couples detection to the polling internals; (b) a new cron in the `automations` module —
 re-queries and re-reads paths for no benefit over reacting to the update that just happened.
 The event keeps the detector decoupled and lets any future path-update source feed it.
@@ -96,7 +96,7 @@ geospatial dependency.
 
 The `aeroway=aerodrome` polygon encloses the runways, so the aircraft crosses the boundary
 already airborne, slightly after real wheels-up, bounded by the ADS-B sample spacing. Per the
-capability definition, the first out-of-boundary position's timestamp *is* the reported
+capability definition, the first out-of-boundary position's timestamp _is_ the reported
 takeoff time. The flight-event log's `createdAt` reflects detection time; the true takeoff
 time lives in `timesheet.actual.takeoffTime`.
 

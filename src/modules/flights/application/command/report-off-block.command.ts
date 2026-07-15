@@ -17,7 +17,9 @@ import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-
 export class ReportOffBlockCommand {
   constructor(
     public readonly flightId: string,
-    public readonly initiatorId: string,
+    public readonly initiatorId: string | null = null,
+    public readonly offBlockTime: Date = new Date(),
+    public readonly automaticallyDetected: boolean = false,
   ) {}
 }
 
@@ -30,7 +32,11 @@ export class ReportOffBlockHandler implements ICommandHandler<ReportOffBlockComm
   ) {}
 
   async execute(command: ReportOffBlockCommand): Promise<void> {
-    const { flightId, initiatorId } = command;
+    const { flightId, initiatorId, offBlockTime, automaticallyDetected } =
+      command;
+    const scope = automaticallyDetected
+      ? FlightEventScope.Operations
+      : FlightEventScope.User;
     const query = new GetFlightQuery(flightId);
     const flight = await this.queryBus.execute(query);
 
@@ -46,7 +52,7 @@ export class ReportOffBlockHandler implements ICommandHandler<ReportOffBlockComm
 
     const timesheet = flight.timesheet;
     timesheet.actual = {
-      offBlockTime: new Date(),
+      offBlockTime,
       takeoffTime: null,
       arrivalTime: null,
       onBlockTime: null,
@@ -62,9 +68,10 @@ export class ReportOffBlockHandler implements ICommandHandler<ReportOffBlockComm
       new OffBlockWasReportedEvent({
         flightId,
         rotationId: flight.rotationId,
-        scope: FlightEventScope.User,
+        scope,
         actorId: initiatorId,
         aircraftId: flight.aircraft.id,
+        payload: { automaticallyDetected },
       }),
     );
   }

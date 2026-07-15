@@ -369,6 +369,16 @@ export class FlightsRepository {
     });
   }
 
+  async findAwaitingOffBlock(): Promise<FlightIdAndCallsign[]> {
+    return this.prisma.flight.findMany({
+      where: {
+        status: FlightStatus.BoardingFinished,
+        isPathAvailable: true,
+      },
+      select: flightIdAndCallsign,
+    });
+  }
+
   async findAll(
     filters?: FlightListFilters,
     onlyPublic?: boolean,
