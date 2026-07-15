@@ -273,6 +273,14 @@ Feature: Close flight
           "createdAt": "2025-01-01T12:00:00.000Z"
         },
         {
+          "id": "cc6fdbb4-0533-40d2-a313-8b0e5145a605",
+          "scope": "user",
+          "type": "flight.live-position-received",
+          "payload": {},
+          "actor": null,
+          "createdAt": "2025-01-01T12:01:00.000Z"
+        },
+        {
           "id": "975140bc-8cac-4587-bddd-0a7acfb7a15f",
           "scope": "user",
           "type": "flight.boarding-started",

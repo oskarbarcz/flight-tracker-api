@@ -226,7 +226,7 @@ Feature: Finish flight boarding
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
-        "hasFlightPath": false,
+        "hasFlightPath": true,
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
@@ -299,6 +299,14 @@ Feature: Finish flight boarding
             "name": "Rick Doe"
           },
           "createdAt": "2025-01-01T12:40:00.000Z"
+        },
+        {
+          "id": "63268531-1365-4322-bf99-e7509f53db1d",
+          "scope": "user",
+          "type": "flight.live-position-received",
+          "payload": {},
+          "actor": null,
+          "createdAt": "2025-01-01T12:55:00.000Z"
         },
         {
           "id": "@uuid",

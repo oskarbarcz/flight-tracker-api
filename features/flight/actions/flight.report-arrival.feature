@@ -210,7 +210,7 @@ Feature: Report arrival
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
-        "hasFlightPath": false,
+        "hasFlightPath": true,
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
@@ -305,6 +305,14 @@ Feature: Report arrival
             "name": "Rick Doe"
           },
           "createdAt": "2025-01-01T13:10:00.000Z"
+        },
+        {
+          "id": "ef447dda-84c1-45e9-9ebe-fa7efe646308",
+          "scope": "user",
+          "type": "flight.live-position-received",
+          "payload": {},
+          "actor": null,
+          "createdAt": "2025-01-01T13:11:00.000Z"
         },
         {
           "id": "0108b08b-9c45-49ba-a3cb-a3ae172ce92c",

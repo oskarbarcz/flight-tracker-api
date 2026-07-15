@@ -145,6 +145,14 @@ Feature: Update a flight diversion
           "createdAt": "2025-01-01T13:25:00.000Z"
         },
         {
+          "id": "b718767f-4fdc-40d8-b1f4-1e5686f6b71f",
+          "scope": "user",
+          "type": "flight.live-position-received",
+          "payload": {},
+          "actor": null,
+          "createdAt": "2025-01-01T13:26:00.000Z"
+        },
+        {
           "id": "c11c0944-e7c3-44de-8713-96210871d421",
           "scope": "user",
           "type": "flight.diversion-reported",

@@ -345,7 +345,7 @@ Feature: Get flight
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
-        "hasFlightPath": false,
+        "hasFlightPath": true,
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
