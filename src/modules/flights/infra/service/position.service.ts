@@ -106,15 +106,4 @@ export class PositionService {
       }),
     );
   }
-
-  private emitFlightPathWasUpdated(flightId: string): void {
-    this.domainEvents.emit(
-      new FlightPathWasUpdatedEvent({
-        flightId,
-        rotationId: null,
-        scope: FlightEventScope.System,
-        actorId: null,
-      }),
-    );
-  }
 }

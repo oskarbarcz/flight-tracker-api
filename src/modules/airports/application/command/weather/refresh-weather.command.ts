@@ -49,9 +49,9 @@ export class RefreshWeatherHandler implements ICommandHandler<RefreshWeatherComm
       ].filter((report): report is string => report !== null);
 
       if (updated.length > 0) {
-        this.logger.log(`Refreshed ${updated.join(' + ')} for ${icaoCode}.`);
+        this.logger.log(`Refreshed ${updated.join(' + ')} for ${icaoCode}`);
       } else {
-        this.logger.warn(`No weather returned for ${icaoCode}.`);
+        this.logger.warn(`No weather returned for ${icaoCode}`);
       }
     }
   }
