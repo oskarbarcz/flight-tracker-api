@@ -229,7 +229,7 @@ Feature: Report a flight diversion
         "arrivalRunwayId": null,
         "isFlightDiverted": true,
         "isEmergencyDeclared": false,
-        "hasFlightPath": false,
+        "hasFlightPath": true,
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
@@ -337,6 +337,14 @@ Feature: Report a flight diversion
           "payload": {},
           "actor": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
           "createdAt": "2025-01-01T13:10:00.000Z"
+        },
+        {
+          "id": "ef447dda-84c1-45e9-9ebe-fa7efe646308",
+          "scope": "user",
+          "type": "flight.live-position-received",
+          "payload": {},
+          "actor": null,
+          "createdAt": "2025-01-01T13:11:00.000Z"
         },
         {
           "id": "0108b08b-9c45-49ba-a3cb-a3ae172ce92c",
@@ -559,7 +567,7 @@ Feature: Report a flight diversion
         "arrivalRunwayId": null,
         "isFlightDiverted": true,
         "isEmergencyDeclared": false,
-        "hasFlightPath": false,
+        "hasFlightPath": true,
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",

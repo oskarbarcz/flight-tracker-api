@@ -268,6 +268,14 @@ Feature: Start offboarding
           "createdAt": "2025-01-01T12:00:00.000Z"
         },
         {
+          "id": "bc3f9bd0-420a-4d44-877d-582e9d66f440",
+          "scope": "user",
+          "type": "flight.live-position-received",
+          "payload": {},
+          "actor": null,
+          "createdAt": "2025-01-01T12:01:00.000Z"
+        },
+        {
           "id": "3738a2dc-59c3-4a34-9058-ff57a3cd12bc",
           "scope": "user",
           "type": "flight.boarding-started",

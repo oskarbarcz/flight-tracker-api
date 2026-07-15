@@ -205,7 +205,7 @@ Feature: Report off-block
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
-        "hasFlightPath": false,
+        "hasFlightPath": true,
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
@@ -278,6 +278,14 @@ Feature: Report off-block
             "name": "Rick Doe"
           },
           "createdAt": "2025-01-01T12:40:00.000Z"
+        },
+        {
+          "id": "959d2d21-6f36-4620-bb9e-029c5fa155e7",
+          "scope": "user",
+          "type": "flight.live-position-received",
+          "payload": {},
+          "actor": null,
+          "createdAt": "2025-01-01T12:55:00.000Z"
         },
         {
           "id": "66bcc725-7acd-42e9-b3db-1513176a537f",

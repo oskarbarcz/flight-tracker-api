@@ -154,6 +154,14 @@ Feature: Declare a flight emergency
           "createdAt": "2025-01-01T13:10:00.000Z"
         },
         {
+          "id": "ef447dda-84c1-45e9-9ebe-fa7efe646308",
+          "scope": "user",
+          "type": "flight.live-position-received",
+          "payload": {},
+          "actor": null,
+          "createdAt": "2025-01-01T13:11:00.000Z"
+        },
+        {
           "id": "0108b08b-9c45-49ba-a3cb-a3ae172ce92c",
           "scope": "user",
           "type": "flight.takeoff-reported",

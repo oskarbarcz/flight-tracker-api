@@ -173,7 +173,7 @@ Feature: Start boarding
         "arrivalRunwayId": null,
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
-        "hasFlightPath": false,
+        "hasFlightPath": true,
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
@@ -235,6 +235,14 @@ Feature: Start boarding
             "name": "Rick Doe"
           },
           "createdAt": "2025-01-01T12:00:00.000Z"
+        },
+        {
+          "id": "7815d6eb-3c8c-4845-b01e-19020d23d9b4",
+          "scope": "user",
+          "type": "flight.live-position-received",
+          "payload": {},
+          "actor": null,
+          "createdAt": "2025-01-01T12:55:00.000Z"
         },
         {
           "id": "@uuid",

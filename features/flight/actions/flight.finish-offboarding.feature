@@ -268,6 +268,14 @@ Feature: Finish offboarding for flight that started onboarding
           "createdAt": "2025-01-01T12:00:00.000Z"
         },
         {
+          "id": "e5fa6da2-5fcd-4e76-b2fc-19a42589d630",
+          "scope": "user",
+          "type": "flight.live-position-received",
+          "payload": {},
+          "actor": null,
+          "createdAt": "2025-01-01T12:01:00.000Z"
+        },
+        {
           "id": "d8a68b2d-4b3d-4c96-97cb-ba6e34e14747",
           "scope": "user",
           "type": "flight.boarding-started",

@@ -539,6 +539,14 @@ Feature: Report on-block
           "createdAt": "2025-01-01T13:10:00.000Z"
         },
         {
+          "id": "5ce2ea2b-55b0-4a8f-bbea-9e3fc9659f00",
+          "scope": "user",
+          "type": "flight.live-position-received",
+          "payload": {},
+          "actor": null,
+          "createdAt": "2025-01-01T13:11:00.000Z"
+        },
+        {
           "id": "e356f0df-f0a8-4c67-a7e9-8d1bdc3c5249",
           "scope": "user",
           "type": "flight.takeoff-reported",

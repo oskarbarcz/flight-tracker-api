@@ -31,6 +31,7 @@ export enum FlightEventType {
   FlightWasClosed = 'flight.closed',
   FlightTrackWasSaved = 'flight.track-saved',
   LivePositionReceived = 'flight.live-position-received',
+  FlightPathWasUpdated = 'flight.path-updated',
   EmergencyWasDeclared = 'flight.emergency-declared',
   EmergencyWasUpdated = 'flight.emergency-updated',
   EmergencyWasResolved = 'flight.emergency-resolved',
@@ -60,6 +61,10 @@ export type AircraftLandedEventPayload = AircraftFlightEventPayload & {
 
 export type PilotCheckedInEventPayload = AircraftFlightEventPayload & {
   airportIds: string[];
+};
+
+export type TakeoffReportedEventPayload = FlightEventPayload & {
+  payload: { automaticallyDetected: boolean };
 };
 
 export abstract class FlightLifecycleEvent<
@@ -136,7 +141,7 @@ export class OffBlockWasReportedEvent extends FlightLifecycleEvent<AircraftFligh
   static readonly name = FlightEventType.OffBlockWasReported;
 }
 
-export class TakeoffWasReportedEvent extends FlightLifecycleEvent {
+export class TakeoffWasReportedEvent extends FlightLifecycleEvent<TakeoffReportedEventPayload> {
   static readonly name = FlightEventType.TakeoffWasReported;
 }
 
@@ -166,6 +171,10 @@ export class FlightTrackWasSavedEvent extends FlightLifecycleEvent {
 
 export class LivePositionReceivedEvent extends FlightLifecycleEvent {
   static readonly name = FlightEventType.LivePositionReceived;
+}
+
+export class FlightPathWasUpdatedEvent extends FlightLifecycleEvent {
+  static readonly name = FlightEventType.FlightPathWasUpdated;
 }
 
 export class EmergencyWasDeclaredEvent extends FlightLifecycleEvent {
