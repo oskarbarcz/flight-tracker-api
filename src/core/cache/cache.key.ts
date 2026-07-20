@@ -38,9 +38,6 @@ function flightScopedCacheKeys(flightId: string, resource?: string): string[] {
 export const flightBodyCacheKeys = (flightId: string): string[] =>
   flightScopedCacheKeys(flightId);
 
-export const flightOfpCacheKeys = (flightId: string): string[] =>
-  flightScopedCacheKeys(flightId, FLIGHT_CACHE_RESOURCE.ofp);
-
 export const flightDelayCacheKeys = (flightId: string): string[] =>
   flightScopedCacheKeys(flightId, FLIGHT_CACHE_RESOURCE.delay);
 

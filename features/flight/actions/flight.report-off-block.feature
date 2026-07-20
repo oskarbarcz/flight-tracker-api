@@ -206,6 +206,7 @@ Feature: Report off-block
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
+        "isOffBlockDelayed": true,
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",

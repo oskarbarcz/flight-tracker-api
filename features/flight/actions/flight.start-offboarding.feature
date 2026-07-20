@@ -205,6 +205,7 @@ Feature: Start offboarding
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
+        "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",

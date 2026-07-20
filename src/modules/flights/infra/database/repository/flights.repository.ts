@@ -57,6 +57,7 @@ export const flightWithAircraftAndAirportsFields = {
   isDiversionDeclared: true,
   isPathAvailable: true,
   actualFuelBurned: true,
+  delayRequest: { select: { id: true } },
   operator: {
     select: {
       id: true,
@@ -195,11 +196,12 @@ export type DerivedFlightStatus = {
   isFlightDiverted: boolean;
   isEmergencyDeclared: boolean;
   hasFlightPath: boolean;
+  isOffBlockDelayed: boolean;
 };
 
 export type FlightResponse = Omit<
   FlightWithAircraftAndAirports,
-  'isDiversionDeclared' | 'isPathAvailable'
+  'isDiversionDeclared' | 'isPathAvailable' | 'delayRequest'
 > &
   DerivedFlightStatus;
 
@@ -318,12 +320,14 @@ export class FlightsRepository {
       return null;
     }
 
-    const { isDiversionDeclared, isPathAvailable, ...rest } = flight;
+    const { isDiversionDeclared, isPathAvailable, delayRequest, ...rest } =
+      flight;
     return {
       ...rest,
       aircraft: expandAircraftAirframe(flight.aircraft),
       isFlightDiverted: isDiversionDeclared,
       hasFlightPath: isPathAvailable,
+      isOffBlockDelayed: delayRequest !== null,
     };
   }
 
@@ -465,11 +469,12 @@ export class FlightsRepository {
 
     return {
       flights: flights.map(
-        ({ isDiversionDeclared, isPathAvailable, ...rest }) => ({
+        ({ isDiversionDeclared, isPathAvailable, delayRequest, ...rest }) => ({
           ...rest,
           aircraft: expandAircraftAirframe(rest.aircraft),
           isFlightDiverted: isDiversionDeclared,
           hasFlightPath: isPathAvailable,
+          isOffBlockDelayed: delayRequest !== null,
         }),
       ),
       totalCount,

@@ -160,6 +160,7 @@ Feature: Resolve a flight emergency
         "isFlightDiverted": false,
         "isEmergencyDeclared": true,
         "hasFlightPath": false,
+        "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "createdAt": "2025-01-01T06:00:00.000Z",
         "pilot": {
@@ -341,6 +342,7 @@ Feature: Resolve a flight emergency
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "createdAt": "2025-01-01T06:00:00.000Z",
         "pilot": {

@@ -50,7 +50,10 @@ export class FlightCacheListener {
   @OnEvent(FlightEventType.DelayReportWasAccepted)
   @OnEvent(FlightEventType.DelayReportWasRejected)
   async invalidateDelay(event: FlightLifecycleEvent): Promise<void> {
-    await this.deleteKeys(flightDelayCacheKeys(event.payload.flightId));
+    await this.deleteKeys([
+      ...flightDelayCacheKeys(event.payload.flightId),
+      ...flightBodyCacheKeys(event.payload.flightId),
+    ]);
   }
 
   private async deleteKeys(keys: string[]): Promise<void> {
