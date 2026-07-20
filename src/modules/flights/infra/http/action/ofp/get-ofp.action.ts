@@ -1,4 +1,4 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Req, UseInterceptors } from '@nestjs/common';
 import {
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -7,6 +7,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
+import { CacheKey, CacheTTL } from '@nestjs/cache-manager';
+import { PerFlightCacheInterceptor } from '../../../../../../core/cache/per-flight-cache.interceptor';
+import {
+  CACHE_TTL_MS,
+  FLIGHT_CACHE_RESOURCE,
+} from '../../../../../../core/cache/cache.key';
 import {
   FlightOfpDetails,
   FlightTracking,
@@ -33,6 +39,9 @@ export class GetOfpAction {
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Get('/:id/ofp')
   @SkipAuth()
+  @UseInterceptors(PerFlightCacheInterceptor)
+  @CacheKey(FLIGHT_CACHE_RESOURCE.ofp)
+  @CacheTTL(CACHE_TTL_MS.OFP)
   async run(
     @Req() request: AuthorizedRequest,
     @UuidParam('id') id: string,
