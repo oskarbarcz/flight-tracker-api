@@ -4,6 +4,7 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
+import { UnprocessableError } from '../../../../core/errors/domain-error';
 
 export class FlightNotFoundError extends NotFoundException {
   constructor() {
@@ -104,5 +105,11 @@ export class InvalidStatusToModifyCrewError extends UnprocessableEntityException
 export class InconsistentFuelBlockError extends UnprocessableEntityException {
   constructor() {
     super('Fuel breakdown block must equal the loadsheet block fuel.');
+  }
+}
+
+export class InvalidStatusToCloseFlightError extends UnprocessableError {
+  constructor() {
+    super('Cannot close flight that is not off boarded.');
   }
 }

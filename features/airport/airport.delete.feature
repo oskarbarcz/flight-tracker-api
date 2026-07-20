@@ -45,13 +45,13 @@ Feature: Delete airport
   Scenario: As operations I cannot delete airport that is already in use
     Given I am signed in as "operations"
     When I send a "DELETE" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a"
-    Then the response status should be 400
+    Then the response status should be 409
     And the response body should contain:
       """json
       {
         "message": "Cannot remove airport that is already in use by any of flights.",
-        "error": "Bad Request",
-        "statusCode": 400
+        "error": "Conflict",
+        "statusCode": 409
       }
       """
 

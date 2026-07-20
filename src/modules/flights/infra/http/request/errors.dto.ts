@@ -119,12 +119,6 @@ export const InvalidStatusToFinishOffboardingError = {
   message:
     'Cannot finish offboarding for flight that has not started offboarding.',
 };
-export const InvalidStatusToCloseFlight = {
-  statusCode: 422,
-  error: 'Unprocessable Content',
-  message: 'Cannot close flight that is not off boarded.',
-};
-
 export const OperatorForAircraftNotFoundError = {
   statusCode: 404,
   error: 'Not Found',

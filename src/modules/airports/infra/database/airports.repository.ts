@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../../../../core/provider/prisma/prisma.service';
 import { Airport, Prisma } from 'prisma/client/client';
-import { AirportInUseError } from '../http/request/errors.dto';
+import { AirportInUseError } from '../../model/error/airport.error';
 import {
   AirportListFilters,
   CreateAirportRequest,
@@ -113,7 +113,7 @@ export class AirportsRepository {
     });
 
     if (connectedAirports > 0) {
-      throw new BadRequestException(AirportInUseError);
+      throw new AirportInUseError();
     }
 
     await this.prisma.airport.delete({ where: { id } });
