@@ -66,7 +66,7 @@ export class AirportsRepository {
     });
   }
 
-  async findOne(id: string): Promise<AirportView> {
+  async findById(id: string): Promise<AirportView> {
     const airport = await this.findOneBy({ id });
 
     if (!airport) {

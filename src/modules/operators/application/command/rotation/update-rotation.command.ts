@@ -4,7 +4,7 @@ import { OperatorsRepository } from '../../../infra/database/repository/operator
 import { RotationsRepository } from '../../../infra/database/repository/rotations.repository';
 import { RotationNotFoundError } from '../../../model/error/rotation.error';
 import { UpdateRotationRequest } from '../../../infra/http/request/rotation.request';
-import { AssertUserExistsQuery } from '../../../../users/application/query/assert-user-exists.query';
+import { AssertUserExistsQuery } from '../../../../users/application/assert/assert-user-exists.query';
 
 export class UpdateRotationCommand {
   constructor(

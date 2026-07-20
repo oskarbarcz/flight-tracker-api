@@ -15,7 +15,7 @@ import { UnauthorizedResponse } from '../../../../../core/http/response/unauthor
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
 import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
-import { UserRole } from '../../../../../../prisma/client/enums';
+import { UserRole } from '../../../model/user-role';
 import { ListUsersForbiddenError } from '../../../model/error/user.error';
 
 @ApiTags('user')

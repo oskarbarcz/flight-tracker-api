@@ -1,11 +1,13 @@
 import { ConfigService } from '@nestjs/config';
-import { Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { SkylinkAirportResponse } from '../type/skylink.types';
 import {
   MultipleSkylinkAirportsFoundError,
   SkylinkAirportNotFoundError,
 } from './skylink.error';
+import { fetchWithRetry } from '../../http/fetch-with-retry';
 
+@Injectable()
 export class SkyLinkClient {
   private readonly logger = new Logger(SkyLinkClient.name);
 
@@ -34,7 +36,7 @@ export class SkyLinkClient {
     const label = codeType.toUpperCase();
 
     try {
-      const response = await fetch(url, {
+      const response = await fetchWithRetry(url, {
         headers: {
           'X-Api-Key': this.apiKey,
           Accept: 'application/json',

@@ -3,7 +3,7 @@ import { OperatorNotFoundError } from '../../../model/error/operator.error';
 import { OperatorsRepository } from '../../../infra/database/repository/operators.repository';
 import { CreateRotationRequest } from '../../../infra/http/request/rotation.request';
 import { RotationsRepository } from '../../../infra/database/repository/rotations.repository';
-import { AssertUserExistsQuery } from '../../../../users/application/query/assert-user-exists.query';
+import { AssertUserExistsQuery } from '../../../../users/application/assert/assert-user-exists.query';
 
 export class CreateRotationCommand {
   constructor(

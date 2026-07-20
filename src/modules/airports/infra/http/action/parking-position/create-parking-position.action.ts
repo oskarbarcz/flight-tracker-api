@@ -12,7 +12,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { UserRole } from 'prisma/client/client';
+import { UserRole } from '../../../../../users/model/user-role';
 import { v4 } from 'uuid';
 import { UuidParam } from '../../../../../../core/validation/uuid.param';
 import { Role } from '../../../../../../core/http/auth/decorator/role.decorator';

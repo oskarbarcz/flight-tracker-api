@@ -1,6 +1,6 @@
 import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { RotationsRepository } from '../../../infra/database/repository/rotations.repository';
-import { RotationNotFoundError } from '../../../model/error/rotation.error';
+import { RotationsRepository } from '../../infra/database/repository/rotations.repository';
+import { RotationNotFoundError } from '../../model/error/rotation.error';
 
 export class AssertRotationExistsQuery {
   constructor(public readonly id: string) {}

@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AirportsRepository } from './infra/database/airports.repository';
-import { AirportsController } from './infra/http/controller/airports.controller';
+import { CreateAirportAction } from './infra/http/action/airport/create-airport.action';
+import { ListAirportsAction } from './infra/http/action/airport/list-airports.action';
+import { GetAirportAction } from './infra/http/action/airport/get-airport.action';
+import { UpdateAirportAction } from './infra/http/action/airport/update-airport.action';
+import { DeleteAirportAction } from './infra/http/action/airport/delete-airport.action';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { SkyLinkModule } from '../../core/provider/skylink/skylink.module';
 import { CreateAirportHandler } from './application/command/create-airport.command';
@@ -11,14 +15,22 @@ import { GetAirportByIdHandler } from './application/query/get-airport-by-id.que
 import { ListAllAirportsHandler } from './application/query/list-all-airports.query';
 import { GetAirportByIcaoCodeHandler } from './application/query/get-airport-by-icao-code.query';
 import { TerminalsRepository } from './infra/database/terminals.repository';
-import { TerminalsController } from './infra/http/controller/terminals.controller';
+import { CreateTerminalAction } from './infra/http/action/terminal/create-terminal.action';
+import { ListTerminalsAction } from './infra/http/action/terminal/list-terminals.action';
+import { GetTerminalAction } from './infra/http/action/terminal/get-terminal.action';
+import { UpdateTerminalAction } from './infra/http/action/terminal/update-terminal.action';
+import { DeleteTerminalAction } from './infra/http/action/terminal/delete-terminal.action';
 import { CreateTerminalHandler } from './application/command/terminals/create-terminal.command';
 import { UpdateTerminalHandler } from './application/command/terminals/update-terminal.command';
 import { RemoveTerminalHandler } from './application/command/terminals/remove-terminal.command';
 import { GetTerminalByIdHandler } from './application/query/terminal/get-terminal-by-id.query';
 import { ListTerminalsByAirportHandler } from './application/query/terminal/list-terminals-by-airport.query';
 import { GatesRepository } from './infra/database/gates.repository';
-import { GatesController } from './infra/http/controller/gates.controller';
+import { CreateGateAction } from './infra/http/action/gate/create-gate.action';
+import { ListGatesAction } from './infra/http/action/gate/list-gates.action';
+import { GetGateAction } from './infra/http/action/gate/get-gate.action';
+import { UpdateGateAction } from './infra/http/action/gate/update-gate.action';
+import { DeleteGateAction } from './infra/http/action/gate/delete-gate.action';
 import { CreateGateHandler } from './application/command/gates/create-gate.command';
 import { UpdateGateHandler } from './application/command/gates/update-gate.command';
 import { RemoveGateHandler } from './application/command/gates/remove-gate.command';
@@ -36,7 +48,11 @@ import { RemoveParkingPositionHandler } from './application/command/parking-posi
 import { GetParkingPositionByIdHandler } from './application/query/parking-position/get-parking-position-by-id.query';
 import { ListParkingPositionsByAirportHandler } from './application/query/parking-position/list-parking-positions-by-airport.query';
 import { RunwaysRepository } from './infra/database/runways.repository';
-import { RunwaysController } from './infra/http/controller/runways.controller';
+import { CreateRunwayAction } from './infra/http/action/runway/create-runway.action';
+import { ListRunwaysAction } from './infra/http/action/runway/list-runways.action';
+import { GetRunwayAction } from './infra/http/action/runway/get-runway.action';
+import { UpdateRunwayAction } from './infra/http/action/runway/update-runway.action';
+import { DeleteRunwayAction } from './infra/http/action/runway/delete-runway.action';
 import { CreateRunwayHandler } from './application/command/runways/create-runway.command';
 import { UpdateRunwayHandler } from './application/command/runways/update-runway.command';
 import { RemoveRunwayHandler } from './application/command/runways/remove-runway.command';
@@ -58,15 +74,31 @@ import { WeatherRefreshService } from './infra/service/weather-refresh.service';
 @Module({
   imports: [PrismaModule, SkyLinkModule, WeatherModule],
   controllers: [
-    AirportsController,
-    TerminalsController,
-    GatesController,
+    CreateAirportAction,
+    ListAirportsAction,
+    GetAirportAction,
+    UpdateAirportAction,
+    DeleteAirportAction,
+    CreateTerminalAction,
+    ListTerminalsAction,
+    GetTerminalAction,
+    UpdateTerminalAction,
+    DeleteTerminalAction,
+    CreateGateAction,
+    ListGatesAction,
+    GetGateAction,
+    UpdateGateAction,
+    DeleteGateAction,
     CreateParkingPositionAction,
     ListParkingPositionsAction,
     GetParkingPositionAction,
     UpdateParkingPositionAction,
     RemoveParkingPositionAction,
-    RunwaysController,
+    CreateRunwayAction,
+    ListRunwaysAction,
+    GetRunwayAction,
+    UpdateRunwayAction,
+    DeleteRunwayAction,
     GetWeatherAction,
   ],
   providers: [

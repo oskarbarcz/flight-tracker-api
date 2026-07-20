@@ -29,13 +29,13 @@ export class AuthService {
     const sessionId = v4();
 
     const { accessToken, refreshToken } = await this.getTokens(user, sessionId);
-    await this.sessionRepository.new(user.id, sessionId, refreshToken);
+    await this.sessionRepository.create(user.id, sessionId, refreshToken);
 
     return { accessToken, refreshToken };
   }
 
   async refreshToken(userId: string, sessionId: string): Promise<any> {
-    const user = await this.usersService.findOne(userId);
+    const user = await this.usersService.findById(userId);
 
     if (user === null) {
       throw new InvalidRefreshTokenError();

@@ -7,7 +7,7 @@ import {
   FlightNotFoundError,
 } from '../../../model/error/flight.error';
 import { FlightStatus } from '../../../model/flight.model';
-import { AssertRotationExistsQuery } from '../../../../operators/application/query/rotation/assert-rotation-exists.query';
+import { AssertRotationExistsQuery } from '../../../../operators/application/assert/assert-rotation-exists.query';
 import { FlightWasAddedToRotationEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../../model/event.model';
 

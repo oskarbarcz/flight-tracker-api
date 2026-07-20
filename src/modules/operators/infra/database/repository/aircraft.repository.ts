@@ -108,7 +108,7 @@ export class AircraftRepository {
     });
   }
 
-  async legacyFindOneBy(
+  async findWithOperatorBy(
     criteria: Partial<Record<keyof AircraftEntity, any>>,
   ): Promise<AircraftWithOperator | null> {
     return this.prisma.aircraft.findFirst({
@@ -123,6 +123,16 @@ export class AircraftRepository {
     return this.prisma.aircraft.findFirst({
       where: criteria,
       select: aircraft,
+    });
+  }
+
+  async getRepositionOrigin(aircraftId: string) {
+    return this.prisma.aircraft.findUnique({
+      where: { id: aircraftId },
+      select: {
+        lastAirportId: true,
+        lastAirport: { select: { location: true } },
+      },
     });
   }
 

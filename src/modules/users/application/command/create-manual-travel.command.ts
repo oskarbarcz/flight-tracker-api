@@ -1,10 +1,11 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { PrismaService } from '../../../../core/provider/prisma/prisma.service';
-import { UserRole, UserTravelType } from '../../../../../prisma/client/enums';
+import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
+import { UserTravelType } from '../../../../../prisma/client/enums';
+import { UserRole } from '../../model/user-role';
 import { haversineDistanceNm } from '../../../../core/utils/distance';
 import { UserTravelRepository } from '../../infra/database/repository/user-travel.repository';
+import { UsersRepository } from '../../infra/database/repository/users.repository';
 import { UserNotFoundError } from '../../model/error/user.error';
-import { AirportNotFoundError } from '../../../airports/model/error/airport.error';
+import { GetAirportByIdQuery } from '../../../airports/application/query/get-airport-by-id.query';
 import {
   OnlyCabinCrewCanTravelError,
   TravelDestinationEqualsOriginError,
@@ -23,21 +24,15 @@ export class CreateManualTravelCommand {
 @CommandHandler(CreateManualTravelCommand)
 export class CreateManualTravelHandler implements ICommandHandler<CreateManualTravelCommand> {
   constructor(
-    private readonly prisma: PrismaService,
+    private readonly usersRepository: UsersRepository,
     private readonly travelRepository: UserTravelRepository,
+    private readonly queryBus: QueryBus,
   ) {}
 
   async execute(command: CreateManualTravelCommand): Promise<void> {
     const { userId, destinationAirportId } = command;
 
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-      select: {
-        role: true,
-        lastAirportId: true,
-        lastAirport: { select: { location: true } },
-      },
-    });
+    const user = await this.usersRepository.getTravelProfile(userId);
 
     if (!user) {
       throw new UserNotFoundError();
@@ -55,14 +50,8 @@ export class CreateManualTravelHandler implements ICommandHandler<CreateManualTr
       throw new TravelDestinationEqualsOriginError();
     }
 
-    const destination = await this.prisma.airport.findUnique({
-      where: { id: destinationAirportId },
-      select: { location: true },
-    });
-
-    if (!destination) {
-      throw new AirportNotFoundError();
-    }
+    const destinationQuery = new GetAirportByIdQuery(destinationAirportId);
+    const destination = await this.queryBus.execute(destinationQuery);
 
     const distance = haversineDistanceNm(
       user.lastAirport!.location as unknown as Coordinates,

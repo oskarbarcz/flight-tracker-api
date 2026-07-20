@@ -8,20 +8,20 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Controller, Get } from '@nestjs/common';
-import { SkyLinkClient } from '../../core/provider/skylink/client/skylink.client';
+import { SkyLinkClient } from '../../../../../core/provider/skylink/client/skylink.client';
 import { Param, UseInterceptors } from '@nestjs/common';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
-import { Role } from '../../core/http/auth/decorator/role.decorator';
-import { AirportResponse } from './dto/airport.dto';
-import { UnauthorizedResponse } from '../../core/http/response/unauthorized.response';
-import { ForbiddenResponse } from '../../core/http/response/forbidden.response';
-import { GenericNotFoundResponse } from '../../core/http/response/not-found.response';
-import { UserRole } from 'prisma/client/client';
+import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
+import { AirportResponse } from '../../../dto/airport.dto';
+import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
+import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
+import { GenericNotFoundResponse } from '../../../../../core/http/response/not-found.response';
+import { UserRole } from '../../../../users/model/user-role';
 
 @ApiTags('skylink')
 @Controller('api/v1/skylink')
 @UseInterceptors(CacheInterceptor)
-export class SkyLinkController {
+export class GetAirportByIataCodeAction {
   constructor(private readonly client: SkyLinkClient) {}
 
   @ApiOperation({
@@ -36,7 +36,7 @@ export class SkyLinkController {
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Get('/airport/:iataCode')
   @Role(UserRole.Operations)
-  @CacheTTL(60 * 60) // 60 minutes
+  @CacheTTL(60 * 60)
   getAirportByIataCode(@Param('iataCode') iataCode: string): Promise<any> {
     return this.client.getAirportByIataCode(iataCode);
   }

@@ -7,7 +7,7 @@ import {
   IsUUID,
   Matches,
 } from 'class-validator';
-import { UserRole } from '../../../../prisma/client/enums';
+import { UserRole } from './user-role';
 
 export class User {
   @ApiProperty({

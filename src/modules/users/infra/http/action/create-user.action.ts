@@ -19,7 +19,7 @@ import { GenericBadRequestResponse } from '../../../../../core/http/response/bad
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
 import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
-import { UserRole } from '../../../../../../prisma/client/enums';
+import { UserRole } from '../../../model/user-role';
 
 @ApiTags('user')
 @Controller('/api/v1/user')

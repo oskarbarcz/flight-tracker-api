@@ -23,7 +23,7 @@ import { UnauthorizedResponse } from '../../../../../core/http/response/unauthor
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
 import { GenericNotFoundResponse } from '../../../../../core/http/response/not-found.response';
 import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
-import { UserRole } from 'prisma/client/enums';
+import { UserRole } from '../../../../users/model/user-role';
 
 @ApiTags('operator fleet')
 @Controller('/api/v1/operator/:operatorId/aircraft')

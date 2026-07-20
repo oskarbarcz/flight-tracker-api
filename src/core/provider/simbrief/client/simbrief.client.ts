@@ -1,6 +1,8 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable, Logger } from '@nestjs/common';
 import { OperationalFlightPlan } from '../type/simbrief.types';
+import { getErrorMessage } from '../../../utils/error-message';
+import { fetchWithRetry } from '../../http/fetch-with-retry';
 
 @Injectable()
 export class SimbriefClient {
@@ -13,17 +15,25 @@ export class SimbriefClient {
   ): Promise<OperationalFlightPlan> {
     const url = this.getApiUrl(userId);
 
-    const response = await fetch(url, {
-      headers: { Accept: 'application/json' },
-    });
+    try {
+      const response = await fetchWithRetry(url, {
+        headers: { Accept: 'application/json' },
+      });
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data: ${response.statusText}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data: ${response.statusText}`);
+      }
+
+      this.logger.log(`Simbrief OFP downloaded for user ${userId}`);
+
+      return (await response.json()) as OperationalFlightPlan;
+    } catch (error) {
+      const message = getErrorMessage(error);
+      this.logger.error(
+        `Error fetching Simbrief OFP for user ${userId}: ${message}`,
+      );
+      throw error;
     }
-
-    this.logger.log(`Simbrief OFP downloaded for user ${userId}`);
-
-    return (await response.json()) as OperationalFlightPlan;
   }
 
   private getApiUrl(userId: string): string {

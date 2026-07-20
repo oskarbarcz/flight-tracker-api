@@ -12,7 +12,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { UserRole } from 'prisma/client/client';
+import { UserRole } from '../../../../../users/model/user-role';
 import { Crew } from '../../../../../operators/model/crew.model';
 import { AssignCrewMemberToFlightCommand } from '../../../../../operators/application/command/crew/assign-crew-member-to-flight.command';
 import { ListFlightCrewQuery } from '../../../../../operators/application/query/crew/list-flight-crew.query';

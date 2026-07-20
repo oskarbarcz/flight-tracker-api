@@ -5,6 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorator/skip-auth.decorator';
@@ -19,6 +20,7 @@ export class JwtTokenGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
     private readonly reflector: Reflector,
+    private readonly config: ConfigService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -40,7 +42,7 @@ export class JwtTokenGuard implements CanActivate {
       // 💡 We're assigning the payload to the request object here
       // so that we can access it in our route handlers
       const payload = await this.jwtService.verifyAsync<JwtUser>(token, {
-        publicKey: process.env.JWT_PUBLIC_KEY,
+        publicKey: this.config.getOrThrow<string>('JWT_PUBLIC_KEY'),
       });
 
       const isRefreshEndpoint = request.url === '/api/v1/auth/refresh';
