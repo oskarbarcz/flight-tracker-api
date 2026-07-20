@@ -1,5 +1,9 @@
 import { Module } from '@nestjs/common';
-import { OperatorsController } from './infra/http/controller/operators.controller';
+import { CreateOperatorAction } from './infra/http/action/operator/create-operator.action';
+import { ListOperatorsAction } from './infra/http/action/operator/list-operators.action';
+import { GetOperatorAction } from './infra/http/action/operator/get-operator.action';
+import { UpdateOperatorAction } from './infra/http/action/operator/update-operator.action';
+import { DeleteOperatorAction } from './infra/http/action/operator/delete-operator.action';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { AirframesModule } from '../airframes/airframes.module';
 import { OperatorsRepository } from './infra/database/repository/operators.repository';
@@ -10,7 +14,11 @@ import { GetOperatorByIdHandler } from './application/query/get-operator-by-id.q
 import { ListAllOperatorsHandler } from './application/query/list-all-operators.query';
 import { CheckOperatorExistsHandler } from './application/query/check-operator-exists.query';
 import { GetOperatorByIcaoCodeHandler } from './application/query/get-operator-by-icao-code.query';
-import { AircraftController } from './infra/http/controller/aircraft.controller';
+import { CreateAircraftAction } from './infra/http/action/aircraft/create-aircraft.action';
+import { ListAircraftAction } from './infra/http/action/aircraft/list-aircraft.action';
+import { GetAircraftAction } from './infra/http/action/aircraft/get-aircraft.action';
+import { UpdateAircraftAction } from './infra/http/action/aircraft/update-aircraft.action';
+import { DeleteAircraftAction } from './infra/http/action/aircraft/delete-aircraft.action';
 import { GetAircraftFlightHistoryAction } from './infra/http/action/get-aircraft-flight-history.action';
 import { CreateAircraftHandler } from './application/command/aircraft/create-aircraft.command';
 import { AircraftRepository } from './infra/database/repository/aircraft.repository';
@@ -20,14 +28,18 @@ import { GetAircraftByRegistrationHandler } from './application/query/aircraft/g
 import { CheckAircraftExistsHandler } from './application/query/aircraft/check-aircraft-exists.query';
 import { RemoveAircraftHandler } from './application/command/aircraft/remove-aircraft.command';
 import { UpdateAircraftHandler } from './application/command/aircraft/update-aircraft.command';
-import { RotationsController } from './infra/http/controller/rotations.controller';
+import { CreateRotationAction } from './infra/http/action/rotation/create-rotation.action';
+import { ListRotationsAction } from './infra/http/action/rotation/list-rotations.action';
+import { GetRotationAction } from './infra/http/action/rotation/get-rotation.action';
+import { UpdateRotationAction } from './infra/http/action/rotation/update-rotation.action';
+import { DeleteRotationAction } from './infra/http/action/rotation/delete-rotation.action';
 import { RotationsRepository } from './infra/database/repository/rotations.repository';
 import { CreateRotationHandler } from './application/command/rotation/create-rotation.command';
 import { GetRotationByIdHandler } from './application/query/rotation/get-rotation-by-id.query';
 import { ListAllRotationsQueryHandler } from './application/query/rotation/list-all-rotations.query';
 import { RemoveRotationHandler } from './application/command/rotation/remove-rotation.command';
 import { UpdateRotationHandler } from './application/command/rotation/update-rotation.command';
-import { AssertRotationExistsHandler } from './application/query/rotation/assert-rotation-exists.query';
+import { AssertRotationExistsHandler } from './application/assert/assert-rotation-exists.query';
 import { AircraftLifecycleListener } from './application/event/internal/aircraft-lifecycle.listener';
 import { OperatorCacheListener } from './application/event/internal/operator-cache.listener';
 import { FlightLifecycleListener } from './application/event/external/flight-lifecycle.listener';
@@ -48,10 +60,22 @@ import { ListFlightCrewQueryHandler } from './application/query/crew/list-flight
 @Module({
   imports: [PrismaModule, AirframesModule],
   controllers: [
-    OperatorsController,
-    AircraftController,
+    CreateOperatorAction,
+    ListOperatorsAction,
+    GetOperatorAction,
+    UpdateOperatorAction,
+    DeleteOperatorAction,
+    CreateAircraftAction,
+    ListAircraftAction,
+    GetAircraftAction,
+    UpdateAircraftAction,
+    DeleteAircraftAction,
     GetAircraftFlightHistoryAction,
-    RotationsController,
+    CreateRotationAction,
+    ListRotationsAction,
+    GetRotationAction,
+    UpdateRotationAction,
+    DeleteRotationAction,
     CreateAircraftRepositionAction,
     ListAircraftRepositionAction,
     ListOperatorCrewAction,

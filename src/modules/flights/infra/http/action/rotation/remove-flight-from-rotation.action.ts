@@ -12,7 +12,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { CommandBus } from '@nestjs/cqrs';
-import { UserRole } from '../../../../../../../prisma/client/enums';
+import { UserRole } from '../../../../../users/model/user-role';
 import { GenericBadRequestResponse } from '../../../../../../core/http/response/bad-request.response';
 import { GenericNotFoundResponse } from '../../../../../../core/http/response/not-found.response';
 import { GenericConflictResponse } from '../../../../../../core/http/response/conflict.response';

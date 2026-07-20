@@ -268,7 +268,7 @@ Feature: Declare a flight emergency
       """json
       {
         "statusCode": 422,
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "message": "Emergency can only be declared between off-block and on-block reports."
       }
       """

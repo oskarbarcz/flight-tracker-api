@@ -185,7 +185,7 @@ Feature: Update an active flight emergency
       """json
       {
         "statusCode": 422,
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "message": "This emergency has already been resolved."
       }
       """

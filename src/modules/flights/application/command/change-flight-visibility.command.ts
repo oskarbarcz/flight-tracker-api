@@ -1,8 +1,7 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightTracking } from '../../model/flight.model';
-import { NotFoundException } from '@nestjs/common';
-import { FlightDoesNotExistError } from '../../infra/http/request/errors.dto';
+import { FlightDoesNotExistError } from '../../model/error/flight.error';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 
 export class ChangeFlightVisibilityCommand {
@@ -25,7 +24,7 @@ export class ChangeFlightVisibilityHandler implements ICommandHandler<ChangeFlig
     const flight = await this.queryBus.execute(query);
 
     if (!flight) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     await this.flightsRepository.updateVisibility(flightId, visibility);

@@ -1,8 +1,8 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { GetAirportResponse } from '../../infra/http/request/airport.dto';
-import { NotFoundException } from '@nestjs/common';
 import { AirportsRepository } from '../../infra/database/airports.repository';
 import { Continent, Coordinates } from '../../model/airport.model';
+import { AirportNotFoundError } from '../../model/error/airport.error';
 
 export class GetAirportByIdQuery extends Query<GetAirportResponse> {
   constructor(public readonly airportId: string) {
@@ -18,7 +18,7 @@ export class GetAirportByIdHandler implements IQueryHandler<GetAirportByIdQuery>
     const airport = await this.repository.findOneBy({ id: query.airportId });
 
     if (!airport) {
-      throw new NotFoundException('Airport with given id does not exist.');
+      throw new AirportNotFoundError();
     }
 
     return {

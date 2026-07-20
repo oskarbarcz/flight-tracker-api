@@ -8,15 +8,16 @@ import {
   OnBlockWasReportedEvent,
   FlightWasClosedEvent,
 } from '../../../../../core/domain/events/dto/flight.events';
+import { QueryBus } from '@nestjs/cqrs';
 import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
 import { AircraftState } from '../../../model/aircraft.model';
-import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
+import { GetArrivalParkingPositionQuery } from '../../../../flights/application/query/get-arrival-parking-position.query';
 
 @Injectable()
 export class FlightLifecycleListener {
   constructor(
     private readonly aircraftRepository: AircraftRepository,
-    private readonly prisma: PrismaService,
+    private readonly queryBus: QueryBus,
   ) {}
 
   @OnEvent(FlightEventType.FlightWasCreated)
@@ -50,15 +51,17 @@ export class FlightLifecycleListener {
       AircraftState.Idle,
     );
 
-    const flight = await this.prisma.flight.findUnique({
-      where: { id: event.payload.flightId },
-      select: { arrivalParkingPositionId: true },
-    });
+    const arrivalParkingPositionQuery = new GetArrivalParkingPositionQuery(
+      event.payload.flightId,
+    );
+    const arrivalParkingPositionId = await this.queryBus.execute(
+      arrivalParkingPositionQuery,
+    );
 
     await this.aircraftRepository.updateLastLocation(
       event.payload.aircraftId,
       event.payload.landingAirportId,
-      flight?.arrivalParkingPositionId ?? null,
+      arrivalParkingPositionId,
       new Date(),
     );
   }

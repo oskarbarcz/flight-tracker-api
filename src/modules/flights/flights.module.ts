@@ -100,6 +100,10 @@ import { ReportDelayHandler } from './application/command/delay/report-delay.com
 import { RemoveDelayReportHandler } from './application/command/delay/remove-delay-report.command';
 import { AcceptDelayReportHandler } from './application/command/delay/accept-delay-report.command';
 import { RejectDelayReportHandler } from './application/command/delay/reject-delay-report.command';
+import { GetArrivalParkingPositionHandler } from './application/query/get-arrival-parking-position.query';
+import { GetRepositionDataHandler } from './application/query/reposition/get-reposition-data.query';
+import { GetFlightCompletionStatsHandler } from './application/query/get-flight-completion-stats.query';
+import { GetLastFlightInRotationHandler } from './application/query/rotation/get-last-flight-in-rotation.query';
 import { GetDelayRequestAction } from './infra/http/action/delay/get-delay-request.action';
 import { ListDelayReportsAction } from './infra/http/action/delay/list-delay-reports.action';
 import { ReportDelayAction } from './infra/http/action/delay/report-delay.action';
@@ -215,6 +219,10 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     RemoveDelayReportHandler,
     AcceptDelayReportHandler,
     RejectDelayReportHandler,
+    GetArrivalParkingPositionHandler,
+    GetRepositionDataHandler,
+    GetFlightCompletionStatsHandler,
+    GetLastFlightInRotationHandler,
   ],
 })
 export class FlightsModule {}

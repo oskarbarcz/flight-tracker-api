@@ -257,7 +257,7 @@ Feature: Update flight arrival parking position
       """json
       {
         "message": "Cannot update arrival parking position after on-block was reported.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """
@@ -273,7 +273,7 @@ Feature: Update flight arrival parking position
       """json
       {
         "message": "Cannot update arrival parking position after on-block was reported.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """
@@ -289,7 +289,7 @@ Feature: Update flight arrival parking position
       """json
       {
         "message": "Parking position does not belong to the given airport.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """

@@ -410,7 +410,7 @@ Feature: Update flight departure runway
       """json
       {
         "message": "Cannot update departure runway after takeoff.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """
@@ -426,7 +426,7 @@ Feature: Update flight departure runway
       """json
       {
         "message": "Cannot update departure runway after takeoff.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """
@@ -442,7 +442,7 @@ Feature: Update flight departure runway
       """json
       {
         "message": "Runway does not belong to the given airport.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """

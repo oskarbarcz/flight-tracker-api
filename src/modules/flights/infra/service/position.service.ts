@@ -60,7 +60,7 @@ export class PositionService {
     const flightId = event.payload.flightId;
 
     try {
-      const flight = await this.flightsRepository.getOneById(flightId);
+      const flight = await this.flightsRepository.findById(flightId);
       const callsign = trimCallsign(flight.callsign);
 
       const track = await this.adsbClient.getTrackHistory(callsign);

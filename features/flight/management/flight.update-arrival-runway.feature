@@ -256,7 +256,7 @@ Feature: Update flight arrival runway
       """json
       {
         "message": "Cannot update arrival runway after taxiing in.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """
@@ -272,7 +272,7 @@ Feature: Update flight arrival runway
       """json
       {
         "message": "Cannot update arrival runway after taxiing in.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """
@@ -288,7 +288,7 @@ Feature: Update flight arrival runway
       """json
       {
         "message": "Runway does not belong to the given airport.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """

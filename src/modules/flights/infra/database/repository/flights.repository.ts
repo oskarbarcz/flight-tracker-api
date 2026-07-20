@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   Flight,
   FlightOfpDetails,
@@ -13,7 +13,7 @@ import {
   CreateFlightRequest,
   FlightListFilters,
 } from '../../http/request/flight.dto';
-import { FullTimesheet } from '../../../model/timesheet.model';
+import { FilledTimesheet, FullTimesheet } from '../../../model/timesheet.model';
 import { Loadsheets } from '../../../model/loadsheet.model';
 import {
   AdsbFlightTrack,
@@ -25,7 +25,9 @@ import {
   AlternateAirportNotFoundError,
   DepartureAirportNotFoundError,
   DestinationAirportNotFoundError,
-} from '../../http/request/errors.dto';
+  FlightDoesNotExistError,
+  FlightOfpNotFoundError,
+} from '../../../model/error/flight.error';
 import { UnresolvedEmergencyCannotCloseFlightError } from '../../../model/error/emergency.error';
 import { Prisma } from '../../../../../../prisma/client/client';
 import { Airframe } from '../../../../airframes/model/airframe.model';
@@ -134,6 +136,45 @@ const flightIdAndCallsign = {
   callsign: true,
 } as const satisfies Prisma.FlightSelect;
 
+const repositionFlightFields = {
+  source: true,
+  greatCircleDistance: true,
+  airports: {
+    select: {
+      airportType: true,
+      airport: { select: { id: true, location: true } },
+    },
+  },
+} as const satisfies Prisma.FlightSelect;
+
+const flightCompletionStatsFields = {
+  captainId: true,
+  greatCircleDistance: true,
+  totalFuelBurned: true,
+  timesheet: true,
+} as const satisfies Prisma.FlightSelect;
+
+type RepositionAirport = {
+  id: string;
+  location: { latitude: number; longitude: number };
+};
+
+export type RepositionFlightData = {
+  source: Prisma.FlightGetPayload<{
+    select: typeof repositionFlightFields;
+  }>['source'];
+  greatCircleDistance: number;
+  departure: RepositionAirport;
+  destination: RepositionAirport;
+};
+
+export type FlightCompletionStats = {
+  captainId: string | null;
+  greatCircleDistance: number;
+  totalFuelBurned: number;
+  timesheet: FilledTimesheet;
+};
+
 type FlightWithRawAircraft = Prisma.FlightGetPayload<{
   select: typeof flightWithAircraftAndAirportsFields;
 }>;
@@ -202,18 +243,18 @@ export class FlightsRepository {
     flightData: CreateFlightRequest,
   ): Promise<void> {
     if (!(await this.airportExist(flightData.departureAirportId))) {
-      throw new NotFoundException(DepartureAirportNotFoundError);
+      throw new DepartureAirportNotFoundError();
     }
 
     if (!(await this.airportExist(flightData.destinationAirportId))) {
-      throw new NotFoundException(DestinationAirportNotFoundError);
+      throw new DestinationAirportNotFoundError();
     }
 
     const alternateAirports = flightData.alternateAirports ?? [];
 
     for (const alternate of alternateAirports) {
       if (!(await this.airportExist(alternate.airportId))) {
-        throw new NotFoundException(AlternateAirportNotFoundError);
+        throw new AlternateAirportNotFoundError();
       }
     }
 
@@ -302,7 +343,7 @@ export class FlightsRepository {
     });
 
     if (!data) {
-      throw new NotFoundException('Flight with given id does not exist.');
+      throw new FlightDoesNotExistError();
     }
 
     const positionReports =
@@ -323,15 +364,13 @@ export class FlightsRepository {
     });
 
     if (!data) {
-      throw new NotFoundException(
-        'Flight with given id does not exist or no OFP for flight',
-      );
+      throw new FlightOfpNotFoundError();
     }
 
     return data as FlightOfpDetails;
   }
 
-  async getOneById(id: string): Promise<FlightResponse> {
+  async findById(id: string): Promise<FlightResponse> {
     const flight = await this.findOneBy({ id });
     if (!flight) {
       throw new Error(`Flight with id ${id} not found.`);
@@ -649,5 +688,81 @@ export class FlightsRepository {
         data: { updatedAt: new Date() },
       }),
     ]);
+  }
+
+  async getArrivalParkingPositionId(flightId: string): Promise<string | null> {
+    const flight = await this.prisma.flight.findUnique({
+      where: { id: flightId },
+      select: { arrivalParkingPositionId: true },
+    });
+
+    return flight?.arrivalParkingPositionId ?? null;
+  }
+
+  async getRepositionData(
+    flightId: string,
+  ): Promise<RepositionFlightData | null> {
+    const flight = await this.prisma.flight.findUnique({
+      where: { id: flightId },
+      select: repositionFlightFields,
+    });
+
+    const departure = flight?.airports.find(
+      (a) => a.airportType === AirportType.Departure,
+    );
+    const destination = flight?.airports.find(
+      (a) => a.airportType === AirportType.Destination,
+    );
+
+    if (!flight || !departure || !destination) {
+      return null;
+    }
+
+    return {
+      source: flight.source,
+      greatCircleDistance: flight.greatCircleDistance,
+      departure: {
+        id: departure.airport.id,
+        location: departure.airport.location as unknown as {
+          latitude: number;
+          longitude: number;
+        },
+      },
+      destination: {
+        id: destination.airport.id,
+        location: destination.airport.location as unknown as {
+          latitude: number;
+          longitude: number;
+        },
+      },
+    };
+  }
+
+  async getCompletionStats(flightId: string): Promise<FlightCompletionStats> {
+    const flight = await this.prisma.flight.findUnique({
+      where: { id: flightId },
+      select: flightCompletionStatsFields,
+    });
+
+    if (!flight) {
+      throw new FlightDoesNotExistError();
+    }
+
+    return {
+      captainId: flight.captainId,
+      greatCircleDistance: flight.greatCircleDistance,
+      totalFuelBurned: flight.totalFuelBurned,
+      timesheet: flight.timesheet as FilledTimesheet,
+    };
+  }
+
+  async getLastFlightIdInRotation(rotationId: string): Promise<string | null> {
+    const flight = await this.prisma.flight.findFirst({
+      select: { id: true },
+      where: { rotationId },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return flight?.id ?? null;
   }
 }

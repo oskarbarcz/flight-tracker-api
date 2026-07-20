@@ -660,7 +660,7 @@ Feature: Update flight predicted timesheet
       """json
       {
         "message": "Cannot update predicted off-block time after flight has reported off-block.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """
@@ -676,7 +676,7 @@ Feature: Update flight predicted timesheet
       """json
       {
         "message": "Cannot update predicted takeoff time after flight has reported takeoff.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """
@@ -692,7 +692,7 @@ Feature: Update flight predicted timesheet
       """json
       {
         "message": "Cannot update predicted arrival time after flight has reported arrival.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """
@@ -708,7 +708,7 @@ Feature: Update flight predicted timesheet
       """json
       {
         "message": "Cannot update predicted on-block time after flight has reported on-block.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """
@@ -737,7 +737,7 @@ Feature: Update flight predicted timesheet
       """json
       {
         "message": "Cannot update predicted on-block time after flight has reported on-block.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """

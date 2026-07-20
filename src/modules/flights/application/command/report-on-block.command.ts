@@ -2,13 +2,9 @@ import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
 import {
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
-import {
   FlightDoesNotExistError,
   InvalidStatusToReportOnBlockError,
-} from '../../infra/http/request/errors.dto';
+} from '../../model/error/flight.error';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { DiversionRepository } from '../../infra/database/repository/diversion.repository';
 import { OnBlockWasReportedEvent } from '../../../../core/domain/events/dto/flight.events';
@@ -39,11 +35,11 @@ export class ReportOnBlockHandler implements ICommandHandler<ReportOnBlockComman
     const flight = await this.queryBus.execute(query);
 
     if (!flight) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     if (flight.status !== FlightStatus.TaxiingIn) {
-      throw new UnprocessableEntityException(InvalidStatusToReportOnBlockError);
+      throw new InvalidStatusToReportOnBlockError();
     }
 
     const timesheet = flight.timesheet as { actual: Schedule };

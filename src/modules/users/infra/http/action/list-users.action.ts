@@ -1,10 +1,4 @@
-import {
-  Controller,
-  ForbiddenException,
-  Get,
-  Query,
-  Req,
-} from '@nestjs/common';
+import { Controller, Get, Query, Req } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiForbiddenResponse,
@@ -21,7 +15,8 @@ import { UnauthorizedResponse } from '../../../../../core/http/response/unauthor
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
 import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
-import { UserRole } from '../../../../../../prisma/client/enums';
+import { UserRole } from '../../../model/user-role';
+import { ListUsersForbiddenError } from '../../../model/error/user.error';
 
 @ApiTags('user')
 @Controller('/api/v1/user')
@@ -66,7 +61,7 @@ export class ListUsersAction {
       !filters.pilotLicenseId
     ) {
       // operations can only retrieve users by pilot license ID
-      throw new ForbiddenException();
+      throw new ListUsersForbiddenError();
     }
 
     const query = new ListUsersQuery(filters);

@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
 import { FlightsRepository } from '../../../infra/database/repository/flights.repository';
-import { AssertRotationExistsQuery } from '../../../../operators/application/query/rotation/assert-rotation-exists.query';
+import { AssertRotationExistsQuery } from '../../../../operators/application/assert/assert-rotation-exists.query';
 import {
   FlightIncorrectStateToChangeRotationError,
   FlightNotFoundError,

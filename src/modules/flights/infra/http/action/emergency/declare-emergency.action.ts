@@ -13,7 +13,7 @@ import {
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { CommandBus } from '@nestjs/cqrs';
-import { UserRole } from 'prisma/client/client';
+import { UserRole } from '../../../../../users/model/user-role';
 import {
   DeclareEmergencyRequest,
   GetEmergencyResponse,

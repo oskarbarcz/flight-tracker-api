@@ -1,11 +1,10 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
 import {
   FlightDoesNotExistError,
-  ScheduledFlightCannotBeRemoved,
-} from '../../infra/http/request/errors.dto';
+  ScheduledFlightCannotBeRemovedError,
+} from '../../model/error/flight.error';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 
 export class RemoveFlightCommand {
@@ -25,11 +24,11 @@ export class RemoveFlightHandler implements ICommandHandler<RemoveFlightCommand>
     const flight = await this.queryBus.execute(query);
 
     if (!flight) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     if (flight.status !== FlightStatus.Created) {
-      throw new BadRequestException(ScheduledFlightCannotBeRemoved);
+      throw new ScheduledFlightCannotBeRemovedError();
     }
 
     await this.flightsRepository.remove(flightId);

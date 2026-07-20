@@ -1,11 +1,11 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../core/provider/prisma/prisma.service';
 import { Airport, Prisma } from 'prisma/client/client';
-import { AirportInUseError } from '../http/request/errors.dto';
+import {
+  AirportIcaoAlreadyExistsError,
+  AirportInUseError,
+  AirportNotFoundError,
+} from '../../model/error/airport.error';
 import {
   AirportListFilters,
   CreateAirportRequest,
@@ -40,9 +40,7 @@ export class AirportsRepository {
     const airport = await this.findOneBy({ icaoCode: data.icaoCode });
 
     if (airport) {
-      throw new BadRequestException(
-        'Aircraft with given ICAO code already exists.',
-      );
+      throw new AirportIcaoAlreadyExistsError();
     }
 
     return this.prisma.airport.create({
@@ -68,11 +66,11 @@ export class AirportsRepository {
     });
   }
 
-  async findOne(id: string): Promise<AirportView> {
+  async findById(id: string): Promise<AirportView> {
     const airport = await this.findOneBy({ id });
 
     if (!airport) {
-      throw new NotFoundException('Airport with given id does not exist.');
+      throw new AirportNotFoundError();
     }
 
     return airport;
@@ -82,7 +80,7 @@ export class AirportsRepository {
     const airport = await this.findOneBy({ id });
 
     if (!airport) {
-      throw new NotFoundException('Airport with given id does not exist.');
+      throw new AirportNotFoundError();
     }
 
     return this.prisma.airport.update({
@@ -105,7 +103,7 @@ export class AirportsRepository {
     const airport = await this.findOneBy({ id });
 
     if (!airport) {
-      throw new NotFoundException('Airport with given id does not exist.');
+      throw new AirportNotFoundError();
     }
 
     const connectedAirports = await this.prisma.airportsOnFlights.count({
@@ -113,7 +111,7 @@ export class AirportsRepository {
     });
 
     if (connectedAirports > 0) {
-      throw new BadRequestException(AirportInUseError);
+      throw new AirportInUseError();
     }
 
     await this.prisma.airport.delete({ where: { id } });

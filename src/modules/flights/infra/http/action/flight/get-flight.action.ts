@@ -1,4 +1,4 @@
-import { Controller, Get, NotFoundException, Req } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiNotFoundResponse,
@@ -15,7 +15,7 @@ import { UuidParam } from '../../../../../../core/validation/uuid.param';
 import { SkipAuth } from '../../../../../../core/http/auth/decorator/skip-auth.decorator';
 import { AuthorizedRequest } from '../../../../../../core/http/request/authorized.request';
 import { FlightTracking } from '../../../../model/flight.model';
-import { FlightDoesNotExistError } from '../../request/errors.dto';
+import { FlightDoesNotExistError } from '../../../../model/error/flight.error';
 import { GetFlightQuery } from '../../../../application/query/get-flight.query';
 import { GetFlightTrackingQuery } from '../../../../application/query/get-flight-tracking.query';
 
@@ -42,11 +42,11 @@ export class GetFlightAction {
     const tracking = await this.queryBus.execute(trackingQuery);
 
     if (!tracking) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     if (!request.user && tracking === FlightTracking.Disabled) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     const query = new GetFlightQuery(id);

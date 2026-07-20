@@ -16,7 +16,7 @@ export class GetAirportWeatherHandler implements IQueryHandler<GetAirportWeather
   async execute(
     query: GetAirportWeatherQuery,
   ): Promise<GetAirportWeatherResponse> {
-    const weather = await this.repository.getByAirportId(query.airportId);
+    const weather = await this.repository.findByAirportId(query.airportId);
 
     if (!weather) {
       throw new AirportWeatherNotFoundError();

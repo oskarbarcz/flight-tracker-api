@@ -2,13 +2,9 @@ import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
 import {
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
-import {
   FlightDoesNotExistError,
   InvalidStatusToUpdateLoadsheetError,
-} from '../../infra/http/request/errors.dto';
+} from '../../model/error/flight.error';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { Loadsheet, Loadsheets } from '../../model/loadsheet.model';
 import { PreliminaryLoadsheetWasUpdatedEvent } from '../../../../core/domain/events/dto/flight.events';
@@ -38,13 +34,11 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
     const flight = await this.queryBus.execute(query);
 
     if (!flight) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     if (flight.status !== FlightStatus.Created) {
-      throw new UnprocessableEntityException(
-        InvalidStatusToUpdateLoadsheetError,
-      );
+      throw new InvalidStatusToUpdateLoadsheetError();
     }
 
     assertFuelBreakdownConsistent(loadsheet);

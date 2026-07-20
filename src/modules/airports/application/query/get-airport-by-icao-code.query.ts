@@ -1,8 +1,8 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { AirportsRepository } from '../../infra/database/airports.repository';
 import { GetAirportResponse } from '../../infra/http/request/airport.dto';
-import { NotFoundException } from '@nestjs/common';
 import { Continent, Coordinates } from '../../model/airport.model';
+import { AirportByIcaoCodeNotFoundError } from '../../model/error/airport.error';
 
 export class GetAirportByIcaoCodeQuery extends Query<GetAirportResponse> {
   constructor(public readonly icaoCode: string) {
@@ -20,9 +20,7 @@ export class GetAirportByIcaoCodeHandler implements IQueryHandler<GetAirportByIc
     });
 
     if (!airport) {
-      throw new NotFoundException(
-        'Airport with given ICAO code does not exist.',
-      );
+      throw new AirportByIcaoCodeNotFoundError();
     }
 
     return {

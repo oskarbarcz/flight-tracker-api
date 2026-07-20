@@ -1,5 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
+import { FlightWithIdDoesNotExistError } from '../../../model/error/flight.error';
 import { OnEvent } from '@nestjs/event-emitter';
 import {
   FlightEventType,
@@ -31,7 +32,7 @@ export class EventsRepository {
 
   async findForFlight(flightId: string): Promise<FlightEventWithActor[]> {
     if (!(await this.flightExists(flightId))) {
-      throw new NotFoundException(`Flight with given ID does not exist.`);
+      throw new FlightWithIdDoesNotExistError();
     }
 
     return this.prisma.flightEvent.findMany({
