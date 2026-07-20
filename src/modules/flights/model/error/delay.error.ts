@@ -1,16 +1,16 @@
 import {
-  ConflictException,
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+  ConflictError,
+  NotFoundError,
+  UnprocessableError,
+} from '../../../../core/errors/domain-error';
 
-export class DelayRequestNotFoundError extends NotFoundException {
+export class DelayRequestNotFoundError extends NotFoundError {
   constructor() {
     super('This flight has no delay request.');
   }
 }
 
-export class DelayReportNotFoundError extends NotFoundException {
+export class DelayReportNotFoundError extends NotFoundError {
   constructor() {
     super(
       'Delay allocation report with given id does not exist for this flight.',
@@ -18,7 +18,7 @@ export class DelayReportNotFoundError extends NotFoundException {
   }
 }
 
-export class DelayReportAlreadyAcceptedError extends ConflictException {
+export class DelayReportAlreadyAcceptedError extends ConflictError {
   constructor() {
     super(
       'This delay allocation report has already been accepted and is frozen.',
@@ -26,7 +26,7 @@ export class DelayReportAlreadyAcceptedError extends ConflictException {
   }
 }
 
-export class FlightHasUnacceptedDelayError extends UnprocessableEntityException {
+export class FlightHasUnacceptedDelayError extends UnprocessableError {
   constructor() {
     super(
       'Cannot close flight: its delay must be fully allocated and every report accepted.',

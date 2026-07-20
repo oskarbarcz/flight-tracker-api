@@ -10,7 +10,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { UserRole } from 'prisma/client/client';
+import { UserRole } from '../../../../../users/model/user-role';
 import { UnassignCrewMemberFromFlightCommand } from '../../../../../operators/application/command/crew/unassign-crew-member-from-flight.command';
 import { GetFlightQuery } from '../../../../application/query/get-flight.query';
 import { assertCrewIsModifiable } from '../../../../model/crew-assignment.policy';

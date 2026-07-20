@@ -10,7 +10,7 @@ import {
   FlightPilotDto,
 } from '../../http/request/get-user.dto';
 import { User } from '../../../../../../prisma/client/client';
-import { UserRole } from '../../../../../../prisma/client/enums';
+import { UserRole } from '../../../model/user-role';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
 import { CACHE_KEYS, cacheByUser } from '../../../../../core/cache/cache.key';
@@ -20,6 +20,7 @@ import {
   OnlyCabinCrewCanHavePilotLicenseError,
   UserEmailAlreadyExistsError,
   UserNotFoundError,
+  UserWithGivenIdNotFoundError,
 } from '../../../model/error/user.error';
 
 // Correctness comes from explicit invalidation whenever the underlying user
@@ -83,7 +84,7 @@ export class UsersRepository {
     return users.map((user) => this.returnWithoutPassword(user));
   }
 
-  async findOne(id: string): Promise<GetUserDto> {
+  async findById(id: string): Promise<GetUserDto> {
     const user: User | null = await this.findOneBy({ id });
 
     if (!user) {
@@ -287,5 +288,28 @@ export class UsersRepository {
     const count = await this.prisma.user.count({ where: { id } });
 
     return count > 0;
+  }
+
+  async getTravelProfile(userId: string) {
+    return this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        role: true,
+        lastAirportId: true,
+        lastAirport: { select: { location: true } },
+      },
+    });
+  }
+
+  async getSimbriefUserId(userId: string): Promise<string | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new UserWithGivenIdNotFoundError();
+    }
+
+    return user.simbriefUserId;
   }
 }

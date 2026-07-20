@@ -1,11 +1,10 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
-import { UnprocessableEntityException } from '@nestjs/common';
 import {
   InvalidStatusToMarkAsReadyError,
   PreliminaryLoadsheetMissingError,
-} from '../../infra/http/request/errors.dto';
+} from '../../model/error/flight.error';
 import { FlightWasReleasedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
@@ -33,11 +32,11 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
     const flight = await this.queryBus.execute(query);
 
     if (flight.status !== FlightStatus.Created) {
-      throw new UnprocessableEntityException(InvalidStatusToMarkAsReadyError);
+      throw new InvalidStatusToMarkAsReadyError();
     }
 
     if (!flight.loadsheets.preliminary) {
-      throw new UnprocessableEntityException(PreliminaryLoadsheetMissingError);
+      throw new PreliminaryLoadsheetMissingError();
     }
 
     await this.flightsRepository.updateStatus(flightId, FlightStatus.Ready);

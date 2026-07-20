@@ -10,7 +10,7 @@ import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { CheckUserExistsHandler } from './application/query/check-user-exists.query';
 import { GetUserSimbriefIdHandler } from './application/query/get-user-simbrief-id.query';
 import { GetUserStatsHandler } from './application/query/get-user-stats.query';
-import { AssertUserExistsHandler } from './application/query/assert-user-exists.query';
+import { AssertUserExistsHandler } from './application/assert/assert-user-exists.query';
 import { CreateUserHandler } from './application/command/create-user.command';
 import { UpdateUserHandler } from './application/command/update-user.command';
 import { GetUserByIdHandler } from './application/query/get-user-by-id.query';

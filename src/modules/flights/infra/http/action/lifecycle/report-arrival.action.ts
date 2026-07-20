@@ -11,7 +11,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { CommandBus } from '@nestjs/cqrs';
-import { UserRole } from 'prisma/client/client';
+import { UserRole } from '../../../../../users/model/user-role';
 import { GenericBadRequestResponse } from '../../../../../../core/http/response/bad-request.response';
 import { GenericNotFoundResponse } from '../../../../../../core/http/response/not-found.response';
 import { UnauthorizedResponse } from '../../../../../../core/http/response/unauthorized.response';

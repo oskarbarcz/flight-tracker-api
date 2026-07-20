@@ -94,7 +94,7 @@ Feature: Unassign a crew member from a flight
       """json
       {
         "message": "Cannot assign or unassign crew after boarding has finished.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """

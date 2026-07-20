@@ -2,13 +2,9 @@ import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
 import {
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
-import {
   FlightDoesNotExistError,
   InvalidStatusToFinishOffboardingError,
-} from '../../infra/http/request/errors.dto';
+} from '../../model/error/flight.error';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { OffboardingWasFinishedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
@@ -35,13 +31,11 @@ export class FinishOffboardingHandler implements ICommandHandler<FinishOffboardi
     const flight = await this.queryBus.execute(query);
 
     if (!flight) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     if (flight.status !== FlightStatus.OffboardingStarted) {
-      throw new UnprocessableEntityException(
-        InvalidStatusToFinishOffboardingError,
-      );
+      throw new InvalidStatusToFinishOffboardingError();
     }
 
     await this.flightsRepository.updateStatus(

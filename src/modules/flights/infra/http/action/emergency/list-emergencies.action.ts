@@ -9,7 +9,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
-import { UserRole } from 'prisma/client/client';
+import { UserRole } from '../../../../../users/model/user-role';
 import { GetEmergencyResponse } from '../../request/emergency.dto';
 import { UnauthorizedResponse } from '../../../../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../../../../core/http/response/forbidden.response';

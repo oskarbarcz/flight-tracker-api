@@ -360,7 +360,7 @@ Feature: Finish flight boarding
       """json
       {
         "message": "Fuel breakdown block must equal the loadsheet block fuel.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """

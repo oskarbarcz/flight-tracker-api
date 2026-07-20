@@ -1,5 +1,6 @@
 import { Logger, UsePipes, ValidationPipe } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 import { QueryBus } from '@nestjs/cqrs';
 import {
   ConnectedSocket,
@@ -10,7 +11,7 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import type { Namespace, Socket } from 'socket.io';
-import { UserRole } from 'prisma/client/client';
+import { UserRole } from '../../../users/model/user-role';
 import { getWebsocketCorsOptions } from '../../../../core/http/cors/cors.config';
 import {
   JwtTokenType,
@@ -46,6 +47,7 @@ export class FlightEventsGateway implements OnGatewayConnection {
   constructor(
     private readonly jwtService: JwtService,
     private readonly queryBus: QueryBus,
+    private readonly config: ConfigService,
   ) {}
 
   async handleConnection(socket: AuthedSocket): Promise<void> {
@@ -60,7 +62,7 @@ export class FlightEventsGateway implements OnGatewayConnection {
 
     try {
       const payload = await this.jwtService.verifyAsync<JwtUser>(token, {
-        publicKey: process.env.JWT_PUBLIC_KEY,
+        publicKey: this.config.getOrThrow<string>('JWT_PUBLIC_KEY'),
       });
 
       if (payload.type !== JwtTokenType.Access) {

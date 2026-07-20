@@ -11,7 +11,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { CommandBus } from '@nestjs/cqrs';
-import { UserRole } from 'prisma/client/client';
+import { UserRole } from '../../../../../users/model/user-role';
 import { UuidParam } from '../../../../../../core/validation/uuid.param';
 import { Role } from '../../../../../../core/http/auth/decorator/role.decorator';
 import { GenericBadRequestResponse } from '../../../../../../core/http/response/bad-request.response';

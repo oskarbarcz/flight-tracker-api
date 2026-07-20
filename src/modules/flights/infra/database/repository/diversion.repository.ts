@@ -5,7 +5,8 @@ import {
   ReportDiversionRequest,
   UpdateDiversionRequest,
 } from '../../http/request/diversion.dto';
-import { Prisma, UserRole } from 'prisma/client/client';
+import { Prisma } from 'prisma/client/client';
+import { UserRole } from '../../../../users/model/user-role';
 import { JwtUser } from '../../../../auth/infra/http/request/jwt-user.dto';
 import {
   DiversionReason,

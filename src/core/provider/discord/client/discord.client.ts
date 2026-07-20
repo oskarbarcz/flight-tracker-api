@@ -3,6 +3,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { DiscordMessage } from '../types/discord.types';
 import * as path from 'path';
 import { promises as fs } from 'fs';
+import { getErrorMessage } from '../../../utils/error-message';
+import { fetchWithRetry } from '../../http/fetch-with-retry';
 
 @Injectable()
 export class DiscordClient {
@@ -14,16 +16,25 @@ export class DiscordClient {
     this.logger.log(
       `Sending Discord ${message.type} message for flight ${message.flightId}`,
     );
-    const response = await fetch(this.webhook, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: message.content }),
-    });
 
-    if (!response.ok) {
-      throw new Error(
-        `Failed to send message to Discord: ${response.statusText}`,
+    try {
+      const response = await fetchWithRetry(this.webhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: message.content }),
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to send message to Discord: ${response.statusText}`,
+        );
+      }
+    } catch (error) {
+      const errorMessage = getErrorMessage(error);
+      this.logger.error(
+        `Error sending Discord ${message.type} message for flight ${message.flightId}: ${errorMessage}`,
       );
+      throw error;
     }
   }
 }

@@ -1,6 +1,6 @@
-import { NotFoundException } from '@nestjs/common';
+import { NotFoundError } from '../../../../core/errors/domain-error';
 
-export class AirframeNotFoundError extends NotFoundException {
+export class AirframeNotFoundError extends NotFoundError {
   constructor() {
     super('Airframe with given type not found.');
   }

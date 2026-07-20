@@ -1,6 +1,6 @@
-import { NotFoundException } from '@nestjs/common';
+import { NotFoundError } from '../../../../core/errors/domain-error';
 
-export class AirportWeatherNotFoundError extends NotFoundException {
+export class AirportWeatherNotFoundError extends NotFoundError {
   constructor() {
     super('Weather for given airport does not exist.');
   }

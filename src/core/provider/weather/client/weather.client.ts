@@ -1,6 +1,8 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable, Logger } from '@nestjs/common';
 import { WeatherReportKind, WeatherReportsByIcao } from '../type/weather.types';
+import { getErrorMessage } from '../../../utils/error-message';
+import { fetchWithRetry } from '../../http/fetch-with-retry';
 
 const REPORT_TYPE_TOKENS = new Set(['METAR', 'SPECI', 'TAF']);
 
@@ -27,16 +29,27 @@ export class WeatherClient {
     }
 
     const url = `${this.baseUrl}/api/data/${kind}?ids=${icaoCodes.join(',')}`;
-    const response = await fetch(url, { headers: { Accept: 'text/plain' } });
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${kind}: ${response.statusText}`);
+    try {
+      const response = await fetchWithRetry(url, {
+        headers: { Accept: 'text/plain' },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch ${kind}: ${response.statusText}`);
+      }
+
+      const text = await response.text();
+      this.logger.log(`Fetched ${kind} for ${icaoCodes.join(',')}`);
+
+      return this.parse(text, icaoCodes);
+    } catch (error) {
+      const message = getErrorMessage(error);
+      this.logger.error(
+        `Error fetching ${kind} for ${icaoCodes.join(',')}: ${message}`,
+      );
+      throw error;
     }
-
-    const text = await response.text();
-    this.logger.log(`Fetched ${kind} for ${icaoCodes.join(',')}`);
-
-    return this.parse(text, icaoCodes);
   }
 
   private parse(text: string, icaoCodes: string[]): WeatherReportsByIcao {

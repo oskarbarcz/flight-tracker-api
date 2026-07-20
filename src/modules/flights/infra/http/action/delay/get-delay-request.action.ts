@@ -12,7 +12,7 @@ import {
 } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
 import { CacheKey, CacheTTL } from '@nestjs/cache-manager';
-import { UserRole } from 'prisma/client/client';
+import { UserRole } from '../../../../../users/model/user-role';
 import { PerFlightCacheInterceptor } from '../../../../../../core/cache/per-flight-cache.interceptor';
 import {
   CACHE_TTL_MS,

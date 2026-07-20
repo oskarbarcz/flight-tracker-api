@@ -6,7 +6,7 @@ import { PrismaService } from '../../../../../core/provider/prisma/prisma.servic
 export class SessionRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async new(userId: string, sessionId: string, token: string) {
+  async create(userId: string, sessionId: string, token: string) {
     await this.prisma.jwtRefreshToken.create({
       data: {
         id: sessionId,

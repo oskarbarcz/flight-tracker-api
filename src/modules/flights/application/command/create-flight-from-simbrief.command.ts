@@ -4,7 +4,7 @@ import {
   ICommandHandler,
   QueryBus,
 } from '@nestjs/cqrs';
-import { BadRequestException } from '@nestjs/common';
+import { SimbriefIdNotConnectedError } from '../../model/error/flight.error';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { FlightWasCreatedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
@@ -61,7 +61,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     const simbriefId = await this.queryBus.execute(getSimbriefIdQuery);
 
     if (simbriefId === null) {
-      throw new BadRequestException('User has not connected SimBrief ID.');
+      throw new SimbriefIdNotConnectedError();
     }
 
     const ofp = await this.simbriefClient.getOperationalFlightPlan(simbriefId);

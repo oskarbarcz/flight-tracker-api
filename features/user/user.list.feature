@@ -151,6 +151,7 @@ Feature: List users
       """json
       {
         "message": "Forbidden",
+        "error": "Forbidden",
         "statusCode": 403
       }
       """

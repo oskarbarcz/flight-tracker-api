@@ -2,13 +2,9 @@ import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
 import {
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
-import {
   FlightDoesNotExistError,
   InvalidStatusToStartBoardingError,
-} from '../../infra/http/request/errors.dto';
+} from '../../model/error/flight.error';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { BoardingWasStartedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
@@ -35,11 +31,11 @@ export class StartBoardingHandler implements ICommandHandler<StartBoardingComman
     const flight = await this.queryBus.execute(query);
 
     if (!flight) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     if (flight.status !== FlightStatus.CheckedIn) {
-      throw new UnprocessableEntityException(InvalidStatusToStartBoardingError);
+      throw new InvalidStatusToStartBoardingError();
     }
 
     await this.flightsRepository.updateStatus(

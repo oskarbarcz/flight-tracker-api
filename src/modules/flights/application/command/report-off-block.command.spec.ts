@@ -1,4 +1,4 @@
-import { UnprocessableEntityException } from '@nestjs/common';
+import { InvalidStatusToReportOffBlockError } from '../../model/error/flight.error';
 import {
   ReportOffBlockCommand,
   ReportOffBlockHandler,
@@ -101,7 +101,7 @@ describe('ReportOffBlockHandler', () => {
 
     await expect(
       handler.execute(new ReportOffBlockCommand(FLIGHT_ID, 'actor-1')),
-    ).rejects.toBeInstanceOf(UnprocessableEntityException);
+    ).rejects.toBeInstanceOf(InvalidStatusToReportOffBlockError);
     expect(domainEvents.emit).not.toHaveBeenCalled();
   });
 });

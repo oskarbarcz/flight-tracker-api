@@ -19,7 +19,7 @@ import {
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { CommandBus } from '@nestjs/cqrs';
-import { UserRole } from 'prisma/client/client';
+import { UserRole } from '../../../../../users/model/user-role';
 import { UpdateEmergencyRequest } from '../../request/emergency.dto';
 import { GenericNotFoundResponse } from '../../../../../../core/http/response/not-found.response';
 import { UnauthorizedResponse } from '../../../../../../core/http/response/unauthorized.response';

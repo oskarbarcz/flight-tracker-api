@@ -1,4 +1,4 @@
-import { UnprocessableEntityException } from '@nestjs/common';
+import { InvalidStatusToReportTakenOffError } from '../../model/error/flight.error';
 import {
   ReportTakeoffCommand,
   ReportTakeoffHandler,
@@ -94,7 +94,7 @@ describe('ReportTakeoffHandler', () => {
 
     await expect(
       handler.execute(new ReportTakeoffCommand(FLIGHT_ID, 'actor-1')),
-    ).rejects.toBeInstanceOf(UnprocessableEntityException);
+    ).rejects.toBeInstanceOf(InvalidStatusToReportTakenOffError);
     expect(domainEvents.emit).not.toHaveBeenCalled();
   });
 });

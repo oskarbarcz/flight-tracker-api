@@ -37,7 +37,7 @@ const ACTIVE_FLIGHT_STATUSES: FlightStatus[] = [
 export class AirportWeatherRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getByAirportId(airportId: string): Promise<AirportWeatherView | null> {
+  async findByAirportId(airportId: string): Promise<AirportWeatherView | null> {
     return this.prisma.airportWeather.findUnique({
       where: { airportId },
       select: selectWeather,

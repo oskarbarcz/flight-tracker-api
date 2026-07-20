@@ -4,11 +4,13 @@ import { configureSwagger } from './core/http/swagger/swagger.config';
 import { configureCors } from './core/http/cors/cors.config';
 import { configureInputValidation } from './core/validation/validation.config';
 import { configureHelmet } from './core/http/helmet/helmet.config';
+import { configureExceptionHandling } from './core/errors/exception.config';
 
 (async () => {
   const app = await NestFactory.create(AppModule);
 
   configureInputValidation(app);
+  configureExceptionHandling(app);
   configureSwagger(app);
   configureHelmet(app);
   configureCors(app);

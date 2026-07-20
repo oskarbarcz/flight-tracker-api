@@ -4,6 +4,7 @@ import { AdsbFlightTrack, transformPositionReport } from '../type/adsb.types';
 import * as path from 'path';
 import { promises as fs } from 'fs';
 import { getErrorMessage } from '../../../utils/error-message';
+import { fetchWithRetry } from '../../http/fetch-with-retry';
 
 @Injectable()
 export class AdsbClient {
@@ -18,7 +19,7 @@ export class AdsbClient {
     const url = `${this.baseUrl}/api/v1/position/${callsign}`;
 
     try {
-      const response = await fetch(url, {
+      const response = await fetchWithRetry(url, {
         headers: {
           Authorization: `Bearer ${this.apiKey}`,
           Accept: 'application/json',

@@ -2,13 +2,9 @@ import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
 import {
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
-import {
   FlightDoesNotExistError,
   InvalidStatusToReportOffBlockError,
-} from '../../infra/http/request/errors.dto';
+} from '../../model/error/flight.error';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { OffBlockWasReportedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
@@ -41,13 +37,11 @@ export class ReportOffBlockHandler implements ICommandHandler<ReportOffBlockComm
     const flight = await this.queryBus.execute(query);
 
     if (!flight) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     if (flight.status !== FlightStatus.BoardingFinished) {
-      throw new UnprocessableEntityException(
-        InvalidStatusToReportOffBlockError,
-      );
+      throw new InvalidStatusToReportOffBlockError();
     }
 
     const timesheet = flight.timesheet;

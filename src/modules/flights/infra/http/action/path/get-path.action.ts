@@ -1,4 +1,4 @@
-import { Controller, Get, NotFoundException, Req } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import {
   ApiForbiddenResponse,
   ApiOkResponse,
@@ -17,7 +17,7 @@ import {
   FlightPathElement,
   FlightTracking,
 } from '../../../../model/flight.model';
-import { FlightDoesNotExistError } from '../../request/errors.dto';
+import { FlightDoesNotExistError } from '../../../../model/error/flight.error';
 import { GetPathQuery } from '../../../../application/query/path/get-path.query';
 import { GetFlightTrackingQuery } from '../../../../application/query/get-flight-tracking.query';
 
@@ -44,11 +44,11 @@ export class GetPathAction {
     const tracking = await this.queryBus.execute(trackingQuery);
 
     if (!tracking) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     if (!request.user && tracking !== FlightTracking.Public) {
-      throw new NotFoundException(FlightDoesNotExistError);
+      throw new FlightDoesNotExistError();
     }
 
     const query = new GetPathQuery(id);

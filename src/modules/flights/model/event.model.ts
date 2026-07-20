@@ -4,7 +4,7 @@ import {
   FlightEventType,
 } from '../../../core/domain/events/dto/flight.events';
 import { InputJsonValue } from '../../../../prisma/client/internal/prismaNamespace';
-import { UserRole } from 'prisma/client/client';
+import { UserRole } from '../../users/model/user-role';
 import { JwtUser } from '../../auth/infra/http/request/jwt-user.dto';
 
 export { FlightEventScope };

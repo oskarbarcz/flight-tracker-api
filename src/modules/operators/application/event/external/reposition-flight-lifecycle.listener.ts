@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
+import { QueryBus } from '@nestjs/cqrs';
 import {
   FlightEventType,
   PilotCheckedInEvent,
   OnBlockWasReportedEvent,
 } from '../../../../../core/domain/events/dto/flight.events';
-import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
 import { RepositionRepository } from '../../../infra/database/repository/reposition.repository';
-import { AirportType } from '../../../../airports/model/airport.model';
+import { GetRepositionDataQuery } from '../../../../flights/application/query/reposition/get-reposition-data.query';
 import { haversineDistanceNm } from '../../../../../core/utils/distance';
 import { AircraftRepositionType, FlightSource } from 'prisma/client/enums';
 
@@ -19,7 +19,7 @@ export class RepositionFlightLifecycleListener {
   constructor(
     private readonly aircraftRepository: AircraftRepository,
     private readonly repositionRepository: RepositionRepository,
-    private readonly prisma: PrismaService,
+    private readonly queryBus: QueryBus,
   ) {}
 
   @OnEvent(FlightEventType.PilotCheckedIn)
@@ -42,49 +42,26 @@ export class RepositionFlightLifecycleListener {
     aircraftId: string,
     flightId: string,
   ): Promise<void> {
-    const aircraft = await this.prisma.aircraft.findUnique({
-      where: { id: aircraftId },
-      select: {
-        lastAirportId: true,
-        lastAirport: { select: { location: true } },
-      },
-    });
+    const aircraft =
+      await this.aircraftRepository.getRepositionOrigin(aircraftId);
 
-    const flight = await this.prisma.flight.findUnique({
-      where: { id: flightId },
-      select: {
-        source: true,
-        greatCircleDistance: true,
-        airports: {
-          select: {
-            airportType: true,
-            airport: { select: { id: true, location: true } },
-          },
-        },
-      },
-    });
+    const repositionDataQuery = new GetRepositionDataQuery(flightId);
+    const flight = await this.queryBus.execute(repositionDataQuery);
 
-    const departure = flight?.airports.find(
-      (a) => a.airportType === AirportType.Departure,
-    );
-    const destination = flight?.airports.find(
-      (a) => a.airportType === AirportType.Destination,
-    );
-
-    if (!aircraft || !flight || !departure || !destination) {
+    if (!aircraft || !flight) {
       return;
     }
 
-    const departureAirportId = departure.airport.id;
+    const { source, greatCircleDistance, departure, destination } = flight;
+    const departureAirportId = departure.id;
 
     if (
       aircraft.lastAirportId &&
       aircraft.lastAirportId !== departureAirportId
     ) {
-      // aircraft repositions from its current airport to the departure airport
       const distance = haversineDistanceNm(
         aircraft.lastAirport!.location as unknown as Coordinates,
-        departure.airport.location as unknown as Coordinates,
+        departure.location,
       );
       await this.repositionRepository.createDeadhead(
         AircraftRepositionType.dead_head_automatic,
@@ -95,7 +72,6 @@ export class RepositionFlightLifecycleListener {
         flightId,
       );
     } else if (!aircraft.lastAirportId) {
-      // no known origin: just place the aircraft at the departure airport
       await this.aircraftRepository.updateLastLocation(
         aircraftId,
         departureAirportId,
@@ -105,18 +81,15 @@ export class RepositionFlightLifecycleListener {
     }
 
     const performingDistance =
-      flight.source === FlightSource.simbrief
-        ? flight.greatCircleDistance
-        : haversineDistanceNm(
-            departure.airport.location as unknown as Coordinates,
-            destination.airport.location as unknown as Coordinates,
-          );
+      source === FlightSource.simbrief
+        ? greatCircleDistance
+        : haversineDistanceNm(departure.location, destination.location);
 
     await this.repositionRepository.createPerformingFlight(
       aircraftId,
       flightId,
       departureAirportId,
-      destination.airport.id,
+      destination.id,
       performingDistance,
     );
   }

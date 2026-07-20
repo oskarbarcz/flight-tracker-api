@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import {
+  InvalidCredentialsError,
+  InvalidRefreshTokenError,
+} from '../infra/http/request/error.dto';
 import { UsersRepository } from '../../users/infra/database/repository/users.repository';
 import { JwtService } from '@nestjs/jwt';
 import { GetUserDto } from '../../users/infra/http/request/get-user.dto';
@@ -19,22 +23,22 @@ export class AuthService {
     const user = await this.usersService.findByCredentials(email, password);
 
     if (user === null) {
-      throw new UnauthorizedException('Credentials are incorrect.');
+      throw new InvalidCredentialsError();
     }
 
     const sessionId = v4();
 
     const { accessToken, refreshToken } = await this.getTokens(user, sessionId);
-    await this.sessionRepository.new(user.id, sessionId, refreshToken);
+    await this.sessionRepository.create(user.id, sessionId, refreshToken);
 
     return { accessToken, refreshToken };
   }
 
   async refreshToken(userId: string, sessionId: string): Promise<any> {
-    const user = await this.usersService.findOne(userId);
+    const user = await this.usersService.findById(userId);
 
     if (user === null) {
-      throw new UnauthorizedException('Refresh token is not valid.');
+      throw new InvalidRefreshTokenError();
     }
 
     const { accessToken, refreshToken } = await this.getTokens(user, sessionId);

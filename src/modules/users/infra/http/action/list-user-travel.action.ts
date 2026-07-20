@@ -14,7 +14,7 @@ import { ListUserTravelQuery } from '../../../application/query/list-user-travel
 import { UuidParam } from '../../../../../core/validation/uuid.param';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
-import { UserRole } from '../../../../../../prisma/client/enums';
+import { UserRole } from '../../../model/user-role';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
 import { CannotAccessOtherUsersTravelError } from '../../../model/error/user-travel.error';
 
