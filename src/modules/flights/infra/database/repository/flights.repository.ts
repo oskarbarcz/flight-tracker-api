@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   Flight,
   FlightOfpDetails,
@@ -25,7 +25,9 @@ import {
   AlternateAirportNotFoundError,
   DepartureAirportNotFoundError,
   DestinationAirportNotFoundError,
-} from '../../http/request/errors.dto';
+  FlightDoesNotExistError,
+  FlightOfpNotFoundError,
+} from '../../../model/error/flight.error';
 import { UnresolvedEmergencyCannotCloseFlightError } from '../../../model/error/emergency.error';
 import { Prisma } from '../../../../../../prisma/client/client';
 import { Airframe } from '../../../../airframes/model/airframe.model';
@@ -202,18 +204,18 @@ export class FlightsRepository {
     flightData: CreateFlightRequest,
   ): Promise<void> {
     if (!(await this.airportExist(flightData.departureAirportId))) {
-      throw new NotFoundException(DepartureAirportNotFoundError);
+      throw new DepartureAirportNotFoundError();
     }
 
     if (!(await this.airportExist(flightData.destinationAirportId))) {
-      throw new NotFoundException(DestinationAirportNotFoundError);
+      throw new DestinationAirportNotFoundError();
     }
 
     const alternateAirports = flightData.alternateAirports ?? [];
 
     for (const alternate of alternateAirports) {
       if (!(await this.airportExist(alternate.airportId))) {
-        throw new NotFoundException(AlternateAirportNotFoundError);
+        throw new AlternateAirportNotFoundError();
       }
     }
 
@@ -302,7 +304,7 @@ export class FlightsRepository {
     });
 
     if (!data) {
-      throw new NotFoundException('Flight with given id does not exist.');
+      throw new FlightDoesNotExistError();
     }
 
     const positionReports =
@@ -323,9 +325,7 @@ export class FlightsRepository {
     });
 
     if (!data) {
-      throw new NotFoundException(
-        'Flight with given id does not exist or no OFP for flight',
-      );
+      throw new FlightOfpNotFoundError();
     }
 
     return data as FlightOfpDetails;

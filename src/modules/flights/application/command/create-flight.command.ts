@@ -1,10 +1,9 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
 import {
-  AircraftNotFoundError,
+  FlightAircraftNotFoundError,
   DestinationAirportSameAsDepartureAirportError,
   OperatorForAircraftNotFoundError,
-} from '../../infra/http/request/errors.dto';
+} from '../../model/error/flight.error';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { FlightWasCreatedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
@@ -33,23 +32,21 @@ export class CreateFlightHandler implements ICommandHandler<CreateFlightCommand>
     const { flightId, flightData, initiatorId } = command;
 
     if (flightData.departureAirportId === flightData.destinationAirportId) {
-      throw new BadRequestException(
-        DestinationAirportSameAsDepartureAirportError,
-      );
+      throw new DestinationAirportSameAsDepartureAirportError();
     }
 
     const aircraftExists = await this.queryBus.execute(
       new CheckAircraftExistsQuery(flightData.aircraftId),
     );
     if (!aircraftExists) {
-      throw new NotFoundException(AircraftNotFoundError);
+      throw new FlightAircraftNotFoundError();
     }
 
     const operatorExists = await this.queryBus.execute(
       new CheckOperatorExistsQuery(flightData.operatorId),
     );
     if (!operatorExists) {
-      throw new NotFoundException(OperatorForAircraftNotFoundError);
+      throw new OperatorForAircraftNotFoundError();
     }
 
     await this.flightsRepository.create(flightId, flightData);

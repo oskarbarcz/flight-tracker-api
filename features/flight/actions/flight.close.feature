@@ -1336,7 +1336,7 @@ Feature: Close flight
       """json
       {
         "statusCode": 422,
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "message": "Cannot close flight: its delay must be fully allocated and every report accepted."
       }
       """

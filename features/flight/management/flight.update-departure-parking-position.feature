@@ -281,7 +281,7 @@ Feature: Update flight departure parking position
       """json
       {
         "message": "Cannot update departure parking position, because pilot is already checked in.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """
@@ -297,7 +297,7 @@ Feature: Update flight departure parking position
       """json
       {
         "message": "Cannot update departure parking position, because pilot is already checked in.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """
@@ -313,7 +313,7 @@ Feature: Update flight departure parking position
       """json
       {
         "message": "Parking position does not belong to the given airport.",
-        "error": "Unprocessable Entity",
+        "error": "Unprocessable Content",
         "statusCode": 422
       }
       """

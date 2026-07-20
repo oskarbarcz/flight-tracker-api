@@ -1,6 +1,6 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { PrismaService } from '../../../../core/provider/prisma/prisma.service';
-import { NotFoundException } from '@nestjs/common';
+import { UserWithGivenIdNotFoundError } from '../../model/error/user.error';
 
 export class GetUserSimbriefIdQuery extends Query<string | null> {
   constructor(public readonly userId: string) {
@@ -18,7 +18,7 @@ export class GetUserSimbriefIdHandler implements IQueryHandler<GetUserSimbriefId
     });
 
     if (!user) {
-      throw new NotFoundException('User with given ID not found');
+      throw new UserWithGivenIdNotFoundError();
     }
     return user.simbriefUserId;
   }
