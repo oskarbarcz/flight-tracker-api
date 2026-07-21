@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
 import { Airframe } from '../../airframes/model/airframe.model';
 
 export enum AircraftState {
@@ -33,10 +33,11 @@ export class Aircraft {
   @ApiProperty({
     description: 'Aircraft SELCAL code',
     example: 'KR-QL',
+    nullable: true,
   })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  selcal!: string;
+  selcal!: string | null;
 
   @ApiProperty({
     description: 'Aircraft livery description and age',

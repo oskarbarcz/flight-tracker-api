@@ -91,7 +91,7 @@ Feature: Start boarding
           "id": "e7c6c5e3-84ff-4c5b-a40c-79f178c5b379",
           "airframe": {
             "type": "B77W",
-            "name": "B777-300ER",
+            "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",

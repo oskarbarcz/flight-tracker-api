@@ -88,10 +88,10 @@ export class AircraftRepository {
   async create(
     id: string,
     operatorId: string,
-    data: CreateAircraftRequest,
+    data: CreateAircraftRequest & { livery: string },
   ): Promise<void> {
     await this.prisma.aircraft.create({
-      data: { id, ...data, operatorId },
+      data: { id, ...data, operatorId, lastAirportId: data.baseAirportId },
     });
   }
 

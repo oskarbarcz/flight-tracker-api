@@ -122,7 +122,7 @@ Feature: Report takeoff
           "id": "0fad1757-d650-4a52-b047-f29e9ea5c067",
           "airframe": {
             "type": "B77W",
-            "name": "B777-300ER",
+            "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",

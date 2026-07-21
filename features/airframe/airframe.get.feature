@@ -8,7 +8,7 @@ Feature: Get airframe by type
       """json
       {
         "type": "B77W",
-        "name": "B777-300ER",
+        "name": "Boeing 777-300ER",
         "cruiseSpeed": { "value": 0.84, "unit": "mach" },
         "serviceCeiling": 43000,
         "performanceCode": "D",
@@ -24,7 +24,7 @@ Feature: Get airframe by type
       """json
       {
         "type": "A339",
-        "name": "A330-900",
+        "name": "Airbus A330-900",
         "cruiseSpeed": { "value": 0.8, "unit": "mach" },
         "serviceCeiling": 41400,
         "performanceCode": "D",
@@ -40,7 +40,7 @@ Feature: Get airframe by type
       """json
       {
         "type": "A319",
-        "name": "A319-100",
+        "name": "Airbus A319-100",
         "cruiseSpeed": { "value": 0.78, "unit": "mach" },
         "serviceCeiling": 39000,
         "performanceCode": "C",

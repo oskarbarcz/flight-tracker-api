@@ -5,6 +5,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  IsUUID,
   Length,
 } from 'class-validator';
 import { LegacyOperatorResponse } from './operator.request';
@@ -32,18 +33,30 @@ export class CreateAircraftRequest {
   @ApiProperty({
     description: 'Aircraft SELCAL code',
     example: 'KR-QL',
+    nullable: true,
+    required: false,
   })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  selcal!: string;
+  selcal?: string | null;
 
   @ApiProperty({
-    description: 'Aircraft livery description and age',
+    description:
+      'Aircraft livery description and age; defaults to "<operator short name> <current year>" when omitted',
     example: 'Boeing House (2024)',
+    required: false,
   })
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
-  livery!: string;
+  livery?: string;
+
+  @ApiProperty({
+    description: 'Home base airport unique system identifier',
+    example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
+  })
+  @IsUUID()
+  baseAirportId!: string;
 
   @ApiProperty({
     description:

@@ -160,7 +160,7 @@ Feature: Report on-block
         "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
         "airframe": {
           "type": "B77W",
-          "name": "B777-300ER",
+          "name": "Boeing 777-300ER",
           "cruiseSpeed": { "value": 0.84, "unit": "mach" },
           "serviceCeiling": 43000,
           "performanceCode": "D",
@@ -293,7 +293,7 @@ Feature: Report on-block
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
           "airframe": {
             "type": "B77W",
-            "name": "B777-300ER",
+            "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",

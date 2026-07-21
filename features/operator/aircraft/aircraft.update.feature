@@ -33,7 +33,7 @@ Feature: Update aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
-          "name": "A330-900",
+          "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
@@ -97,7 +97,7 @@ Feature: Update aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "B748",
-          "name": "B747-8",
+          "name": "Boeing 747-8",
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
           "performanceCode": "D",
@@ -138,7 +138,7 @@ Feature: Update aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
-          "name": "A330-900",
+          "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
@@ -179,7 +179,7 @@ Feature: Update aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
-          "name": "A330-900",
+          "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
@@ -204,6 +204,99 @@ Feature: Update aircraft
       }
       """
     And I set database to initial state
+
+  Scenario: As operations I can change the aircraft base airport
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
+      """json
+      {
+        "baseAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383"
+      }
+      """
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+        "airframe": {
+          "type": "A339",
+          "name": "Airbus A330-900",
+          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+          "serviceCeiling": 41400,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
+        "livery": "Fanhansa (2024)",
+        "registration": "D-AIMC",
+        "selcal": "LR-CK",
+        "currentState": "planned",
+        "etopsThresholdMinutes": 180,
+        "baseAirport": {
+          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "iataCode": "JFK",
+          "name": "New York JFK",
+          "city": "New York",
+          "country": "United States of America",
+          "location": "@coordinates"
+        },
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastParkingPosition": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I can clear the aircraft base airport
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
+      """json
+      {
+        "baseAirportId": null
+      }
+      """
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
+        "airframe": {
+          "type": "A339",
+          "name": "Airbus A330-900",
+          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
+          "serviceCeiling": 41400,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
+        "livery": "Fanhansa (2024)",
+        "registration": "D-AIMC",
+        "selcal": "LR-CK",
+        "currentState": "planned",
+        "etopsThresholdMinutes": 180,
+        "baseAirport": null,
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastParkingPosition": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot set an unknown base airport
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
+      """json
+      {
+        "baseAirportId": "0e37fd75-141d-4f01-b040-bcde2f7be839"
+      }
+      """
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 404,
+        "error": "Not Found",
+        "message": "Airport with given id does not exist."
+      }
+      """
 
   Scenario: As operations I cannot set an invalid ETOPS threshold
     Given I am signed in as "operations"

@@ -1,4 +1,4 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { AircraftRepository } from '../../../infra/database/repository/aircraft.repository';
 import { OperatorNotFoundError } from '../../../model/error/operator.error';
 import { OperatorsRepository } from '../../../infra/database/repository/operators.repository';
@@ -8,6 +8,7 @@ import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
 import { DomainEventEmitter } from '../../../../../core/domain/events/domain-event-emitter';
 import { AircraftEditedEvent } from '../../../../../core/domain/events/dto/aircraft.event';
+import { AssertAirportExistsQuery } from '../../../../airports/application/assert/assert-airport-exists.query';
 
 export class UpdateAircraftCommand {
   constructor(
@@ -23,6 +24,7 @@ export class UpdateAircraftHandler implements ICommandHandler<UpdateAircraftComm
     private readonly aircraftRepository: AircraftRepository,
     private readonly operatorsRepository: OperatorsRepository,
     private readonly domainEvents: DomainEventEmitter,
+    private readonly queryBus: QueryBus,
   ) {}
 
   async execute(command: UpdateAircraftCommand): Promise<void> {
@@ -44,6 +46,11 @@ export class UpdateAircraftHandler implements ICommandHandler<UpdateAircraftComm
 
     if (data.type !== undefined && !findAirframeByType(data.type)) {
       throw new AirframeNotFoundError();
+    }
+
+    if (data.baseAirportId) {
+      const query = new AssertAirportExistsQuery(data.baseAirportId);
+      await this.queryBus.execute(query);
     }
 
     await this.aircraftRepository.update(aircraftId, data);

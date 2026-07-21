@@ -23,7 +23,7 @@
   },
   {
     "type": "BCS1",
-    "name": "A220-100",
+    "name": "Airbus A220-100",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -34,7 +34,7 @@
   },
   {
     "type": "BCS3",
-    "name": "A220-300",
+    "name": "Airbus A220-300",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -45,7 +45,7 @@
   },
   {
     "type": "A306",
-    "name": "A300B4-600",
+    "name": "Airbus A300B4-600",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -56,7 +56,7 @@
   },
   {
     "type": "A3ST",
-    "name": "A300F4-608ST",
+    "name": "Airbus A300F4-608ST",
     "cruiseSpeed": {
       "value": 0.68,
       "unit": "mach"
@@ -67,7 +67,7 @@
   },
   {
     "type": "A30B",
-    "name": "A300B4-200",
+    "name": "Airbus A300B4-200",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -78,7 +78,7 @@
   },
   {
     "type": "A30F",
-    "name": "A300F4-600R",
+    "name": "Airbus A300F4-600R",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -89,7 +89,7 @@
   },
   {
     "type": "A310",
-    "name": "A310-304",
+    "name": "Airbus A310-304",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -100,7 +100,7 @@
   },
   {
     "type": "A318",
-    "name": "A318-100",
+    "name": "Airbus A318-100",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -111,7 +111,7 @@
   },
   {
     "type": "A319",
-    "name": "A319-100",
+    "name": "Airbus A319-100",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -122,7 +122,7 @@
   },
   {
     "type": "A320",
-    "name": "A320-200",
+    "name": "Airbus A320-200",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -133,7 +133,7 @@
   },
   {
     "type": "A20N",
-    "name": "A320-200N",
+    "name": "Airbus A320-200N",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -144,7 +144,7 @@
   },
   {
     "type": "A321",
-    "name": "A321-200",
+    "name": "Airbus A321-200",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -155,7 +155,7 @@
   },
   {
     "type": "A21N",
-    "name": "A321-200N",
+    "name": "Airbus A321-200N",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -166,7 +166,7 @@
   },
   {
     "type": "A332",
-    "name": "A330-200",
+    "name": "Airbus A330-200",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -177,7 +177,7 @@
   },
   {
     "type": "A333",
-    "name": "A330-300",
+    "name": "Airbus A330-300",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -188,7 +188,7 @@
   },
   {
     "type": "A338",
-    "name": "A330-800",
+    "name": "Airbus A330-800",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -199,7 +199,7 @@
   },
   {
     "type": "A339",
-    "name": "A330-900",
+    "name": "Airbus A330-900",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -210,7 +210,7 @@
   },
   {
     "type": "A342",
-    "name": "A340-200",
+    "name": "Airbus A340-200",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -221,7 +221,7 @@
   },
   {
     "type": "A343",
-    "name": "A340-300",
+    "name": "Airbus A340-300",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -232,7 +232,7 @@
   },
   {
     "type": "A345",
-    "name": "A340-500",
+    "name": "Airbus A340-500",
     "cruiseSpeed": {
       "value": 0.83,
       "unit": "mach"
@@ -243,7 +243,7 @@
   },
   {
     "type": "A346",
-    "name": "A340-600",
+    "name": "Airbus A340-600",
     "cruiseSpeed": {
       "value": 0.83,
       "unit": "mach"
@@ -254,7 +254,7 @@
   },
   {
     "type": "A359",
-    "name": "A350-900",
+    "name": "Airbus A350-900",
     "cruiseSpeed": {
       "value": 0.85,
       "unit": "mach"
@@ -265,7 +265,7 @@
   },
   {
     "type": "A35K",
-    "name": "A350-1000",
+    "name": "Airbus A350-1000",
     "cruiseSpeed": {
       "value": 0.85,
       "unit": "mach"
@@ -276,7 +276,7 @@
   },
   {
     "type": "A388",
-    "name": "A380-800",
+    "name": "Airbus A380-800",
     "cruiseSpeed": {
       "value": 0.85,
       "unit": "mach"
@@ -430,7 +430,7 @@
   },
   {
     "type": "B703",
-    "name": "B707-320C",
+    "name": "Boeing 707-320C",
     "cruiseSpeed": {
       "value": 0.82,
       "unit": "mach"
@@ -441,7 +441,7 @@
   },
   {
     "type": "B712",
-    "name": "B717-200",
+    "name": "Boeing 717-200",
     "cruiseSpeed": {
       "value": 0.76,
       "unit": "mach"
@@ -452,7 +452,7 @@
   },
   {
     "type": "B721",
-    "name": "B727-100",
+    "name": "Boeing 727-100",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -463,7 +463,7 @@
   },
   {
     "type": "B722",
-    "name": "B727-200",
+    "name": "Boeing 727-200",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -474,7 +474,7 @@
   },
   {
     "type": "R722",
-    "name": "B727-200 Super 27",
+    "name": "Boeing 727-200 Super 27",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -485,7 +485,7 @@
   },
   {
     "type": "B732",
-    "name": "B737-200",
+    "name": "Boeing 737-200",
     "cruiseSpeed": {
       "value": 0.74,
       "unit": "mach"
@@ -496,7 +496,7 @@
   },
   {
     "type": "B733",
-    "name": "B737-300",
+    "name": "Boeing 737-300",
     "cruiseSpeed": {
       "value": 0.74,
       "unit": "mach"
@@ -507,7 +507,7 @@
   },
   {
     "type": "B734",
-    "name": "B737-400",
+    "name": "Boeing 737-400",
     "cruiseSpeed": {
       "value": 0.74,
       "unit": "mach"
@@ -518,7 +518,7 @@
   },
   {
     "type": "B735",
-    "name": "B737-500",
+    "name": "Boeing 737-500",
     "cruiseSpeed": {
       "value": 0.74,
       "unit": "mach"
@@ -529,7 +529,7 @@
   },
   {
     "type": "B736",
-    "name": "B737-600",
+    "name": "Boeing 737-600",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -540,7 +540,7 @@
   },
   {
     "type": "B737",
-    "name": "B737-700",
+    "name": "Boeing 737-700",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -551,7 +551,7 @@
   },
   {
     "type": "BBJ1",
-    "name": "B737 BBJ",
+    "name": "Boeing 737 BBJ",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -562,7 +562,7 @@
   },
   {
     "type": "B738",
-    "name": "B737-800",
+    "name": "Boeing 737-800",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -573,7 +573,7 @@
   },
   {
     "type": "BBJ2",
-    "name": "B737 BBJ2",
+    "name": "Boeing 737 BBJ2",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -584,7 +584,7 @@
   },
   {
     "type": "B38M",
-    "name": "B737 MAX 8",
+    "name": "Boeing 737 MAX 8",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -595,7 +595,7 @@
   },
   {
     "type": "B739",
-    "name": "B737-900",
+    "name": "Boeing 737-900",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -606,7 +606,7 @@
   },
   {
     "type": "BBJ3",
-    "name": "B737 BBJ3",
+    "name": "Boeing 737 BBJ3",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -617,7 +617,7 @@
   },
   {
     "type": "B741",
-    "name": "B747-100B",
+    "name": "Boeing 747-100B",
     "cruiseSpeed": {
       "value": 0.85,
       "unit": "mach"
@@ -628,7 +628,7 @@
   },
   {
     "type": "B742",
-    "name": "B747-200B",
+    "name": "Boeing 747-200B",
     "cruiseSpeed": {
       "value": 0.85,
       "unit": "mach"
@@ -639,7 +639,7 @@
   },
   {
     "type": "B744",
-    "name": "B747-400",
+    "name": "Boeing 747-400",
     "cruiseSpeed": {
       "value": 0.85,
       "unit": "mach"
@@ -650,7 +650,7 @@
   },
   {
     "type": "B74F",
-    "name": "B747-400F",
+    "name": "Boeing 747-400F",
     "cruiseSpeed": {
       "value": 0.85,
       "unit": "mach"
@@ -661,7 +661,7 @@
   },
   {
     "type": "B748",
-    "name": "B747-8",
+    "name": "Boeing 747-8",
     "cruiseSpeed": {
       "value": 0.85,
       "unit": "mach"
@@ -672,7 +672,7 @@
   },
   {
     "type": "B48F",
-    "name": "B747-8F",
+    "name": "Boeing 747-8F",
     "cruiseSpeed": {
       "value": 0.85,
       "unit": "mach"
@@ -683,7 +683,7 @@
   },
   {
     "type": "B752",
-    "name": "B757-200",
+    "name": "Boeing 757-200",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -694,7 +694,7 @@
   },
   {
     "type": "B75F",
-    "name": "B757-200PF",
+    "name": "Boeing 757-200PF",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -705,7 +705,7 @@
   },
   {
     "type": "B753",
-    "name": "B757-300",
+    "name": "Boeing 757-300",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -716,7 +716,7 @@
   },
   {
     "type": "B762",
-    "name": "B767-200ER",
+    "name": "Boeing 767-200ER",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -727,7 +727,7 @@
   },
   {
     "type": "B763",
-    "name": "B767-300ER",
+    "name": "Boeing 767-300ER",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -738,7 +738,7 @@
   },
   {
     "type": "B76F",
-    "name": "B767-300F",
+    "name": "Boeing 767-300F",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -749,7 +749,7 @@
   },
   {
     "type": "B764",
-    "name": "B767-400ER",
+    "name": "Boeing 767-400ER",
     "cruiseSpeed": {
       "value": 0.8,
       "unit": "mach"
@@ -760,7 +760,7 @@
   },
   {
     "type": "B772",
-    "name": "B777-200ER",
+    "name": "Boeing 777-200ER",
     "cruiseSpeed": {
       "value": 0.84,
       "unit": "mach"
@@ -771,7 +771,7 @@
   },
   {
     "type": "B77F",
-    "name": "B777-F",
+    "name": "Boeing 777-F",
     "cruiseSpeed": {
       "value": 0.84,
       "unit": "mach"
@@ -782,7 +782,7 @@
   },
   {
     "type": "B77L",
-    "name": "B777-200LR",
+    "name": "Boeing 777-200LR",
     "cruiseSpeed": {
       "value": 0.84,
       "unit": "mach"
@@ -793,7 +793,7 @@
   },
   {
     "type": "B77W",
-    "name": "B777-300ER",
+    "name": "Boeing 777-300ER",
     "cruiseSpeed": {
       "value": 0.84,
       "unit": "mach"
@@ -804,7 +804,7 @@
   },
   {
     "type": "B788",
-    "name": "B787-8",
+    "name": "Boeing 787-8",
     "cruiseSpeed": {
       "value": 0.85,
       "unit": "mach"
@@ -815,7 +815,7 @@
   },
   {
     "type": "B789",
-    "name": "B787-9",
+    "name": "Boeing 787-9",
     "cruiseSpeed": {
       "value": 0.85,
       "unit": "mach"
@@ -826,7 +826,7 @@
   },
   {
     "type": "B78X",
-    "name": "B787-10",
+    "name": "Boeing 787-10",
     "cruiseSpeed": {
       "value": 0.85,
       "unit": "mach"
@@ -1508,7 +1508,7 @@
   },
   {
     "type": "E110",
-    "name": "EMB-110",
+    "name": "Embraer EMB-110",
     "cruiseSpeed": {
       "value": 230.0,
       "unit": "knots"
@@ -1519,7 +1519,7 @@
   },
   {
     "type": "E135",
-    "name": "ERJ-135LR",
+    "name": "Embraer ERJ-135LR",
     "cruiseSpeed": {
       "value": 0.74,
       "unit": "mach"
@@ -1530,7 +1530,7 @@
   },
   {
     "type": "E13L",
-    "name": "Legacy 600",
+    "name": "Embraer Legacy 600",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -1541,7 +1541,7 @@
   },
   {
     "type": "E140",
-    "name": "ERJ-140LR",
+    "name": "Embraer ERJ-140LR",
     "cruiseSpeed": {
       "value": 0.74,
       "unit": "mach"
@@ -1552,7 +1552,7 @@
   },
   {
     "type": "E145",
-    "name": "ERJ-145LR",
+    "name": "Embraer ERJ-145LR",
     "cruiseSpeed": {
       "value": 0.74,
       "unit": "mach"
@@ -1563,7 +1563,7 @@
   },
   {
     "type": "E170",
-    "name": "ERJ-170",
+    "name": "Embraer ERJ-170",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -1574,7 +1574,7 @@
   },
   {
     "type": "E175",
-    "name": "ERJ-175",
+    "name": "Embraer ERJ-175",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -1585,7 +1585,7 @@
   },
   {
     "type": "E190",
-    "name": "ERJ-190",
+    "name": "Embraer ERJ-190",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -1596,7 +1596,7 @@
   },
   {
     "type": "E19L",
-    "name": "Lineage 1000",
+    "name": "Embraer Lineage 1000",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -1607,7 +1607,7 @@
   },
   {
     "type": "E195",
-    "name": "ERJ-195",
+    "name": "Embraer ERJ-195",
     "cruiseSpeed": {
       "value": 0.78,
       "unit": "mach"
@@ -1618,7 +1618,7 @@
   },
   {
     "type": "E50P",
-    "name": "Phenom 100",
+    "name": "Embraer Phenom 100",
     "cruiseSpeed": {
       "value": 0.65,
       "unit": "mach"
@@ -1629,7 +1629,7 @@
   },
   {
     "type": "E55P",
-    "name": "Phenom 300",
+    "name": "Embraer Phenom 300",
     "cruiseSpeed": {
       "value": 0.7,
       "unit": "mach"
