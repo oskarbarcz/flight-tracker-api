@@ -88,6 +88,7 @@ import { ReportFlightDiversionHandler } from './application/command/diversion/re
 import { UpdateFlightDiversionHandler } from './application/command/diversion/update-flight-diversion.command';
 import { FlightEventsGateway } from './infra/gateway/flight-events.gateway';
 import { BroadcastFlightEventListener } from './application/event/internal/broadcast-flight-event.listener';
+import { FlightCacheListener } from './application/event/internal/flight-cache.listener';
 import { OffBlockDelayListener } from './application/event/internal/off-block-delay.listener';
 import { DetectTakeoffListener } from './application/event/internal/detect-takeoff.listener';
 import { DetectOffBlockListener } from './application/event/internal/detect-off-block.listener';
@@ -207,6 +208,7 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     UpdateFlightDiversionHandler,
     FlightEventsGateway,
     BroadcastFlightEventListener,
+    FlightCacheListener,
     OffBlockDelayListener,
     DetectTakeoffListener,
     DetectOffBlockListener,

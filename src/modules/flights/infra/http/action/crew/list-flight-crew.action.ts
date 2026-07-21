@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseInterceptors } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiNotFoundResponse,
@@ -9,7 +9,13 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
+import { CacheKey, CacheTTL } from '@nestjs/cache-manager';
 import { Crew } from '../../../../../operators/model/crew.model';
+import { PerFlightCacheInterceptor } from '../../../../../../core/cache/per-flight-cache.interceptor';
+import {
+  CACHE_TTL_MS,
+  FLIGHT_CACHE_RESOURCE,
+} from '../../../../../../core/cache/cache.key';
 import { ListFlightCrewQuery } from '../../../../../operators/application/query/crew/list-flight-crew.query';
 import { GetFlightQuery } from '../../../../application/query/get-flight.query';
 import { UuidParam } from '../../../../../../core/validation/uuid.param';
@@ -28,6 +34,9 @@ export class ListFlightCrewAction {
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Get()
+  @UseInterceptors(PerFlightCacheInterceptor)
+  @CacheKey(FLIGHT_CACHE_RESOURCE.crew)
+  @CacheTTL(CACHE_TTL_MS.CREW)
   async run(@UuidParam('flightId') flightId: string): Promise<Crew[]> {
     await this.queryBus.execute(new GetFlightQuery(flightId));
     return this.queryBus.execute(new ListFlightCrewQuery(flightId));

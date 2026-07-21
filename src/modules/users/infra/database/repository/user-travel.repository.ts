@@ -1,10 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import type { Cache } from 'cache-manager';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import {
   UserTravelStatus,
   UserTravelType,
 } from '../../../../../../prisma/client/enums';
 import { UserTravel } from '../../../model/user-travel.model';
+import { CACHE_KEYS, cacheByUser } from '../../../../../core/cache/cache.key';
 
 const travelAirportSelect = { id: true, name: true, iataCode: true } as const;
 
@@ -40,7 +43,10 @@ type DeadheadType =
 
 @Injectable()
 export class UserTravelRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
+  ) {}
 
   async createPerformingFlight(
     userId: string,
@@ -105,6 +111,8 @@ export class UserTravelRepository {
         },
       }),
     ]);
+
+    await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, userId));
   }
 
   async findByUser(userId: string): Promise<UserTravel[]> {

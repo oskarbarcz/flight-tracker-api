@@ -172,6 +172,7 @@ Feature: Update flight arrival runway
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "private",

@@ -173,6 +173,7 @@ Feature: Change flight visibility
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "disabled",

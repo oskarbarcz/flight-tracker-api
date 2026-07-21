@@ -1,4 +1,4 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Req, UseInterceptors } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiNotFoundResponse,
@@ -8,6 +8,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
+import { CacheTTL } from '@nestjs/cache-manager';
+import { PerFlightCacheInterceptor } from '../../../../../../core/cache/per-flight-cache.interceptor';
+import { CACHE_TTL_MS } from '../../../../../../core/cache/cache.key';
 import { GetFlightResponse } from '../../request/flight.dto';
 import { GenericBadRequestResponse } from '../../../../../../core/http/response/bad-request.response';
 import { GenericNotFoundResponse } from '../../../../../../core/http/response/not-found.response';
@@ -34,6 +37,8 @@ export class GetFlightAction {
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @Get(':id')
   @SkipAuth()
+  @UseInterceptors(PerFlightCacheInterceptor)
+  @CacheTTL(CACHE_TTL_MS.FLIGHT)
   async run(
     @Req() request: AuthorizedRequest,
     @UuidParam('id') id: string,

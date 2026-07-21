@@ -1,10 +1,14 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { Inject } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import type { Cache } from 'cache-manager';
 import { DelayRepository } from '../../../infra/database/repository/delay.repository';
 import { DelayReportStatus } from '../../../model/delay-report.model';
 import {
   DelayReportAlreadyAcceptedError,
   DelayReportNotFoundError,
 } from '../../../model/error/delay.error';
+import { flightDelayCacheKeys } from '../../../../../core/cache/cache.key';
 
 export class RemoveDelayReportCommand {
   constructor(
@@ -18,7 +22,10 @@ export class RemoveDelayReportHandler implements ICommandHandler<
   RemoveDelayReportCommand,
   void
 > {
-  constructor(private readonly delayRepository: DelayRepository) {}
+  constructor(
+    private readonly delayRepository: DelayRepository,
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
+  ) {}
 
   async execute(command: RemoveDelayReportCommand): Promise<void> {
     const { flightId, reportId } = command;
@@ -32,5 +39,9 @@ export class RemoveDelayReportHandler implements ICommandHandler<
     }
 
     await this.delayRepository.removeReport(reportId);
+
+    await Promise.all(
+      flightDelayCacheKeys(flightId).map((key) => this.cacheManager.del(key)),
+    );
   }
 }

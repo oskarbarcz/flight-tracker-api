@@ -197,6 +197,7 @@ export class UsersRepository {
 
     // name / pilot license may have changed — drop the cached pilot card
     await this.cacheManager.del(cacheByUser(CACHE_KEYS.PILOT_CARD, id));
+    await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, id));
   }
 
   async setCurrentFlight(
@@ -207,6 +208,8 @@ export class UsersRepository {
       where: { id: userId },
       data: { currentFlightId: flightId },
     });
+
+    await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, userId));
   }
 
   async setLastAirport(userId: string, airportId: string): Promise<void> {
@@ -214,6 +217,8 @@ export class UsersRepository {
       where: { id: userId },
       data: { lastAirportId: airportId, lastAirportUpdatedAt: new Date() },
     });
+
+    await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, userId));
   }
 
   async setCurrentRotation(
@@ -224,6 +229,8 @@ export class UsersRepository {
       where: { id: userId },
       data: { currentRotationId: rotationId },
     });
+
+    await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, userId));
   }
 
   async addCompletedFlightStats(
@@ -251,6 +258,7 @@ export class UsersRepository {
     await this.cacheManager.del(cacheKey);
     // totalFlightTime changed — drop the cached pilot card too
     await this.cacheManager.del(cacheByUser(CACHE_KEYS.PILOT_CARD, userId));
+    await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, userId));
   }
 
   private async findOneBy(
