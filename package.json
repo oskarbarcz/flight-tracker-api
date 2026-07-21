@@ -64,7 +64,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^22.19.19",
     "@types/pg": "^8.20.0",
-    "axios": "^1.16.0",
+    "axios": "^1.18.0",
     "eslint": "^10.3.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
