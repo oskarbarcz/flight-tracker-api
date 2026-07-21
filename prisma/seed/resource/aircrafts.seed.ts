@@ -37,7 +37,7 @@ export async function loadAircraft(
     id: '3f34bc59-c9c3-4ad0-88fa-2cc570298602',
     type: 'A319',
     registration: 'D-AIDK',
-    selcal: 'MS-KL',
+    selcal: null,
     livery: 'Water (2024)',
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
     currentState: AircraftState.idle,

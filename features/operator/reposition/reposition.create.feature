@@ -122,7 +122,7 @@ Feature: Reposition an aircraft
         "id": "7d27a031-5abb-415f-bde5-1aa563ad394e",
         "airframe": {
           "type": "A321",
-          "name": "A321-200",
+          "name": "Airbus A321-200",
           "cruiseSpeed": { "value": 0.78, "unit": "mach" },
           "serviceCeiling": 39000,
           "performanceCode": "C",

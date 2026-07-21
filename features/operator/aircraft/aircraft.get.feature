@@ -10,7 +10,7 @@ Feature: Get aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
-          "name": "A330-900",
+          "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
@@ -45,7 +45,7 @@ Feature: Get aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
-          "name": "A330-900",
+          "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
@@ -80,7 +80,7 @@ Feature: Get aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
-          "name": "A330-900",
+          "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
@@ -96,6 +96,41 @@ Feature: Get aircraft
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirport": null,
+        "lastAirportUpdatedAt": null,
+        "lastParkingPosition": null
+      }
+      """
+
+  Scenario: As operations I get an aircraft that has no SELCAL code
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871/aircraft/3f34bc59-c9c3-4ad0-88fa-2cc570298602"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "3f34bc59-c9c3-4ad0-88fa-2cc570298602",
+        "airframe": {
+          "type": "A319",
+          "name": "Airbus A319-100",
+          "cruiseSpeed": { "value": 0.78, "unit": "mach" },
+          "serviceCeiling": 39000,
+          "performanceCode": "C",
+          "weightCategory": "medium"
+        },
+        "livery": "Water (2024)",
+        "registration": "D-AIDK",
+        "selcal": null,
+        "currentState": "idle",
+        "etopsThresholdMinutes": null,
+        "baseAirport": {
+          "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
+          "iataCode": "BRE",
+          "name": "Bremen",
+          "city": "Bremen",
           "country": "Germany",
           "location": "@coordinates"
         },

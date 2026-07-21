@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/openspec-apply-gate.mjs\"",
+            "timeout": 10,
+            "statusMessage": "Checking OpenSpec board gate"
+          }
+        ]
+      }
+    ]
+  }
+}

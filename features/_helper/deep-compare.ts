@@ -26,6 +26,14 @@ export const deepCompare = (actual: any, expected: any) => {
     return;
   }
 
+  const defaultLiveryMatch =
+    typeof expected === 'string' &&
+    expected.match(/^@defaultLivery\('(.*)'\)$/);
+  if (defaultLiveryMatch) {
+    expect(actual).toBe(`${defaultLiveryMatch[1]} ${new Date().getFullYear()}`);
+    return;
+  }
+
   if (expected === "@date('within 1 minute from now')") {
     const actualDate = new Date(actual);
     const now = new Date();

@@ -29,7 +29,7 @@ Feature: Get flight
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
           "airframe": {
             "type": "A339",
-            "name": "A330-900",
+            "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
@@ -264,7 +264,7 @@ Feature: Get flight
           "id": "8694eb6d-83e4-4f24-8a72-b67523b4d6bf",
           "airframe": {
             "type": "B77W",
-            "name": "B777-300ER",
+            "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",

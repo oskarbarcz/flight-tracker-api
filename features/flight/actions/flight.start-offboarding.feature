@@ -122,7 +122,7 @@ Feature: Start offboarding
           "id": "3c3f3402-cdb1-4716-9e02-1fe3df12e0e4",
           "airframe": {
             "type": "B77W",
-            "name": "B777-300ER",
+            "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",

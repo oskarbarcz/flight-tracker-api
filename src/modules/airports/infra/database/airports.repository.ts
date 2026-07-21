@@ -127,6 +127,10 @@ export class AirportsRepository {
   }
 
   async exists(airportId: string): Promise<boolean> {
-    return !!(await this.findOneBy({ id: airportId }));
+    const count = await this.prisma.airport.count({
+      where: { id: airportId },
+    });
+
+    return count > 0;
   }
 }

@@ -61,6 +61,7 @@ import { GetRunwayByDesignatorHandler } from './application/query/runway/get-run
 import { ListRunwaysByAirportHandler } from './application/query/runway/list-runways-by-airport.query';
 import { AssertParkingPositionBelongsToAirportHandler } from './application/assert/assert-parking-position-belongs-to-airport.command';
 import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert-runway-belongs-to-airport.command';
+import { AssertAirportExistsHandler } from './application/assert/assert-airport-exists.query';
 import { WeatherModule } from '../../core/provider/weather/weather.module';
 import { AirportWeatherRepository } from './infra/database/airport-weather.repository';
 import { GetWeatherAction } from './infra/http/action/weather/get-weather.action';
@@ -137,6 +138,7 @@ import { WeatherRefreshService } from './infra/service/weather-refresh.service';
     ListRunwaysByAirportHandler,
     AssertParkingPositionBelongsToAirportHandler,
     AssertRunwayBelongsToAirportHandler,
+    AssertAirportExistsHandler,
     AirportWeatherRepository,
     GetAirportWeatherHandler,
     RefreshWeatherHandler,

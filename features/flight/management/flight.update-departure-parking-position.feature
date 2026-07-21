@@ -49,7 +49,7 @@ Feature: Update flight departure parking position
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
           "airframe": {
             "type": "A339",
-            "name": "A330-900",
+            "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",

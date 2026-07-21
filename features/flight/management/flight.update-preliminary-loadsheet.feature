@@ -97,7 +97,7 @@ Feature: Update flight preliminary loadsheet
           "id": "ed247c36-58f0-43ff-81fd-ffae548a73e2",
           "airframe": {
             "type": "B77W",
-            "name": "B777-300ER",
+            "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
@@ -328,7 +328,7 @@ Feature: Update flight preliminary loadsheet
           "id": "ed247c36-58f0-43ff-81fd-ffae548a73e2",
           "airframe": {
             "type": "B77W",
-            "name": "B777-300ER",
+            "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",

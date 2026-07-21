@@ -8,7 +8,8 @@ Feature: Create aircraft for operator
         "type": "B748",
         "selcal": "SL-PR",
         "registration": "SP-LRA",
-        "livery": "Sunshine"
+        "livery": "Sunshine",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a"
       }
       """
     Then the response status should be 403
@@ -29,7 +30,8 @@ Feature: Create aircraft for operator
         "type": "B748",
         "selcal": "SL-PR",
         "registration": "SP-LRA",
-        "livery": "Sunshine"
+        "livery": "Sunshine",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a"
       }
       """
     Then the response status should be 201
@@ -39,7 +41,7 @@ Feature: Create aircraft for operator
         "id": "@uuid",
         "airframe": {
           "type": "B748",
-          "name": "B747-8",
+          "name": "Boeing 747-8",
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
           "performanceCode": "D",
@@ -50,8 +52,22 @@ Feature: Create aircraft for operator
         "livery": "Sunshine",
         "currentState": "idle",
         "etopsThresholdMinutes": null,
-        "baseAirport": null,
-        "lastAirport": null,
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
         "lastAirportUpdatedAt": null,
         "lastParkingPosition": null
       }
@@ -90,6 +106,7 @@ Feature: Create aircraft for operator
         "selcal": "SL-PR",
         "registration": "SP-LRA",
         "livery": "Sunshine",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "etopsThresholdMinutes": 180
       }
       """
@@ -100,7 +117,7 @@ Feature: Create aircraft for operator
         "id": "@uuid",
         "airframe": {
           "type": "B748",
-          "name": "B747-8",
+          "name": "Boeing 747-8",
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
           "performanceCode": "D",
@@ -111,13 +128,151 @@ Feature: Create aircraft for operator
         "livery": "Sunshine",
         "currentState": "idle",
         "etopsThresholdMinutes": 180,
-        "baseAirport": null,
-        "lastAirport": null,
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
         "lastAirportUpdatedAt": null,
         "lastParkingPosition": null
       }
       """
     And I set database to initial state
+
+  Scenario: As operations I create aircraft without a SELCAL code
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
+      """json
+      {
+        "type": "B748",
+        "registration": "SP-LRA",
+        "livery": "Sunshine",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a"
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "airframe": {
+          "type": "B748",
+          "name": "Boeing 747-8",
+          "cruiseSpeed": { "value": 0.85, "unit": "mach" },
+          "serviceCeiling": 43100,
+          "performanceCode": "D",
+          "weightCategory": "super"
+        },
+        "selcal": null,
+        "registration": "SP-LRA",
+        "livery": "Sunshine",
+        "currentState": "idle",
+        "etopsThresholdMinutes": null,
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirportUpdatedAt": null,
+        "lastParkingPosition": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I create aircraft without a livery
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
+      """json
+      {
+        "type": "B748",
+        "selcal": "SL-PR",
+        "registration": "SP-LRA",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a"
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "airframe": {
+          "type": "B748",
+          "name": "Boeing 747-8",
+          "cruiseSpeed": { "value": 0.85, "unit": "mach" },
+          "serviceCeiling": 43100,
+          "performanceCode": "D",
+          "weightCategory": "super"
+        },
+        "selcal": "SL-PR",
+        "registration": "SP-LRA",
+        "livery": "@defaultLivery('Lufthansa')",
+        "currentState": "idle",
+        "etopsThresholdMinutes": null,
+        "baseAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirport": {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "iataCode": "FRA",
+          "name": "Frankfurt Rhein/Main",
+          "city": "Frankfurt",
+          "country": "Germany",
+          "location": "@coordinates"
+        },
+        "lastAirportUpdatedAt": null,
+        "lastParkingPosition": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot create aircraft with an unknown base airport
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
+      """json
+      {
+        "type": "B748",
+        "selcal": "SL-PR",
+        "registration": "SP-LRA",
+        "livery": "Sunshine",
+        "baseAirportId": "0e37fd75-141d-4f01-b040-bcde2f7be839"
+      }
+      """
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 404,
+        "error": "Not Found",
+        "message": "Airport with given id does not exist."
+      }
+      """
 
   Scenario: As a cabin crew I cannot create aircraft with correct data
     Given I am signed in as "cabin crew"
@@ -127,7 +282,8 @@ Feature: Create aircraft for operator
         "type": "B748",
         "selcal": "SL-PR",
         "registration": "SP-LRA",
-        "livery": "Sunshine"
+        "livery": "Sunshine",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a"
       }
       """
     Then the response status should be 403
@@ -158,7 +314,7 @@ Feature: Create aircraft for operator
         "statusCode": 400,
         "violations": {
           "registration": ["registration should not be empty", "registration must be a string"],
-          "selcal": ["selcal should not be empty", "selcal must be a string"]
+          "baseAirportId": ["baseAirportId must be a UUID"]
         }
       }
       """
@@ -171,7 +327,8 @@ Feature: Create aircraft for operator
         "type": "B748",
         "selcal": "SL-PR",
         "registration": "SP-LRA",
-        "livery": "Sunshine"
+        "livery": "Sunshine",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a"
       }
       """
     Then the response status should be 404
@@ -192,7 +349,8 @@ Feature: Create aircraft for operator
         "type": "ZZZZ",
         "selcal": "SL-PR",
         "registration": "SP-LRA",
-        "livery": "Sunshine"
+        "livery": "Sunshine",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a"
       }
       """
     Then the response status should be 404
@@ -213,7 +371,8 @@ Feature: Create aircraft for operator
         "type": "B748",
         "selcal": "SL-PR",
         "registration": "D-AIMC",
-        "livery": "Sunshine"
+        "livery": "Sunshine",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a"
       }
       """
     Then the response status should be 409
@@ -234,7 +393,8 @@ Feature: Create aircraft for operator
         "type": "B748",
         "selcal": "SL-PR",
         "registration": "SP-LRA",
-        "livery": "Sunshine"
+        "livery": "Sunshine",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a"
       }
       """
     Then the response status should be 400
@@ -254,7 +414,8 @@ Feature: Create aircraft for operator
         "type": "B748",
         "selcal": "SL-PR",
         "registration": "SP-LRA",
-        "livery": "Sunshine"
+        "livery": "Sunshine",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a"
       }
       """
     Then the response status should be 401

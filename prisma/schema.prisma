@@ -13,7 +13,7 @@ model Aircraft {
   id                    String        @id @default(uuid()) @db.Uuid
   type                  String        @db.VarChar(4)
   registration          String        @unique
-  selcal                String
+  selcal                String?
   livery                String
   currentState          AircraftState @default(idle)
   etopsThresholdMinutes Int?
