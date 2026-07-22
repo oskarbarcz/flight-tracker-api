@@ -57,7 +57,6 @@ export class ReportOnBlockHandler implements ICommandHandler<ReportOnBlockComman
     await this.domainEvents.emitAsync(
       new OnBlockWasReportedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: FlightEventScope.User,
         actorId: initiatorId,
         aircraftId: flight.aircraft.id,

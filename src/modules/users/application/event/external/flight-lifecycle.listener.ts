@@ -15,7 +15,6 @@ import { haversineDistanceNm } from '../../../../../core/utils/distance';
 import { FlightSource, UserTravelType } from 'prisma/client/enums';
 import { UserRole } from '../../../model/user-role';
 import { GetFlightCompletionStatsQuery } from '../../../../flights/application/query/get-flight-completion-stats.query';
-import { GetLastFlightInRotationQuery } from '../../../../flights/application/query/rotation/get-last-flight-in-rotation.query';
 import { GetRepositionDataQuery } from '../../../../flights/application/query/reposition/get-reposition-data.query';
 
 type Coordinates = { latitude: number; longitude: number };
@@ -35,15 +34,6 @@ export class FlightLifecycleListener {
     await this.usersRepository.setCurrentFlight(userId, event.payload.flightId);
 
     await this.recordCheckInTravel(userId, event.payload.flightId);
-
-    if (!event.payload.rotationId) {
-      return;
-    }
-
-    await this.usersRepository.setCurrentRotation(
-      userId,
-      event.payload.rotationId,
-    );
   }
 
   @OnEvent(FlightEventType.OnBlockWasReported)
@@ -79,21 +69,6 @@ export class FlightLifecycleListener {
     const userId = event.payload.actorId as string;
 
     await this.usersRepository.setCurrentFlight(userId, null);
-
-    if (!event.payload.rotationId) {
-      return;
-    }
-
-    const lastFlightQuery = new GetLastFlightInRotationQuery(
-      event.payload.rotationId,
-    );
-    const lastFlightInRotationId = await this.queryBus.execute(lastFlightQuery);
-
-    if (lastFlightInRotationId !== event.payload.flightId) {
-      return;
-    }
-
-    await this.usersRepository.setCurrentRotation(userId, null);
   }
 
   private async recordCheckInTravel(

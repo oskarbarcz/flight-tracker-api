@@ -55,7 +55,6 @@ export class CheckInPilotForFlightHandler implements ICommandHandler<CheckInPilo
     await this.domainEvents.emitAsync(
       new PilotCheckedInEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: FlightEventScope.User,
         actorId: initiatorId,
         aircraftId: flight.aircraft.id,

@@ -15,7 +15,6 @@ function taxiingOutFlight() {
   return {
     id: FLIGHT_ID,
     status: FlightStatus.TaxiingOut,
-    rotationId: null,
     timesheet: {
       actual: {
         offBlockTime: new Date('2025-01-01T13:10:00.000Z'),

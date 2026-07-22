@@ -93,7 +93,7 @@ polling `GET /api/v1/flight/:id/events`.
 | `flight.subscribe.error` | `{ flightId, message }` | Emitted when `subscribe` cannot be fulfilled (e.g. the flight ID does not exist).                                                  |
 
 Any event emitted by the domain that `EventsRepository` persists (boarding started/finished, off-block, takeoff,
-arrival, on-block, offboarding, close, gate/runway/timesheet/loadsheet changes, emergencies, rotation links, track
+arrival, on-block, offboarding, close, gate/runway/timesheet/loadsheet changes, emergencies, track
 saves, live positions) is forwarded as a `flight.event` to subscribers of the matching flight.
 
 **Browser example**

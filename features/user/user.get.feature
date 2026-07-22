@@ -13,7 +13,6 @@ Feature: Get user
         "role": "Admin",
         "pilotLicenseId": null,
         "currentFlightId": null,
-        "currentRotationId": null,
         "homeAirportId": null,
         "lastAirportId": null,
         "lastAirportUpdatedAt": null
@@ -33,7 +32,6 @@ Feature: Get user
         "role": "Admin",
         "pilotLicenseId": null,
         "currentFlightId": null,
-        "currentRotationId": null,
         "homeAirportId": null,
         "lastAirportId": null,
         "lastAirportUpdatedAt": null

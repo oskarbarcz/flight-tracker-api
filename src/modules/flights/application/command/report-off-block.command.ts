@@ -61,7 +61,6 @@ export class ReportOffBlockHandler implements ICommandHandler<ReportOffBlockComm
     this.domainEvents.emit(
       new OffBlockWasReportedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope,
         actorId: initiatorId,
         aircraftId: flight.aircraft.id,

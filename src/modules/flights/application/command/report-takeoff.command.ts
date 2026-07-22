@@ -54,7 +54,6 @@ export class ReportTakeoffHandler implements ICommandHandler<ReportTakeoffComman
     this.domainEvents.emit(
       new TakeoffWasReportedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope,
         actorId: initiatorId,
         payload: { automaticallyDetected },

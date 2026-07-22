@@ -221,18 +221,6 @@ export class UsersRepository {
     await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, userId));
   }
 
-  async setCurrentRotation(
-    userId: string,
-    rotationId: string | null,
-  ): Promise<void> {
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { currentRotationId: rotationId },
-    });
-
-    await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, userId));
-  }
-
   async addCompletedFlightStats(
     userId: string,
     stats: {
@@ -277,7 +265,6 @@ export class UsersRepository {
       role: user.role,
       pilotLicenseId: user.pilotLicenseId,
       currentFlightId: user.currentFlightId,
-      currentRotationId: user.currentRotationId,
       homeAirportId: user.homeAirportId,
       lastAirportId: user.lastAirportId,
       lastAirportUpdatedAt: user.lastAirportUpdatedAt,

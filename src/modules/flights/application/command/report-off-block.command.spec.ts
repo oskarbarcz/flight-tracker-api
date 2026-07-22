@@ -16,7 +16,6 @@ function boardingFinishedFlight() {
   return {
     id: FLIGHT_ID,
     status: FlightStatus.BoardingFinished,
-    rotationId: null,
     aircraft: { id: AIRCRAFT_ID },
     timesheet: {
       actual: {

@@ -54,7 +54,6 @@ export class ReportArrivalHandler implements ICommandHandler<ReportArrivalComman
     this.domainEvents.emit(
       new ArrivalWasReportedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope,
         actorId: initiatorId,
         payload: { automaticallyDetected },

@@ -8,7 +8,6 @@ import {
 export class FlightEventResponse extends OmitType(FlightEvent, [
   'actorId',
   'flightId',
-  'rotationId',
 ]) {}
 
 export type FlightBroadcastEvent = FlightEventPayload & {

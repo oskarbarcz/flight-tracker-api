@@ -177,7 +177,6 @@ Feature: Update flight arrival parking position
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "private",
-        "rotationId": "bd8f2d64-a647-42da-be63-c6589915e6c9",
         "createdAt": "2025-01-01T00:00:00.000Z",
         "pilot": null
       }

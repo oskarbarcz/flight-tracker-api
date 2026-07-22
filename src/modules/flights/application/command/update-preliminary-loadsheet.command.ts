@@ -51,7 +51,6 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
     this.domainEvents.emit(
       new PreliminaryLoadsheetWasUpdatedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: FlightEventScope.Operations,
         actorId: initiatorId,
       }),

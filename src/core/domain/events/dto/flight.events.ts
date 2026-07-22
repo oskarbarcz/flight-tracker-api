@@ -16,8 +16,6 @@ export enum FlightEventType {
   DepartureRunwayWasChanged = 'flight.departure-runway-changed',
   ArrivalParkingPositionWasChanged = 'flight.arrival-parking-position-changed',
   ArrivalRunwayWasChanged = 'flight.arrival-runway-changed',
-  FlightWasAddedToRotation = 'flight.added-to-rotation',
-  FlightWasRemovedFromRotation = 'flight.removed-from-rotation',
   FlightWasReleased = 'flight.released',
   PilotCheckedIn = 'flight.pilot-checked-in',
   BoardingWasStarted = 'flight.boarding-started',
@@ -47,7 +45,6 @@ export type FlightEventPayload = {
   flightId: string;
   scope: FlightEventScope;
   actorId: string | null;
-  rotationId?: string | null;
   payload?: InputJsonValue;
 };
 
@@ -119,14 +116,6 @@ export class ArrivalParkingPositionWasChangedEvent extends FlightLifecycleEvent 
 
 export class ArrivalRunwayWasChangedEvent extends FlightLifecycleEvent {
   static readonly name = FlightEventType.ArrivalRunwayWasChanged;
-}
-
-export class FlightWasAddedToRotationEvent extends FlightLifecycleEvent {
-  static readonly name = FlightEventType.FlightWasAddedToRotation;
-}
-
-export class FlightWasRemovedFromRotationEvent extends FlightLifecycleEvent {
-  static readonly name = FlightEventType.FlightWasRemovedFromRotation;
 }
 
 export class FlightWasReleasedEvent extends FlightLifecycleEvent {

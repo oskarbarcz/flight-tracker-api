@@ -112,7 +112,6 @@ export class UpdatePredictedTimesheetHandler implements ICommandHandler<UpdatePr
     this.domainEvents.emit(
       new PredictedTimesheetWasUpdatedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: scopeForActor(actor),
         actorId: actor.sub,
       }),

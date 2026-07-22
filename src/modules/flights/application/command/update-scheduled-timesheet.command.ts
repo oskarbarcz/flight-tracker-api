@@ -45,7 +45,6 @@ export class UpdateScheduledTimesheetHandler implements ICommandHandler<UpdateSc
     this.domainEvents.emit(
       new ScheduledTimesheetWasUpdatedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: FlightEventScope.Operations,
         actorId: initiatorId,
       }),

@@ -57,7 +57,6 @@ export class UpdateFlightDiversionHandler implements ICommandHandler<UpdateFligh
     this.domainEvents.emit(
       new DiversionWasUpdatedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: scopeForActor(actor),
         actorId: actor.sub,
       }),

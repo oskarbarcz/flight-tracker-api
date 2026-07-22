@@ -80,6 +80,4 @@ export class FlightEvent<EventPayload = object> {
     example: '2025-01-01T00:00:00Z',
   })
   createdAt!: Date;
-
-  rotationId?: string | null = null;
 }

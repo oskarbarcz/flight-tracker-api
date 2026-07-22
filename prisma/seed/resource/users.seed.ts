@@ -10,7 +10,6 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     pilotLicenseId: null,
     currentFlightId: null,
-    currentRotationId: null,
     simbriefUserId: null,
     totalFlightTime: 0,
     totalGreatCircleDistance: 0,
@@ -29,7 +28,6 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     pilotLicenseId: null,
     currentFlightId: null,
-    currentRotationId: null,
     simbriefUserId: null,
     totalFlightTime: 0,
     totalGreatCircleDistance: 0,
@@ -48,7 +46,6 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     pilotLicenseId: null,
     currentFlightId: null,
-    currentRotationId: null,
     simbriefUserId: '123456',
     totalFlightTime: 0,
     totalGreatCircleDistance: 0,
@@ -67,7 +64,6 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     pilotLicenseId: null,
     currentFlightId: null,
-    currentRotationId: null,
     simbriefUserId: '654321',
     totalFlightTime: 0,
     totalGreatCircleDistance: 0,
@@ -87,7 +83,6 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     // null because seed flights loaded later than seed users
     // AAL4908 attached in flights.seed.ts
     currentFlightId: null,
-    currentRotationId: null,
     pilotLicenseId: 'UK-31270',
     simbriefUserId: null,
     totalFlightTime: 1797,
@@ -109,8 +104,6 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     // DLH42 attached in flights.seed.ts
     currentFlightId: null,
     // null because seed flights loaded later than seed users
-    // 02-2025 attached in rotations.seed.ts
-    currentRotationId: null,
     pilotLicenseId: 'UK-34560',
     simbriefUserId: null,
     totalFlightTime: 0,
@@ -132,8 +125,6 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     // DLH43 attached in flights.seed.ts
     currentFlightId: null,
     // null because seed flights loaded later than seed users
-    // 03-2025 attached in rotations.seed.ts
-    currentRotationId: null,
     pilotLicenseId: 'UK-98540',
     simbriefUserId: null,
     totalFlightTime: 0,
@@ -153,7 +144,6 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     pilotLicenseId: null,
     currentFlightId: null,
-    currentRotationId: null,
     simbriefUserId: '111222',
     totalFlightTime: 0,
     totalGreatCircleDistance: 0,
@@ -172,7 +162,6 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     pilotLicenseId: null,
     currentFlightId: null,
-    currentRotationId: null,
     simbriefUserId: '333444',
     totalFlightTime: 0,
     totalGreatCircleDistance: 0,

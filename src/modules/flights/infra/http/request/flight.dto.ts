@@ -47,8 +47,6 @@ export class CreateFlightRequest extends OmitType(Flight, [
   'timesheet',
   'loadsheets',
   'operator',
-  'rotationId',
-  'rotation',
   'source',
   'isFlightDiverted',
   'isEmergencyDeclared',
@@ -107,7 +105,6 @@ export class CreateFlightRequest extends OmitType(Flight, [
 }
 
 export class GetFlightResponse extends OmitType(Flight, [
-  'rotation',
   'aircraftId',
   'operatorId',
 ]) {

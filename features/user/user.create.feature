@@ -21,7 +21,6 @@ Feature: Create user
         "email": "anna.doe@example.com",
         "role": "Admin",
         "currentFlightId": null,
-        "currentRotationId": null,
         "pilotLicenseId": null,
         "homeAirportId": null,
         "lastAirportId": null,
@@ -53,7 +52,6 @@ Feature: Create user
         "role": "CabinCrew",
         "pilotLicenseId": "UK-12345",
         "currentFlightId": null,
-        "currentRotationId": null,
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": null

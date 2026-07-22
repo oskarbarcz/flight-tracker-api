@@ -45,7 +45,6 @@ export class StartBoardingHandler implements ICommandHandler<StartBoardingComman
     this.domainEvents.emit(
       new BoardingWasStartedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: FlightEventScope.User,
         actorId: initiatorId,
       }),

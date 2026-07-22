@@ -98,7 +98,6 @@ export class PositionService {
     this.domainEvents.emit(
       new LivePositionReceivedEvent({
         flightId,
-        rotationId: null,
         scope: FlightEventScope.User,
         actorId: null,
       }),
@@ -109,7 +108,6 @@ export class PositionService {
     this.domainEvents.emit(
       new FlightPathWasUpdatedEvent({
         flightId,
-        rotationId: null,
         scope: FlightEventScope.System,
         actorId: null,
       }),

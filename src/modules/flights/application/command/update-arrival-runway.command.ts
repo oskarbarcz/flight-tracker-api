@@ -51,7 +51,6 @@ export class UpdateArrivalRunwayHandler implements ICommandHandler<UpdateArrival
     this.domainEvents.emit(
       new ArrivalRunwayWasChangedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: scopeForActor(actor),
         actorId: actor.sub,
       }),

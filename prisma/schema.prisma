@@ -178,7 +178,6 @@ model Operator {
 
   aircrafts Aircraft[]
   flights   Flight[]
-  rotations Rotation[]
   crew      Crew[]
 
   @@map("operator")
@@ -194,7 +193,6 @@ model Flight {
   timesheet                  Json
   loadsheets                 Json           @default("{\"final\": null, \"preliminary\": null}")
   operatorId                 String         @db.Uuid
-  rotationId                 String?        @db.Uuid
   captainId                  String?        @db.Uuid
   source                     FlightSource   @default(manual)
   tracking                   FlightTracking @default(private)
@@ -219,7 +217,6 @@ model Flight {
   isPathAvailable            Boolean        @default(false)
 
   operator                 Operator               @relation(fields: [operatorId], references: [id])
-  rotation                 Rotation?              @relation(fields: [rotationId], references: [id])
   captain                  User?                  @relation("FlightCaptain", fields: [captainId], references: [id])
   aircraft                 Aircraft               @relation(fields: [aircraftId], references: [id])
   airports                 AirportsOnFlights[]
@@ -343,7 +340,6 @@ model User {
   role                     UserRole
   pilotLicenseId           String?   @db.VarChar(8)
   currentFlightId          String?   @unique @db.Uuid
-  currentRotationId        String?   @unique @db.Uuid
   simbriefUserId           String?
   totalFlightTime          Int       @default(0)
   totalGreatCircleDistance Int       @default(0)
@@ -354,10 +350,8 @@ model User {
 
   homeAirport          Airport?               @relation("UserHomeAirport", fields: [homeAirportId], references: [id], onDelete: SetNull)
   lastAirport          Airport?               @relation("UserLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
-  rotations            Rotation[]
   jwtRefreshToken      JwtRefreshToken[]
   currentFlight        Flight?                @relation("UserCurrentFlight", fields: [currentFlightId], references: [id])
-  currentRotation      Rotation?              @relation(fields: [currentRotationId], references: [id], name: "CurrentRotation")
   flightEvent          FlightEvent[]
   diversion            Diversion[]
   emergenciesReported  EmergencyDeclaration[] @relation("EmergencyReporter")
@@ -458,21 +452,6 @@ model AircraftReposition {
   @@map("aircraft_reposition")
 }
 
-model Rotation {
-  id         String    @id @default(uuid()) @db.Uuid
-  name       String
-  pilotId    String    @db.Uuid
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime?
-  operatorId String?   @db.Uuid
-
-  flights        Flight[]
-  pilot          User      @relation(fields: [pilotId], references: [id])
-  currentForUser User?     @relation("CurrentRotation")
-  operator       Operator? @relation(fields: [operatorId], references: [id])
-
-  @@map("rotation")
-}
 
 model Crew {
   id         String   @id @default(uuid()) @db.Uuid

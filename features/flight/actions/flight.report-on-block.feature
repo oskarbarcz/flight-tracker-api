@@ -380,7 +380,6 @@ Feature: Report on-block
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
-        "rotationId": null,
         "createdAt": "2025-01-01T00:00:00.000Z",
         "pilot": {
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -598,7 +597,6 @@ Feature: Report on-block
         "role": "CabinCrew",
         "pilotLicenseId": "UK-31270",
         "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e",
-        "currentRotationId": null,
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
         "lastAirportUpdatedAt": "@date('within 1 minute from now')"

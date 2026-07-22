@@ -52,7 +52,6 @@ export class ResolveEmergencyHandler implements ICommandHandler<ResolveEmergency
     this.domainEvents.emit(
       new EmergencyWasResolvedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: FlightEventScope.User,
         actorId: actor.sub,
       }),

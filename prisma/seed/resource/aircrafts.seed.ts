@@ -84,7 +84,7 @@ export async function loadAircraft(
     id: string,
     type: string,
     registration: string,
-    selcal: string,
+    selcal: string | null,
     livery: string,
     operatorId: string,
     baseAirportId: string,

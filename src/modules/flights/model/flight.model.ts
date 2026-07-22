@@ -3,7 +3,6 @@ import { AirportWithType } from '../../airports/model/airport.model';
 import { FullTimesheet } from './timesheet.model';
 import { Operator } from '../../operators/model/operator.model';
 import { Loadsheets } from './loadsheet.model';
-import { Rotation } from '../../operators/model/rotation.model';
 import {
   IsBoolean,
   IsEnum,
@@ -143,21 +142,6 @@ export class Flight {
     type: Operator,
   })
   operator!: ShortOperatorResponse;
-
-  @ApiProperty({
-    description: 'Rotation this flight belongs to',
-    type: Rotation,
-    required: false,
-    nullable: true,
-  })
-  rotation?: Rotation;
-
-  @ApiProperty({
-    description: 'Unique identifier of rotation this flight belongs to',
-    type: 'string',
-    nullable: true,
-  })
-  rotationId!: string | null;
 
   @ApiProperty({
     description: 'Source how flight was created',
