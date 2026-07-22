@@ -500,7 +500,7 @@ Feature: Check in pilot for flight
           "registration": "D-AIMG",
           "airframe": {
             "type": "A339",
-            "name": "A330-900",
+            "name": "Airbus A330-900",
             "cruiseSpeed": {
               "value": 0.8,
               "unit": "mach"
@@ -536,7 +536,7 @@ Feature: Check in pilot for flight
           "registration": "D-AIMF",
           "airframe": {
             "type": "A339",
-            "name": "A330-900",
+            "name": "Airbus A330-900",
             "cruiseSpeed": {
               "value": 0.8,
               "unit": "mach"
