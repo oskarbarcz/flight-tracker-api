@@ -61,7 +61,7 @@ export class Airframe {
 
   @ApiProperty({
     description: 'Airframe model name',
-    example: 'B777-300ER',
+    example: 'Boeing 777-300ER',
   })
   @IsString()
   @IsNotEmpty()
