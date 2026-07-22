@@ -57,7 +57,6 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
     this.domainEvents.emit(
       new BoardingWasFinishedEvent({
         flightId: flightId,
-        rotationId: flight.rotationId,
         scope: FlightEventScope.User,
         actorId: initiatorId,
       }),

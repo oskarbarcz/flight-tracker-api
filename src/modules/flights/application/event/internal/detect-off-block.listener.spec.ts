@@ -29,7 +29,6 @@ function flight(overrides: Record<string, unknown> = {}) {
   return {
     id: FLIGHT_ID,
     status: FlightStatus.BoardingFinished,
-    rotationId: null,
     ...overrides,
   };
 }
@@ -53,7 +52,6 @@ describe('DetectOffBlockListener', () => {
 
   const event = new FlightPathWasUpdatedEvent({
     flightId: FLIGHT_ID,
-    rotationId: null,
     scope: FlightEventScope.System,
     actorId: null,
   });

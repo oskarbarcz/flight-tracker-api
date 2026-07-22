@@ -43,7 +43,6 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
     this.domainEvents.emit(
       new FlightWasReleasedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: FlightEventScope.User,
         actorId: initiatorId,
       }),

@@ -150,7 +150,6 @@ Feature: Resolve a flight emergency
             "shape": "@coordinates"
           }
         ],
-        "rotationId": null,
         "source": "manual",
         "tracking": "public",
         "departureParkingPositionId": null,
@@ -332,7 +331,6 @@ Feature: Resolve a flight emergency
             "shape": "@coordinates"
           }
         ],
-        "rotationId": null,
         "source": "manual",
         "tracking": "public",
         "departureParkingPositionId": null,

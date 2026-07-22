@@ -46,8 +46,6 @@ import { AssignFlightCrewAction } from './infra/http/action/crew/assign-flight-c
 import { UnassignFlightCrewAction } from './infra/http/action/crew/unassign-flight-crew.action';
 import { GetOfpAction } from './infra/http/action/ofp/get-ofp.action';
 import { GetPathAction } from './infra/http/action/path/get-path.action';
-import { AddFlightToRotationAction } from './infra/http/action/rotation/add-flight-to-rotation.action';
-import { RemoveFlightFromRotationAction } from './infra/http/action/rotation/remove-flight-from-rotation.action';
 import { DeclareEmergencyHandler } from './application/command/emergency/declare-emergency.command';
 import { UpdateEmergencyHandler } from './application/command/emergency/update-emergency.command';
 import { ResolveEmergencyHandler } from './application/command/emergency/resolve-emergency.command';
@@ -80,8 +78,6 @@ import { UpdateDepartureParkingPositionHandler } from './application/command/upd
 import { UpdateDepartureRunwayHandler } from './application/command/update-departure-runway.command';
 import { UpdateArrivalParkingPositionHandler } from './application/command/update-arrival-parking-position.command';
 import { UpdateArrivalRunwayHandler } from './application/command/update-arrival-runway.command';
-import { AddFlightToRotationHandler } from './application/command/rotation/add-flight-to-rotation.command';
-import { RemoveFlightFromRotationHandler } from './application/command/rotation/remove-flight-from-rotation.command';
 import { ListEventsHandler } from './application/query/events/list-events.query';
 import { GetDiversionHandler } from './application/query/diversion/get-diversion.query';
 import { ReportFlightDiversionHandler } from './application/command/diversion/report-flight-diversion.command';
@@ -104,7 +100,6 @@ import { RejectDelayReportHandler } from './application/command/delay/reject-del
 import { GetArrivalParkingPositionHandler } from './application/query/get-arrival-parking-position.query';
 import { GetRepositionDataHandler } from './application/query/reposition/get-reposition-data.query';
 import { GetFlightCompletionStatsHandler } from './application/query/get-flight-completion-stats.query';
-import { GetLastFlightInRotationHandler } from './application/query/rotation/get-last-flight-in-rotation.query';
 import { GetDelayRequestAction } from './infra/http/action/delay/get-delay-request.action';
 import { ListDelayReportsAction } from './infra/http/action/delay/list-delay-reports.action';
 import { ReportDelayAction } from './infra/http/action/delay/report-delay.action';
@@ -153,8 +148,6 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     UnassignFlightCrewAction,
     GetOfpAction,
     GetPathAction,
-    AddFlightToRotationAction,
-    RemoveFlightFromRotationAction,
     GetDelayRequestAction,
     ReportDelayAction,
     RemoveDelayReportAction,
@@ -200,8 +193,6 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     UpdateDepartureRunwayHandler,
     UpdateArrivalParkingPositionHandler,
     UpdateArrivalRunwayHandler,
-    AddFlightToRotationHandler,
-    RemoveFlightFromRotationHandler,
     ListEventsHandler,
     GetDiversionHandler,
     ReportFlightDiversionHandler,
@@ -224,7 +215,6 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     GetArrivalParkingPositionHandler,
     GetRepositionDataHandler,
     GetFlightCompletionStatsHandler,
-    GetLastFlightInRotationHandler,
   ],
 })
 export class FlightsModule {}

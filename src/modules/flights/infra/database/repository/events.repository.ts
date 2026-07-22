@@ -61,8 +61,6 @@ export class EventsRepository {
   @OnEvent(FlightEventType.PreliminaryLoadsheetWasUpdated)
   @OnEvent(FlightEventType.ScheduledTimesheetWasUpdated)
   @OnEvent(FlightEventType.PredictedTimesheetWasUpdated)
-  @OnEvent(FlightEventType.FlightWasAddedToRotation)
-  @OnEvent(FlightEventType.FlightWasRemovedFromRotation)
   @OnEvent(FlightEventType.DepartureParkingPositionWasChanged)
   @OnEvent(FlightEventType.DepartureRunwayWasChanged)
   @OnEvent(FlightEventType.ArrivalParkingPositionWasChanged)

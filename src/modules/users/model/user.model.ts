@@ -84,14 +84,6 @@ export class User {
   currentFlightId!: string | null;
 
   @ApiProperty({
-    description: 'Current rotation user is performing',
-    example: '8f525809-9b37-4c2c-80c8-72be06023fd4',
-    type: 'string',
-    nullable: true,
-  })
-  currentRotationId!: string | null;
-
-  @ApiProperty({
     description: 'Home base airport of the pilot (required for CabinCrew)',
     example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
     type: 'string',

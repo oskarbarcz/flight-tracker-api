@@ -3982,7 +3982,6 @@ async function loadAAL4919(tx: Prisma.TransactionClient): Promise<void> {
 
 /**
  * DLH40 | 48760636-9520-4863-b32f-f3618556feb7
- * Rotation 2025-01
  * Boston Frankfurt (EDDF) -> New York JFK (KJFK)
  * status: Closed
  */
@@ -4001,7 +4000,6 @@ async function loadDLH40(tx: Prisma.TransactionClient): Promise<void> {
     status: FlightStatus.Closed,
     aircraftId: 'b84e4c67-7565-4846-84c4-ab8215308fbd', // D-AIMD A339
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
-    rotationId: 'bd8f2d64-a647-42da-be63-c6589915e6c9', // 2025-01
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2025-01-01 17:40'),
@@ -4223,7 +4221,6 @@ async function loadDLH40(tx: Prisma.TransactionClient): Promise<void> {
 
 /**
  * DLH41 | e8e17e59-67d7-4a6c-a0bd-425ffa6bed66
- * Rotation 2025-01
  * New York JFK (KJFK) -> Frankfurt (EDDF)
  * status: Created
  */
@@ -4241,7 +4238,6 @@ async function loadDLH41(tx: Prisma.TransactionClient): Promise<void> {
     status: FlightStatus.Created,
     aircraftId: 'becc1596-dfa0-452b-81ec-3f1f2fa0dce2', // D-AIME A339
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
-    rotationId: 'bd8f2d64-a647-42da-be63-c6589915e6c9', // 2025-01
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2025-01-02 04:00'),
@@ -4350,7 +4346,6 @@ async function loadDLH41(tx: Prisma.TransactionClient): Promise<void> {
 
 /**
  * DLH42 | 006f0754-1ed7-4ae1-9f91-fae2d446a6e7
- * Rotation 2025-02
  * Frankfurt (EDDF) -> New York JFK (KJFK)
  * status: Ready
  */
@@ -4368,7 +4363,6 @@ async function loadDLH42(tx: Prisma.TransactionClient): Promise<void> {
     status: FlightStatus.Ready,
     aircraftId: '9f5da1a4-f09e-4961-8299-82d688337d1f', // A330
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
-    rotationId: '4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1', // 2025-02
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2025-01-02 17:40'),
@@ -4522,7 +4516,6 @@ async function loadDLH42(tx: Prisma.TransactionClient): Promise<void> {
 
 /**
  * DLH43 | d4a25ef2-39cf-484c-af00-a548999e8699
- * Rotation 2025-03
  * New York JFK (KJFK) -> Frankfurt (EDDF)
  * status: Offboarding finished
  */
@@ -4539,7 +4532,6 @@ async function loadDLH43(tx: Prisma.TransactionClient): Promise<void> {
     status: FlightStatus.OffboardingFinished,
     aircraftId: 'a9b9205d-53b1-4eec-bb24-548a12159997', // D-AIMF A339
     operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
-    rotationId: 'c2e12afb-a712-45aa-9ba5-fec71868e59a', // 2025-03
     timesheet: {
       scheduled: {
         offBlockTime: new Date('2025-01-03 04:00'),
@@ -4662,7 +4654,6 @@ async function loadDLH43(tx: Prisma.TransactionClient): Promise<void> {
     where: { id: '629be07f-5e65-429a-9d69-d34b99185f50' }, // Michael Doe user
     data: {
       currentFlightId: flight.id,
-      currentRotationId: 'c2e12afb-a712-45aa-9ba5-fec71868e59a',
     },
   });
 

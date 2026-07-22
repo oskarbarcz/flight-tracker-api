@@ -156,7 +156,6 @@ Feature: Create a flight
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "private",
-        "rotationId": null,
         "createdAt": "@date('within 1 minute from now')",
         "pilot": null
       }
@@ -382,7 +381,6 @@ Feature: Create a flight
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "private",
-        "rotationId": null,
         "createdAt": "@date('within 1 minute from now')",
         "pilot": null
       }
@@ -553,7 +551,6 @@ Feature: Create a flight
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "private",
-        "rotationId": null,
         "createdAt": "@date('within 1 minute from now')",
         "pilot": null
       }

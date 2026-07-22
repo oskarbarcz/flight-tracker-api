@@ -48,7 +48,6 @@ export class CloseFlightHandler implements ICommandHandler<CloseFlightCommand> {
     this.domainEvents.emit(
       new FlightWasClosedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: FlightEventScope.User,
         actorId: initiatorId,
         aircraftId: flight.aircraft.id,

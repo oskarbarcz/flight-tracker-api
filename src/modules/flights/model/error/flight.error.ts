@@ -1,6 +1,5 @@
 import {
   BadRequestError,
-  ConflictError,
   NotFoundError,
   UnprocessableError,
 } from '../../../../core/errors/domain-error';
@@ -26,24 +25,6 @@ export class FlightWithIdDoesNotExistError extends NotFoundError {
 export class FlightOfpNotFoundError extends NotFoundError {
   constructor() {
     super('Flight with given id does not exist or no OFP for flight');
-  }
-}
-
-export class FlightAlreadyAssignedToRotationError extends ConflictError {
-  constructor() {
-    super('Flight is already assigned to rotation.');
-  }
-}
-
-export class FlightRotationNotMatchingError extends ConflictError {
-  constructor() {
-    super('Flight is already assigned to a different rotation.');
-  }
-}
-
-export class FlightIncorrectStateToChangeRotationError extends BadRequestError {
-  constructor() {
-    super('Flight is in incorrect state to modify its rotation.');
   }
 }
 

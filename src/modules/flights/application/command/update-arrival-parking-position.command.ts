@@ -55,7 +55,6 @@ export class UpdateArrivalParkingPositionHandler implements ICommandHandler<Upda
     this.domainEvents.emit(
       new ArrivalParkingPositionWasChangedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: scopeForActor(actor),
         actorId: actor.sub,
       }),

@@ -115,7 +115,7 @@ Feature: Check in pilot for flight
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
           "airframe": {
             "type": "B77W",
-            "name": "Boeing 777-300ER",
+            "name": "B777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
@@ -202,7 +202,6 @@ Feature: Check in pilot for flight
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
-        "rotationId": null,
         "createdAt": "2025-01-01T00:00:00.000Z",
         "pilot": {
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -275,7 +274,6 @@ Feature: Check in pilot for flight
         "role": "CabinCrew",
         "pilotLicenseId": "UK-31270",
         "currentFlightId": "23952e79-6b38-49ed-a1db-bd4d9b3cedab",
-        "currentRotationId": null,
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
         "lastAirportUpdatedAt": "@date('within 1 minute from now')"
@@ -423,7 +421,7 @@ Feature: Check in pilot for flight
         "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
         "airframe": {
           "type": "B77W",
-          "name": "Boeing 777-300ER",
+          "name": "B777-300ER",
           "cruiseSpeed": { "value": 0.84, "unit": "mach" },
           "serviceCeiling": 43000,
           "performanceCode": "D",
@@ -466,7 +464,7 @@ Feature: Check in pilot for flight
           "registration": "N78881",
           "airframe": {
             "type": "B77W",
-            "name": "Boeing 777-300ER",
+            "name": "B777-300ER",
             "cruiseSpeed": {
               "value": 0.84,
               "unit": "mach"
@@ -502,7 +500,7 @@ Feature: Check in pilot for flight
           "registration": "D-AIMG",
           "airframe": {
             "type": "A339",
-            "name": "Airbus A330-900",
+            "name": "A330-900",
             "cruiseSpeed": {
               "value": 0.8,
               "unit": "mach"
@@ -538,7 +536,7 @@ Feature: Check in pilot for flight
           "registration": "D-AIMF",
           "airframe": {
             "type": "A339",
-            "name": "Airbus A330-900",
+            "name": "A330-900",
             "cruiseSpeed": {
               "value": 0.8,
               "unit": "mach"
@@ -574,7 +572,7 @@ Feature: Check in pilot for flight
           "registration": "N718AN",
           "airframe": {
             "type": "B77W",
-            "name": "Boeing 777-300ER",
+            "name": "B777-300ER",
             "cruiseSpeed": {
               "value": 0.84,
               "unit": "mach"
@@ -607,329 +605,6 @@ Feature: Check in pilot for flight
         }
       ]
       """
-    And I set database to initial state
-
-  Scenario: As a cabin crew I can check in pilot for flight that starts rotation
-    Given I open a WebSocket connection as "cabin crew"
-    When I subscribe to flight events for "006f0754-1ed7-4ae1-9f91-fae2d446a6e7"
-    Then I should receive flight event history within 2000ms
-    Given I am signed in as "Alan Doe"
-    When I send a "POST" request to "/api/v1/flight/006f0754-1ed7-4ae1-9f91-fae2d446a6e7/check-in" with body:
-      """json
-      {
-        "arrivalTime": "2025-01-02T15:50:00.000Z",
-        "onBlockTime": "2025-01-02T16:08:00.000Z",
-        "takeoffTime": "2025-01-02T13:15:00.000Z",
-        "offBlockTime": "2025-01-02T13:00:00.000Z"
-      }
-      """
-    Then the response status should be 204
-    When I send a "GET" request to "/api/v1/flight/006f0754-1ed7-4ae1-9f91-fae2d446a6e7"
-    Then the response status should be 200
-    And the response body should contain:
-      """json
-      {
-        "id": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
-        "flightNumber": "LH42",
-        "callsign": "DLH42",
-        "atcCallsign": null,
-        "isEtops": true,
-        "status": "checked_in",
-        "timesheet": {
-          "estimated": {
-            "arrivalTime": "2025-01-02T15:50:00.000Z",
-            "onBlockTime": "2025-01-02T16:08:00.000Z",
-            "takeoffTime": "2025-01-02T13:15:00.000Z",
-            "offBlockTime": "2025-01-02T13:00:00.000Z"
-          },
-          "scheduled": {
-            "arrivalTime": "2025-01-03T02:00:00.000Z",
-            "onBlockTime": "2025-01-03T02:15:00.000Z",
-            "takeoffTime": "2025-01-02T18:00:00.000Z",
-            "offBlockTime": "2025-01-02T17:40:00.000Z"
-          }
-        },
-        "loadsheets": {
-          "preliminary": {
-            "cargo": 7.3,
-            "payload": 30.6,
-            "blockFuel": 53,
-            "fuel": {
-              "block": 53,
-              "taxi": 0.8,
-              "trip": 44.1,
-              "alternate": 3.2,
-              "reserve": 2.7,
-              "contingencyType": "5%",
-              "contingencyAmount": 2.2,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            },
-            "flightCrew": {
-              "pilots": 2,
-              "cabinCrew": 12,
-              "reliefPilots": 1
-            },
-            "passengers": 293,
-            "zeroFuelWeight": 157.9
-          }
-        },
-        "aircraft": {
-          "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
-          "airframe": {
-            "type": "A339",
-            "name": "Airbus A330-900",
-            "cruiseSpeed": { "value": 0.8, "unit": "mach" },
-            "serviceCeiling": 41400,
-            "performanceCode": "D",
-            "weightCategory": "heavy"
-          },
-          "registration": "D-AIMC",
-          "selcal": "LR-CK",
-          "livery": "Fanhansa (2024)",
-          "operator": {
-            "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
-            "icaoCode": "DLH",
-            "iataCode": "LH",
-            "shortName": "Lufthansa",
-            "fullName": "Deutsche Lufthansa AG",
-            "callsign": "LUFTHANSA"
-          }
-        },
-        "operator": {
-          "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
-          "icaoCode": "DLH",
-          "iataCode": "LH",
-          "shortName": "Lufthansa",
-          "fullName": "Deutsche Lufthansa AG",
-          "callsign": "LUFTHANSA"
-        },
-        "airports": [
-          {
-            "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-            "icaoCode": "KJFK",
-            "iataCode": "JFK",
-            "city": "New York",
-            "name": "New York JFK",
-            "country": "United States of America",
-            "timezone": "America/New_York",
-            "continent": "north_america",
-            "location": {
-              "latitude": 40.6413,
-              "longitude": -73.7781
-            },
-            "type": "departure",
-            "shape": "@coordinates"
-          },
-          {
-            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
-            "icaoCode": "EDDF",
-            "iataCode": "FRA",
-            "city": "Frankfurt",
-            "name": "Frankfurt Rhein/Main",
-            "country": "Germany",
-            "timezone": "Europe/Berlin",
-            "continent": "europe",
-            "location": {
-              "latitude": 50.04693,
-              "longitude": 8.57397
-            },
-            "type": "destination",
-            "shape": "@coordinates"
-          },
-          {
-            "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
-            "icaoCode": "EDDW",
-            "iataCode": "BRE",
-            "city": "Bremen",
-            "name": "Bremen",
-            "country": "Germany",
-            "timezone": "Europe/Berlin",
-            "continent": "europe",
-            "location": {
-              "latitude": 53.0475,
-              "longitude": 8.786667
-            },
-            "type": "destination_alternate",
-            "shape": "@coordinates"
-          },
-          {
-            "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
-            "icaoCode": "BIKF",
-            "iataCode": "KEF",
-            "city": "Reykjavik",
-            "name": "Reykjavik Keflavik",
-            "country": "Iceland",
-            "timezone": "Atlantic/Reykjavik",
-            "continent": "europe",
-            "location": {
-              "latitude": 63.985,
-              "longitude": -22.6056
-            },
-            "type": "etops_entry",
-            "shape": "@coordinates"
-          },
-          {
-            "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
-            "icaoCode": "CYYT",
-            "iataCode": "YYT",
-            "city": "St. Johns",
-            "name": "St. Johns Intl",
-            "country": "Canada",
-            "timezone": "America/St_Johns",
-            "continent": "north_america",
-            "location": {
-              "latitude": 47.61861,
-              "longitude": -52.751945
-            },
-            "type": "etops_exit",
-            "shape": "@coordinates"
-          }
-        ],
-        "departureParkingPositionId": null,
-        "departureRunwayId": "6bbf43a4-9242-4f04-b195-6a7bcd1f14c4",
-        "arrivalParkingPositionId": null,
-        "arrivalRunwayId": null,
-        "isFlightDiverted": false,
-        "isEmergencyDeclared": false,
-        "hasFlightPath": false,
-        "isOffBlockDelayed": false,
-        "actualFuelBurned": null,
-        "source": "manual",
-        "tracking": "private",
-        "rotationId": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1",
-        "createdAt": "2025-01-01T00:00:00.000Z",
-        "pilot": {
-          "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
-          "name": "Alan Doe",
-          "pilotLicenseId": "UK-34560",
-          "totalFlightTime": 0
-        }
-      }
-      """
-    When I send a "GET" request to "/api/v1/flight/006f0754-1ed7-4ae1-9f91-fae2d446a6e7/events"
-    Then the response status should be 200
-    And the response body should contain:
-      """json
-      [
-        {
-          "id": "9e61ccc9-d6be-4f42-a38f-947cbfe9dcf9",
-          "scope": "operations",
-          "type": "flight.created",
-          "payload": {},
-          "actor": {
-            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
-            "name": "Alice Doe"
-          },
-          "createdAt": "2025-01-02T11:00:00.000Z"
-        },
-        {
-          "id": "9eb7eae9-af3c-4eac-bdff-e82e9b852cfe",
-          "scope": "operations",
-          "type": "flight.preliminary-loadsheet-updated",
-          "payload": {},
-          "actor": {
-            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
-            "name": "Alice Doe"
-          },
-          "createdAt": "2025-01-02T11:05:00.000Z"
-        },
-        {
-          "id": "1fce1306-6bfc-45a2-8c38-b61a61aa760a",
-          "scope": "operations",
-          "type": "flight.released",
-          "payload": {},
-          "actor": {
-            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
-            "name": "Alice Doe"
-          },
-          "createdAt": "2025-01-02T11:10:00.000Z"
-        },
-        {
-          "id": "96d9b78b-fe2c-4ce5-98f2-807ccaf74b85",
-          "scope": "user",
-          "type": "flight.pilot-checked-in",
-          "payload": {},
-          "actor": {
-            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
-            "name": "Alan Doe"
-          },
-          "createdAt": "2025-01-02T12:00:00.000Z"
-        },
-        {
-          "id": "@uuid",
-          "scope": "user",
-          "type": "flight.pilot-checked-in",
-          "payload": {},
-          "actor": {
-            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
-            "name": "Alan Doe"
-          },
-          "createdAt": "@date('within 1 minute from now')"
-        }
-      ]
-      """
-    Given I am signed in as "admin"
-    When I send a "GET" request to "/api/v1/user/725f5df2-0c78-4fe8-89a2-52566c89cf7f"
-    Then the response status should be 200
-    And the response body should contain:
-      """json
-      {
-        "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
-        "name": "Alan Doe",
-        "email": "alan.doe@example.com",
-        "role": "CabinCrew",
-        "pilotLicenseId": "UK-34560",
-        "currentFlightId": "006f0754-1ed7-4ae1-9f91-fae2d446a6e7",
-        "currentRotationId": "4cb9b5a8-7cac-4526-a0f7-f158fd14e9d1",
-        "homeAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
-        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportUpdatedAt": "@date('within 1 minute from now')"
-      }
-      """
-    When I send a "GET" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f"
-    Then the response status should be 200
-    And the response body should contain:
-      """json
-      {
-        "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
-        "airframe": {
-          "type": "A339",
-          "name": "Airbus A330-900",
-          "cruiseSpeed": { "value": 0.8, "unit": "mach" },
-          "serviceCeiling": 41400,
-          "performanceCode": "D",
-          "weightCategory": "heavy"
-        },
-        "livery": "Fanhansa (2024)",
-        "registration": "D-AIMC",
-        "selcal": "LR-CK",
-        "currentState": "checked_in",
-        "etopsThresholdMinutes": 180,
-        "baseAirport": {
-          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
-          "iataCode": "FRA",
-          "name": "Frankfurt Rhein/Main",
-          "city": "Frankfurt",
-          "country": "Germany",
-          "location": "@coordinates"
-        },
-        "lastAirport": {
-          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-          "iataCode": "JFK",
-          "name": "New York JFK",
-          "city": "New York",
-          "country": "United States of America",
-          "location": "@coordinates"
-        },
-        "lastAirportUpdatedAt": "@date('within 1 minute from now')",
-        "lastParkingPosition": null
-      }
-      """
-    And I should receive a live flight event of type "flight.pilot-checked-in" within 2000ms
     And I set database to initial state
 
   Scenario: As a cabin crew I cannot check in pilot for flight twice

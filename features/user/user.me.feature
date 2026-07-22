@@ -13,7 +13,6 @@ Feature: Get current user
         "role": "Admin",
         "pilotLicenseId": null,
         "currentFlightId": null,
-        "currentRotationId": null,
         "homeAirportId": null,
         "lastAirportId": null,
         "lastAirportUpdatedAt": null
@@ -33,7 +32,6 @@ Feature: Get current user
         "role": "Operations",
         "pilotLicenseId": null,
         "currentFlightId": null,
-        "currentRotationId": null,
         "homeAirportId": null,
         "lastAirportId": null,
         "lastAirportUpdatedAt": null
@@ -53,7 +51,6 @@ Feature: Get current user
         "role": "CabinCrew",
         "pilotLicenseId": "UK-31270",
         "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e",
-        "currentRotationId": null,
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": null

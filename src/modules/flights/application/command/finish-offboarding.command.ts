@@ -46,7 +46,6 @@ export class FinishOffboardingHandler implements ICommandHandler<FinishOffboardi
     this.domainEvents.emit(
       new OffboardingWasFinishedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: FlightEventScope.User,
         actorId: initiatorId,
       }),

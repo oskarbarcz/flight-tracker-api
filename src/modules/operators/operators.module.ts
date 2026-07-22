@@ -28,18 +28,6 @@ import { GetAircraftByRegistrationHandler } from './application/query/aircraft/g
 import { CheckAircraftExistsHandler } from './application/query/aircraft/check-aircraft-exists.query';
 import { RemoveAircraftHandler } from './application/command/aircraft/remove-aircraft.command';
 import { UpdateAircraftHandler } from './application/command/aircraft/update-aircraft.command';
-import { CreateRotationAction } from './infra/http/action/rotation/create-rotation.action';
-import { ListRotationsAction } from './infra/http/action/rotation/list-rotations.action';
-import { GetRotationAction } from './infra/http/action/rotation/get-rotation.action';
-import { UpdateRotationAction } from './infra/http/action/rotation/update-rotation.action';
-import { DeleteRotationAction } from './infra/http/action/rotation/delete-rotation.action';
-import { RotationsRepository } from './infra/database/repository/rotations.repository';
-import { CreateRotationHandler } from './application/command/rotation/create-rotation.command';
-import { GetRotationByIdHandler } from './application/query/rotation/get-rotation-by-id.query';
-import { ListAllRotationsQueryHandler } from './application/query/rotation/list-all-rotations.query';
-import { RemoveRotationHandler } from './application/command/rotation/remove-rotation.command';
-import { UpdateRotationHandler } from './application/command/rotation/update-rotation.command';
-import { AssertRotationExistsHandler } from './application/assert/assert-rotation-exists.query';
 import { AircraftLifecycleListener } from './application/event/internal/aircraft-lifecycle.listener';
 import { OperatorCacheListener } from './application/event/internal/operator-cache.listener';
 import { FlightLifecycleListener } from './application/event/external/flight-lifecycle.listener';
@@ -71,11 +59,6 @@ import { ListFlightCrewQueryHandler } from './application/query/crew/list-flight
     UpdateAircraftAction,
     DeleteAircraftAction,
     GetAircraftFlightHistoryAction,
-    CreateRotationAction,
-    ListRotationsAction,
-    GetRotationAction,
-    UpdateRotationAction,
-    DeleteRotationAction,
     CreateAircraftRepositionAction,
     ListAircraftRepositionAction,
     ListOperatorCrewAction,
@@ -83,7 +66,6 @@ import { ListFlightCrewQueryHandler } from './application/query/crew/list-flight
   providers: [
     OperatorsRepository,
     AircraftRepository,
-    RotationsRepository,
     CreateOperatorHandler,
     UpdateOperatorHandler,
     RemoveOperatorHandler,
@@ -98,12 +80,6 @@ import { ListFlightCrewQueryHandler } from './application/query/crew/list-flight
     UpdateAircraftHandler,
     GetAircraftByRegistrationHandler,
     CheckAircraftExistsHandler,
-    CreateRotationHandler,
-    UpdateRotationHandler,
-    RemoveRotationHandler,
-    GetRotationByIdHandler,
-    ListAllRotationsQueryHandler,
-    AssertRotationExistsHandler,
     AircraftLifecycleListener,
     OperatorCacheListener,
     FlightLifecycleListener,

@@ -44,7 +44,6 @@ export const flightWithAircraftAndAirportsFields = {
   status: true,
   timesheet: true,
   loadsheets: true,
-  rotationId: true,
   captainId: true,
   source: true,
   tracking: true,
@@ -230,15 +229,6 @@ type FlightsWithCount = {
 @Injectable()
 export class FlightsRepository {
   constructor(private readonly prisma: PrismaService) {}
-
-  async getRotationIdByFlightId(flightId: string): Promise<string | null> {
-    const flight = await this.prisma.flight.findUnique({
-      where: { id: flightId },
-      select: { rotationId: true },
-    });
-
-    return flight?.rotationId ?? null;
-  }
 
   async create(
     flightId: string,
@@ -663,38 +653,6 @@ export class FlightsRepository {
     });
   }
 
-  async addRotationForFlight(
-    flightId: string,
-    rotationId: string,
-  ): Promise<void> {
-    await Promise.all([
-      this.prisma.flight.update({
-        where: { id: flightId },
-        data: { rotationId },
-      }),
-      this.prisma.rotation.update({
-        where: { id: rotationId },
-        data: { updatedAt: new Date() },
-      }),
-    ]);
-  }
-
-  async removeRotationForFlight(
-    flightId: string,
-    rotationId: string,
-  ): Promise<void> {
-    await Promise.all([
-      this.prisma.flight.update({
-        where: { id: flightId },
-        data: { rotationId: null },
-      }),
-      this.prisma.rotation.update({
-        where: { id: rotationId },
-        data: { updatedAt: new Date() },
-      }),
-    ]);
-  }
-
   async getArrivalParkingPositionId(flightId: string): Promise<string | null> {
     const flight = await this.prisma.flight.findUnique({
       where: { id: flightId },
@@ -759,15 +717,5 @@ export class FlightsRepository {
       totalFuelBurned: flight.totalFuelBurned,
       timesheet: flight.timesheet as FilledTimesheet,
     };
-  }
-
-  async getLastFlightIdInRotation(rotationId: string): Promise<string | null> {
-    const flight = await this.prisma.flight.findFirst({
-      select: { id: true },
-      where: { rotationId },
-      orderBy: { createdAt: 'desc' },
-    });
-
-    return flight?.id ?? null;
   }
 }

@@ -46,7 +46,6 @@ export class StartOffboardingHandler implements ICommandHandler<StartOffboarding
     this.domainEvents.emit(
       new OffboardingWasStartedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: FlightEventScope.User,
         actorId: initiatorId,
       }),

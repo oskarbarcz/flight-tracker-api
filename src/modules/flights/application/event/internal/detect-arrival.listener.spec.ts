@@ -39,7 +39,6 @@ function flight(overrides: Record<string, unknown> = {}) {
   return {
     id: FLIGHT_ID,
     status: FlightStatus.InCruise,
-    rotationId: null,
     airports: [
       { type: AirportType.Departure, shape: PERIMETER },
       { type: AirportType.Destination, shape: PERIMETER },
@@ -67,7 +66,6 @@ describe('DetectArrivalListener', () => {
 
   const event = new FlightPathWasUpdatedEvent({
     flightId: FLIGHT_ID,
-    rotationId: null,
     scope: FlightEventScope.System,
     actorId: null,
   });

@@ -45,7 +45,6 @@ export class OffBlockDelayListener {
     this.domainEvents.emit(
       new DelayRequestWasCreatedEvent({
         flightId,
-        rotationId: flight.rotationId,
         scope: FlightEventScope.Operations,
         actorId: null,
       }),
