@@ -14,6 +14,7 @@ import { loadUserAircraft } from './resource/user-aircraft.seed';
 import { loadAircraftReposition } from './resource/aircraft-reposition.seed';
 import { loadWeather } from './resource/weather.seed';
 import { loadCrew, loadFlightCrew } from './resource/crew.seed';
+import { loadRotations } from './resource/rotations.seed';
 
 export async function loadResources() {
   const prisma = new PrismaService();
@@ -33,6 +34,7 @@ export async function loadResources() {
         await loadUsers(tx);
         await loadFlights(tx);
         await loadFlightCrew(tx);
+        await loadRotations(tx);
         await loadDelay(tx);
         await loadUserTravel(tx);
         await loadUserAircraft(tx);
