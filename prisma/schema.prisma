@@ -59,6 +59,8 @@ model Airport {
   destinationForTravels     UserTravel[]         @relation("UserTravelDestinationAirport")
   departureForRepositions   AircraftReposition[] @relation("AircraftRepositionDepartureAirport")
   destinationForRepositions AircraftReposition[] @relation("AircraftRepositionDestinationAirport")
+  departureForLegs          RotationLeg[]        @relation("LegDeparture")
+  arrivalForLegs            RotationLeg[]        @relation("LegArrival")
 
   @@map("airport")
 }
@@ -179,6 +181,7 @@ model Operator {
   aircrafts Aircraft[]
   flights   Flight[]
   crew      Crew[]
+  rotations Rotation[]
 
   @@map("operator")
 }
@@ -233,6 +236,7 @@ model Flight {
   aircraftRepositions      AircraftReposition[]   @relation("AircraftRepositionFlight")
   userAircraft             UserAircraft[]
   crew                     CrewOnFlights[]
+  rotationLeg              RotationLeg?
 
   @@map("flight")
 }
@@ -361,6 +365,9 @@ model User {
   delayReportsDecided  DelayReport[]          @relation("DelayReportDecider")
   travels              UserTravel[]
   userAircraft         UserAircraft[]
+  rotations            Rotation[]             @relation("PilotRotations")
+  createdRotations     Rotation[]             @relation("RotationCreatedBy")
+  updatedRotations     Rotation[]             @relation("RotationUpdatedBy")
 
   @@map("user")
 }
@@ -451,7 +458,6 @@ model AircraftReposition {
   @@index([aircraftId])
   @@map("aircraft_reposition")
 }
-
 
 model Crew {
   id         String   @id @default(uuid()) @db.Uuid
@@ -616,4 +622,46 @@ enum CrewRole {
   fo
   pu
   fa
+}
+
+model Rotation {
+  id          String    @id @default(uuid()) @db.Uuid
+  name        String
+  operatorId  String    @db.Uuid
+  pilotId     String    @db.Uuid
+  status      String    @default("draft")
+  createdById String    @db.Uuid
+  updatedById String?   @db.Uuid
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+
+  operator  Operator      @relation(fields: [operatorId], references: [id])
+  pilot     User          @relation("PilotRotations", fields: [pilotId], references: [id])
+  createdBy User          @relation("RotationCreatedBy", fields: [createdById], references: [id])
+  updatedBy User?         @relation("RotationUpdatedBy", fields: [updatedById], references: [id])
+  legs      RotationLeg[]
+
+  @@index([operatorId])
+  @@index([pilotId])
+  @@map("rotation")
+}
+
+model RotationLeg {
+  id           String   @id @default(uuid()) @db.Uuid
+  rotationId   String   @db.Uuid
+  flightNumber String
+  departureId  String   @db.Uuid
+  arrivalId    String   @db.Uuid
+  offBlockTime DateTime
+  onBlockTime  DateTime
+  flightId     String?  @unique @db.Uuid
+
+  rotation  Rotation @relation(fields: [rotationId], references: [id], onDelete: Cascade)
+  departure Airport  @relation("LegDeparture", fields: [departureId], references: [id])
+  arrival   Airport  @relation("LegArrival", fields: [arrivalId], references: [id])
+  flight    Flight?  @relation(fields: [flightId], references: [id], onDelete: SetNull)
+
+  @@index([rotationId])
+  @@index([flightId])
+  @@map("rotation_leg")
 }

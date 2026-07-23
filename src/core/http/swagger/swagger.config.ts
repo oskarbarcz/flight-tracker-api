@@ -9,7 +9,7 @@ function createSwaggerConfig() {
       [
         'REST API for managing virtual flight operations, fleet monitoring, and logbook tracking.',
         '',
-        'Includes aircraft management, route planning, and operator workflows.',
+        'Includes aircraft management, route planning, pilot rotations, and operator workflows.',
       ].join('\n'),
     )
     .setVersion(pack.version)
