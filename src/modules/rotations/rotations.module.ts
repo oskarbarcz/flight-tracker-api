@@ -12,11 +12,13 @@ import { AttachFlightToLegHandler } from './application/command/attach-flight-to
 import { DetachFlightFromLegHandler } from './application/command/detach-flight-from-leg.command';
 import { GetRotationByIdHandler } from './application/query/get-rotation-by-id.query';
 import { ListRotationsHandler } from './application/query/list-rotations.query';
+import { ListRotationsForUserHandler } from './application/query/list-rotations-for-user.query';
 import { FlightLifecycleListener } from './application/event/external/flight-lifecycle.listener';
 import { CreateRotationAction } from './infra/http/action/create-rotation.action';
 import { EditRotationAction } from './infra/http/action/edit-rotation.action';
 import { RemoveRotationAction } from './infra/http/action/remove-rotation.action';
 import { ListRotationsAction } from './infra/http/action/list-rotations.action';
+import { ListAssignedRotationsAction } from './infra/http/action/list-assigned-rotations.action';
 import { GetRotationAction } from './infra/http/action/get-rotation.action';
 import { AddLegAction } from './infra/http/action/add-leg.action';
 import { UpdateLegAction } from './infra/http/action/update-leg.action';
@@ -32,6 +34,7 @@ import { DetachFlightAction } from './infra/http/action/detach-flight.action';
     EditRotationAction,
     RemoveRotationAction,
     ListRotationsAction,
+    ListAssignedRotationsAction,
     GetRotationAction,
     AddLegAction,
     UpdateLegAction,
@@ -53,6 +56,7 @@ import { DetachFlightAction } from './infra/http/action/detach-flight.action';
     DetachFlightFromLegHandler,
     GetRotationByIdHandler,
     ListRotationsHandler,
+    ListRotationsForUserHandler,
     FlightLifecycleListener,
   ],
 })
