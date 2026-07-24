@@ -218,6 +218,9 @@ model Flight {
   isEmergencyDeclared        Boolean        @default(false)
   isDiversionDeclared        Boolean        @default(false)
   isPathAvailable            Boolean        @default(false)
+  actualAirborneMinutes      Int?
+  actualBlockMinutes         Int?
+  completedAt                DateTime?
 
   operator                 Operator               @relation(fields: [operatorId], references: [id])
   captain                  User?                  @relation("FlightCaptain", fields: [captainId], references: [id])
@@ -238,6 +241,7 @@ model Flight {
   crew                     CrewOnFlights[]
   rotationLeg              RotationLeg?
 
+  @@index([captainId, completedAt])
   @@map("flight")
 }
 
@@ -337,20 +341,17 @@ model AirportsOnFlights {
 }
 
 model User {
-  id                       String    @id @default(uuid()) @db.Uuid
-  name                     String
-  email                    String    @unique
-  password                 String
-  role                     UserRole
-  pilotLicenseId           String?   @db.VarChar(8)
-  currentFlightId          String?   @unique @db.Uuid
-  simbriefUserId           String?
-  totalFlightTime          Int       @default(0)
-  totalGreatCircleDistance Int       @default(0)
-  totalFuelBurned          Int       @default(0)
-  homeAirportId            String?   @db.Uuid
-  lastAirportId            String?   @db.Uuid
-  lastAirportUpdatedAt     DateTime?
+  id                   String    @id @default(uuid()) @db.Uuid
+  name                 String
+  email                String    @unique
+  password             String
+  role                 UserRole
+  pilotLicenseId       String?   @db.VarChar(8)
+  currentFlightId      String?   @unique @db.Uuid
+  simbriefUserId       String?
+  homeAirportId        String?   @db.Uuid
+  lastAirportId        String?   @db.Uuid
+  lastAirportUpdatedAt DateTime?
 
   homeAirport          Airport?               @relation("UserHomeAirport", fields: [homeAirportId], references: [id], onDelete: SetNull)
   lastAirport          Airport?               @relation("UserLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
@@ -368,6 +369,10 @@ model User {
   rotations            Rotation[]             @relation("PilotRotations")
   createdRotations     Rotation[]             @relation("RotationCreatedBy")
   updatedRotations     Rotation[]             @relation("RotationUpdatedBy")
+  statsTotal           UserStatsTotal?
+  statsByType          UserStatsByType[]
+  statsByAirport       UserStatsByAirport[]
+  statsDaily           UserStatsDaily[]
 
   @@map("user")
 }
@@ -664,4 +669,77 @@ model RotationLeg {
   @@index([rotationId])
   @@index([flightId])
   @@map("rotation_leg")
+}
+
+model UserStatsTotal {
+  id                      String    @id @default(uuid()) @db.Uuid
+  userId                  String    @unique @db.Uuid
+  flights                 Int       @default(0)
+  distanceNm              Int       @default(0)
+  airborneMinutes         Int       @default(0)
+  blockMinutes            Int       @default(0)
+  fuelBurned              Int       @default(0)
+  longestFlightDistanceNm Int       @default(0)
+  longestFlightMinutes    Int       @default(0)
+  firstFlightAt           DateTime?
+  lastFlightAt            DateTime?
+  mostFlownOperatorId     String?   @db.Uuid
+  updatedAt               DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_stats_total")
+}
+
+model UserStatsByType {
+  id              String    @id @default(uuid()) @db.Uuid
+  userId          String    @db.Uuid
+  type            String    @db.VarChar(4)
+  flights         Int       @default(0)
+  distanceNm      Int       @default(0)
+  airborneMinutes Int       @default(0)
+  blockMinutes    Int       @default(0)
+  firstFlownAt    DateTime?
+  lastFlownAt     DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, type])
+  @@index([userId])
+  @@map("user_stats_by_type")
+}
+
+model UserStatsByAirport {
+  id           String    @id @default(uuid()) @db.Uuid
+  userId       String    @db.Uuid
+  airportId    String    @db.Uuid
+  icaoCode     String    @db.VarChar(4)
+  country      String
+  continent    Continent
+  visits       Int       @default(0)
+  firstVisitAt DateTime?
+  lastVisitAt  DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, airportId])
+  @@index([userId])
+  @@map("user_stats_by_airport")
+}
+
+model UserStatsDaily {
+  id              String   @id @default(uuid()) @db.Uuid
+  userId          String   @db.Uuid
+  day             DateTime @db.Date
+  flights         Int      @default(0)
+  distanceNm      Int      @default(0)
+  airborneMinutes Int      @default(0)
+  blockMinutes    Int      @default(0)
+  fuelBurned      Int      @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, day])
+  @@index([userId])
+  @@map("user_stats_daily")
 }

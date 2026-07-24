@@ -8,3 +8,16 @@ export function scheduleToBlockTimeInMinutes(schedule: FilledSchedule): number {
 
   return Math.round(minutes);
 }
+
+export function minutesBetween(
+  from: Date | null | undefined,
+  to: Date | null | undefined,
+): number | null {
+  if (!from || !to) {
+    return null;
+  }
+
+  const minutes = (new Date(to).getTime() - new Date(from).getTime()) / 60000;
+
+  return Math.round(minutes);
+}

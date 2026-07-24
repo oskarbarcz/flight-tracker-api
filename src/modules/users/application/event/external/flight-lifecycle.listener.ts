@@ -9,8 +9,6 @@ import {
 } from '../../../../../core/domain/events/dto/flight.events';
 import { UsersRepository } from '../../../infra/database/repository/users.repository';
 import { UserTravelRepository } from '../../../infra/database/repository/user-travel.repository';
-import { FilledSchedule } from '../../../../flights/model/timesheet.model';
-import { scheduleToBlockTimeInMinutes } from '../../../../flights/infra/helper/dates';
 import { haversineDistanceNm } from '../../../../../core/utils/distance';
 import { FlightSource, UserTravelType } from 'prisma/client/enums';
 import { UserRole } from '../../../model/user-role';
@@ -42,24 +40,15 @@ export class FlightLifecycleListener {
       event.payload.flightId,
     );
     const flight = await this.queryBus.execute(completionStatsQuery);
+    const captainId = flight.captainId as string;
 
-    const blockTime = scheduleToBlockTimeInMinutes(
-      flight.timesheet.actual as FilledSchedule,
-    );
-
-    await this.usersRepository.addCompletedFlightStats(
-      flight.captainId as string,
-      {
-        greatCircleDistance: flight.greatCircleDistance,
-        totalFuelBurned: flight.totalFuelBurned,
-        blockTime,
-      },
+    await this.usersRepository.setLastAirport(
+      captainId,
       event.payload.landingAirportId,
-      new Date(),
     );
 
     await this.travelRepository.finishPerformingFlight(
-      flight.captainId as string,
+      captainId,
       event.payload.flightId,
     );
   }

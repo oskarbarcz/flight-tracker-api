@@ -12,6 +12,7 @@ import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { Schedule } from '../../model/timesheet.model';
 import { AirportType } from '../../../airports/model/airport.model';
+import { minutesBetween } from '../../infra/helper/dates';
 
 export class ReportOnBlockCommand {
   constructor(
@@ -47,6 +48,19 @@ export class ReportOnBlockHandler implements ICommandHandler<ReportOnBlockComman
 
     await this.flightsRepository.updateStatus(flightId, FlightStatus.OnBlock);
     await this.flightsRepository.updateTimesheet(flightId, timesheet);
+
+    const actual = timesheet.actual;
+    await this.flightsRepository.updateCompletionFacts(flightId, {
+      actualAirborneMinutes: minutesBetween(
+        actual.takeoffTime,
+        actual.arrivalTime,
+      ),
+      actualBlockMinutes: minutesBetween(
+        actual.offBlockTime,
+        actual.onBlockTime,
+      ),
+      completedAt: actual.onBlockTime,
+    });
 
     const landingAirportId = flight.isFlightDiverted
       ? (await this.diversionRepository.get(flightId)).airport.id
