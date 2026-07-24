@@ -108,6 +108,19 @@ export class RotationsRepository {
     return rotations.map((rotation) => this.toModel(rotation));
   }
 
+  async findAssignedToPilot(
+    pilotId: string,
+    statuses: RotationStatus[],
+  ): Promise<Rotation[]> {
+    const rotations = await this.prisma.rotation.findMany({
+      where: { pilotId, status: { in: statuses } },
+      orderBy: { createdAt: 'asc' },
+      include: rotationInclude,
+    });
+
+    return rotations.map((rotation) => this.toModel(rotation));
+  }
+
   async findLegByFlightId(flightId: string): Promise<LegRow | null> {
     return this.prisma.rotationLeg.findUnique({ where: { flightId } });
   }
