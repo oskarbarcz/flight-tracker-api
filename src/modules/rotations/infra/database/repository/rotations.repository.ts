@@ -97,6 +97,7 @@ export class RotationsRepository {
   async findAll(criteria: {
     operatorId?: string;
     pilotId?: string;
+    status?: RotationStatus;
   }): Promise<Rotation[]> {
     const rotations = await this.prisma.rotation.findMany({
       where: criteria,
