@@ -223,3 +223,73 @@ The system SHALL allow rotation data to be read without authentication and SHALL
 
 - **WHEN** an unauthenticated client attempts any rotation write operation
 - **THEN** the request is rejected with an unauthorized error
+
+### Requirement: Edit a draft rotation
+
+The system SHALL allow an Operations user to edit a rotation's name and assigned pilot while the rotation is a draft, returning the updated rotation and recording the actor and time in its audit metadata. Editing SHALL be rejected once the rotation has been marked ready (or is in-progress or finished).
+
+#### Scenario: Operations edits a draft rotation
+
+- **WHEN** an Operations user submits a new name and pilot for a draft rotation
+- **THEN** the rotation's name and pilot are updated
+- **AND** its `updatedBy` and `updatedAt` reflect the change
+- **AND** the updated rotation is returned
+
+#### Scenario: Editing a non-draft rotation is rejected
+
+- **WHEN** an Operations user tries to edit a rotation that is ready, in-progress, or finished
+- **THEN** the request is rejected with a conflict and the rotation is unchanged
+
+#### Scenario: Editing a missing rotation is not found
+
+- **WHEN** an Operations user tries to edit a rotation that does not exist
+- **THEN** the request is rejected as not found
+
+#### Scenario: Non-operations actors cannot edit
+
+- **WHEN** an admin, a cabin-crew member, or an unauthenticated caller tries to edit a rotation
+- **THEN** the request is rejected (forbidden for authenticated non-operations roles, unauthorized when no token is provided)
+
+### Requirement: Remove a draft rotation
+
+The system SHALL allow an Operations user to remove a rotation while it is a draft, deleting the rotation together with its legs. Removal SHALL be rejected once the rotation has been marked ready (or is in-progress or finished).
+
+#### Scenario: Operations removes a draft rotation
+
+- **WHEN** an Operations user removes a draft rotation
+- **THEN** the rotation and its legs are deleted
+- **AND** a subsequent read of the rotation is not found
+
+#### Scenario: Removing a non-draft rotation is rejected
+
+- **WHEN** an Operations user tries to remove a rotation that is ready, in-progress, or finished
+- **THEN** the request is rejected with a conflict and the rotation is retained
+
+#### Scenario: Removing a missing rotation is not found
+
+- **WHEN** an Operations user tries to remove a rotation that does not exist
+- **THEN** the request is rejected as not found
+
+#### Scenario: Non-operations actors cannot remove
+
+- **WHEN** an admin, a cabin-crew member, or an unauthenticated caller tries to remove a rotation
+- **THEN** the request is rejected (forbidden for authenticated non-operations roles, unauthorized when no token is provided)
+
+### Requirement: Filter the rotation list by state
+
+The system SHALL list an operator's rotations and SHALL allow the list to be filtered by rotation state via an optional `status` parameter. When `status` is omitted, all of the operator's rotations are returned; when provided, only rotations in that state are returned; an unrecognised state is rejected as a bad request.
+
+#### Scenario: Listing without a filter returns every rotation
+
+- **WHEN** a caller lists an operator's rotations without a status filter
+- **THEN** all of that operator's rotations are returned
+
+#### Scenario: Filtering by state returns only matching rotations
+
+- **WHEN** a caller lists an operator's rotations with a status of `ready`
+- **THEN** only that operator's rotations in the `ready` state are returned
+
+#### Scenario: An unrecognised state is rejected
+
+- **WHEN** a caller lists an operator's rotations with a status that is not a valid rotation state
+- **THEN** the request is rejected as a bad request

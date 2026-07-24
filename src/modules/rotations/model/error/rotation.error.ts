@@ -77,3 +77,15 @@ export class RotationImmutableError extends ConflictError {
     super('A finished rotation cannot be modified.');
   }
 }
+
+export class RotationNotEditableError extends ConflictError {
+  constructor() {
+    super('A rotation can only be edited while it is a draft.');
+  }
+}
+
+export class RotationNotDeletableError extends ConflictError {
+  constructor() {
+    super('A rotation can only be removed while it is a draft.');
+  }
+}

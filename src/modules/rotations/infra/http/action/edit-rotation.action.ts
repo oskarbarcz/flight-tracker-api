@@ -1,7 +1,9 @@
-import { Controller, Put, Req } from '@nestjs/common';
+import { Body, Controller, Patch, Req } from '@nestjs/common';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
 import {
+  ApiBadRequestResponse,
   ApiBearerAuth,
+  ApiBody,
   ApiConflictResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
@@ -9,48 +11,49 @@ import {
   ApiOperation,
   ApiTags,
   ApiUnauthorizedResponse,
-  ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { UuidParam } from '../../../../../core/validation/uuid.param';
 import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
 import { UserRole } from '../../../../users/model/user-role';
+import { GenericBadRequestResponse } from '../../../../../core/http/response/bad-request.response';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
 import { GenericNotFoundResponse } from '../../../../../core/http/response/not-found.response';
 import { GenericConflictResponse } from '../../../../../core/http/response/conflict.response';
 import { Rotation } from '../../../model/rotation.model';
-import { AttachFlightToLegCommand } from '../../../application/command/attach-flight-to-leg.command';
+import { EditRotationRequest } from '../request/rotation.request';
+import { EditRotationCommand } from '../../../application/command/edit-rotation.command';
 import { GetRotationByIdQuery } from '../../../application/query/get-rotation-by-id.query';
 
-@ApiTags('rotation leg')
+@ApiTags('rotation')
 @Controller('/api/v1/rotation')
-export class AttachFlightAction {
+export class EditRotationAction {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
 
-  @ApiOperation({ summary: 'Attach a flight to a rotation leg' })
+  @ApiOperation({ summary: 'Edit a draft rotation' })
   @ApiBearerAuth('jwt')
+  @ApiBody({ type: EditRotationRequest })
   @ApiOkResponse({ type: Rotation })
+  @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @ApiConflictResponse({ type: GenericConflictResponse })
-  @ApiUnprocessableEntityResponse()
-  @Put(':rotationId/leg/:legId/flight/:flightId')
+  @Patch(':rotationId')
   @Role(UserRole.Operations)
-  async attach(
+  async edit(
     @UuidParam('rotationId') rotationId: string,
-    @UuidParam('legId') legId: string,
-    @UuidParam('flightId') flightId: string,
+    @Body() body: EditRotationRequest,
     @Req() request: AuthorizedRequest,
   ): Promise<Rotation> {
-    const command = new AttachFlightToLegCommand(
+    const command = new EditRotationCommand(
       rotationId,
-      legId,
-      flightId,
+      body.name,
+      body.pilotId,
       request.user.sub,
     );
     await this.commandBus.execute(command);

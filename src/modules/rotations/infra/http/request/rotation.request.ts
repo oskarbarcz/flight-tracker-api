@@ -1,8 +1,38 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsDate, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import {
+  IsDate,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import { Type } from 'class-transformer';
+import { RotationStatus } from '../../../model/rotation.model';
+
+export class ListRotationsFilters {
+  @ApiProperty({
+    enum: RotationStatus,
+    required: false,
+    example: RotationStatus.Ready,
+  })
+  @IsOptional()
+  @IsEnum(RotationStatus)
+  status?: RotationStatus;
+}
 
 export class CreateRotationRequest {
+  @ApiProperty({ example: 'FRA-JFK-FRA 2025-01-01' })
+  @IsString()
+  @IsNotEmpty()
+  name!: string;
+
+  @ApiProperty({ example: 'bd8f2d64-a647-42da-be63-c6589915e6c9' })
+  @IsUUID(4)
+  pilotId!: string;
+}
+
+export class EditRotationRequest {
   @ApiProperty({ example: 'FRA-JFK-FRA 2025-01-01' })
   @IsString()
   @IsNotEmpty()
