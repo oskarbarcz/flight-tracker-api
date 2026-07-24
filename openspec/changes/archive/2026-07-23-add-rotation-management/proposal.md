@@ -1,6 +1,6 @@
 ## Why
 
-Operations needs to plan a pilot's full day of flying up front — a connected chain of sectors — before the individual flights for those sectors exist. The retired rotation feature could only group flights that had *already* been created, and it leaked `rotationId` into every flight lifecycle event, coupling three modules together. This change reintroduces rotations as an independent domain built around a *plan* (the intent to fly a sector) that a real flight is attached to later, with the flight remaining completely ignorant of rotations.
+Operations needs to plan a pilot's full day of flying up front — a connected chain of sectors — before the individual flights for those sectors exist. The retired rotation feature could only group flights that had _already_ been created, and it leaked `rotationId` into every flight lifecycle event, coupling three modules together. This change reintroduces rotations as an independent domain built around a _plan_ (the intent to fly a sector) that a real flight is attached to later, with the flight remaining completely ignorant of rotations.
 
 ## What Changes
 
@@ -17,9 +17,11 @@ Explicitly **out of scope for this change**: diversions, cancellation, and clean
 ## Capabilities
 
 ### New Capabilities
+
 - `rotation-management`: creating and building rotations and their legs, the draft→ready→in_progress→finished lifecycle, flight attachment/detachment with validation, event-driven transitions off flight lifecycle events, and public read access.
 
 ### Modified Capabilities
+
 <!-- None. Rotation was never captured as an openspec/specs/ capability, and this change does not alter the documented requirements of any existing capability (flight lifecycle events are consumed, not changed). -->
 
 ## Impact

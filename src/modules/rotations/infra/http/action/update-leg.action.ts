@@ -26,7 +26,7 @@ import { UpdateLegRequest } from '../request/rotation.request';
 import { UpdateLegCommand } from '../../../application/command/update-leg.command';
 import { GetRotationByIdQuery } from '../../../application/query/get-rotation-by-id.query';
 
-@ApiTags('rotation')
+@ApiTags('rotation leg')
 @Controller('/api/v1/rotation')
 export class UpdateLegAction {
   constructor(

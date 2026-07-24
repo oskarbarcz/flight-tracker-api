@@ -1,16 +1,15 @@
-import { Controller, Delete, Req } from '@nestjs/common';
-import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
+import { Controller, Delete, HttpCode, HttpStatus } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiConflictResponse,
   ApiForbiddenResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
-  ApiOkResponse,
   ApiOperation,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { CommandBus } from '@nestjs/cqrs';
 import { UuidParam } from '../../../../../core/validation/uuid.param';
 import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
 import { UserRole } from '../../../../users/model/user-role';
@@ -18,36 +17,25 @@ import { UnauthorizedResponse } from '../../../../../core/http/response/unauthor
 import { ForbiddenResponse } from '../../../../../core/http/response/forbidden.response';
 import { GenericNotFoundResponse } from '../../../../../core/http/response/not-found.response';
 import { GenericConflictResponse } from '../../../../../core/http/response/conflict.response';
-import { Rotation } from '../../../model/rotation.model';
-import { RemoveLegCommand } from '../../../application/command/remove-leg.command';
-import { GetRotationByIdQuery } from '../../../application/query/get-rotation-by-id.query';
+import { RemoveRotationCommand } from '../../../application/command/remove-rotation.command';
 
-@ApiTags('rotation leg')
+@ApiTags('rotation')
 @Controller('/api/v1/rotation')
-export class RemoveLegAction {
-  constructor(
-    private readonly commandBus: CommandBus,
-    private readonly queryBus: QueryBus,
-  ) {}
+export class RemoveRotationAction {
+  constructor(private readonly commandBus: CommandBus) {}
 
-  @ApiOperation({ summary: 'Remove a leg from a rotation' })
+  @ApiOperation({ summary: 'Remove a draft rotation' })
   @ApiBearerAuth('jwt')
-  @ApiOkResponse({ type: Rotation })
+  @ApiNoContentResponse()
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
   @ApiConflictResponse({ type: GenericConflictResponse })
-  @Delete(':rotationId/leg/:legId')
+  @Delete(':rotationId')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.Operations)
-  async removeLeg(
-    @UuidParam('rotationId') rotationId: string,
-    @UuidParam('legId') legId: string,
-    @Req() request: AuthorizedRequest,
-  ): Promise<Rotation> {
-    const command = new RemoveLegCommand(rotationId, legId, request.user.sub);
+  async remove(@UuidParam('rotationId') rotationId: string): Promise<void> {
+    const command = new RemoveRotationCommand(rotationId);
     await this.commandBus.execute(command);
-
-    const query = new GetRotationByIdQuery(rotationId);
-    return this.queryBus.execute(query);
   }
 }

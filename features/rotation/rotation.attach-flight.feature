@@ -20,8 +20,18 @@ Feature: Attach and detach rotation flights
           {
             "id": "d31970a7-9dda-4aee-8174-81da36756fd1",
             "flightNumber": "LH888",
-            "departure": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
-            "arrival": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
+            "departure": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "iataCode": "FRA",
+              "icaoCode": "EDDF",
+              "name": "Frankfurt Rhein/Main"
+            },
+            "arrival": {
+              "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+              "iataCode": "JFK",
+              "icaoCode": "KJFK",
+              "name": "New York JFK"
+            },
             "offBlockTime": "2025-01-01T12:00:00.000Z",
             "onBlockTime": "2025-01-01T20:00:00.000Z",
             "blockTime": 480,
@@ -30,8 +40,18 @@ Feature: Attach and detach rotation flights
           {
             "id": "b85748ad-710e-49a7-9102-a9b93cd4a989",
             "flightNumber": "LH41",
-            "departure": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
-            "arrival": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
+            "departure": {
+              "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+              "iataCode": "JFK",
+              "icaoCode": "KJFK",
+              "name": "New York JFK"
+            },
+            "arrival": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "iataCode": "FRA",
+              "icaoCode": "EDDF",
+              "name": "Frankfurt Rhein/Main"
+            },
             "offBlockTime": "2025-01-01T22:00:00.000Z",
             "onBlockTime": "2025-01-02T06:00:00.000Z",
             "blockTime": 480,
@@ -127,8 +147,18 @@ Feature: Attach and detach rotation flights
           {
             "id": "9c347301-fa9e-4c26-aa29-0295415053c8",
             "flightNumber": "LH450",
-            "departure": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
-            "arrival": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
+            "departure": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "iataCode": "FRA",
+              "icaoCode": "EDDF",
+              "name": "Frankfurt Rhein/Main"
+            },
+            "arrival": {
+              "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+              "iataCode": "JFK",
+              "icaoCode": "KJFK",
+              "name": "New York JFK"
+            },
             "offBlockTime": "2025-01-01T12:00:00.000Z",
             "onBlockTime": "2025-01-01T20:00:00.000Z",
             "blockTime": 480,
@@ -137,8 +167,18 @@ Feature: Attach and detach rotation flights
           {
             "id": "7037a573-2971-4fb6-8c34-8a98c9bc71c8",
             "flightNumber": "LH41",
-            "departure": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
-            "arrival": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
+            "departure": {
+              "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+              "iataCode": "JFK",
+              "icaoCode": "KJFK",
+              "name": "New York JFK"
+            },
+            "arrival": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "iataCode": "FRA",
+              "icaoCode": "EDDF",
+              "name": "Frankfurt Rhein/Main"
+            },
             "offBlockTime": "2025-01-01T22:00:00.000Z",
             "onBlockTime": "2025-01-02T06:00:00.000Z",
             "blockTime": 480,
