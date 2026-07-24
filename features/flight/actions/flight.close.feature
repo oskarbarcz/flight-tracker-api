@@ -219,7 +219,7 @@ Feature: Close flight
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
           "name": "Rick Doe",
           "pilotLicenseId": "UK-31270",
-          "totalFlightTime": 1797
+          "totalFlightTime": 2391
         }
       }
       """
@@ -694,7 +694,7 @@ Feature: Close flight
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
           "name": "Rick Doe",
           "pilotLicenseId": "UK-31270",
-          "totalFlightTime": 1797
+          "totalFlightTime": 2391
         }
       }
       """
@@ -896,7 +896,7 @@ Feature: Close flight
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
           "name": "Rick Doe",
           "pilotLicenseId": "UK-31270",
-          "totalFlightTime": 1797
+          "totalFlightTime": 2391
         }
       }
       """

@@ -6,6 +6,7 @@ import { RotationsModule } from './modules/rotations/rotations.module';
 import { FlightsModule } from './modules/flights/flights.module';
 import { AutomationsModule } from './modules/automations/automations.module';
 import { UsersModule } from './modules/users/users.module';
+import { StatisticsModule } from './modules/statistics/statistics.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { EventEmitterModule } from '@nestjs/event-emitter';
@@ -32,6 +33,7 @@ const schedulerEnabled = process.env.SCHEDULER_ENABLED !== 'false';
     FlightsModule,
     AutomationsModule,
     UsersModule,
+    StatisticsModule,
     AuthModule,
     JwtModule,
     SkyLinkModule,

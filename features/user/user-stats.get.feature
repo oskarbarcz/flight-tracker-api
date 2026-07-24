@@ -40,10 +40,10 @@ Feature: Get user stats
       """json
       {
         "total": {
-          "blockTime": 1797,
-          "totalFuelBurned": 326000,
-          "totalFlightTime": 1797,
-          "totalGreatCircleDistance": 7850
+          "blockTime": 2391,
+          "totalFuelBurned": 331600,
+          "totalFlightTime": 2391,
+          "totalGreatCircleDistance": 8310
         }
       }
       """

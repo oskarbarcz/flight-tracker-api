@@ -6,8 +6,7 @@ import { PrismaService } from '../../../../../core/provider/prisma/prisma.servic
 import {
   GetUserDto,
   ListUsersFilters,
-  GetUserStatsResponse,
-  FlightPilotDto,
+  PilotDto,
 } from '../../http/request/get-user.dto';
 import { User } from '../../../../../../prisma/client/client';
 import { UserRole } from '../../../model/user-role';
@@ -94,37 +93,16 @@ export class UsersRepository {
     return this.returnWithoutPassword(user);
   }
 
-  async getUserStats(id: string): Promise<GetUserStatsResponse> {
-    const user = await this.prisma.user.findUnique({
-      where: { id },
-      select: {
-        totalGreatCircleDistance: true,
-        totalFuelBurned: true,
-        totalFlightTime: true,
-      },
-    });
-
-    if (!user) {
-      throw new UserNotFoundError();
-    }
-
-    return {
-      total: {
-        ...user,
-        blockTime: user.totalFlightTime,
-      },
-    };
-  }
-
   /**
    * Resolves the public pilot card for a user, reading through a per-user cache.
    * The cache is invalidated whenever the underlying fields change (profile
-   * update, flight completion), so callers can read it as often as they need.
+   * update), so callers can read it as often as they need. The lifetime block
+   * time is layered on by the query handler from the statistics projection.
    */
-  async getPilotCard(id: string): Promise<FlightPilotDto | null> {
+  async getPilotCard(id: string): Promise<PilotDto | null> {
     const cacheKey = cacheByUser(CACHE_KEYS.PILOT_CARD, id);
 
-    const cached = await this.cacheManager.get<FlightPilotDto>(cacheKey);
+    const cached = await this.cacheManager.get<PilotDto>(cacheKey);
     if (cached) {
       return cached;
     }
@@ -135,7 +113,6 @@ export class UsersRepository {
         id: true,
         name: true,
         pilotLicenseId: true,
-        totalFlightTime: true,
       },
     });
 
@@ -218,34 +195,6 @@ export class UsersRepository {
       data: { lastAirportId: airportId, lastAirportUpdatedAt: new Date() },
     });
 
-    await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, userId));
-  }
-
-  async addCompletedFlightStats(
-    userId: string,
-    stats: {
-      greatCircleDistance: number;
-      totalFuelBurned: number;
-      blockTime: number;
-    },
-    landingAirportId: string,
-    landedAt: Date,
-  ): Promise<void> {
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: {
-        totalGreatCircleDistance: { increment: stats.greatCircleDistance },
-        totalFuelBurned: { increment: stats.totalFuelBurned },
-        totalFlightTime: { increment: stats.blockTime },
-        lastAirportId: landingAirportId,
-        lastAirportUpdatedAt: landedAt,
-      },
-    });
-    // remove user stats from an indefinite cache
-    const cacheKey = cacheByUser(CACHE_KEYS.USER_STATS, userId);
-    await this.cacheManager.del(cacheKey);
-    // totalFlightTime changed — drop the cached pilot card too
-    await this.cacheManager.del(cacheByUser(CACHE_KEYS.PILOT_CARD, userId));
     await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, userId));
   }
 

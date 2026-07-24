@@ -2,6 +2,10 @@ export const USER_REQUEST_CACHE_PREFIX = 'user:{id}:';
 
 export const CACHE_KEYS = {
   USER_STATS: 'get-my-stats',
+  STATS_SUMMARY: 'stats-summary',
+  STATS_TYPES: 'stats-aircraft-types',
+  STATS_PERIODS: 'stats-periods',
+  STATS_ACTIVITY: 'stats-activity',
   USER_ME: 'user-me',
   OPERATORS_LIST: 'operators:list',
   AIRFRAMES_LIST: 'airframes:list',
@@ -21,11 +25,24 @@ export const CACHE_TTL_MS = {
   CREW: 300_000,
   OFP: 86_400_000,
   AIRFRAMES: 86_400_000,
+  STATS_ACTIVITY: 60_000,
 };
 
 export function cacheByUser(key: string, userId: string): string {
   const prefix = USER_REQUEST_CACHE_PREFIX.replace('{id}', userId);
   return `${prefix}${key}`;
+}
+
+export function userStatsCacheKeys(userId: string): string[] {
+  return [
+    cacheByUser(CACHE_KEYS.USER_STATS, userId),
+    cacheByUser(CACHE_KEYS.STATS_SUMMARY, userId),
+    cacheByUser(CACHE_KEYS.STATS_TYPES, userId),
+  ];
+}
+
+export function periodStatsCacheKey(userId: string, utcDay: string): string {
+  return `${cacheByUser(CACHE_KEYS.STATS_PERIODS, userId)}:${utcDay}`;
 }
 
 function flightScopedCacheKeys(flightId: string, resource?: string): string[] {

@@ -198,9 +198,9 @@ Feature: Report on-block
       {
         "total": {
           "blockTime": "@any",
-          "totalFuelBurned": 328800,
+          "totalFuelBurned": 334400,
           "totalFlightTime": "@any",
-          "totalGreatCircleDistance": 8080
+          "totalGreatCircleDistance": 8540
         }
       }
       """

@@ -29,7 +29,7 @@ import {
   FlightOfpNotFoundError,
 } from '../../../model/error/flight.error';
 import { UnresolvedEmergencyCannotCloseFlightError } from '../../../model/error/emergency.error';
-import { Prisma } from '../../../../../../prisma/client/client';
+import { Continent, Prisma } from '../../../../../../prisma/client/client';
 import { Airframe } from '../../../../airframes/model/airframe.model';
 import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
@@ -173,6 +173,23 @@ export type FlightCompletionStats = {
   greatCircleDistance: number;
   totalFuelBurned: number;
   timesheet: FilledTimesheet;
+};
+
+export type CaptainFlightFact = {
+  flightId: string;
+  completedAt: Date;
+  greatCircleDistance: number;
+  fuelBurned: number;
+  airborneMinutes: number | null;
+  blockMinutes: number | null;
+  aircraftType: string;
+  operatorId: string;
+  airports: {
+    airportId: string;
+    icaoCode: string;
+    country: string;
+    continent: Continent;
+  }[];
 };
 
 type FlightWithRawAircraft = Prisma.FlightGetPayload<{
@@ -539,6 +556,20 @@ export class FlightsRepository {
     });
   }
 
+  async updateCompletionFacts(
+    id: string,
+    facts: {
+      actualAirborneMinutes: number | null;
+      actualBlockMinutes: number | null;
+      completedAt: Date | null;
+    },
+  ): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id },
+      data: facts,
+    });
+  }
+
   async updateSimbriefData(
     id: string,
     ofp: FlightOfpDetails,
@@ -717,5 +748,52 @@ export class FlightsRepository {
       totalFuelBurned: flight.totalFuelBurned,
       timesheet: flight.timesheet as FilledTimesheet,
     };
+  }
+
+  async getCompletedFlightsByCaptain(
+    captainId: string,
+  ): Promise<CaptainFlightFact[]> {
+    const flights = await this.prisma.flight.findMany({
+      where: { captainId, completedAt: { not: null } },
+      select: {
+        id: true,
+        completedAt: true,
+        greatCircleDistance: true,
+        totalFuelBurned: true,
+        actualAirborneMinutes: true,
+        actualBlockMinutes: true,
+        operatorId: true,
+        aircraft: { select: { type: true } },
+        airports: {
+          select: {
+            airport: {
+              select: {
+                id: true,
+                icaoCode: true,
+                country: true,
+                continent: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return flights.map((flight) => ({
+      flightId: flight.id,
+      completedAt: flight.completedAt as Date,
+      greatCircleDistance: flight.greatCircleDistance,
+      fuelBurned: flight.totalFuelBurned,
+      airborneMinutes: flight.actualAirborneMinutes,
+      blockMinutes: flight.actualBlockMinutes,
+      aircraftType: flight.aircraft.type,
+      operatorId: flight.operatorId,
+      airports: flight.airports.map((entry) => ({
+        airportId: entry.airport.id,
+        icaoCode: entry.airport.icaoCode,
+        country: entry.airport.country,
+        continent: entry.airport.continent,
+      })),
+    }));
   }
 }

@@ -100,6 +100,7 @@ import { RejectDelayReportHandler } from './application/command/delay/reject-del
 import { GetArrivalParkingPositionHandler } from './application/query/get-arrival-parking-position.query';
 import { GetRepositionDataHandler } from './application/query/reposition/get-reposition-data.query';
 import { GetFlightCompletionStatsHandler } from './application/query/get-flight-completion-stats.query';
+import { GetCompletedFlightsByCaptainHandler } from './application/query/get-completed-flights-by-captain.query';
 import { GetDelayRequestAction } from './infra/http/action/delay/get-delay-request.action';
 import { ListDelayReportsAction } from './infra/http/action/delay/list-delay-reports.action';
 import { ReportDelayAction } from './infra/http/action/delay/report-delay.action';
@@ -215,6 +216,7 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     GetArrivalParkingPositionHandler,
     GetRepositionDataHandler,
     GetFlightCompletionStatsHandler,
+    GetCompletedFlightsByCaptainHandler,
   ],
 })
 export class FlightsModule {}
