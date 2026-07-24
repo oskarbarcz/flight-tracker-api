@@ -18,9 +18,11 @@ Flight rotation (grouping flights under a named rotation, tracking a pilot's "cu
 ## Capabilities
 
 ### New Capabilities
+
 <!-- None: this change only removes behavior. -->
 
 ### Modified Capabilities
+
 <!-- None at the spec level: rotation was never captured in an openspec/specs/ capability, so no documented requirement changes. The removed behavior touches spec'd capabilities (flight-crew, operator-crew) only through side effects those specs never described. -->
 
 ## Impact

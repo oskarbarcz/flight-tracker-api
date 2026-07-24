@@ -13,6 +13,17 @@ export class CreateRotationRequest {
   pilotId!: string;
 }
 
+export class EditRotationRequest {
+  @ApiProperty({ example: 'FRA-JFK-FRA 2025-01-01' })
+  @IsString()
+  @IsNotEmpty()
+  name!: string;
+
+  @ApiProperty({ example: 'bd8f2d64-a647-42da-be63-c6589915e6c9' })
+  @IsUUID(4)
+  pilotId!: string;
+}
+
 export class AddLegRequest {
   @ApiProperty({ example: 'LH450' })
   @IsString()

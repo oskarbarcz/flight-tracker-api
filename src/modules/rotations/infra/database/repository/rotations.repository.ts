@@ -67,6 +67,22 @@ export class RotationsRepository {
     });
   }
 
+  async update(
+    id: string,
+    name: string,
+    pilotId: string,
+    actorId: string,
+  ): Promise<void> {
+    await this.prisma.rotation.update({
+      where: { id },
+      data: { name, pilotId, updatedById: actorId, updatedAt: new Date() },
+    });
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.rotation.delete({ where: { id } });
+  }
+
   async findById(id: string): Promise<Rotation | null> {
     const rotation = await this.prisma.rotation.findUnique({
       where: { id },

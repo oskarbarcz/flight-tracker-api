@@ -23,7 +23,7 @@ import { Rotation } from '../../../model/rotation.model';
 import { DetachFlightFromLegCommand } from '../../../application/command/detach-flight-from-leg.command';
 import { GetRotationByIdQuery } from '../../../application/query/get-rotation-by-id.query';
 
-@ApiTags('rotation')
+@ApiTags('rotation leg')
 @Controller('/api/v1/rotation')
 export class DetachFlightAction {
   constructor(
