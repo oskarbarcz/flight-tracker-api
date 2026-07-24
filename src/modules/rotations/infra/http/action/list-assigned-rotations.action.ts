@@ -1,14 +1,16 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Query, Req } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOkResponse,
   ApiOperation,
+  ApiQuery,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
-import { Rotation } from '../../../model/rotation.model';
+import { Rotation, RotationStatus } from '../../../model/rotation.model';
 import { ListRotationsForUserQuery } from '../../../application/query/list-rotations-for-user.query';
+import { ListRotationsFilters } from '../request/rotation.request';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
 
@@ -19,11 +21,18 @@ export class ListAssignedRotationsAction {
 
   @ApiOperation({ summary: 'List rotations assigned to the current user' })
   @ApiBearerAuth('jwt')
+  @ApiQuery({ name: 'status', enum: RotationStatus, required: false })
   @ApiOkResponse({ type: Rotation, isArray: true })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @Get('/me/rotations')
-  list(@Req() request: AuthorizedRequest): Promise<Rotation[]> {
-    const query = new ListRotationsForUserQuery(request.user.sub);
+  list(
+    @Req() request: AuthorizedRequest,
+    @Query() filters: ListRotationsFilters,
+  ): Promise<Rotation[]> {
+    const query = new ListRotationsForUserQuery(
+      request.user.sub,
+      filters.status,
+    );
     return this.queryBus.execute(query);
   }
 }

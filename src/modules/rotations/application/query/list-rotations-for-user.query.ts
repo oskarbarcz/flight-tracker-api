@@ -7,7 +7,10 @@ const ACTIONABLE_STATUSES: RotationStatus[] = Object.values(
 ).filter((status) => status !== RotationStatus.Draft);
 
 export class ListRotationsForUserQuery extends Query<Rotation[]> {
-  constructor(public readonly pilotId: string) {
+  constructor(
+    public readonly pilotId: string,
+    public readonly status?: RotationStatus,
+  ) {
     super();
   }
 }
@@ -17,9 +20,10 @@ export class ListRotationsForUserHandler implements IQueryHandler<ListRotationsF
   constructor(private readonly repository: RotationsRepository) {}
 
   async execute(query: ListRotationsForUserQuery): Promise<Rotation[]> {
-    return this.repository.findAssignedToPilot(
-      query.pilotId,
-      ACTIONABLE_STATUSES,
-    );
+    const statuses = query.status
+      ? ACTIONABLE_STATUSES.filter((status) => status === query.status)
+      : ACTIONABLE_STATUSES;
+
+    return this.repository.findAssignedToPilot(query.pilotId, statuses);
   }
 }

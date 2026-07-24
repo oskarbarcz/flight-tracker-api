@@ -8,7 +8,10 @@ SHALL restrict that list to rotations whose state is at least `ready`
 (`ready`, `in_progress`, or `finished`), never returning `draft` rotations. The
 caller is resolved from the authenticated identity, so the endpoint requires
 authentication and returns only the caller's own rotations; an unauthenticated
-request is rejected with `401`.
+request is rejected with `401`. The list SHALL accept an optional `status`
+parameter that narrows the result to a single state; when the requested state is
+one the endpoint does not expose (`draft`), the result is empty; an unrecognised
+state is rejected as a bad request.
 
 #### Scenario: A pilot lists their actionable rotations
 
@@ -29,3 +32,18 @@ request is rejected with `401`.
 
 - **WHEN** an unauthenticated client requests the assigned-rotations endpoint
 - **THEN** the request is rejected with `401`
+
+#### Scenario: Filtering by a state returns only rotations in that state
+
+- **WHEN** an authenticated user lists their assigned rotations with a status of `in_progress`
+- **THEN** only their `in_progress` rotations are returned
+
+#### Scenario: Filtering by a non-exposed state returns an empty list
+
+- **WHEN** an authenticated user lists their assigned rotations with a status of `draft`
+- **THEN** an empty list is returned
+
+#### Scenario: Filtering by an unrecognised state is rejected
+
+- **WHEN** an authenticated user lists their assigned rotations with a status that is not a valid rotation state
+- **THEN** the request is rejected as a bad request

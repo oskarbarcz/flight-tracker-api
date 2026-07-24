@@ -20,6 +20,9 @@ never drafts that operations is still building.
 - Unlike the operator list, this endpoint is **not** public: it requires
   authentication because "me" is resolved from the JWT. Unauthenticated requests
   are rejected with `401`.
+- Accept an optional `status` query parameter that narrows the result to a
+  single state. Filtering by a state the endpoint does not expose (`draft`)
+  returns an empty list; an unrecognised value is rejected with `400`.
 
 No breaking changes: this is a new, additive endpoint.
 

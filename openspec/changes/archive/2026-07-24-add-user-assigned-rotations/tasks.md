@@ -25,7 +25,13 @@
 - [x] 6.1 Add `features/rotation/rotation.my-list.feature`: the seeded pilot's list returns exactly their `ready`/`in_progress`/`finished` rotations (full-body assertion), excludes their `draft` and the other pilot's `ready`.
 - [x] 6.2 Cover the defensive actor matrix for this authenticated read: admin `200`, cabin-crew `200`, unauthenticated `401`.
 
-## 7. Verify
+## 7. Status filter
 
-- [x] 7.1 `docker compose exec app npm run lint` and `npm run build` pass.
-- [x] 7.2 `docker compose exec app npx cucumber-js features/rotation/rotation.my-list.feature` passes; then confirm the existing `features/rotation/rotation.list.feature` still passes.
+- [x] 7.1 Add an optional `status` to `ListRotationsForUserQuery`; in the handler intersect the requested state with the actionable set (so `draft` yields an empty list) and pass the resulting states to the repository.
+- [x] 7.2 Reuse the existing `ListRotationsFilters` DTO in `ListAssignedRotationsAction` (`@Query()`), add `@ApiQuery({ name: 'status', enum: RotationStatus, required: false })`, and pass `filters.status` into the query.
+- [x] 7.3 Extend `rotation.my-list.feature`: filter by a state returns only that state, filter by `draft` returns an empty list, filter by an unrecognised state returns `400`.
+
+## 8. Verify
+
+- [x] 8.1 `docker compose exec app npm run lint` and `npm run build` pass.
+- [x] 8.2 `docker compose exec app npx cucumber-js features/rotation/rotation.my-list.feature` passes; then confirm the existing `features/rotation/rotation.list.feature` still passes.

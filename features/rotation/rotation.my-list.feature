@@ -204,3 +204,71 @@ Feature: List rotations assigned to the current user
         "statusCode": 401
       }
       """
+
+  Scenario: Filtering by a state returns only my rotations in that state
+    Given I am signed in as "Michael Doe"
+    When I send a "GET" request to "/api/v1/user/me/rotations?status=in_progress"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "962ca6ae-a765-46f1-9505-d1d870698959",
+          "name": "FRA-JFK-FRA 2025-02-01",
+          "operatorId": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+          "pilotId": "629be07f-5e65-429a-9d69-d34b99185f50",
+          "status": "in_progress",
+          "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+          "updatedBy": null,
+          "createdAt": "2025-02-01T00:00:00.000Z",
+          "updatedAt": null,
+          "legs": [
+            {
+              "id": "57515593-6dba-4d0d-92a2-27fb355dbe21",
+              "flightNumber": "LH100",
+              "departure": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
+              "arrival": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
+              "offBlockTime": "2025-02-01T12:00:00.000Z",
+              "onBlockTime": "2025-02-01T20:00:00.000Z",
+              "blockTime": 480,
+              "flight": null
+            },
+            {
+              "id": "aff6dfc2-ea15-4e02-a287-f130a4ddf6fb",
+              "flightNumber": "LH101",
+              "departure": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
+              "arrival": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
+              "offBlockTime": "2025-02-01T22:00:00.000Z",
+              "onBlockTime": "2025-02-02T06:00:00.000Z",
+              "blockTime": 480,
+              "flight": null
+            }
+          ]
+        }
+      ]
+      """
+
+  Scenario: Filtering by draft returns an empty list because drafts are never exposed
+    Given I am signed in as "Michael Doe"
+    When I send a "GET" request to "/api/v1/user/me/rotations?status=draft"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      []
+      """
+
+  Scenario: Filtering by an unrecognised state is rejected
+    Given I am signed in as "Michael Doe"
+    When I send a "GET" request to "/api/v1/user/me/rotations?status=boarding"
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 400,
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "violations": {
+          "status": ["status must be one of the following values: draft, ready, in_progress, finished"]
+        }
+      }
+      """
