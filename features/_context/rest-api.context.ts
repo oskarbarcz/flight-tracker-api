@@ -84,6 +84,18 @@ Given('I am signed in as {string}', async (role: ApiUserType) => {
   apiTokens.currentRole = role;
 });
 
+Given('I hold a refresh token as {string}', async (role: ApiUserType) => {
+  const credentials = apiUsers[role];
+  const url = `${apiBaseUrl}/api/v1/auth/sign-in`;
+  apiResponse = (await apiClient.post(
+    url,
+    credentials,
+  )) as AxiosResponse<SignInResponse>;
+
+  apiTokens[role] = (apiResponse.data as SignInResponse).refreshToken;
+  apiTokens.currentRole = role;
+});
+
 When(
   'I send a {string} request to {string}',
   async (method: string, path: string) => {
