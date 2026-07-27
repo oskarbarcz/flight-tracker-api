@@ -14,8 +14,11 @@ Feature: Attach and detach rotation flights
         "status": "ready",
         "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
         "updatedBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+        "canceledBy": null,
+        "cancellationReason": null,
         "createdAt": "2025-01-01T00:00:00.000Z",
         "updatedAt": "@date('within 1 minute from now')",
+        "canceledAt": null,
         "legs": [
           {
             "id": "d31970a7-9dda-4aee-8174-81da36756fd1",
@@ -141,8 +144,11 @@ Feature: Attach and detach rotation flights
         "status": "ready",
         "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
         "updatedBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+        "canceledBy": null,
+        "cancellationReason": null,
         "createdAt": "2025-01-01T00:00:00.000Z",
         "updatedAt": "@date('within 1 minute from now')",
+        "canceledAt": null,
         "legs": [
           {
             "id": "9c347301-fa9e-4c26-aa29-0295415053c8",

@@ -369,6 +369,7 @@ model User {
   rotations            Rotation[]             @relation("PilotRotations")
   createdRotations     Rotation[]             @relation("RotationCreatedBy")
   updatedRotations     Rotation[]             @relation("RotationUpdatedBy")
+  canceledRotations    Rotation[]             @relation("RotationCanceledBy")
   statsTotal           UserStatsTotal?
   statsByType          UserStatsByType[]
   statsByAirport       UserStatsByAirport[]
@@ -630,21 +631,25 @@ enum CrewRole {
 }
 
 model Rotation {
-  id          String    @id @default(uuid()) @db.Uuid
-  name        String
-  operatorId  String    @db.Uuid
-  pilotId     String    @db.Uuid
-  status      String    @default("draft")
-  createdById String    @db.Uuid
-  updatedById String?   @db.Uuid
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime?
+  id                 String    @id @default(uuid()) @db.Uuid
+  name               String
+  operatorId         String    @db.Uuid
+  pilotId            String    @db.Uuid
+  status             String    @default("draft")
+  createdById        String    @db.Uuid
+  updatedById        String?   @db.Uuid
+  canceledById       String?   @db.Uuid
+  cancellationReason String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime?
+  canceledAt         DateTime?
 
-  operator  Operator      @relation(fields: [operatorId], references: [id])
-  pilot     User          @relation("PilotRotations", fields: [pilotId], references: [id])
-  createdBy User          @relation("RotationCreatedBy", fields: [createdById], references: [id])
-  updatedBy User?         @relation("RotationUpdatedBy", fields: [updatedById], references: [id])
-  legs      RotationLeg[]
+  operator   Operator      @relation(fields: [operatorId], references: [id])
+  pilot      User          @relation("PilotRotations", fields: [pilotId], references: [id])
+  createdBy  User          @relation("RotationCreatedBy", fields: [createdById], references: [id])
+  updatedBy  User?         @relation("RotationUpdatedBy", fields: [updatedById], references: [id])
+  canceledBy User?         @relation("RotationCanceledBy", fields: [canceledById], references: [id])
+  legs       RotationLeg[]
 
   @@index([operatorId])
   @@index([pilotId])

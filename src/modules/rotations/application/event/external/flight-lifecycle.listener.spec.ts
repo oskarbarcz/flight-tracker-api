@@ -114,6 +114,23 @@ describe('FlightLifecycleListener (rotations)', () => {
       expect(repository.findById).not.toHaveBeenCalled();
       expect(repository.updateStatus).not.toHaveBeenCalled();
     });
+
+    it('does nothing when the rotation has been canceled', async () => {
+      repository.findLegByFlightId.mockResolvedValue({
+        id: 'leg1',
+        rotationId: ROTATION_ID,
+      });
+      repository.findById.mockResolvedValue(
+        rotation(RotationStatus.Canceled, [
+          { id: 'leg1', flightId: 'f1' },
+          { id: 'leg2', flightId: 'f2' },
+        ]),
+      );
+
+      await listener.onPilotCheckedIn(checkedInEvent('f1'));
+
+      expect(repository.updateStatus).not.toHaveBeenCalled();
+    });
   });
 
   describe('on flight closed', () => {

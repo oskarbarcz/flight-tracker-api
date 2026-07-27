@@ -26,8 +26,11 @@ Feature: Edit rotation
           "id": "721ab705-8608-4386-86b4-2f391a3655a7",
           "name": "Alice Doe"
         },
+        "canceledBy": null,
+        "cancellationReason": null,
         "createdAt": "2025-01-01T00:00:00.000Z",
         "updatedAt": "@date('within 1 minute from now')",
+        "canceledAt": null,
         "legs": [
           {
             "id": "34d72055-0f5c-4bd3-8e02-4db80131de48",
