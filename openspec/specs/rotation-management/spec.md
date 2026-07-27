@@ -5,7 +5,8 @@
 Plan a pilot's connected chain of sectors up front, before the individual
 flights exist. A rotation owns an ordered set of legs, is scoped to one operator
 and assigned to a single pilot, and progresses through a
-`draft → ready → in_progress → finished` lifecycle. A leg is the plan (route and
+`draft → ready → in_progress → finished` lifecycle, with `canceled` as an
+alternative terminal state reachable from `ready`. A leg is the plan (route and
 intended times, with block time computed on read) that a real `created` flight is
 later attached to; the flight remains ignorant of rotations, and the rotation
 advances by reacting to existing flight lifecycle events. Rotation reads are
@@ -341,3 +342,63 @@ state is rejected as a bad request.
 
 - **WHEN** an authenticated user lists their assigned rotations with a status that is not a valid rotation state
 - **THEN** the request is rejected as a bad request
+
+### Requirement: Cancel a ready rotation
+
+The system SHALL allow an Operations user to cancel a rotation that is in the
+`ready` state, transitioning it to the terminal `canceled` state and returning
+the updated rotation. The system SHALL reject cancellation of a rotation in any
+other state (`draft`, `in_progress`, `finished`, or already `canceled`) with a
+conflict error, and SHALL require the Operations role for the action. A
+`canceled` rotation SHALL NOT advance through the automatic lifecycle: a later
+pilot check-in or flight close on one of its legs leaves it `canceled`.
+Cancelling SHALL record who cancelled the rotation and when, exposed as
+`canceledBy` (`{ id, name }`) and `canceledAt`, and SHALL accept an optional
+free-text `reason` exposed as `cancellationReason`; a `reason` that is present
+but blank is rejected as a bad request. All three fields are null on a rotation
+that has never been cancelled.
+
+#### Scenario: Operations cancels a ready rotation
+
+- **WHEN** Operations cancels a rotation that is in the `ready` state with a reason
+- **THEN** the rotation transitions to `canceled`, its `canceledBy` is that user's `{ id, name }`, its `canceledAt` is the cancellation time, and its `cancellationReason` is the given text
+
+#### Scenario: Cancelling without a reason is allowed
+
+- **WHEN** Operations cancels a ready rotation without supplying a reason
+- **THEN** the rotation transitions to `canceled` with `canceledBy` and `canceledAt` recorded and a null `cancellationReason`
+
+#### Scenario: A blank reason is rejected
+
+- **WHEN** Operations attempts to cancel a ready rotation with a blank reason
+- **THEN** the request is rejected as a bad request and the rotation remains `ready`
+
+#### Scenario: Cancelling a draft rotation is rejected
+
+- **WHEN** Operations attempts to cancel a rotation that is still a `draft`
+- **THEN** the request is rejected with a conflict error and the rotation remains `draft`
+
+#### Scenario: Cancelling an in-progress rotation is rejected
+
+- **WHEN** Operations attempts to cancel a rotation that is `in_progress`
+- **THEN** the request is rejected with a conflict error and the rotation remains `in_progress`
+
+#### Scenario: Cancelling a finished rotation is rejected
+
+- **WHEN** Operations attempts to cancel a rotation that is `finished`
+- **THEN** the request is rejected with a conflict error and the rotation remains `finished`
+
+#### Scenario: Cancelling an already-cancelled rotation is rejected
+
+- **WHEN** Operations attempts to cancel a rotation that is already `canceled`
+- **THEN** the request is rejected with a conflict error and the rotation remains `canceled`
+
+#### Scenario: A canceled rotation does not advance on check-in
+
+- **WHEN** a pilot checks in on a flight attached to a leg of a `canceled` rotation
+- **THEN** the rotation remains `canceled`
+
+#### Scenario: A non-operations actor is rejected
+
+- **WHEN** a non-Operations actor attempts to cancel a rotation
+- **THEN** the request is rejected with a forbidden error and the rotation is unchanged

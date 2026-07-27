@@ -8,6 +8,7 @@ import { AddLegHandler } from './application/command/add-leg.command';
 import { UpdateLegHandler } from './application/command/update-leg.command';
 import { RemoveLegHandler } from './application/command/remove-leg.command';
 import { MarkRotationReadyHandler } from './application/command/mark-rotation-ready.command';
+import { CancelRotationHandler } from './application/command/cancel-rotation.command';
 import { AttachFlightToLegHandler } from './application/command/attach-flight-to-leg.command';
 import { DetachFlightFromLegHandler } from './application/command/detach-flight-from-leg.command';
 import { GetRotationByIdHandler } from './application/query/get-rotation-by-id.query';
@@ -24,6 +25,7 @@ import { AddLegAction } from './infra/http/action/add-leg.action';
 import { UpdateLegAction } from './infra/http/action/update-leg.action';
 import { RemoveLegAction } from './infra/http/action/remove-leg.action';
 import { MarkRotationReadyAction } from './infra/http/action/mark-rotation-ready.action';
+import { CancelRotationAction } from './infra/http/action/cancel-rotation.action';
 import { AttachFlightAction } from './infra/http/action/attach-flight.action';
 import { DetachFlightAction } from './infra/http/action/detach-flight.action';
 
@@ -40,6 +42,7 @@ import { DetachFlightAction } from './infra/http/action/detach-flight.action';
     UpdateLegAction,
     RemoveLegAction,
     MarkRotationReadyAction,
+    CancelRotationAction,
     AttachFlightAction,
     DetachFlightAction,
   ],
@@ -52,6 +55,7 @@ import { DetachFlightAction } from './infra/http/action/detach-flight.action';
     UpdateLegHandler,
     RemoveLegHandler,
     MarkRotationReadyHandler,
+    CancelRotationHandler,
     AttachFlightToLegHandler,
     DetachFlightFromLegHandler,
     GetRotationByIdHandler,

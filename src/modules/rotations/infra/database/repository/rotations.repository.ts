@@ -13,6 +13,7 @@ const userPreview = {
 const rotationInclude = {
   createdBy: userPreview,
   updatedBy: userPreview,
+  canceledBy: userPreview,
   legs: {
     orderBy: { offBlockTime: 'asc' },
     include: {
@@ -136,6 +137,26 @@ export class RotationsRepository {
     });
   }
 
+  async cancel(
+    id: string,
+    actorId: string,
+    reason: string | null,
+  ): Promise<void> {
+    const canceledAt = new Date();
+
+    await this.prisma.rotation.update({
+      where: { id },
+      data: {
+        status: RotationStatus.Canceled,
+        canceledById: actorId,
+        cancellationReason: reason,
+        canceledAt,
+        updatedById: actorId,
+        updatedAt: canceledAt,
+      },
+    });
+  }
+
   async addLeg(
     rotationId: string,
     leg: NewLeg,
@@ -198,10 +219,13 @@ export class RotationsRepository {
     operatorId: string;
     pilotId: string;
     status: string;
+    cancellationReason: string | null;
     createdAt: Date;
     updatedAt: Date | null;
+    canceledAt: Date | null;
     createdBy: { id: string; name: string };
     updatedBy: { id: string; name: string } | null;
+    canceledBy: { id: string; name: string } | null;
     legs: Array<{
       id: string;
       flightNumber: string;
@@ -225,8 +249,11 @@ export class RotationsRepository {
       status: rotation.status as RotationStatus,
       createdBy: rotation.createdBy,
       updatedBy: rotation.updatedBy,
+      canceledBy: rotation.canceledBy,
+      cancellationReason: rotation.cancellationReason,
       createdAt: rotation.createdAt,
       updatedAt: rotation.updatedAt,
+      canceledAt: rotation.canceledAt,
       legs: rotation.legs.map((leg) => ({
         id: leg.id,
         flightNumber: leg.flightNumber,

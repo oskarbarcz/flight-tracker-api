@@ -43,6 +43,14 @@ export class EditRotationRequest {
   pilotId!: string;
 }
 
+export class CancelRotationRequest {
+  @ApiProperty({ example: 'Crew out of duty hours', required: false })
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  reason?: string;
+}
+
 export class AddLegRequest {
   @ApiProperty({ example: 'LH450' })
   @IsString()

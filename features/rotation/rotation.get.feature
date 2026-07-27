@@ -14,8 +14,11 @@ Feature: Read rotations
         "status": "draft",
         "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
         "updatedBy": null,
+        "canceledBy": null,
+        "cancellationReason": null,
         "createdAt": "2025-01-01T00:00:00.000Z",
         "updatedAt": null,
+        "canceledAt": null,
         "legs": [
           {
             "id": "34d72055-0f5c-4bd3-8e02-4db80131de48",
@@ -61,6 +64,70 @@ Feature: Read rotations
       }
       """
 
+  Scenario: As an admin I can get a canceled rotation with its cancellation audit
+    Given I am signed in as "admin"
+    When I send a "GET" request to "/api/v1/rotation/4a2b2d48-798f-4260-a12e-5fa51ff0e900"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "4a2b2d48-798f-4260-a12e-5fa51ff0e900",
+        "name": "FRA-JFK-FRA 2025-01-04",
+        "operatorId": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
+        "pilotId": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+        "status": "canceled",
+        "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+        "updatedBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+        "canceledBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+        "cancellationReason": "Crew out of duty hours",
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "updatedAt": "2025-01-03T09:00:00.000Z",
+        "canceledAt": "2025-01-03T09:00:00.000Z",
+        "legs": [
+          {
+            "id": "bbf99acd-616a-4a62-8e91-ba236b4ea931",
+            "flightNumber": "LH450",
+            "departure": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "iataCode": "FRA",
+              "icaoCode": "EDDF",
+              "name": "Frankfurt Rhein/Main"
+            },
+            "arrival": {
+              "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+              "iataCode": "JFK",
+              "icaoCode": "KJFK",
+              "name": "New York JFK"
+            },
+            "offBlockTime": "2025-01-04T12:00:00.000Z",
+            "onBlockTime": "2025-01-04T20:00:00.000Z",
+            "blockTime": 480,
+            "flight": null
+          },
+          {
+            "id": "52bda472-6044-4f60-acae-e9d66aa4cb7f",
+            "flightNumber": "LH41",
+            "departure": {
+              "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+              "iataCode": "JFK",
+              "icaoCode": "KJFK",
+              "name": "New York JFK"
+            },
+            "arrival": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "iataCode": "FRA",
+              "icaoCode": "EDDF",
+              "name": "Frankfurt Rhein/Main"
+            },
+            "offBlockTime": "2025-01-04T22:00:00.000Z",
+            "onBlockTime": "2025-01-05T06:00:00.000Z",
+            "blockTime": 480,
+            "flight": null
+          }
+        ]
+      }
+      """
+
   Scenario: As a cabin crew I can get a ready rotation with an attached flight
     Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/rotation/de76f066-23a6-4a49-aa5e-e9d524f4efb8"
@@ -75,8 +142,11 @@ Feature: Read rotations
         "status": "ready",
         "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
         "updatedBy": null,
+        "canceledBy": null,
+        "cancellationReason": null,
         "createdAt": "2025-01-01T00:00:00.000Z",
         "updatedAt": null,
+        "canceledAt": null,
         "legs": [
           {
             "id": "9c347301-fa9e-4c26-aa29-0295415053c8",
@@ -136,8 +206,11 @@ Feature: Read rotations
           "status": "in_progress",
           "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
           "updatedBy": null,
+          "canceledBy": null,
+          "cancellationReason": null,
           "createdAt": "2025-01-01T00:00:00.000Z",
           "updatedAt": null,
+          "canceledAt": null,
           "legs": [
             {
               "id": "69de1c35-96e1-4c0e-9b4c-c5777081f6e9",
@@ -193,8 +266,11 @@ Feature: Read rotations
           "status": "finished",
           "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
           "updatedBy": null,
+          "canceledBy": null,
+          "cancellationReason": null,
           "createdAt": "2025-01-02T00:00:00.000Z",
           "updatedAt": null,
+          "canceledAt": null,
           "legs": [
             {
               "id": "2fff235c-17c3-4286-9682-2877fcf13eb5",

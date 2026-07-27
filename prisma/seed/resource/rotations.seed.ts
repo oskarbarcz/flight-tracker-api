@@ -19,6 +19,7 @@ const AAL4905 = '23da8bc9-a21b-4678-b2e9-1151d3bd15ab';
 const AAL4917 = 'd085c107-308d-48e6-9c93-beca6552a8a3';
 
 const CREATED_AT = new Date('2025-01-01T00:00:00.000Z');
+const CANCELED_AT = new Date('2025-01-03T09:00:00.000Z');
 
 export async function loadRotations(
   tx: Prisma.TransactionClient,
@@ -161,6 +162,40 @@ export async function loadRotations(
           arrivalId: KPHL,
           offBlockTime: new Date('2025-01-01T22:00:00.000Z'),
           onBlockTime: new Date('2025-01-01T23:30:00.000Z'),
+          flightId: null,
+        },
+      ],
+    },
+    {
+      id: '4a2b2d48-798f-4260-a12e-5fa51ff0e900',
+      name: 'FRA-JFK-FRA 2025-01-04',
+      operatorId: LUFTHANSA,
+      pilotId: ALAN,
+      createdById: ALICE,
+      status: 'canceled',
+      createdAt: CREATED_AT,
+      updatedById: ALICE,
+      updatedAt: CANCELED_AT,
+      canceledById: ALICE,
+      canceledAt: CANCELED_AT,
+      cancellationReason: 'Crew out of duty hours',
+      legs: [
+        {
+          id: 'bbf99acd-616a-4a62-8e91-ba236b4ea931',
+          flightNumber: 'LH450',
+          departureId: EDDF,
+          arrivalId: KJFK,
+          offBlockTime: new Date('2025-01-04T12:00:00.000Z'),
+          onBlockTime: new Date('2025-01-04T20:00:00.000Z'),
+          flightId: null,
+        },
+        {
+          id: '52bda472-6044-4f60-acae-e9d66aa4cb7f',
+          flightNumber: 'LH41',
+          departureId: KJFK,
+          arrivalId: EDDF,
+          offBlockTime: new Date('2025-01-04T22:00:00.000Z'),
+          onBlockTime: new Date('2025-01-05T06:00:00.000Z'),
           flightId: null,
         },
       ],

@@ -20,8 +20,11 @@ Feature: Create rotation
         "status": "draft",
         "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
         "updatedBy": null,
+        "canceledBy": null,
+        "cancellationReason": null,
         "createdAt": "@date('within 1 minute from now')",
         "updatedAt": null,
+        "canceledAt": null,
         "legs": []
       }
       """
