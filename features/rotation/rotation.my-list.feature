@@ -15,8 +15,11 @@ Feature: List rotations assigned to the current user
           "status": "in_progress",
           "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
           "updatedBy": null,
+          "canceledBy": null,
+          "cancellationReason": null,
           "createdAt": "2025-02-01T00:00:00.000Z",
           "updatedAt": null,
+          "canceledAt": null,
           "legs": [
             {
               "id": "57515593-6dba-4d0d-92a2-27fb355dbe21",
@@ -48,8 +51,11 @@ Feature: List rotations assigned to the current user
           "status": "finished",
           "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
           "updatedBy": null,
+          "canceledBy": null,
+          "cancellationReason": null,
           "createdAt": "2025-02-02T00:00:00.000Z",
           "updatedAt": null,
+          "canceledAt": null,
           "legs": [
             {
               "id": "9ebeab51-fe4d-4215-836e-56596f988d7a",
@@ -81,8 +87,11 @@ Feature: List rotations assigned to the current user
           "status": "ready",
           "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
           "updatedBy": null,
+          "canceledBy": null,
+          "cancellationReason": null,
           "createdAt": "2025-02-03T00:00:00.000Z",
           "updatedAt": null,
+          "canceledAt": null,
           "legs": [
             {
               "id": "92c8e486-0bb5-4876-b894-75f0ca30ce61",
@@ -124,8 +133,11 @@ Feature: List rotations assigned to the current user
           "status": "in_progress",
           "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
           "updatedBy": null,
+          "canceledBy": null,
+          "cancellationReason": null,
           "createdAt": "2025-01-01T00:00:00.000Z",
           "updatedAt": null,
+          "canceledAt": null,
           "legs": [
             {
               "id": "69de1c35-96e1-4c0e-9b4c-c5777081f6e9",
@@ -157,8 +169,11 @@ Feature: List rotations assigned to the current user
           "status": "finished",
           "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
           "updatedBy": null,
+          "canceledBy": null,
+          "cancellationReason": null,
           "createdAt": "2025-01-02T00:00:00.000Z",
           "updatedAt": null,
+          "canceledAt": null,
           "legs": [
             {
               "id": "2fff235c-17c3-4286-9682-2877fcf13eb5",
@@ -220,8 +235,11 @@ Feature: List rotations assigned to the current user
           "status": "in_progress",
           "createdBy": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
           "updatedBy": null,
+          "canceledBy": null,
+          "cancellationReason": null,
           "createdAt": "2025-02-01T00:00:00.000Z",
           "updatedAt": null,
+          "canceledAt": null,
           "legs": [
             {
               "id": "57515593-6dba-4d0d-92a2-27fb355dbe21",
@@ -268,7 +286,7 @@ Feature: List rotations assigned to the current user
         "message": "Request validation failed.",
         "error": "Bad Request",
         "violations": {
-          "status": ["status must be one of the following values: draft, ready, in_progress, finished"]
+          "status": ["status must be one of the following values: draft, ready, in_progress, finished, canceled"]
         }
       }
       """
