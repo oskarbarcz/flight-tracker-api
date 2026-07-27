@@ -6,6 +6,7 @@ export enum RotationStatus {
   Ready = 'ready',
   InProgress = 'in_progress',
   Finished = 'finished',
+  Canceled = 'canceled',
 }
 
 export class RotationUser {
@@ -38,6 +39,16 @@ export class Rotation {
   @ApiProperty({ type: RotationUser, nullable: true })
   updatedBy!: RotationUser | null;
 
+  @ApiProperty({ type: RotationUser, nullable: true })
+  canceledBy!: RotationUser | null;
+
+  @ApiProperty({
+    example: 'Crew out of duty hours',
+    nullable: true,
+    type: String,
+  })
+  cancellationReason!: string | null;
+
   @ApiProperty({ type: RotationLeg, isArray: true })
   legs!: RotationLeg[];
 
@@ -50,4 +61,11 @@ export class Rotation {
     type: Date,
   })
   updatedAt!: Date | null;
+
+  @ApiProperty({
+    example: '2025-01-01T00:00:00.000Z',
+    nullable: true,
+    type: Date,
+  })
+  canceledAt!: Date | null;
 }

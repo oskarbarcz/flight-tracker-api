@@ -89,3 +89,9 @@ export class RotationNotDeletableError extends ConflictError {
     super('A rotation can only be removed while it is a draft.');
   }
 }
+
+export class RotationNotCancelableError extends ConflictError {
+  constructor() {
+    super('Only a ready rotation can be canceled.');
+  }
+}
