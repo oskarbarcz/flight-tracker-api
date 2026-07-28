@@ -11,7 +11,7 @@ import {
   IsString,
   IsUUID,
 } from 'class-validator';
-import { LegacyCreateAircraftResponse } from '../../operators/infra/http/request/aircraft.request';
+import { LegacyCreateAircraftResponse } from '../../aircraft/infra/http/request/aircraft.request';
 import { ShortOperatorResponse } from '../infra/http/request/operator.request';
 
 export enum FlightStatus {

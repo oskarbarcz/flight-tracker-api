@@ -81,31 +81,14 @@ export class OperatorsRepository {
     });
   }
 
-  async countAircraft(operatorId: string): Promise<number> {
-    return this.prisma.aircraft.count({
-      where: { operatorId },
-    });
-  }
-
-  async updateFleet(operatorId: string): Promise<void> {
-    const [fleetSize, fleetTypes] = await Promise.all([
-      this.countAircraft(operatorId),
-      this.getUniqueAircraftTypes(operatorId),
-    ]);
-
+  async updateFleet(
+    operatorId: string,
+    fleetSize: number,
+    fleetTypes: string[],
+  ): Promise<void> {
     await this.prisma.operator.update({
       where: { id: operatorId },
       data: { fleetSize, fleetTypes },
     });
-  }
-
-  private async getUniqueAircraftTypes(operatorId: string): Promise<string[]> {
-    const types = await this.prisma.aircraft.findMany({
-      select: { type: true },
-      where: { operatorId },
-      distinct: ['type'],
-    });
-
-    return types.map((row) => row.type);
   }
 }

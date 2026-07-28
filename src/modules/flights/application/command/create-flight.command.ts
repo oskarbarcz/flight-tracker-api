@@ -9,7 +9,7 @@ import { FlightWasCreatedEvent } from '../../../../core/domain/events/dto/flight
 import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { CreateFlightRequest } from '../../infra/http/request/flight.dto';
-import { CheckAircraftExistsQuery } from '../../../operators/application/query/aircraft/check-aircraft-exists.query';
+import { CheckAircraftExistsQuery } from '../../../aircraft/application/query/check-aircraft-exists.query';
 import { CheckOperatorExistsQuery } from '../../../operators/application/query/check-operator-exists.query';
 
 export class CreateFlightCommand {
