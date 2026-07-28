@@ -15,8 +15,10 @@ import type { Cache } from 'cache-manager';
 import { CACHE_KEYS, cacheByUser } from '../../../../../core/cache/cache.key';
 import {
   CabinCrewMustHaveHomeAirportError,
+  GoogleAccountLinkedToAnotherUserError,
   OnlyCabinCrewCanHaveHomeAirportError,
   OnlyCabinCrewCanHavePilotLicenseError,
+  UserAlreadyHasLinkedGoogleAccountError,
   UserEmailAlreadyExistsError,
   UserNotFoundError,
   UserWithGivenIdNotFoundError,
@@ -130,13 +132,42 @@ export class UsersRepository {
   ): Promise<GetUserDto | null> {
     const user = await this.findOneBy({ email });
 
-    if (!user) {
+    if (!user || user.password === null) {
       return null;
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     return !isMatch ? null : this.returnWithoutPassword(user);
+  }
+
+  async findByGoogleId(googleId: string): Promise<GetUserDto | null> {
+    const user = await this.findOneBy({ googleId });
+
+    return user === null ? null : this.returnWithoutPassword(user);
+  }
+
+  async linkGoogleAccount(userId: string, googleId: string): Promise<void> {
+    const user = await this.findOneBy({ id: userId });
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
+    if (user.googleId !== null) {
+      throw new UserAlreadyHasLinkedGoogleAccountError();
+    }
+
+    const owner = await this.findOneBy({ googleId });
+
+    if (owner !== null && owner.id !== userId) {
+      throw new GoogleAccountLinkedToAnotherUserError();
+    }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { googleId },
+    });
   }
 
   async update(id: string, data: UpdateUserDto): Promise<void> {

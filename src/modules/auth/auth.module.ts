@@ -11,9 +11,18 @@ import { JwtTokenGuard } from '../../core/http/auth/guard/jwt-token.guard';
 import { RolesGuard } from '../../core/http/auth/guard/roles.guard';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { SessionRepository } from './infra/database/repository/session.repository';
+import { GoogleModule } from '../../core/provider/google/google.module';
+import { GoogleSignInAction } from './infra/http/action/google-sign-in.action';
+import { LinkGoogleAccountAction } from './infra/http/action/link-google-account.action';
 
 @Module({
-  controllers: [SignInAction, RefreshTokenAction, SignOutAction],
+  controllers: [
+    SignInAction,
+    GoogleSignInAction,
+    LinkGoogleAccountAction,
+    RefreshTokenAction,
+    SignOutAction,
+  ],
   providers: [
     AuthService,
     SessionRepository,
@@ -23,6 +32,7 @@ import { SessionRepository } from './infra/database/repository/session.repositor
   imports: [
     UsersModule,
     PrismaModule,
+    GoogleModule,
     JwtModule.registerAsync({
       global: true,
       inject: [ConfigService],

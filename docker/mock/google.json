@@ -1,0 +1,26 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/oauth2/v3/certs"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"]
+      },
+      "body": {
+        "keys": [
+          {
+            "kty": "RSA",
+            "n": "o001rz5RbWLEVcNvMKYTGkjDX_cZ6FA7uj7azdbdQqweLpX1Axq7LTIGIC35uztf_HwLpj2BQq2ubBJ_t9J_zqmxtuFFNQ2n_FOPOTSCu7iWjEKmuXmVpHxy__zNSTlamRDHFMwhAPwXpGGJqIfeK03Mg2_7yHkN_cSOWEvVilQ8vzA5aJ_snC4j6hdcITZvJy8KEXc-bge8_wBLE40SCDZxlHlTJ20p5km4bzd4Fu9xbkwOGm8UOsH88uV5-F1ALebI_Xq9SkwCylUKyNb9yygr2QftgULi-uMf1Z2O0GWxHKDY7cmQhysTkU-O1TNg-k9zJ9ys-p0s_DZERkIwdQ",
+            "e": "AQAB",
+            "kid": "ft-test-google-key",
+            "use": "sig",
+            "alg": "RS256"
+          }
+        ]
+      }
+    }
+  }
+]
