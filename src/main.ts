@@ -15,8 +15,5 @@ import { configureExceptionHandling } from './core/errors/exception.config';
   configureHelmet(app);
   configureCors(app);
 
-  const server = await app.listen(3000);
-
-  server.keepAliveTimeout = 15 * 1000;
-  server.headersTimeout = 15 * 1000;
+  await app.listen(3000);
 })();
