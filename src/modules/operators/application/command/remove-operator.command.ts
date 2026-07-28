@@ -1,4 +1,4 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { OperatorsRepository } from '../../infra/database/repository/operators.repository';
 import {
   OperatorInUseError,
@@ -6,6 +6,10 @@ import {
 } from '../../model/error/operator.error';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { OperatorRemovedEvent } from '../../../../core/domain/events/dto/operator.event';
+import {
+  GetOperatorFleetSummaryQuery,
+  OperatorFleetSummary,
+} from '../../../aircraft/application/query/get-operator-fleet-summary.query';
 
 export class RemoveOperatorCommand {
   constructor(public readonly operatorId: string) {}
@@ -16,6 +20,7 @@ export class RemoveOperatorHandler implements ICommandHandler<RemoveOperatorComm
   constructor(
     private readonly repository: OperatorsRepository,
     private readonly domainEvents: DomainEventEmitter,
+    private readonly queryBus: QueryBus,
   ) {}
 
   async execute(command: RemoveOperatorCommand): Promise<void> {
@@ -33,9 +38,11 @@ export class RemoveOperatorHandler implements ICommandHandler<RemoveOperatorComm
       throw new OperatorInUseError();
     }
 
-    const aircraftCount = await this.repository.countAircraft(operatorId);
+    const fleetQuery = new GetOperatorFleetSummaryQuery(operatorId);
+    const { fleetSize }: OperatorFleetSummary =
+      await this.queryBus.execute(fleetQuery);
 
-    if (aircraftCount > 0) {
+    if (fleetSize > 0) {
       throw new OperatorInUseError();
     }
 

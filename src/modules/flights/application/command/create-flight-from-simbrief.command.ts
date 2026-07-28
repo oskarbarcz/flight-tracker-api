@@ -12,7 +12,7 @@ import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-
 import { GetUserSimbriefIdQuery } from '../../../users/application/query/get-user-simbrief-id.query';
 import { SimbriefClient } from '../../../../core/provider/simbrief/client/simbrief.client';
 import { ImportAirportByIcaoCommand } from '../../../airports/application/command/import-airport-by-icao.command';
-import { GetAircraftByRegistrationQuery } from '../../../operators/application/query/aircraft/get-aircraft-by-registration.query';
+import { GetAircraftByRegistrationQuery } from '../../../aircraft/application/query/get-aircraft-by-registration.query';
 import { GetOperatorByIcaoCodeQuery } from '../../../operators/application/query/get-operator-by-icao-code.query';
 import { FlightTracking } from '../../model/flight.model';
 import {
@@ -29,8 +29,8 @@ import { FuelBreakdown } from '../../model/loadsheet.model';
 import {
   AssignCrewToFlightCommand,
   CrewMember,
-} from '../../../operators/application/command/crew/assign-crew-to-flight.command';
-import { CrewRole } from '../../../operators/model/crew.model';
+} from '../../../crew/application/command/assign-crew-to-flight.command';
+import { CrewRole } from '../../../crew/model/crew.model';
 
 type AlternateAirportCandidate = {
   icaoCode: string;
