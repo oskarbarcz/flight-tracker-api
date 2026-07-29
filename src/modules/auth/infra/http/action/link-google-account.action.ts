@@ -6,7 +6,8 @@ import {
   Post,
   Req,
 } from '@nestjs/common';
-import { AuthService } from '../../../service/auth.service';
+import { CommandBus } from '@nestjs/cqrs';
+import { LinkGoogleAccountCommand } from '../../../application/command/link-google-account.command';
 import { GoogleSignInRequest } from '../request/google-sign-in.dto';
 import {
   ApiBadRequestResponse,
@@ -25,7 +26,7 @@ import { AuthorizedRequest } from '../../../../../core/http/request/authorized.r
 @ApiTags('auth')
 @Controller('/api/v1/auth')
 export class LinkGoogleAccountAction {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   @ApiOperation({
     summary: 'Link a Google account to the signed-in user',
@@ -52,6 +53,8 @@ export class LinkGoogleAccountAction {
     @Req() req: AuthorizedRequest,
     @Body() body: GoogleSignInRequest,
   ): Promise<void> {
-    await this.authService.linkGoogleAccount(req.user.sub, body.idToken);
+    const command = new LinkGoogleAccountCommand(req.user.sub, body.idToken);
+
+    await this.commandBus.execute(command);
   }
 }

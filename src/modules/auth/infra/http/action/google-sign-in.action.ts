@@ -1,5 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { AuthService } from '../../../service/auth.service';
+import { CommandBus } from '@nestjs/cqrs';
+import { SignInWithGoogleCommand } from '../../../application/command/sign-in-with-google.command';
 import { SignInResponse } from '../request/sign-in.dto';
 import { GoogleSignInRequest } from '../request/google-sign-in.dto';
 import { SkipAuth } from '../../../../../core/http/auth/decorator/skip-auth.decorator';
@@ -17,7 +18,7 @@ import { UnauthorizedResponse } from '../../../../../core/http/response/unauthor
 @ApiTags('auth')
 @Controller('/api/v1/auth')
 export class GoogleSignInAction {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   @ApiOperation({
     summary: 'Exchange a Google ID token for JWT authorization token',
@@ -41,6 +42,8 @@ export class GoogleSignInAction {
   async signInWithGoogle(
     @Body() body: GoogleSignInRequest,
   ): Promise<SignInResponse> {
-    return this.authService.signInWithGoogle(body.idToken);
+    const command = new SignInWithGoogleCommand(body.idToken);
+
+    return this.commandBus.execute(command);
   }
 }

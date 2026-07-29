@@ -1,5 +1,6 @@
 import { Controller, HttpCode, HttpStatus, Post, Req } from '@nestjs/common';
-import { AuthService } from '../../../service/auth.service';
+import { CommandBus } from '@nestjs/cqrs';
+import { RefreshTokenCommand } from '../../../application/command/refresh-token.command';
 import { SignInRequest, SignInResponse } from '../request/sign-in.dto';
 import {
   ApiBody,
@@ -14,7 +15,7 @@ import { AuthorizedRequest } from '../../../../../core/http/request/authorized.r
 @ApiTags('auth')
 @Controller('/api/v1/auth')
 export class RefreshTokenAction {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   @ApiOperation({ summary: 'Get JWT authorization token' })
   @ApiBody({ type: SignInRequest })
@@ -29,6 +30,8 @@ export class RefreshTokenAction {
   @Post('/refresh')
   @HttpCode(HttpStatus.OK)
   async refreshToken(@Req() req: AuthorizedRequest): Promise<SignInResponse> {
-    return this.authService.refreshToken(req.user.sub, req.user.session);
+    const command = new RefreshTokenCommand(req.user.sub, req.user.session);
+
+    return this.commandBus.execute(command);
   }
 }

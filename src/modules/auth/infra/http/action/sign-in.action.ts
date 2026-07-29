@@ -1,5 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { AuthService } from '../../../service/auth.service';
+import { CommandBus } from '@nestjs/cqrs';
+import { SignInCommand } from '../../../application/command/sign-in.command';
 import { SignInRequest, SignInResponse } from '../request/sign-in.dto';
 import { SkipAuth } from '../../../../../core/http/auth/decorator/skip-auth.decorator';
 import {
@@ -16,7 +17,7 @@ import { UnauthorizedResponse } from '../../../../../core/http/response/unauthor
 @ApiTags('auth')
 @Controller('/api/v1/auth')
 export class SignInAction {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   @ApiOperation({ summary: 'Get JWT authorization token' })
   @ApiBody({ type: SignInRequest })
@@ -36,6 +37,8 @@ export class SignInAction {
   @Post('/sign-in')
   @HttpCode(HttpStatus.OK)
   async signIn(@Body() body: SignInRequest): Promise<SignInResponse> {
-    return this.authService.signIn(body.email, body.password);
+    const command = new SignInCommand(body.email, body.password);
+
+    return this.commandBus.execute(command);
   }
 }
