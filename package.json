@@ -1,6 +1,6 @@
 {
   "name": "flight-tracker-api",
-  "version": "3.7.0",
+  "version": "3.8.0",
   "private": true,
   "homepage": "https://flights.barcz.me",
   "author": "oskarbarcz",
@@ -47,6 +47,7 @@
     "class-validator": "^0.14.4",
     "dotenv": "^17.4.2",
     "helmet": "^8.1.0",
+    "jose": "^5.10.0",
     "pg": "^8.20.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",

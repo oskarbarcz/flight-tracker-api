@@ -13,7 +13,7 @@ import {
   JwtTokenType,
   JwtUser,
 } from '../../../../modules/auth/infra/http/request/jwt-user.dto';
-import { CannotUseTokenTypeError } from '../../../../modules/auth/infra/http/request/error.dto';
+import { CannotUseTokenTypeError } from '../../../../modules/auth/model/error/auth.error';
 
 @Injectable()
 export class JwtTokenGuard implements CanActivate {

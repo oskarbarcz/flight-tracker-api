@@ -1,5 +1,6 @@
 import { Controller, HttpCode, HttpStatus, Post, Req } from '@nestjs/common';
-import { AuthService } from '../../../service/auth.service';
+import { CommandBus } from '@nestjs/cqrs';
+import { SignOutCommand } from '../../../application/command/sign-out.command';
 import {
   ApiNoContentResponse,
   ApiOperation,
@@ -12,7 +13,7 @@ import { AuthorizedRequest } from '../../../../../core/http/request/authorized.r
 @ApiTags('auth')
 @Controller('/api/v1/auth')
 export class SignOutAction {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   @ApiOperation({ summary: 'Invalidate JWT refresh token' })
   @ApiNoContentResponse({
@@ -25,6 +26,8 @@ export class SignOutAction {
   @Post('/sign-out')
   @HttpCode(HttpStatus.NO_CONTENT)
   async signOut(@Req() req: AuthorizedRequest): Promise<void> {
-    await this.authService.signOutFromSession(req.user.session);
+    const command = new SignOutCommand(req.user.session);
+
+    await this.commandBus.execute(command);
   }
 }

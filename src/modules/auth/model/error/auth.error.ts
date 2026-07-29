@@ -1,5 +1,5 @@
-import { JwtTokenType } from './jwt-user.dto';
-import { UnauthorizedError } from '../../../../../core/errors/domain-error';
+import { UnauthorizedError } from '../../../../core/errors/domain-error';
+import { JwtTokenType } from '../../infra/http/request/jwt-user.dto';
 
 export class CannotUseTokenTypeError extends UnauthorizedError {
   constructor(type: JwtTokenType) {
@@ -10,11 +10,5 @@ export class CannotUseTokenTypeError extends UnauthorizedError {
 export class InvalidCredentialsError extends UnauthorizedError {
   constructor() {
     super('Credentials are incorrect.');
-  }
-}
-
-export class InvalidRefreshTokenError extends UnauthorizedError {
-  constructor() {
-    super('Refresh token is not valid.');
   }
 }

@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AuthService } from './service/auth.service';
 import { SignInAction } from './infra/http/action/sign-in.action';
 import { RefreshTokenAction } from './infra/http/action/refresh-token.action';
 import { SignOutAction } from './infra/http/action/sign-out.action';
@@ -11,18 +10,41 @@ import { JwtTokenGuard } from '../../core/http/auth/guard/jwt-token.guard';
 import { RolesGuard } from '../../core/http/auth/guard/roles.guard';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { SessionRepository } from './infra/database/repository/session.repository';
+import { GoogleModule } from '../../core/provider/google/google.module';
+import { GoogleSignInAction } from './infra/http/action/google-sign-in.action';
+import { LinkGoogleAccountAction } from './infra/http/action/link-google-account.action';
+import { SessionService } from './infra/service/session.service';
+import { SignInHandler } from './application/command/sign-in.command';
+import { SignInWithGoogleHandler } from './application/command/sign-in-with-google.command';
+import { LinkGoogleAccountHandler } from './application/command/link-google-account.command';
+import { RefreshTokenHandler } from './application/command/refresh-token.command';
+import { SignOutHandler } from './application/command/sign-out.command';
+import { SignOutEverywhereHandler } from './application/command/sign-out-everywhere.command';
 
 @Module({
-  controllers: [SignInAction, RefreshTokenAction, SignOutAction],
+  controllers: [
+    SignInAction,
+    GoogleSignInAction,
+    LinkGoogleAccountAction,
+    RefreshTokenAction,
+    SignOutAction,
+  ],
   providers: [
-    AuthService,
     SessionRepository,
+    SessionService,
+    SignInHandler,
+    SignInWithGoogleHandler,
+    LinkGoogleAccountHandler,
+    RefreshTokenHandler,
+    SignOutHandler,
+    SignOutEverywhereHandler,
     { provide: APP_GUARD, useClass: JwtTokenGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
   ],
   imports: [
     UsersModule,
     PrismaModule,
+    GoogleModule,
     JwtModule.registerAsync({
       global: true,
       inject: [ConfigService],
@@ -35,6 +57,5 @@ import { SessionRepository } from './infra/database/repository/session.repositor
       }),
     }),
   ],
-  exports: [AuthService],
 })
 export class AuthModule {}

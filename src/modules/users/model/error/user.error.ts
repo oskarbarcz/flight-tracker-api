@@ -1,5 +1,6 @@
 import {
   BadRequestError,
+  ConflictError,
   ForbiddenError,
   NotFoundError,
 } from '../../../../core/errors/domain-error';
@@ -37,6 +38,18 @@ export class OnlyCabinCrewCanHaveHomeAirportError extends BadRequestError {
 export class CabinCrewMustHaveHomeAirportError extends BadRequestError {
   constructor() {
     super('CabinCrew must have a home airport.');
+  }
+}
+
+export class GoogleAccountLinkedToAnotherUserError extends ConflictError {
+  constructor() {
+    super('This Google account is already linked to another user.');
+  }
+}
+
+export class UserAlreadyHasLinkedGoogleAccountError extends ConflictError {
+  constructor() {
+    super('User already has a linked Google account.');
   }
 }
 

@@ -1,7 +1,8 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { SignInCommand } from '../../../application/command/sign-in.command';
-import { SignInRequest, SignInResponse } from '../request/sign-in.dto';
+import { SignInWithGoogleCommand } from '../../../application/command/sign-in-with-google.command';
+import { SignInResponse } from '../request/sign-in.dto';
+import { GoogleSignInRequest } from '../request/google-sign-in.dto';
 import { SkipAuth } from '../../../../../core/http/auth/decorator/skip-auth.decorator';
 import {
   ApiBadRequestResponse,
@@ -16,28 +17,32 @@ import { UnauthorizedResponse } from '../../../../../core/http/response/unauthor
 
 @ApiTags('auth')
 @Controller('/api/v1/auth')
-export class SignInAction {
+export class GoogleSignInAction {
   constructor(private readonly commandBus: CommandBus) {}
 
-  @ApiOperation({ summary: 'Get JWT authorization token' })
-  @ApiBody({ type: SignInRequest })
-  @ApiOkResponse({
-    description: 'Credentials are OK',
-    type: SignInResponse,
+  @ApiOperation({
+    summary: 'Exchange a Google ID token for JWT authorization token',
+    description:
+      'Only succeeds for a user who has already linked this Google account ' +
+      'via `POST /api/v1/auth/google/link`. No user account is created.',
   })
+  @ApiBody({ type: GoogleSignInRequest })
+  @ApiOkResponse({ type: SignInResponse })
   @ApiBadRequestResponse({
     description: 'Input validation failed',
     type: GenericBadRequestResponse<SignInResponse>,
   })
   @ApiUnauthorizedResponse({
-    description: 'Credentials are invalid',
+    description: 'Google token is invalid or no user is linked to it',
     type: UnauthorizedResponse,
   })
   @SkipAuth()
-  @Post('/sign-in')
+  @Post('/google')
   @HttpCode(HttpStatus.OK)
-  async signIn(@Body() body: SignInRequest): Promise<SignInResponse> {
-    const command = new SignInCommand(body.email, body.password);
+  async signInWithGoogle(
+    @Body() body: GoogleSignInRequest,
+  ): Promise<SignInResponse> {
+    const command = new SignInWithGoogleCommand(body.idToken);
 
     return this.commandBus.execute(command);
   }
