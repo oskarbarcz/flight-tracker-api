@@ -8,8 +8,8 @@ import {
 } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
 import { CacheKey, CacheTTL } from '@nestjs/cache-manager';
-import { GetUserDto } from '../request/get-user.dto';
-import { GetUserByIdQuery } from '../../../application/query/get-user-by-id.query';
+import { GetOwnUserDto } from '../request/get-user.dto';
+import { GetOwnUserQuery } from '../../../application/query/get-own-user.query';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
 import { UserAwareCacheInterceptor } from '../../../../../core/cache/user-aware-cache.interceptor';
@@ -26,7 +26,7 @@ export class GetCurrentUserAction {
   })
   @ApiBearerAuth('jwt')
   @ApiOkResponse({
-    type: GetUserDto,
+    type: GetOwnUserDto,
   })
   @ApiUnauthorizedResponse({
     description: 'User is not authorized (token is missing)',
@@ -35,8 +35,8 @@ export class GetCurrentUserAction {
   @CacheKey(CACHE_KEYS.USER_ME)
   @CacheTTL(CACHE_TTL_MS.USER_ME)
   @Get('/me')
-  run(@Req() request: AuthorizedRequest): Promise<GetUserDto> {
-    const query = new GetUserByIdQuery(request.user.sub);
+  run(@Req() request: AuthorizedRequest): Promise<GetOwnUserDto> {
+    const query = new GetOwnUserQuery(request.user.sub);
     return this.queryBus.execute(query);
   }
 }

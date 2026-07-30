@@ -4,6 +4,7 @@ import { UpdateUserDto } from '../../http/request/update-user.dto';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import {
+  GetOwnUserDto,
   GetUserDto,
   ListUsersFilters,
   PilotDto,
@@ -93,6 +94,19 @@ export class UsersRepository {
     }
 
     return this.returnWithoutPassword(user);
+  }
+
+  async findOwnById(id: string): Promise<GetOwnUserDto> {
+    const user: User | null = await this.findOneBy({ id });
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
+    return {
+      ...this.returnWithoutPassword(user),
+      simbriefUserId: user.simbriefUserId,
+    };
   }
 
   /**

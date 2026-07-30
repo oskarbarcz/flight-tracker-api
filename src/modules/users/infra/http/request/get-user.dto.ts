@@ -10,6 +10,8 @@ export class GetUserDto extends OmitType(User, [
   'simbriefUserId',
 ]) {}
 
+export class GetOwnUserDto extends OmitType(User, ['password']) {}
+
 export class UserStatUnit {
   @ApiProperty({
     description: 'User block time in minutes',
