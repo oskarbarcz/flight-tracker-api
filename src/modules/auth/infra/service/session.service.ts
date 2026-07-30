@@ -5,6 +5,7 @@ import { GetUserDto } from '../../../users/infra/http/request/get-user.dto';
 import { SignInResponse } from '../http/request/sign-in.dto';
 import { JwtTokenType, JwtUser } from '../http/request/jwt-user.dto';
 import { SessionRepository } from '../database/repository/session.repository';
+import { SessionNoLongerValidError } from '../../model/error/auth.error';
 
 const ACCESS_TOKEN_TTL = '15m';
 const REFRESH_TOKEN_TTL = '7d';
@@ -31,7 +32,14 @@ export class SessionService {
 
   async renew(user: GetUserDto, sessionId: string): Promise<SignInResponse> {
     const tokens = await this.issueTokens(user, sessionId);
-    await this.sessionRepository.update(sessionId, tokens.refreshToken);
+    const updated = await this.sessionRepository.update(
+      sessionId,
+      tokens.refreshToken,
+    );
+
+    if (updated === 0) {
+      throw new SessionNoLongerValidError();
+    }
 
     return tokens;
   }
@@ -42,6 +50,16 @@ export class SessionService {
 
   async closeAllForUser(userId: string): Promise<void> {
     await this.sessionRepository.removeAllSessionsForUser(userId);
+  }
+
+  async closeAllForUserExcept(
+    userId: string,
+    sessionId: string,
+  ): Promise<void> {
+    await this.sessionRepository.removeAllSessionsForUserExcept(
+      userId,
+      sessionId,
+    );
   }
 
   private async issueTokens(

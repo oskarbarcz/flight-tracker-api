@@ -18,14 +18,16 @@ export class SessionRepository {
     });
   }
 
-  async update(id: string, token: string): Promise<void> {
-    await this.prisma.jwtRefreshToken.update({
+  async update(id: string, token: string): Promise<number> {
+    const { count } = await this.prisma.jwtRefreshToken.updateMany({
       where: { id },
       data: {
         token: await this.hash(token),
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
       },
     });
+
+    return count;
   }
 
   async removeSession(id: string): Promise<void> {
@@ -34,6 +36,15 @@ export class SessionRepository {
 
   async removeAllSessionsForUser(userId: string) {
     await this.prisma.jwtRefreshToken.deleteMany({ where: { userId } });
+  }
+
+  async removeAllSessionsForUserExcept(
+    userId: string,
+    sessionId: string,
+  ): Promise<void> {
+    await this.prisma.jwtRefreshToken.deleteMany({
+      where: { userId, id: { not: sessionId } },
+    });
   }
 
   private async hash(text: string): Promise<string> {

@@ -14,6 +14,8 @@ import { GoogleModule } from '../../core/provider/google/google.module';
 import { GoogleSignInAction } from './infra/http/action/google-sign-in.action';
 import { LinkGoogleAccountAction } from './infra/http/action/link-google-account.action';
 import { SessionService } from './infra/service/session.service';
+import { ChangePasswordAction } from './infra/http/action/change-password.action';
+import { ChangePasswordHandler } from './application/command/change-password.command';
 import { SignInHandler } from './application/command/sign-in.command';
 import { SignInWithGoogleHandler } from './application/command/sign-in-with-google.command';
 import { LinkGoogleAccountHandler } from './application/command/link-google-account.command';
@@ -28,6 +30,7 @@ import { SignOutEverywhereHandler } from './application/command/sign-out-everywh
     LinkGoogleAccountAction,
     RefreshTokenAction,
     SignOutAction,
+    ChangePasswordAction,
   ],
   providers: [
     SessionRepository,
@@ -38,6 +41,7 @@ import { SignOutEverywhereHandler } from './application/command/sign-out-everywh
     RefreshTokenHandler,
     SignOutHandler,
     SignOutEverywhereHandler,
+    ChangePasswordHandler,
     { provide: APP_GUARD, useClass: JwtTokenGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
   ],

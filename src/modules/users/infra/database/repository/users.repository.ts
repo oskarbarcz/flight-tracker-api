@@ -155,6 +155,35 @@ export class UsersRepository {
     return !isMatch ? null : this.returnWithoutPassword(user);
   }
 
+  async hasPassword(userId: string): Promise<boolean> {
+    const user = await this.findOneBy({ id: userId });
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
+    return user.password !== null;
+  }
+
+  async verifyPassword(userId: string, plain: string): Promise<boolean> {
+    const user = await this.findOneBy({ id: userId });
+
+    if (!user || user.password === null) {
+      return false;
+    }
+
+    return bcrypt.compare(plain, user.password);
+  }
+
+  async setPassword(userId: string, plain: string): Promise<void> {
+    const hashedPassword = await bcrypt.hash(plain, this.BCRYPT_SALT_ROUNDS);
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { password: hashedPassword },
+    });
+  }
+
   async findByGoogleId(googleId: string): Promise<GetUserDto | null> {
     const user = await this.findOneBy({ googleId });
 
