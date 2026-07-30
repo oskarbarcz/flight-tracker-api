@@ -53,6 +53,18 @@ Feature: As a user I can exchange a refresh token for fresh access and refresh t
       """
     And I set database to initial state
 
+  Scenario: I cannot refresh a session that no longer exists
+    When I send a "POST" request to "/api/v1/auth/refresh" with bearer token "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3MjFhYjcwNS04NjA4LTQzODYtODZiNC0yZjM5MWEzNjU1YTciLCJzZXNzaW9uIjoiMTExMTExMTEtMjIyMi00MzMzLTg0NDQtNTU1NTU1NTU1NTU1IiwibmFtZSI6IkFsaWNlIERvZSIsImVtYWlsIjoib3BlcmF0aW9uc0BleGFtcGxlLmNvbSIsInJvbGUiOiJvcGVyYXRpb25zIiwidHlwZSI6InJlZnJlc2giLCJpYXQiOjE3ODU0MTEzNzMsImV4cCI6MjEwMDc3MTM3M30.FXThmVkWqI6EObMFkG0SjoZq5LbAL4h0pm_mf5zxWVZl0-UxgFE1Y4scx983tFwsmV2AZwmVJkoY8p7AlSuvgg"
+    Then the response status should be 401
+    And the response body should contain:
+      """json
+      {
+        "message": "Session is no longer valid.",
+        "error": "Unauthorized",
+        "statusCode": 401
+      }
+      """
+
   Scenario: As an unauthenticated user I cannot refresh
     When I send a "POST" request to "/api/v1/auth/refresh"
     Then the response status should be 401

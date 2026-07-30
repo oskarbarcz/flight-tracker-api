@@ -1,10 +1,9 @@
-## Purpose
+# user-password-change Specification
 
+## Purpose
 Lets a signed-in user rotate their own password by proving knowledge of the
 current one, without an administrator ever handling the new secret.
-
-## ADDED Requirements
-
+## Requirements
 ### Requirement: A user changes their own password
 
 The system SHALL allow an authenticated user to replace their own password by
@@ -66,16 +65,39 @@ account SHALL be able to change that password normally.
 - **WHEN** an authenticated user who has both a password and a linked Google account submits their correct current password and a valid new password
 - **THEN** the change succeeds
 
-### Requirement: The new password is validated
+### Requirement: The new password must be strong
 
-The system SHALL reject a new password shorter than 8 characters with a validation
-error, and SHALL reject a new password identical to the current one with a
-validation error. In both cases the stored password SHALL be unchanged.
+The system SHALL reject a new password that is shorter than 12 characters, or that
+lacks an uppercase letter, a lowercase letter, a number, or a symbol, with a
+validation error naming the whole policy rather than the specific part that failed.
+The system SHALL apply this policy only to the new password: the current password is
+accepted as stored, so a user whose existing password predates the policy can still
+change it.
 
 #### Scenario: A too-short new password is rejected
 
-- **WHEN** an authenticated user submits a new password shorter than 8 characters
+- **WHEN** an authenticated user submits a new password shorter than 12 characters
 - **THEN** the request is rejected with a validation error and the stored password is unchanged
+
+#### Scenario: A long new password with no uppercase, number or symbol is rejected
+
+- **WHEN** an authenticated user submits a long new password made only of lowercase letters
+- **THEN** the request is rejected with a validation error and the stored password is unchanged
+
+#### Scenario: A new password missing only a symbol is rejected
+
+- **WHEN** an authenticated user submits a long new password with upper and lower case letters and a number but no symbol
+- **THEN** the request is rejected with a validation error and the stored password is unchanged
+
+#### Scenario: An existing weak password can still be used to authorise the change
+
+- **WHEN** a user whose stored password would not satisfy the policy submits it as their current password together with a compliant new password
+- **THEN** the change succeeds
+
+### Requirement: The new password must differ from the current one
+
+The system SHALL reject a new password identical to the current one, with a validation
+error, and SHALL leave the stored password unchanged.
 
 #### Scenario: Reusing the current password is rejected
 
@@ -97,3 +119,21 @@ SHALL keep the session that performed the change valid.
 
 - **WHEN** a user changes their password
 - **THEN** the session used to make the change can still be refreshed
+
+### Requirement: A revoked session is rejected as unauthorized
+
+The system SHALL reject an attempt to refresh a session that no longer exists — because
+it was revoked by a password change, signed out, or never existed — as unauthorized,
+reporting that the session is no longer valid. The system SHALL NOT report such an
+attempt as a server error.
+
+#### Scenario: Refreshing a revoked session is unauthorized
+
+- **WHEN** a refresh is attempted with a validly signed refresh token whose session has been revoked
+- **THEN** the request is rejected as unauthorized, stating that the session is no longer valid
+
+#### Scenario: Refreshing an unknown session is unauthorized
+
+- **WHEN** a refresh is attempted with a validly signed refresh token naming a session that never existed
+- **THEN** the request is rejected as unauthorized rather than as a server error
+

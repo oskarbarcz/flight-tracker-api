@@ -18,11 +18,13 @@ must be self-service and must require proof of the current password.
   *the absence of a password*, not on the presence of a linked Google account: the
   link-only Google flow means an ordinary password user may also have a `googleId`,
   and such a user keeps full control of their password.
-- The new password must differ from the current one and must be at least 8
-  characters.
+- The new password must differ from the current one and must be strong: at least 12
+  characters, including an uppercase letter, a lowercase letter, a number and a symbol.
+  The policy applies to the new password only — the current one is matched against the
+  stored hash, so a user whose password predates the rule can still change it.
 - All of the user's **other** sessions are revoked on success; the session that
   performed the change stays valid, so the caller is not signed out of the device
-  they are using.
+  they are using. A revoked session that then tries to refresh is rejected as `401`.
 
 No breaking API changes: this is one new endpoint.
 
@@ -52,6 +54,14 @@ No breaking API changes: this is one new endpoint.
 - **`auth` module:** `SessionRepository` gains
   `removeAllSessionsForUserExcept(userId, sessionId)`, surfaced through
   `SessionService.closeAllForUserExcept`.
+- **Bug fix in the existing refresh flow:** refreshing a session that no longer exists
+  returned `500` (Prisma `P2025` from an `update` on a deleted row) — reproducible today
+  by signing out and then refreshing, and covered by no test. It is now a `401`
+  (`SessionNoLongerValidError`), because this change makes revocation a feature and its
+  spec cannot promise a clean rejection while the endpoint raises a server error.
+- **`prisma/seed/resource/session.seed.ts`:** one seeded `JwtRefreshToken` row acting as
+  the user's "other device", since the test context cannot hold two tokens for one user.
+  Plus one stateless step for sending an explicit bearer token.
 - **No schema/migration change.**
 - **Functional tests:** new `features/auth/auth.password-change.feature`.
 - **Sequencing:** independent of the profile-update change. The forgotten-password

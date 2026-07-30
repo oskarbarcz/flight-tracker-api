@@ -129,6 +129,19 @@ When(
   },
 );
 
+When(
+  'I send a {string} request to {string} with bearer token {string}',
+  async (method: string, path: string, token: string) => {
+    const url = `${apiBaseUrl}${path}`;
+    apiResponse = await apiClient.request({
+      method: method,
+      url: url,
+      validateStatus: () => true,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  },
+);
+
 Then('the response status should be {int}', (statusCode: number) => {
   expect(apiResponse.status).toBe(statusCode);
 });
