@@ -248,6 +248,24 @@ Feature: Update user
       }
       """
 
+  Scenario: As an admin I cannot set a home airport that does not exist
+    Given I am signed in as "admin"
+    When I send a "PATCH" request to "/api/v1/user/fcf6f4bc-290d-43a9-843c-409cd47e143d" with body:
+      """json
+      {
+        "homeAirportId": "6a26aa32-2c1a-4f3e-9d1c-4c9a5f80f8b1"
+      }
+      """
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "message": "Airport with given id does not exist.",
+        "error": "Not Found",
+        "statusCode": 404
+      }
+      """
+
   Scenario: As an admin I cannot create user with incorrect data
     Given I am signed in as "admin"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:

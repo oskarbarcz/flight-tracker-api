@@ -1,23 +1,23 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { CreateUserDto } from '../../infra/http/request/create-user.dto';
+import { UpdateOwnProfileDto } from '../../infra/http/request/update-own-profile.dto';
 import { UsersRepository } from '../../infra/database/repository/users.repository';
 import { AssertAirportExistsQuery } from '../../../airports/application/assert/assert-airport-exists.query';
 
-export class CreateUserCommand {
+export class UpdateOwnProfileCommand {
   constructor(
     public readonly userId: string,
-    public readonly data: CreateUserDto,
+    public readonly data: UpdateOwnProfileDto,
   ) {}
 }
 
-@CommandHandler(CreateUserCommand)
-export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
+@CommandHandler(UpdateOwnProfileCommand)
+export class UpdateOwnProfileHandler implements ICommandHandler<UpdateOwnProfileCommand> {
   constructor(
     private readonly repository: UsersRepository,
     private readonly queryBus: QueryBus,
   ) {}
 
-  async execute(command: CreateUserCommand): Promise<void> {
+  async execute(command: UpdateOwnProfileCommand): Promise<void> {
     const { userId, data } = command;
 
     if (data.homeAirportId) {
@@ -25,6 +25,6 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
       await this.queryBus.execute(airportQuery);
     }
 
-    await this.repository.create(userId, data);
+    await this.repository.update(userId, data);
   }
 }

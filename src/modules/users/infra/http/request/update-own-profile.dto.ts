@@ -1,0 +1,58 @@
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+  Matches,
+  ValidateIf,
+} from 'class-validator';
+
+export class UpdateOwnProfileDto {
+  @ApiProperty({
+    description: 'User first and last name',
+    example: 'John Doe',
+    required: false,
+  })
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  name?: string;
+
+  @ApiProperty({
+    description: 'Pilot license ID (only for CabinCrew, format: XX-12345)',
+    example: 'UK-12345',
+    type: 'string',
+    nullable: true,
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  @Matches(/^[A-Za-z]{2}-\d{5}$/, {
+    message: 'Pilot license ID does not match the required format.',
+  })
+  pilotLicenseId?: string | null;
+
+  @ApiProperty({
+    description: 'Home base airport of the pilot (only for CabinCrew)',
+    example: 'ba9ac708-0cef-4d92-a824-4e95f60bd752',
+    type: 'string',
+    required: false,
+  })
+  @ValidateIf(
+    (profile: UpdateOwnProfileDto) => profile.homeAirportId !== undefined,
+  )
+  @IsUUID()
+  homeAirportId?: string;
+
+  @ApiProperty({
+    description: 'Simbrief userId',
+    example: '123456',
+    type: 'string',
+    nullable: true,
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  simbriefUserId?: string | null;
+}

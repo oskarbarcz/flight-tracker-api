@@ -103,6 +103,28 @@ Feature: Create user
       }
       """
 
+  Scenario: As an admin I cannot create a cabin crew with a home airport that does not exist
+    Given I am signed in as "admin"
+    When I send a "POST" request to "/api/v1/user" with body:
+      """json
+      {
+        "name": "Anna Doe",
+        "email": "anna.doe@example.com",
+        "password": "P@$$w0rd",
+        "role": "CabinCrew",
+        "homeAirportId": "6a26aa32-2c1a-4f3e-9d1c-4c9a5f80f8b1"
+      }
+      """
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "message": "Airport with given id does not exist.",
+        "error": "Not Found",
+        "statusCode": 404
+      }
+      """
+
   Scenario: As an admin I cannot set a home airport for a non cabin crew user
     Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/user" with body:

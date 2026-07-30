@@ -4,13 +4,16 @@ import { CreateUserAction } from './infra/http/action/create-user.action';
 import { ListUsersAction } from './infra/http/action/list-users.action';
 import { GetCurrentUserAction } from './infra/http/action/get-current-user.action';
 import { GetUserAction } from './infra/http/action/get-user.action';
+import { UpdateOwnProfileAction } from './infra/http/action/update-own-profile.action';
 import { UpdateUserAction } from './infra/http/action/update-user.action';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { CheckUserExistsHandler } from './application/query/check-user-exists.query';
 import { GetUserSimbriefIdHandler } from './application/query/get-user-simbrief-id.query';
 import { AssertUserExistsHandler } from './application/assert/assert-user-exists.query';
 import { CreateUserHandler } from './application/command/create-user.command';
+import { UpdateOwnProfileHandler } from './application/command/update-own-profile.command';
 import { UpdateUserHandler } from './application/command/update-user.command';
+import { GetOwnUserHandler } from './application/query/get-own-user.query';
 import { GetUserByIdHandler } from './application/query/get-user-by-id.query';
 import { ListUsersHandler } from './application/query/list-users.query';
 import { GetPilotHandler } from './application/query/get-pilot.query';
@@ -32,6 +35,7 @@ import { UserAircraftListener } from './application/event/external/user-aircraft
     GetCurrentUserAction,
     GetMyAircraftAction,
     GetUserAction,
+    UpdateOwnProfileAction,
     UpdateUserAction,
     CreateUserTravelAction,
     ListUserTravelAction,
@@ -44,7 +48,9 @@ import { UserAircraftListener } from './application/event/external/user-aircraft
     GetUserSimbriefIdHandler,
     AssertUserExistsHandler,
     CreateUserHandler,
+    UpdateOwnProfileHandler,
     UpdateUserHandler,
+    GetOwnUserHandler,
     GetUserByIdHandler,
     ListUsersHandler,
     GetPilotHandler,
