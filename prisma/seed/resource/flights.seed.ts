@@ -4346,7 +4346,7 @@ async function loadDLH41(tx: Prisma.TransactionClient): Promise<void> {
 
 /**
  * DLH42 | 006f0754-1ed7-4ae1-9f91-fae2d446a6e7
- * Frankfurt (EDDF) -> New York JFK (KJFK)
+ * New York JFK (KJFK) -> Frankfurt (EDDF)
  * status: Ready
  */
 async function loadDLH42(tx: Prisma.TransactionClient): Promise<void> {

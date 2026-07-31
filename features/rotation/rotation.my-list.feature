@@ -135,7 +135,7 @@ Feature: List rotations assigned to the current user
           "legs": [
             {
               "id": "92c8e486-0bb5-4876-b894-75f0ca30ce61",
-              "flightNumber": "LH300",
+              "flightNumber": "LH81",
               "departure": {
                 "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
                 "iataCode": "FRA",
@@ -151,11 +151,11 @@ Feature: List rotations assigned to the current user
               "offBlockTime": "2025-02-03T12:00:00.000Z",
               "onBlockTime": "2025-02-03T20:00:00.000Z",
               "blockTime": 480,
-              "flight": null
+              "flight": { "id": "11087d20-ead0-4b7e-97ee-f1ef0ea29e4f", "flightNumber": "LH81", "status": "ready" }
             },
             {
               "id": "1ccf9810-e3cc-4dca-90d8-323351c4fe64",
-              "flightNumber": "LH301",
+              "flightNumber": "LH42",
               "departure": {
                 "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
                 "iataCode": "JFK",

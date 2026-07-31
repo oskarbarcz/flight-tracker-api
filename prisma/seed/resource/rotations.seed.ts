@@ -14,6 +14,7 @@ const KBOS = 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3';
 const KPHL = 'e764251b-bb25-4e8b-8cc7-11b0397b4554';
 
 const DLH450 = '3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05';
+const DLH81 = '11087d20-ead0-4b7e-97ee-f1ef0ea29e4f';
 const AAL4908 = 'b3899775-278e-4496-add1-21385a13d93e';
 const AAL4905 = '23da8bc9-a21b-4678-b2e9-1151d3bd15ab';
 const AAL4917 = 'd085c107-308d-48e6-9c93-beca6552a8a3';
@@ -332,16 +333,16 @@ export async function loadRotations(
       legs: [
         {
           id: '92c8e486-0bb5-4876-b894-75f0ca30ce61',
-          flightNumber: 'LH300',
+          flightNumber: 'LH81',
           departureId: EDDF,
           arrivalId: KJFK,
           offBlockTime: new Date('2025-02-03T12:00:00.000Z'),
           onBlockTime: new Date('2025-02-03T20:00:00.000Z'),
-          flightId: null,
+          flightId: DLH81,
         },
         {
           id: '1ccf9810-e3cc-4dca-90d8-323351c4fe64',
-          flightNumber: 'LH301',
+          flightNumber: 'LH42',
           departureId: KJFK,
           arrivalId: EDDF,
           offBlockTime: new Date('2025-02-03T22:00:00.000Z'),
