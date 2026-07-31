@@ -24,6 +24,12 @@ export enum Continent {
   SouthAmerica = 'south_america',
 }
 
+export enum DataQuality {
+  Low = 'low',
+  High = 'high',
+  Flagship = 'flagship',
+}
+
 export class Coordinates {
   @ApiProperty({
     description: 'Airport longitude in decimal degrees',
@@ -118,6 +124,17 @@ export class Airport {
   @IsNotEmpty()
   @IsEnum(Continent)
   continent!: Continent;
+
+  @ApiProperty({
+    description:
+      'Completeness of the curated data held for this airport. Defaults to `low`, which is where an airport imported from SkyLink starts — it arrives without a boundary shape, terminals, gates or runways.',
+    example: DataQuality.Low,
+    enum: DataQuality,
+    required: false,
+  })
+  @IsOptional()
+  @IsEnum(DataQuality)
+  dataQuality?: DataQuality;
 
   @ApiProperty({
     description: 'Airport boundary polygon as a list of coordinates',

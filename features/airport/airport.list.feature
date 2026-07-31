@@ -16,6 +16,7 @@ Feature: List airports
           "country": "Germany",
           "timezone": "Europe/Berlin",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 8.57397,
             "latitude": 50.04693
@@ -31,6 +32,7 @@ Feature: List airports
           "country": "Poland",
           "timezone": "Europe/Warsaw",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 20.967123,
             "latitude": 52.16575
@@ -46,6 +48,7 @@ Feature: List airports
           "country": "United States of America",
           "timezone": "America/New_York",
           "continent": "north_america",
+          "dataQuality": "low",
           "location": {
             "longitude": -73.7781,
             "latitude": 40.6413
@@ -61,6 +64,7 @@ Feature: List airports
           "country": "France",
           "timezone": "Europe/Paris",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 2.55412,
             "latitude": 49.00896
@@ -76,6 +80,7 @@ Feature: List airports
           "country": "Canada",
           "timezone": "America/Goose_Bay",
           "continent": "north_america",
+          "dataQuality": "low",
           "location": {
             "longitude": -60.409444,
             "latitude": 53.319168
@@ -91,6 +96,7 @@ Feature: List airports
           "country": "Iceland",
           "timezone": "Atlantic/Reykjavik",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": -22.6056,
             "latitude": 63.985
@@ -106,6 +112,7 @@ Feature: List airports
           "country": "Canada",
           "timezone": "America/St_Johns",
           "continent": "north_america",
+          "dataQuality": "low",
           "location": {
             "longitude": -52.751945,
             "latitude": 47.61861
@@ -121,6 +128,7 @@ Feature: List airports
           "country": "United States of America",
           "timezone": "America/New_York",
           "continent": "north_america",
+          "dataQuality": "low",
           "location": {
             "longitude": -75.24349,
             "latitude": 39.87113
@@ -136,6 +144,7 @@ Feature: List airports
           "country": "United States of America",
           "timezone": "America/New_York",
           "continent": "north_america",
+          "dataQuality": "low",
           "location": {
             "longitude": -71.01663,
             "latitude": 42.36454
@@ -151,6 +160,7 @@ Feature: List airports
           "country": "Germany",
           "timezone": "Europe/Berlin",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 8.786667,
             "latitude": 53.0475
@@ -186,6 +196,7 @@ Feature: List airports
           "country": "Germany",
           "timezone": "Europe/Berlin",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 8.57397,
             "latitude": 50.04693
@@ -201,6 +212,7 @@ Feature: List airports
           "country": "Poland",
           "timezone": "Europe/Warsaw",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 20.967123,
             "latitude": 52.16575
@@ -216,6 +228,7 @@ Feature: List airports
           "country": "France",
           "timezone": "Europe/Paris",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 2.55412,
             "latitude": 49.00896
@@ -231,6 +244,7 @@ Feature: List airports
           "country": "Iceland",
           "timezone": "Atlantic/Reykjavik",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": -22.6056,
             "latitude": 63.985
@@ -246,6 +260,7 @@ Feature: List airports
           "country": "Germany",
           "timezone": "Europe/Berlin",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 8.786667,
             "latitude": 53.0475
@@ -269,6 +284,66 @@ Feature: List airports
           "continent": [
             "continent must be one of the following values: africa, asia, europe, north_america, oceania, south_america"
           ]
+        }
+      }
+      """
+
+  Scenario: As a cabin crew I can filter airports by data quality
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a" with body:
+      """json
+      {
+        "dataQuality": "flagship"
+      }
+      """
+    Then the response status should be 200
+    Given I am signed in as "cabin crew"
+    When I send a "GET" request to "/api/v1/airport?dataQuality=flagship"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "icaoCode": "EDDF",
+          "iataCode": "FRA",
+          "city": "Frankfurt",
+          "name": "Frankfurt Rhein/Main",
+          "country": "Germany",
+          "timezone": "Europe/Berlin",
+          "continent": "europe",
+          "dataQuality": "flagship",
+          "location": {
+            "longitude": 8.57397,
+            "latitude": 50.04693
+          },
+          "shape": "@coordinates"
+        }
+      ]
+      """
+    And I set database to initial state
+
+  Scenario: As a cabin crew I see no airports when none has the requested data quality
+    Given I am signed in as "cabin crew"
+    When I send a "GET" request to "/api/v1/airport?dataQuality=flagship"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      []
+      """
+
+  Scenario: As a cabin crew I cannot filter airports by incorrect data quality
+    Given I am signed in as "cabin crew"
+    When I send a "GET" request to "/api/v1/airport?dataQuality=perfect"
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 400,
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "violations": {
+          "dataQuality": ["dataQuality must be one of the following values: low, high, flagship"]
         }
       }
       """

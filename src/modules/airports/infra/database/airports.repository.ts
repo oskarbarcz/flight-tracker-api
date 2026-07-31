@@ -22,6 +22,7 @@ const selectAirport = {
   timezone: true,
   location: true,
   continent: true,
+  dataQuality: true,
   shape: true,
 } as const satisfies Prisma.AirportSelect;
 
@@ -61,6 +62,7 @@ export class AirportsRepository {
     return this.prisma.airport.findMany({
       where: {
         continent: filters.continent,
+        dataQuality: filters.dataQuality,
       },
       select: selectAirport,
     });

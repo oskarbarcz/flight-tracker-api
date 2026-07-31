@@ -24,8 +24,18 @@ Feature: List rotations assigned to the current user
             {
               "id": "57515593-6dba-4d0d-92a2-27fb355dbe21",
               "flightNumber": "LH100",
-              "departure": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
-              "arrival": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
+              "departure": {
+                "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+                "iataCode": "FRA",
+                "icaoCode": "EDDF",
+                "name": "Frankfurt Rhein/Main"
+              },
+              "arrival": {
+                "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+                "iataCode": "JFK",
+                "icaoCode": "KJFK",
+                "name": "New York JFK"
+              },
               "offBlockTime": "2025-02-01T12:00:00.000Z",
               "onBlockTime": "2025-02-01T20:00:00.000Z",
               "blockTime": 480,
@@ -34,8 +44,18 @@ Feature: List rotations assigned to the current user
             {
               "id": "aff6dfc2-ea15-4e02-a287-f130a4ddf6fb",
               "flightNumber": "LH101",
-              "departure": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
-              "arrival": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
+              "departure": {
+                "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+                "iataCode": "JFK",
+                "icaoCode": "KJFK",
+                "name": "New York JFK"
+              },
+              "arrival": {
+                "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+                "iataCode": "FRA",
+                "icaoCode": "EDDF",
+                "name": "Frankfurt Rhein/Main"
+              },
               "offBlockTime": "2025-02-01T22:00:00.000Z",
               "onBlockTime": "2025-02-02T06:00:00.000Z",
               "blockTime": 480,
@@ -60,8 +80,18 @@ Feature: List rotations assigned to the current user
             {
               "id": "9ebeab51-fe4d-4215-836e-56596f988d7a",
               "flightNumber": "LH200",
-              "departure": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
-              "arrival": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
+              "departure": {
+                "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+                "iataCode": "FRA",
+                "icaoCode": "EDDF",
+                "name": "Frankfurt Rhein/Main"
+              },
+              "arrival": {
+                "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+                "iataCode": "JFK",
+                "icaoCode": "KJFK",
+                "name": "New York JFK"
+              },
               "offBlockTime": "2025-02-02T12:00:00.000Z",
               "onBlockTime": "2025-02-02T20:00:00.000Z",
               "blockTime": 480,
@@ -70,8 +100,18 @@ Feature: List rotations assigned to the current user
             {
               "id": "34b79875-00a8-485c-8fe3-309a9114003b",
               "flightNumber": "LH201",
-              "departure": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
-              "arrival": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
+              "departure": {
+                "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+                "iataCode": "JFK",
+                "icaoCode": "KJFK",
+                "name": "New York JFK"
+              },
+              "arrival": {
+                "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+                "iataCode": "FRA",
+                "icaoCode": "EDDF",
+                "name": "Frankfurt Rhein/Main"
+              },
               "offBlockTime": "2025-02-02T22:00:00.000Z",
               "onBlockTime": "2025-02-03T06:00:00.000Z",
               "blockTime": 480,
@@ -96,8 +136,18 @@ Feature: List rotations assigned to the current user
             {
               "id": "92c8e486-0bb5-4876-b894-75f0ca30ce61",
               "flightNumber": "LH300",
-              "departure": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
-              "arrival": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
+              "departure": {
+                "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+                "iataCode": "FRA",
+                "icaoCode": "EDDF",
+                "name": "Frankfurt Rhein/Main"
+              },
+              "arrival": {
+                "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+                "iataCode": "JFK",
+                "icaoCode": "KJFK",
+                "name": "New York JFK"
+              },
               "offBlockTime": "2025-02-03T12:00:00.000Z",
               "onBlockTime": "2025-02-03T20:00:00.000Z",
               "blockTime": 480,
@@ -106,8 +156,18 @@ Feature: List rotations assigned to the current user
             {
               "id": "1ccf9810-e3cc-4dca-90d8-323351c4fe64",
               "flightNumber": "LH301",
-              "departure": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
-              "arrival": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
+              "departure": {
+                "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+                "iataCode": "JFK",
+                "icaoCode": "KJFK",
+                "name": "New York JFK"
+              },
+              "arrival": {
+                "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+                "iataCode": "FRA",
+                "icaoCode": "EDDF",
+                "name": "Frankfurt Rhein/Main"
+              },
               "offBlockTime": "2025-02-03T22:00:00.000Z",
               "onBlockTime": "2025-02-04T06:00:00.000Z",
               "blockTime": 480,
@@ -142,18 +202,42 @@ Feature: List rotations assigned to the current user
             {
               "id": "69de1c35-96e1-4c0e-9b4c-c5777081f6e9",
               "flightNumber": "AA4908",
-              "departure": { "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3", "iataCode": "BOS", "icaoCode": "KBOS", "name": "Boston Logan Intl" },
-              "arrival": { "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554", "iataCode": "PHL", "icaoCode": "KPHL", "name": "Philadelphia Intl" },
+              "departure": {
+                "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+                "iataCode": "BOS",
+                "icaoCode": "KBOS",
+                "name": "Boston Logan Intl"
+              },
+              "arrival": {
+                "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+                "iataCode": "PHL",
+                "icaoCode": "KPHL",
+                "name": "Philadelphia Intl"
+              },
               "offBlockTime": "2025-01-01T13:00:00.000Z",
               "onBlockTime": "2025-01-01T14:30:00.000Z",
               "blockTime": 90,
-              "flight": { "id": "b3899775-278e-4496-add1-21385a13d93e", "flightNumber": "AA4908", "status": "checked_in" }
+              "flight": {
+                "id": "b3899775-278e-4496-add1-21385a13d93e",
+                "flightNumber": "AA4908",
+                "status": "checked_in"
+              }
             },
             {
               "id": "4a406198-f4a9-4859-bd30-b2b431f1b9ed",
               "flightNumber": "AA4910",
-              "departure": { "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554", "iataCode": "PHL", "icaoCode": "KPHL", "name": "Philadelphia Intl" },
-              "arrival": { "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3", "iataCode": "BOS", "icaoCode": "KBOS", "name": "Boston Logan Intl" },
+              "departure": {
+                "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+                "iataCode": "PHL",
+                "icaoCode": "KPHL",
+                "name": "Philadelphia Intl"
+              },
+              "arrival": {
+                "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+                "iataCode": "BOS",
+                "icaoCode": "KBOS",
+                "name": "Boston Logan Intl"
+              },
               "offBlockTime": "2025-01-01T16:00:00.000Z",
               "onBlockTime": "2025-01-01T17:30:00.000Z",
               "blockTime": 90,
@@ -178,8 +262,18 @@ Feature: List rotations assigned to the current user
             {
               "id": "2fff235c-17c3-4286-9682-2877fcf13eb5",
               "flightNumber": "AA4905",
-              "departure": { "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3", "iataCode": "BOS", "icaoCode": "KBOS", "name": "Boston Logan Intl" },
-              "arrival": { "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554", "iataCode": "PHL", "icaoCode": "KPHL", "name": "Philadelphia Intl" },
+              "departure": {
+                "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+                "iataCode": "BOS",
+                "icaoCode": "KBOS",
+                "name": "Boston Logan Intl"
+              },
+              "arrival": {
+                "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+                "iataCode": "PHL",
+                "icaoCode": "KPHL",
+                "name": "Philadelphia Intl"
+              },
               "offBlockTime": "2025-01-01T08:00:00.000Z",
               "onBlockTime": "2025-01-01T09:30:00.000Z",
               "blockTime": 90,
@@ -188,8 +282,18 @@ Feature: List rotations assigned to the current user
             {
               "id": "7d55710c-a39b-48bd-9ab0-ef8c6034f613",
               "flightNumber": "AA4917",
-              "departure": { "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554", "iataCode": "PHL", "icaoCode": "KPHL", "name": "Philadelphia Intl" },
-              "arrival": { "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3", "iataCode": "BOS", "icaoCode": "KBOS", "name": "Boston Logan Intl" },
+              "departure": {
+                "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+                "iataCode": "PHL",
+                "icaoCode": "KPHL",
+                "name": "Philadelphia Intl"
+              },
+              "arrival": {
+                "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+                "iataCode": "BOS",
+                "icaoCode": "KBOS",
+                "name": "Boston Logan Intl"
+              },
               "offBlockTime": "2025-01-01T11:00:00.000Z",
               "onBlockTime": "2025-01-01T12:30:00.000Z",
               "blockTime": 90,
@@ -244,8 +348,18 @@ Feature: List rotations assigned to the current user
             {
               "id": "57515593-6dba-4d0d-92a2-27fb355dbe21",
               "flightNumber": "LH100",
-              "departure": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
-              "arrival": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
+              "departure": {
+                "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+                "iataCode": "FRA",
+                "icaoCode": "EDDF",
+                "name": "Frankfurt Rhein/Main"
+              },
+              "arrival": {
+                "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+                "iataCode": "JFK",
+                "icaoCode": "KJFK",
+                "name": "New York JFK"
+              },
               "offBlockTime": "2025-02-01T12:00:00.000Z",
               "onBlockTime": "2025-02-01T20:00:00.000Z",
               "blockTime": 480,
@@ -254,8 +368,18 @@ Feature: List rotations assigned to the current user
             {
               "id": "aff6dfc2-ea15-4e02-a287-f130a4ddf6fb",
               "flightNumber": "LH101",
-              "departure": { "id": "3c721cc6-c653-4fad-be43-dc9d6a149383", "iataCode": "JFK", "icaoCode": "KJFK", "name": "New York JFK" },
-              "arrival": { "id": "f35c094a-bec5-4803-be32-bd80a14b441a", "iataCode": "FRA", "icaoCode": "EDDF", "name": "Frankfurt Rhein/Main" },
+              "departure": {
+                "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+                "iataCode": "JFK",
+                "icaoCode": "KJFK",
+                "name": "New York JFK"
+              },
+              "arrival": {
+                "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+                "iataCode": "FRA",
+                "icaoCode": "EDDF",
+                "name": "Frankfurt Rhein/Main"
+              },
               "offBlockTime": "2025-02-01T22:00:00.000Z",
               "onBlockTime": "2025-02-02T06:00:00.000Z",
               "blockTime": 480,

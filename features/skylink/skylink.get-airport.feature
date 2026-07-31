@@ -25,7 +25,7 @@ Feature: I get data from SkyLink
         "name": "London Heathrow Airport",
         "city": "London",
         "region": "England",
-        "country": "GB",
+        "country": "United Kingdom",
         "elevation_ft": "83",
         "latitude": "51.47060013",
         "longitude": "-0.461941",

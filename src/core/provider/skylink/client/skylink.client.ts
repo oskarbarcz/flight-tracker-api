@@ -6,6 +6,7 @@ import {
   SkylinkAirportNotFoundError,
 } from './skylink.error';
 import { fetchWithRetry } from '../../http/fetch-with-retry';
+import { toCountryName } from '../../../utils/country-name';
 
 @Injectable()
 export class SkyLinkClient {
@@ -57,7 +58,9 @@ export class SkyLinkClient {
       }
 
       this.logger.log(`Using SkyLink to get airport ${code}`);
-      return body[0] as SkylinkAirportResponse;
+      const airport = body[0] as SkylinkAirportResponse;
+
+      return { ...airport, country: toCountryName(airport.country) };
     } catch (error) {
       this.logger.error(`Error using SkyLink to get airport ${code}`);
       throw error;

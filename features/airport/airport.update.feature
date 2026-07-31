@@ -38,6 +38,7 @@ Feature: Update airport
         "country": "Germany",
         "timezone": "Europe/Berlin",
         "continent": "europe",
+        "dataQuality": "low",
         "location": {
           "longitude": 8.57397,
           "latitude": 50.04693
@@ -120,6 +121,91 @@ Feature: Update airport
       """json
       {
         "name": "Miami New Intl"
+      }
+      """
+    Then the response status should be 401
+    And the response body should contain:
+      """json
+      {
+        "message": "Unauthorized",
+        "statusCode": 401
+      }
+      """
+
+  Scenario: As operations I can raise the data quality of an airport
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a" with body:
+      """json
+      {
+        "dataQuality": "high"
+      }
+      """
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "icaoCode": "EDDF",
+        "iataCode": "FRA",
+        "city": "Frankfurt",
+        "name": "Frankfurt Rhein/Main",
+        "country": "Germany",
+        "timezone": "Europe/Berlin",
+        "continent": "europe",
+        "dataQuality": "high",
+        "location": {
+          "longitude": 8.57397,
+          "latitude": 50.04693
+        },
+        "shape": "@coordinates"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot set an unknown data quality
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a" with body:
+      """json
+      {
+        "dataQuality": "perfect"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "dataQuality": ["dataQuality must be one of the following values: low, high, flagship"]
+        }
+      }
+      """
+
+  Scenario: As a cabin crew I cannot change the data quality of an airport
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a" with body:
+      """json
+      {
+        "dataQuality": "flagship"
+      }
+      """
+    Then the response status should be 403
+    And the response body should contain:
+      """json
+      {
+        "message": "Forbidden resource",
+        "error": "Forbidden",
+        "statusCode": 403
+      }
+      """
+
+  Scenario: As an unauthorized user I cannot change the data quality of an airport
+    When I send a "PATCH" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a" with body:
+      """json
+      {
+        "dataQuality": "flagship"
       }
       """
     Then the response status should be 401

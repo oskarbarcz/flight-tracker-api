@@ -1,5 +1,4 @@
 Feature: Closing a flight keeps statistics consistent
-
   Closing a flight re-derives the pilot's statistics from source. Because the
   sector was already accrued when it reported on-block, closing it must leave the
   totals unchanged rather than counting it twice.

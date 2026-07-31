@@ -68,6 +68,7 @@ Feature: Update a flight diversion
           "country": "Germany",
           "timezone": "Europe/Berlin",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 8.57397,
             "latitude": 50.04693
@@ -223,6 +224,7 @@ Feature: Update a flight diversion
           "country": "Germany",
           "timezone": "Europe/Berlin",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 8.57397,
             "latitude": 50.04693
@@ -272,6 +274,7 @@ Feature: Update a flight diversion
           "country": "United States of America",
           "timezone": "America/New_York",
           "continent": "north_america",
+          "dataQuality": "low",
           "location": {
             "latitude": 40.6413,
             "longitude": -73.7781

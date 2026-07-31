@@ -32,14 +32,15 @@ export class AirportResponse {
   region!: string;
 
   @ApiProperty({
-    description: 'Two-letter code of country where airport is located',
-    example: 'DE',
+    description:
+      'Country where airport is located, resolved from the two-letter code SkyLink returns',
+    example: 'Germany',
   })
   country!: string;
 
   @ApiProperty({
     description: 'Elevation of airport above sea level in feet',
-    example: 'DE',
+    example: '364',
   })
   elevation_ft!: string;
 

@@ -1,10 +1,13 @@
 # user-profile-self-service Specification
 
 ## Purpose
+
 Lets an authenticated user read and maintain their own profile attributes without
 administrative help, while keeping role, credentials, and system-managed fields
 out of reach of self-service.
+
 ## Requirements
+
 ### Requirement: A user updates their own profile
 
 The system SHALL allow any authenticated user to update their own name, pilot
@@ -155,4 +158,3 @@ updated profile.
 
 - **WHEN** a cabin crew member updates their own name and pilot license
 - **THEN** the cached pilot card is discarded, so the next read of it reports the new name and pilot license
-

@@ -109,6 +109,7 @@ Feature: Create a flight with Simbrief
             "country": "Germany",
             "timezone": "Europe/Berlin",
             "continent": "europe",
+            "dataQuality": "low",
             "location": {
               "latitude": 50.04693,
               "longitude": 8.57397
@@ -125,6 +126,7 @@ Feature: Create a flight with Simbrief
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 40.6413,
               "longitude": -73.7781
@@ -141,6 +143,7 @@ Feature: Create a flight with Simbrief
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 42.36454,
               "longitude": -71.01663
@@ -157,6 +160,7 @@ Feature: Create a flight with Simbrief
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 39.87113,
               "longitude": -75.24349
@@ -173,6 +177,7 @@ Feature: Create a flight with Simbrief
             "country": "Canada",
             "timezone": "America/Goose_Bay",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 53.319168,
               "longitude": -60.409444
@@ -189,6 +194,7 @@ Feature: Create a flight with Simbrief
             "country": "Iceland",
             "timezone": "Atlantic/Reykjavik",
             "continent": "europe",
+            "dataQuality": "low",
             "location": {
               "latitude": 63.985,
               "longitude": -22.6056
@@ -205,6 +211,7 @@ Feature: Create a flight with Simbrief
             "country": "Canada",
             "timezone": "America/St_Johns",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 47.61861,
               "longitude": -52.751945
@@ -381,6 +388,7 @@ Feature: Create a flight with Simbrief
             "country": "Germany",
             "timezone": "Europe/Berlin",
             "continent": "europe",
+            "dataQuality": "low",
             "location": {
               "latitude": 50.04693,
               "longitude": 8.57397
@@ -397,6 +405,7 @@ Feature: Create a flight with Simbrief
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 40.6413,
               "longitude": -73.7781
@@ -413,6 +422,7 @@ Feature: Create a flight with Simbrief
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 42.36454,
               "longitude": -71.01663
@@ -429,6 +439,7 @@ Feature: Create a flight with Simbrief
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 39.87113,
               "longitude": -75.24349
@@ -445,6 +456,7 @@ Feature: Create a flight with Simbrief
             "country": "Canada",
             "timezone": "America/Goose_Bay",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 53.319168,
               "longitude": -60.409444
@@ -592,6 +604,7 @@ Feature: Create a flight with Simbrief
             "country": "Germany",
             "timezone": "Europe/Berlin",
             "continent": "europe",
+            "dataQuality": "low",
             "location": {
               "latitude": 50.04693,
               "longitude": 8.57397
@@ -608,6 +621,7 @@ Feature: Create a flight with Simbrief
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 40.6413,
               "longitude": -73.7781
@@ -624,6 +638,7 @@ Feature: Create a flight with Simbrief
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 42.36454,
               "longitude": -71.01663
@@ -637,9 +652,10 @@ Feature: Create a flight with Simbrief
             "iataCode": "LHR",
             "city": "London",
             "name": "London Heathrow Airport",
-            "country": "GB",
+            "country": "United Kingdom",
             "timezone": "Europe/London",
             "continent": "europe",
+            "dataQuality": "low",
             "location": {
               "latitude": 51.47060013,
               "longitude": -0.461941
@@ -677,6 +693,7 @@ Feature: Create a flight with Simbrief
           "country": "Germany",
           "timezone": "Europe/Berlin",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 8.57397,
             "latitude": 50.04693
@@ -692,6 +709,7 @@ Feature: Create a flight with Simbrief
           "country": "Poland",
           "timezone": "Europe/Warsaw",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 20.967123,
             "latitude": 52.16575
@@ -707,6 +725,7 @@ Feature: Create a flight with Simbrief
           "country": "United States of America",
           "timezone": "America/New_York",
           "continent": "north_america",
+          "dataQuality": "low",
           "location": {
             "longitude": -73.7781,
             "latitude": 40.6413
@@ -722,6 +741,7 @@ Feature: Create a flight with Simbrief
           "country": "France",
           "timezone": "Europe/Paris",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 2.55412,
             "latitude": 49.00896
@@ -737,6 +757,7 @@ Feature: Create a flight with Simbrief
           "country": "Canada",
           "timezone": "America/Goose_Bay",
           "continent": "north_america",
+          "dataQuality": "low",
           "location": {
             "longitude": -60.409444,
             "latitude": 53.319168
@@ -752,6 +773,7 @@ Feature: Create a flight with Simbrief
           "country": "Iceland",
           "timezone": "Atlantic/Reykjavik",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": -22.6056,
             "latitude": 63.985
@@ -767,6 +789,7 @@ Feature: Create a flight with Simbrief
           "country": "Canada",
           "timezone": "America/St_Johns",
           "continent": "north_america",
+          "dataQuality": "low",
           "location": {
             "longitude": -52.751945,
             "latitude": 47.61861
@@ -782,6 +805,7 @@ Feature: Create a flight with Simbrief
           "country": "United States of America",
           "timezone": "America/New_York",
           "continent": "north_america",
+          "dataQuality": "low",
           "location": {
             "longitude": -75.24349,
             "latitude": 39.87113
@@ -797,6 +821,7 @@ Feature: Create a flight with Simbrief
           "country": "United States of America",
           "timezone": "America/New_York",
           "continent": "north_america",
+          "dataQuality": "low",
           "location": {
             "longitude": -71.01663,
             "latitude": 42.36454
@@ -812,6 +837,7 @@ Feature: Create a flight with Simbrief
           "country": "Germany",
           "timezone": "Europe/Berlin",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 8.786667,
             "latitude": 53.0475
@@ -824,9 +850,10 @@ Feature: Create a flight with Simbrief
           "iataCode": "LHR",
           "city": "London",
           "name": "London Heathrow Airport",
-          "country": "GB",
+          "country": "United Kingdom",
           "timezone": "Europe/London",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": -0.461941,
             "latitude": 51.47060013

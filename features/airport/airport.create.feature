@@ -68,6 +68,7 @@ Feature: Create airport
           "longitude": -80.2906
         },
         "continent": "north_america",
+        "dataQuality": "low",
         "shape": [
           { "latitude": 25.7933, "longitude": -80.2906 },
           { "latitude": 25.8033, "longitude": -80.2906 },

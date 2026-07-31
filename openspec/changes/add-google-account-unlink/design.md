@@ -61,7 +61,7 @@ header or query string. Rejected — a secret in a query string ends up in acces
 
 **4. Unlink requires the current password.** Without it, anyone holding a stolen access
 token could sever the account's Google link — a cheap denial-of-access move, and for a
-user who had *just* set a password, a way to strip the identity they actually use. The
+user who had _just_ set a password, a way to strip the identity they actually use. The
 password check also makes the "no password" case unreachable by accident.
 
 **5. Guard order in the unlink handler: not-linked, then no-password, then wrong

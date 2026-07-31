@@ -1,9 +1,12 @@
 # user-password-change Specification
 
 ## Purpose
+
 Lets a signed-in user rotate their own password by proving knowledge of the
 current one, without an administrator ever handling the new secret.
+
 ## Requirements
+
 ### Requirement: A user changes their own password
 
 The system SHALL allow an authenticated user to replace their own password by
@@ -136,4 +139,3 @@ attempt as a server error.
 
 - **WHEN** a refresh is attempted with a validly signed refresh token naming a session that never existed
 - **THEN** the request is rejected as unauthorized rather than as a server error
-

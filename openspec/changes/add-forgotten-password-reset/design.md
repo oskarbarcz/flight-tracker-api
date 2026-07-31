@@ -37,7 +37,7 @@ listeners under a module's `application/event/{internal,external}/`.
 - General-purpose IP rate limiting / a global throttler (see risks).
 - A UI for the reset form. The email links to `FRONTEND_BASE_URL`; the frontend
   collects the new password and calls the confirm endpoint.
-- Email verification at sign-up. Only *changing* an email gets confirmed, and that
+- Email verification at sign-up. Only _changing_ an email gets confirmed, and that
   is a separate change.
 
 ## Decisions
@@ -77,7 +77,7 @@ identical tables would duplicate the expiry/consumption logic.
 bytes from `crypto.randomBytes` rendered `base64url`; the column stores
 `sha256(raw)` hex, and confirmation looks the row up by that hash. bcrypt is
 unusable here: it is salted per row, so finding the matching row would mean
-comparing against every outstanding token. A fast hash is safe *because* the input
+comparing against every outstanding token. A fast hash is safe _because_ the input
 is 256 bits of entropy rather than a human-chosen password — there is no dictionary
 to run. Storing the raw token would make a database read equivalent to an account
 takeover.
@@ -134,7 +134,7 @@ _Alternative considered:_ adding `@nestjs/throttler` globally. Rejected for this
 change — a new global request-scoped dependency deserves its own change, and the
 per-account guard covers the concrete abuse this endpoint enables.
 
-**8. Confirmation revokes *all* sessions.** Unlike a password change (where the
+**8. Confirmation revokes _all_ sessions.** Unlike a password change (where the
 acting session just proved it knew the current password), a reset means the account
 may be compromised, so `SessionService.closeAllForUser` is the right call. There is
 no acting session to preserve — the endpoint is unauthenticated.
@@ -159,7 +159,7 @@ hardcoding an environment into an email.
 ## Risks / Trade-offs
 
 - **[No IP-level rate limiting]** The per-account 5-minute guard does not stop a
-  distributed script from probing thousands of *different* addresses, or from
+  distributed script from probing thousands of _different_ addresses, or from
   issuing requests for the same account every 5 minutes indefinitely. → Mitigated
   in kind (no enumeration signal to harvest, bounded mail per account) rather than
   eliminated; a global throttler is called out as a follow-up.
@@ -172,7 +172,7 @@ hardcoding an environment into an email.
   type, superseded rows are deleted on issue) and harmless; a scheduled purge can be
   added when the volume justifies a `@Cron`.
 - **[Test client writes to a shared directory]** `test-data/mail/` is keyed by
-  message type and recipient, so two scenarios resetting the *same* address in one
+  message type and recipient, so two scenarios resetting the _same_ address in one
   run would overwrite each other's file. → The feature file clears the directory
   between scenarios, as `discord.context.ts` already does with
   "I clear Discord messages directory".
