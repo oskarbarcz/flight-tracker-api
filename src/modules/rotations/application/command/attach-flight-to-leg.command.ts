@@ -9,8 +9,8 @@ import {
   RotationNotFoundError,
 } from '../../model/error/rotation.error';
 import { GetFlightQuery } from '../../../flights/application/query/get-flight.query';
-import { FlightStatus } from '../../../flights/model/flight.model';
 import { AirportType } from '../../../airports/model/airport.model';
+import { isFlightPreCheckIn } from '../../model/rotation.rules';
 
 export class AttachFlightToLegCommand {
   constructor(
@@ -54,9 +54,9 @@ export class AttachFlightToLegHandler implements ICommandHandler<AttachFlightToL
 
     const flight = await this.queryBus.execute(new GetFlightQuery(flightId));
 
-    if (flight.status !== FlightStatus.Created) {
+    if (!isFlightPreCheckIn(flight.status)) {
       throw new FlightNotAttachableError(
-        'Only a created flight can be attached to a leg.',
+        'Only a flight that has not checked in yet can be attached to a leg.',
       );
     }
 

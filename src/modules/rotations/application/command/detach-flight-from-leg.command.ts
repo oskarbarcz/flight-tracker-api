@@ -8,7 +8,7 @@ import {
   RotationNotActiveError,
   RotationNotFoundError,
 } from '../../model/error/rotation.error';
-import { FlightStatus } from '../../../flights/model/flight.model';
+import { isFlightPreCheckIn } from '../../model/rotation.rules';
 
 export class DetachFlightFromLegCommand {
   constructor(
@@ -46,7 +46,7 @@ export class DetachFlightFromLegHandler implements ICommandHandler<DetachFlightF
       throw new FlightNotAttachableError('Leg has no attached flight.');
     }
 
-    if (leg.flight.status !== FlightStatus.Created) {
+    if (!isFlightPreCheckIn(leg.flight.status)) {
       throw new LegLockedError();
     }
 

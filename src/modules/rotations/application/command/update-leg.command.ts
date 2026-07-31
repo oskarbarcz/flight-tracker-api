@@ -11,10 +11,10 @@ import {
 import {
   assertChainContinuous,
   assertLegValid,
+  isFlightPreCheckIn,
   LegShape,
 } from '../../model/rotation.rules';
 import { UpdateLegRequest } from '../../infra/http/request/rotation.request';
-import { FlightStatus } from '../../../flights/model/flight.model';
 import { RotationLeg } from '../../model/rotation-leg.model';
 
 export class UpdateLegCommand {
@@ -81,10 +81,7 @@ export class UpdateLegHandler implements ICommandHandler<UpdateLegCommand> {
       return false;
     }
 
-    return (
-      leg.flight.status !== FlightStatus.Created &&
-      leg.flight.status !== FlightStatus.Ready
-    );
+    return !isFlightPreCheckIn(leg.flight.status);
   }
 
   private assertChainStillValid(

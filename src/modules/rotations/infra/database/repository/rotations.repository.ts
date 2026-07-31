@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import { Rotation, RotationStatus } from '../../../model/rotation.model';
+import { FlightStatus } from '../../../../flights/model/flight.model';
 
 const airportPreview = {
   select: { id: true, iataCode: true, icaoCode: true, name: true },
@@ -264,7 +265,9 @@ export class RotationsRepository {
         blockTime: Math.round(
           (leg.onBlockTime.getTime() - leg.offBlockTime.getTime()) / 60000,
         ),
-        flight: leg.flight,
+        flight: leg.flight
+          ? { ...leg.flight, status: leg.flight.status as FlightStatus }
+          : null,
       })),
     };
   }

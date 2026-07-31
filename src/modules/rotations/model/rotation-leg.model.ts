@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { FlightStatus } from '../../flights/model/flight.model';
 
 export class LegAirport {
   @ApiProperty({ example: 'bd8f2d64-a647-42da-be63-c6589915e6c9' })
@@ -21,8 +22,8 @@ export class LegFlight {
   @ApiProperty({ example: 'BA117' })
   flightNumber!: string;
 
-  @ApiProperty({ example: 'created' })
-  status!: string;
+  @ApiProperty({ enum: FlightStatus, example: FlightStatus.Created })
+  status!: FlightStatus;
 }
 
 export class RotationLeg {
