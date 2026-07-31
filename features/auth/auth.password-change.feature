@@ -225,10 +225,7 @@ Feature: As a user I can change my own password
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "currentPassword": [
-            "currentPassword must be a string",
-            "currentPassword should not be empty"
-          ],
+          "currentPassword": ["currentPassword must be a string", "currentPassword should not be empty"],
           "newPassword": [
             "Password must be at least 12 characters long and include an uppercase letter, a lowercase letter, a number and a symbol.",
             "newPassword must be a string",

@@ -85,6 +85,7 @@ Feature: Update flight departure runway
             "timezone": "Europe/Berlin",
             "type": "departure",
             "continent": "europe",
+            "dataQuality": "low",
             "location": { "longitude": 8.57397, "latitude": 50.04693 },
             "shape": "@coordinates"
           },
@@ -98,6 +99,7 @@ Feature: Update flight departure runway
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": { "longitude": -73.7781, "latitude": 40.6413 },
             "shape": "@coordinates"
           },
@@ -111,6 +113,7 @@ Feature: Update flight departure runway
             "timezone": "America/New_York",
             "type": "destination_alternate",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": { "longitude": -75.24349, "latitude": 39.87113 },
             "shape": "@coordinates"
           },
@@ -124,6 +127,7 @@ Feature: Update flight departure runway
             "timezone": "America/New_York",
             "type": "destination_alternate",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": { "longitude": -71.01663, "latitude": 42.36454 },
             "shape": "@coordinates"
           },
@@ -136,6 +140,7 @@ Feature: Update flight departure runway
             "country": "Canada",
             "timezone": "America/St_Johns",
             "continent": "north_america",
+            "dataQuality": "low",
             "type": "etops_entry",
             "location": { "longitude": -52.751945, "latitude": 47.61861 },
             "shape": "@coordinates"
@@ -267,6 +272,7 @@ Feature: Update flight departure runway
             "timezone": "Europe/Berlin",
             "type": "departure",
             "continent": "europe",
+            "dataQuality": "low",
             "location": { "longitude": 8.57397, "latitude": 50.04693 },
             "shape": "@coordinates"
           },
@@ -280,6 +286,7 @@ Feature: Update flight departure runway
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": { "longitude": -73.7781, "latitude": 40.6413 },
             "shape": "@coordinates"
           },
@@ -293,6 +300,7 @@ Feature: Update flight departure runway
             "timezone": "America/New_York",
             "type": "destination_alternate",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": { "longitude": -75.24349, "latitude": 39.87113 },
             "shape": "@coordinates"
           },
@@ -306,6 +314,7 @@ Feature: Update flight departure runway
             "timezone": "America/New_York",
             "type": "destination_alternate",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": { "longitude": -71.01663, "latitude": 42.36454 },
             "shape": "@coordinates"
           },
@@ -318,6 +327,7 @@ Feature: Update flight departure runway
             "country": "Canada",
             "timezone": "America/St_Johns",
             "continent": "north_america",
+            "dataQuality": "low",
             "type": "etops_entry",
             "location": { "longitude": -52.751945, "latitude": 47.61861 },
             "shape": "@coordinates"

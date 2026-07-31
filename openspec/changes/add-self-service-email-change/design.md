@@ -31,7 +31,7 @@ The `USER_ME` cache entry is keyed per user and is already invalidated by
 **Non-Goals:**
 
 - Verifying email addresses at sign-up. Addresses created by the admin endpoint stay
-  unverified; only *changes* are confirmed.
+  unverified; only _changes_ are confirmed.
 - An explicit "cancel my pending change" endpoint — requesting another change
   supersedes the pending one, and a pending change expires on its own.
 - Exposing the pending address in any read model (`GET /api/v1/user/me` and the user
@@ -93,7 +93,7 @@ confirmation-time re-check handles the interleaving where another account (creat
 an admin, or another user's confirmed change) claimed the address in between. Both use
 `isEmailTaken(email, exceptUserId)`.
 _Trade-off:_ the request-time 409 tells an authenticated caller whether an address is
-registered. Accepted — the caller must already hold a valid session *and* that
+registered. Accepted — the caller must already hold a valid session _and_ that
 account's password, the same `UserEmailAlreadyExistsError` signal already exists on
 admin user creation, and the alternative (a silent 202 followed by no email and a
 mysterious dead link) is materially worse for the honest case.
@@ -118,7 +118,7 @@ into `newEmail`. The response stays `202` when suppressed.
 
 **10. A note is added to the README's Google Sign-In section.** That section already
 forbids an email fallback in `POST /api/v1/auth/google`. This change makes email
-mutable, so the note gains a sentence explaining *why* the rule matters now:
+mutable, so the note gains a sentence explaining _why_ the rule matters now:
 otherwise a confirmed email change would silently retarget which account a Google
 identity signs into. No code changes there — the guard is that no such fallback
 exists.

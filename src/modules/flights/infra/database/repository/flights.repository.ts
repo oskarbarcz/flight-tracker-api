@@ -100,6 +100,7 @@ export const flightWithAircraftAndAirportsFields = {
           country: true,
           timezone: true,
           continent: true,
+          dataQuality: true,
           location: true,
           shape: true,
         },

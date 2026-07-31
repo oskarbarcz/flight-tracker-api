@@ -15,7 +15,7 @@ must be self-service and must require proof of the current password.
   rejected as unauthorized, with the same message regardless of which part failed.
 - Accounts that sign in **only** with Google have no password to verify
   (`user.password` is null) and are rejected with a conflict. Note this gates on
-  *the absence of a password*, not on the presence of a linked Google account: the
+  _the absence of a password_, not on the presence of a linked Google account: the
   link-only Google flow means an ordinary password user may also have a `googleId`,
   and such a user keeps full control of their password.
 - The new password must differ from the current one and must be strong: at least 12

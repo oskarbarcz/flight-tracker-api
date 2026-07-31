@@ -14,6 +14,7 @@ import {
   AirportWithType,
   Continent,
   Coordinates,
+  DataQuality,
 } from '../../../airports/model/airport.model';
 import {
   GetFlightResponse,
@@ -66,6 +67,7 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
               location: airportOnFlight.airport
                 .location as unknown as Coordinates,
               continent: airportOnFlight.airport.continent as Continent,
+              dataQuality: airportOnFlight.airport.dataQuality as DataQuality,
               shape: airportOnFlight.airport.shape as unknown as
                 | Coordinates[]
                 | null,

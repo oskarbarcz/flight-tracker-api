@@ -1,6 +1,6 @@
 import { ApiProperty, OmitType, PartialType } from '@nestjs/swagger';
 import { IsEnum, IsOptional } from 'class-validator';
-import { Airport, Continent } from '../../../model/airport.model';
+import { Airport, Continent, DataQuality } from '../../../model/airport.model';
 
 export class CreateAirportRequest extends OmitType(Airport, ['id']) {}
 
@@ -13,4 +13,9 @@ export class AirportListFilters {
   @IsEnum(Continent)
   @IsOptional()
   continent?: Continent;
+
+  @ApiProperty({ required: false, enum: DataQuality })
+  @IsEnum(DataQuality)
+  @IsOptional()
+  dataQuality?: DataQuality;
 }

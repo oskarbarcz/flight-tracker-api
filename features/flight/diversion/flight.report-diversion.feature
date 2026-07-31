@@ -183,6 +183,7 @@ Feature: Report a flight diversion
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 42.36454,
               "longitude": -71.01663
@@ -199,6 +200,7 @@ Feature: Report a flight diversion
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 39.87113,
               "longitude": -75.24349
@@ -215,6 +217,7 @@ Feature: Report a flight diversion
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 40.6413,
               "longitude": -73.7781
@@ -268,6 +271,7 @@ Feature: Report a flight diversion
           "country": "Germany",
           "timezone": "Europe/Berlin",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 8.57397,
             "latitude": 50.04693
@@ -521,6 +525,7 @@ Feature: Report a flight diversion
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 42.36454,
               "longitude": -71.01663
@@ -537,6 +542,7 @@ Feature: Report a flight diversion
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 39.87113,
               "longitude": -75.24349
@@ -553,6 +559,7 @@ Feature: Report a flight diversion
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "latitude": 40.6413,
               "longitude": -73.7781
@@ -606,6 +613,7 @@ Feature: Report a flight diversion
           "country": "Germany",
           "timezone": "Europe/Berlin",
           "continent": "europe",
+          "dataQuality": "low",
           "location": {
             "longitude": 8.57397,
             "latitude": 50.04693

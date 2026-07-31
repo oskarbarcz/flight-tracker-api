@@ -28,7 +28,7 @@ directly (`SignInHandler` does exactly this).
 
 **Non-Goals:**
 
-- Resetting a *forgotten* password (no current password available) — that is the
+- Resetting a _forgotten_ password (no current password available) — that is the
   forgotten-password-reset change.
 - A functional scenario for the Google-only rejection. Reaching the endpoint needs an
   access token, which a passwordless account can only obtain through Google sign-in,
@@ -36,7 +36,7 @@ directly (`SignInHandler` does exactly this).
   the repo. The guard is unit-tested instead; the Google-only seed user lands with the
   password-reset change, whose flow is unauthenticated. The Google-unlink change will
   have to solve token minting properly.
-- Letting a Google-only account set a *first* password — that is the
+- Letting a Google-only account set a _first_ password — that is the
   Google-unlink change, which extends this endpoint.
 - Retrofitting the 8-character minimum onto user creation or the admin update.
   Doing so would change the contract of endpoints this change does not touch;
@@ -46,7 +46,7 @@ directly (`SignInHandler` does exactly this).
 ## Decisions
 
 **1. The endpoint lives in the `auth` module at `PATCH /api/v1/auth/password`.**
-It needs `UsersRepository` *and* session revocation. `AuthModule` already imports
+It needs `UsersRepository` _and_ session revocation. `AuthModule` already imports
 `UsersModule`, so the auth side can reach both; the reverse (`users` importing
 `auth` for `SessionService`) would create a module cycle. Routing it under
 `/api/v1/auth` also keeps it in one family with the reset endpoints added next,
@@ -158,7 +158,7 @@ current and new can both be strong and equal.
   change, together with the reset flow (which reuses this policy for the password it
   sets).
 - **[Composition rules are not what current guidance recommends]** NIST SP 800-63B
-  argues for length plus a breached-password blocklist and *against* mandated character
+  argues for length plus a breached-password blocklist and _against_ mandated character
   classes, which push users toward predictable substitutions (`P@ssw0rd1!`). → The
   policy here is the conventional, immediately-available control; a blocklist is the
   higher-value follow-up and is recorded as a non-goal rather than dismissed.

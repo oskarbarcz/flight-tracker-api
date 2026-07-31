@@ -15,6 +15,7 @@ Feature: Get airport
         "country": "Germany",
         "timezone": "Europe/Berlin",
         "continent": "europe",
+        "dataQuality": "low",
         "location": {
           "longitude": 8.57397,
           "latitude": 50.04693
@@ -38,6 +39,7 @@ Feature: Get airport
         "country": "Germany",
         "timezone": "Europe/Berlin",
         "continent": "europe",
+        "dataQuality": "low",
         "location": {
           "longitude": 8.57397,
           "latitude": 50.04693
@@ -61,6 +63,7 @@ Feature: Get airport
         "country": "Germany",
         "timezone": "Europe/Berlin",
         "continent": "europe",
+        "dataQuality": "low",
         "location": {
           "longitude": 8.57397,
           "latitude": 50.04693

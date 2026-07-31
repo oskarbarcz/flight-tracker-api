@@ -35,16 +35,17 @@ model Aircraft {
 }
 
 model Airport {
-  id        String    @id @default(uuid()) @db.Uuid
-  icaoCode  String    @unique @db.VarChar(4)
-  iataCode  String    @unique @db.VarChar(3)
-  name      String
-  city      String
-  country   String
-  timezone  String
-  continent Continent
-  location  Json      @default("{\"latitude\": 0, \"longitude\": 0}")
-  shape     Json?
+  id          String      @id @default(uuid()) @db.Uuid
+  icaoCode    String      @unique @db.VarChar(4)
+  iataCode    String      @unique @db.VarChar(3)
+  name        String
+  city        String
+  country     String
+  timezone    String
+  continent   Continent
+  dataQuality DataQuality @default(low)
+  location    Json        @default("{\"latitude\": 0, \"longitude\": 0}")
+  shape       Json?
 
   airportsOnFlights         AirportsOnFlights[]
   weather                   AirportWeather?
@@ -571,6 +572,12 @@ enum Continent {
   north_america
   south_america
   oceania
+}
+
+enum DataQuality {
+  low
+  high
+  flagship
 }
 
 enum AircraftState {

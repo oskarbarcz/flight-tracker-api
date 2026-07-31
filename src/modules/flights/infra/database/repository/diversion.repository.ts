@@ -17,6 +17,7 @@ import { FlightStatus } from '../../../model/flight.model';
 import {
   Continent,
   Coordinates,
+  DataQuality,
 } from '../../../../airports/model/airport.model';
 import { FlightDoesNotExistError } from '../../../model/error/flight.error';
 import {
@@ -47,6 +48,7 @@ const diversionWithPayloadQuery = {
       timezone: true,
       location: true,
       continent: true,
+      dataQuality: true,
     },
   },
 } as const satisfies Prisma.DiversionSelect;
@@ -142,6 +144,7 @@ export class DiversionRepository {
         ...diversion.airport,
         location: diversion.airport.location as unknown as Coordinates,
         continent: diversion.airport.continent as Continent,
+        dataQuality: diversion.airport.dataQuality as DataQuality,
       },
     };
   }

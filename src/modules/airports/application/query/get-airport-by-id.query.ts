@@ -1,7 +1,7 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { GetAirportResponse } from '../../infra/http/request/airport.dto';
 import { AirportsRepository } from '../../infra/database/airports.repository';
-import { Continent, Coordinates } from '../../model/airport.model';
+import { Continent, Coordinates, DataQuality } from '../../model/airport.model';
 import { AirportNotFoundError } from '../../model/error/airport.error';
 
 export class GetAirportByIdQuery extends Query<GetAirportResponse> {
@@ -25,6 +25,7 @@ export class GetAirportByIdHandler implements IQueryHandler<GetAirportByIdQuery>
       ...airport,
       location: airport.location as unknown as Coordinates,
       continent: airport.continent as Continent,
+      dataQuality: airport.dataQuality as DataQuality,
       shape: airport.shape as unknown as Coordinates[] | null,
     };
   }

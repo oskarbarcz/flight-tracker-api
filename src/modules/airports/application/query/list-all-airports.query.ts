@@ -1,6 +1,6 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { AirportsRepository } from '../../infra/database/airports.repository';
-import { Continent, Coordinates } from '../../model/airport.model';
+import { Continent, Coordinates, DataQuality } from '../../model/airport.model';
 import {
   AirportListFilters,
   GetAirportResponse,
@@ -23,6 +23,7 @@ export class ListAllAirportsHandler implements IQueryHandler<ListAllAirportsQuer
       ...airport,
       location: airport.location as unknown as Coordinates,
       continent: airport.continent as Continent,
+      dataQuality: airport.dataQuality as DataQuality,
       shape: airport.shape as unknown as Coordinates[] | null,
     }));
   }

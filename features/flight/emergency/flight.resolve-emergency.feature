@@ -132,6 +132,7 @@ Feature: Resolve a flight emergency
             "country": "Germany",
             "timezone": "Europe/Berlin",
             "continent": "europe",
+            "dataQuality": "low",
             "location": { "longitude": 8.57397, "latitude": 50.04693 },
             "type": "departure",
             "shape": "@coordinates"
@@ -145,6 +146,7 @@ Feature: Resolve a flight emergency
             "country": "France",
             "timezone": "Europe/Paris",
             "continent": "europe",
+            "dataQuality": "low",
             "location": { "longitude": 2.55412, "latitude": 49.00896 },
             "type": "destination",
             "shape": "@coordinates"
@@ -313,6 +315,7 @@ Feature: Resolve a flight emergency
             "country": "Germany",
             "timezone": "Europe/Berlin",
             "continent": "europe",
+            "dataQuality": "low",
             "location": { "longitude": 8.57397, "latitude": 50.04693 },
             "type": "departure",
             "shape": "@coordinates"
@@ -326,6 +329,7 @@ Feature: Resolve a flight emergency
             "country": "France",
             "timezone": "Europe/Paris",
             "continent": "europe",
+            "dataQuality": "low",
             "location": { "longitude": 2.55412, "latitude": 49.00896 },
             "type": "destination",
             "shape": "@coordinates"

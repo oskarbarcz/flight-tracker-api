@@ -110,6 +110,7 @@ Feature: Update flight arrival parking position
             "timezone": "America/New_York",
             "type": "departure",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": { "longitude": -73.7781, "latitude": 40.6413 },
             "shape": "@coordinates"
           },
@@ -123,6 +124,7 @@ Feature: Update flight arrival parking position
             "timezone": "Europe/Berlin",
             "type": "destination",
             "continent": "europe",
+            "dataQuality": "low",
             "location": { "longitude": 8.57397, "latitude": 50.04693 },
             "shape": "@coordinates"
           },
@@ -136,6 +138,7 @@ Feature: Update flight arrival parking position
             "timezone": "Europe/Berlin",
             "type": "destination_alternate",
             "continent": "europe",
+            "dataQuality": "low",
             "location": { "longitude": 8.786667, "latitude": 53.0475 },
             "shape": "@coordinates"
           },
@@ -149,6 +152,7 @@ Feature: Update flight arrival parking position
             "timezone": "Atlantic/Reykjavik",
             "type": "etops_entry",
             "continent": "europe",
+            "dataQuality": "low",
             "location": { "longitude": -22.6056, "latitude": 63.985 },
             "shape": "@coordinates"
           },
@@ -162,6 +166,7 @@ Feature: Update flight arrival parking position
             "timezone": "America/St_Johns",
             "type": "etops_exit",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": { "longitude": -52.751945, "latitude": 47.61861 },
             "shape": "@coordinates"
           }

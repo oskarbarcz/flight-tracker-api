@@ -42,6 +42,7 @@ Feature: Get a flight diversion
           "country": "United States of America",
           "timezone": "America/New_York",
           "continent": "north_america",
+          "dataQuality": "low",
           "location": {
             "latitude": 40.6413,
             "longitude": -73.7781
@@ -82,7 +83,8 @@ Feature: Get a flight diversion
             "latitude": 40.6413,
             "longitude": -73.7781
           },
-          "continent": "north_america"
+          "continent": "north_america",
+          "dataQuality": "low"
         }
       }
       """

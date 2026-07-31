@@ -122,10 +122,10 @@ in as them.
 
 **Configuration**
 
-| Variable           | Required | Notes                                                                                                                                                     |
-| ------------------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Variable           | Required | Notes                                                                                                                                                                           |
+| ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `GOOGLE_CLIENT_ID` | yes      | The OAuth 2.0 Client ID (type: Web application) that issues ID tokens to the frontend. No client secret is needed — this is the ID-token flow, not the authorization-code flow. |
-| `GOOGLE_JWKS_URI`  | no       | Defaults to `https://www.googleapis.com/oauth2/v3/certs`. `.env.dist` points it at the `google-mock` container for local development.                      |
+| `GOOGLE_JWKS_URI`  | no       | Defaults to `https://www.googleapis.com/oauth2/v3/certs`. `.env.dist` points it at the `google-mock` container for local development.                                           |
 
 To obtain the client ID, in Google Cloud Console go to **APIs & Services → Credentials → Create credentials → OAuth
 client ID**, choose **Web application**, and list your frontend origins under **Authorized JavaScript origins**
@@ -135,10 +135,10 @@ users.
 
 **Endpoints**
 
-| Method | Path                        | Auth | Result                                                                                                                                    |
-| ------ | --------------------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `POST` | `/api/v1/auth/google/link`  | JWT  | `204` — stores Google's `sub` on the signed-in user. `409` if that user already linked an account, or the Google account belongs to another user. |
-| `POST` | `/api/v1/auth/google`       | none | `200` with `accessToken` / `refreshToken`. `401` if the token is invalid or no user is linked to it.                                       |
+| Method | Path                       | Auth | Result                                                                                                                                            |
+| ------ | -------------------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST` | `/api/v1/auth/google/link` | JWT  | `204` — stores Google's `sub` on the signed-in user. `409` if that user already linked an account, or the Google account belongs to another user. |
+| `POST` | `/api/v1/auth/google`      | none | `200` with `accessToken` / `refreshToken`. `401` if the token is invalid or no user is linked to it.                                              |
 
 Linking is how the association is created: a user signs in with their password once, then posts the Google ID token to
 `/google/link`. After that, `/google` alone is enough to sign in.

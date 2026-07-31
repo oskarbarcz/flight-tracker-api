@@ -164,6 +164,7 @@ Feature: Report arrival
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "longitude": -71.01663,
               "latitude": 42.36454
@@ -181,6 +182,7 @@ Feature: Report arrival
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "longitude": -75.24349,
               "latitude": 39.87113
@@ -196,6 +198,7 @@ Feature: Report arrival
             "country": "United States of America",
             "timezone": "America/New_York",
             "continent": "north_america",
+            "dataQuality": "low",
             "location": {
               "longitude": -73.7781,
               "latitude": 40.6413
