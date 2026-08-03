@@ -345,6 +345,7 @@ model User {
   id                   String    @id @default(uuid()) @db.Uuid
   name                 String
   email                String    @unique
+  emailConfirmedAt     DateTime?
   password             String?
   googleId             String?   @unique
   role                 UserRole
@@ -376,8 +377,33 @@ model User {
   statsByType          UserStatsByType[]
   statsByAirport       UserStatsByAirport[]
   statsDaily           UserStatsDaily[]
+  tokens               UserToken[]
 
   @@map("user")
+}
+
+enum UserTokenType {
+  password_reset
+  email_change
+
+  @@map("user_token_type")
+}
+
+model UserToken {
+  id         String        @id @default(uuid()) @db.Uuid
+  userId     String        @db.Uuid
+  type       UserTokenType
+  tokenHash  String
+  newEmail   String?
+  createdAt  DateTime      @default(now())
+  expiresAt  DateTime
+  consumedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([type, tokenHash])
+  @@index([userId, type])
+  @@map("user_token")
 }
 
 enum UserTravelType {

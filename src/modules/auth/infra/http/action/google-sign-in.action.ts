@@ -24,7 +24,7 @@ export class GoogleSignInAction {
     summary: 'Exchange a Google ID token for JWT authorization token',
     description:
       'Only succeeds for a user who has already linked this Google account ' +
-      'via `POST /api/v1/auth/google/link`. No user account is created.',
+      'via `POST /api/v1/user/me/link-google-account`. No user account is created.',
   })
   @ApiBody({ type: GoogleSignInRequest })
   @ApiOkResponse({ type: SignInResponse })

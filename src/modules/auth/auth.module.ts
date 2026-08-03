@@ -14,14 +14,13 @@ import { GoogleModule } from '../../core/provider/google/google.module';
 import { GoogleSignInAction } from './infra/http/action/google-sign-in.action';
 import { LinkGoogleAccountAction } from './infra/http/action/link-google-account.action';
 import { SessionService } from './infra/service/session.service';
-import { ChangePasswordAction } from './infra/http/action/change-password.action';
-import { ChangePasswordHandler } from './application/command/change-password.command';
 import { SignInHandler } from './application/command/sign-in.command';
 import { SignInWithGoogleHandler } from './application/command/sign-in-with-google.command';
 import { LinkGoogleAccountHandler } from './application/command/link-google-account.command';
 import { RefreshTokenHandler } from './application/command/refresh-token.command';
 import { SignOutHandler } from './application/command/sign-out.command';
 import { SignOutEverywhereHandler } from './application/command/sign-out-everywhere.command';
+import { SignOutOtherSessionsHandler } from './application/command/sign-out-other-sessions.command';
 
 @Module({
   controllers: [
@@ -30,7 +29,6 @@ import { SignOutEverywhereHandler } from './application/command/sign-out-everywh
     LinkGoogleAccountAction,
     RefreshTokenAction,
     SignOutAction,
-    ChangePasswordAction,
   ],
   providers: [
     SessionRepository,
@@ -41,7 +39,7 @@ import { SignOutEverywhereHandler } from './application/command/sign-out-everywh
     RefreshTokenHandler,
     SignOutHandler,
     SignOutEverywhereHandler,
-    ChangePasswordHandler,
+    SignOutOtherSessionsHandler,
     { provide: APP_GUARD, useClass: JwtTokenGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
   ],

@@ -68,7 +68,14 @@ Feature: Request a manual dead-head travel
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
-        "simbriefUserId": null
+        "simbriefUserId": null,
+        "emails": [
+          {
+            "email": "cabin-crew@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
       }
       """
     And I set database to initial state

@@ -1,0 +1,35 @@
+import { IsNotEmpty, IsStrongPassword, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class ConfirmPasswordResetDto {
+  @ApiProperty({
+    description: 'Token from the reset link sent to the account address',
+    example: 'wS3xk1Nn7Yc9pQvR2tLmB4dF6hJ8kZgA1sD3fG5hJ7k',
+  })
+  @IsNotEmpty()
+  @IsString()
+  token!: string;
+
+  @ApiProperty({
+    description:
+      'Password the user wants to sign in with. At least 12 characters, ' +
+      'including an uppercase letter, a lowercase letter, a number and a symbol.',
+    example: 'NeWsTr0nGP@$$$$w0rd',
+  })
+  @IsNotEmpty()
+  @IsString()
+  @IsStrongPassword(
+    {
+      minLength: 12,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+    },
+    {
+      message:
+        'Password must be at least 12 characters long and include an uppercase letter, a lowercase letter, a number and a symbol.',
+    },
+  )
+  newPassword!: string;
+}

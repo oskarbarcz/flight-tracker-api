@@ -27,6 +27,21 @@ import { UserAircraftRepository } from './infra/database/repository/user-aircraf
 import { GetMyAircraftAction } from './infra/http/action/get-my-aircraft.action';
 import { ListUserAircraftHandler } from './application/query/list-user-aircraft.query';
 import { UserAircraftListener } from './application/event/external/user-aircraft.listener';
+import { UserEmailCacheListener } from './application/event/internal/user-email-cache.listener';
+import { UserTokenRepository } from './infra/database/repository/user-token.repository';
+import { RequestEmailChangeAction } from './infra/http/action/request-email-change.action';
+import { ConfirmEmailChangeAction } from './infra/http/action/confirm-email-change.action';
+import { RequestEmailChangeHandler } from './application/command/request-email-change.command';
+import { ConfirmEmailChangeHandler } from './application/command/confirm-email-change.command';
+import { EmailChangeMailListener } from './application/event/internal/email-change-mail.listener';
+import { MailgunModule } from '../../core/provider/mailgun/mailgun.module';
+import { ChangePasswordAction } from './infra/http/action/change-password.action';
+import { ChangePasswordHandler } from './application/command/change-password.command';
+import { RequestPasswordResetAction } from './infra/http/action/request-password-reset.action';
+import { ConfirmPasswordResetAction } from './infra/http/action/confirm-password-reset.action';
+import { RequestPasswordResetHandler } from './application/command/request-password-reset.command';
+import { ConfirmPasswordResetHandler } from './application/command/confirm-password-reset.command';
+import { PasswordResetMailListener } from './application/event/internal/password-reset-mail.listener';
 
 @Module({
   controllers: [
@@ -39,9 +54,15 @@ import { UserAircraftListener } from './application/event/external/user-aircraft
     UpdateUserAction,
     CreateUserTravelAction,
     ListUserTravelAction,
+    RequestEmailChangeAction,
+    ConfirmEmailChangeAction,
+    ChangePasswordAction,
+    RequestPasswordResetAction,
+    ConfirmPasswordResetAction,
   ],
   providers: [
     UsersRepository,
+    UserTokenRepository,
     UserTravelRepository,
     UserAircraftRepository,
     CheckUserExistsHandler,
@@ -59,8 +80,16 @@ import { UserAircraftListener } from './application/event/external/user-aircraft
     ListUserAircraftHandler,
     FlightLifecycleListener,
     UserAircraftListener,
+    UserEmailCacheListener,
+    RequestEmailChangeHandler,
+    ConfirmEmailChangeHandler,
+    EmailChangeMailListener,
+    ChangePasswordHandler,
+    RequestPasswordResetHandler,
+    ConfirmPasswordResetHandler,
+    PasswordResetMailListener,
   ],
-  imports: [PrismaModule],
-  exports: [UsersRepository],
+  imports: [PrismaModule, MailgunModule],
+  exports: [UsersRepository, UserTokenRepository],
 })
 export class UsersModule {}

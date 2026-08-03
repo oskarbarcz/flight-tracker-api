@@ -72,6 +72,23 @@ const apiClient = axios.create({
   validateStatus: () => true,
 });
 
+export async function sendApiRequest(
+  method: string,
+  path: string,
+  body?: unknown,
+): Promise<void> {
+  apiResponse = await apiClient.request({
+    method: method,
+    url: `${apiBaseUrl}${path}`,
+    data: body,
+    validateStatus: () => true,
+    headers:
+      apiTokens[apiTokens.currentRole] === ''
+        ? {}
+        : { Authorization: `Bearer ${apiTokens[apiTokens.currentRole]}` },
+  });
+}
+
 Given('I am signed in as {string}', async (role: ApiUserType) => {
   const credentials = apiUsers[role];
   const url = `${apiBaseUrl}/api/v1/auth/sign-in`;
@@ -99,33 +116,14 @@ Given('I hold a refresh token as {string}', async (role: ApiUserType) => {
 When(
   'I send a {string} request to {string}',
   async (method: string, path: string) => {
-    const url = `${apiBaseUrl}${path}`;
-    apiResponse = await apiClient.request({
-      method: method,
-      url: url,
-      validateStatus: () => true,
-      headers:
-        apiTokens[apiTokens.currentRole] === ''
-          ? {}
-          : { Authorization: `Bearer ${apiTokens[apiTokens.currentRole]}` },
-    });
+    await sendApiRequest(method, path);
   },
 );
 
 When(
   'I send a {string} request to {string} with body:',
   async (method: string, path: string, body: string) => {
-    const url = `${apiBaseUrl}${path}`;
-    apiResponse = await apiClient.request({
-      method: method,
-      url: url,
-      data: JSON.parse(body),
-      validateStatus: () => true,
-      headers:
-        apiTokens[apiTokens.currentRole] === ''
-          ? {}
-          : { Authorization: `Bearer ${apiTokens[apiTokens.currentRole]}` },
-    });
+    await sendApiRequest(method, path, JSON.parse(body));
   },
 );
 
@@ -159,6 +157,10 @@ Then(
     expect(apiResponse.data).toHaveProperty(property);
   },
 );
+
+Then('the response body should be empty', () => {
+  expect(apiResponse.data).toBe('');
+});
 
 Then('the response body should contain:', async function (docString: string) {
   const expected = JSON.parse(docString);

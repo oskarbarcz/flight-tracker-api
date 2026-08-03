@@ -2,7 +2,7 @@ Feature: As a user I can change my own password
 
   Scenario: As operations I can change my own password
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/auth/password" with body:
+    When I send a "PATCH" request to "/api/v1/user/me/change-password" with body:
       """json
       {
         "currentPassword": "P@$$w0rd",
@@ -45,7 +45,7 @@ Feature: As a user I can change my own password
 
   Scenario: As an admin with a linked Google account I can still change my password
     Given I am signed in as "admin"
-    When I send a "PATCH" request to "/api/v1/auth/password" with body:
+    When I send a "PATCH" request to "/api/v1/user/me/change-password" with body:
       """json
       {
         "currentPassword": "P@$$w0rd",
@@ -65,7 +65,7 @@ Feature: As a user I can change my own password
 
   Scenario: As a cabin crew I can change my own password
     Given I am signed in as "cabin crew"
-    When I send a "PATCH" request to "/api/v1/auth/password" with body:
+    When I send a "PATCH" request to "/api/v1/user/me/change-password" with body:
       """json
       {
         "currentPassword": "P@$$w0rd",
@@ -77,7 +77,7 @@ Feature: As a user I can change my own password
 
   Scenario: I cannot change my password with a wrong current password
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/auth/password" with body:
+    When I send a "PATCH" request to "/api/v1/user/me/change-password" with body:
       """json
       {
         "currentPassword": "WrongP@$$w0rd",
@@ -105,7 +105,7 @@ Feature: As a user I can change my own password
 
   Scenario: I cannot reuse my current password as the new one
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/auth/password" with body:
+    When I send a "PATCH" request to "/api/v1/user/me/change-password" with body:
       """json
       {
         "currentPassword": "P@$$w0rd",
@@ -113,7 +113,7 @@ Feature: As a user I can change my own password
       }
       """
     Then the response status should be 204
-    When I send a "PATCH" request to "/api/v1/auth/password" with body:
+    When I send a "PATCH" request to "/api/v1/user/me/change-password" with body:
       """json
       {
         "currentPassword": "NeWsTr0nGP@$$w0rd",
@@ -141,7 +141,7 @@ Feature: As a user I can change my own password
 
   Scenario: I cannot set a new password that is too short
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/auth/password" with body:
+    When I send a "PATCH" request to "/api/v1/user/me/change-password" with body:
       """json
       {
         "currentPassword": "P@$$w0rd",
@@ -165,7 +165,7 @@ Feature: As a user I can change my own password
 
   Scenario: I cannot set a long new password that has no uppercase, number or symbol
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/auth/password" with body:
+    When I send a "PATCH" request to "/api/v1/user/me/change-password" with body:
       """json
       {
         "currentPassword": "P@$$w0rd",
@@ -189,7 +189,7 @@ Feature: As a user I can change my own password
 
   Scenario: I cannot set a new password that is missing only a symbol
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/auth/password" with body:
+    When I send a "PATCH" request to "/api/v1/user/me/change-password" with body:
       """json
       {
         "currentPassword": "P@$$w0rd",
@@ -213,7 +213,7 @@ Feature: As a user I can change my own password
 
   Scenario: I cannot change my password without providing both passwords
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/auth/password" with body:
+    When I send a "PATCH" request to "/api/v1/user/me/change-password" with body:
       """json
       {}
       """
@@ -241,7 +241,7 @@ Feature: As a user I can change my own password
     Then the response status should be 200
     And I set database to initial state
     Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/auth/password" with body:
+    When I send a "PATCH" request to "/api/v1/user/me/change-password" with body:
       """json
       {
         "currentPassword": "P@$$w0rd",
@@ -262,7 +262,7 @@ Feature: As a user I can change my own password
     And I set database to initial state
 
   Scenario: As an unauthorized user I cannot change a password
-    When I send a "PATCH" request to "/api/v1/auth/password" with body:
+    When I send a "PATCH" request to "/api/v1/user/me/change-password" with body:
       """json
       {
         "currentPassword": "P@$$w0rd",

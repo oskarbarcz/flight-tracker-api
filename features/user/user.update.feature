@@ -1,12 +1,11 @@
 Feature: Update user
 
-  Scenario: As an admin I can change user name and email
+  Scenario: As an admin I can change user name
     Given I am signed in as "admin"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
         "name": "John Alfred Doe",
-        "email": "john.doe@example.com",
         "simbriefUserId": "123456"
       }
       """
@@ -16,7 +15,7 @@ Feature: Update user
       {
         "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
         "name": "John Alfred Doe",
-        "email": "john.doe@example.com",
+        "email": "admin@example.com",
         "role": "Admin",
         "pilotLicenseId": null,
         "currentFlightId": null,
@@ -26,6 +25,44 @@ Feature: Update user
       }
       """
     And I set database to initial state
+
+  Scenario: As an admin I cannot change a user email address
+    Given I am signed in as "admin"
+    When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
+      """json
+      {
+        "name": "John Alfred Doe",
+        "email": "john.doe@example.com"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "email": ["property email should not exist"]
+        }
+      }
+      """
+    When I send a "GET" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
+        "name": "John Doe",
+        "email": "admin@example.com",
+        "role": "Admin",
+        "pilotLicenseId": null,
+        "currentFlightId": null,
+        "homeAirportId": null,
+        "lastAirportId": null,
+        "lastAirportUpdatedAt": null
+      }
+      """
 
   Scenario: As an admin I can change user password
     Given I am signed in as "admin"
@@ -77,13 +114,12 @@ Feature: Update user
       """
     And I set database to initial state
 
-  Scenario: As operations I cannot change user name and email
+  Scenario: As operations I cannot change user name
     Given I am signed in as "operations"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
-        "name": "John Alfred Doe",
-        "email": "john.doe@example.com"
+        "name": "John Alfred Doe"
       }
       """
     Then the response status should be 403
@@ -132,13 +168,12 @@ Feature: Update user
       }
       """
 
-  Scenario: As a cabin crew I cannot change user name and email
+  Scenario: As a cabin crew I cannot change user name
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
-        "name": "John Alfred Doe",
-        "email": "john.doe@example.com"
+        "name": "John Alfred Doe"
       }
       """
     Then the response status should be 403
@@ -304,12 +339,11 @@ Feature: Update user
       }
       """
 
-  Scenario: As an unauthorized user I cannot change user name and email
+  Scenario: As an unauthorized user I cannot change user name
     When I send a "PATCH" request to "/api/v1/user/e181d983-3b69-4be2-864e-2a7596217ddf" with body:
       """json
       {
-        "name": "John Alfred Doe",
-        "email": "john.doe@example.com"
+        "name": "John Alfred Doe"
       }
       """
     Then the response status should be 401
