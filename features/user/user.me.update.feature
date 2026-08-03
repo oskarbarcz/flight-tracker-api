@@ -22,7 +22,14 @@ Feature: Update own profile
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": null,
-        "simbriefUserId": null
+        "simbriefUserId": null,
+        "emails": [
+          {
+            "email": "cabin-crew@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
       }
       """
     And I set database to initial state
@@ -48,7 +55,14 @@ Feature: Update own profile
         "homeAirportId": null,
         "lastAirportId": null,
         "lastAirportUpdatedAt": null,
-        "simbriefUserId": null
+        "simbriefUserId": null,
+        "emails": [
+          {
+            "email": "admin@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
       }
       """
     And I set database to initial state
@@ -74,7 +88,14 @@ Feature: Update own profile
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": null,
-        "simbriefUserId": null
+        "simbriefUserId": null,
+        "emails": [
+          {
+            "email": "cabin-crew@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
       }
       """
     And I set database to initial state
@@ -100,7 +121,14 @@ Feature: Update own profile
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": null,
-        "simbriefUserId": null
+        "simbriefUserId": null,
+        "emails": [
+          {
+            "email": "cabin-crew@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
       }
       """
     And I set database to initial state
@@ -196,7 +224,14 @@ Feature: Update own profile
         "homeAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": null,
-        "simbriefUserId": null
+        "simbriefUserId": null,
+        "emails": [
+          {
+            "email": "cabin-crew@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
       }
       """
     And I set database to initial state
@@ -222,7 +257,14 @@ Feature: Update own profile
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": null,
-        "simbriefUserId": "987654"
+        "simbriefUserId": "987654",
+        "emails": [
+          {
+            "email": "cabin-crew@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
       }
       """
     And I set database to initial state
@@ -248,7 +290,14 @@ Feature: Update own profile
         "homeAirportId": null,
         "lastAirportId": null,
         "lastAirportUpdatedAt": null,
-        "simbriefUserId": "987654"
+        "simbriefUserId": "987654",
+        "emails": [
+          {
+            "email": "operations@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
       }
       """
     And I set database to initial state
@@ -274,7 +323,14 @@ Feature: Update own profile
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": null,
-        "simbriefUserId": null
+        "simbriefUserId": null,
+        "emails": [
+          {
+            "email": "cabin-crew@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
       }
       """
     And I set database to initial state
@@ -370,7 +426,14 @@ Feature: Update own profile
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": null,
-        "simbriefUserId": null
+        "simbriefUserId": null,
+        "emails": [
+          {
+            "email": "cabin-crew@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
       }
       """
 
@@ -453,7 +516,14 @@ Feature: Update own profile
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": null,
-        "simbriefUserId": null
+        "simbriefUserId": null,
+        "emails": [
+          {
+            "email": "cabin-crew@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
       }
       """
     When I send a "PATCH" request to "/api/v1/user/me" with body:
@@ -478,7 +548,14 @@ Feature: Update own profile
         "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": null,
-        "simbriefUserId": null
+        "simbriefUserId": null,
+        "emails": [
+          {
+            "email": "cabin-crew@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
       }
       """
     And I set database to initial state

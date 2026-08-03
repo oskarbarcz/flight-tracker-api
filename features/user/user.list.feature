@@ -74,6 +74,17 @@ Feature: List users
           "lastAirportUpdatedAt": null
         },
         {
+          "id": "59bd52f0-6523-4a04-b1f7-96098db05fd0",
+          "name": "Grace Doe",
+          "email": "grace.doe@example.com",
+          "role": "Operations",
+          "pilotLicenseId": null,
+          "currentFlightId": null,
+          "homeAirportId": null,
+          "lastAirportId": null,
+          "lastAirportUpdatedAt": null
+        },
+        {
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
           "name": "Rick Doe",
           "email": "cabin-crew@example.com",

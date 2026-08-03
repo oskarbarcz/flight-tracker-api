@@ -44,4 +44,4 @@
 
 - [ ] 9.1 `docker compose exec app npm run lint` and `npm run build` pass.
 - [ ] 9.2 `docker compose exec app npx cucumber-js features/auth/auth.google-unlink.feature` passes.
-- [ ] 9.3 The full `features/auth` suite still passes — in particular `auth.google-link.feature` and `auth.google-sign-in.feature`, which share the seeded `googleId` fixtures this feature mutates.
+- [ ] 9.3 The full `features/auth` and `features/user` suites still pass — in particular `features/user/user.me.link-google-account.feature` and `features/auth/auth.google-sign-in.feature`, which share the seeded `googleId` fixtures this feature mutates.

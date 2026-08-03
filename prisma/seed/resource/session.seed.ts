@@ -11,7 +11,7 @@ export async function loadSessions(
       id: SEEDED_OPERATIONS_SESSION_ID,
       userId: '721ab705-8608-4386-86b4-2f391a3655a7',
       // bcrypt hash of the long-lived ES256 refresh token hardcoded in
-      // features/auth/auth.password-change.feature, signed with JWT_PRIVATE_KEY
+      // features/user/user.me.change-password.feature, signed with JWT_PRIVATE_KEY
       token: '$2b$12$/n372CwB6/priXihn8lqa.jljdzqwyIawLQdHNSc6KB8L2wsBZ/0K',
       createdAt: new Date('2025-01-01T00:00:00.000Z'),
       expiresAt: new Date('2036-01-01T00:00:00.000Z'),

@@ -2,11 +2,13 @@ import {
   ChangePasswordCommand,
   ChangePasswordHandler,
 } from './change-password.command';
+import { UserTokenType } from '../../../../../prisma/client/client';
+import { InvalidCredentialsError } from '../../../auth/model/error/auth.error';
+import { SignOutOtherSessionsCommand } from '../../../auth/application/command/sign-out-other-sessions.command';
 import {
-  InvalidCredentialsError,
   NewPasswordMustDifferError,
   PasswordNotSetError,
-} from '../../model/error/auth.error';
+} from '../../model/error/user-password.error';
 
 const USER_ID = 'a3d5f9d0-6f8e-4c2b-8f3a-9c1b7e2d4a55';
 const SESSION_ID = 'c7f1b4e2-93a4-4a10-8f66-2b5d8c1e7f30';
@@ -18,11 +20,10 @@ describe('ChangePasswordHandler', () => {
     hasPassword: jest.Mock;
     verifyPassword: jest.Mock;
     setPassword: jest.Mock;
+    dropOwnUserCache: jest.Mock;
   };
-  let sessionService: {
-    closeAllForUserExcept: jest.Mock;
-    closeAllForUser: jest.Mock;
-  };
+  let tokens: { deleteAllFor: jest.Mock };
+  let commandBus: { execute: jest.Mock };
   let handler: ChangePasswordHandler;
 
   function command(
@@ -42,14 +43,14 @@ describe('ChangePasswordHandler', () => {
       hasPassword: jest.fn().mockResolvedValue(true),
       verifyPassword: jest.fn().mockResolvedValue(true),
       setPassword: jest.fn(),
+      dropOwnUserCache: jest.fn(),
     };
-    sessionService = {
-      closeAllForUserExcept: jest.fn(),
-      closeAllForUser: jest.fn(),
-    };
+    tokens = { deleteAllFor: jest.fn() };
+    commandBus = { execute: jest.fn() };
     handler = new ChangePasswordHandler(
       users as never,
-      sessionService as never,
+      tokens as never,
+      commandBus as never,
     );
   });
 
@@ -57,11 +58,11 @@ describe('ChangePasswordHandler', () => {
     await handler.execute(command());
 
     expect(users.setPassword).toHaveBeenCalledWith(USER_ID, NEW_PASSWORD);
-    expect(sessionService.closeAllForUserExcept).toHaveBeenCalledWith(
-      USER_ID,
-      SESSION_ID,
-    );
-    expect(sessionService.closeAllForUser).not.toHaveBeenCalled();
+    const signOut = commandBus.execute.mock
+      .calls[0][0] as SignOutOtherSessionsCommand;
+    expect(signOut).toBeInstanceOf(SignOutOtherSessionsCommand);
+    expect(signOut.userId).toBe(USER_ID);
+    expect(signOut.sessionId).toBe(SESSION_ID);
   });
 
   it('rejects an account that has no password, without touching bcrypt', async () => {
@@ -72,7 +73,7 @@ describe('ChangePasswordHandler', () => {
     );
     expect(users.verifyPassword).not.toHaveBeenCalled();
     expect(users.setPassword).not.toHaveBeenCalled();
-    expect(sessionService.closeAllForUserExcept).not.toHaveBeenCalled();
+    expect(commandBus.execute).not.toHaveBeenCalled();
   });
 
   it('rejects a wrong current password and leaves the stored password alone', async () => {
@@ -82,7 +83,7 @@ describe('ChangePasswordHandler', () => {
       InvalidCredentialsError,
     );
     expect(users.setPassword).not.toHaveBeenCalled();
-    expect(sessionService.closeAllForUserExcept).not.toHaveBeenCalled();
+    expect(commandBus.execute).not.toHaveBeenCalled();
   });
 
   it('rejects a new password identical to the current one', async () => {
@@ -98,5 +99,24 @@ describe('ChangePasswordHandler', () => {
     await expect(
       handler.execute(command(CURRENT_PASSWORD, CURRENT_PASSWORD)),
     ).rejects.toThrow(InvalidCredentialsError);
+  });
+
+  it('revokes a pending email change, so its link cannot still move the account', async () => {
+    await handler.execute(command());
+
+    expect(tokens.deleteAllFor).toHaveBeenCalledWith(
+      USER_ID,
+      UserTokenType.email_change,
+    );
+    expect(users.dropOwnUserCache).toHaveBeenCalledWith(USER_ID);
+  });
+
+  it('leaves a pending email change alone when the change is rejected', async () => {
+    users.verifyPassword.mockResolvedValue(false);
+
+    await expect(handler.execute(command())).rejects.toThrow(
+      InvalidCredentialsError,
+    );
+    expect(tokens.deleteAllFor).not.toHaveBeenCalled();
   });
 });

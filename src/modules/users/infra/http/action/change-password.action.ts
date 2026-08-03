@@ -24,8 +24,8 @@ import { GenericConflictResponse } from '../../../../../core/http/response/confl
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
 
-@ApiTags('auth')
-@Controller('/api/v1/auth')
+@ApiTags('user')
+@Controller('/api/v1/user/me')
 export class ChangePasswordAction {
   constructor(private readonly commandBus: CommandBus) {}
 
@@ -49,7 +49,7 @@ export class ChangePasswordAction {
     description: 'Account signs in with Google and has no password to change',
     type: GenericConflictResponse,
   })
-  @Patch('/password')
+  @Patch('/change-password')
   @HttpCode(HttpStatus.NO_CONTENT)
   async run(
     @Req() request: AuthorizedRequest,

@@ -23,8 +23,8 @@ import { GenericConflictResponse } from '../../../../../core/http/response/confl
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
 
-@ApiTags('auth')
-@Controller('/api/v1/auth')
+@ApiTags('user')
+@Controller('/api/v1/user/me')
 export class LinkGoogleAccountAction {
   constructor(private readonly commandBus: CommandBus) {}
 
@@ -47,7 +47,7 @@ export class LinkGoogleAccountAction {
       'User already linked a Google account, or this Google account belongs to another user',
     type: GenericConflictResponse,
   })
-  @Post('/google/link')
+  @Post('/link-google-account')
   @HttpCode(HttpStatus.NO_CONTENT)
   async linkGoogleAccount(
     @Req() req: AuthorizedRequest,

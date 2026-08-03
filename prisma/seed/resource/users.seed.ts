@@ -1,10 +1,15 @@
 import { Prisma, User, UserRole } from '../../client/client';
 
+// Addresses seeded as pre-existing data are confirmed, matching the backfill
+// the email-confirmation migration applies to rows that predate it.
+const CONFIRMED_AT = new Date('2025-01-01T00:00:00.000Z');
+
 export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
   const john: User = {
     id: 'e181d983-3b69-4be2-864e-2a7596217ddf',
     name: 'John Doe',
     email: 'admin@example.com',
+    emailConfirmedAt: CONFIRMED_AT,
     role: UserRole.Admin,
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
@@ -21,6 +26,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     id: '721ab705-8608-4386-86b4-2f391a3655a7',
     name: 'Alice Doe',
     email: 'operations@example.com',
+    emailConfirmedAt: CONFIRMED_AT,
     role: UserRole.Operations,
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
@@ -37,6 +43,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     id: '381334df-1e3c-41f5-8513-0e2de3c1662f',
     name: 'Abby Doe',
     email: 'abby.doe@example.com',
+    emailConfirmedAt: CONFIRMED_AT,
     role: UserRole.Operations,
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
@@ -53,6 +60,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     id: '49731efd-2d37-4fcc-8221-8575cba5b722',
     name: 'Claudia Doe',
     email: 'claudia.doe@example.com',
+    emailConfirmedAt: CONFIRMED_AT,
     role: UserRole.Operations,
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
@@ -69,6 +77,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     id: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     name: 'Rick Doe',
     email: 'cabin-crew@example.com',
+    emailConfirmedAt: CONFIRMED_AT,
     role: UserRole.CabinCrew,
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
@@ -87,6 +96,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     id: '725f5df2-0c78-4fe8-89a2-52566c89cf7f',
     name: 'Alan Doe',
     email: 'alan.doe@example.com',
+    emailConfirmedAt: CONFIRMED_AT,
     role: UserRole.CabinCrew,
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
@@ -106,6 +116,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     id: '629be07f-5e65-429a-9d69-d34b99185f50',
     name: 'Michael Doe',
     email: 'michael.doe@example.com',
+    emailConfirmedAt: CONFIRMED_AT,
     role: UserRole.CabinCrew,
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
@@ -125,6 +136,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     id: '3e6903a8-f4ab-484a-98f6-c3b45d6c64bb',
     name: 'Diana Doe',
     email: 'diana.doe@example.com',
+    emailConfirmedAt: CONFIRMED_AT,
     role: UserRole.Operations,
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
@@ -137,10 +149,12 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportUpdatedAt: null,
   };
 
+  // Address was never proven — the unconfirmed fixture
   const emma: User = {
     id: 'c341231b-7aa0-47a1-ad23-636cbd959442',
     name: 'Emma Doe',
     email: 'emma.doe@example.com',
+    emailConfirmedAt: null,
     role: UserRole.Operations,
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
@@ -148,6 +162,23 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     pilotLicenseId: null,
     currentFlightId: null,
     simbriefUserId: '333444',
+    homeAirportId: null,
+    lastAirportId: null,
+    lastAirportUpdatedAt: null,
+  };
+
+  // Signs in with Google only — no password to verify, reset or change
+  const grace: User = {
+    id: '59bd52f0-6523-4a04-b1f7-96098db05fd0',
+    name: 'Grace Doe',
+    email: 'grace.doe@example.com',
+    emailConfirmedAt: CONFIRMED_AT,
+    role: UserRole.Operations,
+    password: null,
+    googleId: '117645320198734512096',
+    pilotLicenseId: null,
+    currentFlightId: null,
+    simbriefUserId: null,
     homeAirportId: null,
     lastAirportId: null,
     lastAirportUpdatedAt: null,
@@ -163,6 +194,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     michael,
     diana,
     emma,
+    grace,
   ]) {
     await tx.user.create({ data: user });
   }

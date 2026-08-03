@@ -4,9 +4,9 @@ import { UpdateUserDto } from '../../http/request/update-user.dto';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import {
-  GetOwnUserDto,
   GetUserDto,
   ListUsersFilters,
+  OwnUserRecord,
   PilotDto,
 } from '../../http/request/get-user.dto';
 import { User } from '../../../../../../prisma/client/client';
@@ -14,6 +14,8 @@ import { UserRole } from '../../../model/user-role';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
 import { CACHE_KEYS, cacheByUser } from '../../../../../core/cache/cache.key';
+import { normalizeEmail } from '../../../../../core/utils/email';
+import { EmailAlreadyInUseError } from '../../../model/error/user-email.error';
 import {
   CabinCrewMustHaveHomeAirportError,
   GoogleAccountLinkedToAnotherUserError,
@@ -31,6 +33,14 @@ import {
 // small to bound staleness rather than acting as the primary cache lifetime.
 const PILOT_CARD_TTL_MS = 1000;
 
+function isUniqueConstraintViolation(error: unknown): boolean {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    (error as { code?: string }).code === 'P2002'
+  );
+}
+
 @Injectable()
 export class UsersRepository {
   BCRYPT_SALT_ROUNDS = 12;
@@ -41,9 +51,8 @@ export class UsersRepository {
   ) {}
 
   async create(id: string, data: CreateUserDto): Promise<void> {
-    const userWithSameEmail = await this.findOneBy({
-      email: data.email,
-    });
+    const email = normalizeEmail(data.email);
+    const userWithSameEmail = await this.findOneByEmail(email);
 
     if (userWithSameEmail) {
       throw new UserEmailAlreadyExistsError();
@@ -70,6 +79,7 @@ export class UsersRepository {
       data: {
         id,
         ...data,
+        email,
         currentFlightId: null,
         password: hashedPassword,
         lastAirportId: data.homeAirportId ?? null,
@@ -96,7 +106,7 @@ export class UsersRepository {
     return this.returnWithoutPassword(user);
   }
 
-  async findOwnById(id: string): Promise<GetOwnUserDto> {
+  async findOwnById(id: string): Promise<OwnUserRecord> {
     const user: User | null = await this.findOneBy({ id });
 
     if (!user) {
@@ -106,6 +116,7 @@ export class UsersRepository {
     return {
       ...this.returnWithoutPassword(user),
       simbriefUserId: user.simbriefUserId,
+      emailConfirmedAt: user.emailConfirmedAt,
     };
   }
 
@@ -144,7 +155,7 @@ export class UsersRepository {
     email: string,
     password: string,
   ): Promise<GetUserDto | null> {
-    const user = await this.findOneBy({ email });
+    const user = await this.findOneByEmail(email);
 
     if (!user || user.password === null) {
       return null;
@@ -153,6 +164,12 @@ export class UsersRepository {
     const isMatch = await bcrypt.compare(password, user.password);
 
     return !isMatch ? null : this.returnWithoutPassword(user);
+  }
+
+  async findByEmail(email: string): Promise<GetUserDto | null> {
+    const user = await this.findOneByEmail(email);
+
+    return user === null ? null : this.returnWithoutPassword(user);
   }
 
   async hasPassword(userId: string): Promise<boolean> {
@@ -182,6 +199,40 @@ export class UsersRepository {
       where: { id: userId },
       data: { password: hashedPassword },
     });
+  }
+
+  async setEmail(userId: string, email: string): Promise<void> {
+    try {
+      await this.prisma.user.update({
+        where: { id: userId },
+        data: { email: normalizeEmail(email), emailConfirmedAt: new Date() },
+      });
+    } catch (error) {
+      // Another account can claim the address between the availability check
+      // and this write; the unique index is the last word on who gets it.
+      if (isUniqueConstraintViolation(error)) {
+        throw new EmailAlreadyInUseError();
+      }
+
+      throw error;
+    }
+
+    await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, userId));
+  }
+
+  async dropOwnUserCache(userId: string): Promise<void> {
+    await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, userId));
+  }
+
+  async isEmailTaken(email: string, exceptUserId?: string): Promise<boolean> {
+    const count = await this.prisma.user.count({
+      where: {
+        email: { equals: normalizeEmail(email), mode: 'insensitive' },
+        id: exceptUserId ? { not: exceptUserId } : undefined,
+      },
+    });
+
+    return count > 0;
   }
 
   async findByGoogleId(googleId: string): Promise<GetUserDto | null> {
@@ -270,6 +321,12 @@ export class UsersRepository {
     });
 
     await this.cacheManager.del(cacheByUser(CACHE_KEYS.USER_ME, userId));
+  }
+
+  private async findOneByEmail(email: string): Promise<User | null> {
+    return this.prisma.user.findFirst({
+      where: { email: { equals: normalizeEmail(email), mode: 'insensitive' } },
+    });
   }
 
   private async findOneBy(

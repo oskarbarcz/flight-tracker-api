@@ -24,7 +24,7 @@ import { UserRole } from '../../../model/user-role';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
 import { CannotAccessOtherUsersTravelError } from '../../../model/error/user-travel.error';
 
-@ApiTags('user')
+@ApiTags('user travel')
 @Controller('/api/v1/user')
 export class CreateUserTravelAction {
   constructor(
