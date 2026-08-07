@@ -198,6 +198,7 @@ model Flight {
   loadsheets                 Json              @default("{\"final\": null, \"preliminary\": null}")
   operatorId                 String            @db.Uuid
   captainId                  String?           @db.Uuid
+  createdById                String?           @db.Uuid
   source                     FlightSource      @default(manual)
   tracking                   FlightTracking    @default(private)
   serviceType                FlightServiceType @default(passenger)
@@ -226,6 +227,7 @@ model Flight {
 
   operator                 Operator               @relation(fields: [operatorId], references: [id])
   captain                  User?                  @relation("FlightCaptain", fields: [captainId], references: [id])
+  createdBy                User?                  @relation("FlightCreatedBy", fields: [createdById], references: [id])
   aircraft                 Aircraft               @relation(fields: [aircraftId], references: [id])
   airports                 AirportsOnFlights[]
   flightEvent              FlightEvent[]
@@ -244,6 +246,8 @@ model Flight {
   rotationLeg              RotationLeg?
 
   @@index([captainId, completedAt])
+  @@index([captainId, createdAt])
+  @@index([createdById, createdAt])
   @@map("flight")
 }
 
@@ -366,6 +370,7 @@ model User {
   emergenciesReported  EmergencyDeclaration[] @relation("EmergencyReporter")
   emergenciesResolved  EmergencyDeclaration[] @relation("EmergencyResolver")
   allFlights           Flight[]               @relation("FlightCaptain")
+  createdFlights       Flight[]               @relation("FlightCreatedBy")
   delayReportsReported DelayReport[]          @relation("DelayReportReporter")
   delayReportsDecided  DelayReport[]          @relation("DelayReportDecider")
   travels              UserTravel[]

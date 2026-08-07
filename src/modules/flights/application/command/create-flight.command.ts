@@ -49,7 +49,7 @@ export class CreateFlightHandler implements ICommandHandler<CreateFlightCommand>
       throw new OperatorForAircraftNotFoundError();
     }
 
-    await this.flightsRepository.create(flightId, flightData);
+    await this.flightsRepository.create(flightId, flightData, initiatorId);
 
     this.domainEvents.emit(
       new FlightWasCreatedEvent({

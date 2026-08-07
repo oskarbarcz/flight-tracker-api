@@ -355,7 +355,61 @@ export async function loadAircraft(
     ), // DLH880 InCruise (EDDF->CDG)
   ];
 
-  for (const aircraft of [a330, a321, a319, b773, ...fleet]) {
+  const a320af: Aircraft = {
+    id: '54ae8e50-8712-40be-b4af-d22633b0956f',
+    type: 'A320',
+    registration: 'F-GKXA',
+    selcal: 'AF-KX',
+    livery: 'Air France (2021)',
+    operatorId: '3a1354c5-d9fb-428b-9f87-0e887e491f0d', // Air France
+    currentState: AircraftState.planned,
+    etopsThresholdMinutes: null,
+    baseAirportId: '79b8f884-f67d-4585-b540-36b0be7f551e', // LFPG
+    lastAirportId: null,
+    lastAirportUpdatedAt: null,
+    lastParkingPositionId: null,
+  };
+
+  const b752fi: Aircraft = {
+    id: 'fa413d0a-09f9-4864-9ee6-a5a008764765',
+    type: 'B752',
+    registration: 'TF-FIA',
+    selcal: 'FI-AB',
+    livery: 'Icelandair (2023)',
+    operatorId: 'e4ba1445-b413-49a9-b0c5-c8bd3df14b42', // Icelandair
+    currentState: AircraftState.planned,
+    etopsThresholdMinutes: 180,
+    baseAirportId: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a', // BIKF
+    lastAirportId: null,
+    lastAirportUpdatedAt: null,
+    lastParkingPositionId: null,
+  };
+
+  const b738kl: Aircraft = {
+    id: '5f8902a2-f2b2-46e9-8630-365f78ee6ff3',
+    type: 'B738',
+    registration: 'PH-BXA',
+    selcal: 'KL-BX',
+    livery: 'KLM (2022)',
+    operatorId: '7d724b05-8eb9-4e66-84cc-bb101369d1a0', // KLM
+    currentState: AircraftState.planned,
+    etopsThresholdMinutes: null,
+    baseAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
+    lastAirportId: null,
+    lastAirportUpdatedAt: null,
+    lastParkingPositionId: null,
+  };
+
+  for (const aircraft of [
+    a330,
+    a321,
+    a319,
+    b773,
+    ...fleet,
+    a320af,
+    b752fi,
+    b738kl,
+  ]) {
     await tx.aircraft.create({ data: aircraft });
   }
 }

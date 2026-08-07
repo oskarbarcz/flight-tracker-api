@@ -5720,6 +5720,144 @@ async function loadDLH500(tx: Prisma.TransactionClient): Promise<void> {
   });
 }
 
+async function loadRecentCarrierFlights(
+  tx: Prisma.TransactionClient,
+): Promise<void> {
+  const aliceDoe = '721ab705-8608-4386-86b4-2f391a3655a7';
+
+  const entries = [
+    {
+      id: 'c0e83544-cefd-41c8-9c60-aadfaaf08590',
+      flightNumber: 'KL1772',
+      callsign: 'KLM1772',
+      operatorId: '7d724b05-8eb9-4e66-84cc-bb101369d1a0',
+      aircraftId: '5f8902a2-f2b2-46e9-8630-365f78ee6ff3',
+      departureAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a',
+      arrivalAirportId: '616cbdd7-ccfc-4687-8cf6-1e7236435046',
+      createdAt: new Date('2025-02-05 08:15'),
+      offBlockTime: new Date('2025-02-06 12:35'),
+      takeoffTime: new Date('2025-02-06 12:50'),
+      arrivalTime: new Date('2025-02-06 14:10'),
+      onBlockTime: new Date('2025-02-06 14:20'),
+      greatCircleDistance: 490,
+      totalFuelBurned: 11400,
+      eventId: 'e76904c4-f176-4129-b239-9df6ae855a5c',
+    },
+    {
+      id: 'c51c6b82-c74a-4f8f-9d6b-f768124446c5',
+      flightNumber: 'FI520',
+      callsign: 'ICE520',
+      operatorId: 'e4ba1445-b413-49a9-b0c5-c8bd3df14b42',
+      aircraftId: 'fa413d0a-09f9-4864-9ee6-a5a008764765',
+      departureAirportId: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a',
+      arrivalAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a',
+      createdAt: new Date('2025-02-04 08:15'),
+      offBlockTime: new Date('2025-02-05 09:10'),
+      takeoffTime: new Date('2025-02-05 09:28'),
+      arrivalTime: new Date('2025-02-05 12:22'),
+      onBlockTime: new Date('2025-02-05 12:35'),
+      greatCircleDistance: 1450,
+      totalFuelBurned: 18600,
+      eventId: '6f2bee9e-a3bd-4f83-96fa-73f49835fd54',
+    },
+    {
+      id: '2ea90f8f-dea3-4607-9ef6-bda2840eb7c2',
+      flightNumber: 'AF1018',
+      callsign: 'AFR1018',
+      operatorId: '3a1354c5-d9fb-428b-9f87-0e887e491f0d',
+      aircraftId: '54ae8e50-8712-40be-b4af-d22633b0956f',
+      departureAirportId: '79b8f884-f67d-4585-b540-36b0be7f551e',
+      arrivalAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a',
+      createdAt: new Date('2025-02-04 08:15'),
+      offBlockTime: new Date('2025-02-05 09:30'),
+      takeoffTime: new Date('2025-02-05 09:45'),
+      arrivalTime: new Date('2025-02-05 10:35'),
+      onBlockTime: new Date('2025-02-05 10:45'),
+      greatCircleDistance: 240,
+      totalFuelBurned: 6800,
+      eventId: 'f9e74276-efef-4cf3-ab49-544fdbf5fc4b',
+    },
+  ];
+
+  for (const entry of entries) {
+    const flight = await tx.flight.create({
+      data: {
+        id: entry.id,
+        createdById: aliceDoe,
+        captainId: null,
+        flightNumber: entry.flightNumber,
+        callsign: entry.callsign,
+        atcCallsign: null,
+        status: FlightStatus.Created,
+        operatorId: entry.operatorId,
+        aircraftId: entry.aircraftId,
+        isEtops: false,
+        source: FlightSource.Manual,
+        tracking: FlightTracking.Private,
+        serviceType: FlightServiceType.Passenger,
+        createdAt: entry.createdAt,
+        greatCircleDistance: entry.greatCircleDistance,
+        totalFuelBurned: entry.totalFuelBurned,
+        timesheet: {
+          scheduled: {
+            offBlockTime: entry.offBlockTime,
+            takeoffTime: entry.takeoffTime,
+            arrivalTime: entry.arrivalTime,
+            onBlockTime: entry.onBlockTime,
+          },
+        } as Prisma.InputJsonValue,
+        loadsheets: {
+          preliminary: null,
+          final: null,
+        } as Prisma.InputJsonValue & Loadsheets,
+      },
+    });
+
+    await tx.airportsOnFlights.create({
+      data: {
+        airport: { connect: { id: entry.departureAirportId } },
+        flight: { connect: { id: flight.id } },
+        airportType: AirportType.Departure,
+      },
+    });
+
+    await tx.airportsOnFlights.create({
+      data: {
+        airport: { connect: { id: entry.arrivalAirportId } },
+        flight: { connect: { id: flight.id } },
+        airportType: AirportType.Destination,
+      },
+    });
+
+    await tx.flightEvent.create({
+      data: {
+        id: entry.eventId,
+        actorId: aliceDoe,
+        flightId: flight.id,
+        type: FlightEventType.FlightWasCreated,
+        scope: FlightEventScope.operations,
+        createdAt: entry.createdAt,
+      },
+    });
+  }
+}
+
+async function backfillFlightCreators(
+  tx: Prisma.TransactionClient,
+): Promise<void> {
+  const creations = await tx.flightEvent.findMany({
+    where: { type: FlightEventType.FlightWasCreated, actorId: { not: null } },
+    select: { flightId: true, actorId: true },
+  });
+
+  for (const creation of creations) {
+    await tx.flight.update({
+      where: { id: creation.flightId },
+      data: { createdById: creation.actorId },
+    });
+  }
+}
+
 export async function loadFlights(tx: Prisma.TransactionClient): Promise<void> {
   await loadDLH450(tx);
   await loadAAL4905(tx);
@@ -5746,4 +5884,6 @@ export async function loadFlights(tx: Prisma.TransactionClient): Promise<void> {
   await loadDLH500(tx);
   await loadDLH81(tx);
   await loadDLH880(tx);
+  await loadRecentCarrierFlights(tx);
+  await backfillFlightCreators(tx);
 }

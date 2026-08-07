@@ -6,7 +6,7 @@ import {
   OperatorGroup,
   OperatorType,
 } from '../../../model/operator.model';
-import { Prisma } from 'prisma/client/client';
+import { Prisma, Operator as PrismaOperator } from 'prisma/client/client';
 import {
   CreateOperatorRequest,
   UpdateOperatorRequest,
@@ -29,15 +29,47 @@ export class OperatorsRepository {
   async findAll(): Promise<Operator[]> {
     const operators = await this.prisma.operator.findMany();
 
-    return operators.map((operator) => ({
-      ...operator,
-      type: operator.type as OperatorType,
-      continent: operator.continent as Continent,
-      alliance: operator.alliance as OperatorAlliance | null,
-      group: operator.group as OperatorGroup | null,
-      fleetTypes: operator.fleetTypes as string[],
-      hubs: operator.hubs as string[],
-    }));
+    return operators.map((operator) => this.toDomain(operator));
+  }
+
+  async findRecentlyInvolvedWith(
+    userId: string,
+    limit: number,
+  ): Promise<Operator[]> {
+    const ranking = await this.prisma.flight.groupBy({
+      by: ['operatorId'],
+      where: { OR: [{ captainId: userId }, { createdById: userId }] },
+      _max: { createdAt: true },
+      orderBy: [{ _max: { createdAt: 'desc' } }, { operatorId: 'asc' }],
+      take: limit,
+    });
+
+    if (ranking.length === 0) {
+      return [];
+    }
+
+    const lastInvolvedAt = new Map(
+      ranking.map((entry) => [
+        entry.operatorId,
+        (entry._max.createdAt as Date).getTime(),
+      ]),
+    );
+
+    const operators = await this.prisma.operator.findMany({
+      where: { id: { in: [...lastInvolvedAt.keys()] } },
+    });
+
+    return operators
+      .sort((left, right) => {
+        const byRecency =
+          (lastInvolvedAt.get(right.id) as number) -
+          (lastInvolvedAt.get(left.id) as number);
+
+        return byRecency !== 0
+          ? byRecency
+          : left.icaoCode.localeCompare(right.icaoCode);
+      })
+      .map((operator) => this.toDomain(operator));
   }
 
   async findOneBy(
@@ -49,15 +81,7 @@ export class OperatorsRepository {
 
     if (!operator) return null;
 
-    return {
-      ...operator,
-      type: operator.type as OperatorType,
-      continent: operator.continent as Continent,
-      alliance: operator.alliance as OperatorAlliance | null,
-      group: operator.group as OperatorGroup | null,
-      fleetTypes: operator.fleetTypes as string[],
-      hubs: operator.hubs as string[],
-    };
+    return this.toDomain(operator);
   }
 
   async update(id: string, data: UpdateOperatorRequest): Promise<void> {
@@ -90,5 +114,17 @@ export class OperatorsRepository {
       where: { id: operatorId },
       data: { fleetSize, fleetTypes },
     });
+  }
+
+  private toDomain(operator: PrismaOperator): Operator {
+    return {
+      ...operator,
+      type: operator.type as OperatorType,
+      continent: operator.continent as Continent,
+      alliance: operator.alliance as OperatorAlliance | null,
+      group: operator.group as OperatorGroup | null,
+      fleetTypes: operator.fleetTypes as string[],
+      hubs: operator.hubs as string[],
+    };
   }
 }

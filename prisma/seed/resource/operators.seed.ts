@@ -128,7 +128,76 @@ export async function loadOperators(
     group: OperatorGroup.international_airlines_group,
   };
 
-  for (const operator of [condor, lufthansa, lot, american, british]) {
+  const airFrance = {
+    id: '3a1354c5-d9fb-428b-9f87-0e887e491f0d',
+    icaoCode: 'AFR',
+    iataCode: 'AF',
+    shortName: 'Air France',
+    fullName: 'Société Air France S.A.',
+    callsign: 'AIRFRANS',
+    type: OperatorType.legacy,
+    hubs: ['CDG', 'ORY'] as Prisma.InputJsonValue,
+    fleetSize: 1,
+    fleetTypes: ['A320'] as Prisma.InputJsonValue,
+    avgFleetAge: 13.4,
+    logoUrl:
+      'https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/air_france.png',
+    backgroundUrl: null,
+    continent: Continent.Europe,
+    alliance: OperatorAlliance.sky_team,
+    group: OperatorGroup.air_france_klm,
+  };
+
+  const icelandair = {
+    id: 'e4ba1445-b413-49a9-b0c5-c8bd3df14b42',
+    icaoCode: 'ICE',
+    iataCode: 'FI',
+    shortName: 'Icelandair',
+    fullName: 'Icelandair ehf.',
+    callsign: 'ICEAIR',
+    type: OperatorType.legacy,
+    hubs: ['KEF'] as Prisma.InputJsonValue,
+    fleetSize: 1,
+    fleetTypes: ['B752'] as Prisma.InputJsonValue,
+    avgFleetAge: 20.1,
+    logoUrl:
+      'https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/icelandair.png',
+    backgroundUrl: null,
+    continent: Continent.Europe,
+    alliance: null,
+    group: null,
+  };
+
+  const klm = {
+    id: '7d724b05-8eb9-4e66-84cc-bb101369d1a0',
+    icaoCode: 'KLM',
+    iataCode: 'KL',
+    shortName: 'KLM',
+    fullName: 'KLM Royal Dutch Airlines',
+    callsign: 'KLM',
+    type: OperatorType.legacy,
+    hubs: ['AMS'] as Prisma.InputJsonValue,
+    fleetSize: 1,
+    fleetTypes: ['B738'] as Prisma.InputJsonValue,
+    avgFleetAge: 11.8,
+    logoUrl:
+      'https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/klm.png',
+    backgroundUrl: null,
+    continent: Continent.Europe,
+    alliance: OperatorAlliance.sky_team,
+    group: OperatorGroup.air_france_klm,
+  };
+
+  for (const operator of [
+    condor,
+    lufthansa,
+    lot,
+    american,
+    british,
+    airFrance,
+    icelandair,
+    klm,
+  ]) {
     await tx.operator.create({ data: operator });
   }
 }

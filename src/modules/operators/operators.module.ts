@@ -14,7 +14,9 @@ import { ListAllOperatorsHandler } from './application/query/list-all-operators.
 import { CheckOperatorExistsHandler } from './application/query/check-operator-exists.query';
 import { GetOperatorByIcaoCodeHandler } from './application/query/get-operator-by-icao-code.query';
 import { AssertOperatorExistsHandler } from './application/assert/assert-operator-exists.query';
+import { ListRecentOperatorsHandler } from './application/query/list-recent-operators.query';
 import { AircraftLifecycleListener } from './application/event/external/aircraft-lifecycle.listener';
+import { FlightInvolvementListener } from './application/event/external/flight-involvement.listener';
 import { OperatorCacheListener } from './application/event/internal/operator-cache.listener';
 
 @Module({
@@ -34,9 +36,11 @@ import { OperatorCacheListener } from './application/event/internal/operator-cac
     GetOperatorByIdHandler,
     GetOperatorByIcaoCodeHandler,
     ListAllOperatorsHandler,
+    ListRecentOperatorsHandler,
     CheckOperatorExistsHandler,
     AssertOperatorExistsHandler,
     AircraftLifecycleListener,
+    FlightInvolvementListener,
     OperatorCacheListener,
   ],
 })

@@ -253,6 +253,7 @@ export class FlightsRepository {
   async create(
     flightId: string,
     flightData: CreateFlightRequest,
+    createdById: string,
   ): Promise<void> {
     if (!(await this.airportExist(flightData.departureAirportId))) {
       throw new DepartureAirportNotFoundError();
@@ -278,6 +279,7 @@ export class FlightsRepository {
     await this.prisma.flight.create({
       data: {
         id: flightId,
+        createdById,
         flightNumber: flightData.flightNumber,
         callsign: flightData.callsign,
         atcCallsign: flightData.atcCallsign,
