@@ -47,6 +47,11 @@ export enum FlightTracking {
   Disabled = 'disabled',
 }
 
+export enum FlightServiceType {
+  Passenger = 'passenger',
+  Cargo = 'cargo',
+}
+
 export class Flight {
   @ApiProperty({
     description: 'Flight unique system identifier',
@@ -162,6 +167,19 @@ export class Flight {
   @IsEnum(FlightTracking)
   @IsString()
   tracking: FlightTracking = FlightTracking.Private;
+
+  @ApiProperty({
+    description:
+      'Kind of service the flight operates <br />' +
+      '**passenger**: flight carries passengers.<br />' +
+      '**cargo**: flight carries freight only.',
+    enum: FlightServiceType,
+    example: FlightServiceType.Passenger,
+    default: FlightServiceType.Passenger,
+  })
+  @IsEnum(FlightServiceType)
+  @IsString()
+  serviceType: FlightServiceType = FlightServiceType.Passenger;
 
   @ApiProperty({
     description: 'Departure parking position unique identifier',

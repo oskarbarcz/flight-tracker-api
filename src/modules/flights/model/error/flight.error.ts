@@ -172,6 +172,14 @@ export class InvalidStatusToChangeScheduleError extends UnprocessableError {
   }
 }
 
+export class InvalidStatusToChangeServiceTypeError extends UnprocessableError {
+  constructor() {
+    super(
+      'Cannot change flight service type, because flight was marked as ready.',
+    );
+  }
+}
+
 export class InvalidStatusToUpdateLoadsheetError extends UnprocessableError {
   constructor() {
     super(

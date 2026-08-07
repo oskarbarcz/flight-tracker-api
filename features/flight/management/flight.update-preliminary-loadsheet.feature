@@ -187,6 +187,7 @@ Feature: Update flight preliminary loadsheet
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
+        "serviceType": "passenger",
         "createdAt": "2025-01-01T00:00:00.000Z",
         "pilot": null
       }
@@ -420,6 +421,7 @@ Feature: Update flight preliminary loadsheet
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
+        "serviceType": "passenger",
         "createdAt": "2025-01-01T00:00:00.000Z",
         "pilot": null
       }

@@ -1,4 +1,5 @@
 import {
+  FlightServiceType,
   FlightSource,
   FlightStatus,
   FlightTracking,
@@ -68,6 +69,7 @@ export class GetFlightHandler implements IQueryHandler<GetFlightQuery> {
       arrivalRunwayId: flight.arrivalRunwayId,
       source: flight.source as FlightSource,
       tracking: flight.tracking as FlightTracking,
+      serviceType: flight.serviceType as FlightServiceType,
       pilot: await this.resolvePilot(captainId),
     };
   }

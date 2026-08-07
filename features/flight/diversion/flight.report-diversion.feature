@@ -237,6 +237,7 @@ Feature: Report a flight diversion
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
+        "serviceType": "passenger",
         "createdAt": "2025-01-01T00:00:00.000Z",
         "pilot": {
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -579,6 +580,7 @@ Feature: Report a flight diversion
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
+        "serviceType": "passenger",
         "createdAt": "2025-01-01T00:00:00.000Z",
         "pilot": {
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",

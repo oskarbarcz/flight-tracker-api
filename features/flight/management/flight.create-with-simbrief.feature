@@ -231,6 +231,7 @@ Feature: Create a flight with Simbrief
         "actualFuelBurned": null,
         "source": "simbrief",
         "tracking": "private",
+        "serviceType": "passenger",
         "createdAt": "@date('within 1 minute from now')",
         "pilot": null
       }
@@ -476,6 +477,7 @@ Feature: Create a flight with Simbrief
         "actualFuelBurned": null,
         "source": "simbrief",
         "tracking": "private",
+        "serviceType": "passenger",
         "createdAt": "@date('within 1 minute from now')",
         "pilot": null
       }
@@ -675,6 +677,7 @@ Feature: Create a flight with Simbrief
         "actualFuelBurned": null,
         "source": "simbrief",
         "tracking": "private",
+        "serviceType": "passenger",
         "createdAt": "@date('within 1 minute from now')",
         "pilot": null
       }

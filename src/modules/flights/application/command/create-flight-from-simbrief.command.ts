@@ -14,7 +14,7 @@ import { SimbriefClient } from '../../../../core/provider/simbrief/client/simbri
 import { ImportAirportByIcaoCommand } from '../../../airports/application/command/import-airport-by-icao.command';
 import { GetAircraftByRegistrationQuery } from '../../../aircraft/application/query/get-aircraft-by-registration.query';
 import { GetOperatorByIcaoCodeQuery } from '../../../operators/application/query/get-operator-by-icao-code.query';
-import { FlightTracking } from '../../model/flight.model';
+import { FlightServiceType, FlightTracking } from '../../model/flight.model';
 import {
   AlternateAirportRequest,
   CreateFlightRequest,
@@ -102,6 +102,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       operatorId: operator.id,
       departureAirportId: departureAirportId,
       tracking: FlightTracking.Private,
+      serviceType: this.deriveServiceType(ofp),
       destinationAirportId: destinationAirportId,
       timesheet: {
         scheduled: {
@@ -339,5 +340,23 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
 
   private ofpTimeToDate(input: string): Date {
     return new Date(Number(input) * 1000);
+  }
+
+  private deriveServiceType(ofp: OperationalFlightPlan): FlightServiceType {
+    const reported = ofp.weights.pax_count?.trim();
+
+    if (!reported) {
+      return FlightServiceType.Passenger;
+    }
+
+    const passengers = Number(reported);
+
+    if (!Number.isFinite(passengers)) {
+      return FlightServiceType.Passenger;
+    }
+
+    return passengers === 0
+      ? FlightServiceType.Cargo
+      : FlightServiceType.Passenger;
   }
 }

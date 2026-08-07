@@ -1,4 +1,5 @@
 import {
+  FlightServiceType,
   FlightSource,
   FlightStatus,
   FlightTracking,
@@ -3104,6 +3105,7 @@ async function loadAAL4916(tx: Prisma.TransactionClient): Promise<void> {
  * AAL4917 | d085c107-308d-48e6-9c93-beca6552a8a3
  * Boston Logan Intl (KBOS) -> Philadelphia Intl (KPHL)
  * status: Closed
+ * serviceType: Cargo
  */
 async function loadAAL4917(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
@@ -3119,6 +3121,7 @@ async function loadAAL4917(tx: Prisma.TransactionClient): Promise<void> {
     captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     status: FlightStatus.Closed,
     tracking: FlightTracking.Public,
+    serviceType: FlightServiceType.Cargo,
     aircraftId: '30a0d850-5440-436d-95a2-fa8fdc79f715', // N728AN B77W
     operatorId: '1f630d38-ad24-47cc-950b-3783e71bbd10', // American Airlines
     timesheet: {
