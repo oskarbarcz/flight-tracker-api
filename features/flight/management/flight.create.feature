@@ -158,6 +158,178 @@ Feature: Create a flight
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "private",
+        "serviceType": "passenger",
+        "createdAt": "@date('within 1 minute from now')",
+        "pilot": null
+      }
+      """
+    When I send a "GET" request to "/api/v1/operator/1f630d38-ad24-47cc-950b-3783e71bbd10/aircraft/a10c21e3-3ac1-4265-9d12-da9baefa2d98"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "airframe": {
+          "type": "B77W",
+          "name": "Boeing 777-300ER",
+          "cruiseSpeed": { "value": 0.84, "unit": "mach" },
+          "serviceCeiling": 43000,
+          "performanceCode": "D",
+          "weightCategory": "heavy"
+        },
+        "livery": "Team USA (2023)",
+        "registration": "N78881",
+        "selcal": "KY-JO",
+        "currentState": "planned",
+        "etopsThresholdMinutes": 180,
+        "baseAirport": {
+          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "iataCode": "JFK",
+          "name": "New York JFK",
+          "city": "New York",
+          "country": "United States of America",
+          "location": "@coordinates"
+        },
+        "lastAirport": {
+          "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+          "iataCode": "JFK",
+          "name": "New York JFK",
+          "city": "New York",
+          "country": "United States of America",
+          "location": "@coordinates"
+        },
+        "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
+        "lastParkingPosition": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I can create a cargo flight
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/" with body:
+      """json
+      {
+        "flightNumber": "DLH990",
+        "callsign": "DLH990",
+        "isEtops": true,
+        "aircraftId": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+        "departureAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "destinationAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "operatorId": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+        "serviceType": "cargo",
+        "timesheet": {
+          "scheduled": {
+            "offBlockTime": "2025-01-01 12:00",
+            "takeoffTime": "2025-01-01 12:15",
+            "arrivalTime": "2025-01-01 21:00",
+            "onBlockTime": "2025-01-01 21:10"
+          }
+        },
+        "loadsheets": {
+          "preliminary": null
+        }
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "flightNumber": "DLH990",
+        "callsign": "DLH990",
+        "atcCallsign": null,
+        "isEtops": true,
+        "status": "created",
+        "timesheet": {
+          "scheduled": {
+            "arrivalTime": "2025-01-01T21:00:00.000Z",
+            "onBlockTime": "2025-01-01T21:10:00.000Z",
+            "takeoffTime": "2025-01-01T12:15:00.000Z",
+            "offBlockTime": "2025-01-01T12:00:00.000Z"
+          }
+        },
+        "loadsheets": {
+          "preliminary": null,
+          "final": null
+        },
+        "aircraft": {
+          "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
+          "airframe": {
+            "type": "B77W",
+            "name": "Boeing 777-300ER",
+            "cruiseSpeed": { "value": 0.84, "unit": "mach" },
+            "serviceCeiling": 43000,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
+          "registration": "N78881",
+          "selcal": "KY-JO",
+          "livery": "Team USA (2023)",
+          "operator": {
+            "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+            "icaoCode": "AAL",
+            "iataCode": "AA",
+            "shortName": "American Airlines",
+            "fullName": "American Airlines, Inc.",
+            "callsign": "AMERICAN"
+          }
+        },
+        "operator": {
+          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+          "icaoCode": "AAL",
+          "iataCode": "AA",
+          "shortName": "American Airlines",
+          "fullName": "American Airlines, Inc.",
+          "callsign": "AMERICAN"
+        },
+        "airports": [
+          {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "city": "Frankfurt",
+            "name": "Frankfurt Rhein/Main",
+            "country": "Germany",
+            "timezone": "Europe/Berlin",
+            "continent": "europe",
+            "dataQuality": "low",
+            "location": {
+              "longitude": 8.57397,
+              "latitude": 50.04693
+            },
+            "type": "departure",
+            "shape": "@coordinates"
+          },
+          {
+            "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+            "icaoCode": "KJFK",
+            "iataCode": "JFK",
+            "city": "New York",
+            "name": "New York JFK",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "dataQuality": "low",
+            "location": {
+              "longitude": -73.7781,
+              "latitude": 40.6413
+            },
+            "type": "destination",
+            "shape": "@coordinates"
+          }
+        ],
+        "departureParkingPositionId": null,
+        "departureRunwayId": null,
+        "arrivalParkingPositionId": null,
+        "arrivalRunwayId": null,
+        "isFlightDiverted": false,
+        "isEmergencyDeclared": false,
+        "hasFlightPath": false,
+        "isOffBlockDelayed": false,
+        "actualFuelBurned": null,
+        "source": "manual",
+        "tracking": "private",
+        "serviceType": "cargo",
         "createdAt": "@date('within 1 minute from now')",
         "pilot": null
       }
@@ -385,6 +557,7 @@ Feature: Create a flight
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "private",
+        "serviceType": "passenger",
         "createdAt": "@date('within 1 minute from now')",
         "pilot": null
       }
@@ -559,6 +732,7 @@ Feature: Create a flight
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "private",
+        "serviceType": "passenger",
         "createdAt": "@date('within 1 minute from now')",
         "pilot": null
       }

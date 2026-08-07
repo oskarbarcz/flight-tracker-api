@@ -1,4 +1,5 @@
 import {
+  FlightServiceType,
   FlightSource,
   FlightStatus,
   FlightTracking,
@@ -76,6 +77,7 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
           ),
           source: flight.source as FlightSource,
           tracking: flight.tracking as FlightTracking,
+          serviceType: flight.serviceType as FlightServiceType,
           pilot: captainId ? (pilotsById.get(captainId) ?? null) : null,
         }),
       ),

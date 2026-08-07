@@ -181,6 +181,7 @@ Feature: Update flight arrival runway
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "private",
+        "serviceType": "passenger",
         "createdAt": "2025-01-01T00:00:00.000Z",
         "pilot": null
       }

@@ -4,6 +4,7 @@ import {
   FlightOfpDetails,
   FlightPathElement,
   FlightPhase,
+  FlightServiceType,
   FlightSource,
   FlightStatus,
   FlightTracking,
@@ -47,6 +48,7 @@ export const flightWithAircraftAndAirportsFields = {
   captainId: true,
   source: true,
   tracking: true,
+  serviceType: true,
   createdAt: true,
   departureParkingPositionId: true,
   departureRunwayId: true,
@@ -283,6 +285,7 @@ export class FlightsRepository {
         isEtops: flightData.isEtops,
         operatorId: flightData.operatorId,
         tracking: flightData.tracking,
+        serviceType: flightData.serviceType,
         status: FlightStatus.Created,
         timesheet: JSON.parse(JSON.stringify(flightData.timesheet)),
         loadsheets: JSON.parse(JSON.stringify(loadsheets)),
@@ -601,6 +604,16 @@ export class FlightsRepository {
     await this.prisma.flight.update({
       where: { id },
       data: { tracking: visibility },
+    });
+  }
+
+  async updateServiceType(
+    id: string,
+    serviceType: FlightServiceType,
+  ): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id },
+      data: { serviceType },
     });
   }
 

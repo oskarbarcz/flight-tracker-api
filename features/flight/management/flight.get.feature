@@ -153,6 +153,7 @@ Feature: Get flight
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "private",
+        "serviceType": "passenger",
         "createdAt": "2025-01-01T00:00:00.000Z",
         "pilot": null
       }
@@ -358,6 +359,7 @@ Feature: Get flight
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "public",
+        "serviceType": "passenger",
         "createdAt": "2025-01-01T00:00:00.000Z",
         "pilot": {
           "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
@@ -391,5 +393,200 @@ Feature: Get flight
         "message": "Validation failed (uuid v 4 is expected)",
         "error": "Bad Request",
         "statusCode": 400
+      }
+      """
+
+  Scenario: As a cabin crew I can get a cargo flight
+    Given I am signed in as "cabin crew"
+    When I send a "GET" request to "/api/v1/flight/d085c107-308d-48e6-9c93-beca6552a8a3"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "d085c107-308d-48e6-9c93-beca6552a8a3",
+        "flightNumber": "AA4917",
+        "callsign": "AAL4917",
+        "atcCallsign": "AAL17J",
+        "isEtops": false,
+        "status": "closed",
+        "timesheet": {
+          "scheduled": {
+            "offBlockTime": "2025-01-01T13:00:00.000Z",
+            "takeoffTime": "2025-01-01T13:15:00.000Z",
+            "arrivalTime": "2025-01-01T16:00:00.000Z",
+            "onBlockTime": "2025-01-01T16:18:00.000Z"
+          },
+          "estimated": {
+            "offBlockTime": "2025-01-01T13:00:00.000Z",
+            "takeoffTime": "2025-01-01T13:15:00.000Z",
+            "arrivalTime": "2025-01-01T15:50:00.000Z",
+            "onBlockTime": "2025-01-01T16:08:00.000Z"
+          },
+          "actual": {
+            "offBlockTime": "2025-01-01T13:10:00.000Z",
+            "takeoffTime": "2025-01-01T13:25:00.000Z",
+            "arrivalTime": "2025-01-01T16:10:00.000Z",
+            "onBlockTime": "2025-01-01T16:28:00.000Z"
+          }
+        },
+        "loadsheets": {
+          "final": {
+            "fuel": {
+              "atc": 0,
+              "mel": 0,
+              "wxx": 0,
+              "taxi": 0.3,
+              "trip": 9.6,
+              "block": 11.9,
+              "extra": 0,
+              "reserve": 0.6,
+              "alternate": 0.9,
+              "tankering": 0,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.5
+            },
+            "cargo": 8.9,
+            "payload": 28.3,
+            "blockFuel": 11.9,
+            "flightCrew": {
+              "pilots": 2,
+              "cabinCrew": 6,
+              "reliefPilots": 0
+            },
+            "passengers": 366,
+            "zeroFuelWeight": 202.9
+          },
+          "preliminary": {
+            "fuel": {
+              "atc": 0,
+              "mel": 0,
+              "wxx": 0,
+              "taxi": 0.3,
+              "trip": 10.4,
+              "block": 12.7,
+              "extra": 0,
+              "reserve": 0.6,
+              "alternate": 0.9,
+              "tankering": 0,
+              "contingencyType": "5%",
+              "contingencyAmount": 0.5
+            },
+            "cargo": 8.5,
+            "payload": 40.3,
+            "blockFuel": 12.7,
+            "flightCrew": {
+              "pilots": 2,
+              "cabinCrew": 6,
+              "reliefPilots": 0
+            },
+            "passengers": 370,
+            "zeroFuelWeight": 208.9
+          }
+        },
+        "source": "manual",
+        "tracking": "public",
+        "serviceType": "cargo",
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "departureParkingPositionId": null,
+        "departureRunwayId": "08a1d5f0-fbfb-4272-9cc4-6821506fe308",
+        "arrivalParkingPositionId": null,
+        "arrivalRunwayId": null,
+        "isEmergencyDeclared": false,
+        "operator": {
+          "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+          "icaoCode": "AAL",
+          "iataCode": "AA",
+          "shortName": "American Airlines",
+          "fullName": "American Airlines, Inc.",
+          "callsign": "AMERICAN"
+        },
+        "aircraft": {
+          "id": "30a0d850-5440-436d-95a2-fa8fdc79f715",
+          "airframe": {
+            "type": "B77W",
+            "name": "Boeing 777-300ER",
+            "cruiseSpeed": {
+              "value": 0.84,
+              "unit": "mach"
+            },
+            "serviceCeiling": 43000,
+            "performanceCode": "D",
+            "weightCategory": "heavy"
+          },
+          "registration": "N728AN",
+          "selcal": "AC-DE",
+          "livery": "Stand Up To Cancer (2023)",
+          "operator": {
+            "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",
+            "icaoCode": "AAL",
+            "iataCode": "AA",
+            "shortName": "American Airlines",
+            "fullName": "American Airlines, Inc.",
+            "callsign": "AMERICAN"
+          }
+        },
+        "airports": [
+          {
+            "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+            "icaoCode": "KBOS",
+            "iataCode": "BOS",
+            "city": "Boston",
+            "name": "Boston Logan Intl",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "dataQuality": "low",
+            "location": {
+              "latitude": 42.36454,
+              "longitude": -71.01663
+            },
+            "shape": "@coordinates",
+            "type": "departure"
+          },
+          {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "icaoCode": "KPHL",
+            "iataCode": "PHL",
+            "city": "Philadelphia",
+            "name": "Philadelphia Intl",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "dataQuality": "low",
+            "location": {
+              "latitude": 39.87113,
+              "longitude": -75.24349
+            },
+            "shape": "@coordinates",
+            "type": "destination"
+          },
+          {
+            "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+            "icaoCode": "KJFK",
+            "iataCode": "JFK",
+            "city": "New York",
+            "name": "New York JFK",
+            "country": "United States of America",
+            "timezone": "America/New_York",
+            "continent": "north_america",
+            "dataQuality": "low",
+            "location": {
+              "latitude": 40.6413,
+              "longitude": -73.7781
+            },
+            "shape": "@coordinates",
+            "type": "destination_alternate"
+          }
+        ],
+        "isFlightDiverted": false,
+        "hasFlightPath": true,
+        "isOffBlockDelayed": false,
+        "actualFuelBurned": null,
+        "pilot": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe",
+          "pilotLicenseId": "UK-31270",
+          "totalFlightTime": 2391
+        }
       }
       """

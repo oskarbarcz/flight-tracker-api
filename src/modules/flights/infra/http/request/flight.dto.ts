@@ -1,5 +1,5 @@
 import { ScheduledTimesheet } from '../../../model/timesheet.model';
-import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
+import { ApiProperty, OmitType, PartialType, PickType } from '@nestjs/swagger';
 import {
   IsArray,
   IsDate,
@@ -162,6 +162,10 @@ export class FlightListFilters {
 export class UpdateFlightVisibilityRequest extends PickType(Flight, [
   'tracking',
 ]) {}
+
+export class UpdateFlightRequest extends PartialType(
+  PickType(Flight, ['serviceType']),
+) {}
 
 export class UpdateDepartureParkingPositionRequest {
   @ApiProperty({

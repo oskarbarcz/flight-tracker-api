@@ -180,6 +180,7 @@ Feature: Change flight visibility
         "actualFuelBurned": null,
         "source": "manual",
         "tracking": "disabled",
+        "serviceType": "passenger",
         "createdAt": "2025-01-01T00:00:00.000Z",
         "pilot": null
       }
