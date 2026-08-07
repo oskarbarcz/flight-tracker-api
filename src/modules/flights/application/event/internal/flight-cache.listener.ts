@@ -34,6 +34,7 @@ export class FlightCacheListener {
   @OnEvent(FlightEventType.OffboardingWasStarted)
   @OnEvent(FlightEventType.OffboardingWasFinished)
   @OnEvent(FlightEventType.FlightWasClosed)
+  @OnEvent(FlightEventType.LivePositionReceived)
   @OnEvent(FlightEventType.EmergencyWasDeclared)
   @OnEvent(FlightEventType.EmergencyWasUpdated)
   @OnEvent(FlightEventType.EmergencyWasResolved)
