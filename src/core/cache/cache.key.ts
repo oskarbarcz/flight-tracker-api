@@ -8,6 +8,7 @@ export const CACHE_KEYS = {
   STATS_ACTIVITY: 'stats-activity',
   USER_ME: 'user-me',
   OPERATORS_LIST: 'operators:list',
+  OPERATORS_LIST_RECENT: 'operators:list:recent',
   AIRFRAMES_LIST: 'airframes:list',
   PILOT_CARD: 'pilot-card',
 };
@@ -26,11 +27,16 @@ export const CACHE_TTL_MS = {
   OFP: 86_400_000,
   AIRFRAMES: 86_400_000,
   STATS_ACTIVITY: 60_000,
+  OPERATORS_LIST_RECENT: 60_000,
 };
 
 export function cacheByUser(key: string, userId: string): string {
   const prefix = USER_REQUEST_CACHE_PREFIX.replace('{id}', userId);
   return `${prefix}${key}`;
+}
+
+export function recentOperatorsCacheKey(userId: string): string {
+  return cacheByUser(CACHE_KEYS.OPERATORS_LIST_RECENT, userId);
 }
 
 export function userStatsCacheKeys(userId: string): string[] {

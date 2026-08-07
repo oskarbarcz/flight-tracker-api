@@ -130,7 +130,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       alternateAirports,
     } as CreateFlightRequest;
 
-    await this.flightsRepository.create(flightId, flightData);
+    await this.flightsRepository.create(flightId, flightData, initiatorId);
     await this.flightsRepository.updateSimbriefData(
       flightId,
       {
