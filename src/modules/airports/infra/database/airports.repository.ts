@@ -135,4 +135,17 @@ export class AirportsRepository {
 
     return count > 0;
   }
+
+  async findIdsByIcaoCodes(icaoCodes: string[]): Promise<Map<string, string>> {
+    if (icaoCodes.length === 0) {
+      return new Map();
+    }
+
+    const airports = await this.prisma.airport.findMany({
+      where: { icaoCode: { in: icaoCodes } },
+      select: { id: true, icaoCode: true },
+    });
+
+    return new Map(airports.map((airport) => [airport.icaoCode, airport.id]));
+  }
 }

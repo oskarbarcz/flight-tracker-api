@@ -49,6 +49,7 @@ model Airport {
 
   airportsOnFlights         AirportsOnFlights[]
   weather                   AirportWeather?
+  notams                    AirportNotam[]
   diversion                 Diversion[]
   terminals                 Terminal[]
   runways                   Runway[]
@@ -77,6 +78,30 @@ model AirportWeather {
   airport Airport @relation(fields: [airportId], references: [id], onDelete: Cascade)
 
   @@map("airport_weather")
+}
+
+model AirportNotam {
+  id            String    @id @default(uuid()) @db.Uuid
+  airportId     String    @db.Uuid
+  notamId       String    @db.VarChar(16)
+  dateCreated   DateTime
+  dateEffective DateTime
+  dateExpire    DateTime?
+  dateModified  DateTime
+  html          String
+  text          String
+  raw           String
+  nrc           String    @db.VarChar(8)
+  qcode         String    @db.VarChar(8)
+  qcodeCategory String
+  qcodeSubject  String
+  qcodeStatus   String
+
+  airport Airport @relation(fields: [airportId], references: [id], onDelete: Cascade)
+
+  @@unique([airportId, notamId])
+  @@index([airportId, dateExpire])
+  @@map("airport_notam")
 }
 
 model Runway {

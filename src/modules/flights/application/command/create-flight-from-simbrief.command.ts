@@ -21,8 +21,15 @@ import {
 } from '../../infra/http/request/flight.dto';
 import { AirportType } from '../../../airports/model/airport.model';
 import {
+  AirportNotamData,
+  AirportNotams,
+} from '../../../airports/model/airport-notam.model';
+import { ReplaceAirportNotamsCommand } from '../../../airports/application/command/notam/replace-airport-notams.command';
+import {
   Crew,
+  EmptyElement,
   OperationalFlightPlan,
+  SimbriefNotam,
 } from '../../../../core/provider/simbrief/type/simbrief.types';
 import { GetRunwayByDesignatorQuery } from '../../../airports/application/query/runway/get-runway-by-designator.query';
 import { FuelBreakdown } from '../../model/loadsheet.model';
@@ -35,6 +42,11 @@ import { CrewRole } from '../../../crew/model/crew.model';
 type AlternateAirportCandidate = {
   icaoCode: string;
   type: AirportType;
+};
+
+type NotamSection = {
+  icao_code?: string;
+  notam?: SimbriefNotam[] | SimbriefNotam;
 };
 
 export class CreateFlightFromSimbriefCommand {
@@ -159,6 +171,11 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     );
     await this.commandBus.execute(assignCrewCommand);
 
+    const replaceNotamsCommand = new ReplaceAirportNotamsCommand(
+      this.collectAirportNotams(ofp),
+    );
+    await this.commandBus.execute(replaceNotamsCommand);
+
     this.domainEvents.emit(
       new FlightWasCreatedEvent({
         flightId: flightId,
@@ -167,6 +184,113 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
         aircraftId: flightData.aircraftId,
       }),
     );
+  }
+
+  private collectAirportNotams(ofp: OperationalFlightPlan): AirportNotams[] {
+    const byIcaoCode = new Map<string, AirportNotamData[]>();
+
+    const register = (icaoCode: string): AirportNotamData[] => {
+      const registered = byIcaoCode.get(icaoCode) ?? [];
+      byIcaoCode.set(icaoCode, registered);
+
+      return registered;
+    };
+
+    for (const section of this.collectNotamSections(ofp)) {
+      const sectionIcaoCode = this.readOfpText(section.icao_code);
+
+      if (sectionIcaoCode.length > 0) {
+        register(sectionIcaoCode);
+      }
+
+      for (const record of this.toOfpArray(section.notam)) {
+        if (this.readOfpText(record.location_type) !== 'Airport') {
+          continue;
+        }
+
+        const icaoCode =
+          this.readOfpText(record.location_icao) || sectionIcaoCode;
+        const notam = this.toNotamData(record);
+
+        if (icaoCode.length === 0 || notam === null) {
+          continue;
+        }
+
+        register(icaoCode).push(notam);
+      }
+    }
+
+    return [...byIcaoCode].map(([icaoCode, notams]) => ({ icaoCode, notams }));
+  }
+
+  private collectNotamSections(ofp: OperationalFlightPlan): NotamSection[] {
+    return [
+      ...this.toOfpArray(ofp.origin),
+      ...this.toOfpArray(ofp.destination),
+      ...this.toOfpArray(ofp.alternate),
+      ...this.toOfpArray(ofp.takeoff_altn),
+      ...this.toOfpArray(ofp.enroute_altn),
+      ...this.toOfpArray(ofp.enroute_station),
+      ...this.toOfpArray(ofp.etops?.entry),
+      ...this.toOfpArray(ofp.etops?.exit),
+      ...this.toOfpArray(ofp.etops?.suitable_airport),
+    ];
+  }
+
+  private toNotamData(record: SimbriefNotam): AirportNotamData | null {
+    const notamId = this.readOfpText(record.notam_id);
+    const dateCreated = this.toOfpDate(record.date_created);
+    const dateEffective = this.toOfpDate(record.date_effective);
+    const dateModified = this.toOfpDate(record.date_modified);
+
+    if (
+      notamId.length === 0 ||
+      dateCreated === null ||
+      dateEffective === null ||
+      dateModified === null
+    ) {
+      return null;
+    }
+
+    return {
+      notamId,
+      dateCreated,
+      dateEffective,
+      dateExpire: this.toOfpDate(record.date_expire),
+      dateModified,
+      html: this.readOfpText(record.notam_html),
+      text: this.readOfpText(record.notam_text),
+      raw: this.readOfpText(record.notam_raw),
+      nrc: this.readOfpText(record.notam_nrc),
+      qcode: this.readOfpText(record.notam_qcode),
+      qcodeCategory: this.readOfpText(record.notam_qcode_category),
+      qcodeSubject: this.readOfpText(record.notam_qcode_subject),
+      qcodeStatus: this.readOfpText(record.notam_qcode_status),
+    };
+  }
+
+  private toOfpArray<T>(value: T | T[] | undefined | null): T[] {
+    if (value === undefined || value === null) {
+      return [];
+    }
+
+    return Array.isArray(value) ? value : [value];
+  }
+
+  private readOfpText(value: string | EmptyElement | undefined): string {
+    return typeof value === 'string' ? value : '';
+  }
+
+  private toOfpDate(value: string | EmptyElement | undefined): Date | null {
+    const text = this.readOfpText(value);
+
+    if (text.length === 0) {
+      return null;
+    }
+
+    const date = new Date(text);
+
+    return Number.isNaN(date.getTime()) ? null : date;
   }
 
   private collectCrewMembers(ofp: OperationalFlightPlan): CrewMember[] {

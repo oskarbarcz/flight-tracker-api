@@ -28,22 +28,148 @@
         },
         "origin": {
           "icao_code": "EDDF",
-          "plan_rwy": "07C"
+          "plan_rwy": "07C",
+          "notam": [
+            {
+              "source_id": "I",
+              "notam_id": "A1001/26",
+              "location_id": "EDDF",
+              "location_icao": "EDDF",
+              "location_type": "Airport",
+              "date_created": "2026-08-01T05:40:00Z",
+              "date_effective": "2026-08-01T06:00:00Z",
+              "date_expire": "2099-12-31T23:59:00Z",
+              "date_modified": "2026-08-01T05:40:00Z",
+              "notam_html": "<b>TWY N16</b> <b>CLOSED</b> BTN <b>TWY N15</b> AND <b>TWY N17</b>.",
+              "notam_text": "TWY N16 CLOSED BTN TWY N15 AND TWY N17.",
+              "notam_raw": "A1001/26 NOTAMN\n Q) EDGG/QMXLC/IV/BO /A /000/999/5002N00834E005\n A) EDDF B) 2608010600 C) 9912312359\n E) TWY N16 CLOSED BTN TWY N15 AND TWY N17.",
+              "notam_nrc": "NOTAMN",
+              "notam_qcode": "QMXLC",
+              "notam_qcode_category": "Airport",
+              "notam_qcode_subject": "Taxiway",
+              "notam_qcode_status": "Closed",
+              "notam_schedule": {},
+              "notam_is_obstacle": {}
+            },
+            {
+              "source_id": "I",
+              "notam_id": "A1002/26",
+              "location_id": "EDDF",
+              "location_icao": "EDDF",
+              "location_type": "Airport",
+              "date_created": "2026-07-20T07:45:00Z",
+              "date_effective": "2026-07-20T08:00:00Z",
+              "date_expire": {},
+              "date_modified": "2026-07-20T07:45:00Z",
+              "notam_html": "CRANE ERECTED 850M SW OF <b>ARP</b>, ELEV 512FT, MARKED AND LGTD.",
+              "notam_text": "CRANE ERECTED 850M SW OF ARP, ELEV 512FT, MARKED AND LGTD.",
+              "notam_raw": "A1002/26 NOTAMN\n Q) EDGG/QOBCE/IV/M  /AE/000/002/5002N00834E001\n A) EDDF B) 2607200800 C) PERM\n E) CRANE ERECTED 850M SW OF ARP, ELEV 512FT, MARKED AND LGTD.",
+              "notam_nrc": "NOTAMN",
+              "notam_qcode": "QOBCE",
+              "notam_qcode_category": "Airport",
+              "notam_qcode_subject": "Obstacle",
+              "notam_qcode_status": "Erected",
+              "date_expire_is_estimated": {},
+              "notam_is_obstacle": "1"
+            },
+            {
+              "source_id": "I",
+              "notam_id": "W2100/26",
+              "location_id": "EDGG",
+              "location_icao": "EDGG",
+              "location_type": "FIR",
+              "date_created": "2026-08-01T05:00:00Z",
+              "date_effective": "2026-08-01T06:00:00Z",
+              "date_expire": "2099-12-31T23:59:00Z",
+              "date_modified": "2026-08-01T05:00:00Z",
+              "notam_html": "AIRSPACE RESERVED FOR MIL EXERCISE FL245-FL460.",
+              "notam_text": "AIRSPACE RESERVED FOR MIL EXERCISE FL245-FL460.",
+              "notam_raw": "W2100/26 NOTAMN\n Q) EDGG/QRTCA/IV/BO /W /245/460/5030N00900E030\n A) EDGG B) 2608010600 C) 9912312359\n E) AIRSPACE RESERVED FOR MIL EXERCISE FL245-FL460.",
+              "notam_nrc": "NOTAMN",
+              "notam_qcode": "QRTCA",
+              "notam_qcode_category": "Airspace",
+              "notam_qcode_subject": "Temporary reserved airspace",
+              "notam_qcode_status": "Activated"
+            }
+          ]
         },
         "destination": {
           "icao_code": "KJFK",
-          "plan_rwy": "04L"
+          "plan_rwy": "04L",
+          "notam": [
+            {
+              "source_id": "I",
+              "notam_id": "A2001/26",
+              "location_id": "KJFK",
+              "location_icao": "KJFK",
+              "location_type": "Airport",
+              "date_created": "2026-08-02T03:30:00Z",
+              "date_effective": "2026-08-02T04:00:00Z",
+              "date_expire": "2099-12-31T23:59:00Z",
+              "date_modified": "2026-08-02T03:30:00Z",
+              "notam_html": "<b>RWY 04L/22R</b> <b>CLSD</b>.",
+              "notam_text": "RWY 04L/22R CLSD.",
+              "notam_raw": "A2001/26 NOTAMN\n Q) KZNY/QMRLC/IV/NBO/A /000/999/4038N07346W005\n A) KJFK B) 2608020400 C) 9912312359\n E) RWY 04L/22R CLSD.",
+              "notam_nrc": "NOTAMN",
+              "notam_qcode": "QMRLC",
+              "notam_qcode_category": "Runway",
+              "notam_qcode_subject": "Runway",
+              "notam_qcode_status": "Closed"
+            }
+          ]
         },
         "alternate": [
           {
-            "icao_code": "KBOS"
+            "icao_code": "KBOS",
+            "notam": [
+              {
+                "source_id": "I",
+                "notam_id": "A3001/26",
+                "location_id": "KBOS",
+                "location_icao": "KBOS",
+                "location_type": "Airport",
+                "date_created": "2026-08-03T04:30:00Z",
+                "date_effective": "2026-08-03T05:00:00Z",
+                "date_expire": "2099-12-31T23:59:00Z",
+                "date_modified": "2026-08-03T04:30:00Z",
+                "notam_html": "<b>ILS</b> <b>RWY 04R</b> GP UNMONITORED.",
+                "notam_text": "ILS RWY 04R GP UNMONITORED.",
+                "notam_raw": "A3001/26 NOTAMN\n Q) KZBW/QICAS/I /NBO/A /000/999/4222N07100W005\n A) KBOS B) 2608030500 C) 9912312359\n E) ILS RWY 04R GP UNMONITORED.",
+                "notam_nrc": "NOTAMN",
+                "notam_qcode": "QICAS",
+                "notam_qcode_category": "Approach Procedures",
+                "notam_qcode_subject": "Instrument landing system",
+                "notam_qcode_status": "Unserviceable"
+              }
+            ]
           },
           {
             "icao_code": "KPHL"
           }
         ],
         "enroute_altn": {
-          "icao_code": "CYYR"
+          "icao_code": "CYYR",
+          "notam": [
+            {
+              "source_id": "I",
+              "notam_id": "A4001/26",
+              "location_id": "CYYR",
+              "location_icao": "CYYR",
+              "location_type": "Airport",
+              "date_created": "2026-08-04T06:30:00Z",
+              "date_effective": "2026-08-04T07:00:00Z",
+              "date_expire": "2099-12-31T23:59:00Z",
+              "date_modified": "2026-08-04T06:30:00Z",
+              "notam_html": "<b>APRON</b> I NORTH SIDE <b>CLSD</b>.",
+              "notam_text": "APRON I NORTH SIDE CLSD.",
+              "notam_raw": "A4001/26 NOTAMN\n Q) CZQX/QMNLC/IV/BO /A /000/999/5319N06018W005\n A) CYYR B) 2608040700 C) 9912312359\n E) APRON I NORTH SIDE CLSD.",
+              "notam_nrc": "NOTAMN",
+              "notam_qcode": "QMNLC",
+              "notam_qcode_category": "Airport",
+              "notam_qcode_subject": "Apron",
+              "notam_qcode_status": "Closed"
+            }
+          ]
         },
         "etops": {
           "entry": {
@@ -51,6 +177,30 @@
           },
           "exit": {
             "icao_code": "CYYT"
+          },
+          "suitable_airport": {
+            "icao_code": "CYYR",
+            "notam": [
+              {
+                "source_id": "I",
+                "notam_id": "A4001/26",
+                "location_id": "CYYR",
+                "location_icao": "CYYR",
+                "location_type": "Airport",
+                "date_created": "2026-08-04T06:30:00Z",
+                "date_effective": "2026-08-04T07:00:00Z",
+                "date_expire": "2099-12-31T23:59:00Z",
+                "date_modified": "2026-08-04T06:30:00Z",
+                "notam_html": "<b>APRON</b> I NORTH SIDE <b>CLSD</b>.",
+                "notam_text": "APRON I NORTH SIDE CLSD.",
+                "notam_raw": "A4001/26 NOTAMN\n Q) CZQX/QMNLC/IV/BO /A /000/999/5319N06018W005\n A) CYYR B) 2608040700 C) 9912312359\n E) APRON I NORTH SIDE CLSD.",
+                "notam_nrc": "NOTAMN",
+                "notam_qcode": "QMNLC",
+                "notam_qcode_category": "Airport",
+                "notam_qcode_subject": "Apron",
+                "notam_qcode_status": "Closed"
+              }
+            ]
           }
         },
         "fuel": {
@@ -72,11 +222,31 @@
         },
         "fuel_extra": {
           "bucket": [
-            { "label": "MEL", "fuel": "0", "time": "0" },
-            { "label": "ATC", "fuel": "0", "time": "0" },
-            { "label": "WXX", "fuel": "300", "time": "0" },
-            { "label": "EXTRA", "fuel": "600", "time": "0" },
-            { "label": "TANKERING", "fuel": "0", "time": "0" }
+            {
+              "label": "MEL",
+              "fuel": "0",
+              "time": "0"
+            },
+            {
+              "label": "ATC",
+              "fuel": "0",
+              "time": "0"
+            },
+            {
+              "label": "WXX",
+              "fuel": "300",
+              "time": "0"
+            },
+            {
+              "label": "EXTRA",
+              "fuel": "600",
+              "time": "0"
+            },
+            {
+              "label": "TANKERING",
+              "fuel": "0",
+              "time": "0"
+            }
           ]
         },
         "aircraft": {
@@ -180,11 +350,31 @@
         },
         "fuel_extra": {
           "bucket": [
-            { "label": "MEL", "fuel": "0", "time": "0" },
-            { "label": "ATC", "fuel": "0", "time": "0" },
-            { "label": "WXX", "fuel": "300", "time": "0" },
-            { "label": "EXTRA", "fuel": "600", "time": "0" },
-            { "label": "TANKERING", "fuel": "0", "time": "0" }
+            {
+              "label": "MEL",
+              "fuel": "0",
+              "time": "0"
+            },
+            {
+              "label": "ATC",
+              "fuel": "0",
+              "time": "0"
+            },
+            {
+              "label": "WXX",
+              "fuel": "300",
+              "time": "0"
+            },
+            {
+              "label": "EXTRA",
+              "fuel": "600",
+              "time": "0"
+            },
+            {
+              "label": "TANKERING",
+              "fuel": "0",
+              "time": "0"
+            }
           ]
         },
         "aircraft": {
@@ -281,11 +471,31 @@
         },
         "fuel_extra": {
           "bucket": [
-            { "label": "MEL", "fuel": "0", "time": "0" },
-            { "label": "ATC", "fuel": "0", "time": "0" },
-            { "label": "WXX", "fuel": "300", "time": "0" },
-            { "label": "EXTRA", "fuel": "600", "time": "0" },
-            { "label": "TANKERING", "fuel": "0", "time": "0" }
+            {
+              "label": "MEL",
+              "fuel": "0",
+              "time": "0"
+            },
+            {
+              "label": "ATC",
+              "fuel": "0",
+              "time": "0"
+            },
+            {
+              "label": "WXX",
+              "fuel": "300",
+              "time": "0"
+            },
+            {
+              "label": "EXTRA",
+              "fuel": "600",
+              "time": "0"
+            },
+            {
+              "label": "TANKERING",
+              "fuel": "0",
+              "time": "0"
+            }
           ]
         },
         "aircraft": {
@@ -390,11 +600,31 @@
         },
         "fuel_extra": {
           "bucket": [
-            { "label": "MEL", "fuel": "0", "time": "0" },
-            { "label": "ATC", "fuel": "0", "time": "0" },
-            { "label": "WXX", "fuel": "300", "time": "0" },
-            { "label": "EXTRA", "fuel": "600", "time": "0" },
-            { "label": "TANKERING", "fuel": "0", "time": "0" }
+            {
+              "label": "MEL",
+              "fuel": "0",
+              "time": "0"
+            },
+            {
+              "label": "ATC",
+              "fuel": "0",
+              "time": "0"
+            },
+            {
+              "label": "WXX",
+              "fuel": "300",
+              "time": "0"
+            },
+            {
+              "label": "EXTRA",
+              "fuel": "600",
+              "time": "0"
+            },
+            {
+              "label": "TANKERING",
+              "fuel": "0",
+              "time": "0"
+            }
           ]
         },
         "aircraft": {
@@ -499,11 +729,31 @@
         },
         "fuel_extra": {
           "bucket": [
-            { "label": "MEL", "fuel": "0", "time": "0" },
-            { "label": "ATC", "fuel": "0", "time": "0" },
-            { "label": "WXX", "fuel": "300", "time": "0" },
-            { "label": "EXTRA", "fuel": "600", "time": "0" },
-            { "label": "TANKERING", "fuel": "0", "time": "0" }
+            {
+              "label": "MEL",
+              "fuel": "0",
+              "time": "0"
+            },
+            {
+              "label": "ATC",
+              "fuel": "0",
+              "time": "0"
+            },
+            {
+              "label": "WXX",
+              "fuel": "300",
+              "time": "0"
+            },
+            {
+              "label": "EXTRA",
+              "fuel": "600",
+              "time": "0"
+            },
+            {
+              "label": "TANKERING",
+              "fuel": "0",
+              "time": "0"
+            }
           ]
         },
         "aircraft": {
