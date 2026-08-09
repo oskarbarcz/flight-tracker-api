@@ -15,7 +15,8 @@ Feature: List aircraft
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "Fanhansa (2024)",
           "registration": "D-AIMC",
@@ -42,7 +43,8 @@ Feature: List aircraft
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "Star Alliance (2023)",
           "registration": "D-AIMD",
@@ -80,7 +82,8 @@ Feature: List aircraft
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "Lovehansa (2024)",
           "registration": "D-AIME",
@@ -118,7 +121,8 @@ Feature: List aircraft
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "New Livery (2018)",
           "registration": "D-AIMF",
@@ -152,7 +156,8 @@ Feature: List aircraft
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "Retro 1970s (2022)",
           "registration": "D-AIMG",
@@ -186,7 +191,8 @@ Feature: List aircraft
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "Siegerflieger (2023)",
           "registration": "D-AIMH",
@@ -220,7 +226,8 @@ Feature: List aircraft
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "Cheers to 70 Years (2025)",
           "registration": "D-AIMK",
@@ -254,7 +261,8 @@ Feature: List aircraft
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "Munich (2024)",
           "registration": "D-AIML",

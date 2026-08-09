@@ -132,7 +132,8 @@ Feature: Report arrival
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N724AN",
           "selcal": "AB-DG",

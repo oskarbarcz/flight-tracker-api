@@ -119,7 +119,8 @@ Feature: Check in pilot for flight
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N78881",
           "selcal": "KY-JO",
@@ -429,7 +430,8 @@ Feature: Check in pilot for flight
           "cruiseSpeed": { "value": 0.84, "unit": "mach" },
           "serviceCeiling": 43000,
           "performanceCode": "D",
-          "weightCategory": "heavy"
+          "weightCategory": "heavy",
+          "serviceType": "passenger"
         },
         "livery": "Team USA (2023)",
         "registration": "N78881",
@@ -475,7 +477,8 @@ Feature: Check in pilot for flight
             },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "Team USA (2023)",
           "operator": {
@@ -511,7 +514,8 @@ Feature: Check in pilot for flight
             },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "Retro 1970s (2022)",
           "operator": {
@@ -547,7 +551,8 @@ Feature: Check in pilot for flight
             },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "New Livery (2018)",
           "operator": {
@@ -583,7 +588,8 @@ Feature: Check in pilot for flight
             },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "Oneworld (2023)",
           "operator": {

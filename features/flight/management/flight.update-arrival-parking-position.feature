@@ -77,7 +77,8 @@ Feature: Update flight arrival parking position
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "D-AIME",
           "selcal": "BD-EG",

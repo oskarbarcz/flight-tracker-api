@@ -31,6 +31,12 @@ export enum WeightCategory {
   Super = 'super',
 }
 
+export enum AirframeServiceType {
+  Passenger = 'passenger',
+  Cargo = 'cargo',
+  Both = 'both',
+}
+
 export class CruiseSpeed {
   @ApiProperty({
     description:
@@ -98,4 +104,13 @@ export class Airframe {
   })
   @IsIn(Object.values(WeightCategory))
   weightCategory!: WeightCategory;
+
+  @ApiProperty({
+    description:
+      'Service the airframe is built for. Freighter-only airframes are cargo, airframes with a factory cargo or combi role next to a passenger one are both, everything else is passenger.',
+    enum: AirframeServiceType,
+    example: AirframeServiceType.Passenger,
+  })
+  @IsEnum(AirframeServiceType)
+  serviceType!: AirframeServiceType;
 }

@@ -45,7 +45,8 @@ Feature: Create aircraft for operator
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
           "performanceCode": "D",
-          "weightCategory": "super"
+          "weightCategory": "super",
+          "serviceType": "passenger"
         },
         "selcal": "SL-PR",
         "registration": "SP-LRA",
@@ -121,7 +122,8 @@ Feature: Create aircraft for operator
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
           "performanceCode": "D",
-          "weightCategory": "super"
+          "weightCategory": "super",
+          "serviceType": "passenger"
         },
         "selcal": "SL-PR",
         "registration": "SP-LRA",
@@ -172,7 +174,8 @@ Feature: Create aircraft for operator
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
           "performanceCode": "D",
-          "weightCategory": "super"
+          "weightCategory": "super",
+          "serviceType": "passenger"
         },
         "selcal": null,
         "registration": "SP-LRA",
@@ -223,7 +226,8 @@ Feature: Create aircraft for operator
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
           "performanceCode": "D",
-          "weightCategory": "super"
+          "weightCategory": "super",
+          "serviceType": "passenger"
         },
         "selcal": "SL-PR",
         "registration": "SP-LRA",

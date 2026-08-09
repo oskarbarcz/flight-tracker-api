@@ -14,7 +14,8 @@ Feature: Get aircraft
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
-          "weightCategory": "heavy"
+          "weightCategory": "heavy",
+          "serviceType": "passenger"
         },
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
@@ -49,7 +50,8 @@ Feature: Get aircraft
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
-          "weightCategory": "heavy"
+          "weightCategory": "heavy",
+          "serviceType": "passenger"
         },
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
@@ -84,7 +86,8 @@ Feature: Get aircraft
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
-          "weightCategory": "heavy"
+          "weightCategory": "heavy",
+          "serviceType": "passenger"
         },
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
@@ -119,7 +122,8 @@ Feature: Get aircraft
           "cruiseSpeed": { "value": 0.78, "unit": "mach" },
           "serviceCeiling": 39000,
           "performanceCode": "C",
-          "weightCategory": "medium"
+          "weightCategory": "medium",
+          "serviceType": "passenger"
         },
         "livery": "Water (2024)",
         "registration": "D-AIDK",

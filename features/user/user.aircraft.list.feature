@@ -19,7 +19,8 @@ Feature: List aircraft the current user has flown
             },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "Retro 1970s (2022)",
           "operator": {
@@ -55,7 +56,8 @@ Feature: List aircraft the current user has flown
             },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "New Livery (2018)",
           "operator": {
@@ -91,7 +93,8 @@ Feature: List aircraft the current user has flown
             },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "livery": "Oneworld (2023)",
           "operator": {

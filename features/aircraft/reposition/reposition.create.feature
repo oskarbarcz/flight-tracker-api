@@ -126,7 +126,8 @@ Feature: Reposition an aircraft
           "cruiseSpeed": { "value": 0.78, "unit": "mach" },
           "serviceCeiling": 39000,
           "performanceCode": "C",
-          "weightCategory": "medium"
+          "weightCategory": "medium",
+          "serviceType": "passenger"
         },
         "livery": "Sunshine (2024)",
         "registration": "D-AIDA",

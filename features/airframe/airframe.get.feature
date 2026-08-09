@@ -12,7 +12,8 @@ Feature: Get airframe by type
         "cruiseSpeed": { "value": 0.84, "unit": "mach" },
         "serviceCeiling": 43000,
         "performanceCode": "D",
-        "weightCategory": "heavy"
+        "weightCategory": "heavy",
+        "serviceType": "passenger"
       }
       """
 
@@ -28,7 +29,8 @@ Feature: Get airframe by type
         "cruiseSpeed": { "value": 0.8, "unit": "mach" },
         "serviceCeiling": 41400,
         "performanceCode": "D",
-        "weightCategory": "heavy"
+        "weightCategory": "heavy",
+        "serviceType": "passenger"
       }
       """
 
@@ -44,7 +46,42 @@ Feature: Get airframe by type
         "cruiseSpeed": { "value": 0.78, "unit": "mach" },
         "serviceCeiling": 39000,
         "performanceCode": "C",
-        "weightCategory": "medium"
+        "weightCategory": "medium",
+        "serviceType": "passenger"
+      }
+      """
+
+  Scenario: As operations I can get a freighter airframe
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/airframe/B77F"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "type": "B77F",
+        "name": "Boeing 777-F",
+        "cruiseSpeed": { "value": 0.84, "unit": "mach" },
+        "serviceCeiling": 43000,
+        "performanceCode": "D",
+        "weightCategory": "heavy",
+        "serviceType": "cargo"
+      }
+      """
+
+  Scenario: As operations I can get an airframe serving both roles
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/airframe/C208"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "type": "C208",
+        "name": "Cessna 208B",
+        "cruiseSpeed": { "value": 150, "unit": "knots" },
+        "serviceCeiling": 20000,
+        "performanceCode": "B",
+        "weightCategory": "light",
+        "serviceType": "both"
       }
       """
 

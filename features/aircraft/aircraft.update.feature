@@ -37,7 +37,8 @@ Feature: Update aircraft
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
-          "weightCategory": "heavy"
+          "weightCategory": "heavy",
+          "serviceType": "passenger"
         },
         "livery": "Lufthansa Classic (2024)",
         "registration": "D-AIMC",
@@ -101,7 +102,8 @@ Feature: Update aircraft
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
           "performanceCode": "D",
-          "weightCategory": "super"
+          "weightCategory": "super",
+          "serviceType": "passenger"
         },
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
@@ -142,7 +144,8 @@ Feature: Update aircraft
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
-          "weightCategory": "heavy"
+          "weightCategory": "heavy",
+          "serviceType": "passenger"
         },
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
@@ -183,7 +186,8 @@ Feature: Update aircraft
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
-          "weightCategory": "heavy"
+          "weightCategory": "heavy",
+          "serviceType": "passenger"
         },
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
@@ -224,7 +228,8 @@ Feature: Update aircraft
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
-          "weightCategory": "heavy"
+          "weightCategory": "heavy",
+          "serviceType": "passenger"
         },
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",
@@ -265,7 +270,8 @@ Feature: Update aircraft
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
           "performanceCode": "D",
-          "weightCategory": "heavy"
+          "weightCategory": "heavy",
+          "serviceType": "passenger"
         },
         "livery": "Fanhansa (2024)",
         "registration": "D-AIMC",

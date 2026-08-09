@@ -53,7 +53,8 @@ Feature: Update flight departure parking position
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "D-AIMC",
           "selcal": "LR-CK",
