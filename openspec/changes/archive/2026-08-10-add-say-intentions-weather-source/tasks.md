@@ -29,7 +29,7 @@
 - [x] 4.3 Add `AirportWeatherRepository.saveReports(airportId, source, reports: { informationType, content, lastFetched }[])`: one `$transaction` of `upsert` calls keyed on `{ airportId, source, informationType }`, so an information type the source did not publish is left untouched rather than cleared.
 - [x] 4.4 Add `AirportsRepository.listMonitored(): Promise<WeatherAirport[]>` — `where: { monitorWeather: true }`, selecting `id` and `icaoCode`. Move the `WeatherAirport` type to wherever it now belongs and keep `getIcaoCodes` available for the check-in path.
 - [x] 4.5 Add `AirportsRepository.startMonitoring(airportIds)` — `updateMany({ where: { id: { in: airportIds } }, data: { monitorWeather: true } })`.
-- [x] 4.6 Add `AirportsRepository.stopMonitoringFlightAirports(flightId)`, moving the existing `unwatchFlightAirports` body across unchanged — the flight's airport ids, minus those still referenced by another flight in `ACTIVE_FLIGHT_STATUSES` — and writing `monitorWeather: false` on `airport` instead of `watch: false` on `airport_weather`.
+- [x] 4.6 Add `AirportsRepository.stopMonitoring(airportIds)` — the passed airport ids, minus those still referenced by a flight in `ACTIVE_FLIGHT_STATUSES`, written `monitorWeather: false` on `airport`. It takes airport ids rather than a flight id so it mirrors `startMonitoring`, and needs no `flightId: { not: … }` exclusion because the reporting flight is already out of the active set when the listener runs.
 
 ## 5. Airports module — refresh
 
@@ -42,7 +42,7 @@
 ## 6. Airports module — monitoring lifecycle
 
 - [x] 6.1 Rename `WatchAirportsCommand`/`Handler` to `StartMonitoringAirportsWeatherCommand`/`Handler` (file renamed to match) and point it at `AirportsRepository.startMonitoring`.
-- [x] 6.2 Rename `UnwatchFlightAirportsCommand`/`Handler` to `StopMonitoringFlightAirportsWeatherCommand`/`Handler` and point it at `AirportsRepository.stopMonitoringFlightAirports`.
+- [x] 6.2 Rename `UnwatchFlightAirportsCommand`/`Handler` to `StopMonitoringAirportsWeatherCommand`/`Handler`, taking airport ids like its start counterpart, and point it at `AirportsRepository.stopMonitoring`. Add `airportIds` to `OnBlockWasReportedEvent`'s payload (mirroring `PilotCheckedInEventPayload`) so the listener has them.
 - [x] 6.3 Update `WeatherFlightLifecycleListener` to dispatch the renamed commands, keeping the existing `try`/`catch` around the check-in refresh so a total upstream failure cannot fail the check-in.
 - [x] 6.4 Confirm `monitorWeather` is absent from `UpdateAirportDto` and `CreateAirportDto`, so the global pipe's `forbidNonWhitelisted` rejects a client that sends it.
 

@@ -83,10 +83,13 @@ would clobber a manual pin, which needs a tri-state (`off | pinned | active-flig
 than a boolean. That is a coherent future change; it is not this one.
 
 Ownership splits along the table: `AirportsRepository` gains `listMonitored()`,
-`startMonitoring(airportIds)` and `stopMonitoringFlightAirports(flightId)`;
-`AirportWeatherRepository` keeps only report rows. The shared-active-flight rule moves with
-`stopMonitoringFlightAirports` unchanged, including its existing reach into
-`airportsOnFlights` and `flight.status`.
+`startMonitoring(airportIds)` and `stopMonitoring(airportIds)`;
+`AirportWeatherRepository` keeps only report rows. Both monitoring commands take airport ids,
+so the pair is symmetric; the on-block listener reads them off the event, which now carries
+`airportIds` the way `PilotCheckedInEvent` already did. The shared-active-flight rule keeps
+any airport still referenced by a flight in an active status, and needs no explicit exclusion
+of the reporting flight: `ReportOnBlockHandler` persists the `OnBlock` status before it emits,
+so that flight is already outside the active set by the time the listener runs.
 
 ### Two clients behind one refresh command, fanned out per source
 

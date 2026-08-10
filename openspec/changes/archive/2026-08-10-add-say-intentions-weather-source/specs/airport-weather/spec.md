@@ -12,12 +12,12 @@ same order. An airport that holds no report matching the request SHALL yield an 
 collection rather than an error; only an airport that does not exist SHALL be reported as
 missing.
 
-#### Scenario: Reports exist for the airport
+#### Scenario: Weather exists for the airport
 
 - **WHEN** an unauthenticated client requests `GET /api/v1/airport/:airportId/weather` for an airport that has stored reports
 - **THEN** the system responds `200 OK` with one entry per stored report, each carrying its identifier, source, information type, content, and last-fetched time
 
-#### Scenario: The airport holds no reports
+#### Scenario: No weather record for the airport
 
 - **WHEN** a client requests weather for an existing airport that has never had weather fetched
 - **THEN** the system responds `200 OK` with an empty collection
@@ -53,7 +53,7 @@ monitored.
 - **WHEN** the system stores a newly fetched report for an airport
 - **THEN** that report's last-fetched time is the time of the fetch
 
-#### Scenario: One report per airport, source and information type
+#### Scenario: One record per airport
 
 - **WHEN** weather is fetched for an airport that already holds a report from the same source and of the same information type
 - **THEN** the existing report is updated in place rather than a second one being created
