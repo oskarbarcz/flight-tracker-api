@@ -101,6 +101,19 @@ Given('I am signed in as {string}', async (role: ApiUserType) => {
   apiTokens.currentRole = role;
 });
 
+Given(
+  'I am signed in with Google using ID token {string}',
+  async (idToken: string) => {
+    const url = `${apiBaseUrl}/api/v1/auth/google`;
+    apiResponse = (await apiClient.post(url, {
+      idToken,
+    })) as AxiosResponse<SignInResponse>;
+
+    apiTokens.google = (apiResponse.data as SignInResponse).accessToken;
+    apiTokens.currentRole = 'google';
+  },
+);
+
 Given('I hold a refresh token as {string}', async (role: ApiUserType) => {
   const credentials = apiUsers[role];
   const url = `${apiBaseUrl}/api/v1/auth/sign-in`;
