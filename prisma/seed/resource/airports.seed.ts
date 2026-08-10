@@ -77,6 +77,7 @@ export async function loadAirports(
     country: 'Poland',
     timezone: 'Europe/Warsaw',
     continent: Continent.Europe,
+    monitorWeather: true,
     location: {
       longitude: 20.967123,
       latitude: 52.16575,

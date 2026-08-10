@@ -1,0 +1,109 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/mep/getWX",
+      "queryStringParameters": {
+        "icao": ["epwa"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "taf": "TAF EPWA 100830Z 1009/1109 17007KT CAVOK BECMG 1010/1013 26012KT",
+        "metar": "EPWA 101030Z 15009KT 130V190 CAVOK 29/12 Q1013 NOSIG",
+        "atis": "Warsaw Chopin airport, information Sierra. 1030 Zulu. Arriving runway 11. Departing runway 15. Wind 150 at 9. CAVOK. Temperature 29, dewpoint 12. QNH 1013. Transition level 80. Advise on initial contact you have information Sierra.",
+        "comms": [
+          { "freq": "120.455", "type": "ATIS", "callsign": null },
+          { "freq": "118.305", "type": "TWR", "callsign": "OKECIE" }
+        ]
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/mep/getWX",
+      "queryStringParameters": {
+        "icao": ["eddf"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "taf": "TAF EDDF 100830Z 1009/1109 24010KT 9999 FEW035 BECMG 1015/1017 27012KT",
+        "metar": "EDDF 101030Z 24008KT 9999 FEW035 22/12 Q1018 NOSIG",
+        "atis": "Frankfurt airport, information Kilo. 1030 Zulu. Arriving runway 25 left. Departing runway 18. Wind 240 at 8. Visibility 10 kilometres. Few 3500 feet. Temperature 22, dewpoint 12. QNH 1018. Transition level 70. Advise on initial contact you have information Kilo.",
+        "comms": [{ "freq": "118.025", "type": "ATIS", "callsign": null }]
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/mep/getWX",
+      "queryStringParameters": {
+        "icao": ["kjfk"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "taf": "TAF KJFK 100820Z 1009/1109 18012KT P6SM FEW050 FM110000 21008KT P6SM SCT060",
+        "metar": "KJFK 101051Z 18010KT 10SM FEW050 27/18 A2998 RMK AO2",
+        "atis": "Kennedy airport, information Bravo. 1051 Zulu. ILS runway 4 right approach in use. Departing runway 4 left. Wind 180 at 10. Visibility 10. Few 5000. Temperature 27, dewpoint 18. Altimeter 2998. Advise on initial contact you have information Bravo.",
+        "comms": [{ "freq": "128.725", "type": "ATIS", "callsign": null }]
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/mep/getWX",
+      "queryStringParameters": {
+        "icao": ["kphl"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "metar": "KPHL 101054Z 20008KT 10SM SCT045 26/17 A2999",
+        "atis": "Philadelphia airport, information Yankee. 1054 Zulu. ILS runway 27 right approach in use. Departing runway 27 left. Wind 200 at 8. Visibility 10. Scattered 4500. Temperature 26, dewpoint 17. Altimeter 2999. Advise on initial contact you have information Yankee.",
+        "comms": [{ "freq": "133.4", "type": "ATIS", "callsign": null }]
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/mep/getWX",
+      "queryStringParameters": {
+        "icao": ["kbos"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "taf": "TAF KBOS 100820Z 1009/1109 21010KT P6SM FEW040",
+        "metar": "KBOS 101054Z 21009KT 10SM FEW040 24/16 A3000",
+        "atis": "Logan airport, information Delta. 1054 Zulu. ILS runway 4 right approach in use. Departing runway 9. Wind 210 at 9. Visibility 10. Few 4000. Temperature 24, dewpoint 16. Altimeter 3000. Advise on initial contact you have information Delta.",
+        "comms": [{ "freq": "135.0", "type": "ATIS", "callsign": null }]
+      }
+    }
+  }
+]

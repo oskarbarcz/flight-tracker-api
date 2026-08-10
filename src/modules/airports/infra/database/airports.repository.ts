@@ -11,6 +11,18 @@ import {
   CreateAirportRequest,
   UpdateAirportResponse,
 } from '../http/request/airport.dto';
+import { FlightStatus } from '../../../flights/model/flight.model';
+
+export type WeatherAirport = { airportId: string; icaoCode: string };
+
+const ACTIVE_FLIGHT_STATUSES: FlightStatus[] = [
+  FlightStatus.CheckedIn,
+  FlightStatus.BoardingStarted,
+  FlightStatus.BoardingFinished,
+  FlightStatus.TaxiingOut,
+  FlightStatus.InCruise,
+  FlightStatus.TaxiingIn,
+];
 
 const selectAirport = {
   id: true,
@@ -147,5 +159,58 @@ export class AirportsRepository {
     });
 
     return new Map(airports.map((airport) => [airport.icaoCode, airport.id]));
+  }
+
+  async listMonitored(): Promise<WeatherAirport[]> {
+    const airports = await this.prisma.airport.findMany({
+      where: { monitorWeather: true },
+      select: { id: true, icaoCode: true },
+    });
+
+    return airports.map((airport) => ({
+      airportId: airport.id,
+      icaoCode: airport.icaoCode,
+    }));
+  }
+
+  async getIcaoCodes(airportIds: string[]): Promise<WeatherAirport[]> {
+    const airports = await this.prisma.airport.findMany({
+      where: { id: { in: airportIds } },
+      select: { id: true, icaoCode: true },
+    });
+
+    return airports.map((airport) => ({
+      airportId: airport.id,
+      icaoCode: airport.icaoCode,
+    }));
+  }
+
+  async startMonitoring(airportIds: string[]): Promise<void> {
+    await this.prisma.airport.updateMany({
+      where: { id: { in: airportIds } },
+      data: { monitorWeather: true },
+    });
+  }
+
+  async stopMonitoring(airportIds: string[]): Promise<void> {
+    if (airportIds.length === 0) {
+      return;
+    }
+
+    const stillReferenced = await this.prisma.airportsOnFlights.findMany({
+      where: {
+        airportId: { in: airportIds },
+        flight: { status: { in: ACTIVE_FLIGHT_STATUSES } },
+      },
+      select: { airportId: true },
+    });
+
+    const keep = new Set(stillReferenced.map((row) => row.airportId));
+    const toStop = airportIds.filter((id) => !keep.has(id));
+
+    await this.prisma.airport.updateMany({
+      where: { id: { in: toStop } },
+      data: { monitorWeather: false },
+    });
   }
 }
