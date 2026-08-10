@@ -18,6 +18,14 @@
             "kid": "ft-test-google-key",
             "use": "sig",
             "alg": "RS256"
+          },
+          {
+            "kty": "RSA",
+            "n": "sk4ubP7rtN8OTBhmrQ-JZvmdD8q3_FYCpAN6hpt2Ib6E5nghagFOYinwW5p2SgJK2MUvdN7KTE2QBhryvIkArhtPaLEJYIunHSgwtSXVOdPggAq9qkTN2P2wI7ROFxIef8iwcAuN6m2J7p_gM5gIAjn8cprS4CzOh7Ah0hNemsr7JxfvoZEB5HYFOVCKDEPV1TmTuPGAxNNb99PYr9J-E9w_QDpcenBm5K-S1ItXosXPmOod3oDZQ3a65FfNj5fUlxGKBso1jxyrtkmoc7GoRsCozAZuefC9XezvPG7NGRSvmIN3arkb6XJOzt55Fa8K9P__y3__mAHwyiJFl9rcPw",
+            "e": "AQAB",
+            "kid": "ft-test-google-key-2",
+            "use": "sig",
+            "alg": "RS256"
           }
         ]
       }

@@ -264,6 +264,29 @@ export class UsersRepository {
     });
   }
 
+  async hasLinkedGoogleAccount(userId: string): Promise<boolean> {
+    const user = await this.findOneBy({ id: userId });
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
+    return user.googleId !== null;
+  }
+
+  async unlinkGoogleAccount(userId: string): Promise<void> {
+    const user = await this.findOneBy({ id: userId });
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { googleId: null },
+    });
+  }
+
   async update(id: string, data: UpdateUserDto): Promise<void> {
     const user: User | null = await this.findOneBy({ id });
 

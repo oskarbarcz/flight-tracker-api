@@ -36,7 +36,9 @@ import { ConfirmEmailChangeHandler } from './application/command/confirm-email-c
 import { EmailChangeMailListener } from './application/event/internal/email-change-mail.listener';
 import { MailgunModule } from '../../core/provider/mailgun/mailgun.module';
 import { ChangePasswordAction } from './infra/http/action/change-password.action';
+import { SetPasswordAction } from './infra/http/action/set-password.action';
 import { ChangePasswordHandler } from './application/command/change-password.command';
+import { SetPasswordHandler } from './application/command/set-password.command';
 import { RequestPasswordResetAction } from './infra/http/action/request-password-reset.action';
 import { ConfirmPasswordResetAction } from './infra/http/action/confirm-password-reset.action';
 import { RequestPasswordResetHandler } from './application/command/request-password-reset.command';
@@ -57,6 +59,7 @@ import { PasswordResetMailListener } from './application/event/internal/password
     RequestEmailChangeAction,
     ConfirmEmailChangeAction,
     ChangePasswordAction,
+    SetPasswordAction,
     RequestPasswordResetAction,
     ConfirmPasswordResetAction,
   ],
@@ -85,6 +88,7 @@ import { PasswordResetMailListener } from './application/event/internal/password
     ConfirmEmailChangeHandler,
     EmailChangeMailListener,
     ChangePasswordHandler,
+    SetPasswordHandler,
     RequestPasswordResetHandler,
     ConfirmPasswordResetHandler,
     PasswordResetMailListener,
