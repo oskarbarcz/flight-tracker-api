@@ -53,6 +53,12 @@ export class UserAlreadyHasLinkedGoogleAccountError extends ConflictError {
   }
 }
 
+export class UserHasNoLinkedGoogleAccountError extends ConflictError {
+  constructor() {
+    super('User has no linked Google account.');
+  }
+}
+
 export class ListUsersForbiddenError extends ForbiddenError {
   constructor() {
     super('Forbidden');

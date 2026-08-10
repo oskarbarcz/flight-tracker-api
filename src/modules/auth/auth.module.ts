@@ -13,10 +13,12 @@ import { SessionRepository } from './infra/database/repository/session.repositor
 import { GoogleModule } from '../../core/provider/google/google.module';
 import { GoogleSignInAction } from './infra/http/action/google-sign-in.action';
 import { LinkGoogleAccountAction } from './infra/http/action/link-google-account.action';
+import { UnlinkGoogleAccountAction } from './infra/http/action/unlink-google-account.action';
 import { SessionService } from './infra/service/session.service';
 import { SignInHandler } from './application/command/sign-in.command';
 import { SignInWithGoogleHandler } from './application/command/sign-in-with-google.command';
 import { LinkGoogleAccountHandler } from './application/command/link-google-account.command';
+import { UnlinkGoogleAccountHandler } from './application/command/unlink-google-account.command';
 import { RefreshTokenHandler } from './application/command/refresh-token.command';
 import { SignOutHandler } from './application/command/sign-out.command';
 import { SignOutEverywhereHandler } from './application/command/sign-out-everywhere.command';
@@ -27,6 +29,7 @@ import { SignOutOtherSessionsHandler } from './application/command/sign-out-othe
     SignInAction,
     GoogleSignInAction,
     LinkGoogleAccountAction,
+    UnlinkGoogleAccountAction,
     RefreshTokenAction,
     SignOutAction,
   ],
@@ -36,6 +39,7 @@ import { SignOutOtherSessionsHandler } from './application/command/sign-out-othe
     SignInHandler,
     SignInWithGoogleHandler,
     LinkGoogleAccountHandler,
+    UnlinkGoogleAccountHandler,
     RefreshTokenHandler,
     SignOutHandler,
     SignOutEverywhereHandler,
