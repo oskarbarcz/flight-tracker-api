@@ -12,9 +12,30 @@ type General = {
   cont_rule: string;
 };
 
+export type EmptyElement = Record<string, never>;
+
+export type SimbriefNotam = {
+  notam_id: string;
+  location_icao: string;
+  location_type: string;
+  date_created: string;
+  date_effective: string;
+  date_expire?: string | EmptyElement;
+  date_modified: string;
+  notam_html: string | EmptyElement;
+  notam_text: string | EmptyElement;
+  notam_raw: string | EmptyElement;
+  notam_nrc: string | EmptyElement;
+  notam_qcode: string | EmptyElement;
+  notam_qcode_category: string | EmptyElement;
+  notam_qcode_subject: string | EmptyElement;
+  notam_qcode_status: string | EmptyElement;
+};
+
 type Airport = {
   icao_code: string;
   plan_rwy?: string;
+  notam?: SimbriefNotam[] | SimbriefNotam;
 };
 
 type Aircraft = {
@@ -87,10 +108,13 @@ export type OperationalFlightPlan = {
   origin: Airport;
   destination: Airport;
   alternate: Airport[];
+  takeoff_altn?: Airport | Airport[];
   enroute_altn?: Airport;
+  enroute_station?: Airport[];
   etops?: {
     entry: Airport;
     exit: Airport;
+    suitable_airport?: Airport | Airport[];
   };
   fuel: Fuel;
   fuel_extra: FuelExtra;

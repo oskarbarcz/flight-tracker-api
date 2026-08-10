@@ -45,7 +45,7 @@ export class CloseFlightHandler implements ICommandHandler<CloseFlightCommand> {
 
     await this.flightsRepository.close(flightId, actualFuelBurned);
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new FlightWasClosedEvent({
         flightId,
         scope: FlightEventScope.User,

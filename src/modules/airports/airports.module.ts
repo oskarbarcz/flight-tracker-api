@@ -71,6 +71,10 @@ import { WatchAirportsHandler } from './application/command/weather/watch-airpor
 import { UnwatchFlightAirportsHandler } from './application/command/weather/unwatch-flight-airports.command';
 import { WeatherFlightLifecycleListener } from './application/event/external/weather-flight-lifecycle.listener';
 import { WeatherRefreshService } from './infra/service/weather-refresh.service';
+import { AirportNotamsRepository } from './infra/database/airport-notams.repository';
+import { ListNotamsAction } from './infra/http/action/notam/list-notams.action';
+import { ListAirportNotamsHandler } from './application/query/notam/list-airport-notams.query';
+import { ReplaceAirportNotamsHandler } from './application/command/notam/replace-airport-notams.command';
 
 @Module({
   imports: [PrismaModule, SkyLinkModule, WeatherModule],
@@ -101,6 +105,7 @@ import { WeatherRefreshService } from './infra/service/weather-refresh.service';
     UpdateRunwayAction,
     DeleteRunwayAction,
     GetWeatherAction,
+    ListNotamsAction,
   ],
   providers: [
     AirportsRepository,
@@ -146,6 +151,9 @@ import { WeatherRefreshService } from './infra/service/weather-refresh.service';
     UnwatchFlightAirportsHandler,
     WeatherFlightLifecycleListener,
     WeatherRefreshService,
+    AirportNotamsRepository,
+    ListAirportNotamsHandler,
+    ReplaceAirportNotamsHandler,
   ],
 })
 export class AirportsModule {}

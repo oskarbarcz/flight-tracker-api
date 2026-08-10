@@ -893,3 +893,307 @@ Feature: Create a flight with Simbrief
         "statusCode": 401
       }
       """
+
+  Scenario: NOTAMs of the plan origin and destination are stored on import
+    Given I am signed in as "operations with valid Simbrief ID"
+    When I send a "POST" request to "/api/v1/flight/create-with-simbrief"
+    Then the response status should be 201
+    When I send a "GET" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/notam"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "notamId": "A1001/26",
+          "dateCreated": "2026-08-01T05:40:00.000Z",
+          "dateEffective": "2026-08-01T06:00:00.000Z",
+          "dateExpire": "2099-12-31T23:59:00.000Z",
+          "dateModified": "2026-08-01T05:40:00.000Z",
+          "html": "<b>TWY N16</b> <b>CLOSED</b> BTN <b>TWY N15</b> AND <b>TWY N17</b>.",
+          "text": "TWY N16 CLOSED BTN TWY N15 AND TWY N17.",
+          "raw": "A1001/26 NOTAMN\n Q) EDGG/QMXLC/IV/BO /A /000/999/5002N00834E005\n A) EDDF B) 2608010600 C) 9912312359\n E) TWY N16 CLOSED BTN TWY N15 AND TWY N17.",
+          "nrc": "NOTAMN",
+          "qcode": "QMXLC",
+          "qcodeCategory": "Airport",
+          "qcodeSubject": "Taxiway",
+          "qcodeStatus": "Closed"
+        },
+        {
+          "notamId": "A1002/26",
+          "dateCreated": "2026-07-20T07:45:00.000Z",
+          "dateEffective": "2026-07-20T08:00:00.000Z",
+          "dateExpire": null,
+          "dateModified": "2026-07-20T07:45:00.000Z",
+          "html": "CRANE ERECTED 850M SW OF <b>ARP</b>, ELEV 512FT, MARKED AND LGTD.",
+          "text": "CRANE ERECTED 850M SW OF ARP, ELEV 512FT, MARKED AND LGTD.",
+          "raw": "A1002/26 NOTAMN\n Q) EDGG/QOBCE/IV/M  /AE/000/002/5002N00834E001\n A) EDDF B) 2607200800 C) PERM\n E) CRANE ERECTED 850M SW OF ARP, ELEV 512FT, MARKED AND LGTD.",
+          "nrc": "NOTAMN",
+          "qcode": "QOBCE",
+          "qcodeCategory": "Airport",
+          "qcodeSubject": "Obstacle",
+          "qcodeStatus": "Erected"
+        }
+      ]
+      """
+    When I send a "GET" request to "/api/v1/airport/3c721cc6-c653-4fad-be43-dc9d6a149383/notam"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "notamId": "A2001/26",
+          "dateCreated": "2026-08-02T03:30:00.000Z",
+          "dateEffective": "2026-08-02T04:00:00.000Z",
+          "dateExpire": "2099-12-31T23:59:00.000Z",
+          "dateModified": "2026-08-02T03:30:00.000Z",
+          "html": "<b>RWY 04L/22R</b> <b>CLSD</b>.",
+          "text": "RWY 04L/22R CLSD.",
+          "raw": "A2001/26 NOTAMN\n Q) KZNY/QMRLC/IV/NBO/A /000/999/4038N07346W005\n A) KJFK B) 2608020400 C) 9912312359\n E) RWY 04L/22R CLSD.",
+          "nrc": "NOTAMN",
+          "qcode": "QMRLC",
+          "qcodeCategory": "Runway",
+          "qcodeSubject": "Runway",
+          "qcodeStatus": "Closed"
+        }
+      ]
+      """
+    And I set database to initial state
+
+  Scenario: NOTAMs of the plan alternates and ETOPS airports are stored on import
+    Given I am signed in as "operations with valid Simbrief ID"
+    When I send a "POST" request to "/api/v1/flight/create-with-simbrief"
+    Then the response status should be 201
+    When I send a "GET" request to "/api/v1/airport/c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3/notam"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "notamId": "A3001/26",
+          "dateCreated": "2026-08-03T04:30:00.000Z",
+          "dateEffective": "2026-08-03T05:00:00.000Z",
+          "dateExpire": "2099-12-31T23:59:00.000Z",
+          "dateModified": "2026-08-03T04:30:00.000Z",
+          "html": "<b>ILS</b> <b>RWY 04R</b> GP UNMONITORED.",
+          "text": "ILS RWY 04R GP UNMONITORED.",
+          "raw": "A3001/26 NOTAMN\n Q) KZBW/QICAS/I /NBO/A /000/999/4222N07100W005\n A) KBOS B) 2608030500 C) 9912312359\n E) ILS RWY 04R GP UNMONITORED.",
+          "nrc": "NOTAMN",
+          "qcode": "QICAS",
+          "qcodeCategory": "Approach Procedures",
+          "qcodeSubject": "Instrument landing system",
+          "qcodeStatus": "Unserviceable"
+        }
+      ]
+      """
+    When I send a "GET" request to "/api/v1/airport/fa8ee2e9-fb94-4416-9ed0-4811efd488ae/notam"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "notamId": "A4001/26",
+          "dateCreated": "2026-08-04T06:30:00.000Z",
+          "dateEffective": "2026-08-04T07:00:00.000Z",
+          "dateExpire": "2099-12-31T23:59:00.000Z",
+          "dateModified": "2026-08-04T06:30:00.000Z",
+          "html": "<b>APRON</b> I NORTH SIDE <b>CLSD</b>.",
+          "text": "APRON I NORTH SIDE CLSD.",
+          "raw": "A4001/26 NOTAMN\n Q) CZQX/QMNLC/IV/BO /A /000/999/5319N06018W005\n A) CYYR B) 2608040700 C) 9912312359\n E) APRON I NORTH SIDE CLSD.",
+          "nrc": "NOTAMN",
+          "qcode": "QMNLC",
+          "qcodeCategory": "Airport",
+          "qcodeSubject": "Apron",
+          "qcodeStatus": "Closed"
+        }
+      ]
+      """
+    And I set database to initial state
+
+  Scenario: Importing a plan twice does not duplicate the airport NOTAMs
+    Given I am signed in as "operations with valid Simbrief ID"
+    When I send a "POST" request to "/api/v1/flight/create-with-simbrief"
+    Then the response status should be 201
+    When I send a "POST" request to "/api/v1/flight/create-with-simbrief"
+    Then the response status should be 201
+    When I send a "GET" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/notam"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "notamId": "A1001/26",
+          "dateCreated": "2026-08-01T05:40:00.000Z",
+          "dateEffective": "2026-08-01T06:00:00.000Z",
+          "dateExpire": "2099-12-31T23:59:00.000Z",
+          "dateModified": "2026-08-01T05:40:00.000Z",
+          "html": "<b>TWY N16</b> <b>CLOSED</b> BTN <b>TWY N15</b> AND <b>TWY N17</b>.",
+          "text": "TWY N16 CLOSED BTN TWY N15 AND TWY N17.",
+          "raw": "A1001/26 NOTAMN\n Q) EDGG/QMXLC/IV/BO /A /000/999/5002N00834E005\n A) EDDF B) 2608010600 C) 9912312359\n E) TWY N16 CLOSED BTN TWY N15 AND TWY N17.",
+          "nrc": "NOTAMN",
+          "qcode": "QMXLC",
+          "qcodeCategory": "Airport",
+          "qcodeSubject": "Taxiway",
+          "qcodeStatus": "Closed"
+        },
+        {
+          "notamId": "A1002/26",
+          "dateCreated": "2026-07-20T07:45:00.000Z",
+          "dateEffective": "2026-07-20T08:00:00.000Z",
+          "dateExpire": null,
+          "dateModified": "2026-07-20T07:45:00.000Z",
+          "html": "CRANE ERECTED 850M SW OF <b>ARP</b>, ELEV 512FT, MARKED AND LGTD.",
+          "text": "CRANE ERECTED 850M SW OF ARP, ELEV 512FT, MARKED AND LGTD.",
+          "raw": "A1002/26 NOTAMN\n Q) EDGG/QOBCE/IV/M  /AE/000/002/5002N00834E001\n A) EDDF B) 2607200800 C) PERM\n E) CRANE ERECTED 850M SW OF ARP, ELEV 512FT, MARKED AND LGTD.",
+          "nrc": "NOTAMN",
+          "qcode": "QOBCE",
+          "qcodeCategory": "Airport",
+          "qcodeSubject": "Obstacle",
+          "qcodeStatus": "Erected"
+        }
+      ]
+      """
+    And I set database to initial state
+
+  Scenario: An airport the imported plan reports no NOTAMs for is cleared
+    Given I am signed in as "operations with valid Simbrief ID"
+    When I send a "GET" request to "/api/v1/airport/e764251b-bb25-4e8b-8cc7-11b0397b4554/notam"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "notamId": "A0231/26",
+          "dateCreated": "2026-07-11T15:00:00.000Z",
+          "dateEffective": "2026-07-11T16:00:00.000Z",
+          "dateExpire": "2099-10-31T23:59:00.000Z",
+          "dateModified": "2026-07-11T15:00:00.000Z",
+          "html": "<b>TWY E</b> <b>CLSD</b> BTN <b>TWY K</b> AND <b>TWY L</b>.",
+          "text": "TWY E CLSD BTN TWY K AND TWY L.",
+          "raw": "A0231/26 NOTAMN\n Q) KZNY/QMXLC/IV/BO /A /000/999/3952N07514W005\n A) KPHL B) 2607111600 C) 9910312359\n E) TWY E CLSD BTN TWY K AND TWY L.",
+          "nrc": "NOTAMN",
+          "qcode": "QMXLC",
+          "qcodeCategory": "Airport",
+          "qcodeSubject": "Taxiway",
+          "qcodeStatus": "Closed"
+        }
+      ]
+      """
+    When I send a "POST" request to "/api/v1/flight/create-with-simbrief"
+    Then the response status should be 201
+    When I send a "GET" request to "/api/v1/airport/e764251b-bb25-4e8b-8cc7-11b0397b4554/notam"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      []
+      """
+    And I set database to initial state
+
+  Scenario: An airport absent from the imported plan keeps its NOTAMs
+    Given I am signed in as "operations with valid Simbrief ID"
+    When I send a "GET" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/notam"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "notamId": "A4501/99",
+          "dateCreated": "2026-07-20T12:00:00.000Z",
+          "dateEffective": "2099-01-01T00:00:00.000Z",
+          "dateExpire": "2099-06-30T23:59:00.000Z",
+          "dateModified": "2026-07-20T12:00:00.000Z",
+          "html": "<b>APRON</b> 3 <b>WORK IN PROGRESS</b>, STANDS 301 THRU 309 NOT AVBL.",
+          "text": "APRON 3 WORK IN PROGRESS, STANDS 301 THRU 309 NOT AVBL.",
+          "raw": "A4501/99 NOTAMN\n Q) EPWW/QMNLW/IV/BO /A /000/999/5210N02058E005\n A) EPWA B) 9901010000 C) 9906302359\n E) APRON 3 WORK IN PROGRESS, STANDS 301 THRU 309 NOT AVBL.",
+          "nrc": "NOTAMN",
+          "qcode": "QMNLW",
+          "qcodeCategory": "Airport",
+          "qcodeSubject": "Apron",
+          "qcodeStatus": "Work in progress"
+        },
+        {
+          "notamId": "A3912/26",
+          "dateCreated": "2026-07-01T13:53:00.000Z",
+          "dateEffective": "2026-07-01T14:00:00.000Z",
+          "dateExpire": "2099-12-31T22:00:00.000Z",
+          "dateModified": "2026-07-01T13:53:00.000Z",
+          "html": "<b>TWY V</b> <b>CLOSED</b> FOR ACFT CATEGORY F BTN <b>TWY S2</b> AND <b>TWY Y</b>.",
+          "text": "TWY V CLOSED FOR ACFT CATEGORY F BTN TWY S2 AND TWY Y.",
+          "raw": "A3912/26 NOTAMN\n Q) EPWW/QMXLC/IV/BO /A /000/999/5210N02058E005\n A) EPWA B) 2607011400 C) 9912312200\n E) TWY V CLOSED FOR ACFT CATEGORY F BTN TWY S2 AND TWY Y.",
+          "nrc": "NOTAMN",
+          "qcode": "QMXLC",
+          "qcodeCategory": "Airport",
+          "qcodeSubject": "Taxiway",
+          "qcodeStatus": "Closed"
+        },
+        {
+          "notamId": "A2204/26",
+          "dateCreated": "2026-06-15T08:10:00.000Z",
+          "dateEffective": "2026-06-15T09:00:00.000Z",
+          "dateExpire": null,
+          "dateModified": "2026-06-16T11:20:00.000Z",
+          "html": "BIRD ACTIVITY IN THE VICINITY OF <b>AD</b>.",
+          "text": "BIRD ACTIVITY IN THE VICINITY OF AD.",
+          "raw": "A2204/26 NOTAMN\n Q) EPWW/QFAXX/IV/NBO/A /000/999/5210N02058E005\n A) EPWA B) 2606150900 C) PERM\n E) BIRD ACTIVITY IN THE VICINITY OF AD.",
+          "nrc": "NOTAMN",
+          "qcode": "QFAXX",
+          "qcodeCategory": "Airport",
+          "qcodeSubject": "Airport",
+          "qcodeStatus": "Concentration of birds"
+        }
+      ]
+      """
+    When I send a "POST" request to "/api/v1/flight/create-with-simbrief"
+    Then the response status should be 201
+    When I send a "GET" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/notam"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "notamId": "A4501/99",
+          "dateCreated": "2026-07-20T12:00:00.000Z",
+          "dateEffective": "2099-01-01T00:00:00.000Z",
+          "dateExpire": "2099-06-30T23:59:00.000Z",
+          "dateModified": "2026-07-20T12:00:00.000Z",
+          "html": "<b>APRON</b> 3 <b>WORK IN PROGRESS</b>, STANDS 301 THRU 309 NOT AVBL.",
+          "text": "APRON 3 WORK IN PROGRESS, STANDS 301 THRU 309 NOT AVBL.",
+          "raw": "A4501/99 NOTAMN\n Q) EPWW/QMNLW/IV/BO /A /000/999/5210N02058E005\n A) EPWA B) 9901010000 C) 9906302359\n E) APRON 3 WORK IN PROGRESS, STANDS 301 THRU 309 NOT AVBL.",
+          "nrc": "NOTAMN",
+          "qcode": "QMNLW",
+          "qcodeCategory": "Airport",
+          "qcodeSubject": "Apron",
+          "qcodeStatus": "Work in progress"
+        },
+        {
+          "notamId": "A3912/26",
+          "dateCreated": "2026-07-01T13:53:00.000Z",
+          "dateEffective": "2026-07-01T14:00:00.000Z",
+          "dateExpire": "2099-12-31T22:00:00.000Z",
+          "dateModified": "2026-07-01T13:53:00.000Z",
+          "html": "<b>TWY V</b> <b>CLOSED</b> FOR ACFT CATEGORY F BTN <b>TWY S2</b> AND <b>TWY Y</b>.",
+          "text": "TWY V CLOSED FOR ACFT CATEGORY F BTN TWY S2 AND TWY Y.",
+          "raw": "A3912/26 NOTAMN\n Q) EPWW/QMXLC/IV/BO /A /000/999/5210N02058E005\n A) EPWA B) 2607011400 C) 9912312200\n E) TWY V CLOSED FOR ACFT CATEGORY F BTN TWY S2 AND TWY Y.",
+          "nrc": "NOTAMN",
+          "qcode": "QMXLC",
+          "qcodeCategory": "Airport",
+          "qcodeSubject": "Taxiway",
+          "qcodeStatus": "Closed"
+        },
+        {
+          "notamId": "A2204/26",
+          "dateCreated": "2026-06-15T08:10:00.000Z",
+          "dateEffective": "2026-06-15T09:00:00.000Z",
+          "dateExpire": null,
+          "dateModified": "2026-06-16T11:20:00.000Z",
+          "html": "BIRD ACTIVITY IN THE VICINITY OF <b>AD</b>.",
+          "text": "BIRD ACTIVITY IN THE VICINITY OF AD.",
+          "raw": "A2204/26 NOTAMN\n Q) EPWW/QFAXX/IV/NBO/A /000/999/5210N02058E005\n A) EPWA B) 2606150900 C) PERM\n E) BIRD ACTIVITY IN THE VICINITY OF AD.",
+          "nrc": "NOTAMN",
+          "qcode": "QFAXX",
+          "qcodeCategory": "Airport",
+          "qcodeSubject": "Airport",
+          "qcodeStatus": "Concentration of birds"
+        }
+      ]
+      """
+    And I set database to initial state

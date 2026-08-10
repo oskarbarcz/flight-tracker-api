@@ -15,6 +15,7 @@ import { loadUserTravel } from './resource/user-travel.seed';
 import { loadUserAircraft } from './resource/user-aircraft.seed';
 import { loadAircraftReposition } from './resource/aircraft-reposition.seed';
 import { loadWeather } from './resource/weather.seed';
+import { loadNotams } from './resource/notams.seed';
 import { loadCrew, loadFlightCrew } from './resource/crew.seed';
 import { loadRotations } from './resource/rotations.seed';
 import { loadStatistics } from './resource/statistics.seed';
@@ -27,6 +28,7 @@ export async function loadResources() {
       async (tx) => {
         await loadAirports(tx);
         await loadWeather(tx);
+        await loadNotams(tx);
         await loadTerminals(tx);
         await loadParkingPositions(tx);
         await loadGates(tx);
