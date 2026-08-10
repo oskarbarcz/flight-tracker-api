@@ -33,7 +33,8 @@ Feature: Get flight
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "D-AIMC",
           "selcal": "LR-CK",
@@ -273,7 +274,8 @@ Feature: Get flight
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N724AN",
           "selcal": "AB-DG",
@@ -511,7 +513,8 @@ Feature: Get flight
             },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N728AN",
           "selcal": "AC-DE",

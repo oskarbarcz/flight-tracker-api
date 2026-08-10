@@ -127,7 +127,8 @@ Feature: Report off-block
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N722AN",
           "selcal": "AB-DE",
@@ -335,7 +336,8 @@ Feature: Report off-block
           "cruiseSpeed": { "value": 0.84, "unit": "mach" },
           "serviceCeiling": 43000,
           "performanceCode": "D",
-          "weightCategory": "heavy"
+          "weightCategory": "heavy",
+          "serviceType": "passenger"
         },
         "livery": "Standard (2020)",
         "registration": "N722AN",

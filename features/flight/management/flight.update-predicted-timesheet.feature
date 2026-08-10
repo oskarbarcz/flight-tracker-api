@@ -115,7 +115,8 @@ Feature: Update flight predicted timesheet
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N719AN",
           "selcal": "AB-CE",
@@ -320,7 +321,8 @@ Feature: Update flight predicted timesheet
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N719AN",
           "selcal": "AB-CE",
@@ -536,7 +538,8 @@ Feature: Update flight predicted timesheet
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N719AN",
           "selcal": "AB-CE",

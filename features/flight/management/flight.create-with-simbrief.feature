@@ -77,7 +77,8 @@ Feature: Create a flight with Simbrief
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "D-AIMC",
           "selcal": "LR-CK",
@@ -357,7 +358,8 @@ Feature: Create a flight with Simbrief
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "D-AIMC",
           "selcal": "LR-CK",
@@ -574,7 +576,8 @@ Feature: Create a flight with Simbrief
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "D-AIMC",
           "selcal": "LR-CK",

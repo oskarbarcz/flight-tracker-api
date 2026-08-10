@@ -164,7 +164,8 @@ Feature: Report on-block
           "cruiseSpeed": { "value": 0.84, "unit": "mach" },
           "serviceCeiling": 43000,
           "performanceCode": "D",
-          "weightCategory": "heavy"
+          "weightCategory": "heavy",
+          "serviceType": "passenger"
         },
         "livery": "Team USA (2023)",
         "registration": "N78881",
@@ -297,7 +298,8 @@ Feature: Report on-block
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N78881",
           "selcal": "KY-JO",

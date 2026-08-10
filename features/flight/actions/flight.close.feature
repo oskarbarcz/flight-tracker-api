@@ -131,7 +131,8 @@ Feature: Close flight
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N727AN",
           "selcal": "AB-FG",
@@ -414,7 +415,8 @@ Feature: Close flight
           "cruiseSpeed": { "value": 0.84, "unit": "mach" },
           "serviceCeiling": 43000,
           "performanceCode": "D",
-          "weightCategory": "heavy"
+          "weightCategory": "heavy",
+          "serviceType": "passenger"
         },
         "livery": "Heritage America West (2022)",
         "registration": "N727AN",
@@ -619,7 +621,8 @@ Feature: Close flight
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N729AN",
           "selcal": "AC-DF",
@@ -825,7 +828,8 @@ Feature: Close flight
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N730AN",
           "selcal": "AC-DG",

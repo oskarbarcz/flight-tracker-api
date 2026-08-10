@@ -177,19 +177,19 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     }
 
     const members: CrewMember[] = [];
+    const [firstOfficer] = this.toCrewNames(crew.fo);
+    const [purser] = this.toCrewNames(crew.pu);
 
-    if (crew.fo) {
-      members.push({ role: CrewRole.fo, name: crew.fo });
+    if (firstOfficer) {
+      members.push({ role: CrewRole.fo, name: firstOfficer });
     }
 
-    if (crew.pu) {
-      members.push({ role: CrewRole.pu, name: crew.pu });
+    if (purser) {
+      members.push({ role: CrewRole.pu, name: purser });
     }
 
-    for (const name of crew.fa ?? []) {
-      if (name) {
-        members.push({ role: CrewRole.fa, name });
-      }
+    for (const name of this.toCrewNames(crew.fa)) {
+      members.push({ role: CrewRole.fa, name });
     }
 
     return members;
@@ -200,10 +200,29 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       return 0;
     }
 
-    const pursers = crew.pu ? 1 : 0;
-    const flightAttendants = (crew.fa ?? []).filter(Boolean).length;
+    const pursers = this.toCrewNames(crew.pu).length > 0 ? 1 : 0;
 
-    return pursers + flightAttendants;
+    return pursers + this.toCrewNames(crew.fa).length;
+  }
+
+  private toCrewNames(value: unknown): string[] {
+    if (typeof value === 'string') {
+      const name = value.trim();
+
+      return name.length > 0 ? [name] : [];
+    }
+
+    if (Array.isArray(value)) {
+      return value.flatMap((entry: unknown) => this.toCrewNames(entry));
+    }
+
+    if (typeof value === 'object' && value !== null) {
+      return Object.values(value).flatMap((entry: unknown) =>
+        this.toCrewNames(entry),
+      );
+    }
+
+    return [];
   }
 
   private async assignImportedRunways(

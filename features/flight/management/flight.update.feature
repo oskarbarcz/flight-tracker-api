@@ -96,7 +96,8 @@ Feature: Update flight
             },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N719AN",
           "selcal": "AB-CE",
@@ -275,7 +276,8 @@ Feature: Update flight
             },
             "serviceCeiling": 43000,
             "performanceCode": "D",
-            "weightCategory": "heavy"
+            "weightCategory": "heavy",
+            "serviceType": "passenger"
           },
           "registration": "N719AN",
           "selcal": "AB-CE",
