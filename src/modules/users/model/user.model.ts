@@ -8,6 +8,7 @@ import {
   Matches,
 } from 'class-validator';
 import { UserRole } from './user-role';
+import { WeatherSource } from '../../airports/model/airport-weather.model';
 
 export class User {
   @ApiProperty({
@@ -109,4 +110,13 @@ export class User {
     nullable: true,
   })
   lastAirportUpdatedAt!: Date | null;
+
+  @ApiProperty({
+    description:
+      'Weather provider the user reads airport weather from when no source is requested explicitly',
+    example: WeatherSource.AviationWeatherGov,
+    enum: WeatherSource,
+  })
+  @IsEnum(WeatherSource)
+  defaultWeatherSource!: WeatherSource;
 }

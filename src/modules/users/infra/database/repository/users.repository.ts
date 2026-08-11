@@ -11,6 +11,7 @@ import {
 } from '../../http/request/get-user.dto';
 import { User } from '../../../../../../prisma/client/client';
 import { UserRole } from '../../../model/user-role';
+import { WeatherSource } from '../../../../airports/model/airport-weather.model';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
 import { CACHE_KEYS, cacheByUser } from '../../../../../core/cache/cache.key';
@@ -116,6 +117,7 @@ export class UsersRepository {
     return {
       ...this.returnWithoutPassword(user),
       simbriefUserId: user.simbriefUserId,
+      defaultWeatherSource: user.defaultWeatherSource as WeatherSource,
       emailConfirmedAt: user.emailConfirmedAt,
     };
   }
@@ -401,5 +403,18 @@ export class UsersRepository {
     }
 
     return user.simbriefUserId;
+  }
+
+  async getDefaultWeatherSource(userId: string): Promise<WeatherSource> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { defaultWeatherSource: true },
+    });
+
+    if (!user) {
+      throw new UserWithGivenIdNotFoundError();
+    }
+
+    return user.defaultWeatherSource as WeatherSource;
   }
 }

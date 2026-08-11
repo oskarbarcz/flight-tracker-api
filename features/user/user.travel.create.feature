@@ -69,6 +69,7 @@ Feature: Request a manual dead-head travel
         "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
         "simbriefUserId": null,
+        "defaultWeatherSource": "aviation_weather_gov",
         "emails": [
           {
             "email": "cabin-crew@example.com",

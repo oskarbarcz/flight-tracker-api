@@ -1,14 +1,4 @@
-# airport-weather
-
-## Purpose
-
-Store and serve the latest raw ATIS, METAR and TAF per airport and per weather source,
-keep an airport monitored and its weather refreshed from every source while any flight
-that references it is active (checked-in through taxiing-in), and expose the stored
-reports via a public read endpoint that filters by source, defaulting to the reader's own
-preference.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Retrieve airport weather
 
@@ -77,6 +67,8 @@ monitored.
 
 - **WHEN** an airport stops being monitored
 - **THEN** its stored reports are retained and remain readable
+
+## ADDED Requirements
 
 ### Requirement: Filter retrieved weather by source
 
@@ -238,3 +230,56 @@ every fetch fails SHALL NOT fail the request or scheduled run that triggered it.
 - **WHEN** a pilot checks in and every weather fetch for the flight's airports fails
 - **THEN** the check-in still succeeds and the airports are still marked as monitored
 
+## REMOVED Requirements
+
+### Requirement: Watch a flight's airports on check-in
+
+**Reason**: Restated as "Monitor a flight's airports on check-in". The flag it described
+lived on the weather record, which forced a placeholder weather row to exist purely to carry
+a boolean; it now lives on the airport, and the check-in fetch covers two sources instead of
+one.
+
+**Migration**: None for clients — the behaviour is unchanged in observable terms and the
+flag was never exposed on any endpoint. The stored flag is carried across by the migration
+that moves it onto the airport.
+
+When a pilot checks in for a flight, the system SHALL mark every airport referenced by that
+flight (departure, destination, destination alternate, and enroute alternate) as watched,
+creating a weather record for any airport that does not yet have one.
+
+#### Scenario: Airports become watched at check-in
+
+- **WHEN** a `PilotCheckedInEvent` is emitted for a flight
+- **THEN** the watch flag on the weather record is no longer how monitoring is expressed
+
+### Requirement: Stop watching a flight's airports on on-block
+
+**Reason**: Restated as "Stop monitoring a flight's airports on on-block", for the same
+relocation of the flag from the weather record to the airport.
+
+**Migration**: None for clients. The shared-airport rule is preserved verbatim in the
+replacement requirement.
+
+When a flight reports on-block, the system SHALL clear the `watch` flag for that flight's
+airports, EXCEPT any airport still referenced by another flight in an active status.
+
+#### Scenario: Airports stop being watched at on-block
+
+- **WHEN** an `OnBlockWasReportedEvent` is emitted for a flight
+- **THEN** the watch flag on the weather record is no longer how monitoring is expressed
+
+### Requirement: Scheduled refresh of watched airports
+
+**Reason**: Restated as "Scheduled refresh of monitored airports". The refresh now selects
+airports by the flag on the airport and covers two sources with different call shapes, so
+"a single batched upstream call" no longer describes it.
+
+**Migration**: None. The schedule and the airports covered are unchanged.
+
+The system SHALL refresh METAR and TAF for all watched airports on a schedule of every 5
+minutes, in a single batched upstream call using a comma-joined list of ICAO codes.
+
+#### Scenario: Watched airports are refreshed on schedule
+
+- **WHEN** the scheduled refresh runs and one or more airports are watched
+- **THEN** the refresh is no longer limited to one source or to METAR and TAF

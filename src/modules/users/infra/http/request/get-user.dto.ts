@@ -8,6 +8,7 @@ export class ListUsersFilters extends PartialType(
 export class GetUserDto extends OmitType(User, [
   'password',
   'simbriefUserId',
+  'defaultWeatherSource',
 ]) {}
 
 export class UserEmailDto {

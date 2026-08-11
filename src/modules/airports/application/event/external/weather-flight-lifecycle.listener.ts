@@ -6,8 +6,8 @@ import {
   OnBlockWasReportedEvent,
   PilotCheckedInEvent,
 } from '../../../../../core/domain/events/dto/flight.events';
-import { WatchAirportsCommand } from '../../command/weather/watch-airports.command';
-import { UnwatchFlightAirportsCommand } from '../../command/weather/unwatch-flight-airports.command';
+import { StartMonitoringAirportsWeatherCommand } from '../../command/weather/start-monitoring-airports-weather.command';
+import { StopMonitoringAirportsWeatherCommand } from '../../command/weather/stop-monitoring-airports-weather.command';
 import { RefreshWeatherCommand } from '../../command/weather/refresh-weather.command';
 
 @Injectable()
@@ -20,8 +20,10 @@ export class WeatherFlightLifecycleListener {
   async onPilotCheckedIn(event: PilotCheckedInEvent): Promise<void> {
     const { flightId, airportIds } = event.payload;
 
-    const watchCommand = new WatchAirportsCommand(airportIds);
-    await this.commandBus.execute(watchCommand);
+    const monitorCommand = new StartMonitoringAirportsWeatherCommand(
+      airportIds,
+    );
+    await this.commandBus.execute(monitorCommand);
 
     try {
       const refreshCommand = new RefreshWeatherCommand(airportIds);
@@ -35,7 +37,9 @@ export class WeatherFlightLifecycleListener {
 
   @OnEvent(FlightEventType.OnBlockWasReported)
   async onOnBlockWasReported(event: OnBlockWasReportedEvent): Promise<void> {
-    const command = new UnwatchFlightAirportsCommand(event.payload.flightId);
+    const command = new StopMonitoringAirportsWeatherCommand(
+      event.payload.airportIds,
+    );
     await this.commandBus.execute(command);
   }
 }

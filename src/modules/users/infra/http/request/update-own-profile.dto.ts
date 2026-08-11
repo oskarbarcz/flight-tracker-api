@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -7,6 +8,7 @@ import {
   Matches,
   ValidateIf,
 } from 'class-validator';
+import { WeatherSource } from '../../../../airports/model/airport-weather.model';
 
 export class UpdateOwnProfileDto {
   @ApiProperty({
@@ -55,4 +57,15 @@ export class UpdateOwnProfileDto {
   @IsString()
   @IsOptional()
   simbriefUserId?: string | null;
+
+  @ApiProperty({
+    description:
+      'Weather provider to read airport weather from when no source is requested explicitly',
+    example: WeatherSource.SayIntentions,
+    enum: WeatherSource,
+    required: false,
+  })
+  @IsEnum(WeatherSource)
+  @IsOptional()
+  defaultWeatherSource?: WeatherSource;
 }

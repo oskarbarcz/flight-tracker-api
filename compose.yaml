@@ -71,6 +71,15 @@ services:
     environment:
       - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/weather.json
 
+  sayintentions-mock:
+    image: mockserver/mockserver:mockserver-5.15.0
+    ports:
+      - '6080:1080'
+    volumes:
+      - ./docker/mock:/config
+    environment:
+      - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/sayintentions.json
+
   google-mock:
     image: mockserver/mockserver:mockserver-5.15.0
     ports:

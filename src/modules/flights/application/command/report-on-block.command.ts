@@ -75,6 +75,7 @@ export class ReportOnBlockHandler implements ICommandHandler<ReportOnBlockComman
         actorId: initiatorId,
         aircraftId: flight.aircraft.id,
         landingAirportId,
+        airportIds: flight.airports.map((airport) => airport.id),
       }),
     );
   }

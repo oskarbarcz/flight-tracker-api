@@ -56,6 +56,10 @@ export type AircraftLandedEventPayload = AircraftFlightEventPayload & {
   landingAirportId: string;
 };
 
+export type OnBlockReportedEventPayload = AircraftLandedEventPayload & {
+  airportIds: string[];
+};
+
 export type PilotCheckedInEventPayload = AircraftFlightEventPayload & {
   airportIds: string[];
 };
@@ -146,7 +150,7 @@ export class ArrivalWasReportedEvent extends FlightLifecycleEvent<ArrivalReporte
   static readonly name = FlightEventType.ArrivalWasReported;
 }
 
-export class OnBlockWasReportedEvent extends FlightLifecycleEvent<AircraftLandedEventPayload> {
+export class OnBlockWasReportedEvent extends FlightLifecycleEvent<OnBlockReportedEventPayload> {
   static readonly name = FlightEventType.OnBlockWasReported;
 }
 
