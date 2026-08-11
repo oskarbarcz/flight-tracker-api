@@ -19,6 +19,8 @@ async function getClient(): Promise<Client> {
       GatewayIntentBits.Guilds,
       GatewayIntentBits.DirectMessages,
       GatewayIntentBits.GuildMembers,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.MessageContent,
     ],
   });
 
@@ -101,6 +103,11 @@ export class TestDiscordClient extends DiscordClient {
       });
     } catch (e) {
       console.log('cannot send priv msg', e);
+    }
+
+    const channel = await guild.channels.fetch('1454862005142818836');
+    if (channel && channel.isTextBased()) {
+      await channel.send(message.content);
     }
 
     const outputDir = path.join(process.cwd(), 'test-data', 'discord');
