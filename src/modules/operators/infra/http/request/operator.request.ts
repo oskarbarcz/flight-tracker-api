@@ -1,7 +1,11 @@
 import { OmitType, PartialType, PickType } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsBoolean, IsOptional } from 'class-validator';
-import { Operator, OperatorType } from '../../../model/operator.model';
+import { IsBoolean, IsEnum, IsOptional } from 'class-validator';
+import {
+  Operator,
+  OperatorServiceType,
+  OperatorType,
+} from '../../../model/operator.model';
 import { Continent } from '../../../../airports/model/airport.model';
 
 class OperatorRequestFields extends OmitType(Operator, [
@@ -14,6 +18,7 @@ export class CreateOperatorRequest extends OperatorRequestFields {
   hubs: string[] = [];
   continent: Continent = Continent.Europe;
   type: OperatorType = OperatorType.Legacy;
+  serviceType: OperatorServiceType = OperatorServiceType.Passenger;
   avgFleetAge: number = 5;
 }
 
@@ -27,7 +32,11 @@ export class OperatorListFilters {
     return value;
   })
   @IsBoolean()
-  'recent-only'?: boolean;
+  recentOnly?: boolean;
+
+  @IsOptional()
+  @IsEnum(OperatorServiceType)
+  serviceType?: OperatorServiceType;
 }
 
 export class LegacyOperatorResponse extends PickType(Operator, [

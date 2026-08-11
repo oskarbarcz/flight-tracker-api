@@ -13,7 +13,10 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Operator } from '../../../../model/operator.model';
+import {
+  Operator,
+  OperatorServiceType,
+} from '../../../../model/operator.model';
 import { UnauthorizedResponse } from '../../../../../../core/http/response/unauthorized.response';
 import { AuthorizedRequest } from '../../../../../../core/http/request/authorized.request';
 import { QueryBus } from '@nestjs/cqrs';
@@ -29,10 +32,17 @@ export class ListOperatorsAction {
   @ApiOperation({ summary: 'Retrieve all operators' })
   @ApiBearerAuth('jwt')
   @ApiQuery({
-    name: 'recent-only',
+    name: 'recentOnly',
     description:
       'Return at most four operators the caller most recently flew or scheduled a flight for, newest first, instead of the full list',
     type: 'boolean',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'serviceType',
+    description:
+      'Return only operators carrying the given traffic. Operators carrying both are returned for "passenger" and for "cargo"',
+    enum: OperatorServiceType,
     required: false,
   })
   @ApiOkResponse({ type: Operator, isArray: true })
@@ -45,12 +55,17 @@ export class ListOperatorsAction {
     @Req() request: AuthorizedRequest,
     @Query() filters: OperatorListFilters,
   ): Promise<Operator[]> {
-    if (filters['recent-only']) {
-      const recentQuery = new ListRecentOperatorsQuery(request.user.sub);
+    const { serviceType } = filters;
+
+    if (filters.recentOnly) {
+      const recentQuery = new ListRecentOperatorsQuery(
+        request.user.sub,
+        serviceType,
+      );
       return this.queryBus.execute(recentQuery);
     }
 
-    const query = new ListAllOperatorsQuery();
+    const query = new ListAllOperatorsQuery(serviceType);
     return this.queryBus.execute(query);
   }
 }

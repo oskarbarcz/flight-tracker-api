@@ -16,6 +16,16 @@ const mailDir = path.join(process.cwd(), 'test-data', 'mail');
 
 type SentMail = { subject: string; text: string };
 
+function readMessage(file: string): SentMail | null {
+  try {
+    const raw = fs.readFileSync(file, 'utf8');
+
+    return raw.length === 0 ? null : (JSON.parse(raw) as SentMail);
+  } catch {
+    return null;
+  }
+}
+
 function messagesTo(address: string): SentMail[] {
   if (!fs.existsSync(mailDir)) {
     return [];
@@ -24,12 +34,8 @@ function messagesTo(address: string): SentMail[] {
   return fs
     .readdirSync(mailDir)
     .filter((name) => name.includes(`_${address}_`))
-    .map(
-      (name) =>
-        JSON.parse(
-          fs.readFileSync(path.join(mailDir, name), 'utf8'),
-        ) as SentMail,
-    );
+    .map((name) => readMessage(path.join(mailDir, name)))
+    .filter((message): message is SentMail => message !== null);
 }
 
 function sleep(ms: number): Promise<void> {

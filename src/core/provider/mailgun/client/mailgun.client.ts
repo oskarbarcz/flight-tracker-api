@@ -64,6 +64,7 @@ export class TestMailgunClient extends MailgunClient {
       outputDir,
       `${message.type}_${message.to}_${randomUUID()}.json`,
     );
+    const pendingPath = path.join(outputDir, `.pending-${randomUUID()}`);
     const content = {
       to: message.to,
       subject: message.subject,
@@ -71,9 +72,10 @@ export class TestMailgunClient extends MailgunClient {
     };
 
     await fs.mkdir(outputDir, { recursive: true });
-    await fs.writeFile(filePath, JSON.stringify(content, null, 2), {
+    await fs.writeFile(pendingPath, JSON.stringify(content, null, 2), {
       encoding: 'utf-8',
     });
+    await fs.rename(pendingPath, filePath);
   }
 }
 

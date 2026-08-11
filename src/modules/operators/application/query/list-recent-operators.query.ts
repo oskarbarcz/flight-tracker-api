@@ -1,11 +1,14 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { OperatorsRepository } from '../../infra/database/repository/operators.repository';
-import { Operator } from '../../model/operator.model';
+import { Operator, OperatorServiceType } from '../../model/operator.model';
 
 export const RECENT_OPERATORS_LIMIT = 4;
 
 export class ListRecentOperatorsQuery extends Query<Operator[]> {
-  constructor(public readonly userId: string) {
+  constructor(
+    public readonly userId: string,
+    public readonly serviceType?: OperatorServiceType,
+  ) {
     super();
   }
 }
@@ -18,6 +21,7 @@ export class ListRecentOperatorsHandler implements IQueryHandler<ListRecentOpera
     return this.repository.findRecentlyInvolvedWith(
       query.userId,
       RECENT_OPERATORS_LIMIT,
+      query.serviceType,
     );
   }
 }

@@ -83,8 +83,14 @@ describe('TestMailgunClient', () => {
     return entries.filter((name) => name.startsWith(prefix));
   }
 
+  async function pendingFiles(): Promise<string[]> {
+    const entries = await fs.readdir(mailDir);
+
+    return entries.filter((name) => name.startsWith('.pending-'));
+  }
+
   afterEach(async () => {
-    for (const name of await writtenFiles()) {
+    for (const name of [...(await writtenFiles()), ...(await pendingFiles())]) {
       await fs.rm(path.join(mailDir, name), { force: true });
     }
     jest.restoreAllMocks();
@@ -106,6 +112,18 @@ describe('TestMailgunClient', () => {
       subject: 'Reset your password',
       text: 'Open https://app.example.com/reset-password?token=abc',
     });
+  });
+
+  it('publishes the message under its final name only once it is complete', async () => {
+    jest.spyOn(global, 'fetch');
+    const client = new TestMailgunClient(HOST, DOMAIN, API_KEY, SENDER);
+
+    await client.send(message);
+
+    expect(await pendingFiles()).toEqual([]);
+    const [name] = await writtenFiles();
+    const raw = await fs.readFile(path.join(mailDir, name), 'utf-8');
+    expect(() => JSON.parse(raw)).not.toThrow();
   });
 
   it('writes one file per message so repeated sends stay visible', async () => {

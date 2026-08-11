@@ -1,6 +1,7 @@
 import {
   OperatorAlliance,
   OperatorGroup,
+  OperatorServiceType,
   OperatorType,
   Prisma,
 } from '../../client/client';
@@ -17,6 +18,7 @@ export async function loadOperators(
     fullName: 'Condor Flugdienst',
     callsign: 'CONDOR',
     type: OperatorType.low_cost,
+    serviceType: OperatorServiceType.passenger,
     hubs: [
       'BER',
       'DUS',
@@ -45,6 +47,7 @@ export async function loadOperators(
     fullName: 'Deutsche Lufthansa AG',
     callsign: 'LUFTHANSA',
     type: OperatorType.legacy,
+    serviceType: OperatorServiceType.both,
     hubs: ['FRA', 'MUC'] as Prisma.InputJsonValue,
     fleetSize: 8,
     fleetTypes: ['A339'] as Prisma.InputJsonValue,
@@ -65,6 +68,7 @@ export async function loadOperators(
     fullName: 'Polskie Linie Lotnicze LOT',
     callsign: 'LOT',
     type: OperatorType.legacy,
+    serviceType: OperatorServiceType.passenger,
     hubs: ['WAW'] as Prisma.InputJsonValue,
     fleetSize: 0,
     fleetTypes: [] as Prisma.InputJsonValue,
@@ -85,6 +89,7 @@ export async function loadOperators(
     fullName: 'American Airlines, Inc.',
     callsign: 'AMERICAN',
     type: OperatorType.legacy,
+    serviceType: OperatorServiceType.both,
     hubs: [
       'CLT',
       'DFW',
@@ -116,6 +121,7 @@ export async function loadOperators(
     fullName: 'British Airways plc',
     callsign: 'SPEEDBIRD',
     type: OperatorType.legacy,
+    serviceType: OperatorServiceType.both,
     hubs: ['LHR'] as Prisma.InputJsonValue,
     fleetSize: 0,
     fleetTypes: [] as Prisma.InputJsonValue,
@@ -136,6 +142,7 @@ export async function loadOperators(
     fullName: 'Société Air France S.A.',
     callsign: 'AIRFRANS',
     type: OperatorType.legacy,
+    serviceType: OperatorServiceType.both,
     hubs: ['CDG', 'ORY'] as Prisma.InputJsonValue,
     fleetSize: 1,
     fleetTypes: ['A320'] as Prisma.InputJsonValue,
@@ -156,6 +163,7 @@ export async function loadOperators(
     fullName: 'Icelandair ehf.',
     callsign: 'ICEAIR',
     type: OperatorType.legacy,
+    serviceType: OperatorServiceType.passenger,
     hubs: ['KEF'] as Prisma.InputJsonValue,
     fleetSize: 1,
     fleetTypes: ['B752'] as Prisma.InputJsonValue,
@@ -176,6 +184,7 @@ export async function loadOperators(
     fullName: 'KLM Royal Dutch Airlines',
     callsign: 'KLM',
     type: OperatorType.legacy,
+    serviceType: OperatorServiceType.both,
     hubs: ['AMS'] as Prisma.InputJsonValue,
     fleetSize: 1,
     fleetTypes: ['B738'] as Prisma.InputJsonValue,
@@ -188,6 +197,26 @@ export async function loadOperators(
     group: OperatorGroup.air_france_klm,
   };
 
+  const cargolux = {
+    id: 'ae07aa28-8bac-4cd7-91fc-12c76e1b6807',
+    icaoCode: 'CLX',
+    iataCode: 'CV',
+    shortName: 'Cargolux',
+    fullName: 'Cargolux Airlines International S.A.',
+    callsign: 'CARGOLUX',
+    type: OperatorType.legacy,
+    serviceType: OperatorServiceType.cargo,
+    hubs: ['LUX'] as Prisma.InputJsonValue,
+    fleetSize: 0,
+    fleetTypes: [] as Prisma.InputJsonValue,
+    avgFleetAge: 13.5,
+    logoUrl: null,
+    backgroundUrl: null,
+    continent: Continent.Europe,
+    alliance: null,
+    group: null,
+  };
+
   for (const operator of [
     condor,
     lufthansa,
@@ -197,6 +226,7 @@ export async function loadOperators(
     airFrance,
     icelandair,
     klm,
+    cargolux,
   ]) {
     await tx.operator.create({ data: operator });
   }

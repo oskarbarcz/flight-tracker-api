@@ -4,7 +4,9 @@ import {
   Operator,
   OperatorAlliance,
   OperatorGroup,
+  OperatorServiceType,
   OperatorType,
+  serviceTypesCarrying,
 } from '../../../model/operator.model';
 import { Prisma, Operator as PrismaOperator } from 'prisma/client/client';
 import {
@@ -26,8 +28,10 @@ export class OperatorsRepository {
     });
   }
 
-  async findAll(): Promise<Operator[]> {
-    const operators = await this.prisma.operator.findMany();
+  async findAll(serviceType?: OperatorServiceType): Promise<Operator[]> {
+    const operators = await this.prisma.operator.findMany({
+      where: this.carryingFilter(serviceType),
+    });
 
     return operators.map((operator) => this.toDomain(operator));
   }
@@ -35,10 +39,16 @@ export class OperatorsRepository {
   async findRecentlyInvolvedWith(
     userId: string,
     limit: number,
+    serviceType?: OperatorServiceType,
   ): Promise<Operator[]> {
     const ranking = await this.prisma.flight.groupBy({
       by: ['operatorId'],
-      where: { OR: [{ captainId: userId }, { createdById: userId }] },
+      where: {
+        OR: [{ captainId: userId }, { createdById: userId }],
+        ...(serviceType
+          ? { operator: this.carryingFilter(serviceType) }
+          : undefined),
+      },
       _max: { createdAt: true },
       orderBy: [{ _max: { createdAt: 'desc' } }, { operatorId: 'asc' }],
       take: limit,
@@ -116,10 +126,19 @@ export class OperatorsRepository {
     });
   }
 
+  private carryingFilter(
+    serviceType?: OperatorServiceType,
+  ): Prisma.OperatorWhereInput | undefined {
+    if (!serviceType) return undefined;
+
+    return { serviceType: { in: serviceTypesCarrying(serviceType) } };
+  }
+
   private toDomain(operator: PrismaOperator): Operator {
     return {
       ...operator,
       type: operator.type as OperatorType,
+      serviceType: operator.serviceType as OperatorServiceType,
       continent: operator.continent as Continent,
       alliance: operator.alliance as OperatorAlliance | null,
       group: operator.group as OperatorGroup | null,
