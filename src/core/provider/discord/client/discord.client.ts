@@ -5,6 +5,27 @@ import * as path from 'path';
 import { promises as fs } from 'fs';
 import { getErrorMessage } from '../../../utils/error-message';
 import { fetchWithRetry } from '../../http/fetch-with-retry';
+import { Client, GatewayIntentBits } from 'discord.js';
+
+let client: Client | null = null;
+
+async function getClient(): Promise<Client> {
+  if (client !== null) {
+    return client;
+  }
+
+  client = new Client({
+    intents: [
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.DirectMessages,
+      GatewayIntentBits.GuildMembers,
+    ],
+  });
+
+  await client.login(process.env.DISCORD_APP_TOKEN);
+
+  return client;
+}
 
 @Injectable()
 export class DiscordClient {
@@ -16,6 +37,23 @@ export class DiscordClient {
     this.logger.log(
       `Sending Discord ${message.type} message for flight ${message.flightId}`,
     );
+
+    const client: Client = await getClient();
+    const serverId = '1398051941354963004';
+    const memberId = '1180928122535817350';
+    const guild = await client.guilds.fetch(serverId);
+    const member = await guild.members.fetch(memberId);
+    try {
+      await member.send({
+        content:
+          'text [link to file plan](https://www.simbrief.com/ofp/flightplans/VHHHOMDB_PDF_1786374978.pdf)',
+        files: [
+          'https://www.simbrief.com/ofp/flightplans/VHHHOMDB_PDF_1786374978.pdf',
+        ],
+      });
+    } catch (e) {
+      console.log('cannot send priv msg', e);
+    }
 
     try {
       const response = await fetchWithRetry(this.webhook, {
@@ -47,6 +85,23 @@ export class TestDiscordClient extends DiscordClient {
       `Sending Discord ${message.type} message for flight ${message.flightId}`,
     );
     this.logger.debug(`Message content: \n ${message.content}`);
+
+    const client: Client = await getClient();
+    const serverId = '1398051941354963004';
+    const memberId = '1180928122535817350';
+    const guild = await client.guilds.fetch(serverId);
+    const member = await guild.members.fetch(memberId);
+    try {
+      await member.send({
+        content:
+          'text [link to file plan](https://www.simbrief.com/ofp/flightplans/VHHHOMDB_PDF_1786374978.pdf)',
+        files: [
+          'https://www.simbrief.com/ofp/flightplans/VHHHOMDB_PDF_1786374978.pdf',
+        ],
+      });
+    } catch (e) {
+      console.log('cannot send priv msg', e);
+    }
 
     const outputDir = path.join(process.cwd(), 'test-data', 'discord');
     const filePath = path.join(

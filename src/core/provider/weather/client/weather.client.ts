@@ -6,6 +6,8 @@ import { fetchWithRetry } from '../../http/fetch-with-retry';
 
 const REPORT_TYPE_TOKENS = new Set(['METAR', 'SPECI', 'TAF']);
 
+const FETCH_OPTIONS = { timeoutMs: 3000, retries: 1, backoffMs: 100 };
+
 @Injectable()
 export class WeatherClient {
   private readonly logger = new Logger(WeatherClient.name);
@@ -31,9 +33,11 @@ export class WeatherClient {
     const url = `${this.baseUrl}/api/data/${kind}?ids=${icaoCodes.join(',')}`;
 
     try {
-      const response = await fetchWithRetry(url, {
-        headers: { Accept: 'text/plain' },
-      });
+      const response = await fetchWithRetry(
+        url,
+        { headers: { Accept: 'text/plain' } },
+        FETCH_OPTIONS,
+      );
 
       if (!response.ok) {
         throw new Error(`Failed to fetch ${kind}: ${response.statusText}`);

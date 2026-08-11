@@ -8,7 +8,7 @@ import { sendApiRequest } from './rest-api.context';
 // after the HTTP response the scenario already asserted on. Every read polls
 // until what it looks for shows up; "no message" assertions wait out a fixed
 // settle window instead, since absence cannot be observed by waiting longer.
-const POLL_TIMEOUT_MS = 5000;
+const POLL_TIMEOUT_MS = 4000;
 const POLL_INTERVAL_MS = 50;
 const SETTLE_MS = 500;
 

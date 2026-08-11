@@ -28,6 +28,8 @@ export class DiscordService {
   ): Promise<void> {
     const query = new GetFlightQuery(event.payload.flightId);
     const flight = await this.queryBus.execute(query);
+    // discord user id: 1180928122535817350
+
 
     const departure = flight.airports.find(
       (airport) => airport.type === AirportType.Departure,

@@ -7,6 +7,8 @@ import {
 import { getErrorMessage } from '../../../utils/error-message';
 import { fetchWithRetry } from '../../http/fetch-with-retry';
 
+const FETCH_OPTIONS = { timeoutMs: 3000, retries: 1, backoffMs: 100 };
+
 @Injectable()
 export class SayIntentionsClient {
   private readonly logger = new Logger(SayIntentionsClient.name);
@@ -17,9 +19,11 @@ export class SayIntentionsClient {
     const url = `${this.baseUrl}/api/mep/getWX?icao=${icaoCode.toLowerCase()}`;
 
     try {
-      const response = await fetchWithRetry(url, {
-        headers: { Accept: 'application/json' },
-      });
+      const response = await fetchWithRetry(
+        url,
+        { headers: { Accept: 'application/json' } },
+        FETCH_OPTIONS,
+      );
 
       if (!response.ok) {
         throw new Error(
