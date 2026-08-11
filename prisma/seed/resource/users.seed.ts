@@ -1,4 +1,5 @@
 import { Prisma, User, UserRole } from '../../client/client';
+import { WeatherSource } from '../../../src/modules/airports/model/airport-weather.model';
 
 // Addresses seeded as pre-existing data are confirmed, matching the backfill
 // the email-confirmation migration applies to rows that predate it.
@@ -20,6 +21,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     homeAirportId: null,
     lastAirportId: null,
     lastAirportUpdatedAt: null,
+    defaultWeatherSource: WeatherSource.AviationWeatherGov,
   };
 
   const alice: User = {
@@ -37,6 +39,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     homeAirportId: null,
     lastAirportId: null,
     lastAirportUpdatedAt: null,
+    defaultWeatherSource: WeatherSource.SayIntentions,
   };
 
   const abby: User = {
@@ -54,6 +57,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     homeAirportId: null,
     lastAirportId: null,
     lastAirportUpdatedAt: null,
+    defaultWeatherSource: WeatherSource.AviationWeatherGov,
   };
 
   const claudia: User = {
@@ -71,6 +75,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     homeAirportId: null,
     lastAirportId: null,
     lastAirportUpdatedAt: null,
+    defaultWeatherSource: WeatherSource.AviationWeatherGov,
   };
 
   const rick: User = {
@@ -90,6 +95,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     homeAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportUpdatedAt: null,
+    defaultWeatherSource: WeatherSource.AviationWeatherGov,
   };
 
   const alan: User = {
@@ -110,6 +116,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     homeAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
     lastAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
     lastAirportUpdatedAt: null,
+    defaultWeatherSource: WeatherSource.AviationWeatherGov,
   };
 
   const michael: User = {
@@ -130,6 +137,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     homeAirportId: '616cbdd7-ccfc-4687-8cf6-1e7236435046', // EPWA
     lastAirportId: '616cbdd7-ccfc-4687-8cf6-1e7236435046', // EPWA
     lastAirportUpdatedAt: null,
+    defaultWeatherSource: WeatherSource.AviationWeatherGov,
   };
 
   const diana: User = {
@@ -147,6 +155,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     homeAirportId: null,
     lastAirportId: null,
     lastAirportUpdatedAt: null,
+    defaultWeatherSource: WeatherSource.AviationWeatherGov,
   };
 
   // Address was never proven — the unconfirmed fixture
@@ -165,6 +174,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     homeAirportId: null,
     lastAirportId: null,
     lastAirportUpdatedAt: null,
+    defaultWeatherSource: WeatherSource.AviationWeatherGov,
   };
 
   // Signs in with Google only — no password to verify, reset or change
@@ -182,6 +192,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     homeAirportId: null,
     lastAirportId: null,
     lastAirportUpdatedAt: null,
+    defaultWeatherSource: WeatherSource.AviationWeatherGov,
   };
 
   for (const user of [

@@ -17,6 +17,7 @@ Feature: Get current user
         "lastAirportId": null,
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
+        "defaultWeatherSource": "aviation_weather_gov",
         "emails": [
           {
             "email": "admin@example.com",
@@ -44,6 +45,7 @@ Feature: Get current user
         "lastAirportId": null,
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
+        "defaultWeatherSource": "say_intentions",
         "emails": [
           {
             "email": "operations@example.com",
@@ -71,6 +73,7 @@ Feature: Get current user
         "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
+        "defaultWeatherSource": "aviation_weather_gov",
         "emails": [
           {
             "email": "cabin-crew@example.com",
@@ -98,6 +101,7 @@ Feature: Get current user
         "lastAirportId": null,
         "lastAirportUpdatedAt": null,
         "simbriefUserId": "333444",
+        "defaultWeatherSource": "aviation_weather_gov",
         "emails": [
           {
             "email": "emma.doe@example.com",
@@ -136,6 +140,7 @@ Feature: Get current user
         "lastAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
+        "defaultWeatherSource": "aviation_weather_gov",
         "emails": [
           {
             "email": "alan.new@example.com",

@@ -100,6 +100,7 @@ Feature: As a user I can change my own email address
         "lastAirportId": null,
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
+        "defaultWeatherSource": "say_intentions",
         "emails": [
           {
             "email": "operations@example.com",

@@ -63,12 +63,13 @@ import { AssertParkingPositionBelongsToAirportHandler } from './application/asse
 import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert-runway-belongs-to-airport.command';
 import { AssertAirportExistsHandler } from './application/assert/assert-airport-exists.query';
 import { WeatherModule } from '../../core/provider/weather/weather.module';
+import { SayIntentionsModule } from '../../core/provider/sayintentions/say-intentions.module';
 import { AirportWeatherRepository } from './infra/database/airport-weather.repository';
 import { GetWeatherAction } from './infra/http/action/weather/get-weather.action';
 import { GetAirportWeatherHandler } from './application/query/weather/get-airport-weather.query';
 import { RefreshWeatherHandler } from './application/command/weather/refresh-weather.command';
-import { WatchAirportsHandler } from './application/command/weather/watch-airports.command';
-import { UnwatchFlightAirportsHandler } from './application/command/weather/unwatch-flight-airports.command';
+import { StartMonitoringAirportsWeatherHandler } from './application/command/weather/start-monitoring-airports-weather.command';
+import { StopMonitoringAirportsWeatherHandler } from './application/command/weather/stop-monitoring-airports-weather.command';
 import { WeatherFlightLifecycleListener } from './application/event/external/weather-flight-lifecycle.listener';
 import { WeatherRefreshService } from './infra/service/weather-refresh.service';
 import { AirportNotamsRepository } from './infra/database/airport-notams.repository';
@@ -77,7 +78,7 @@ import { ListAirportNotamsHandler } from './application/query/notam/list-airport
 import { ReplaceAirportNotamsHandler } from './application/command/notam/replace-airport-notams.command';
 
 @Module({
-  imports: [PrismaModule, SkyLinkModule, WeatherModule],
+  imports: [PrismaModule, SkyLinkModule, WeatherModule, SayIntentionsModule],
   controllers: [
     CreateAirportAction,
     ListAirportsAction,
@@ -147,8 +148,8 @@ import { ReplaceAirportNotamsHandler } from './application/command/notam/replace
     AirportWeatherRepository,
     GetAirportWeatherHandler,
     RefreshWeatherHandler,
-    WatchAirportsHandler,
-    UnwatchFlightAirportsHandler,
+    StartMonitoringAirportsWeatherHandler,
+    StopMonitoringAirportsWeatherHandler,
     WeatherFlightLifecycleListener,
     WeatherRefreshService,
     AirportNotamsRepository,

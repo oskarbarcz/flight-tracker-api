@@ -1,22 +1,76 @@
 import { Prisma } from '../../client/client';
+import {
+  WeatherInformationType,
+  WeatherSource,
+} from '../../../src/modules/airports/model/airport-weather.model';
+
+const WARSAW = '616cbdd7-ccfc-4687-8cf6-1e7236435046';
+const FRANKFURT = 'f35c094a-bec5-4803-be32-bd80a14b441a';
+
+const AVIATION_WEATHER_GOV_FETCHED_AT = new Date('2026-07-08T12:00:00.000Z');
+const SAY_INTENTIONS_FETCHED_AT = new Date('2026-07-08T11:30:00.000Z');
 
 export async function loadWeather(tx: Prisma.TransactionClient): Promise<void> {
   const weather: Prisma.AirportWeatherCreateManyInput[] = [
     {
-      airportId: '616cbdd7-ccfc-4687-8cf6-1e7236435046',
-      metar: 'METAR EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG',
-      metarLastUpdate: new Date('2026-07-08T12:00:00.000Z'),
-      taf: 'TAF EPWA 081100Z 0812/0918 20008KT 9999 SCT040 BECMG 0900/0902 24010KT',
-      tafLastUpdate: new Date('2026-07-08T11:00:00.000Z'),
-      watch: true,
+      id: 'bf427471-4e87-4b4c-a5f9-24f5e295ab05',
+      airportId: WARSAW,
+      source: WeatherSource.AviationWeatherGov,
+      informationType: WeatherInformationType.Metar,
+      content: 'METAR EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG',
+      lastFetched: AVIATION_WEATHER_GOV_FETCHED_AT,
     },
     {
-      airportId: 'f35c094a-bec5-4803-be32-bd80a14b441a',
-      metar: 'METAR EDDF 081200Z 24008KT 9999 FEW035 22/12 Q1018 NOSIG',
-      metarLastUpdate: new Date('2026-07-08T12:00:00.000Z'),
-      taf: 'TAF EDDF 081100Z 0812/0918 24010KT 9999 FEW035 BECMG 0815/0817 27012KT',
-      tafLastUpdate: new Date('2026-07-08T11:00:00.000Z'),
-      watch: false,
+      id: '9ea4d8fe-e098-466f-a3f1-e997d34031c3',
+      airportId: WARSAW,
+      source: WeatherSource.AviationWeatherGov,
+      informationType: WeatherInformationType.Taf,
+      content:
+        'TAF EPWA 081100Z 0812/0918 20008KT 9999 SCT040 BECMG 0900/0902 24010KT',
+      lastFetched: AVIATION_WEATHER_GOV_FETCHED_AT,
+    },
+    {
+      id: '17349a5b-a0f3-4740-b04a-6493576fdccd',
+      airportId: WARSAW,
+      source: WeatherSource.SayIntentions,
+      informationType: WeatherInformationType.Atis,
+      content:
+        'Warsaw Chopin airport, information Sierra. 1030 Zulu. Arriving runway 11. Departing runway 15. Wind 150 at 9. CAVOK. Temperature 29, dewpoint 12. QNH 1013. Transition level 80. Advise on initial contact you have information Sierra.',
+      lastFetched: SAY_INTENTIONS_FETCHED_AT,
+    },
+    {
+      id: '029388aa-805a-4de8-89bb-a3ac4db9a88f',
+      airportId: WARSAW,
+      source: WeatherSource.SayIntentions,
+      informationType: WeatherInformationType.Metar,
+      content: 'EPWA 101030Z 15009KT 130V190 CAVOK 29/12 Q1013 NOSIG',
+      lastFetched: SAY_INTENTIONS_FETCHED_AT,
+    },
+    {
+      id: '51f1542c-243f-4114-adf9-164e6a22b458',
+      airportId: WARSAW,
+      source: WeatherSource.SayIntentions,
+      informationType: WeatherInformationType.Taf,
+      content:
+        'TAF EPWA 100830Z 1009/1109 17007KT CAVOK BECMG 1010/1013 26012KT',
+      lastFetched: SAY_INTENTIONS_FETCHED_AT,
+    },
+    {
+      id: 'e799cf41-0344-4b29-b111-ee9f635535e2',
+      airportId: FRANKFURT,
+      source: WeatherSource.AviationWeatherGov,
+      informationType: WeatherInformationType.Metar,
+      content: 'METAR EDDF 081200Z 24008KT 9999 FEW035 22/12 Q1018 NOSIG',
+      lastFetched: AVIATION_WEATHER_GOV_FETCHED_AT,
+    },
+    {
+      id: 'f721308b-9a04-4b20-8af9-89b25fd1986e',
+      airportId: FRANKFURT,
+      source: WeatherSource.AviationWeatherGov,
+      informationType: WeatherInformationType.Taf,
+      content:
+        'TAF EDDF 081100Z 0812/0918 24010KT 9999 FEW035 BECMG 0815/0817 27012KT',
+      lastFetched: AVIATION_WEATHER_GOV_FETCHED_AT,
     },
   ];
 

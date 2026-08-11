@@ -47,8 +47,10 @@ model Airport {
   location    Json        @default("{\"latitude\": 0, \"longitude\": 0}")
   shape       Json?
 
+  monitorWeather Boolean @default(false)
+
   airportsOnFlights         AirportsOnFlights[]
-  weather                   AirportWeather?
+  weather                   AirportWeather[]
   notams                    AirportNotam[]
   diversion                 Diversion[]
   terminals                 Terminal[]
@@ -68,15 +70,16 @@ model Airport {
 }
 
 model AirportWeather {
-  airportId       String    @id @db.Uuid
-  metar           String?
-  metarLastUpdate DateTime?
-  taf             String?
-  tafLastUpdate   DateTime?
-  watch           Boolean   @default(false)
+  id              String                 @id @default(uuid()) @db.Uuid
+  airportId       String                 @db.Uuid
+  source          WeatherSource
+  informationType WeatherInformationType
+  content         String
+  lastFetched     DateTime
 
   airport Airport @relation(fields: [airportId], references: [id], onDelete: Cascade)
 
+  @@unique([airportId, source, informationType])
   @@map("airport_weather")
 }
 
@@ -387,6 +390,8 @@ model User {
   lastAirportId        String?   @db.Uuid
   lastAirportUpdatedAt DateTime?
 
+  defaultWeatherSource WeatherSource @default(aviation_weather_gov)
+
   homeAirport          Airport?               @relation("UserHomeAirport", fields: [homeAirportId], references: [id], onDelete: SetNull)
   lastAirport          Airport?               @relation("UserLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
   jwtRefreshToken      JwtRefreshToken[]
@@ -636,6 +641,17 @@ enum DataQuality {
   low
   high
   flagship
+}
+
+enum WeatherSource {
+  aviation_weather_gov
+  say_intentions
+}
+
+enum WeatherInformationType {
+  atis
+  metar
+  taf
 }
 
 enum AircraftState {

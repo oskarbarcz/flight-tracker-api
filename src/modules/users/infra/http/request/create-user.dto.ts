@@ -6,4 +6,5 @@ export class CreateUserDto extends OmitType(User, [
   'currentFlightId',
   'lastAirportId',
   'lastAirportUpdatedAt',
+  'defaultWeatherSource',
 ] as const) {}
