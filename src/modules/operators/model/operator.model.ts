@@ -23,6 +23,14 @@ export enum OperatorServiceType {
   Both = 'both',
 }
 
+export function serviceTypesCarrying(
+  traffic: OperatorServiceType,
+): OperatorServiceType[] {
+  return traffic === OperatorServiceType.Both
+    ? [OperatorServiceType.Both]
+    : [traffic, OperatorServiceType.Both];
+}
+
 export enum OperatorAlliance {
   StarAlliance = 'star_alliance',
   SkyTeam = 'sky_team',

@@ -158,6 +158,25 @@ Feature: List operators
           "continent": "europe",
           "alliance": "sky_team",
           "group": "air_france_klm"
+        },
+        {
+          "id": "ae07aa28-8bac-4cd7-91fc-12c76e1b6807",
+          "icaoCode": "CLX",
+          "iataCode": "CV",
+          "shortName": "Cargolux",
+          "fullName": "Cargolux Airlines International S.A.",
+          "callsign": "CARGOLUX",
+          "type": "legacy",
+          "serviceType": "cargo",
+          "hubs": ["LUX"],
+          "fleetSize": 0,
+          "fleetTypes": [],
+          "avgFleetAge": 13.5,
+          "logoUrl": null,
+          "backgroundUrl": null,
+          "continent": "europe",
+          "alliance": null,
+          "group": null
         }
       ]
       """

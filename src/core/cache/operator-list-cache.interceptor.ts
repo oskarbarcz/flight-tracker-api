@@ -3,7 +3,7 @@ import { CacheInterceptor, CacheTTLFactory } from '@nestjs/cache-manager';
 import { AuthorizedRequest } from '../http/request/authorized.request';
 import { CACHE_TTL_MS, recentOperatorsCacheKey } from './cache.key';
 
-export const RECENT_ONLY_QUERY_PARAM = 'recent-only';
+export const RECENT_ONLY_QUERY_PARAM = 'recentOnly';
 
 function queryOf(context: ExecutionContext): Record<string, unknown> {
   const request = context.switchToHttp().getRequest<AuthorizedRequest>();

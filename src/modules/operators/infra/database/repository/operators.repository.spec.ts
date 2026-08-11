@@ -84,6 +84,59 @@ describe('OperatorsRepository.findRecentlyInvolvedWith', () => {
     );
   });
 
+  it('narrows the aggregation to carriers of the requested traffic', async () => {
+    respondWith([], []);
+
+    await repository.findRecentlyInvolvedWith(
+      USER_ID,
+      4,
+      OperatorServiceType.Cargo,
+    );
+
+    expect(prisma.flight.groupBy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: {
+          OR: [{ captainId: USER_ID }, { createdById: USER_ID }],
+          operator: {
+            serviceType: {
+              in: [OperatorServiceType.Cargo, OperatorServiceType.Both],
+            },
+          },
+        },
+        take: 4,
+      }),
+    );
+  });
+
+  it('narrows before capping, so the cap counts only matching carriers', async () => {
+    respondWith([], []);
+
+    await repository.findRecentlyInvolvedWith(
+      USER_ID,
+      4,
+      OperatorServiceType.Cargo,
+    );
+
+    const [call] = prisma.flight.groupBy.mock.calls as [
+      [{ where: Record<string, unknown>; take: number }],
+    ];
+
+    expect(call[0].where).toHaveProperty('operator');
+    expect(call[0].take).toBe(4);
+  });
+
+  it('leaves the aggregation unfiltered when no traffic kind is asked for', async () => {
+    respondWith([], []);
+
+    await repository.findRecentlyInvolvedWith(USER_ID, 4);
+
+    const [call] = prisma.flight.groupBy.mock.calls as [
+      [{ where: Record<string, unknown> }],
+    ];
+
+    expect(call[0].where).not.toHaveProperty('operator');
+  });
+
   it('does not require a flight to have completed', async () => {
     respondWith([], []);
 
@@ -187,5 +240,43 @@ describe('OperatorsRepository.findRecentlyInvolvedWith', () => {
     const [operator] = await repository.findRecentlyInvolvedWith(USER_ID, 4);
 
     expect(operator).toEqual(operatorRow(OPERATOR_IDS.dlh, 'DLH'));
+  });
+});
+
+describe('OperatorsRepository.findAll', () => {
+  let prisma: { operator: { findMany: jest.Mock } };
+  let repository: OperatorsRepository;
+
+  beforeEach(() => {
+    prisma = { operator: { findMany: jest.fn().mockResolvedValue([]) } };
+    repository = new OperatorsRepository(prisma as never);
+  });
+
+  it('filters on the requested traffic, counting carriers of both', async () => {
+    await repository.findAll(OperatorServiceType.Cargo);
+
+    expect(prisma.operator.findMany).toHaveBeenCalledWith({
+      where: {
+        serviceType: {
+          in: [OperatorServiceType.Cargo, OperatorServiceType.Both],
+        },
+      },
+    });
+  });
+
+  it('narrows to carriers of both when both is asked for', async () => {
+    await repository.findAll(OperatorServiceType.Both);
+
+    expect(prisma.operator.findMany).toHaveBeenCalledWith({
+      where: { serviceType: { in: [OperatorServiceType.Both] } },
+    });
+  });
+
+  it('applies no filter when no traffic kind is asked for', async () => {
+    await repository.findAll();
+
+    expect(prisma.operator.findMany).toHaveBeenCalledWith({
+      where: undefined,
+    });
   });
 });

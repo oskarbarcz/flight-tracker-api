@@ -10,7 +10,7 @@ The obvious reading of "recent" — carriers you have flown — turns out to ser
 
 Flights gain a recorded creator, set whenever a flight is created — by hand or by SimBrief import — and backfilled for existing flights from the creation entry already in their event history.
 
-`GET /api/v1/operator` gains an optional `recent-only` boolean query parameter.
+`GET /api/v1/operator` gains an optional `recentOnly` boolean query parameter.
 
 - **Absent or `false`** — unchanged. The full operator list, in its current order, from its current global cache entry.
 - **`true`** — returns at most 4 operators: those the requesting user has most recently been involved with, newest first.
@@ -33,7 +33,7 @@ None. The unfiltered `GET /api/v1/operator` response is unchanged in content, or
 
 ## Impact
 
-**API** — `GET /api/v1/operator` accepts a new optional `recent-only` query parameter. No breaking change: existing callers that omit it observe identical behaviour.
+**API** — `GET /api/v1/operator` accepts a new optional `recentOnly` query parameter. No breaking change: existing callers that omit it observe identical behaviour.
 
 **Affected code**
 

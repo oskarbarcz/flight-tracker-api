@@ -1,6 +1,6 @@
 import { OmitType, PartialType, PickType } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsBoolean, IsOptional } from 'class-validator';
+import { IsBoolean, IsEnum, IsOptional } from 'class-validator';
 import {
   Operator,
   OperatorServiceType,
@@ -32,7 +32,11 @@ export class OperatorListFilters {
     return value;
   })
   @IsBoolean()
-  'recent-only'?: boolean;
+  recentOnly?: boolean;
+
+  @IsOptional()
+  @IsEnum(OperatorServiceType)
+  serviceType?: OperatorServiceType;
 }
 
 export class LegacyOperatorResponse extends PickType(Operator, [

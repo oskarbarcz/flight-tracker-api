@@ -1,7 +1,7 @@
 ## 1. Request contract
 
-- [x] 1.1 Add `OperatorListFilters` to `src/modules/operators/infra/http/request/operator.request.ts` with a single optional quoted property `'recent-only'?: boolean`, validated as a strict boolean (`true`/`false` only, no lenient coercion) and transformed from the query string
-- [x] 1.2 Verify that `?recent-only=maybe` and a valueless `?recent-only` both produce a `400` with a violation naming `recent-only`, and that omitting the parameter leaves it `undefined` rather than defaulting to `false` in a way that changes the branch
+- [x] 1.1 Add `OperatorListFilters` to `src/modules/operators/infra/http/request/operator.request.ts` with a single optional property `recentOnly?: boolean`, validated as a strict boolean (`true`/`false` only, no lenient coercion) and transformed from the query string
+- [x] 1.2 Verify that `?recentOnly=maybe` and a valueless `?recentOnly` both produce a `400` with a violation naming `recentOnly`, and that omitting the parameter leaves it `undefined` rather than defaulting to `false` in a way that changes the branch
 - [x] 1.3 Document the parameter on `ListOperatorsAction` with `@ApiQuery`, describing that it returns at most four operators the caller most recently flew
 
 ## 2. Recency aggregation
@@ -16,7 +16,7 @@
 
 - [x] 3.1 Add `ListRecentOperatorsQuery` under `src/modules/operators/application/query/`, carrying the user id and returning `Operator[]`, with the limit of four as a module-level constant
 - [x] 3.2 Register the handler in `operators.module.ts` providers — it is not auto-discovered
-- [x] 3.3 Extend `ListOperatorsAction` to accept `@Query() filters: OperatorListFilters` and branch to the new query when `recent-only` is `true`, assigning the query to a `const` before `execute` per the repository convention
+- [x] 3.3 Extend `ListOperatorsAction` to accept `@Query() filters: OperatorListFilters` and branch to the new query when `recentOnly` is `true`, assigning the query to a `const` before `execute` per the repository convention
 - [x] 3.4 Read the caller's id from the authorized request the same way `UserAwareCacheInterceptor` does (`req.user.sub`)
 - [x] 3.5 Keep the unfiltered branch dispatching `ListAllOperatorsQuery` unchanged
 
@@ -27,7 +27,7 @@
 - [x] 4.3 Swap `ListOperatorsAction` from `CacheInterceptor` to the new interceptor, keeping `@CacheKey(CACHE_KEYS.OPERATORS_LIST)` as the base key so the default branch's entry is unchanged
 - [x] 4.4 Verify by inspection that no request path can produce the same key for both variants
 - [x] 4.5 Apply the TTL to the per-user entry only; the shared default entry keeps its current untimed behaviour
-- [x] 4.6 Make the interceptor decline to cache any request whose query is not exactly an absent/`true`/`false` `recent-only`, so that interceptor-before-pipe ordering cannot answer an invalid query from the cache instead of rejecting it
+- [x] 4.6 Make the interceptor decline to cache any request whose query is not exactly an absent/`true`/`false` `recentOnly`, so that interceptor-before-pipe ordering cannot answer an invalid query from the cache instead of rejecting it
 
 ## 5. Invalidation
 
@@ -64,7 +64,7 @@
 - [x] 9.1 Add `features/operator/operator.list-recent.feature` as its own file — this is a distinct behaviour, not a side effect of the existing list action, so `operator.list.feature` stays untouched
 - [x] 9.2 Cover the RBAC matrix: operations `200` with four carriers (dispatched), cabin crew `200` with two (flown), admin `200` with an empty list, unauthenticated `401`
 - [x] 9.3 Assert full operator bodies with the complete key set — the deep-compare helper matches exact keys, not a subset
-- [x] 9.4 Add a scenario asserting `?recent-only=false` returns the same body as no parameter, and scenarios for the two `400` cases
+- [x] 9.4 Add a scenario asserting `?recentOnly=false` returns the same body as no parameter, and scenarios for the two `400` cases
 - [x] 9.5 Order the scenarios so cached reads precede anything that mutates operators or completes flights, since the database reset step does not flush the cache between scenarios
 - [x] 9.6 Add a scenario proving cross-variant cache isolation: read the filtered list, then the unfiltered list, and assert the second is the full list
 

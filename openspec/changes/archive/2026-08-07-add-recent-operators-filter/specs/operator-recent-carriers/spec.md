@@ -96,21 +96,21 @@ When the user is involved with fewer than four distinct operators, the system SH
 - **WHEN** a user's most recent flights for operator `AFR` and for operator `ICE` were created at the identical moment
 - **THEN** `AFR` precedes `ICE`, ordered by ICAO code ascending
 
-### Requirement: The operator list endpoint accepts a recent-only filter
+### Requirement: The operator list endpoint accepts a recentOnly filter
 
-The system SHALL accept an optional `recent-only` query parameter on `GET /api/v1/operator`. When it is set to `true`, the endpoint SHALL respond with the caller's recent carrier list and nothing else — the response SHALL NOT include operators the caller has no involvement with, and SHALL NOT append the remaining operators after them. When the parameter is absent or set to `false`, the endpoint SHALL respond exactly as it does today, with the full operator list in its existing order.
+The system SHALL accept an optional `recentOnly` query parameter on `GET /api/v1/operator`. When it is set to `true`, the endpoint SHALL respond with the caller's recent carrier list and nothing else — the response SHALL NOT include operators the caller has no involvement with, and SHALL NOT append the remaining operators after them. When the parameter is absent or set to `false`, the endpoint SHALL respond exactly as it does today, with the full operator list in its existing order.
 
 The parameter SHALL accept only the literal values `true` and `false`. Any other value, including an empty one, SHALL be rejected with status `400` and a validation violation naming the parameter. A cached response SHALL NOT be served in place of that rejection.
 
 #### Scenario: Filter requests the recent carriers
 
-- **WHEN** an authenticated user sends `GET /api/v1/operator?recent-only=true`
+- **WHEN** an authenticated user sends `GET /api/v1/operator?recentOnly=true`
 - **THEN** the response status is `200`
 - **AND** the body contains at most four operators, being the caller's recent carriers, newest first
 
 #### Scenario: Filter explicitly disabled
 
-- **WHEN** an authenticated user sends `GET /api/v1/operator?recent-only=false`
+- **WHEN** an authenticated user sends `GET /api/v1/operator?recentOnly=false`
 - **THEN** the response status is `200`
 - **AND** the body is the full operator list, identical to the response with no query parameter
 
@@ -122,17 +122,17 @@ The parameter SHALL accept only the literal values `true` and `false`. Any other
 
 #### Scenario: Filter carries an unsupported value
 
-- **WHEN** an authenticated user sends `GET /api/v1/operator?recent-only=maybe`
-- **THEN** the response status is `400` with a violation naming `recent-only`
+- **WHEN** an authenticated user sends `GET /api/v1/operator?recentOnly=maybe`
+- **THEN** the response status is `400` with a violation naming `recentOnly`
 
 #### Scenario: Filter carries no value
 
-- **WHEN** an authenticated user sends `GET /api/v1/operator?recent-only`
-- **THEN** the response status is `400` with a violation naming `recent-only`
+- **WHEN** an authenticated user sends `GET /api/v1/operator?recentOnly`
+- **THEN** the response status is `400` with a violation naming `recentOnly`
 
 #### Scenario: Unsupported value after the list has been cached
 
-- **WHEN** an authenticated user reads the full operator list, and then sends `GET /api/v1/operator?recent-only=maybe`
+- **WHEN** an authenticated user reads the full operator list, and then sends `GET /api/v1/operator?recentOnly=maybe`
 - **THEN** the response status is `400`, and the cached list is not returned
 
 ### Requirement: Recent carriers are returned as complete operator bodies
@@ -141,31 +141,31 @@ The system SHALL return each recent carrier as a full operator body, carrying th
 
 #### Scenario: Body shape matches the unfiltered list
 
-- **WHEN** an authenticated user sends `GET /api/v1/operator?recent-only=true` and receives an operator
+- **WHEN** an authenticated user sends `GET /api/v1/operator?recentOnly=true` and receives an operator
 - **THEN** that operator carries exactly the fields it carries in the response to `GET /api/v1/operator`, with the same values
 
 ### Requirement: The filter is available to every authenticated role
 
-The system SHALL require authentication for `GET /api/v1/operator?recent-only=true` and SHALL grant it to every authenticated role, matching the access rules of the unfiltered operator list. The result is always the calling user's own recent carriers; no role SHALL be able to read another user's recent carriers through this endpoint.
+The system SHALL require authentication for `GET /api/v1/operator?recentOnly=true` and SHALL grant it to every authenticated role, matching the access rules of the unfiltered operator list. The result is always the calling user's own recent carriers; no role SHALL be able to read another user's recent carriers through this endpoint.
 
 #### Scenario: Operations reads their recent carriers
 
-- **WHEN** a user with the `operations` role sends `GET /api/v1/operator?recent-only=true`
+- **WHEN** a user with the `operations` role sends `GET /api/v1/operator?recentOnly=true`
 - **THEN** the response status is `200` with the carriers they most recently scheduled or flew
 
 #### Scenario: Cabin crew reads their recent carriers
 
-- **WHEN** a user with the `cabin crew` role sends `GET /api/v1/operator?recent-only=true`
+- **WHEN** a user with the `cabin crew` role sends `GET /api/v1/operator?recentOnly=true`
 - **THEN** the response status is `200` with the carriers they most recently flew or scheduled
 
 #### Scenario: Admin reads their recent carriers
 
-- **WHEN** a user with the `admin` role sends `GET /api/v1/operator?recent-only=true`
+- **WHEN** a user with the `admin` role sends `GET /api/v1/operator?recentOnly=true`
 - **THEN** the response status is `200` with that admin's own recent carriers
 
 #### Scenario: Unauthenticated caller is rejected
 
-- **WHEN** an unauthenticated caller sends `GET /api/v1/operator?recent-only=true`
+- **WHEN** an unauthenticated caller sends `GET /api/v1/operator?recentOnly=true`
 - **THEN** the response status is `401`
 
 ### Requirement: Recent carrier responses are cached per user
@@ -174,17 +174,17 @@ The system SHALL cache the recent carrier response separately for each user, and
 
 #### Scenario: Two users read their recent carriers
 
-- **WHEN** two users with different flight involvement each send `GET /api/v1/operator?recent-only=true`
+- **WHEN** two users with different flight involvement each send `GET /api/v1/operator?recentOnly=true`
 - **THEN** each receives their own recent carriers
 
 #### Scenario: Filtered request does not poison the unfiltered cache
 
-- **WHEN** a user sends `GET /api/v1/operator?recent-only=true` and then `GET /api/v1/operator`
+- **WHEN** a user sends `GET /api/v1/operator?recentOnly=true` and then `GET /api/v1/operator`
 - **THEN** the second response is the full operator list, not the recent carriers
 
 #### Scenario: Unfiltered request does not poison the filtered cache
 
-- **WHEN** a user sends `GET /api/v1/operator` and then `GET /api/v1/operator?recent-only=true`
+- **WHEN** a user sends `GET /api/v1/operator` and then `GET /api/v1/operator?recentOnly=true`
 - **THEN** the second response is the caller's recent carriers, not the full operator list
 
 ### Requirement: Becoming involved with a flight refreshes the user's recent carriers

@@ -197,6 +197,26 @@ export async function loadOperators(
     group: OperatorGroup.air_france_klm,
   };
 
+  const cargolux = {
+    id: 'ae07aa28-8bac-4cd7-91fc-12c76e1b6807',
+    icaoCode: 'CLX',
+    iataCode: 'CV',
+    shortName: 'Cargolux',
+    fullName: 'Cargolux Airlines International S.A.',
+    callsign: 'CARGOLUX',
+    type: OperatorType.legacy,
+    serviceType: OperatorServiceType.cargo,
+    hubs: ['LUX'] as Prisma.InputJsonValue,
+    fleetSize: 0,
+    fleetTypes: [] as Prisma.InputJsonValue,
+    avgFleetAge: 13.5,
+    logoUrl: null,
+    backgroundUrl: null,
+    continent: Continent.Europe,
+    alliance: null,
+    group: null,
+  };
+
   for (const operator of [
     condor,
     lufthansa,
@@ -206,6 +226,7 @@ export async function loadOperators(
     airFrance,
     icelandair,
     klm,
+    cargolux,
   ]) {
     await tx.operator.create({ data: operator });
   }
