@@ -4,6 +4,7 @@ import {
   Operator,
   OperatorAlliance,
   OperatorGroup,
+  OperatorServiceType,
   OperatorType,
 } from '../../../model/operator.model';
 import { Prisma, Operator as PrismaOperator } from 'prisma/client/client';
@@ -120,6 +121,7 @@ export class OperatorsRepository {
     return {
       ...operator,
       type: operator.type as OperatorType,
+      serviceType: operator.serviceType as OperatorServiceType,
       continent: operator.continent as Continent,
       alliance: operator.alliance as OperatorAlliance | null,
       group: operator.group as OperatorGroup | null,

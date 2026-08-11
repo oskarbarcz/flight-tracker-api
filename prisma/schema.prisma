@@ -187,20 +187,21 @@ model ParkingPosition {
 }
 
 model Operator {
-  id            String            @id @default(uuid()) @db.Uuid
-  icaoCode      String            @db.VarChar(3)
-  iataCode      String            @default("AA") @db.VarChar(2)
+  id            String              @id @default(uuid()) @db.Uuid
+  icaoCode      String              @db.VarChar(3)
+  iataCode      String              @default("AA") @db.VarChar(2)
   shortName     String
   fullName      String
   callsign      String
-  type          OperatorType      @default(legacy)
-  hubs          Json              @default("[]")
-  fleetSize     Int               @default(0)
-  fleetTypes    Json              @default("[]")
-  avgFleetAge   Float             @default(0)
+  type          OperatorType        @default(legacy)
+  serviceType   OperatorServiceType @default(passenger)
+  hubs          Json                @default("[]")
+  fleetSize     Int                 @default(0)
+  fleetTypes    Json                @default("[]")
+  avgFleetAge   Float               @default(0)
   logoUrl       String?
   backgroundUrl String?
-  continent     Continent         @default(europe)
+  continent     Continent           @default(europe)
   alliance      OperatorAlliance?
   group         OperatorGroup?
 
@@ -665,6 +666,12 @@ enum OperatorType {
   low_cost
   charter
   government_military
+}
+
+enum OperatorServiceType {
+  passenger
+  cargo
+  both
 }
 
 enum OperatorAlliance {

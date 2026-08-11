@@ -1,5 +1,8 @@
 import { OperatorsRepository } from './operators.repository';
-import { OperatorType } from '../../../model/operator.model';
+import {
+  OperatorServiceType,
+  OperatorType,
+} from '../../../model/operator.model';
 import { Continent } from '../../../../airports/model/airport.model';
 
 const USER_ID = 'd3f6c1a4-9b52-4c7e-8f01-2a6de4b7c910';
@@ -21,6 +24,7 @@ function operatorRow(id: string, icaoCode: string) {
     fullName: `${icaoCode} Airlines`,
     callsign: icaoCode,
     type: OperatorType.Legacy,
+    serviceType: OperatorServiceType.Passenger,
     hubs: ['FRA'],
     fleetSize: 1,
     fleetTypes: ['A320'],

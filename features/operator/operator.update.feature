@@ -37,6 +37,40 @@ Feature: Update operator
         "fullName": "Condor Flugdienst",
         "callsign": "CONDOR",
         "type": "low_cost",
+        "serviceType": "passenger",
+        "hubs": ["BER", "DUS", "FRA", "HAM", "MUC", "STR", "ZRH"],
+        "fleetSize": 2,
+        "fleetTypes": ["A321", "A319"],
+        "avgFleetAge": 9.2,
+        "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png",
+        "backgroundUrl": null,
+        "continent": "europe",
+        "alliance": null,
+        "group": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I can update operator service type
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871" with body:
+      """json
+      {
+        "serviceType": "cargo"
+      }
+      """
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
+        "icaoCode": "CFG",
+        "iataCode": "DE",
+        "shortName": "Condor",
+        "fullName": "Condor Flugdienst",
+        "callsign": "CONDOR",
+        "type": "low_cost",
+        "serviceType": "cargo",
         "hubs": ["BER", "DUS", "FRA", "HAM", "MUC", "STR", "ZRH"],
         "fleetSize": 2,
         "fleetTypes": ["A321", "A319"],

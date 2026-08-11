@@ -70,6 +70,7 @@ Feature: Update aircraft
         "fullName": "Deutsche Lufthansa AG",
         "callsign": "LUFTHANSA",
         "type": "legacy",
+        "serviceType": "both",
         "hubs": ["FRA", "MUC"],
         "fleetSize": 8,
         "fleetTypes": ["A339"],

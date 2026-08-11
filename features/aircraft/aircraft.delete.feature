@@ -39,6 +39,7 @@ Feature: Delete aircraft
         "fullName": "Condor Flugdienst",
         "callsign": "CONDOR",
         "type": "low_cost",
+        "serviceType": "passenger",
         "hubs": ["BER", "DUS", "FRA", "HAM", "MUC", "STR", "ZRH"],
         "fleetSize": 1,
         "fleetTypes": ["A321"],

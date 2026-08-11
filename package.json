@@ -1,6 +1,6 @@
 {
   "name": "flight-tracker-api",
-  "version": "3.18.0",
+  "version": "3.19.0",
   "private": true,
   "homepage": "https://flights.barcz.me",
   "author": "oskarbarcz",
@@ -106,5 +106,13 @@
     "@nestjs/schematics": {
       "ajv": "^8.18.0"
     }
+  },
+  "allowScripts": {
+    "@nestjs/core@11.1.19": true,
+    "@prisma/engines@7.9.1": true,
+    "@scarf/scarf@1.4.0": true,
+    "bcrypt@6.0.0": true,
+    "prisma@7.9.1": true,
+    "unrs-resolver@1.11.1": true
   }
 }

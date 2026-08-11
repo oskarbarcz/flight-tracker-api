@@ -17,6 +17,12 @@ export enum OperatorType {
   GovernmentMilitary = 'government_military',
 }
 
+export enum OperatorServiceType {
+  Passenger = 'passenger',
+  Cargo = 'cargo',
+  Both = 'both',
+}
+
 export enum OperatorAlliance {
   StarAlliance = 'star_alliance',
   SkyTeam = 'sky_team',
@@ -148,6 +154,17 @@ export class Operator {
   @IsNotEmpty()
   @IsEnum(OperatorType)
   type!: OperatorType;
+
+  @ApiProperty({
+    description: 'Kind of traffic the operator carries',
+    example: OperatorServiceType.Passenger,
+    enum: OperatorServiceType,
+    default: OperatorServiceType.Passenger,
+    required: false,
+  })
+  @IsNotEmpty()
+  @IsEnum(OperatorServiceType)
+  serviceType!: OperatorServiceType;
 
   @ApiProperty({
     description: 'Continent operator primarily operates on',

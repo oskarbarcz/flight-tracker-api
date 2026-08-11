@@ -85,6 +85,7 @@ Feature: Create aircraft for operator
         "fullName": "Deutsche Lufthansa AG",
         "callsign": "LUFTHANSA",
         "type": "legacy",
+        "serviceType": "both",
         "hubs": ["FRA", "MUC"],
         "fleetSize": 9,
         "fleetTypes": ["A339", "B748"],
