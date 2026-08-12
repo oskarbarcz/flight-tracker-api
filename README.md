@@ -131,8 +131,19 @@ guild the app is installed in).
 **Sending.** The bot needs `DISCORD_PUBLIC_FLIGHT_ANNOUNCEMENTS_CHANNEL_ID` and sends two kinds of message:
 
 - a public announcement in the announcements channel when boarding starts and when a flight goes on block;
-- a direct message with the flight briefing to the pilot who checks in, carrying the SimBrief OFP as both a link and
-  an attachment when the flight has one.
+- a direct message with the flight briefing to the pilot who checks in.
+
+**The briefing.** It names the flight, its route and its aircraft, then renders the estimated schedule as an
+`out`/`off`/`on`/`in` block with the resulting block time, followed by the ATIS, METAR and TAF held for the
+**departure** airport. Each report is reproduced exactly as its provider published it, and a report the system does
+not hold is left out rather than shown empty — ATIS comes from SayIntentions only, so a briefing may well have none.
+A flight imported from SimBrief also carries its OFP as both a link and an attachment. The closing link is built
+from `FRONTEND_BASE_URL`.
+
+Weather is read from the reports already stored for the airport. Check-in also starts a weather refresh in its own
+listener, and the two run concurrently, so when nothing is stored yet the briefing runs one refresh of the departure
+airport itself before giving up on a section. Briefing delivery never blocks a check-in: a rejected message is
+logged and swallowed.
 
 `NODE_ENV=production` connects to the gateway, and so does `DISCORD_GATEWAY_ENABLED="true"` anywhere else — the
 escape hatch for working against a real server locally. With neither, the connection is refused outright.
@@ -161,9 +172,12 @@ unlisted URI is rejected with `400` so a code cannot be relayed elsewhere.
 | `POST /api/v1/user/me/link-discord-account`     | Link, optionally joining the server in the same consent pass (`joinServer`). Returns the resulting state so the UI needs no refetch. |
 | `POST /api/v1/user/me/unlink-discord-account`   | Unlink. Requires the current password, and never removes the user from the server.                                                   |
 | `GET /api/v1/user/me/discord/server-membership` | Live membership probe for an account screen.                                                                                         |
+| `GET /api/v1/user/me/discord-settings`          | Read whether check-in briefing direct messages are enabled.                                                                          |
+| `PATCH /api/v1/user/me/discord-settings`        | Turn briefing direct messages on or off. Defaults to on, and works with or without a linked account.                                 |
 
 **Server membership is a precondition, not a detail.** A direct message can only reach somebody who shares the
-server with the bot, so a linked account that never joined gets no briefings. `joinServer: true` adds the user
+server with the bot, so a linked account that never joined gets no briefings — as does a pilot who turned them off
+in `discord-settings`. `joinServer: true` adds the user
 during linking; when that fails the link still stands and `joinOutcome` reports `failed`, because a link is worth
 keeping on its own. Membership is reported as `member`, `not_member` or `unknown` — and `unknown` whenever the truth
 could not be established (no linked account, gateway offline, or Discord silent), never `not_member`. With the

@@ -11,21 +11,42 @@ import {
   AirportWithType,
 } from '../../../airports/model/airport.model';
 import { Injectable, Logger } from '@nestjs/common';
-import { QueryBus } from '@nestjs/cqrs';
+import { ConfigService } from '@nestjs/config';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetFlightQuery } from '../../application/query/get-flight.query';
 import { GetOfpQuery } from '../../application/query/get-ofp.query';
 import { GetUserDiscordIdQuery } from '../../../users/application/query/get-user-discord-id.query';
+import { GetUserDiscordSettingsQuery } from '../../../users/application/query/get-user-discord-settings.query';
+import { GetUserWeatherSourceQuery } from '../../../users/application/query/get-user-weather-source.query';
+import { GetAirportWeatherQuery } from '../../../airports/application/query/weather/get-airport-weather.query';
+import { RefreshWeatherCommand } from '../../../airports/application/command/weather/refresh-weather.command';
+import { WeatherSourceFilter } from '../../../airports/infra/http/request/weather.dto';
+import {
+  GetAirportWeatherResponse,
+  WeatherInformationType,
+  WeatherSource,
+} from '../../../airports/model/airport-weather.model';
 import { FlightOfpDetails } from '../../model/flight.model';
 import { FlightOfpNotFoundError } from '../../model/error/flight.error';
+import {
+  BriefingWeather,
+  formatFlightBriefing,
+  formatFlightNumber,
+} from './flight-briefing.formatter';
 
 @Injectable()
 export class DiscordService {
   private readonly logger = new Logger(DiscordService.name);
+  private readonly frontendBaseUrl: string;
 
   constructor(
     private readonly client: DiscordClient,
     private readonly queryBus: QueryBus,
-  ) {}
+    private readonly commandBus: CommandBus,
+    config: ConfigService,
+  ) {
+    this.frontendBaseUrl = config.getOrThrow<string>('FRONTEND_BASE_URL');
+  }
 
   @OnEvent(FlightEventType.BoardingWasStarted)
   public async onBoardingStarted(
@@ -49,14 +70,14 @@ export class DiscordService {
 
       const content =
         `:airplane_departure: :airplane_departure: :airplane_departure:\n\n` +
-        `Flight **${this.formatFlightNumber(flight.flightNumber)}**` +
+        `Flight **${formatFlightNumber(flight.flightNumber)}**` +
         ` from **${departure.city} (${departure.iataCode})**` +
         ` to **${destination.city} (${destination.iataCode})**` +
         ` has started boarding!\n` +
         `Estimated block time: **${blockTime}hrs**, ` +
         `Passengers on board: **${flight.loadsheets.preliminary?.passengers}**\n\n` +
         `Track flight live on <:ft:1436299102626386031> ` +
-        `[Flight Tracker](https://flights.barcz.me/map/${flight.id})!`;
+        `[Flight Tracker](${this.frontendBaseUrl}/map/${flight.id})!`;
 
       await this.client.sendMessage({
         flightId: event.payload.flightId,
@@ -92,13 +113,13 @@ export class DiscordService {
 
       const content =
         `:airplane_arriving: :airplane_arriving: :airplane_arriving:\n\n` +
-        `Flight **${this.formatFlightNumber(flight.flightNumber)}**` +
+        `Flight **${formatFlightNumber(flight.flightNumber)}**` +
         ` from **${departure.city} (${departure.iataCode})**` +
         ` to **${destination.city} (${destination.iataCode})**` +
         ` just arrived!\n` +
         `Actual block time: **${blockTime}hrs**\n\n` +
         `See flight path on <:ft:1436299102626386031> ` +
-        `[Flight Tracker](https://flights.barcz.me/map/${flight.id})!`;
+        `[Flight Tracker](${this.frontendBaseUrl}/map/${flight.id})!`;
 
       await this.client.sendMessage({
         flightId: event.payload.flightId,
@@ -121,6 +142,13 @@ export class DiscordService {
     }
 
     try {
+      const settingsQuery = new GetUserDiscordSettingsQuery(actorId);
+      const settings = await this.queryBus.execute(settingsQuery);
+
+      if (!settings.briefingsEnabled) {
+        return;
+      }
+
       const discordIdQuery = new GetUserDiscordIdQuery(actorId);
       const discordId = await this.queryBus.execute(discordIdQuery);
 
@@ -139,23 +167,26 @@ export class DiscordService {
         (airport) => airport.type === AirportType.Destination,
       ) as AirportWithType;
 
-      const lines = [
-        `:clipboard: **Flight ${this.formatFlightNumber(flight.flightNumber)} briefing**`,
-        '',
-        `Route: **${departure.city} (${departure.iataCode})**` +
-          ` to **${destination.city} (${destination.iataCode})**`,
-        `Aircraft: **${flight.aircraft.airframe.name}** (${flight.aircraft.registration})`,
-        `Estimated off block: **${this.formatTime(flight.timesheet.estimated?.offBlockTime as Date)}**, ` +
-          `on block: **${this.formatTime(flight.timesheet.estimated?.onBlockTime as Date)}**`,
-      ];
-
-      if (ofp !== null) {
-        lines.push('', `[Operational flight plan](${ofp.ofpDocumentUrl})`);
-      }
+      const content = formatFlightBriefing({
+        flightNumber: flight.flightNumber,
+        departure: { city: departure.city, iataCode: departure.iataCode },
+        destination: {
+          city: destination.city,
+          iataCode: destination.iataCode,
+        },
+        aircraft: {
+          registration: flight.aircraft.registration,
+          type: flight.aircraft.airframe.name,
+        },
+        schedule: flight.timesheet.estimated,
+        weather: await this.resolveDepartureWeather(departure.id, actorId),
+        ofpDocumentUrl: ofp === null ? null : ofp.ofpDocumentUrl,
+        flightUrl: `${this.frontendBaseUrl}/flight/${flight.id}`,
+      });
 
       await this.client.sendDirectMessage(discordId, {
         flightId,
-        content: lines.join('\n'),
+        content,
         type: 'briefing',
         attachments: ofp === null ? [] : [ofp.ofpDocumentUrl],
       });
@@ -174,6 +205,57 @@ export class DiscordService {
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
   }
 
+  private async resolveDepartureWeather(
+    airportId: string,
+    userId: string,
+  ): Promise<BriefingWeather> {
+    let reports = await this.readWeather(airportId);
+
+    if (reports.length === 0) {
+      const command = new RefreshWeatherCommand([airportId]);
+      await this.commandBus.execute(command);
+      reports = await this.readWeather(airportId);
+    }
+
+    if (reports.length === 0) {
+      return {};
+    }
+
+    const sourceQuery = new GetUserWeatherSourceQuery(userId);
+    const preferred = await this.queryBus.execute(sourceQuery);
+
+    return {
+      atis: this.pickReport(reports, WeatherInformationType.Atis, preferred),
+      metar: this.pickReport(reports, WeatherInformationType.Metar, preferred),
+      taf: this.pickReport(reports, WeatherInformationType.Taf, preferred),
+    };
+  }
+
+  private async readWeather(
+    airportId: string,
+  ): Promise<GetAirportWeatherResponse[]> {
+    const query = new GetAirportWeatherQuery(
+      airportId,
+      WeatherSourceFilter.All,
+    );
+
+    return this.queryBus.execute(query);
+  }
+
+  private pickReport(
+    reports: GetAirportWeatherResponse[],
+    informationType: WeatherInformationType,
+    preferred: WeatherSource,
+  ): string | undefined {
+    const matching = reports.filter(
+      (report) => report.informationType === informationType,
+    );
+    const chosen =
+      matching.find((report) => report.source === preferred) ?? matching[0];
+
+    return chosen?.content;
+  }
+
   private async resolveOfp(flightId: string): Promise<FlightOfpDetails | null> {
     try {
       const query = new GetOfpQuery(flightId);
@@ -185,13 +267,5 @@ export class DiscordService {
 
       throw error;
     }
-  }
-
-  private formatFlightNumber(flightNumber: string): string {
-    return flightNumber.replace(/^(.{2})/, '$1 ');
-  }
-
-  private formatTime(time: Date): string {
-    return `${time.toISOString().slice(11, 16)}Z`;
   }
 }

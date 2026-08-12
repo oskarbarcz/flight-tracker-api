@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../../http/request/create-user.dto';
 import { UpdateUserDto } from '../../http/request/update-user.dto';
+import { UpdateDiscordSettingsDto } from '../../http/request/update-discord-settings.dto';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import {
@@ -12,6 +13,7 @@ import {
 import { User } from '../../../../../../prisma/client/client';
 import { UserRole } from '../../../model/user-role';
 import { WeatherSource } from '../../../../airports/model/airport-weather.model';
+import { DiscordSettings } from '../../../model/discord-settings.model';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
 import { CACHE_KEYS, cacheByUser } from '../../../../../core/cache/cache.key';
@@ -515,5 +517,34 @@ export class UsersRepository {
     }
 
     return user.defaultWeatherSource as WeatherSource;
+  }
+
+  async getDiscordSettings(userId: string): Promise<DiscordSettings> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { discordBriefingsEnabled: true },
+    });
+
+    if (!user) {
+      throw new UserWithGivenIdNotFoundError();
+    }
+
+    return { briefingsEnabled: user.discordBriefingsEnabled };
+  }
+
+  async updateDiscordSettings(
+    userId: string,
+    settings: UpdateDiscordSettingsDto,
+  ): Promise<void> {
+    const user = await this.findOneBy({ id: userId });
+
+    if (!user) {
+      throw new UserWithGivenIdNotFoundError();
+    }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { discordBriefingsEnabled: settings.briefingsEnabled },
+    });
   }
 }

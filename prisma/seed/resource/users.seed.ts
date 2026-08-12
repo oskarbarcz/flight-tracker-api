@@ -27,6 +27,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportId: null,
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
+    discordBriefingsEnabled: true,
   };
 
   const alice: User = {
@@ -50,6 +51,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportId: null,
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.SayIntentions,
+    discordBriefingsEnabled: true,
   };
 
   const abby: User = {
@@ -73,6 +75,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportId: null,
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
+    discordBriefingsEnabled: true,
   };
 
   const claudia: User = {
@@ -96,6 +99,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportId: null,
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
+    discordBriefingsEnabled: true,
   };
 
   const rick: User = {
@@ -121,6 +125,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
+    discordBriefingsEnabled: true,
   };
 
   const alan: User = {
@@ -147,6 +152,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
+    discordBriefingsEnabled: true,
   };
 
   const michael: User = {
@@ -173,6 +179,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportId: '616cbdd7-ccfc-4687-8cf6-1e7236435046', // EPWA
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
+    discordBriefingsEnabled: true,
   };
 
   const diana: User = {
@@ -196,6 +203,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportId: null,
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
+    discordBriefingsEnabled: true,
   };
 
   // Address was never proven — the unconfirmed fixture
@@ -220,6 +228,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportId: null,
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
+    discordBriefingsEnabled: true,
   };
 
   // Signs in with Google only — no password to verify, reset or change
@@ -243,6 +252,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportId: null,
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
+    discordBriefingsEnabled: true,
   };
 
   for (const user of [

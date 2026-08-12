@@ -46,6 +46,10 @@ import { ConfirmPasswordResetAction } from './infra/http/action/confirm-password
 import { RequestPasswordResetHandler } from './application/command/request-password-reset.command';
 import { ConfirmPasswordResetHandler } from './application/command/confirm-password-reset.command';
 import { PasswordResetMailListener } from './application/event/internal/password-reset-mail.listener';
+import { GetDiscordSettingsAction } from './infra/http/action/get-discord-settings.action';
+import { UpdateDiscordSettingsAction } from './infra/http/action/update-discord-settings.action';
+import { GetUserDiscordSettingsHandler } from './application/query/get-user-discord-settings.query';
+import { UpdateDiscordSettingsHandler } from './application/command/update-discord-settings.command';
 
 @Module({
   controllers: [
@@ -64,6 +68,8 @@ import { PasswordResetMailListener } from './application/event/internal/password
     SetPasswordAction,
     RequestPasswordResetAction,
     ConfirmPasswordResetAction,
+    GetDiscordSettingsAction,
+    UpdateDiscordSettingsAction,
   ],
   providers: [
     UsersRepository,
@@ -73,6 +79,7 @@ import { PasswordResetMailListener } from './application/event/internal/password
     CheckUserExistsHandler,
     GetUserSimbriefIdHandler,
     GetUserDiscordIdHandler,
+    GetUserDiscordSettingsHandler,
     GetUserWeatherSourceHandler,
     AssertUserExistsHandler,
     CreateUserHandler,
@@ -96,6 +103,7 @@ import { PasswordResetMailListener } from './application/event/internal/password
     RequestPasswordResetHandler,
     ConfirmPasswordResetHandler,
     PasswordResetMailListener,
+    UpdateDiscordSettingsHandler,
   ],
   imports: [PrismaModule, MailgunModule],
   exports: [UsersRepository, UserTokenRepository],
