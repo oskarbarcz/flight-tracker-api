@@ -1,13 +1,13 @@
-import { Schedule } from '../../model/timesheet.model';
+import { Schedule } from './timesheet.model';
 
 const FLIGHT_TRACKER_EMOJI = '<:ft:1436299102626386031>';
 
-export type BriefingAirport = {
+export type MessageAirport = {
   city: string;
   iataCode: string;
 };
 
-export type BriefingAircraft = {
+export type MessageAircraft = {
   registration: string;
   type: string;
 };
@@ -20,13 +20,24 @@ export type BriefingWeather = {
 
 export type BriefingInput = {
   flightNumber: string;
-  departure: BriefingAirport;
-  destination: BriefingAirport;
-  aircraft: BriefingAircraft;
+  departure: MessageAirport;
+  destination: MessageAirport;
+  aircraft: MessageAircraft;
   schedule?: Partial<Schedule>;
   weather: BriefingWeather;
-  ofpDocumentUrl: string | null;
   flightUrl: string;
+};
+
+export type AnnouncementInput = {
+  flightNumber: string;
+  departure: MessageAirport;
+  destination: MessageAirport;
+  blockTime: string;
+  flightUrl: string;
+};
+
+export type BoardingAnnouncementInput = AnnouncementInput & {
+  passengers?: number;
 };
 
 export function formatFlightBriefing(input: BriefingInput): string {
@@ -55,10 +66,6 @@ export function formatFlightBriefing(input: BriefingInput): string {
     sections.push(`TAF:\n${codeBlock(taf)}`);
   }
 
-  if (input.ofpDocumentUrl !== null) {
-    sections.push(`[Operational flight plan](${input.ofpDocumentUrl})`);
-  }
-
   sections.push(
     `Manage your flight in the ${FLIGHT_TRACKER_EMOJI} ` +
       `[**Flight Tracker app**](${input.flightUrl}).`,
@@ -67,18 +74,60 @@ export function formatFlightBriefing(input: BriefingInput): string {
   return sections.join('\n\n');
 }
 
+export function formatBoardingAnnouncement(
+  input: BoardingAnnouncementInput,
+): string {
+  return (
+    `:airplane_departure: :airplane_departure: :airplane_departure:\n\n` +
+    `Flight **${formatFlightNumber(input.flightNumber)}**` +
+    ` from **${input.departure.city} (${input.departure.iataCode})**` +
+    ` to **${input.destination.city} (${input.destination.iataCode})**` +
+    ` has started boarding!\n` +
+    `Estimated block time: **${input.blockTime}hrs**, ` +
+    `Passengers on board: **${input.passengers}**\n\n` +
+    `Track flight live on ${FLIGHT_TRACKER_EMOJI} ` +
+    `[Flight Tracker](${input.flightUrl})!`
+  );
+}
+
+export function formatArrivalAnnouncement(input: AnnouncementInput): string {
+  return (
+    `:airplane_arriving: :airplane_arriving: :airplane_arriving:\n\n` +
+    `Flight **${formatFlightNumber(input.flightNumber)}**` +
+    ` from **${input.departure.city} (${input.departure.iataCode})**` +
+    ` to **${input.destination.city} (${input.destination.iataCode})**` +
+    ` just arrived!\n` +
+    `Actual block time: **${input.blockTime}hrs**\n\n` +
+    `See flight path on ${FLIGHT_TRACKER_EMOJI} ` +
+    `[Flight Tracker](${input.flightUrl})!`
+  );
+}
+
 export function formatFlightNumber(flightNumber: string): string {
   return flightNumber.replace(/^(.{2})/, '$1 ');
 }
 
+export function calculateBlockTime(
+  offBlockTime: Date,
+  onBlockTime: Date,
+): string {
+  const minutes = blockMinutes(offBlockTime, onBlockTime);
+
+  return [Math.floor(minutes / 60), minutes % 60]
+    .map((part) => part.toString().padStart(2, '0'))
+    .join(':');
+}
+
 export function formatBlockTime(offBlockTime: Date, onBlockTime: Date): string {
-  const minutes = Math.floor(
-    (onBlockTime.getTime() - offBlockTime.getTime()) / 60000,
-  );
+  const minutes = blockMinutes(offBlockTime, onBlockTime);
 
   return `${Math.floor(minutes / 60)}h ${(minutes % 60)
     .toString()
     .padStart(2, '0')}m`;
+}
+
+function blockMinutes(offBlockTime: Date, onBlockTime: Date): number {
+  return Math.floor((onBlockTime.getTime() - offBlockTime.getTime()) / 60000);
 }
 
 function formatSchedule(schedule?: Partial<Schedule>): string | null {

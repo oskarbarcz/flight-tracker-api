@@ -665,7 +665,7 @@ Feature: Check in pilot for flight
     And I see Discord "briefing" message for flight "11087d20-ead0-4b7e-97ee-f1ef0ea29e4f" containing "out: 09:00z"
     And I see Discord "briefing" message for flight "11087d20-ead0-4b7e-97ee-f1ef0ea29e4f" containing "in:  17:25z"
     And I see Discord "briefing" message for flight "11087d20-ead0-4b7e-97ee-f1ef0ea29e4f" containing "block: 8h 25m"
-    And I see Discord "briefing" message for flight "11087d20-ead0-4b7e-97ee-f1ef0ea29e4f" containing "[Operational flight plan](https://www.simbrief.com/ofp/flightplans/EDDFKJFK_PDF_1769431274.pdf)"
+    And I see Discord "briefing" message for flight "11087d20-ead0-4b7e-97ee-f1ef0ea29e4f" containing "https://www.simbrief.com/ofp/flightplans/EDDFKJFK_PDF_1769431274.pdf"
     And I set database to initial state
     And I clear Discord messages directory
 

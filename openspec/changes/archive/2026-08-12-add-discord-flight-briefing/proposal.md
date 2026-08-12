@@ -6,7 +6,7 @@ A pilot who checks in for a flight currently has to open the app, the OFP and a 
 
 - On check-in, a pilot with a linked Discord account receives a private message containing the flight briefing: flight number, route, aircraft, the estimated schedule as an out/off/on/in block with total block time, and the departure airport's ATIS, METAR and TAF.
 - The briefing closes with a link back to the flight in the app.
-- When the flight was imported from SimBrief, the operational flight plan PDF is attached to the message and linked in its body.
+- When the flight was imported from SimBrief, the operational flight plan PDF is attached to the message; the body never links it.
 - Sections whose data is unavailable (no ATIS published, no SimBrief plan) are omitted rather than shown empty.
 - A pilot can turn briefing private messages on or off. The setting is read and written through a dedicated Discord settings endpoint pair on the signed-in user, and defaults to on.
 - Briefings are only sent to pilots who have a linked Discord account and have not switched the setting off.
@@ -26,5 +26,6 @@ A pilot who checks in for a flight currently has to open the app, the OFP and a 
 - **API**: new `GET /api/v1/user/me/discord-settings` and `PATCH /api/v1/user/me/discord-settings`.
 - **Data**: new per-user briefing preference, defaulting to enabled for existing pilots.
 - **Behaviour**: the check-in briefing private message that exists today is replaced by the richer content described above and becomes conditional on the new setting.
+- **Structure**: the single class sending every Discord message is split into one listener per message.
 - **Integrations**: reuses the stored airport weather (ATIS from SayIntentions, METAR/TAF from aviationweather.gov) already refreshed at check-in, and the SimBrief operational flight plan already stored at import.
 - **Docs**: README Discord section.

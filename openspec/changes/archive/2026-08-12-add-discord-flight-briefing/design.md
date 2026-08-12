@@ -2,7 +2,7 @@
 
 See `proposal.md` — Why. The moving parts already exist and only need to be composed:
 
-- `DiscordService.onPilotCheckedIn` (flights module, `infra/service/`) already listens on `PilotCheckedIn`, resolves the actor's Discord id and sends a direct message of type `briefing`, with the SimBrief PDF URL as an attachment.
+- `DiscordService` (flights module, `infra/service/`) is one class handling all three Discord messages: the `briefing` direct message on `PilotCheckedIn`, and the `departure` / `arrival` channel posts on `BoardingWasStarted` / `OnBlockWasReported`. Its `onPilotCheckedIn` already resolves the actor's Discord id and attaches the SimBrief PDF URL.
 - `WeatherFlightLifecycleListener` (airports module) also listens on `PilotCheckedIn`, flips `monitorWeather` on for every airport of the flight and runs `RefreshWeatherCommand` for them. ATIS comes from SayIntentions only; METAR and TAF come from both providers.
 - `GetAirportWeatherQuery(airportId, source, userId)` reads the stored reports, and `GetUserWeatherSourceQuery` exposes the pilot's preferred provider.
 - Per-user preferences have one precedent: `User.defaultWeatherSource`, carried on the profile and edited through `PATCH /api/v1/user/me`.
@@ -15,6 +15,7 @@ Two constraints shape the design. First, `DomainEventEmitter.emitAsync` starts e
 
 - Compose the briefing body from data the system already holds, with every section independently optional.
 - Keep briefing text generation pure and unit-testable, separate from event handling and I/O.
+- Give each Discord message its own listener class, so growing one message does not grow the others.
 - Give the preference its own endpoint pair so further Discord settings can join it without reshaping the profile payload.
 
 **Non-Goals:**
@@ -35,9 +36,21 @@ Two constraints shape the design. First, `DomainEventEmitter.emitAsync` starts e
 
 **Per information type, the pilot's preferred provider wins, otherwise any provider does.** METAR and TAF exist from both providers, so the pilot's `defaultWeatherSource` selects between them; ATIS exists from SayIntentions only, so a pilot defaulting to aviationweather.gov still gets it through the fallback. Filtering the query by the user default instead would silently drop ATIS for most pilots.
 
-**Briefing text lives in a pure formatter module.** `DiscordService` gathers flight, OFP, weather and preference, then hands a plain input object to a formatter that returns the message body. The formatter is covered by its own colocated Jest spec, so the section-omission rules and the schedule and block-time formatting are tested without mocking a bus.
+**One listener class per Discord message, replacing `DiscordService`.** The briefing needs the preference check, the OFP lookup and the whole weather resolution; the two announcements need neither. Keeping all three in one class meant every briefing concern landed in the same file as arrival announcements, so `DiscordService` is dropped for three single-purpose listeners:
 
-**Block time is formatted separately from `calculateBlockTime`.** The existing helper returns `HH:MM` and is used by the channel announcements; the briefing needs `3h 40m`, so it gets its own formatter rather than a changed shared one.
+| Listener                                 | Event                | Message                   |
+| ---------------------------------------- | -------------------- | ------------------------- |
+| `SendFlightBriefingListener`             | `PilotCheckedIn`     | `briefing` direct message |
+| `PassengersBoardingNotificationListener` | `BoardingWasStarted` | `departure` channel post  |
+| `FlightArrivalNotificationListener`      | `OnBlockWasReported` | `arrival` channel post    |
+
+Each owns its own logger, its own try/catch and only the data it sends, and each has its own colocated Jest spec.
+
+**Listeners live in `application/event/internal/`, not `infra/service/`.** That is where the codebase already keeps `*.listener.ts`, and `EmailChangeMailListener` is the same shape — an event listener injecting a core provider client plus `ConfigService`. It also keeps the application layer from importing downward into `infra/`.
+
+**Message text lives in pure modules under `model/`.** `model/discord-message.formatter.ts` exposes `formatFlightBriefing`, `formatBoardingAnnouncement` and `formatArrivalAnnouncement`; `model/flight-route.ts` exposes `resolveFlightRoute`, replacing the departure/destination lookup that was otherwise copied into all three listeners. Each listener gathers data, calls one formatter, and sends. Splitting the formatter per message was rejected: its single responsibility is how flight Discord messages read, and the three share the flight-number, block-time and emoji helpers.
+
+**Two block-time formatters, deliberately.** `calculateBlockTime` returns `HH:MM` for the announcements; the briefing needs `3h 40m`, so `formatBlockTime` sits beside it rather than changing a shared helper. Both are in the formatter module over a shared minute count.
 
 ## Risks / Trade-offs
 

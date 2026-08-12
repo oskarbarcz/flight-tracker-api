@@ -137,8 +137,8 @@ guild the app is installed in).
 `out`/`off`/`on`/`in` block with the resulting block time, followed by the ATIS, METAR and TAF held for the
 **departure** airport. Each report is reproduced exactly as its provider published it, and a report the system does
 not hold is left out rather than shown empty — ATIS comes from SayIntentions only, so a briefing may well have none.
-A flight imported from SimBrief also carries its OFP as both a link and an attachment. The closing link is built
-from `FRONTEND_BASE_URL`.
+A flight imported from SimBrief also carries its OFP as an attachment — the document only, never a link in the body.
+The closing link is built from `FRONTEND_BASE_URL`.
 
 Weather is read from the reports already stored for the airport. Check-in also starts a weather refresh in its own
 listener, and the two run concurrently, so when nothing is stored yet the briefing runs one refresh of the departure

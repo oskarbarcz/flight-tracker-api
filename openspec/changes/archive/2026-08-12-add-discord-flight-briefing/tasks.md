@@ -14,11 +14,12 @@
 
 ## 3. Briefing message
 
-- [x] 3.1 Add a pure briefing formatter module in the flights module `infra/service/` that turns flight, schedule, weather and OFP inputs into the message body, omitting unavailable sections
-- [x] 3.2 Cover the formatter with a colocated Jest spec: full briefing, missing ATIS, missing OFP, schedule and block-time formatting
-- [x] 3.3 Rework `DiscordService.onPilotCheckedIn` to short-circuit on the disabled setting, then gather flight, OFP and departure weather and delegate the body to the formatter
+- [x] 3.1 Add `model/discord-message.formatter.ts` turning flight, schedule and weather inputs into each message body, omitting unavailable briefing sections, plus `model/flight-route.ts` for the shared departure/destination lookup
+- [x] 3.2 Cover the formatter with a colocated Jest spec: full briefing, missing ATIS, missing weather, schedule and both block-time formats, and both announcements
+- [x] 3.3 Replace `DiscordService` with `SendFlightBriefingListener`, `PassengersBoardingNotificationListener` and `FlightArrivalNotificationListener` under `application/event/internal/`, the briefing one short-circuiting on the disabled setting before gathering flight, OFP and departure weather
 - [x] 3.4 Resolve departure weather: read via `GetAirportWeatherQuery` with the `all` filter, refresh once via `RefreshWeatherCommand` and re-read when nothing is stored, and pick each report preferring the pilot's default source
-- [x] 3.5 Extend `discord.service.spec.ts` for the new gating and the weather fallback
+- [x] 3.5 Give each listener its own spec, covering the briefing gating and weather fallback, and that a rejected message never breaks the triggering action
+- [x] 3.6 Register the three listeners in `FlightsModule` providers and delete `DiscordService`
 
 ## 4. Functional coverage
 

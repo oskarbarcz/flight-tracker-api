@@ -1,23 +1,20 @@
-import { DiscordService } from './discord.service';
-import { GetFlightQuery } from '../../application/query/get-flight.query';
-import { GetOfpQuery } from '../../application/query/get-ofp.query';
-import { GetUserDiscordIdQuery } from '../../../users/application/query/get-user-discord-id.query';
-import { GetUserDiscordSettingsQuery } from '../../../users/application/query/get-user-discord-settings.query';
-import { GetUserWeatherSourceQuery } from '../../../users/application/query/get-user-weather-source.query';
-import { GetAirportWeatherQuery } from '../../../airports/application/query/weather/get-airport-weather.query';
-import { RefreshWeatherCommand } from '../../../airports/application/command/weather/refresh-weather.command';
+import { SendFlightBriefingListener } from './send-flight-briefing.listener';
+import { GetFlightQuery } from '../../query/get-flight.query';
+import { GetOfpQuery } from '../../query/get-ofp.query';
+import { GetUserDiscordIdQuery } from '../../../../users/application/query/get-user-discord-id.query';
+import { GetUserDiscordSettingsQuery } from '../../../../users/application/query/get-user-discord-settings.query';
+import { GetUserWeatherSourceQuery } from '../../../../users/application/query/get-user-weather-source.query';
+import { GetAirportWeatherQuery } from '../../../../airports/application/query/weather/get-airport-weather.query';
+import { RefreshWeatherCommand } from '../../../../airports/application/command/weather/refresh-weather.command';
 import {
   GetAirportWeatherResponse,
   WeatherInformationType,
   WeatherSource,
-} from '../../../airports/model/airport-weather.model';
-import { FlightOfpNotFoundError } from '../../model/error/flight.error';
-import { AirportType } from '../../../airports/model/airport.model';
-import {
-  BoardingWasStartedEvent,
-  PilotCheckedInEvent,
-} from '../../../../core/domain/events/dto/flight.events';
-import { FlightEventScope } from '../../model/event.model';
+} from '../../../../airports/model/airport-weather.model';
+import { FlightOfpNotFoundError } from '../../../model/error/flight.error';
+import { AirportType } from '../../../../airports/model/airport.model';
+import { PilotCheckedInEvent } from '../../../../../core/domain/events/dto/flight.events';
+import { FlightEventScope } from '../../../model/event.model';
 
 const FLIGHT_ID = 'b3899775-278e-4496-add1-21385a13d93e';
 const PILOT_ID = '629be07f-5e65-429a-9d69-d34b99185f50';
@@ -56,7 +53,6 @@ function flight() {
         onBlockTime: new Date('2025-01-05T17:25:00.000Z'),
       },
     },
-    loadsheets: { preliminary: { passengers: 293 } },
   };
 }
 
@@ -84,11 +80,11 @@ function checkedIn(actorId: string | null = PILOT_ID) {
   });
 }
 
-describe('DiscordService', () => {
+describe('SendFlightBriefingListener', () => {
   let client: { sendMessage: jest.Mock; sendDirectMessage: jest.Mock };
   let queryBus: { execute: jest.Mock };
   let commandBus: { execute: jest.Mock };
-  let service: DiscordService;
+  let listener: SendFlightBriefingListener;
   let discordId: string | null;
   let briefingsEnabled: boolean;
   let weatherSource: WeatherSource;
@@ -152,7 +148,7 @@ describe('DiscordService', () => {
       }),
     };
 
-    service = new DiscordService(
+    listener = new SendFlightBriefingListener(
       client as never,
       queryBus as never,
       commandBus as never,
@@ -161,7 +157,7 @@ describe('DiscordService', () => {
   });
 
   it('sends the briefing to the pilot who checked in', async () => {
-    await service.onPilotCheckedIn(checkedIn());
+    await listener.onPilotCheckedIn(checkedIn());
 
     expect(client.sendDirectMessage).toHaveBeenCalledTimes(1);
     const [memberId, message] = client.sendDirectMessage.mock.calls[0];
@@ -182,7 +178,7 @@ describe('DiscordService', () => {
   });
 
   it('briefs the departure weather', async () => {
-    await service.onPilotCheckedIn(checkedIn());
+    await listener.onPilotCheckedIn(checkedIn());
 
     const [, message] = client.sendDirectMessage.mock.calls[0];
     expect(message.content).toContain('ATIS for FRA:');
@@ -194,7 +190,7 @@ describe('DiscordService', () => {
   it('prefers the reports published by the source the pilot defaults to', async () => {
     weatherSource = WeatherSource.AviationWeatherGov;
 
-    await service.onPilotCheckedIn(checkedIn());
+    await listener.onPilotCheckedIn(checkedIn());
 
     const [, message] = client.sendDirectMessage.mock.calls[0];
     expect(message.content).toContain('METAR EDDF 050850Z 24008KT');
@@ -212,7 +208,7 @@ describe('DiscordService', () => {
       return Promise.resolve(undefined);
     });
 
-    await service.onPilotCheckedIn(checkedIn());
+    await listener.onPilotCheckedIn(checkedIn());
 
     expect(commandBus.execute).toHaveBeenCalledTimes(1);
     const [command] = commandBus.execute.mock.calls[0];
@@ -226,7 +222,7 @@ describe('DiscordService', () => {
   it('briefs without weather when the refresh brings nothing back', async () => {
     weather = [];
 
-    await service.onPilotCheckedIn(checkedIn());
+    await listener.onPilotCheckedIn(checkedIn());
 
     expect(commandBus.execute).toHaveBeenCalledTimes(1);
     const [, message] = client.sendDirectMessage.mock.calls[0];
@@ -235,33 +231,32 @@ describe('DiscordService', () => {
   });
 
   it('does not refresh the weather when reports are already stored', async () => {
-    await service.onPilotCheckedIn(checkedIn());
+    await listener.onPilotCheckedIn(checkedIn());
 
     expect(commandBus.execute).not.toHaveBeenCalled();
   });
 
   it('attaches the operational flight plan when the flight has one', async () => {
-    await service.onPilotCheckedIn(checkedIn());
+    await listener.onPilotCheckedIn(checkedIn());
 
     const [, message] = client.sendDirectMessage.mock.calls[0];
-    expect(message.content).toContain(`[Operational flight plan](${OFP_URL})`);
     expect(message.attachments).toEqual([OFP_URL]);
+    expect(message.content).not.toContain(OFP_URL);
   });
 
   it('briefs without a flight plan when the flight has none', async () => {
     ofp = null;
 
-    await service.onPilotCheckedIn(checkedIn());
+    await listener.onPilotCheckedIn(checkedIn());
 
     const [, message] = client.sendDirectMessage.mock.calls[0];
-    expect(message.content).not.toContain('Operational flight plan');
     expect(message.attachments).toEqual([]);
   });
 
   it('sends nothing when the pilot disabled briefings', async () => {
     briefingsEnabled = false;
 
-    await service.onPilotCheckedIn(checkedIn());
+    await listener.onPilotCheckedIn(checkedIn());
 
     expect(client.sendDirectMessage).not.toHaveBeenCalled();
     expect(queryBus.execute).toHaveBeenCalledTimes(1);
@@ -270,13 +265,13 @@ describe('DiscordService', () => {
   it('sends nothing when the pilot has no linked Discord account', async () => {
     discordId = null;
 
-    await service.onPilotCheckedIn(checkedIn());
+    await listener.onPilotCheckedIn(checkedIn());
 
     expect(client.sendDirectMessage).not.toHaveBeenCalled();
   });
 
   it('sends nothing when the check-in has no actor', async () => {
-    await service.onPilotCheckedIn(checkedIn(null));
+    await listener.onPilotCheckedIn(checkedIn(null));
 
     expect(queryBus.execute).not.toHaveBeenCalled();
     expect(client.sendDirectMessage).not.toHaveBeenCalled();
@@ -286,19 +281,7 @@ describe('DiscordService', () => {
     client.sendDirectMessage.mockRejectedValue(new Error('discord is down'));
 
     await expect(
-      service.onPilotCheckedIn(checkedIn()),
+      listener.onPilotCheckedIn(checkedIn()),
     ).resolves.toBeUndefined();
-  });
-
-  it('keeps a failing announcement from breaking the boarding start', async () => {
-    client.sendMessage.mockRejectedValue(new Error('discord is down'));
-
-    const event = new BoardingWasStartedEvent({
-      flightId: FLIGHT_ID,
-      scope: FlightEventScope.User,
-      actorId: PILOT_ID,
-    });
-
-    await expect(service.onBoardingStarted(event)).resolves.toBeUndefined();
   });
 });

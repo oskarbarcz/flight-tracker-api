@@ -7,7 +7,9 @@ import { FlightsRepository } from './infra/database/repository/flights.repositor
 import { EventsRepository } from './infra/database/repository/events.repository';
 import { DiversionRepository } from './infra/database/repository/diversion.repository';
 import { EmergencyRepository } from './infra/database/repository/emergency.repository';
-import { DiscordService } from './infra/service/discord.service';
+import { SendFlightBriefingListener } from './application/event/internal/send-flight-briefing.listener';
+import { PassengersBoardingNotificationListener } from './application/event/internal/passengers-boarding-notification.listener';
+import { FlightArrivalNotificationListener } from './application/event/internal/flight-arrival-notification.listener';
 import { CreateFlightAction } from './infra/http/action/flight/create-flight.action';
 import { CreateFlightFromSimbriefAction } from './infra/http/action/flight/create-flight-from-simbrief.action';
 import { PositionService } from './infra/service/position.service';
@@ -154,7 +156,9 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
   ],
   providers: [
     PositionService,
-    DiscordService,
+    SendFlightBriefingListener,
+    PassengersBoardingNotificationListener,
+    FlightArrivalNotificationListener,
     FlightsRepository,
     EventsRepository,
     DiversionRepository,

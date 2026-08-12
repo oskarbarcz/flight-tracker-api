@@ -1,8 +1,11 @@
 # discord-flight-briefing Specification
 
 ## Purpose
+
 Delivers the pre-flight briefing to a pilot as a Discord private message the moment they check in, and lets each pilot decide whether they want to receive it.
+
 ## Requirements
+
 ### Requirement: Briefing is delivered on check-in
 
 The system SHALL send a briefing private message on Discord to the pilot who checks in for a flight, provided that pilot has a linked Discord account and has briefing messages enabled.
@@ -61,17 +64,17 @@ The briefing SHALL include the ATIS, METAR and TAF held for the departure airpor
 
 ### Requirement: Briefing carries the operational flight plan
 
-The briefing SHALL attach the operational flight plan document and link to it when the flight has one; a flight without an operational flight plan SHALL produce a briefing with no plan attachment and no plan link.
+The briefing SHALL attach the operational flight plan document when the flight has one, and SHALL NOT mention the plan in the message body; a flight without an operational flight plan SHALL produce a briefing with no attachment.
 
 #### Scenario: Flight imported from SimBrief
 
 - **WHEN** a pilot checks in for a flight that has an operational flight plan
-- **THEN** the briefing links the operational flight plan and carries its document as an attachment
+- **THEN** the briefing carries the plan document as an attachment and its body does not reference the plan
 
 #### Scenario: Manually created flight
 
 - **WHEN** a pilot checks in for a flight that has no operational flight plan
-- **THEN** the briefing contains no operational flight plan link and no attachment
+- **THEN** the briefing carries no attachment
 
 ### Requirement: Briefing links back to the flight
 
@@ -119,4 +122,3 @@ The system SHALL let a signed-in user enable or disable briefing private message
 
 - **WHEN** Discord settings are changed without a valid token
 - **THEN** the request is rejected as unauthorized
-
