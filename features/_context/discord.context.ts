@@ -17,6 +17,19 @@ Then(
   },
 );
 
+Then(
+  'I see no Discord {string} message for flight {string}',
+  async (type: string, flightId: string) => {
+    const filePath = path.join(
+      process.cwd(),
+      'test-data',
+      'discord',
+      `${type}_${flightId}.md`,
+    );
+    expect(fs.existsSync(filePath)).toBe(false);
+  },
+);
+
 Then('I clear Discord messages directory', async () => {
   fs.rmSync(path.join(process.cwd(), 'test-data', 'discord'), {
     force: true,

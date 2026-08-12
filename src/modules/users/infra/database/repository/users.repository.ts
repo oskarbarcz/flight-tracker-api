@@ -19,6 +19,7 @@ import { normalizeEmail } from '../../../../../core/utils/email';
 import { EmailAlreadyInUseError } from '../../../model/error/user-email.error';
 import {
   CabinCrewMustHaveHomeAirportError,
+  DiscordAccountLinkedToAnotherUserError,
   GoogleAccountLinkedToAnotherUserError,
   OnlyCabinCrewCanHaveHomeAirportError,
   OnlyCabinCrewCanHavePilotLicenseError,
@@ -70,6 +71,8 @@ export class UsersRepository {
     if (data.role === UserRole.CabinCrew && !data.homeAirportId) {
       throw new CabinCrewMustHaveHomeAirportError();
     }
+
+    await this.assertDiscordAccountIsFree(data.discordId, id);
 
     const hashedPassword = await bcrypt.hash(
       data.password,
@@ -305,6 +308,8 @@ export class UsersRepository {
       throw new OnlyCabinCrewCanHaveHomeAirportError();
     }
 
+    await this.assertDiscordAccountIsFree(data.discordId, id);
+
     await this.prisma.user.update({
       where: { id },
       data,
@@ -352,6 +357,21 @@ export class UsersRepository {
     return this.prisma.user.findFirst({
       where: { email: { equals: normalizeEmail(email), mode: 'insensitive' } },
     });
+  }
+
+  private async assertDiscordAccountIsFree(
+    discordId: string | null | undefined,
+    userId: string,
+  ): Promise<void> {
+    if (!discordId) {
+      return;
+    }
+
+    const owner = await this.findOneBy({ discordId });
+
+    if (owner !== null && owner.id !== userId) {
+      throw new DiscordAccountLinkedToAnotherUserError();
+    }
   }
 
   private async findOneBy(
@@ -403,6 +423,19 @@ export class UsersRepository {
     }
 
     return user.simbriefUserId;
+  }
+
+  async getDiscordId(userId: string): Promise<string | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { discordId: true },
+    });
+
+    if (!user) {
+      throw new UserWithGivenIdNotFoundError();
+    }
+
+    return user.discordId;
   }
 
   async getDefaultWeatherSource(userId: string): Promise<WeatherSource> {

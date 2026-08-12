@@ -122,6 +122,30 @@ Outbound email needs `MAILGUN_API_HOST`, `MAILGUN_DOMAIN`, `MAILGUN_API_KEY`, `M
 Only `NODE_ENV=production` sends anything. Everywhere else each message is written to
 `test-data/mail/<type>_<recipient>_<uuid>.json` instead.
 
+### Discord
+
+Announcements and briefings are delivered by a Discord app (bot) over the gateway, not by an incoming webhook. It
+needs `DISCORD_APP_TOKEN` (the bot token from the Discord developer portal), `DISCORD_SERVER_ID` (the guild the app
+is installed in) and `DISCORD_PUBLIC_FLIGHT_ANNOUNCEMENTS_CHANNEL_ID` (where departures and arrivals are posted).
+
+The app sends two kinds of message:
+
+- a public announcement in the announcements channel when boarding starts and when a flight goes on block;
+- a direct message with the flight briefing to the pilot who checks in, carrying the SimBrief OFP as both a link and
+  an attachment when the flight has one.
+
+Briefings only reach pilots who linked their Discord account. A user sets `discordId` — their Discord user ID, the
+17–20 digit snowflake — on their own profile through `PATCH /api/v1/user/me`. A pilot without one is skipped, and a
+snowflake already claimed by another account is rejected with `409`.
+
+Only `NODE_ENV=production` connects to the gateway; anywhere else the connection is refused outright and each
+message is written to `test-data/discord/<type>_<flightId>.md` instead, so no test run can post to a real server.
+
+The client requests the `Guilds`, `Guild Members`, `Guild Messages`, `Direct Messages` and `Message Content`
+intents. `Guild Members` and `Message Content` are privileged and must be enabled for the application in the
+developer portal or `login()` is rejected. Only `Guilds` and `Guild Members` are needed to send — the other three
+are held for receiving from Discord and can be dropped until something listens.
+
 ### Generating certs
 
 Application has by default configured EC certificates. However, if you want to create custom ones, use the command

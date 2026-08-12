@@ -8,6 +8,7 @@ export class ListUsersFilters extends PartialType(
 export class GetUserDto extends OmitType(User, [
   'password',
   'simbriefUserId',
+  'discordId',
   'defaultWeatherSource',
 ]) {}
 
@@ -34,7 +35,7 @@ export class UserEmailDto {
   active!: boolean;
 }
 
-export class GetOwnUserDto extends OmitType(User, ['password']) {
+export class GetOwnUserDto extends OmitType(User, ['password', 'discordId']) {
   @ApiProperty({
     description:
       'Addresses of the account: the active one, plus a pending address while ' +

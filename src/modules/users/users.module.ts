@@ -9,6 +9,7 @@ import { UpdateUserAction } from './infra/http/action/update-user.action';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { CheckUserExistsHandler } from './application/query/check-user-exists.query';
 import { GetUserSimbriefIdHandler } from './application/query/get-user-simbrief-id.query';
+import { GetUserDiscordIdHandler } from './application/query/get-user-discord-id.query';
 import { GetUserWeatherSourceHandler } from './application/query/get-user-weather-source.query';
 import { AssertUserExistsHandler } from './application/assert/assert-user-exists.query';
 import { CreateUserHandler } from './application/command/create-user.command';
@@ -71,6 +72,7 @@ import { PasswordResetMailListener } from './application/event/internal/password
     UserAircraftRepository,
     CheckUserExistsHandler,
     GetUserSimbriefIdHandler,
+    GetUserDiscordIdHandler,
     GetUserWeatherSourceHandler,
     AssertUserExistsHandler,
     CreateUserHandler,
