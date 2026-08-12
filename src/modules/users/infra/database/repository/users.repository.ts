@@ -16,11 +16,13 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
 import { CACHE_KEYS, cacheByUser } from '../../../../../core/cache/cache.key';
 import { normalizeEmail } from '../../../../../core/utils/email';
+import { DiscordIdentity } from '../../../../../core/provider/discord/types/discord-identity.types';
 import { EmailAlreadyInUseError } from '../../../model/error/user-email.error';
 import {
   CabinCrewMustHaveHomeAirportError,
   DiscordAccountLinkedToAnotherUserError,
   GoogleAccountLinkedToAnotherUserError,
+  UserAlreadyHasLinkedDiscordAccountError,
   OnlyCabinCrewCanHaveHomeAirportError,
   OnlyCabinCrewCanHavePilotLicenseError,
   UserAlreadyHasLinkedGoogleAccountError,
@@ -72,8 +74,6 @@ export class UsersRepository {
       throw new CabinCrewMustHaveHomeAirportError();
     }
 
-    await this.assertDiscordAccountIsFree(data.discordId, id);
-
     const hashedPassword = await bcrypt.hash(
       data.password,
       this.BCRYPT_SALT_ROUNDS,
@@ -122,6 +122,12 @@ export class UsersRepository {
       simbriefUserId: user.simbriefUserId,
       defaultWeatherSource: user.defaultWeatherSource as WeatherSource,
       emailConfirmedAt: user.emailConfirmedAt,
+      googleId: user.googleId,
+      googleEmail: user.googleEmail,
+      discordId: user.discordId,
+      discordUsername: user.discordUsername,
+      discordGlobalName: user.discordGlobalName,
+      discordAvatar: user.discordAvatar,
     };
   }
 
@@ -246,7 +252,11 @@ export class UsersRepository {
     return user === null ? null : this.returnWithoutPassword(user);
   }
 
-  async linkGoogleAccount(userId: string, googleId: string): Promise<void> {
+  async linkGoogleAccount(
+    userId: string,
+    googleId: string,
+    googleEmail: string,
+  ): Promise<void> {
     const user = await this.findOneBy({ id: userId });
 
     if (!user) {
@@ -265,8 +275,79 @@ export class UsersRepository {
 
     await this.prisma.user.update({
       where: { id: userId },
-      data: { googleId },
+      data: { googleId, googleEmail },
     });
+
+    await this.dropOwnUserCache(userId);
+  }
+
+  async findByDiscordId(discordId: string): Promise<GetUserDto | null> {
+    const user = await this.findOneBy({ discordId });
+
+    return user === null ? null : this.returnWithoutPassword(user);
+  }
+
+  async linkDiscordAccount(
+    userId: string,
+    identity: DiscordIdentity,
+  ): Promise<void> {
+    const user = await this.findOneBy({ id: userId });
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
+    if (user.discordId !== null) {
+      throw new UserAlreadyHasLinkedDiscordAccountError();
+    }
+
+    const owner = await this.findOneBy({ discordId: identity.discordId });
+
+    if (owner !== null && owner.id !== userId) {
+      throw new DiscordAccountLinkedToAnotherUserError();
+    }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        discordId: identity.discordId,
+        discordUsername: identity.username,
+        discordGlobalName: identity.globalName,
+        discordAvatar: identity.avatar,
+      },
+    });
+
+    await this.dropOwnUserCache(userId);
+  }
+
+  async hasLinkedDiscordAccount(userId: string): Promise<boolean> {
+    const user = await this.findOneBy({ id: userId });
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
+    return user.discordId !== null;
+  }
+
+  async unlinkDiscordAccount(userId: string): Promise<void> {
+    const user = await this.findOneBy({ id: userId });
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        discordId: null,
+        discordUsername: null,
+        discordGlobalName: null,
+        discordAvatar: null,
+      },
+    });
+
+    await this.dropOwnUserCache(userId);
   }
 
   async hasLinkedGoogleAccount(userId: string): Promise<boolean> {
@@ -288,8 +369,10 @@ export class UsersRepository {
 
     await this.prisma.user.update({
       where: { id: userId },
-      data: { googleId: null },
+      data: { googleId: null, googleEmail: null },
     });
+
+    await this.dropOwnUserCache(userId);
   }
 
   async update(id: string, data: UpdateUserDto): Promise<void> {
@@ -307,8 +390,6 @@ export class UsersRepository {
     if (newRole !== UserRole.CabinCrew && data.homeAirportId) {
       throw new OnlyCabinCrewCanHaveHomeAirportError();
     }
-
-    await this.assertDiscordAccountIsFree(data.discordId, id);
 
     await this.prisma.user.update({
       where: { id },
@@ -357,21 +438,6 @@ export class UsersRepository {
     return this.prisma.user.findFirst({
       where: { email: { equals: normalizeEmail(email), mode: 'insensitive' } },
     });
-  }
-
-  private async assertDiscordAccountIsFree(
-    discordId: string | null | undefined,
-    userId: string,
-  ): Promise<void> {
-    if (!discordId) {
-      return;
-    }
-
-    const owner = await this.findOneBy({ discordId });
-
-    if (owner !== null && owner.id !== userId) {
-      throw new DiscordAccountLinkedToAnotherUserError();
-    }
   }
 
   private async findOneBy(

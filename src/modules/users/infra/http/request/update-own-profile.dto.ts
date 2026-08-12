@@ -9,7 +9,6 @@ import {
   ValidateIf,
 } from 'class-validator';
 import { WeatherSource } from '../../../../airports/model/airport-weather.model';
-import { DISCORD_ID_PATTERN } from '../../../model/user.model';
 
 export class UpdateOwnProfileDto {
   @ApiProperty({
@@ -58,20 +57,6 @@ export class UpdateOwnProfileDto {
   @IsString()
   @IsOptional()
   simbriefUserId?: string | null;
-
-  @ApiProperty({
-    description: 'Discord account the app sends flight briefings to',
-    example: '960656540173670144',
-    type: 'string',
-    nullable: true,
-    required: false,
-  })
-  @IsString()
-  @IsOptional()
-  @Matches(DISCORD_ID_PATTERN, {
-    message: 'Discord ID does not match the required format.',
-  })
-  discordId?: string | null;
 
   @ApiProperty({
     description:

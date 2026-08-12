@@ -62,8 +62,8 @@ This app uses docker-based virtualization to run. To set up the project, follow 
    | Diana Doe | Operations | diana.doe@example.com | SimBrief connected (plan references unknown alternate) |
    | Rick Doe | Cabin crew | cabin-crew@example.com | |
    | Alan Doe | Cabin crew | alan.doe@example.com | |
-   | Michael Doe | Cabin crew | michael.doe@example.com | |
-   | Grace Doe | Operations | grace.doe@example.com | Google-only — no password, cannot sign in with one |
+   | Michael Doe | Cabin crew | michael.doe@example.com | Discord linked — receives briefing DMs |
+   | Grace Doe | Operations | grace.doe@example.com | Google-only — no password; Discord linked, so it cannot be unlinked either |
 
 ### WebSocket flight events
 
@@ -124,27 +124,58 @@ Only `NODE_ENV=production` sends anything. Everywhere else each message is writt
 
 ### Discord
 
-Announcements and briefings are delivered by a Discord app (bot) over the gateway, not by an incoming webhook. It
-needs `DISCORD_APP_TOKEN` (the bot token from the Discord developer portal), `DISCORD_SERVER_ID` (the guild the app
-is installed in) and `DISCORD_PUBLIC_FLIGHT_ANNOUNCEMENTS_CHANNEL_ID` (where departures and arrivals are posted).
+The same Discord application does two jobs: a **bot** that sends messages over the gateway, and an **OAuth client**
+that proves a user owns a Discord account. Both read `DISCORD_APP_TOKEN` (bot token) and `DISCORD_SERVER_ID` (the
+guild the app is installed in).
 
-The app sends two kinds of message:
+**Sending.** The bot needs `DISCORD_PUBLIC_FLIGHT_ANNOUNCEMENTS_CHANNEL_ID` and sends two kinds of message:
 
 - a public announcement in the announcements channel when boarding starts and when a flight goes on block;
 - a direct message with the flight briefing to the pilot who checks in, carrying the SimBrief OFP as both a link and
   an attachment when the flight has one.
 
-Briefings only reach pilots who linked their Discord account. A user sets `discordId` — their Discord user ID, the
-17–20 digit snowflake — on their own profile through `PATCH /api/v1/user/me`. A pilot without one is skipped, and a
-snowflake already claimed by another account is rejected with `409`.
-
-Only `NODE_ENV=production` connects to the gateway; anywhere else the connection is refused outright and each
-message is written to `test-data/discord/<type>_<flightId>.md` instead, so no test run can post to a real server.
+`NODE_ENV=production` connects to the gateway, and so does `DISCORD_GATEWAY_ENABLED="true"` anywhere else — the
+escape hatch for working against a real server locally. With neither, the connection is refused outright.
+Message delivery is gated separately on `NODE_ENV`: outside production every message is written to
+`test-data/discord/<type>_<flightId>.md` instead of being sent, so no test run can post to a real server.
 
 The client requests the `Guilds`, `Guild Members`, `Guild Messages`, `Direct Messages` and `Message Content`
 intents. `Guild Members` and `Message Content` are privileged and must be enabled for the application in the
 developer portal or `login()` is rejected. Only `Guilds` and `Guild Members` are needed to send — the other three
 are held for receiving from Discord and can be dropped until something listens.
+
+**Identity.** Linking and Discord sign-in need `DISCORD_CLIENT_ID` (the application ID — the same number the bot
+token encodes), `DISCORD_CLIENT_SECRET` and `DISCORD_OAUTH_REDIRECT_URIS`, a comma-separated allowlist of callback
+URIs. `DISCORD_API_HOST` overrides the Discord REST host and points at the `discord-mock` container locally; leave
+it unset in production to reach `https://discord.com/api`. Register every callback URI in the developer portal
+exactly as it appears in the allowlist, and give the bot **Create Invite** in the server or `guilds.join` is refused.
+
+Discord issues no browser-side ID token, so unlike Google Sign-In the frontend redirects the whole page and hands
+the resulting `code` to the API, which performs the `client_secret` exchange. The frontend generates the PKCE
+verifier and `state`, and the API validates `redirectUri` against the allowlist before the exchange — an
+unlisted URI is rejected with `400` so a code cannot be relayed elsewhere.
+
+| Endpoint                                        | Purpose                                                                                                                              |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `POST /api/v1/auth/discord`                     | Sign in. Resolves the user by `discordId` only; an unlinked account is `401` and no account is ever created.                         |
+| `POST /api/v1/user/me/link-discord-account`     | Link, optionally joining the server in the same consent pass (`joinServer`). Returns the resulting state so the UI needs no refetch. |
+| `POST /api/v1/user/me/unlink-discord-account`   | Unlink. Requires the current password, and never removes the user from the server.                                                   |
+| `GET /api/v1/user/me/discord/server-membership` | Live membership probe for an account screen.                                                                                         |
+
+**Server membership is a precondition, not a detail.** A direct message can only reach somebody who shares the
+server with the bot, so a linked account that never joined gets no briefings. `joinServer: true` adds the user
+during linking; when that fails the link still stands and `joinOutcome` reports `failed`, because a link is worth
+keeping on its own. Membership is reported as `member`, `not_member` or `unknown` — and `unknown` whenever the truth
+could not be established (no linked account, gateway offline, or Discord silent), never `not_member`. With the
+gateway off, the seeded membership scenarios therefore expect `unknown`; enabling `DISCORD_GATEWAY_ENABLED`
+locally makes them probe the real server and report `not_member` for the seeded fixture accounts.
+
+No Discord OAuth token is stored. The server join happens inside the link request while the access token is in
+memory, and the token is discarded with it; joining later means re-linking or using an invite. `GET /api/v1/user/me`
+reports both providers under `identities` from stored fields alone and contacts nobody.
+
+`discordId` cannot be set through `PATCH /api/v1/user/me` — it authenticates Discord sign-in, so only a completed
+OAuth exchange may write it.
 
 ### Generating certs
 

@@ -12,6 +12,17 @@ import {
   DiscordChannelNotTextBasedError,
   DiscordGatewayDisabledError,
 } from '../error/discord.error';
+import { GuildMembership } from '../types/discord-identity.types';
+
+const UNKNOWN_MEMBER_ERROR_CODE = 10007;
+
+function isUnknownMemberError(error: unknown): boolean {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    (error as { code?: number }).code === UNKNOWN_MEMBER_ERROR_CODE
+  );
+}
 
 @Injectable()
 export class DiscordGateway implements OnModuleInit, OnApplicationShutdown {
@@ -24,14 +35,18 @@ export class DiscordGateway implements OnModuleInit, OnApplicationShutdown {
   private client: Client | null = null;
 
   constructor(config: ConfigService) {
-    this.enabled = config.get<string>('NODE_ENV') === 'production';
+    this.enabled =
+      config.get<string>('NODE_ENV') === 'production' ||
+      config.get<string>('DISCORD_GATEWAY_ENABLED') === 'true';
     this.token = config.getOrThrow<string>('DISCORD_APP_TOKEN');
     this.serverId = config.getOrThrow<string>('DISCORD_SERVER_ID');
   }
 
   async onModuleInit(): Promise<void> {
     if (!this.enabled) {
-      this.logger.log('Discord gateway stays offline outside production');
+      this.logger.log(
+        'Discord gateway stays offline — set DISCORD_GATEWAY_ENABLED to connect',
+      );
       return;
     }
 
@@ -81,6 +96,25 @@ export class DiscordGateway implements OnModuleInit, OnApplicationShutdown {
     const member = await guild.members.fetch(memberId);
 
     await member.send({ content, files });
+  }
+
+  async findMembership(discordId: string): Promise<GuildMembership> {
+    try {
+      const guild = await this.fetchGuild();
+      await guild.members.fetch(discordId);
+
+      return 'member';
+    } catch (error) {
+      if (isUnknownMemberError(error)) {
+        return 'not_member';
+      }
+
+      this.logger.warn(
+        `Could not resolve Discord membership of ${discordId}: ${getErrorMessage(error)}`,
+      );
+
+      return 'unknown';
+    }
   }
 
   private async fetchGuild(): Promise<Guild> {

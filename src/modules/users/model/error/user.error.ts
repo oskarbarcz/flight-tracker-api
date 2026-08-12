@@ -7,7 +7,19 @@ import {
 
 export class DiscordAccountLinkedToAnotherUserError extends ConflictError {
   constructor() {
-    super('Discord account is already linked to another user.');
+    super('This Discord account is already linked to another user.');
+  }
+}
+
+export class UserAlreadyHasLinkedDiscordAccountError extends ConflictError {
+  constructor() {
+    super('User already has a linked Discord account.');
+  }
+}
+
+export class UserHasNoLinkedDiscordAccountError extends ConflictError {
+  constructor() {
+    super('User has no linked Discord account.');
   }
 }
 

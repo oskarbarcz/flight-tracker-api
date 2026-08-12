@@ -18,6 +18,15 @@ Feature: Get current user
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": true,
+            "email": null
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "admin@example.com",
@@ -46,6 +55,14 @@ Feature: Get current user
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "say_intentions",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "operations@example.com",
@@ -74,11 +91,64 @@ Feature: Get current user
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "cabin-crew@example.com",
             "isConfirmed": true,
             "active": true
+          }
+        ]
+      }
+      """
+
+  Scenario: As a cabin crew with a linked Discord account I see it among my identities
+    Given I am signed in as "Michael Doe"
+    When I send a "GET" request to "/api/v1/user/me"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "629be07f-5e65-429a-9d69-d34b99185f50",
+        "name": "Michael Doe",
+        "email": "michael.doe@example.com",
+        "role": "CabinCrew",
+        "pilotLicenseId": "UK-98540",
+        "currentFlightId": "d4a25ef2-39cf-484c-af00-a548999e8699",
+        "homeAirportId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+        "lastAirportId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+        "lastAirportUpdatedAt": null,
+        "simbriefUserId": null,
+        "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": true,
+            "userId": "100000000000000100",
+            "username": "michael.doe",
+            "globalName": "Michael Doe",
+            "avatarUrl": "https://cdn.discordapp.com/avatars/100000000000000100/b1c2d3e4f5061728394a5b6c7d8e9f00.png"
+          }
+        },
+        "emails": [
+          {
+            "email": "michael.doe@example.com",
+            "isConfirmed": true,
+            "active": true
+          },
+          {
+            "email": "michael.new@example.com",
+            "isConfirmed": false,
+            "active": false
           }
         ]
       }
@@ -102,6 +172,14 @@ Feature: Get current user
         "lastAirportUpdatedAt": null,
         "simbriefUserId": "333444",
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "emma.doe@example.com",
@@ -141,6 +219,14 @@ Feature: Get current user
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "alan.new@example.com",

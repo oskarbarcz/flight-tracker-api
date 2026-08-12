@@ -101,6 +101,14 @@ Feature: As a user I can change my own email address
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "say_intentions",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "operations@example.com",

@@ -11,8 +11,8 @@ import {
 import { FlightEventScope } from '../../model/event.model';
 
 const FLIGHT_ID = 'b3899775-278e-4496-add1-21385a13d93e';
-const PILOT_ID = 'fcf6f4bc-290d-43a9-843c-409cd47e143d';
-const DISCORD_ID = '960656540173670144';
+const PILOT_ID = '629be07f-5e65-429a-9d69-d34b99185f50';
+const DISCORD_ID = '100000000000000100';
 const OFP_URL = 'https://www.simbrief.com/ofp/flightplans/EDDFKJFK_PDF.pdf';
 
 function flight() {

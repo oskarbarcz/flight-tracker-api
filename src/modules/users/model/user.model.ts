@@ -10,8 +10,6 @@ import {
 import { UserRole } from './user-role';
 import { WeatherSource } from '../../airports/model/airport-weather.model';
 
-export const DISCORD_ID_PATTERN = /^\d{17,20}$/;
-
 export class User {
   @ApiProperty({
     description: 'User unique system identifier',
@@ -77,19 +75,6 @@ export class User {
   @IsString()
   @IsOptional()
   simbriefUserId?: string | null = null;
-
-  @ApiProperty({
-    description: 'Discord account the app sends flight briefings to',
-    example: '960656540173670144',
-    type: 'string',
-    nullable: true,
-  })
-  @IsString()
-  @IsOptional()
-  @Matches(DISCORD_ID_PATTERN, {
-    message: 'Discord ID does not match the required format.',
-  })
-  discordId?: string | null = null;
 
   @ApiProperty({
     description: 'Current flight user checked in for',

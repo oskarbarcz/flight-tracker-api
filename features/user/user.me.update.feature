@@ -24,6 +24,14 @@ Feature: Update own profile
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "cabin-crew@example.com",
@@ -58,6 +66,15 @@ Feature: Update own profile
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": true,
+            "email": null
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "admin@example.com",
@@ -92,6 +109,14 @@ Feature: Update own profile
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "cabin-crew@example.com",
@@ -126,6 +151,14 @@ Feature: Update own profile
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "cabin-crew@example.com",
@@ -230,6 +263,14 @@ Feature: Update own profile
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "cabin-crew@example.com",
@@ -264,6 +305,14 @@ Feature: Update own profile
         "lastAirportUpdatedAt": null,
         "simbriefUserId": "987654",
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "cabin-crew@example.com",
@@ -298,6 +347,14 @@ Feature: Update own profile
         "lastAirportUpdatedAt": null,
         "simbriefUserId": "987654",
         "defaultWeatherSource": "say_intentions",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "operations@example.com",
@@ -332,6 +389,14 @@ Feature: Update own profile
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "cabin-crew@example.com",
@@ -343,80 +408,12 @@ Feature: Update own profile
       """
     And I set database to initial state
 
-  Scenario: As operations I can link my own Discord account
-    Given I am signed in as "operations"
+  Scenario: As a cabin crew I cannot set my own Discord account through my profile
+    Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/user/me" with body:
       """json
       {
         "discordId": "429183056281894913"
-      }
-      """
-    Then the response status should be 200
-    And the response body should contain:
-      """json
-      {
-        "id": "721ab705-8608-4386-86b4-2f391a3655a7",
-        "name": "Alice Doe",
-        "email": "operations@example.com",
-        "role": "Operations",
-        "pilotLicenseId": null,
-        "currentFlightId": null,
-        "homeAirportId": null,
-        "lastAirportId": null,
-        "lastAirportUpdatedAt": null,
-        "simbriefUserId": null,
-        "defaultWeatherSource": "say_intentions",
-        "emails": [
-          {
-            "email": "operations@example.com",
-            "isConfirmed": true,
-            "active": true
-          }
-        ]
-      }
-      """
-    And I set database to initial state
-
-  Scenario: As a cabin crew I can unlink my own Discord account
-    Given I am signed in as "cabin crew"
-    When I send a "PATCH" request to "/api/v1/user/me" with body:
-      """json
-      {
-        "discordId": null
-      }
-      """
-    Then the response status should be 200
-    And the response body should contain:
-      """json
-      {
-        "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
-        "name": "Rick Doe",
-        "email": "cabin-crew@example.com",
-        "role": "CabinCrew",
-        "pilotLicenseId": "UK-31270",
-        "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e",
-        "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
-        "lastAirportUpdatedAt": null,
-        "simbriefUserId": null,
-        "defaultWeatherSource": "aviation_weather_gov",
-        "emails": [
-          {
-            "email": "cabin-crew@example.com",
-            "isConfirmed": true,
-            "active": true
-          }
-        ]
-      }
-      """
-    And I set database to initial state
-
-  Scenario: As a cabin crew I cannot link a malformed Discord account
-    Given I am signed in as "cabin crew"
-    When I send a "PATCH" request to "/api/v1/user/me" with body:
-      """json
-      {
-        "discordId": "rick#1234"
       }
       """
     Then the response status should be 400
@@ -427,26 +424,8 @@ Feature: Update own profile
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "discordId": ["Discord ID does not match the required format."]
+          "discordId": ["property discordId should not exist"]
         }
-      }
-      """
-
-  Scenario: As operations I cannot link a Discord account owned by somebody else
-    Given I am signed in as "operations"
-    When I send a "PATCH" request to "/api/v1/user/me" with body:
-      """json
-      {
-        "discordId": "960656540173670144"
-      }
-      """
-    Then the response status should be 409
-    And the response body should contain:
-      """json
-      {
-        "message": "Discord account is already linked to another user.",
-        "error": "Conflict",
-        "statusCode": 409
       }
       """
 
@@ -543,6 +522,14 @@ Feature: Update own profile
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "cabin-crew@example.com",
@@ -634,6 +621,14 @@ Feature: Update own profile
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "cabin-crew@example.com",
@@ -667,6 +662,14 @@ Feature: Update own profile
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "cabin-crew@example.com",
@@ -703,6 +706,14 @@ Feature: Update own profile
         "lastAirportUpdatedAt": null,
         "simbriefUserId": null,
         "defaultWeatherSource": "say_intentions",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": false
+          }
+        },
         "emails": [
           {
             "email": "cabin-crew@example.com",

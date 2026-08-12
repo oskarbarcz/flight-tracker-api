@@ -88,3 +88,12 @@ services:
       - ./docker/mock:/config
     environment:
       - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/google.json
+
+  discord-mock:
+    image: mockserver/mockserver:mockserver-5.15.0
+    ports:
+      - '7080:1080'
+    volumes:
+      - ./docker/mock:/config
+    environment:
+      - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/discord.json

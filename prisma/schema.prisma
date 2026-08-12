@@ -382,7 +382,11 @@ model User {
   emailConfirmedAt     DateTime?
   password             String?
   googleId             String?   @unique
+  googleEmail          String?
   discordId            String?   @unique
+  discordUsername      String?
+  discordGlobalName    String?
+  discordAvatar        String?
   role                 UserRole
   pilotLicenseId       String?   @db.VarChar(8)
   currentFlightId      String?   @unique @db.Uuid

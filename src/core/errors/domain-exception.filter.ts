@@ -17,6 +17,7 @@ const reasonPhrases: Record<number, string> = {
   409: 'Conflict',
   422: 'Unprocessable Content',
   500: 'Internal Server Error',
+  502: 'Bad Gateway',
 };
 
 @Catch()

@@ -1,6 +1,6 @@
 export class DiscordGatewayDisabledError extends Error {
   constructor() {
-    super('Discord gateway is disabled outside production.');
+    super('Discord gateway is disabled — DISCORD_GATEWAY_ENABLED is not set.');
   }
 }
 
