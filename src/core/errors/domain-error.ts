@@ -30,3 +30,7 @@ export class ConflictError extends DomainError {
 export class UnprocessableError extends DomainError {
   readonly status = 422;
 }
+
+export class BadGatewayError extends DomainError {
+  readonly status = 502;
+}

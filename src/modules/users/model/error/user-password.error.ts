@@ -23,6 +23,14 @@ export class CannotUnlinkWithoutPasswordError extends ConflictError {
   }
 }
 
+export class CannotUnlinkDiscordWithoutPasswordError extends ConflictError {
+  constructor() {
+    super(
+      'Set a password before unlinking your Discord account, otherwise you would not be able to sign in.',
+    );
+  }
+}
+
 export class NewPasswordMustDifferError extends BadRequestError {
   constructor() {
     super('New password must be different from the current one.');

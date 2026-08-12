@@ -15,6 +15,11 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     googleId: '104778392015664201883',
+    googleEmail: null,
+    discordId: null,
+    discordUsername: null,
+    discordGlobalName: null,
+    discordAvatar: null,
     pilotLicenseId: null,
     currentFlightId: null,
     simbriefUserId: null,
@@ -33,6 +38,11 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     googleId: null,
+    googleEmail: null,
+    discordId: null,
+    discordUsername: null,
+    discordGlobalName: null,
+    discordAvatar: null,
     pilotLicenseId: null,
     currentFlightId: null,
     simbriefUserId: null,
@@ -51,6 +61,11 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     googleId: null,
+    googleEmail: null,
+    discordId: null,
+    discordUsername: null,
+    discordGlobalName: null,
+    discordAvatar: null,
     pilotLicenseId: null,
     currentFlightId: null,
     simbriefUserId: '123456',
@@ -69,6 +84,11 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     googleId: null,
+    googleEmail: null,
+    discordId: null,
+    discordUsername: null,
+    discordGlobalName: null,
+    discordAvatar: null,
     pilotLicenseId: null,
     currentFlightId: null,
     simbriefUserId: '654321',
@@ -87,6 +107,11 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     googleId: null,
+    googleEmail: null,
+    discordId: null,
+    discordUsername: null,
+    discordGlobalName: null,
+    discordAvatar: null,
     // null because seed flights loaded later than seed users
     // AAL4908 attached in flights.seed.ts
     currentFlightId: null,
@@ -107,6 +132,11 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     googleId: null,
+    googleEmail: null,
+    discordId: null,
+    discordUsername: null,
+    discordGlobalName: null,
+    discordAvatar: null,
     // null because seed flights loaded later than seed users
     // DLH42 attached in flights.seed.ts
     currentFlightId: null,
@@ -128,6 +158,11 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     googleId: null,
+    googleEmail: null,
+    discordId: '100000000000000100',
+    discordUsername: 'michael.doe',
+    discordGlobalName: 'Michael Doe',
+    discordAvatar: 'b1c2d3e4f5061728394a5b6c7d8e9f00',
     // null because seed flights loaded later than seed users
     // DLH43 attached in flights.seed.ts
     currentFlightId: null,
@@ -149,6 +184,11 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     googleId: null,
+    googleEmail: null,
+    discordId: null,
+    discordUsername: null,
+    discordGlobalName: null,
+    discordAvatar: null,
     pilotLicenseId: null,
     currentFlightId: null,
     simbriefUserId: '111222',
@@ -168,6 +208,11 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     // password: 'P@$$w0rd' — bcrypt with 12 rounds
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     googleId: null,
+    googleEmail: null,
+    discordId: null,
+    discordUsername: null,
+    discordGlobalName: null,
+    discordAvatar: null,
     pilotLicenseId: null,
     currentFlightId: null,
     simbriefUserId: '333444',
@@ -186,6 +231,11 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     role: UserRole.Operations,
     password: null,
     googleId: '117645320198734512096',
+    googleEmail: 'grace.doe@gmail.com',
+    discordId: '100000000000000200',
+    discordUsername: 'grace.doe',
+    discordGlobalName: null,
+    discordAvatar: null,
     pilotLicenseId: null,
     currentFlightId: null,
     simbriefUserId: null,

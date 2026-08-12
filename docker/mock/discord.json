@@ -1,0 +1,277 @@
+[
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/oauth2/token",
+      "body": {
+        "type": "STRING",
+        "string": "code=valid-michael-code",
+        "subString": true
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": {
+        "access_token": "michael-token",
+        "token_type": "Bearer",
+        "expires_in": 604800,
+        "scope": "identify"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/oauth2/token",
+      "body": {
+        "type": "STRING",
+        "string": "code=valid-stranger-code",
+        "subString": true
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": {
+        "access_token": "stranger-token",
+        "token_type": "Bearer",
+        "expires_in": 604800,
+        "scope": "identify"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/oauth2/token",
+      "body": {
+        "type": "STRING",
+        "string": "code=valid-join-code",
+        "subString": true
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": {
+        "access_token": "join-token",
+        "token_type": "Bearer",
+        "expires_in": 604800,
+        "scope": "identify guilds.join"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/oauth2/token",
+      "body": {
+        "type": "STRING",
+        "string": "code=valid-nojoin-code",
+        "subString": true
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": {
+        "access_token": "nojoin-token",
+        "token_type": "Bearer",
+        "expires_in": 604800,
+        "scope": "identify"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/oauth2/token",
+      "body": {
+        "type": "STRING",
+        "string": "code=valid-joinfail-code",
+        "subString": true
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": {
+        "access_token": "joinfail-token",
+        "token_type": "Bearer",
+        "expires_in": 604800,
+        "scope": "identify guilds.join"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/oauth2/token",
+      "body": {
+        "type": "STRING",
+        "string": "code=valid-member-code",
+        "subString": true
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": {
+        "access_token": "member-token",
+        "token_type": "Bearer",
+        "expires_in": 604800,
+        "scope": "identify guilds.join"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/oauth2/token",
+      "body": {
+        "type": "STRING",
+        "string": "code=already-used-code",
+        "subString": true
+      }
+    },
+    "httpResponse": {
+      "statusCode": 400,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": { "error": "invalid_grant" }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/users/@me",
+      "headers": { "Authorization": ["Bearer michael-token"] }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": {
+        "id": "100000000000000100",
+        "username": "michael.doe",
+        "global_name": "Michael Doe",
+        "avatar": "b1c2d3e4f5061728394a5b6c7d8e9f00"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/users/@me",
+      "headers": { "Authorization": ["Bearer stranger-token"] }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": {
+        "id": "100000000000000001",
+        "username": "stranger",
+        "global_name": null,
+        "avatar": null
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/users/@me",
+      "headers": { "Authorization": ["Bearer join-token"] }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": {
+        "id": "100000000000000002",
+        "username": "newcomer",
+        "global_name": "Newcomer",
+        "avatar": "a_57e2f1cb90d4a3865fbb0e7cd2419a68"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/users/@me",
+      "headers": { "Authorization": ["Bearer nojoin-token"] }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": {
+        "id": "100000000000000003",
+        "username": "loner",
+        "global_name": null,
+        "avatar": null
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/users/@me",
+      "headers": { "Authorization": ["Bearer joinfail-token"] }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": {
+        "id": "100000000000000004",
+        "username": "unlucky",
+        "global_name": null,
+        "avatar": null
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/users/@me",
+      "headers": { "Authorization": ["Bearer member-token"] }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": {
+        "id": "100000000000000005",
+        "username": "veteran",
+        "global_name": "Veteran",
+        "avatar": "cafe1f2e3d4c5b6a798877665544332211"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "PUT",
+      "path": "/guilds/.*/members/100000000000000002"
+    },
+    "httpResponse": {
+      "statusCode": 201,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": { "user": { "id": "100000000000000002" } }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "PUT",
+      "path": "/guilds/.*/members/100000000000000005"
+    },
+    "httpResponse": {
+      "statusCode": 204
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "PUT",
+      "path": "/guilds/.*/members/100000000000000004"
+    },
+    "httpResponse": {
+      "statusCode": 403,
+      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
+      "body": { "message": "Missing Permissions", "code": 50013 }
+    }
+  }
+]

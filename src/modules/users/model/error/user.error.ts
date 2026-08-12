@@ -5,6 +5,24 @@ import {
   NotFoundError,
 } from '../../../../core/errors/domain-error';
 
+export class DiscordAccountLinkedToAnotherUserError extends ConflictError {
+  constructor() {
+    super('This Discord account is already linked to another user.');
+  }
+}
+
+export class UserAlreadyHasLinkedDiscordAccountError extends ConflictError {
+  constructor() {
+    super('User already has a linked Discord account.');
+  }
+}
+
+export class UserHasNoLinkedDiscordAccountError extends ConflictError {
+  constructor() {
+    super('User has no linked Discord account.');
+  }
+}
+
 export class UserNotFoundError extends NotFoundError {
   constructor() {
     super('User with given id does not exist.');

@@ -42,7 +42,7 @@ const schedulerEnabled = process.env.SCHEDULER_ENABLED !== 'false';
     JwtModule,
     SkyLinkModule,
     DiscordModule,
-    EventEmitterModule.forRoot(),
+    EventEmitterModule.forRoot({ maxListeners: 20, verboseMemoryLeak: true }),
     DomainEventsModule,
     ...(schedulerEnabled ? [ScheduleModule.forRoot()] : []),
     CqrsModule.forRoot(),

@@ -20,6 +20,10 @@ export class LinkGoogleAccountHandler implements ICommandHandler<LinkGoogleAccou
     const { userId, idToken } = command;
     const identity = await this.googleIdentityClient.verifyIdToken(idToken);
 
-    await this.users.linkGoogleAccount(userId, identity.googleId);
+    await this.users.linkGoogleAccount(
+      userId,
+      identity.googleId,
+      identity.email,
+    );
   }
 }

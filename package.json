@@ -1,6 +1,6 @@
 {
   "name": "flight-tracker-api",
-  "version": "3.20.0",
+  "version": "3.21.0",
   "private": true,
   "homepage": "https://flights.barcz.me",
   "author": "oskarbarcz",
@@ -45,6 +45,7 @@
     "cache-manager": "^7.2.8",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.4",
+    "discord.js": "^14.27.0",
     "dotenv": "^17.4.2",
     "helmet": "^8.1.0",
     "jose": "^5.10.0",

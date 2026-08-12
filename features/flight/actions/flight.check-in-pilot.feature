@@ -617,6 +617,63 @@ Feature: Check in pilot for flight
       """
     And I set database to initial state
 
+  Scenario: Checking in a pilot sends a briefing to their linked Discord account
+    Given I clear Discord messages directory
+    And I am signed in as "Michael Doe"
+    When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
+      """json
+      {
+        "arrivalTime": "2025-01-01T15:50:00.000Z",
+        "onBlockTime": "2025-01-01T16:08:00.000Z",
+        "takeoffTime": "2025-01-01T13:15:00.000Z",
+        "offBlockTime": "2025-01-01T13:00:00.000Z"
+      }
+      """
+    Then the response status should be 204
+    And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing ":clipboard: **Flight AA 4906 briefing**"
+    And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "Route: **Boston (BOS)** to **Philadelphia (PHL)**"
+    And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "Aircraft: **Boeing 777-300ER** (N78881)"
+    And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "Estimated off block: **13:00Z**, on block: **16:08Z**"
+    And I set database to initial state
+    And I clear Discord messages directory
+
+  Scenario: Checking in a pilot sends the operational flight plan with the briefing
+    Given I clear Discord messages directory
+    And I am signed in as "Michael Doe"
+    When I send a "POST" request to "/api/v1/flight/11087d20-ead0-4b7e-97ee-f1ef0ea29e4f/check-in" with body:
+      """json
+      {
+        "arrivalTime": "2025-01-05T17:10:00.000Z",
+        "onBlockTime": "2025-01-05T17:25:00.000Z",
+        "takeoffTime": "2025-01-05T09:20:00.000Z",
+        "offBlockTime": "2025-01-05T09:00:00.000Z"
+      }
+      """
+    Then the response status should be 204
+    And I see Discord "briefing" message for flight "11087d20-ead0-4b7e-97ee-f1ef0ea29e4f" containing ":clipboard: **Flight LH 81 briefing**"
+    And I see Discord "briefing" message for flight "11087d20-ead0-4b7e-97ee-f1ef0ea29e4f" containing "Route: **Frankfurt (FRA)** to **New York (JFK)**"
+    And I see Discord "briefing" message for flight "11087d20-ead0-4b7e-97ee-f1ef0ea29e4f" containing "Aircraft: **Airbus A330-900** (D-AIMK)"
+    And I see Discord "briefing" message for flight "11087d20-ead0-4b7e-97ee-f1ef0ea29e4f" containing "Estimated off block: **09:00Z**, on block: **17:25Z**"
+    And I see Discord "briefing" message for flight "11087d20-ead0-4b7e-97ee-f1ef0ea29e4f" containing "[Operational flight plan](https://www.simbrief.com/ofp/flightplans/EDDFKJFK_PDF_1769431274.pdf)"
+    And I set database to initial state
+    And I clear Discord messages directory
+
+  Scenario: Checking in a pilot without a linked Discord account sends no briefing
+    Given I clear Discord messages directory
+    And I am signed in as "Alan Doe"
+    When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:
+      """json
+      {
+        "arrivalTime": "2025-01-01T15:50:00.000Z",
+        "onBlockTime": "2025-01-01T16:08:00.000Z",
+        "takeoffTime": "2025-01-01T13:15:00.000Z",
+        "offBlockTime": "2025-01-01T13:00:00.000Z"
+      }
+      """
+    Then the response status should be 204
+    And I see no Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab"
+    And I set database to initial state
+
   Scenario: As a cabin crew I cannot check in pilot for flight twice
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:

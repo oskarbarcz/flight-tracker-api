@@ -4,6 +4,8 @@ import { loadResources } from '../../prisma/seed/load-resources';
 
 const prisma = new PrismaService();
 
+const RESET_TIMEOUT_MS = 15_000;
+
 const resetDatabase = async () => {
   const tablenames = await prisma.$queryRaw<
     Array<{ tablename: string }>
@@ -26,14 +28,18 @@ const resetDatabase = async () => {
   }
 };
 
-BeforeAll(async () => {
+BeforeAll({ timeout: RESET_TIMEOUT_MS }, async () => {
   await resetDatabase();
 });
 
-AfterAll(async () => {
+AfterAll({ timeout: RESET_TIMEOUT_MS }, async () => {
   await resetDatabase();
 });
 
-Then('I set database to initial state', async () => {
-  await resetDatabase();
-});
+Then(
+  'I set database to initial state',
+  { timeout: RESET_TIMEOUT_MS },
+  async () => {
+    await resetDatabase();
+  },
+);
