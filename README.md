@@ -154,6 +154,23 @@ does not want one does not want the other.
 Every direct message is separately switchable per user — see the settings endpoints below. All default to on, so no
 pilot has to opt in, and turning one off leaves the rest alone.
 
+**Rich presence.** `richPresenceEnabled` sits alongside the message switches but is not one: nothing is sent when it
+is on. Discord exposes no server-side way to set a member's activity — presence is written by a process on the user's
+own machine talking to the local Discord client over IPC — so the flag is the user's consent for their flight to be
+published as their Discord activity, read by that companion client. It is the one Discord setting that defaults to
+**off**, because it publishes what the user is doing to anyone who can see their profile.
+
+`GET /api/v1/user/me/discord-presence` serves that activity, built from the user's `currentFlightId` — the flight they
+checked in for, cleared when it closes. `state` is the flight status in words, suffixed with the takeoff time until
+the aircraft is airborne and the landing time while it cruises, and left bare once it has landed; `details` is
+`City (IATA) -> City (IATA)`; `startTimestamp` and `endTimestamp` are the estimated off-block and landing times,
+falling back to the scheduled ones when the crew estimated nothing. Times are ISO-8601, so a client pushing them over
+IPC converts to the Unix seconds Discord expects. The response is `204` — publish nothing, clear the activity —
+whenever the switch is off or the user is on no flight. A linked Discord account is **not** required: the companion
+client authenticates as the user against their own Discord app. The `smallImageKey` and `largeImageKey` values are
+served as configured constants and must exist as art assets on the Discord application the companion client
+registers, or the images silently do not render.
+
 Weather is read from the reports already stored for the airport. Check-in also starts a weather refresh in its own
 listener, and the two run concurrently, so when nothing is stored yet the briefing runs one refresh of the departure
 airport itself before giving up on a section. Briefing delivery never blocks a check-in: a rejected message is
@@ -186,8 +203,9 @@ unlisted URI is rejected with `400` so a code cannot be relayed elsewhere.
 | `POST /api/v1/user/me/link-discord-account`     | Link, optionally joining the server in the same consent pass (`joinServer`). Returns the resulting state so the UI needs no refetch. |
 | `POST /api/v1/user/me/unlink-discord-account`   | Unlink. Requires the current password, and never removes the user from the server.                                                   |
 | `GET /api/v1/user/me/discord/server-membership` | Live membership probe for an account screen.                                                                                         |
-| `GET /api/v1/user/me/discord-settings`          | Read which direct messages are enabled: briefing, preliminary loadsheet, final loadsheet, delay updates.                             |
-| `PATCH /api/v1/user/me/discord-settings`        | Turn any of them on or off. Partial — only the fields you send change. All default to on, linked account or not.                     |
+| `GET /api/v1/user/me/discord-settings`          | Read which direct messages are enabled: briefing, preliminary loadsheet, final loadsheet, delay updates — plus rich presence.        |
+| `PATCH /api/v1/user/me/discord-settings`        | Turn any of them on or off. Partial — only the fields you send change. The messages default to on, rich presence to off.             |
+| `GET /api/v1/user/me/discord-presence`          | Read the activity to publish for the current flight, or `204` when rich presence is off or the user is not flying.                    |
 
 **Server membership is a precondition, not a detail.** A direct message can only reach somebody who shares the
 server with the bot, so a linked account that never joined gets no briefings — as does a pilot who turned them off

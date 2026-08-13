@@ -41,4 +41,14 @@ export class UpdateDiscordSettingsDto {
   @IsBoolean()
   @IsOptional()
   delayUpdatesEnabled?: boolean;
+
+  @ApiProperty({
+    description:
+      'Whether the user lets their flight be published as their Discord activity',
+    example: true,
+    required: false,
+  })
+  @IsBoolean()
+  @IsOptional()
+  richPresenceEnabled?: boolean;
 }

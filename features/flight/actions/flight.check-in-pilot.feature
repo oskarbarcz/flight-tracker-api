@@ -701,7 +701,8 @@ Feature: Check in pilot for flight
         "briefingsEnabled": false,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayUpdatesEnabled": true
+        "delayUpdatesEnabled": true,
+        "richPresenceEnabled": false
       }
       """
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:

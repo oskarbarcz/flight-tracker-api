@@ -527,6 +527,7 @@ export class UsersRepository {
         discordPreliminaryLoadsheetEnabled: true,
         discordFinalLoadsheetEnabled: true,
         discordDelayUpdatesEnabled: true,
+        discordRichPresenceEnabled: true,
       },
     });
 
@@ -539,6 +540,7 @@ export class UsersRepository {
       preliminaryLoadsheetEnabled: user.discordPreliminaryLoadsheetEnabled,
       finalLoadsheetEnabled: user.discordFinalLoadsheetEnabled,
       delayUpdatesEnabled: user.discordDelayUpdatesEnabled,
+      richPresenceEnabled: user.discordRichPresenceEnabled,
     };
   }
 
@@ -560,6 +562,7 @@ export class UsersRepository {
           settings.preliminaryLoadsheetEnabled,
         discordFinalLoadsheetEnabled: settings.finalLoadsheetEnabled,
         discordDelayUpdatesEnabled: settings.delayUpdatesEnabled,
+        discordRichPresenceEnabled: settings.richPresenceEnabled,
       },
     });
   }
