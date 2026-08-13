@@ -91,6 +91,7 @@ model AirportNotam {
   dateEffective DateTime
   dateExpire    DateTime?
   dateModified  DateTime
+  dateImported  DateTime  @default(now())
   html          String
   text          String
   raw           String

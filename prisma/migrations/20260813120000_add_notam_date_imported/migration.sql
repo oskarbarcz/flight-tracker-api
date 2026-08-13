@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "airport_notam" ADD COLUMN     "dateImported" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

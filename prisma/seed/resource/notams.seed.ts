@@ -1,5 +1,7 @@
 import { Prisma } from '../../client/client';
 
+const dateImported = new Date('2026-08-01T06:00:00.000Z');
+
 const warsaw = '616cbdd7-ccfc-4687-8cf6-1e7236435046';
 const frankfurt = 'f35c094a-bec5-4803-be32-bd80a14b441a';
 const philadelphia = 'e764251b-bb25-4e8b-8cc7-11b0397b4554';
@@ -14,6 +16,7 @@ export async function loadNotams(tx: Prisma.TransactionClient): Promise<void> {
       dateEffective: new Date('2026-07-01T14:00:00.000Z'),
       dateExpire: new Date('2099-12-31T22:00:00.000Z'),
       dateModified: new Date('2026-07-01T13:53:00.000Z'),
+      dateImported,
       html: '<b>TWY V</b> <b>CLOSED</b> FOR ACFT CATEGORY F BTN <b>TWY S2</b> AND <b>TWY Y</b>.',
       text: 'TWY V CLOSED FOR ACFT CATEGORY F BTN TWY S2 AND TWY Y.',
       raw: 'A3912/26 NOTAMN\n Q) EPWW/QMXLC/IV/BO /A /000/999/5210N02058E005\n A) EPWA B) 2607011400 C) 9912312200\n E) TWY V CLOSED FOR ACFT CATEGORY F BTN TWY S2 AND TWY Y.',
@@ -31,6 +34,7 @@ export async function loadNotams(tx: Prisma.TransactionClient): Promise<void> {
       dateEffective: new Date('2026-06-15T09:00:00.000Z'),
       dateExpire: null,
       dateModified: new Date('2026-06-16T11:20:00.000Z'),
+      dateImported,
       html: 'BIRD ACTIVITY IN THE VICINITY OF <b>AD</b>.',
       text: 'BIRD ACTIVITY IN THE VICINITY OF AD.',
       raw: 'A2204/26 NOTAMN\n Q) EPWW/QFAXX/IV/NBO/A /000/999/5210N02058E005\n A) EPWA B) 2606150900 C) PERM\n E) BIRD ACTIVITY IN THE VICINITY OF AD.',
@@ -48,6 +52,7 @@ export async function loadNotams(tx: Prisma.TransactionClient): Promise<void> {
       dateEffective: new Date('2026-05-02T06:30:00.000Z'),
       dateExpire: new Date('2026-05-31T23:59:00.000Z'),
       dateModified: new Date('2026-05-02T06:00:00.000Z'),
+      dateImported,
       html: '<b>RWY 11</b> <b>UNSERVICEABLE</b> DUE TO <b>WIP</b>.',
       text: 'RWY 11 UNSERVICEABLE DUE TO WIP.',
       raw: 'A1180/26 NOTAMN\n Q) EPWW/QMRXX/IV/BO /A /000/999/5210N02058E005\n A) EPWA B) 2605020630 C) 2605312359\n E) RWY 11 UNSERVICEABLE DUE TO WIP.',
@@ -65,6 +70,7 @@ export async function loadNotams(tx: Prisma.TransactionClient): Promise<void> {
       dateEffective: new Date('2099-01-01T00:00:00.000Z'),
       dateExpire: new Date('2099-06-30T23:59:00.000Z'),
       dateModified: new Date('2026-07-20T12:00:00.000Z'),
+      dateImported,
       html: '<b>APRON</b> 3 <b>WORK IN PROGRESS</b>, STANDS 301 THRU 309 NOT AVBL.',
       text: 'APRON 3 WORK IN PROGRESS, STANDS 301 THRU 309 NOT AVBL.',
       raw: 'A4501/99 NOTAMN\n Q) EPWW/QMNLW/IV/BO /A /000/999/5210N02058E005\n A) EPWA B) 9901010000 C) 9906302359\n E) APRON 3 WORK IN PROGRESS, STANDS 301 THRU 309 NOT AVBL.',
@@ -82,6 +88,7 @@ export async function loadNotams(tx: Prisma.TransactionClient): Promise<void> {
       dateEffective: new Date('2026-07-05T10:00:00.000Z'),
       dateExpire: new Date('2099-11-30T23:59:00.000Z'),
       dateModified: new Date('2026-07-05T09:00:00.000Z'),
+      dateImported,
       html: '<b>ILS</b> <b>RWY 25L</b> <b>UNSERVICEABLE</b>.',
       text: 'ILS RWY 25L UNSERVICEABLE.',
       raw: 'A0777/26 NOTAMN\n Q) EDGG/QICAS/I /NBO/A /000/999/5002N00834E005\n A) EDDF B) 2607051000 C) 9911302359\n E) ILS RWY 25L UNSERVICEABLE.',
@@ -99,6 +106,7 @@ export async function loadNotams(tx: Prisma.TransactionClient): Promise<void> {
       dateEffective: new Date('2026-07-11T16:00:00.000Z'),
       dateExpire: new Date('2099-10-31T23:59:00.000Z'),
       dateModified: new Date('2026-07-11T15:00:00.000Z'),
+      dateImported,
       html: '<b>TWY E</b> <b>CLSD</b> BTN <b>TWY K</b> AND <b>TWY L</b>.',
       text: 'TWY E CLSD BTN TWY K AND TWY L.',
       raw: 'A0231/26 NOTAMN\n Q) KZNY/QMXLC/IV/BO /A /000/999/3952N07514W005\n A) KPHL B) 2607111600 C) 9910312359\n E) TWY E CLSD BTN TWY K AND TWY L.',
