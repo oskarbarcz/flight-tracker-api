@@ -29,7 +29,11 @@ Feature: Update own profile
             "linked": false
           },
           "discord": {
-            "linked": false
+            "linked": true,
+            "userId": "100000000000000300",
+            "username": "rick.doe",
+            "globalName": "Rick Doe",
+            "avatarUrl": "https://cdn.discordapp.com/avatars/100000000000000300/c4d5e6f70819202a3b4c5d6e7f809a1b.png"
           }
         },
         "emails": [
@@ -114,7 +118,11 @@ Feature: Update own profile
             "linked": false
           },
           "discord": {
-            "linked": false
+            "linked": true,
+            "userId": "100000000000000300",
+            "username": "rick.doe",
+            "globalName": "Rick Doe",
+            "avatarUrl": "https://cdn.discordapp.com/avatars/100000000000000300/c4d5e6f70819202a3b4c5d6e7f809a1b.png"
           }
         },
         "emails": [
@@ -156,7 +164,11 @@ Feature: Update own profile
             "linked": false
           },
           "discord": {
-            "linked": false
+            "linked": true,
+            "userId": "100000000000000300",
+            "username": "rick.doe",
+            "globalName": "Rick Doe",
+            "avatarUrl": "https://cdn.discordapp.com/avatars/100000000000000300/c4d5e6f70819202a3b4c5d6e7f809a1b.png"
           }
         },
         "emails": [
@@ -268,7 +280,11 @@ Feature: Update own profile
             "linked": false
           },
           "discord": {
-            "linked": false
+            "linked": true,
+            "userId": "100000000000000300",
+            "username": "rick.doe",
+            "globalName": "Rick Doe",
+            "avatarUrl": "https://cdn.discordapp.com/avatars/100000000000000300/c4d5e6f70819202a3b4c5d6e7f809a1b.png"
           }
         },
         "emails": [
@@ -310,7 +326,11 @@ Feature: Update own profile
             "linked": false
           },
           "discord": {
-            "linked": false
+            "linked": true,
+            "userId": "100000000000000300",
+            "username": "rick.doe",
+            "globalName": "Rick Doe",
+            "avatarUrl": "https://cdn.discordapp.com/avatars/100000000000000300/c4d5e6f70819202a3b4c5d6e7f809a1b.png"
           }
         },
         "emails": [
@@ -394,7 +414,11 @@ Feature: Update own profile
             "linked": false
           },
           "discord": {
-            "linked": false
+            "linked": true,
+            "userId": "100000000000000300",
+            "username": "rick.doe",
+            "globalName": "Rick Doe",
+            "avatarUrl": "https://cdn.discordapp.com/avatars/100000000000000300/c4d5e6f70819202a3b4c5d6e7f809a1b.png"
           }
         },
         "emails": [
@@ -527,7 +551,11 @@ Feature: Update own profile
             "linked": false
           },
           "discord": {
-            "linked": false
+            "linked": true,
+            "userId": "100000000000000300",
+            "username": "rick.doe",
+            "globalName": "Rick Doe",
+            "avatarUrl": "https://cdn.discordapp.com/avatars/100000000000000300/c4d5e6f70819202a3b4c5d6e7f809a1b.png"
           }
         },
         "emails": [
@@ -626,7 +654,11 @@ Feature: Update own profile
             "linked": false
           },
           "discord": {
-            "linked": false
+            "linked": true,
+            "userId": "100000000000000300",
+            "username": "rick.doe",
+            "globalName": "Rick Doe",
+            "avatarUrl": "https://cdn.discordapp.com/avatars/100000000000000300/c4d5e6f70819202a3b4c5d6e7f809a1b.png"
           }
         },
         "emails": [
@@ -667,7 +699,11 @@ Feature: Update own profile
             "linked": false
           },
           "discord": {
-            "linked": false
+            "linked": true,
+            "userId": "100000000000000300",
+            "username": "rick.doe",
+            "globalName": "Rick Doe",
+            "avatarUrl": "https://cdn.discordapp.com/avatars/100000000000000300/c4d5e6f70819202a3b4c5d6e7f809a1b.png"
           }
         },
         "emails": [
@@ -711,7 +747,11 @@ Feature: Update own profile
             "linked": false
           },
           "discord": {
-            "linked": false
+            "linked": true,
+            "userId": "100000000000000300",
+            "username": "rick.doe",
+            "globalName": "Rick Doe",
+            "avatarUrl": "https://cdn.discordapp.com/avatars/100000000000000300/c4d5e6f70819202a3b4c5d6e7f809a1b.png"
           }
         },
         "emails": [

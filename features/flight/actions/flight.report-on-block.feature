@@ -589,7 +589,7 @@ Feature: Report on-block
       """
     And I see Discord "arrival" message for flight "04be266c-df78-4bec-9f50-281cc02ce7f2" containing "Flight **AA 4913** from **Boston (BOS)** to **Philadelphia (PHL)** just arrived!"
     And I see Discord "arrival" message for flight "04be266c-df78-4bec-9f50-281cc02ce7f2" containing "Actual block time:"
-    And I see Discord "arrival" message for flight "04be266c-df78-4bec-9f50-281cc02ce7f2" containing "[Flight Tracker](https://flights.barcz.me/map/04be266c-df78-4bec-9f50-281cc02ce7f2)"
+    And I see Discord "arrival" message for flight "04be266c-df78-4bec-9f50-281cc02ce7f2" containing "[Flight Tracker](http://localhost:5173/map/04be266c-df78-4bec-9f50-281cc02ce7f2)"
     And I should receive a live flight event of type "flight.on-block-reported" within 2000ms
     Given I am signed in as "admin"
     When I send a "GET" request to "/api/v1/user/fcf6f4bc-290d-43a9-843c-409cd47e143d"

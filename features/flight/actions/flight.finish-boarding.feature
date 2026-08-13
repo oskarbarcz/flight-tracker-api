@@ -27,7 +27,8 @@ Feature: Finish flight boarding
       """
 
   Scenario: As a cabin crew I can finish boarding in flight that is checked in
-    Given I open a WebSocket connection as "cabin crew"
+    Given I clear Discord messages directory
+    And I open a WebSocket connection as "cabin crew"
     When I subscribe to flight events for "05986dd3-ff01-4112-ad35-ecd85db05c77"
     Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
@@ -326,8 +327,15 @@ Feature: Finish flight boarding
         }
       ]
       """
+    And I see Discord "final-loadsheet" message for flight "05986dd3-ff01-4112-ad35-ecd85db05c77" containing ":clipboard: **Flight AA 4909 final loadsheet**"
+    And I see Discord "final-loadsheet" message for flight "05986dd3-ff01-4112-ad35-ecd85db05c77" containing "FO  James Carter"
+    And I see Discord "final-loadsheet" message for flight "05986dd3-ff01-4112-ad35-ecd85db05c77" containing "PU  Susan Brooks"
+    And I see Discord "final-loadsheet" message for flight "05986dd3-ff01-4112-ad35-ecd85db05c77" containing "FA  Emily Ross"
+    And I see Discord "final-loadsheet" message for flight "05986dd3-ff01-4112-ad35-ecd85db05c77" containing "passengers:  366"
+    And I see Discord "final-loadsheet" message for flight "05986dd3-ff01-4112-ad35-ecd85db05c77" containing "block fuel:  11.9 t"
     And I should receive a live flight event of type "flight.boarding-finished" within 2000ms
     And I set database to initial state
+    And I clear Discord messages directory
 
   Scenario: As a cabin crew I cannot finish boarding with a final fuel breakdown whose block differs from the block fuel
     Given I am signed in as "cabin crew"

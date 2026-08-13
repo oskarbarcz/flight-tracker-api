@@ -6,6 +6,7 @@ import {
 
 const WARSAW = '616cbdd7-ccfc-4687-8cf6-1e7236435046';
 const FRANKFURT = 'f35c094a-bec5-4803-be32-bd80a14b441a';
+const BOSTON = 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3';
 
 const AVIATION_WEATHER_GOV_FETCHED_AT = new Date('2026-07-08T12:00:00.000Z');
 const SAY_INTENTIONS_FETCHED_AT = new Date('2026-07-08T11:30:00.000Z');
@@ -71,6 +72,47 @@ export async function loadWeather(tx: Prisma.TransactionClient): Promise<void> {
       content:
         'TAF EDDF 081100Z 0812/0918 24010KT 9999 FEW035 BECMG 0815/0817 27012KT',
       lastFetched: AVIATION_WEATHER_GOV_FETCHED_AT,
+    },
+    {
+      id: '0112b47c-576a-40c9-b669-e49abea97dc7',
+      airportId: BOSTON,
+      source: WeatherSource.AviationWeatherGov,
+      informationType: WeatherInformationType.Metar,
+      content: 'METAR KBOS 081154Z 21009KT 10SM FEW040 24/16 A3000',
+      lastFetched: AVIATION_WEATHER_GOV_FETCHED_AT,
+    },
+    {
+      id: '7c183849-61ec-4088-b58d-e88b5bc9ce4a',
+      airportId: BOSTON,
+      source: WeatherSource.AviationWeatherGov,
+      informationType: WeatherInformationType.Taf,
+      content: 'TAF KBOS 081120Z 0812/0918 21010KT P6SM FEW040',
+      lastFetched: AVIATION_WEATHER_GOV_FETCHED_AT,
+    },
+    {
+      id: 'f6b7c755-acda-45a9-a6b6-457466aa0e08',
+      airportId: BOSTON,
+      source: WeatherSource.SayIntentions,
+      informationType: WeatherInformationType.Atis,
+      content:
+        'Logan airport, information Delta. 1054 Zulu. ILS runway 4 right approach in use. Departing runway 9. Wind 210 at 9. Visibility 10. Few 4000. Temperature 24, dewpoint 16. Altimeter 3000. Advise on initial contact you have information Delta.',
+      lastFetched: SAY_INTENTIONS_FETCHED_AT,
+    },
+    {
+      id: 'd0045533-6800-4ef8-ac64-0f66e371f701',
+      airportId: BOSTON,
+      source: WeatherSource.SayIntentions,
+      informationType: WeatherInformationType.Metar,
+      content: 'KBOS 101054Z 21009KT 10SM FEW040 24/16 A3000',
+      lastFetched: SAY_INTENTIONS_FETCHED_AT,
+    },
+    {
+      id: '77b8fa2f-eeb1-4f1c-a3e5-fbbc5f428563',
+      airportId: BOSTON,
+      source: WeatherSource.SayIntentions,
+      informationType: WeatherInformationType.Taf,
+      content: 'TAF KBOS 100820Z 1009/1109 21010KT P6SM FEW040',
+      lastFetched: SAY_INTENTIONS_FETCHED_AT,
     },
   ];
 

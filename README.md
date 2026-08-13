@@ -131,8 +131,33 @@ guild the app is installed in).
 **Sending.** The bot needs `DISCORD_PUBLIC_FLIGHT_ANNOUNCEMENTS_CHANNEL_ID` and sends two kinds of message:
 
 - a public announcement in the announcements channel when boarding starts and when a flight goes on block;
-- a direct message with the flight briefing to the pilot who checks in, carrying the SimBrief OFP as both a link and
-  an attachment when the flight has one.
+- five direct messages to the pilot: the flight briefing when they check in, the preliminary loadsheet when boarding
+  starts, the final loadsheet when boarding finishes, a request to allocate a departure delay raised on their flight,
+  and a confirmation once operations approves that allocation.
+
+**The briefing.** It names the flight, its route and its aircraft, then renders the estimated schedule as an
+`out`/`off`/`on`/`in` block with the resulting block time, followed by the ATIS, METAR and TAF held for the
+**departure** airport. Each report is reproduced exactly as its provider published it, and a report the system does
+not hold is left out rather than shown empty — ATIS comes from SayIntentions only, so a briefing may well have none.
+A flight imported from SimBrief also carries its OFP as an attachment — the document only, never a link in the body.
+The closing link is built from `FRONTEND_BASE_URL`.
+
+**The loadsheets and delay messages.** They go to the flight's **captain** — the pilot who checked in — not to whoever
+performed the action, because a delay is raised by the system with no actor and approved by an operations user. A
+flight nobody has checked in for gets nothing. The loadsheet messages name the crew assigned to the flight with their
+roles and carry the passenger, cargo, payload, zero-fuel and block-fuel figures; a flight with no assigned crew simply
+omits that section, and a flight with no loadsheet produces no message. The delay message states the minutes to
+allocate and links to `${FRONTEND_BASE_URL}/flight/<id>/delay`. A rejected delay report sends nothing. Both delay
+messages — the request to allocate and the approval — share a single `delayUpdatesEnabled` switch, since a pilot who
+does not want one does not want the other.
+
+Every direct message is separately switchable per user — see the settings endpoints below. All default to on, so no
+pilot has to opt in, and turning one off leaves the rest alone.
+
+Weather is read from the reports already stored for the airport. Check-in also starts a weather refresh in its own
+listener, and the two run concurrently, so when nothing is stored yet the briefing runs one refresh of the departure
+airport itself before giving up on a section. Briefing delivery never blocks a check-in: a rejected message is
+logged and swallowed.
 
 `NODE_ENV=production` connects to the gateway, and so does `DISCORD_GATEWAY_ENABLED="true"` anywhere else — the
 escape hatch for working against a real server locally. With neither, the connection is refused outright.
@@ -161,9 +186,12 @@ unlisted URI is rejected with `400` so a code cannot be relayed elsewhere.
 | `POST /api/v1/user/me/link-discord-account`     | Link, optionally joining the server in the same consent pass (`joinServer`). Returns the resulting state so the UI needs no refetch. |
 | `POST /api/v1/user/me/unlink-discord-account`   | Unlink. Requires the current password, and never removes the user from the server.                                                   |
 | `GET /api/v1/user/me/discord/server-membership` | Live membership probe for an account screen.                                                                                         |
+| `GET /api/v1/user/me/discord-settings`          | Read which direct messages are enabled: briefing, preliminary loadsheet, final loadsheet, delay updates.                             |
+| `PATCH /api/v1/user/me/discord-settings`        | Turn any of them on or off. Partial — only the fields you send change. All default to on, linked account or not.                     |
 
 **Server membership is a precondition, not a detail.** A direct message can only reach somebody who shares the
-server with the bot, so a linked account that never joined gets no briefings. `joinServer: true` adds the user
+server with the bot, so a linked account that never joined gets no briefings — as does a pilot who turned them off
+in `discord-settings`. `joinServer: true` adds the user
 during linking; when that fails the link still stands and `joinOutcome` reports `failed`, because a link is worth
 keeping on its own. Membership is reported as `member`, `not_member` or `unknown` — and `unknown` whenever the truth
 could not be established (no linked account, gateway offline, or Discord silent), never `not_member`. With the

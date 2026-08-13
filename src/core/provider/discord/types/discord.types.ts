@@ -1,4 +1,15 @@
-export type DiscordMessageType = 'arrival' | 'departure' | 'briefing';
+export type DiscordChannelMessageType = 'arrival' | 'departure';
+
+export type DiscordDirectMessageType =
+  | 'briefing'
+  | 'preliminary-loadsheet'
+  | 'final-loadsheet'
+  | 'delay-allocation'
+  | 'delay-approval';
+
+export type DiscordMessageType =
+  | DiscordChannelMessageType
+  | DiscordDirectMessageType;
 
 export type DiscordMessageBase = {
   content: string;
@@ -7,10 +18,10 @@ export type DiscordMessageBase = {
 };
 
 export type DiscordMessage = DiscordMessageBase & {
-  type: 'arrival' | 'departure';
+  type: DiscordChannelMessageType;
 };
 
 export type DiscordDirectMessage = DiscordMessageBase & {
-  type: 'briefing';
+  type: DiscordDirectMessageType;
   attachments?: string[];
 };

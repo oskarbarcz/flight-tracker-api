@@ -523,6 +523,19 @@ export class FlightsRepository {
     await this.prisma.flight.delete({ where: { id } });
   }
 
+  async getCaptainId(flightId: string): Promise<string | null> {
+    const flight = await this.prisma.flight.findUnique({
+      where: { id: flightId },
+      select: { captainId: true },
+    });
+
+    if (!flight) {
+      throw new FlightDoesNotExistError();
+    }
+
+    return flight.captainId;
+  }
+
   async checkInCaptain(flightId: string, captainId: string): Promise<void> {
     await this.prisma.flight.update({
       where: { id: flightId },
