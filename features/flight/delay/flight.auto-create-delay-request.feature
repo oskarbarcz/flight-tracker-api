@@ -1,7 +1,8 @@
 Feature: Auto-create a delay allocation request on a late off-block
 
   Scenario: A late off-block report auto-creates a pending delay request
-    Given I open a WebSocket connection as "cabin crew"
+    Given I clear Discord messages directory
+    And I open a WebSocket connection as "cabin crew"
     When I subscribe to flight events for "f14a2141-4737-4622-a387-40513ff3baf1"
     Then I should receive flight event history within 2000ms
     Given I am signed in as "cabin crew"
@@ -23,7 +24,11 @@ Feature: Auto-create a delay allocation request on a late off-block
         "createdAt": "@date('within 1 minute from now')"
       }
       """
+    And I see Discord "delay-allocation" message for flight "f14a2141-4737-4622-a387-40513ff3baf1" containing ":hourglass: **Flight AA 4910 delay**"
+    And I see Discord "delay-allocation" message for flight "f14a2141-4737-4622-a387-40513ff3baf1" containing "has to be allocated."
+    And I see Discord "delay-allocation" message for flight "f14a2141-4737-4622-a387-40513ff3baf1" containing "[**Flight Tracker app**](http://localhost:5173/flight/f14a2141-4737-4622-a387-40513ff3baf1/delay)."
     And I set database to initial state
+    And I clear Discord messages directory
 
   Scenario: A flight that has not departed has no delay request
     Given I am signed in as "operations"

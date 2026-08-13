@@ -49,6 +49,7 @@ import { PasswordResetMailListener } from './application/event/internal/password
 import { GetDiscordSettingsAction } from './infra/http/action/get-discord-settings.action';
 import { UpdateDiscordSettingsAction } from './infra/http/action/update-discord-settings.action';
 import { GetUserDiscordSettingsHandler } from './application/query/get-user-discord-settings.query';
+import { GetDiscordRecipientHandler } from './application/query/get-discord-recipient.query';
 import { UpdateDiscordSettingsHandler } from './application/command/update-discord-settings.command';
 
 @Module({
@@ -80,6 +81,7 @@ import { UpdateDiscordSettingsHandler } from './application/command/update-disco
     GetUserSimbriefIdHandler,
     GetUserDiscordIdHandler,
     GetUserDiscordSettingsHandler,
+    GetDiscordRecipientHandler,
     GetUserWeatherSourceHandler,
     AssertUserExistsHandler,
     CreateUserHandler,

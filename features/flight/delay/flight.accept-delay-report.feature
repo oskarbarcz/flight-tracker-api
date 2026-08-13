@@ -1,13 +1,31 @@
 Feature: Accept a delay allocation report
 
   Scenario: As an operations I can accept a pending report
-    Given I open a WebSocket connection as "operations"
+    Given I clear Discord messages directory
+    And I open a WebSocket connection as "operations"
     When I subscribe to flight events for "7105891a-8008-4b47-b473-c81c97615ad7"
     Then I should receive flight event history within 2000ms
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay/aa81d28e-c67f-4ba3-9637-77301ea408a1/accept"
     Then the response status should be 204
     And I should receive a live flight event of type "flight.delay-report-accepted" within 2000ms
+    And I see Discord "delay-approval" message for flight "7105891a-8008-4b47-b473-c81c97615ad7" containing ":white_check_mark: **Flight AA 4911 delay approved**"
+    And I see Discord "delay-approval" message for flight "7105891a-8008-4b47-b473-c81c97615ad7" containing "Operations approved your delay allocation."
+    And I see Discord "delay-approval" message for flight "7105891a-8008-4b47-b473-c81c97615ad7" containing "[**Flight Tracker app**](http://localhost:5173/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay)."
+    And I set database to initial state
+    And I clear Discord messages directory
+
+  Scenario: Rejecting a report sends no approval message
+    Given I clear Discord messages directory
+    And I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay/368789fd-0a5c-4e96-9ed2-9c5b2de368d1/reject" with body:
+      """json
+      {
+        "rejectionReason": "Reason code does not match the recorded delay."
+      }
+      """
+    Then the response status should be 204
+    And I see no Discord "delay-approval" message for flight "7105891a-8008-4b47-b473-c81c97615ad7"
     And I set database to initial state
 
   Scenario: As an operations I cannot accept an already-accepted report

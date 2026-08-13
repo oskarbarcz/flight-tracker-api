@@ -16,8 +16,8 @@ import {
   WeatherInformationType,
   WeatherSource,
 } from '../../../../airports/model/airport-weather.model';
-import { GetUserDiscordIdQuery } from '../../../../users/application/query/get-user-discord-id.query';
-import { GetUserDiscordSettingsQuery } from '../../../../users/application/query/get-user-discord-settings.query';
+import { GetDiscordRecipientQuery } from '../../../../users/application/query/get-discord-recipient.query';
+import { DiscordNotification } from '../../../../users/model/discord-settings.model';
 import { GetUserWeatherSourceQuery } from '../../../../users/application/query/get-user-weather-source.query';
 import { GetFlightQuery } from '../../query/get-flight.query';
 import { GetOfpQuery } from '../../query/get-ofp.query';
@@ -52,15 +52,11 @@ export class SendFlightBriefingListener {
     }
 
     try {
-      const settingsQuery = new GetUserDiscordSettingsQuery(actorId);
-      const settings = await this.queryBus.execute(settingsQuery);
-
-      if (!settings.briefingsEnabled) {
-        return;
-      }
-
-      const discordIdQuery = new GetUserDiscordIdQuery(actorId);
-      const discordId = await this.queryBus.execute(discordIdQuery);
+      const recipientQuery = new GetDiscordRecipientQuery(
+        actorId,
+        DiscordNotification.Briefing,
+      );
+      const discordId = await this.queryBus.execute(recipientQuery);
 
       if (discordId === null) {
         return;

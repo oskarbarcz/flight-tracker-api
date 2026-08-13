@@ -1,8 +1,8 @@
 import { SendFlightBriefingListener } from './send-flight-briefing.listener';
 import { GetFlightQuery } from '../../query/get-flight.query';
 import { GetOfpQuery } from '../../query/get-ofp.query';
-import { GetUserDiscordIdQuery } from '../../../../users/application/query/get-user-discord-id.query';
-import { GetUserDiscordSettingsQuery } from '../../../../users/application/query/get-user-discord-settings.query';
+import { GetDiscordRecipientQuery } from '../../../../users/application/query/get-discord-recipient.query';
+import { DiscordNotification } from '../../../../users/model/discord-settings.model';
 import { GetUserWeatherSourceQuery } from '../../../../users/application/query/get-user-weather-source.query';
 import { GetAirportWeatherQuery } from '../../../../airports/application/query/weather/get-airport-weather.query';
 import { RefreshWeatherCommand } from '../../../../airports/application/command/weather/refresh-weather.command';
@@ -118,12 +118,10 @@ describe('SendFlightBriefingListener', () => {
     commandBus = { execute: jest.fn().mockResolvedValue(undefined) };
     queryBus = {
       execute: jest.fn().mockImplementation((query: unknown) => {
-        if (query instanceof GetUserDiscordSettingsQuery) {
-          return Promise.resolve({ briefingsEnabled });
-        }
+        if (query instanceof GetDiscordRecipientQuery) {
+          expect(query.notification).toBe(DiscordNotification.Briefing);
 
-        if (query instanceof GetUserDiscordIdQuery) {
-          return Promise.resolve(discordId);
+          return Promise.resolve(briefingsEnabled ? discordId : null);
         }
 
         if (query instanceof GetFlightQuery) {
@@ -260,6 +258,14 @@ describe('SendFlightBriefingListener', () => {
 
     expect(client.sendDirectMessage).not.toHaveBeenCalled();
     expect(queryBus.execute).toHaveBeenCalledTimes(1);
+  });
+
+  it('asks only for the briefing recipient', async () => {
+    await listener.onPilotCheckedIn(checkedIn());
+
+    const [recipientQuery] = queryBus.execute.mock.calls[0];
+    expect(recipientQuery).toBeInstanceOf(GetDiscordRecipientQuery);
+    expect(recipientQuery.userId).toBe(PILOT_ID);
   });
 
   it('sends nothing when the pilot has no linked Discord account', async () => {

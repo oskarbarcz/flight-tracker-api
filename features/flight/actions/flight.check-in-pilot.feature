@@ -698,7 +698,11 @@ Feature: Check in pilot for flight
     And the response body should contain:
       """json
       {
-        "briefingsEnabled": false
+        "briefingsEnabled": false,
+        "preliminaryLoadsheetEnabled": true,
+        "finalLoadsheetEnabled": true,
+        "delayAllocationEnabled": true,
+        "delayApprovalEnabled": true
       }
       """
     When I send a "POST" request to "/api/v1/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab/check-in" with body:

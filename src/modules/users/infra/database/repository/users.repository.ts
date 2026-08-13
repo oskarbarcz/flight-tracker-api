@@ -522,14 +522,26 @@ export class UsersRepository {
   async getDiscordSettings(userId: string): Promise<DiscordSettings> {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
-      select: { discordBriefingsEnabled: true },
+      select: {
+        discordBriefingsEnabled: true,
+        discordPreliminaryLoadsheetEnabled: true,
+        discordFinalLoadsheetEnabled: true,
+        discordDelayAllocationEnabled: true,
+        discordDelayApprovalEnabled: true,
+      },
     });
 
     if (!user) {
       throw new UserWithGivenIdNotFoundError();
     }
 
-    return { briefingsEnabled: user.discordBriefingsEnabled };
+    return {
+      briefingsEnabled: user.discordBriefingsEnabled,
+      preliminaryLoadsheetEnabled: user.discordPreliminaryLoadsheetEnabled,
+      finalLoadsheetEnabled: user.discordFinalLoadsheetEnabled,
+      delayAllocationEnabled: user.discordDelayAllocationEnabled,
+      delayApprovalEnabled: user.discordDelayApprovalEnabled,
+    };
   }
 
   async updateDiscordSettings(
@@ -544,7 +556,14 @@ export class UsersRepository {
 
     await this.prisma.user.update({
       where: { id: userId },
-      data: { discordBriefingsEnabled: settings.briefingsEnabled },
+      data: {
+        discordBriefingsEnabled: settings.briefingsEnabled,
+        discordPreliminaryLoadsheetEnabled:
+          settings.preliminaryLoadsheetEnabled,
+        discordFinalLoadsheetEnabled: settings.finalLoadsheetEnabled,
+        discordDelayAllocationEnabled: settings.delayAllocationEnabled,
+        discordDelayApprovalEnabled: settings.delayApprovalEnabled,
+      },
     });
   }
 }

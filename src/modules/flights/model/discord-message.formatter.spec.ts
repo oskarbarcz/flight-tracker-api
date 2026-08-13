@@ -5,12 +5,16 @@ import {
   formatBlockTime,
   formatBoardingAnnouncement,
   formatFlightBriefing,
+  formatDelayAllocationRequest,
+  formatDelayApproval,
   formatFlightNumber,
+  formatLoadsheet,
 } from './discord-message.formatter';
 
 const OFP_URL = 'https://www.simbrief.com/ofp/flightplans/EDDFKEWR_PDF.pdf';
 const FLIGHT_URL = 'https://flights.example.com/flight/flight-id';
 const MAP_URL = 'https://flights.example.com/map/flight-id';
+const DELAY_URL = 'https://flights.example.com/flight/flight-id/delay';
 const EMOJI = '<:ft:1436299102626386031>';
 
 function briefing(overrides: Partial<BriefingInput> = {}): BriefingInput {
@@ -202,6 +206,120 @@ describe('formatArrivalAnnouncement', () => {
         ' just arrived!\n' +
         'Actual block time: **03:52hrs**\n\n' +
         `See flight path on ${EMOJI} [Flight Tracker](${MAP_URL})!`,
+    );
+  });
+});
+
+describe('formatLoadsheet', () => {
+  const loadsheet = {
+    flightCrew: { pilots: 2, reliefPilots: 1, cabinCrew: 4 },
+    passengers: 200,
+    cargo: 3.5,
+    payload: 22.507,
+    zeroFuelWeight: 189.507,
+    blockFuel: 11.5,
+  };
+  const crew = [
+    { name: 'Piotr Lewandowski', role: 'fo' },
+    { name: 'Marek Zielinski', role: 'pu' },
+    { name: 'Anna Nowak', role: 'fa' },
+  ];
+
+  it('renders the preliminary loadsheet', () => {
+    expect(
+      formatLoadsheet({
+        kind: 'preliminary',
+        flightNumber: 'LH55',
+        crew,
+        loadsheet,
+        flightUrl: FLIGHT_URL,
+      }),
+    ).toBe(
+      [
+        ':clipboard: **Flight LH 55 preliminary loadsheet**',
+        '',
+        'Crew:',
+        '```',
+        'FO  Piotr Lewandowski',
+        'PU  Marek Zielinski',
+        'FA  Anna Nowak',
+        '```',
+        '',
+        'Load:',
+        '```',
+        'crew:        2 + 1 relief, 4 cabin',
+        'passengers:  200',
+        'cargo:       3.5 t',
+        'payload:     22.507 t',
+        'zero fuel:   189.507 t',
+        'block fuel:  11.5 t',
+        '```',
+        '',
+        `Manage your flight in the ${EMOJI} [**Flight Tracker app**](${FLIGHT_URL}).`,
+      ].join('\n'),
+    );
+  });
+
+  it('titles the final loadsheet as final', () => {
+    const content = formatLoadsheet({
+      kind: 'final',
+      flightNumber: 'LH55',
+      crew,
+      loadsheet,
+      flightUrl: FLIGHT_URL,
+    });
+
+    expect(content).toContain(':clipboard: **Flight LH 55 final loadsheet**');
+    expect(content).not.toContain('preliminary');
+  });
+
+  it('omits the crew section when no crew is assigned', () => {
+    const content = formatLoadsheet({
+      kind: 'preliminary',
+      flightNumber: 'LH55',
+      crew: [],
+      loadsheet,
+      flightUrl: FLIGHT_URL,
+    });
+
+    expect(content).not.toContain('Crew:');
+    expect(content).toContain('Load:');
+    expect(content).toContain('passengers:  200');
+  });
+});
+
+describe('formatDelayAllocationRequest', () => {
+  it('states the delay and links to the allocation screen', () => {
+    expect(
+      formatDelayAllocationRequest({
+        flightNumber: 'LH55',
+        delayMinutes: 12,
+        allocationUrl: DELAY_URL,
+      }),
+    ).toBe(
+      [
+        ':hourglass: **Flight LH 55 delay**',
+        '',
+        'A departure delay of **12 minutes** was recorded and has to be allocated.',
+        '',
+        `Allocate it in the ${EMOJI} [**Flight Tracker app**](${DELAY_URL}).`,
+      ].join('\n'),
+    );
+  });
+});
+
+describe('formatDelayApproval', () => {
+  it('confirms the approval', () => {
+    expect(
+      formatDelayApproval({ flightNumber: 'LH55', flightUrl: DELAY_URL }),
+    ).toBe(
+      [
+        ':white_check_mark: **Flight LH 55 delay approved**',
+        '',
+        'Operations approved your delay allocation.',
+        '',
+        `Manage your flight in the ${EMOJI} [**Flight Tracker app**](${DELAY_URL}).`,
+      ].join('\n'),
     );
   });
 });

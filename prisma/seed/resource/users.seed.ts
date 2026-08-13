@@ -28,6 +28,10 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
     discordBriefingsEnabled: true,
+    discordPreliminaryLoadsheetEnabled: true,
+    discordFinalLoadsheetEnabled: true,
+    discordDelayAllocationEnabled: true,
+    discordDelayApprovalEnabled: true,
   };
 
   const alice: User = {
@@ -52,6 +56,10 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.SayIntentions,
     discordBriefingsEnabled: true,
+    discordPreliminaryLoadsheetEnabled: true,
+    discordFinalLoadsheetEnabled: true,
+    discordDelayAllocationEnabled: true,
+    discordDelayApprovalEnabled: true,
   };
 
   const abby: User = {
@@ -76,6 +84,10 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
     discordBriefingsEnabled: true,
+    discordPreliminaryLoadsheetEnabled: true,
+    discordFinalLoadsheetEnabled: true,
+    discordDelayAllocationEnabled: true,
+    discordDelayApprovalEnabled: true,
   };
 
   const claudia: User = {
@@ -100,6 +112,10 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
     discordBriefingsEnabled: true,
+    discordPreliminaryLoadsheetEnabled: true,
+    discordFinalLoadsheetEnabled: true,
+    discordDelayAllocationEnabled: true,
+    discordDelayApprovalEnabled: true,
   };
 
   const rick: User = {
@@ -112,10 +128,10 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     password: '$2a$12$9MvL6NtPLtmU3GSfANn5IuRd64UJNTxWv3ZQE6Cs/AJQFW6zw3S/2',
     googleId: null,
     googleEmail: null,
-    discordId: null,
-    discordUsername: null,
-    discordGlobalName: null,
-    discordAvatar: null,
+    discordId: '100000000000000300',
+    discordUsername: 'rick.doe',
+    discordGlobalName: 'Rick Doe',
+    discordAvatar: 'c4d5e6f70819202a3b4c5d6e7f809a1b',
     // null because seed flights loaded later than seed users
     // AAL4908 attached in flights.seed.ts
     currentFlightId: null,
@@ -126,6 +142,10 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
     discordBriefingsEnabled: true,
+    discordPreliminaryLoadsheetEnabled: true,
+    discordFinalLoadsheetEnabled: true,
+    discordDelayAllocationEnabled: true,
+    discordDelayApprovalEnabled: true,
   };
 
   const alan: User = {
@@ -153,6 +173,10 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
     discordBriefingsEnabled: true,
+    discordPreliminaryLoadsheetEnabled: true,
+    discordFinalLoadsheetEnabled: true,
+    discordDelayAllocationEnabled: true,
+    discordDelayApprovalEnabled: true,
   };
 
   const michael: User = {
@@ -180,6 +204,10 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
     discordBriefingsEnabled: true,
+    discordPreliminaryLoadsheetEnabled: true,
+    discordFinalLoadsheetEnabled: true,
+    discordDelayAllocationEnabled: true,
+    discordDelayApprovalEnabled: true,
   };
 
   const diana: User = {
@@ -204,6 +232,10 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
     discordBriefingsEnabled: true,
+    discordPreliminaryLoadsheetEnabled: true,
+    discordFinalLoadsheetEnabled: true,
+    discordDelayAllocationEnabled: true,
+    discordDelayApprovalEnabled: true,
   };
 
   // Address was never proven — the unconfirmed fixture
@@ -229,6 +261,10 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
     discordBriefingsEnabled: true,
+    discordPreliminaryLoadsheetEnabled: true,
+    discordFinalLoadsheetEnabled: true,
+    discordDelayAllocationEnabled: true,
+    discordDelayApprovalEnabled: true,
   };
 
   // Signs in with Google only — no password to verify, reset or change
@@ -253,6 +289,10 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     lastAirportUpdatedAt: null,
     defaultWeatherSource: WeatherSource.AviationWeatherGov,
     discordBriefingsEnabled: true,
+    discordPreliminaryLoadsheetEnabled: true,
+    discordFinalLoadsheetEnabled: true,
+    discordDelayAllocationEnabled: true,
+    discordDelayApprovalEnabled: true,
   };
 
   for (const user of [

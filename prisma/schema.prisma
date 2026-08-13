@@ -395,8 +395,13 @@ model User {
   lastAirportId        String?   @db.Uuid
   lastAirportUpdatedAt DateTime?
 
-  defaultWeatherSource     WeatherSource @default(aviation_weather_gov)
-  discordBriefingsEnabled  Boolean       @default(true)
+  defaultWeatherSource WeatherSource @default(aviation_weather_gov)
+
+  discordBriefingsEnabled            Boolean @default(true)
+  discordPreliminaryLoadsheetEnabled Boolean @default(true)
+  discordFinalLoadsheetEnabled       Boolean @default(true)
+  discordDelayAllocationEnabled      Boolean @default(true)
+  discordDelayApprovalEnabled        Boolean @default(true)
 
   homeAirport          Airport?               @relation("UserHomeAirport", fields: [homeAirportId], references: [id], onDelete: SetNull)
   lastAirport          Airport?               @relation("UserLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)

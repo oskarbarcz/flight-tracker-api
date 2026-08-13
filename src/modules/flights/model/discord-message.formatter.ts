@@ -40,6 +40,41 @@ export type BoardingAnnouncementInput = AnnouncementInput & {
   passengers?: number;
 };
 
+export type LoadsheetKind = 'preliminary' | 'final';
+
+export type MessageCrewMember = {
+  name: string;
+  role: string;
+};
+
+export type MessageLoadsheet = {
+  flightCrew: { pilots: number; reliefPilots: number; cabinCrew: number };
+  passengers: number;
+  cargo: number;
+  payload: number;
+  zeroFuelWeight: number;
+  blockFuel: number;
+};
+
+export type LoadsheetInput = {
+  kind: LoadsheetKind;
+  flightNumber: string;
+  crew: MessageCrewMember[];
+  loadsheet: MessageLoadsheet;
+  flightUrl: string;
+};
+
+export type DelayAllocationInput = {
+  flightNumber: string;
+  delayMinutes: number;
+  allocationUrl: string;
+};
+
+export type DelayApprovalInput = {
+  flightNumber: string;
+  flightUrl: string;
+};
+
 export function formatFlightBriefing(input: BriefingInput): string {
   const sections: string[] = [
     `:clipboard: **Flight ${formatFlightNumber(input.flightNumber)} briefing**`,
@@ -66,10 +101,7 @@ export function formatFlightBriefing(input: BriefingInput): string {
     sections.push(`TAF:\n${codeBlock(taf)}`);
   }
 
-  sections.push(
-    `Manage your flight in the ${FLIGHT_TRACKER_EMOJI} ` +
-      `[**Flight Tracker app**](${input.flightUrl}).`,
-  );
+  sections.push(manageLine(input.flightUrl));
 
   return sections.join('\n\n');
 }
@@ -101,6 +133,64 @@ export function formatArrivalAnnouncement(input: AnnouncementInput): string {
     `See flight path on ${FLIGHT_TRACKER_EMOJI} ` +
     `[Flight Tracker](${input.flightUrl})!`
   );
+}
+
+export function formatLoadsheet(input: LoadsheetInput): string {
+  const { loadsheet } = input;
+  const sections: string[] = [
+    `:clipboard: **Flight ${formatFlightNumber(input.flightNumber)} ` +
+      `${input.kind} loadsheet**`,
+  ];
+
+  if (input.crew.length > 0) {
+    sections.push(
+      `Crew:\n${codeBlock(
+        input.crew
+          .map(
+            (member) => `${member.role.toUpperCase().padEnd(3)} ${member.name}`,
+          )
+          .join('\n'),
+      )}`,
+    );
+  }
+
+  const { pilots, reliefPilots, cabinCrew } = loadsheet.flightCrew;
+  sections.push(
+    `Load:\n${codeBlock(
+      [
+        line('crew', `${pilots} + ${reliefPilots} relief, ${cabinCrew} cabin`),
+        line('passengers', loadsheet.passengers),
+        line('cargo', tons(loadsheet.cargo)),
+        line('payload', tons(loadsheet.payload)),
+        line('zero fuel', tons(loadsheet.zeroFuelWeight)),
+        line('block fuel', tons(loadsheet.blockFuel)),
+      ].join('\n'),
+    )}`,
+    manageLine(input.flightUrl),
+  );
+
+  return sections.join('\n\n');
+}
+
+export function formatDelayAllocationRequest(
+  input: DelayAllocationInput,
+): string {
+  return [
+    `:hourglass: **Flight ${formatFlightNumber(input.flightNumber)} delay**`,
+    `A departure delay of **${input.delayMinutes} minutes** was recorded` +
+      ` and has to be allocated.`,
+    `Allocate it in the ${FLIGHT_TRACKER_EMOJI} ` +
+      `[**Flight Tracker app**](${input.allocationUrl}).`,
+  ].join('\n\n');
+}
+
+export function formatDelayApproval(input: DelayApprovalInput): string {
+  return [
+    `:white_check_mark: **Flight ${formatFlightNumber(input.flightNumber)} ` +
+      `delay approved**`,
+    'Operations approved your delay allocation.',
+    manageLine(input.flightUrl),
+  ].join('\n\n');
 }
 
 export function formatFlightNumber(flightNumber: string): string {
@@ -173,4 +263,19 @@ function formatTime(time: Date): string {
 
 function codeBlock(content: string): string {
   return ['```', content, '```'].join('\n');
+}
+
+function line(label: string, value: string | number): string {
+  return `${`${label}:`.padEnd(12)} ${value}`;
+}
+
+function tons(value: number): string {
+  return `${value} t`;
+}
+
+function manageLine(flightUrl: string): string {
+  return (
+    `Manage your flight in the ${FLIGHT_TRACKER_EMOJI} ` +
+    `[**Flight Tracker app**](${flightUrl}).`
+  );
 }
