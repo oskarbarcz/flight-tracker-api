@@ -35,6 +35,13 @@ export class DiscordSettings {
     example: true,
   })
   delayUpdatesEnabled!: boolean;
+
+  @ApiProperty({
+    description:
+      'Whether the user lets their flight be published as their Discord activity. Off unless the user turns it on, and read by the companion client that writes the activity to the Discord app running on their machine',
+    example: false,
+  })
+  richPresenceEnabled!: boolean;
 }
 
 export const DISCORD_NOTIFICATION_SETTING: Record<

@@ -10,7 +10,8 @@ Feature: Manage own Discord settings
         "briefingsEnabled": true,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayUpdatesEnabled": true
+        "delayUpdatesEnabled": true,
+        "richPresenceEnabled": false
       }
       """
 
@@ -24,7 +25,8 @@ Feature: Manage own Discord settings
         "briefingsEnabled": true,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayUpdatesEnabled": true
+        "delayUpdatesEnabled": true,
+        "richPresenceEnabled": false
       }
       """
 
@@ -54,7 +56,8 @@ Feature: Manage own Discord settings
         "briefingsEnabled": false,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayUpdatesEnabled": true
+        "delayUpdatesEnabled": true,
+        "richPresenceEnabled": false
       }
       """
     When I send a "GET" request to "/api/v1/user/me/discord-settings"
@@ -65,7 +68,8 @@ Feature: Manage own Discord settings
         "briefingsEnabled": false,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayUpdatesEnabled": true
+        "delayUpdatesEnabled": true,
+        "richPresenceEnabled": false
       }
       """
     And I set database to initial state
@@ -92,7 +96,8 @@ Feature: Manage own Discord settings
         "briefingsEnabled": true,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayUpdatesEnabled": true
+        "delayUpdatesEnabled": true,
+        "richPresenceEnabled": false
       }
       """
     And I set database to initial state
@@ -113,10 +118,101 @@ Feature: Manage own Discord settings
         "briefingsEnabled": true,
         "preliminaryLoadsheetEnabled": false,
         "finalLoadsheetEnabled": true,
-        "delayUpdatesEnabled": false
+        "delayUpdatesEnabled": false,
+        "richPresenceEnabled": false
       }
       """
     And I set database to initial state
+
+  Scenario: As a cabin crew I can turn rich presence on
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me/discord-settings" with body:
+      """json
+      {
+        "richPresenceEnabled": true
+      }
+      """
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "briefingsEnabled": true,
+        "preliminaryLoadsheetEnabled": true,
+        "finalLoadsheetEnabled": true,
+        "delayUpdatesEnabled": true,
+        "richPresenceEnabled": true
+      }
+      """
+    When I send a "GET" request to "/api/v1/user/me/discord-settings"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "briefingsEnabled": true,
+        "preliminaryLoadsheetEnabled": true,
+        "finalLoadsheetEnabled": true,
+        "delayUpdatesEnabled": true,
+        "richPresenceEnabled": true
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As a cabin crew I can turn rich presence back off
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me/discord-settings" with body:
+      """json
+      {
+        "richPresenceEnabled": true
+      }
+      """
+    Then the response status should be 200
+    When I send a "PATCH" request to "/api/v1/user/me/discord-settings" with body:
+      """json
+      {
+        "richPresenceEnabled": false
+      }
+      """
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "briefingsEnabled": true,
+        "preliminaryLoadsheetEnabled": true,
+        "finalLoadsheetEnabled": true,
+        "delayUpdatesEnabled": true,
+        "richPresenceEnabled": false
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As a cabin crew turning rich presence on leaves the messages alone
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me/discord-settings" with body:
+      """json
+      {
+        "briefingsEnabled": false
+      }
+      """
+    Then the response status should be 200
+    When I send a "PATCH" request to "/api/v1/user/me/discord-settings" with body:
+      """json
+      {
+        "richPresenceEnabled": true
+      }
+      """
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "briefingsEnabled": false,
+        "preliminaryLoadsheetEnabled": true,
+        "finalLoadsheetEnabled": true,
+        "delayUpdatesEnabled": true,
+        "richPresenceEnabled": true
+      }
+      """
+    And I set database to initial state
+
 
   Scenario: As a cabin crew changing one setting leaves the others alone
     Given I am signed in as "cabin crew"
@@ -140,7 +236,8 @@ Feature: Manage own Discord settings
         "briefingsEnabled": false,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayUpdatesEnabled": false
+        "delayUpdatesEnabled": false,
+        "richPresenceEnabled": false
       }
       """
     And I set database to initial state
@@ -158,7 +255,8 @@ Feature: Manage own Discord settings
         "briefingsEnabled": true,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayUpdatesEnabled": true
+        "delayUpdatesEnabled": true,
+        "richPresenceEnabled": false
       }
       """
 
@@ -177,7 +275,8 @@ Feature: Manage own Discord settings
         "briefingsEnabled": false,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayUpdatesEnabled": true
+        "delayUpdatesEnabled": true,
+        "richPresenceEnabled": false
       }
       """
     And I set database to initial state
@@ -188,7 +287,8 @@ Feature: Manage own Discord settings
       """json
       {
         "briefingsEnabled": "yes",
-        "delayUpdatesEnabled": 1
+        "delayUpdatesEnabled": 1,
+        "richPresenceEnabled": "on"
       }
       """
     Then the response status should be 400
@@ -200,7 +300,8 @@ Feature: Manage own Discord settings
         "statusCode": 400,
         "violations": {
           "briefingsEnabled": ["briefingsEnabled must be a boolean value"],
-          "delayUpdatesEnabled": ["delayUpdatesEnabled must be a boolean value"]
+          "delayUpdatesEnabled": ["delayUpdatesEnabled must be a boolean value"],
+          "richPresenceEnabled": ["richPresenceEnabled must be a boolean value"]
         }
       }
       """

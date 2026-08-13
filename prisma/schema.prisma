@@ -402,6 +402,7 @@ model User {
   discordPreliminaryLoadsheetEnabled Boolean @default(true)
   discordFinalLoadsheetEnabled       Boolean @default(true)
   discordDelayUpdatesEnabled         Boolean @default(true)
+  discordRichPresenceEnabled         Boolean @default(false)
 
   homeAirport          Airport?               @relation("UserHomeAirport", fields: [homeAirportId], references: [id], onDelete: SetNull)
   lastAirport          Airport?               @relation("UserLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)

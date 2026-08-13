@@ -47,8 +47,10 @@ import { RequestPasswordResetHandler } from './application/command/request-passw
 import { ConfirmPasswordResetHandler } from './application/command/confirm-password-reset.command';
 import { PasswordResetMailListener } from './application/event/internal/password-reset-mail.listener';
 import { GetDiscordSettingsAction } from './infra/http/action/get-discord-settings.action';
+import { GetDiscordPresenceAction } from './infra/http/action/get-discord-presence.action';
 import { UpdateDiscordSettingsAction } from './infra/http/action/update-discord-settings.action';
 import { GetUserDiscordSettingsHandler } from './application/query/get-user-discord-settings.query';
+import { GetDiscordPresenceHandler } from './application/query/get-discord-presence.query';
 import { GetDiscordRecipientHandler } from './application/query/get-discord-recipient.query';
 import { UpdateDiscordSettingsHandler } from './application/command/update-discord-settings.command';
 
@@ -70,6 +72,7 @@ import { UpdateDiscordSettingsHandler } from './application/command/update-disco
     RequestPasswordResetAction,
     ConfirmPasswordResetAction,
     GetDiscordSettingsAction,
+    GetDiscordPresenceAction,
     UpdateDiscordSettingsAction,
   ],
   providers: [
@@ -81,6 +84,7 @@ import { UpdateDiscordSettingsHandler } from './application/command/update-disco
     GetUserSimbriefIdHandler,
     GetUserDiscordIdHandler,
     GetUserDiscordSettingsHandler,
+    GetDiscordPresenceHandler,
     GetDiscordRecipientHandler,
     GetUserWeatherSourceHandler,
     AssertUserExistsHandler,
