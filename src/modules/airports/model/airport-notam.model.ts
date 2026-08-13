@@ -63,6 +63,14 @@ export class GetAirportNotamResponse {
   dateModified!: Date;
 
   @ApiProperty({
+    description: 'When this NOTAM was last imported from the source',
+    example: '2026-08-13T09:12:44.000Z',
+    type: String,
+    format: 'date-time',
+  })
+  dateImported!: Date;
+
+  @ApiProperty({
     description:
       'NOTAM body with aeronautical terms highlighted, as markup provided by the source. Sanitise before rendering.',
     example:

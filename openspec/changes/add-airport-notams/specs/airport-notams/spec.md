@@ -10,10 +10,10 @@ endpoint.
 ### Requirement: An airport holds many NOTAMs
 
 The system SHALL store NOTAMs per airport, many per airport, each recording the NOTAM's
-identifier as issued, its creation, effective, expiry, and last-modified times, its
-highlighted HTML body, its plain-text body, its raw NOTAM as issued, its NOTAM record type
-(new, replacement, or cancellation), its Q-code, and the decoded Q-code category, subject,
-and status. The expiry time SHALL be optional, absent for a NOTAM published with no stated
+identifier as issued, its creation, effective, expiry, and last-modified times, the time it
+was last imported from the source, its highlighted HTML body, its plain-text body, its raw
+NOTAM as issued, its NOTAM record type (new, replacement, or cancellation), its Q-code, and
+the decoded Q-code category, subject, and status. The expiry time SHALL be optional, absent for a NOTAM published with no stated
 end. A NOTAM identifier SHALL be unique per airport. Deleting an airport SHALL delete its
 NOTAMs.
 
@@ -111,8 +111,9 @@ The system SHALL expose `GET /api/v1/airport/:airportId/notam` returning the NOT
 currently in force at the airport identified by its UUID — those with no expiry, and those
 whose expiry is in the future. Expired NOTAMs SHALL NOT be returned. NOTAMs SHALL be
 ordered by effective time, most recent first. Each returned NOTAM SHALL carry its
-identifier, creation, effective, expiry, and last-modified times, HTML body, text body, raw
-body, record type, Q-code, and decoded Q-code category, subject, and status. The endpoint
+identifier, creation, effective, expiry, and last-modified times, its import time, HTML
+body, text body, raw body, record type, Q-code, and decoded Q-code category, subject, and
+status. The endpoint
 SHALL be available without authentication.
 
 #### Scenario: An airport with NOTAMs in force

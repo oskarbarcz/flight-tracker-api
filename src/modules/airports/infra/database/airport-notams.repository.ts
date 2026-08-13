@@ -9,6 +9,7 @@ const selectNotam = {
   dateEffective: true,
   dateExpire: true,
   dateModified: true,
+  dateImported: true,
   html: true,
   text: true,
   raw: true,
