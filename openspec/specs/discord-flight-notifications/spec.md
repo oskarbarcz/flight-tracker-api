@@ -1,21 +1,24 @@
 # discord-flight-notifications Specification
 
 ## Purpose
+
 Keeps the pilot flying a sector informed over Discord at the operational moments after check-in — when the load is known, when it is final, and when a departure delay needs allocating or has been approved.
+
 ## Requirements
+
 ### Requirement: Operational messages reach the flight's captain
 
-The system SHALL send each operational private message to the captain of the flight it concerns, provided that captain has a linked Discord account and has that kind of message enabled. A flight with no captain SHALL produce no message.
+The system SHALL send each operational private message to the captain of the flight it concerns, provided that captain has a linked Discord account and has the setting governing that message enabled. A single setting MAY govern more than one message — the delay allocation request and the delay approval share one. A flight with no captain SHALL produce no message.
 
 #### Scenario: Captain receives the message
 
-- **WHEN** an operational moment occurs on a flight whose captain has a linked Discord account and the matching message enabled
+- **WHEN** an operational moment occurs on a flight whose captain has a linked Discord account and the governing setting enabled
 - **THEN** that captain receives the message
 
 #### Scenario: Captain disabled that kind of message
 
-- **WHEN** the captain has disabled the kind of message the moment would produce
-- **THEN** no message is delivered, and the captain's other kinds of message are unaffected
+- **WHEN** the captain has disabled the setting governing the message the moment would produce
+- **THEN** no message is delivered, and the captain's other messages are unaffected
 
 #### Scenario: Captain has no linked account
 
@@ -97,4 +100,3 @@ The system SHALL tell the captain when operations accepts a delay report filed a
 
 - **WHEN** operations rejects a delay report
 - **THEN** no approval message is delivered
-

@@ -34,21 +34,11 @@ export class UpdateDiscordSettingsDto {
 
   @ApiProperty({
     description:
-      'Whether the user is asked to allocate a departure delay raised on their flight',
+      'Whether the user is asked to allocate a departure delay raised on their flight, and told when operations approves that allocation',
     example: false,
     required: false,
   })
   @IsBoolean()
   @IsOptional()
-  delayAllocationEnabled?: boolean;
-
-  @ApiProperty({
-    description:
-      'Whether the user is told when operations approves their delay allocation',
-    example: false,
-    required: false,
-  })
-  @IsBoolean()
-  @IsOptional()
-  delayApprovalEnabled?: boolean;
+  delayUpdatesEnabled?: boolean;
 }

@@ -147,7 +147,9 @@ performed the action, because a delay is raised by the system with no actor and 
 flight nobody has checked in for gets nothing. The loadsheet messages name the crew assigned to the flight with their
 roles and carry the passenger, cargo, payload, zero-fuel and block-fuel figures; a flight with no assigned crew simply
 omits that section, and a flight with no loadsheet produces no message. The delay message states the minutes to
-allocate and links to `${FRONTEND_BASE_URL}/flight/<id>/delay`. A rejected delay report sends nothing.
+allocate and links to `${FRONTEND_BASE_URL}/flight/<id>/delay`. A rejected delay report sends nothing. Both delay
+messages — the request to allocate and the approval — share a single `delayUpdatesEnabled` switch, since a pilot who
+does not want one does not want the other.
 
 Every direct message is separately switchable per user — see the settings endpoints below. All default to on, so no
 pilot has to opt in, and turning one off leaves the rest alone.
@@ -184,7 +186,7 @@ unlisted URI is rejected with `400` so a code cannot be relayed elsewhere.
 | `POST /api/v1/user/me/link-discord-account`     | Link, optionally joining the server in the same consent pass (`joinServer`). Returns the resulting state so the UI needs no refetch. |
 | `POST /api/v1/user/me/unlink-discord-account`   | Unlink. Requires the current password, and never removes the user from the server.                                                   |
 | `GET /api/v1/user/me/discord/server-membership` | Live membership probe for an account screen.                                                                                         |
-| `GET /api/v1/user/me/discord-settings`          | Read which direct messages are enabled: briefing, preliminary and final loadsheet, delay allocation, delay approval.                 |
+| `GET /api/v1/user/me/discord-settings`          | Read which direct messages are enabled: briefing, preliminary loadsheet, final loadsheet, delay updates.                             |
 | `PATCH /api/v1/user/me/discord-settings`        | Turn any of them on or off. Partial — only the fields you send change. All default to on, linked account or not.                     |
 
 **Server membership is a precondition, not a detail.** A direct message can only reach somebody who shares the

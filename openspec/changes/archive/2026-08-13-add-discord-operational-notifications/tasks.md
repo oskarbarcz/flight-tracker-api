@@ -1,12 +1,12 @@
 ## 1. Preference storage
 
-- [x] 1.1 Add `discordPreliminaryLoadsheetEnabled`, `discordFinalLoadsheetEnabled`, `discordDelayAllocationEnabled` and `discordDelayApprovalEnabled` as `Boolean @default(true)` on `model User`, with a migration, and push the schema to the dev database
-- [x] 1.2 Add the four fields to the seeded users
-- [x] 1.3 Extend the `DiscordSettings` model and `UsersRepository.getDiscordSettings` / `updateDiscordSettings` to carry all five flags, writing only the ones supplied
+- [x] 1.1 Add `discordPreliminaryLoadsheetEnabled`, `discordFinalLoadsheetEnabled` and `discordDelayUpdatesEnabled` as `Boolean @default(true)` on `model User`, with a migration, and push the schema to the dev database
+- [x] 1.2 Add the three fields to the seeded users
+- [x] 1.3 Extend the `DiscordSettings` model and `UsersRepository.getDiscordSettings` / `updateDiscordSettings` to carry all four flags, writing only the ones supplied
 
 ## 2. Settings API
 
-- [x] 2.1 Add the `DiscordNotification` enum naming each message kind and mapping it to its settings field
+- [x] 2.1 Add the `DiscordNotification` enum naming each switchable kind and mapping it to its settings field, with both delay messages sharing `DelayUpdates`
 - [x] 2.2 Make every field of `UpdateDiscordSettingsDto` optional and validated as a boolean
 - [x] 2.3 Add `GetDiscordRecipientQuery(userId, notification)` + handler in the users module, returning the Discord id only when the account is linked and that notification is enabled
 - [x] 2.4 Register the new handler in `UsersModule`
@@ -34,7 +34,7 @@
 
 ## 6. Functional coverage
 
-- [x] 6.1 Extend `user.me.discord-settings.feature` for the five flags, partial updates and per-field validation
+- [x] 6.1 Extend `user.me.discord-settings.feature` for the four flags, partial updates and per-field validation
 - [x] 6.2 Extend `flight.start-boarding.feature` and `flight.finish-boarding.feature` with the loadsheet messages
 - [x] 6.3 Cover both delay messages in the delay features, including that a rejection sends nothing
 - [x] 6.4 Cover that a pilot who disabled one kind still receives the others

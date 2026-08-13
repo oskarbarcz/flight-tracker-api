@@ -10,8 +10,7 @@ Feature: Manage own Discord settings
         "briefingsEnabled": true,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayAllocationEnabled": true,
-        "delayApprovalEnabled": true
+        "delayUpdatesEnabled": true
       }
       """
 
@@ -25,8 +24,7 @@ Feature: Manage own Discord settings
         "briefingsEnabled": true,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayAllocationEnabled": true,
-        "delayApprovalEnabled": true
+        "delayUpdatesEnabled": true
       }
       """
 
@@ -56,8 +54,7 @@ Feature: Manage own Discord settings
         "briefingsEnabled": false,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayAllocationEnabled": true,
-        "delayApprovalEnabled": true
+        "delayUpdatesEnabled": true
       }
       """
     When I send a "GET" request to "/api/v1/user/me/discord-settings"
@@ -68,8 +65,7 @@ Feature: Manage own Discord settings
         "briefingsEnabled": false,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayAllocationEnabled": true,
-        "delayApprovalEnabled": true
+        "delayUpdatesEnabled": true
       }
       """
     And I set database to initial state
@@ -96,8 +92,7 @@ Feature: Manage own Discord settings
         "briefingsEnabled": true,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayAllocationEnabled": true,
-        "delayApprovalEnabled": true
+        "delayUpdatesEnabled": true
       }
       """
     And I set database to initial state
@@ -108,7 +103,7 @@ Feature: Manage own Discord settings
       """json
       {
         "preliminaryLoadsheetEnabled": false,
-        "delayApprovalEnabled": false
+        "delayUpdatesEnabled": false
       }
       """
     Then the response status should be 200
@@ -118,8 +113,7 @@ Feature: Manage own Discord settings
         "briefingsEnabled": true,
         "preliminaryLoadsheetEnabled": false,
         "finalLoadsheetEnabled": true,
-        "delayAllocationEnabled": true,
-        "delayApprovalEnabled": false
+        "delayUpdatesEnabled": false
       }
       """
     And I set database to initial state
@@ -136,7 +130,7 @@ Feature: Manage own Discord settings
     When I send a "PATCH" request to "/api/v1/user/me/discord-settings" with body:
       """json
       {
-        "delayAllocationEnabled": false
+        "delayUpdatesEnabled": false
       }
       """
     Then the response status should be 200
@@ -146,8 +140,7 @@ Feature: Manage own Discord settings
         "briefingsEnabled": false,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayAllocationEnabled": false,
-        "delayApprovalEnabled": true
+        "delayUpdatesEnabled": false
       }
       """
     And I set database to initial state
@@ -165,8 +158,7 @@ Feature: Manage own Discord settings
         "briefingsEnabled": true,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayAllocationEnabled": true,
-        "delayApprovalEnabled": true
+        "delayUpdatesEnabled": true
       }
       """
 
@@ -185,8 +177,7 @@ Feature: Manage own Discord settings
         "briefingsEnabled": false,
         "preliminaryLoadsheetEnabled": true,
         "finalLoadsheetEnabled": true,
-        "delayAllocationEnabled": true,
-        "delayApprovalEnabled": true
+        "delayUpdatesEnabled": true
       }
       """
     And I set database to initial state
@@ -197,7 +188,7 @@ Feature: Manage own Discord settings
       """json
       {
         "briefingsEnabled": "yes",
-        "delayApprovalEnabled": 1
+        "delayUpdatesEnabled": 1
       }
       """
     Then the response status should be 400
@@ -209,7 +200,7 @@ Feature: Manage own Discord settings
         "statusCode": 400,
         "violations": {
           "briefingsEnabled": ["briefingsEnabled must be a boolean value"],
-          "delayApprovalEnabled": ["delayApprovalEnabled must be a boolean value"]
+          "delayUpdatesEnabled": ["delayUpdatesEnabled must be a boolean value"]
         }
       }
       """

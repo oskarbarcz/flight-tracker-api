@@ -44,7 +44,7 @@ export class SendDelayAllocationRequestListener {
 
       const recipientQuery = new GetDiscordRecipientQuery(
         captainId,
-        DiscordNotification.DelayAllocation,
+        DiscordNotification.DelayUpdates,
       );
       const discordId = await this.queryBus.execute(recipientQuery);
 

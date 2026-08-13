@@ -3,7 +3,9 @@
 ## Purpose
 
 Delivers the pre-flight briefing to a pilot as a Discord private message the moment they check in, and lets each pilot decide whether they want to receive it.
+
 ## Requirements
+
 ### Requirement: Briefing is delivered on check-in
 
 The system SHALL send a briefing private message on Discord to the pilot who checks in for a flight, provided that pilot has a linked Discord account and has briefing messages enabled.
@@ -85,12 +87,12 @@ The briefing SHALL close with a link that opens the briefed flight in the Flight
 
 ### Requirement: Pilot can read their Discord briefing setting
 
-The system SHALL let a signed-in user read, for every kind of Discord private message the system sends, whether that kind is enabled for them. A user who has never changed a setting SHALL be reported as having that kind enabled.
+The system SHALL let a signed-in user read every Discord private-message setting held for them. A setting MAY govern more than one message. A user who has never changed a setting SHALL be reported as having it enabled.
 
 #### Scenario: Reading the default setting
 
 - **WHEN** a signed-in user who never changed a setting reads their Discord settings
-- **THEN** the response reports every kind of message as enabled
+- **THEN** the response reports every setting as enabled
 
 #### Scenario: Unauthenticated read is rejected
 
@@ -99,7 +101,7 @@ The system SHALL let a signed-in user read, for every kind of Discord private me
 
 ### Requirement: Pilot can change their Discord briefing setting
 
-The system SHALL let a signed-in user enable or disable each kind of Discord private message independently, and SHALL answer the change with the user's resulting Discord settings. A change SHALL leave every setting the request did not name untouched, and SHALL NOT require a linked Discord account.
+The system SHALL let a signed-in user enable or disable each Discord private-message setting independently, and SHALL answer the change with the user's resulting Discord settings. A change SHALL leave every setting the request did not name untouched, and SHALL NOT require a linked Discord account.
 
 #### Scenario: Disabling briefings
 
@@ -125,4 +127,3 @@ The system SHALL let a signed-in user enable or disable each kind of Discord pri
 
 - **WHEN** Discord settings are changed without a valid token
 - **THEN** the request is rejected as unauthorized
-

@@ -4,8 +4,7 @@ export enum DiscordNotification {
   Briefing = 'briefing',
   PreliminaryLoadsheet = 'preliminary_loadsheet',
   FinalLoadsheet = 'final_loadsheet',
-  DelayAllocation = 'delay_allocation',
-  DelayApproval = 'delay_approval',
+  DelayUpdates = 'delay_updates',
 }
 
 export class DiscordSettings {
@@ -32,17 +31,10 @@ export class DiscordSettings {
 
   @ApiProperty({
     description:
-      'Whether the user is asked to allocate a departure delay raised on their flight',
+      'Whether the user is asked to allocate a departure delay raised on their flight, and told when operations approves that allocation',
     example: true,
   })
-  delayAllocationEnabled!: boolean;
-
-  @ApiProperty({
-    description:
-      'Whether the user is told when operations approves their delay allocation',
-    example: true,
-  })
-  delayApprovalEnabled!: boolean;
+  delayUpdatesEnabled!: boolean;
 }
 
 export const DISCORD_NOTIFICATION_SETTING: Record<
@@ -52,6 +44,5 @@ export const DISCORD_NOTIFICATION_SETTING: Record<
   [DiscordNotification.Briefing]: 'briefingsEnabled',
   [DiscordNotification.PreliminaryLoadsheet]: 'preliminaryLoadsheetEnabled',
   [DiscordNotification.FinalLoadsheet]: 'finalLoadsheetEnabled',
-  [DiscordNotification.DelayAllocation]: 'delayAllocationEnabled',
-  [DiscordNotification.DelayApproval]: 'delayApprovalEnabled',
+  [DiscordNotification.DelayUpdates]: 'delayUpdatesEnabled',
 };

@@ -43,7 +43,7 @@ export class SendDelayApprovalListener {
 
       const recipientQuery = new GetDiscordRecipientQuery(
         captainId,
-        DiscordNotification.DelayApproval,
+        DiscordNotification.DelayUpdates,
       );
       const discordId = await this.queryBus.execute(recipientQuery);
 

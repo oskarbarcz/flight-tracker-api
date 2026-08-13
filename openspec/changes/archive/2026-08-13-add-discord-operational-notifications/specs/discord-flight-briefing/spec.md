@@ -2,12 +2,12 @@
 
 ### Requirement: Pilot can read their Discord briefing setting
 
-The system SHALL let a signed-in user read, for every kind of Discord private message the system sends, whether that kind is enabled for them. A user who has never changed a setting SHALL be reported as having that kind enabled.
+The system SHALL let a signed-in user read every Discord private-message setting held for them. A setting MAY govern more than one message. A user who has never changed a setting SHALL be reported as having it enabled.
 
 #### Scenario: Reading the default setting
 
 - **WHEN** a signed-in user who never changed a setting reads their Discord settings
-- **THEN** the response reports every kind of message as enabled
+- **THEN** the response reports every setting as enabled
 
 #### Scenario: Unauthenticated read is rejected
 
@@ -16,7 +16,7 @@ The system SHALL let a signed-in user read, for every kind of Discord private me
 
 ### Requirement: Pilot can change their Discord briefing setting
 
-The system SHALL let a signed-in user enable or disable each kind of Discord private message independently, and SHALL answer the change with the user's resulting Discord settings. A change SHALL leave every setting the request did not name untouched, and SHALL NOT require a linked Discord account.
+The system SHALL let a signed-in user enable or disable each Discord private-message setting independently, and SHALL answer the change with the user's resulting Discord settings. A change SHALL leave every setting the request did not name untouched, and SHALL NOT require a linked Discord account.
 
 #### Scenario: Disabling briefings
 

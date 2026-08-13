@@ -28,9 +28,9 @@ Four facts about the events shape the design. `BoardingWasStarted` and `Boarding
 
 **One query answers "who do I message about this", replacing a per-listener preamble.** `GetDiscordRecipientQuery(userId, notification)` lives in the users module — which owns both the linked account and the preferences — and returns the Discord id when that user has the account linked _and_ that notification enabled, otherwise `null`. Each listener makes one bus call instead of repeating a settings read, a flag check, an id read and a null check five times. The alternative, a shared resolver injected into the listeners, would have needed a new folder in the module layout or an application-to-infra import.
 
-**Settings are flat boolean columns, and `PATCH` becomes partial.** Five `Boolean @default(true)` columns on `User` keep column-level typing and need no backfill; a JSON blob was rejected for losing both. With five fields, a mandatory-field `PATCH` would force clients to echo settings they are not changing, so every field becomes optional and only the named ones are written. That relaxes today's contract rather than breaking callers.
+**Settings are flat boolean columns, and `PATCH` becomes partial.** Four `Boolean @default(true)` columns on `User` keep column-level typing and need no backfill; a JSON blob was rejected for losing both. With several fields, a mandatory-field `PATCH` would force clients to echo settings they are not changing, so every field becomes optional and only the named ones are written. That relaxes today's contract rather than breaking callers.
 
-**A `DiscordNotification` enum is the single name for each message.** One enum value per message kind, mapping to a settings field, a `DiscordMessageType` and a formatter. Adding a sixth message means one enum value, one column, one formatter and one listener — and the compiler finds the places that must change.
+**A `DiscordNotification` enum names each _switch_, not each message.** One enum value per independently toggleable kind, mapping to a settings field. The two delay messages share `DelayUpdates` — a pilot who does not want to be asked to allocate does not want the approval either — while keeping distinct `DiscordMessageType`s on the wire, so they still land in separate files and separate Discord messages. Adding another switchable message means one enum value, one column, one formatter and one listener — and the compiler finds the places that must change.
 
 **Both loadsheets share one formatter, parameterised by which one it is.** Preliminary and final carry identical figures and differ only in title and timing; two formatters would be the same function twice. The crew list is passed in already resolved, so the formatter stays pure.
 
@@ -39,10 +39,10 @@ Four facts about the events shape the design. `BoardingWasStarted` and `Boarding
 ## Risks / Trade-offs
 
 - **Boarding start now triggers two listeners — the public announcement and the loadsheet DM** → they are independent, each with its own try/catch, so one failing does not affect the other or the boarding action.
-- **Five per-message columns on `User` will keep growing as messages are added** → accepted while the count is small; if it reaches the point of being unwieldy the set moves to its own table without changing the endpoint contract, which is why the settings live behind their own resource.
+- **The per-message columns on `User` will keep growing as messages are added** → accepted while the count is small; if it reaches the point of being unwieldy the set moves to its own table without changing the endpoint contract, which is why the settings live behind their own resource.
 - **A pilot who checks in, then has boarding started by someone else, still gets the loadsheet** → correct: the captain is the one who needs the load figures, whoever pressed the button.
 - **`DelayReportWasAccepted` fires per report, so a delay allocated across several reports confirms several times** → acceptable; each acceptance is a real decision the pilot wants to see, and the flight is only settled once all reports are accepted.
 
 ## Migration Plan
 
-Four additive columns with defaults, alongside the existing one; no backfill. Every pilot keeps receiving everything until they opt out. Rollback is dropping the columns and removing the four listeners — the briefing path does not depend on them.
+Three additive columns with defaults, alongside the existing one; no backfill. Every pilot keeps receiving everything until they opt out. Rollback is dropping the columns and removing the four listeners — the briefing path does not depend on them.

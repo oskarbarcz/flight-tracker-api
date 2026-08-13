@@ -30,8 +30,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     discordBriefingsEnabled: true,
     discordPreliminaryLoadsheetEnabled: true,
     discordFinalLoadsheetEnabled: true,
-    discordDelayAllocationEnabled: true,
-    discordDelayApprovalEnabled: true,
+    discordDelayUpdatesEnabled: true,
   };
 
   const alice: User = {
@@ -58,8 +57,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     discordBriefingsEnabled: true,
     discordPreliminaryLoadsheetEnabled: true,
     discordFinalLoadsheetEnabled: true,
-    discordDelayAllocationEnabled: true,
-    discordDelayApprovalEnabled: true,
+    discordDelayUpdatesEnabled: true,
   };
 
   const abby: User = {
@@ -86,8 +84,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     discordBriefingsEnabled: true,
     discordPreliminaryLoadsheetEnabled: true,
     discordFinalLoadsheetEnabled: true,
-    discordDelayAllocationEnabled: true,
-    discordDelayApprovalEnabled: true,
+    discordDelayUpdatesEnabled: true,
   };
 
   const claudia: User = {
@@ -114,8 +111,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     discordBriefingsEnabled: true,
     discordPreliminaryLoadsheetEnabled: true,
     discordFinalLoadsheetEnabled: true,
-    discordDelayAllocationEnabled: true,
-    discordDelayApprovalEnabled: true,
+    discordDelayUpdatesEnabled: true,
   };
 
   const rick: User = {
@@ -144,8 +140,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     discordBriefingsEnabled: true,
     discordPreliminaryLoadsheetEnabled: true,
     discordFinalLoadsheetEnabled: true,
-    discordDelayAllocationEnabled: true,
-    discordDelayApprovalEnabled: true,
+    discordDelayUpdatesEnabled: true,
   };
 
   const alan: User = {
@@ -175,8 +170,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     discordBriefingsEnabled: true,
     discordPreliminaryLoadsheetEnabled: true,
     discordFinalLoadsheetEnabled: true,
-    discordDelayAllocationEnabled: true,
-    discordDelayApprovalEnabled: true,
+    discordDelayUpdatesEnabled: true,
   };
 
   const michael: User = {
@@ -206,8 +200,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     discordBriefingsEnabled: true,
     discordPreliminaryLoadsheetEnabled: true,
     discordFinalLoadsheetEnabled: true,
-    discordDelayAllocationEnabled: true,
-    discordDelayApprovalEnabled: true,
+    discordDelayUpdatesEnabled: true,
   };
 
   const diana: User = {
@@ -234,8 +227,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     discordBriefingsEnabled: true,
     discordPreliminaryLoadsheetEnabled: true,
     discordFinalLoadsheetEnabled: true,
-    discordDelayAllocationEnabled: true,
-    discordDelayApprovalEnabled: true,
+    discordDelayUpdatesEnabled: true,
   };
 
   // Address was never proven — the unconfirmed fixture
@@ -263,8 +255,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     discordBriefingsEnabled: true,
     discordPreliminaryLoadsheetEnabled: true,
     discordFinalLoadsheetEnabled: true,
-    discordDelayAllocationEnabled: true,
-    discordDelayApprovalEnabled: true,
+    discordDelayUpdatesEnabled: true,
   };
 
   // Signs in with Google only — no password to verify, reset or change
@@ -291,8 +282,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
     discordBriefingsEnabled: true,
     discordPreliminaryLoadsheetEnabled: true,
     discordFinalLoadsheetEnabled: true,
-    discordDelayAllocationEnabled: true,
-    discordDelayApprovalEnabled: true,
+    discordDelayUpdatesEnabled: true,
   };
 
   for (const user of [

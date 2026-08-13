@@ -36,7 +36,7 @@ describe('SendDelayAllocationRequestListener', () => {
     queryBus = {
       execute: jest.fn().mockImplementation((query: unknown) => {
         if (query instanceof GetDiscordRecipientQuery) {
-          expect(query.notification).toBe(DiscordNotification.DelayAllocation);
+          expect(query.notification).toBe(DiscordNotification.DelayUpdates);
 
           return Promise.resolve(recipient);
         }

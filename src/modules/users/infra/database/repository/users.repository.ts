@@ -526,8 +526,7 @@ export class UsersRepository {
         discordBriefingsEnabled: true,
         discordPreliminaryLoadsheetEnabled: true,
         discordFinalLoadsheetEnabled: true,
-        discordDelayAllocationEnabled: true,
-        discordDelayApprovalEnabled: true,
+        discordDelayUpdatesEnabled: true,
       },
     });
 
@@ -539,8 +538,7 @@ export class UsersRepository {
       briefingsEnabled: user.discordBriefingsEnabled,
       preliminaryLoadsheetEnabled: user.discordPreliminaryLoadsheetEnabled,
       finalLoadsheetEnabled: user.discordFinalLoadsheetEnabled,
-      delayAllocationEnabled: user.discordDelayAllocationEnabled,
-      delayApprovalEnabled: user.discordDelayApprovalEnabled,
+      delayUpdatesEnabled: user.discordDelayUpdatesEnabled,
     };
   }
 
@@ -561,8 +559,7 @@ export class UsersRepository {
         discordPreliminaryLoadsheetEnabled:
           settings.preliminaryLoadsheetEnabled,
         discordFinalLoadsheetEnabled: settings.finalLoadsheetEnabled,
-        discordDelayAllocationEnabled: settings.delayAllocationEnabled,
-        discordDelayApprovalEnabled: settings.delayApprovalEnabled,
+        discordDelayUpdatesEnabled: settings.delayUpdatesEnabled,
       },
     });
   }
