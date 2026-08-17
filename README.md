@@ -1,29 +1,45 @@
-![My Project Header](.github/image/header.png)
+<div align="center">
 
-# MyPreflight
+[![oskar barcz / flight-tracker-api][banner]][homepage]
 
-A comprehensive web app for scheduling and tracking flights in a flight simulator environment. Designed for virtual
-aviation enthusiasts, it enables seamless management of flights, aircraft, airports, crews and passengers.
+The backend service of [**MyPreflight**][homepage] platform. Serves the REST API and the live flight event stream that
+the web app and the transponder companion run on.
 
-With this app, you can:
+</div>
 
-- Plan & manage flights with detailed flight plans
-- Track flights step-by-step from departure to arrival
-- Generate timesheets & loadsheets for accurate record-keeping
-- Monitor aircraft status and optimize resource allocation
+## About
 
-Take full control of your virtual airline operations with a realistic and structured workflow for flight simulation.
+**MyPreflight** is a briefing service and electronic flight board app for your virtual flights, providing you realistic
+figures, checklists, procedures and data to perform your flight like a real pilots do. You can customize your
+experience, integrate with SimBrief and other tools. Check out our homepage at [mypreflight.io][homepage].
 
-This is the server part of the project. For the client part, please visit
-[this repository](https://github.com/oskarbarcz/flight-tracker-app).
+**This module** is the part running on our servers. It owns everything the clients only display:
+- keeps the flight lifecycle — planning, check-in, boarding, off-block, airborne, on-block and closing,
+- computes timesheets and loadsheets, and issues the briefing with the ATIS, METAR and TAF held for the departure,
+- imports flight plans from SimBrief and airport, terminal and gate data curated from OpenStreetMap,
+- receives live position from the transponder companion and republishes it to every subscribed client,
+- delivers announcements and direct messages through the Discord bot.
 
-## Repository contents
+The web app lives in [flight-tracker-app][repo-app] and the desktop companion in
+[flight-tracker-transponder-app][repo-transponder].
 
-Repository contains server code for the [MyPreflight](https://mypreflight.io) app.
+[![integrity][ci-badge]][ci-url]
+[![release][release-badge]][release-url]
+[![license][license-badge]][license-url]
 
-Project is using **Node.js** and **TypeScript** as the main technology.
+### Built with
 
-## Getting Started
+[![TypeScript][ts-badge]][ts-url]
+[![NestJS][nest-badge]][nest-url]
+[![Node.js][node-shield]][node-url]
+[![PostgreSQL][postgres-badge]][postgres-url]
+[![Prisma][prisma-badge]][prisma-url]
+[![Docker][docker-badge]][docker-url]
+
+Commands and queries are separated with `@nestjs/cqrs`, every endpoint is a single action controller, and behaviour is
+covered end-to-end with Cucumber.
+
+## Getting started
 
 ### Environment
 
@@ -32,10 +48,10 @@ This app uses docker-based virtualization to run. To set up the project, follow 
 1. Clone the project by running:
 
    ```shell
-   git@github.com:oskarbarcz/flight-tracker-api.git
+   git clone git@github.com:oskarbarcz/flight-tracker-api.git
    ```
 
-2. Prepare an environment variable file by copying `.env.example` to `.env` and fill it with your data.
+2. Prepare an environment variable file by copying `.env.dist` to `.env` and fill it with your data.
 
    ```shell
    cd flight-tracker-api
@@ -53,66 +69,23 @@ This app uses docker-based virtualization to run. To set up the project, follow 
 4. Your project should be up and running. Open the browser and go to [http://localhost/api](http://localhost/api) to see the
    api documentation.
    The seeded API users (all share the password `P@$$w0rd`) are:
-   | Name | Role | Username | Notes |
-   | ----------- | ---------- | ----------------------- | ---------------------------------------------------- |
-   | John Doe | Admin | admin@example.com | |
-   | Alice Doe | Operations | operations@example.com | |
-   | Abby Doe | Operations | abby.doe@example.com | SimBrief connected (valid flight plan) |
-   | Claudia Doe | Operations | claudia.doe@example.com | SimBrief connected (plan references unknown aircraft) |
-   | Diana Doe | Operations | diana.doe@example.com | SimBrief connected (plan references unknown alternate) |
-   | Rick Doe | Cabin crew | cabin-crew@example.com | |
-   | Alan Doe | Cabin crew | alan.doe@example.com | |
-   | Michael Doe | Cabin crew | michael.doe@example.com | Discord linked — receives briefing DMs |
-   | Grace Doe | Operations | grace.doe@example.com | Google-only — no password; Discord linked, so it cannot be unlinked either |
 
-### WebSocket flight events
+   | Name        | Role       | Username                | Notes                                                                      |
+   |-------------|------------|-------------------------|----------------------------------------------------------------------------|
+   | John Doe    | Admin      | admin@example.com       |                                                                            |
+   | Alice Doe   | Operations | operations@example.com  |                                                                            |
+   | Abby Doe    | Operations | abby.doe@example.com    | SimBrief connected (valid flight plan)                                     |
+   | Claudia Doe | Operations | claudia.doe@example.com | SimBrief connected (plan references unknown aircraft)                      |
+   | Diana Doe   | Operations | diana.doe@example.com   | SimBrief connected (plan references unknown alternate)                     |
+   | Rick Doe    | Cabin crew | cabin-crew@example.com  |                                                                            |
+   | Alan Doe    | Cabin crew | alan.doe@example.com    |                                                                            |
+   | Michael Doe | Cabin crew | michael.doe@example.com | Discord linked — receives briefing DMs                                     |
+   | Grace Doe   | Operations | grace.doe@example.com   | Google-only — no password; Discord linked, so it cannot be unlinked either |
 
-In addition to the REST API, the server exposes a Socket.IO namespace at `/flight-events` for receiving flight
-lifecycle events as they happen. Clients (cabin-crew tablets, operations consoles) should subscribe instead of
-polling `GET /api/v1/flight/:id/events`.
+### Websockets
 
-**Connect**
-
-- URL: `ws://localhost/flight-events` (production: `wss://api.mypreflight.io/flight-events`)
-- Auth: pass a JWT access token in the Socket.IO `auth.token` handshake field. The same token issued by
-  `POST /api/v1/auth/sign-in` is accepted. Connections without a valid token, or with a role other than `CabinCrew`
-  or `Operations`, are disconnected immediately.
-
-**Messages the client sends**
-
-| Event         | Payload                | Effect                                                                                                            |
-| ------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `subscribe`   | `{ flightId: string }` | Join the per-flight room and receive the historical event stream then live updates. `flightId` must be a UUID v4. |
-| `unsubscribe` | `{ flightId: string }` | Leave the room. The server stops emitting events for that flight on this socket.                                  |
-
-**Messages the server emits**
-
-| Event                    | Payload                 | Notes                                                                                                                              |
-| ------------------------ | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `flight.events`          | `FlightEventResponse[]` | Initial history replay sent once per `subscribe`, ordered by `createdAt` ascending. Same shape as `GET /api/v1/flight/:id/events`. |
-| `flight.event`           | `NewFlightEvent`        | Live lifecycle event broadcast to all sockets subscribed to that flight room.                                                      |
-| `flight.subscribe.error` | `{ flightId, message }` | Emitted when `subscribe` cannot be fulfilled (e.g. the flight ID does not exist).                                                  |
-
-Any event emitted by the domain that `EventsRepository` persists (boarding started/finished, off-block, takeoff,
-arrival, on-block, offboarding, close, gate/runway/timesheet/loadsheet changes, emergencies, track
-saves, live positions) is forwarded as a `flight.event` to subscribers of the matching flight.
-
-**Browser example**
-
-```ts
-import { io } from 'socket.io-client';
-
-const socket = io('http://localhost/flight-events', {
-  auth: { token: accessToken },
-  transports: ['websocket'],
-});
-
-socket.on('flight.events', (history) => console.log('history', history));
-socket.on('flight.event', (event) => console.log('live', event));
-socket.on('flight.subscribe.error', (err) => console.error(err));
-
-socket.emit('subscribe', { flightId: '3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05' });
-```
+App is using Websockets for dynamic communication in the areas of flight tracking dashboard. Read more about websocket
+implementation [in the dedicated document][docs-websockets].
 
 ### Email
 
@@ -122,106 +95,11 @@ Outbound email needs `MAILGUN_API_HOST`, `MAILGUN_DOMAIN`, `MAILGUN_API_KEY`, `M
 Only `NODE_ENV=production` sends anything. Everywhere else each message is written to
 `test-data/mail/<type>_<recipient>_<uuid>.json` instead.
 
+This app sends a few emails, read what they say and when they go out [in the dedicated document][docs-emails].
+
 ### Discord
 
-The same Discord application does two jobs: a **bot** that sends messages over the gateway, and an **OAuth client**
-that proves a user owns a Discord account. Both read `DISCORD_APP_TOKEN` (bot token) and `DISCORD_SERVER_ID` (the
-guild the app is installed in).
-
-**Sending.** The bot needs `DISCORD_PUBLIC_FLIGHT_ANNOUNCEMENTS_CHANNEL_ID` and sends two kinds of message:
-
-- a public announcement in the announcements channel when boarding starts and when a flight goes on block;
-- five direct messages to the pilot: the flight briefing when they check in, the preliminary loadsheet when boarding
-  starts, the final loadsheet when boarding finishes, a request to allocate a departure delay raised on their flight,
-  and a confirmation once operations approves that allocation.
-
-**The briefing.** It names the flight, its route and its aircraft, then renders the estimated schedule as an
-`out`/`off`/`on`/`in` block with the resulting block time, followed by the ATIS, METAR and TAF held for the
-**departure** airport. Each report is reproduced exactly as its provider published it, and a report the system does
-not hold is left out rather than shown empty — ATIS comes from SayIntentions only, so a briefing may well have none.
-A flight imported from SimBrief also carries its OFP as an attachment — the document only, never a link in the body.
-The closing link is built from `FRONTEND_BASE_URL`.
-
-**The loadsheets and delay messages.** They go to the flight's **captain** — the pilot who checked in — not to whoever
-performed the action, because a delay is raised by the system with no actor and approved by an operations user. A
-flight nobody has checked in for gets nothing. The loadsheet messages name the crew assigned to the flight with their
-roles and carry the passenger, cargo, payload, zero-fuel and block-fuel figures; a flight with no assigned crew simply
-omits that section, and a flight with no loadsheet produces no message. The delay message states the minutes to
-allocate and links to `${FRONTEND_BASE_URL}/flight/<id>/delay`. A rejected delay report sends nothing. Both delay
-messages — the request to allocate and the approval — share a single `delayUpdatesEnabled` switch, since a pilot who
-does not want one does not want the other.
-
-Every direct message is separately switchable per user — see the settings endpoints below. All default to on, so no
-pilot has to opt in, and turning one off leaves the rest alone.
-
-**Rich presence.** `richPresenceEnabled` sits alongside the message switches but is not one: nothing is sent when it
-is on. Discord exposes no server-side way to set a member's activity — presence is written by a process on the user's
-own machine talking to the local Discord client over IPC — so the flag is the user's consent for their flight to be
-published as their Discord activity, read by that companion client. It is the one Discord setting that defaults to
-**off**, because it publishes what the user is doing to anyone who can see their profile.
-
-`GET /api/v1/user/me/discord-presence` serves that activity, built from the user's `currentFlightId` — the flight they
-checked in for, cleared when it closes. `state` is the flight status in words, suffixed with the takeoff time until
-the aircraft is airborne and the landing time while it cruises, and left bare once it has landed; `details` is
-`City (IATA) -> City (IATA)`; `startTimestamp` and `endTimestamp` are the estimated off-block and landing times,
-falling back to the scheduled ones when the crew estimated nothing. Times are ISO-8601, so a client pushing them over
-IPC converts to the Unix seconds Discord expects. The response is `204` — publish nothing, clear the activity —
-whenever the switch is off or the user is on no flight. A linked Discord account is **not** required: the companion
-client authenticates as the user against their own Discord app. The `smallImageKey` and `largeImageKey` values are
-served as configured constants and must exist as art assets on the Discord application the companion client
-registers, or the images silently do not render.
-
-Weather is read from the reports already stored for the airport. Check-in also starts a weather refresh in its own
-listener, and the two run concurrently, so when nothing is stored yet the briefing runs one refresh of the departure
-airport itself before giving up on a section. Briefing delivery never blocks a check-in: a rejected message is
-logged and swallowed.
-
-`NODE_ENV=production` connects to the gateway, and so does `DISCORD_GATEWAY_ENABLED="true"` anywhere else — the
-escape hatch for working against a real server locally. With neither, the connection is refused outright.
-Message delivery is gated separately on `NODE_ENV`: outside production every message is written to
-`test-data/discord/<type>_<flightId>.md` instead of being sent, so no test run can post to a real server.
-
-The client requests the `Guilds`, `Guild Members`, `Guild Messages`, `Direct Messages` and `Message Content`
-intents. `Guild Members` and `Message Content` are privileged and must be enabled for the application in the
-developer portal or `login()` is rejected. Only `Guilds` and `Guild Members` are needed to send — the other three
-are held for receiving from Discord and can be dropped until something listens.
-
-**Identity.** Linking and Discord sign-in need `DISCORD_CLIENT_ID` (the application ID — the same number the bot
-token encodes), `DISCORD_CLIENT_SECRET` and `DISCORD_OAUTH_REDIRECT_URIS`, a comma-separated allowlist of callback
-URIs. `DISCORD_API_HOST` overrides the Discord REST host and points at the `discord-mock` container locally; leave
-it unset in production to reach `https://discord.com/api`. Register every callback URI in the developer portal
-exactly as it appears in the allowlist, and give the bot **Create Invite** in the server or `guilds.join` is refused.
-
-Discord issues no browser-side ID token, so unlike Google Sign-In the frontend redirects the whole page and hands
-the resulting `code` to the API, which performs the `client_secret` exchange. The frontend generates the PKCE
-verifier and `state`, and the API validates `redirectUri` against the allowlist before the exchange — an
-unlisted URI is rejected with `400` so a code cannot be relayed elsewhere.
-
-| Endpoint                                        | Purpose                                                                                                                              |
-| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `POST /api/v1/auth/discord`                     | Sign in. Resolves the user by `discordId` only; an unlinked account is `401` and no account is ever created.                         |
-| `POST /api/v1/user/me/link-discord-account`     | Link, optionally joining the server in the same consent pass (`joinServer`). Returns the resulting state so the UI needs no refetch. |
-| `POST /api/v1/user/me/unlink-discord-account`   | Unlink. Requires the current password, and never removes the user from the server.                                                   |
-| `GET /api/v1/user/me/discord/server-membership` | Live membership probe for an account screen.                                                                                         |
-| `GET /api/v1/user/me/discord-settings`          | Read which direct messages are enabled: briefing, preliminary loadsheet, final loadsheet, delay updates — plus rich presence.        |
-| `PATCH /api/v1/user/me/discord-settings`        | Turn any of them on or off. Partial — only the fields you send change. The messages default to on, rich presence to off.             |
-| `GET /api/v1/user/me/discord-presence`          | Read the activity to publish for the current flight, or `204` when rich presence is off or the user is not flying.                   |
-
-**Server membership is a precondition, not a detail.** A direct message can only reach somebody who shares the
-server with the bot, so a linked account that never joined gets no briefings — as does a pilot who turned them off
-in `discord-settings`. `joinServer: true` adds the user
-during linking; when that fails the link still stands and `joinOutcome` reports `failed`, because a link is worth
-keeping on its own. Membership is reported as `member`, `not_member` or `unknown` — and `unknown` whenever the truth
-could not be established (no linked account, gateway offline, or Discord silent), never `not_member`. With the
-gateway off, the seeded membership scenarios therefore expect `unknown`; enabling `DISCORD_GATEWAY_ENABLED`
-locally makes them probe the real server and report `not_member` for the seeded fixture accounts.
-
-No Discord OAuth token is stored. The server join happens inside the link request while the access token is in
-memory, and the token is discarded with it; joining later means re-linking or using an invite. `GET /api/v1/user/me`
-reports both providers under `identities` from stored fields alone and contacts nobody.
-
-`discordId` cannot be set through `PATCH /api/v1/user/me` — it authenticates Discord sign-in, so only a completed
-OAuth exchange may write it.
+This app integrates deeply with Discord, read more about it [in the dedicated document][docs-discord].
 
 ### Generating certs
 
@@ -241,11 +119,54 @@ This project has configured continuous integration and continuous deployment pip
 automatically build, test and deploy the app to the DigitalOcean. You can find the configuration in `.github/workflows`
 directory.
 
+## Contact
+
+My name is Oskar, an experienced programmer, cybersecurity enthusiast, and conference speaker from Poland. Feel free to
+contact me via the platforms below:
+
+<div align="center">
+
+[![LinkedIn][linkedin-badge]][linkedin-url]
+[![GitHub][github-badge]][github-url]
+[![Website][web-badge]][web-url]
+
+</div>
+
 ## License
 
-This project adapts UNLICENSE. For more information, please refer to the [UNLICENSE](UNLICENSE) file.
+A public domain under the [Unlicense][license-url]. Do what you want with it. I am an experienced software engineer, but
+I am not connected anyhow with the airline industry. This project is created for educational purposes only and should
+not be used for real-world aviation operations.
 
-## Disclaimer
+[linkedin-badge]: https://img.shields.io/badge/Oskar%20Barcz-0A66C2?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZiI%2BPHBhdGggZD0iTTIwLjQ1IDIwLjQ1aC0zLjU1di01LjU3YzAtMS4zMy0uMDMtMy4wNC0xLjg1LTMuMDQtMS44NSAwLTIuMTQgMS40NS0yLjE0IDIuOTR2NS42N0g5LjM1VjloMy40MXYxLjU2aC4wNWMuNDgtLjkgMS42NC0xLjg1IDMuMzctMS44NSAzLjYgMCA0LjI3IDIuMzcgNC4yNyA1LjQ2djYuMjl6TTUuMzQgNy40M2MtMS4xNCAwLTIuMDYtLjkzLTIuMDYtMi4wNiAwLTEuMTQuOTItMi4wNiAyLjA2LTIuMDYgMS4xNCAwIDIuMDYuOTMgMi4wNiAyLjA2IDAgMS4xNC0uOTMgMi4wNi0yLjA2IDIuMDZ6bTEuNzggMTMuMDJIMy41NlY5aDMuNTZ2MTEuNDV6TTIyLjIzIDBIMS43N0MuNzkgMCAwIC43NyAwIDEuNzN2MjAuNTRDMCAyMy4yMy43OSAyNCAxLjc3IDI0aDIwLjQ1QzIzLjIgMjQgMjQgMjMuMjMgMjQgMjIuMjdWMS43M0MyNCAuNzcgMjMuMiAwIDIyLjIzIDB6Ii8%2BPC9zdmc%2B&logoColor=white
+[linkedin-url]: https://www.linkedin.com/in/oskarbarcz
+[github-badge]: https://img.shields.io/badge/@oskarbarcz-181717?style=for-the-badge&logo=github&logoColor=white
+[github-url]: https://github.com/oskarbarcz
+[web-badge]: https://img.shields.io/badge/barcz.me-4A5568?style=for-the-badge&logo=googlechrome&logoColor=white
+[web-url]: https://barcz.me
 
-I am an experienced software engineer, but I am not connected anyhow with the airline industry. This project is created
-for educational purposes only and should not be used for real-world aviation operations.
+[banner]: .github/image/background.png
+[homepage]: https://mypreflight.io
+[repo-app]: https://github.com/oskarbarcz/flight-tracker-app
+[repo-transponder]: https://github.com/oskarbarcz/flight-tracker-transponder-app
+[ci-badge]: https://img.shields.io/github/actions/workflow/status/oskarbarcz/flight-tracker-api/integrity.yaml?branch=main&style=for-the-badge&label=integrity
+[ci-url]: https://github.com/oskarbarcz/flight-tracker-api/actions/workflows/integrity.yaml
+[release-badge]: https://img.shields.io/github/v/release/oskarbarcz/flight-tracker-api?style=for-the-badge
+[release-url]: https://github.com/oskarbarcz/flight-tracker-api/releases/latest
+[license-badge]: https://img.shields.io/github/license/oskarbarcz/flight-tracker-api?style=for-the-badge
+[license-url]: https://unlicense.org
+[node-shield]: https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white
+[node-url]: https://nodejs.org
+[ts-badge]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white
+[ts-url]: https://www.typescriptlang.org
+[nest-badge]: https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white
+[nest-url]: https://nestjs.com
+[postgres-badge]: https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white
+[postgres-url]: https://www.postgresql.org
+[prisma-badge]: https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white
+[prisma-url]: https://www.prisma.io
+[docker-badge]: https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white
+[docker-url]: https://www.docker.com
+[docs-websockets]: docs/WEBSOCKETS.md
+[docs-discord]: docs/DISCORD.md
+[docs-emails]: docs/EMAILS.md

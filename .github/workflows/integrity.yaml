@@ -1,27 +1,36 @@
-name: 'integrity'
+name: "integrity"
 
 on:
   pull_request:
-    paths: ['**', '!**.md']
 
 jobs:
-  code:
-    runs-on: 'ubuntu-24.04'
-    environment: ci
+  files:
+    runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout repository'
-        uses: 'actions/checkout@v4'
+      - name: "Checkout repository"
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - name: 'Check app version'
-        run: './docker/ci/check_version_is_free "$(jq -r ''.version'' package.json)"'
-      - name: 'Copy environment variables'
-        run: 'cp .env.dist .env'
-      - name: 'Run docker compose environment'
-        run: 'docker compose up -d --build --wait'
-      - name: 'Run code formatting check'
-        run: 'docker compose exec app npm run format'
-      - name: 'Run static code analysis'
-        run: 'docker compose exec app npm run lint'
-      - name: 'Run functional tests'
-        run: 'docker compose exec app npm run test:functional'
+      - name: "Check for CRLF line endings"
+        uses: gi-org-pl/check-crlf-action@v1
+      - name: "Check for file permission changes"
+        uses: gi-org-pl/check-file-permissions-action@v1
+      - name: "Check app version is unique"
+        uses: gi-org-pl/check-version-action@v1
+        with:
+          version: "$(jq -r ".version" package.json)"
+  code:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v7
+      - name: "Copy environment variables"
+        run: "cp .env.dist .env"
+      - name: "Run docker compose environment"
+        run: docker compose up -d --build --wait
+      - name: "Run code formatting check"
+        run: docker compose exec app npm run format
+      - name: "Run static code analysis"
+        run: docker compose exec app npm run lint
+      - name: "Run functional tests"
+        run: docker compose exec app npm run test:functional
