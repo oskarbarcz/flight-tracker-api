@@ -6,7 +6,7 @@ import { MailMessage, MailMessageType } from '../types/mail.types';
 const HOST = 'https://api.mailgun.net';
 const DOMAIN = 'mg.example.com';
 const API_KEY = 'key-1234';
-const SENDER = 'Flight Tracker <no-reply@mg.example.com>';
+const SENDER = 'MyPreflight <no-reply@mg.example.com>';
 
 function responseOf(status: number, statusText = ''): Response {
   return { ok: status >= 200 && status < 300, status, statusText } as Response;

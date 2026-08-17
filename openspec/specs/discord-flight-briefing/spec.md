@@ -78,12 +78,12 @@ The briefing SHALL attach the operational flight plan document when the flight h
 
 ### Requirement: Briefing links back to the flight
 
-The briefing SHALL close with a link that opens the briefed flight in the Flight Tracker app.
+The briefing SHALL close with a link that opens the briefed flight in the MyPreflight app.
 
 #### Scenario: Link to the flight
 
 - **WHEN** a briefing is delivered for a flight
-- **THEN** it ends with a link to that flight in the Flight Tracker app
+- **THEN** it ends with a link to that flight in the MyPreflight app
 
 ### Requirement: Pilot can read their Discord briefing setting
 

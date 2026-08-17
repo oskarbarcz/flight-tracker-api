@@ -3,7 +3,7 @@ import type { CorsOptions } from '@nestjs/common/interfaces/external/cors-option
 
 const isProduction = process.env.NODE_ENV === 'production';
 const origin = isProduction
-  ? 'https://flights.barcz.me'
+  ? 'https://mypreflight.io'
   : 'http://localhost:5173';
 
 export function configureCors(app: INestApplication): void {

@@ -11,7 +11,7 @@ Feature: Accept a delay allocation report
     And I should receive a live flight event of type "flight.delay-report-accepted" within 2000ms
     And I see Discord "delay-approval" message for flight "7105891a-8008-4b47-b473-c81c97615ad7" containing ":white_check_mark: **Flight AA 4911 delay approved**"
     And I see Discord "delay-approval" message for flight "7105891a-8008-4b47-b473-c81c97615ad7" containing "Operations approved your delay allocation."
-    And I see Discord "delay-approval" message for flight "7105891a-8008-4b47-b473-c81c97615ad7" containing "[**Flight Tracker app**](http://localhost:5173/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay)."
+    And I see Discord "delay-approval" message for flight "7105891a-8008-4b47-b473-c81c97615ad7" containing "[**MyPreflight app**](http://localhost:5173/flight/7105891a-8008-4b47-b473-c81c97615ad7/delay)."
     And I set database to initial state
     And I clear Discord messages directory
 

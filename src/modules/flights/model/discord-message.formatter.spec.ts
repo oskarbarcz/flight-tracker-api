@@ -115,7 +115,7 @@ describe('formatFlightBriefing', () => {
         'TAF EDDF 121100Z 1212/1318 24010KT 9999 SCT035',
         '```',
         '',
-        `Manage your flight in the ${EMOJI} [**Flight Tracker app**](${FLIGHT_URL}).`,
+        `Manage your flight in the ${EMOJI} [**MyPreflight app**](${FLIGHT_URL}).`,
       ].join('\n'),
     );
   });
@@ -166,7 +166,7 @@ describe('formatFlightBriefing', () => {
 
   it('always closes with the link to the flight', () => {
     expect(formatFlightBriefing(briefing())).toContain(
-      `[**Flight Tracker app**](${FLIGHT_URL}).`,
+      `[**MyPreflight app**](${FLIGHT_URL}).`,
     );
   });
 });
@@ -186,7 +186,7 @@ describe('formatBoardingAnnouncement', () => {
         'Flight **LH 55** from **Frankfurt (FRA)** to **Newark (EWR)**' +
         ' has started boarding!\n' +
         'Estimated block time: **03:40hrs**, Passengers on board: **293**\n\n' +
-        `Track flight live on ${EMOJI} [Flight Tracker](${MAP_URL})!`,
+        `Track flight live on ${EMOJI} [MyPreflight](${MAP_URL})!`,
     );
   });
 });
@@ -205,7 +205,7 @@ describe('formatArrivalAnnouncement', () => {
         'Flight **LH 55** from **Frankfurt (FRA)** to **Newark (EWR)**' +
         ' just arrived!\n' +
         'Actual block time: **03:52hrs**\n\n' +
-        `See flight path on ${EMOJI} [Flight Tracker](${MAP_URL})!`,
+        `See flight path on ${EMOJI} [MyPreflight](${MAP_URL})!`,
     );
   });
 });
@@ -255,7 +255,7 @@ describe('formatLoadsheet', () => {
         'block fuel:  11.5 t',
         '```',
         '',
-        `Manage your flight in the ${EMOJI} [**Flight Tracker app**](${FLIGHT_URL}).`,
+        `Manage your flight in the ${EMOJI} [**MyPreflight app**](${FLIGHT_URL}).`,
       ].join('\n'),
     );
   });
@@ -302,7 +302,7 @@ describe('formatDelayAllocationRequest', () => {
         '',
         'A departure delay of **12 minutes** was recorded and has to be allocated.',
         '',
-        `Allocate it in the ${EMOJI} [**Flight Tracker app**](${DELAY_URL}).`,
+        `Allocate it in the ${EMOJI} [**MyPreflight app**](${DELAY_URL}).`,
       ].join('\n'),
     );
   });
@@ -318,7 +318,7 @@ describe('formatDelayApproval', () => {
         '',
         'Operations approved your delay allocation.',
         '',
-        `Manage your flight in the ${EMOJI} [**Flight Tracker app**](${DELAY_URL}).`,
+        `Manage your flight in the ${EMOJI} [**MyPreflight app**](${DELAY_URL}).`,
       ].join('\n'),
     );
   });

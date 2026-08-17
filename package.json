@@ -1,8 +1,8 @@
 {
   "name": "flight-tracker-api",
-  "version": "3.24.0",
+  "version": "3.25.0",
   "private": true,
-  "homepage": "https://flights.barcz.me",
+  "homepage": "https://mypreflight.io",
   "author": "oskarbarcz",
   "license": "Unlicense",
   "description": "A comprehensive web app for scheduling and tracking flights in a flight simulator environment. Designed for virtual aviation enthusiasts, it enables seamless management of flights, aircraft, airports, crews, and passengers.",

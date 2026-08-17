@@ -265,7 +265,7 @@ Feature: Start boarding
     And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing ":airplane_departure: :airplane_departure: :airplane_departure:"
     And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "Flight **AA 4908** from **Boston (BOS)** to **Philadelphia (PHL)** has started boarding!"
     And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "Estimated block time: **03:08hrs**, Passengers on board: **370**"
-    And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "[Flight Tracker](http://localhost:5173/map/b3899775-278e-4496-add1-21385a13d93e)"
+    And I see Discord "departure" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "[MyPreflight](http://localhost:5173/map/b3899775-278e-4496-add1-21385a13d93e)"
     And I see Discord "preliminary-loadsheet" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing ":clipboard: **Flight AA 4908 preliminary loadsheet**"
     And I see Discord "preliminary-loadsheet" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "passengers:  370"
     And I see Discord "preliminary-loadsheet" message for flight "b3899775-278e-4496-add1-21385a13d93e" containing "cargo:       8.5 t"

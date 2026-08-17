@@ -61,7 +61,7 @@ export class EmailChangeMailListener {
     const link = `${this.frontendBaseUrl}/confirm-email?token=${token}`;
 
     return [
-      `A Flight Tracker account asked to move to ${newEmail}.`,
+      `A MyPreflight account asked to move to ${newEmail}.`,
       '',
       'Open the link below to confirm this address. The link works once and',
       `expires in ${TOKEN_VALIDITY}:`,
@@ -74,7 +74,7 @@ export class EmailChangeMailListener {
 
   private notificationText(newEmail: string): string {
     return [
-      `Your Flight Tracker account was asked to move to ${newEmail}.`,
+      `Your MyPreflight account was asked to move to ${newEmail}.`,
       '',
       'The change takes effect only once that address is confirmed from the',
       'message sent to it. Until then you keep signing in with this address.',

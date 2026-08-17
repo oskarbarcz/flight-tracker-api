@@ -47,7 +47,7 @@ export class PasswordResetMailListener {
     const link = `${this.frontendBaseUrl}/reset-password?token=${token}`;
 
     return [
-      'Someone asked to reset the password of your Flight Tracker account.',
+      'Someone asked to reset the password of your MyPreflight account.',
       '',
       'Open the link below to choose a new one. The link works once and',
       `expires in ${TOKEN_VALIDITY}:`,

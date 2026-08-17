@@ -9,7 +9,7 @@ import {
 } from '../error/discord-identity.error';
 import { buildDiscordAvatarUrl } from '../types/discord-identity.types';
 
-const REDIRECT_URI = 'https://flights.barcz.me/auth/discord/callback';
+const REDIRECT_URI = 'https://mypreflight.io/auth/discord/callback';
 const CONFIG = {
   baseUrl: 'https://discord.com/api',
   clientId: '100000000000000010',
@@ -218,11 +218,11 @@ describe('parseAllowedRedirectUris', () => {
   it('splits and trims the configured list', () => {
     expect(
       parseAllowedRedirectUris(
-        ' http://localhost:5173/auth/discord/callback , https://flights.barcz.me/auth/discord/callback ',
+        ' http://localhost:5173/auth/discord/callback , https://mypreflight.io/auth/discord/callback ',
       ),
     ).toEqual([
       'http://localhost:5173/auth/discord/callback',
-      'https://flights.barcz.me/auth/discord/callback',
+      'https://mypreflight.io/auth/discord/callback',
     ]);
   });
 

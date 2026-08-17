@@ -1,6 +1,6 @@
 ![My Project Header](.github/image/header.png)
 
-# Flight Tracker
+# MyPreflight
 
 A comprehensive web app for scheduling and tracking flights in a flight simulator environment. Designed for virtual
 aviation enthusiasts, it enables seamless management of flights, aircraft, airports, crews and passengers.
@@ -19,7 +19,7 @@ This is the server part of the project. For the client part, please visit
 
 ## Repository contents
 
-Repository contains server code for [the Flight Tracker](https://flights.barcz.me) app.
+Repository contains server code for the [MyPreflight](https://mypreflight.io) app.
 
 Project is using **Node.js** and **TypeScript** as the main technology.
 
@@ -73,7 +73,7 @@ polling `GET /api/v1/flight/:id/events`.
 
 **Connect**
 
-- URL: `ws://localhost/flight-events` (production: `wss://api.flights.barcz.me/flight-events`)
+- URL: `ws://localhost/flight-events` (production: `wss://api.mypreflight.io/flight-events`)
 - Auth: pass a JWT access token in the Socket.IO `auth.token` handshake field. The same token issued by
   `POST /api/v1/auth/sign-in` is accepted. Connections without a valid token, or with a role other than `CabinCrew`
   or `Operations`, are disconnected immediately.
@@ -205,7 +205,7 @@ unlisted URI is rejected with `400` so a code cannot be relayed elsewhere.
 | `GET /api/v1/user/me/discord/server-membership` | Live membership probe for an account screen.                                                                                         |
 | `GET /api/v1/user/me/discord-settings`          | Read which direct messages are enabled: briefing, preliminary loadsheet, final loadsheet, delay updates — plus rich presence.        |
 | `PATCH /api/v1/user/me/discord-settings`        | Turn any of them on or off. Partial — only the fields you send change. The messages default to on, rich presence to off.             |
-| `GET /api/v1/user/me/discord-presence`          | Read the activity to publish for the current flight, or `204` when rich presence is off or the user is not flying.                    |
+| `GET /api/v1/user/me/discord-presence`          | Read the activity to publish for the current flight, or `204` when rich presence is off or the user is not flying.                   |
 
 **Server membership is a precondition, not a detail.** A direct message can only reach somebody who shares the
 server with the bot, so a linked account that never joined gets no briefings — as does a pilot who turned them off

@@ -118,7 +118,7 @@ export function formatBoardingAnnouncement(
     `Estimated block time: **${input.blockTime}hrs**, ` +
     `Passengers on board: **${input.passengers}**\n\n` +
     `Track flight live on ${FLIGHT_TRACKER_EMOJI} ` +
-    `[Flight Tracker](${input.flightUrl})!`
+    `[MyPreflight](${input.flightUrl})!`
   );
 }
 
@@ -131,7 +131,7 @@ export function formatArrivalAnnouncement(input: AnnouncementInput): string {
     ` just arrived!\n` +
     `Actual block time: **${input.blockTime}hrs**\n\n` +
     `See flight path on ${FLIGHT_TRACKER_EMOJI} ` +
-    `[Flight Tracker](${input.flightUrl})!`
+    `[MyPreflight](${input.flightUrl})!`
   );
 }
 
@@ -180,7 +180,7 @@ export function formatDelayAllocationRequest(
     `A departure delay of **${input.delayMinutes} minutes** was recorded` +
       ` and has to be allocated.`,
     `Allocate it in the ${FLIGHT_TRACKER_EMOJI} ` +
-      `[**Flight Tracker app**](${input.allocationUrl}).`,
+      `[**MyPreflight app**](${input.allocationUrl}).`,
   ].join('\n\n');
 }
 
@@ -276,6 +276,6 @@ function tons(value: number): string {
 function manageLine(flightUrl: string): string {
   return (
     `Manage your flight in the ${FLIGHT_TRACKER_EMOJI} ` +
-    `[**Flight Tracker app**](${flightUrl}).`
+    `[**MyPreflight app**](${flightUrl}).`
   );
 }
