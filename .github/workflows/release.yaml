@@ -11,9 +11,9 @@ jobs:
       - name: "Clone repository"
         uses: actions/checkout@v7
       - name: "Release and push git tag"
-        run: "git tag $(jq -r ".version" package.json) && git push --tags"
+        run: "git tag $(jq -r '.version' package.json) && git push --tags"
       - name: "Create a GitHub release"
-        run: "gh release create $(jq -r ".version" package.json) --generate-notes"
+        run: "gh release create $(jq -r '.version' package.json) --generate-notes"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy:

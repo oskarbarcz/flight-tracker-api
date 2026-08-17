@@ -18,7 +18,7 @@ jobs:
       - name: "Check app version is unique"
         uses: gi-org-pl/check-version-action@v1
         with:
-          version: "$(jq -r ".version" package.json)"
+          version: "$(jq -r '.version' package.json)"
   code:
     runs-on: "ubuntu-latest"
     steps:
