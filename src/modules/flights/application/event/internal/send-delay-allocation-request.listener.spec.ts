@@ -77,7 +77,7 @@ describe('SendDelayAllocationRequestListener', () => {
 
     const [, message] = client.sendDirectMessage.mock.calls[0];
     expect(message.content).toContain(
-      `[**Flight Tracker app**](${FRONTEND_BASE_URL}/flight/${FLIGHT_ID}/delay).`,
+      `[**MyPreflight app**](${FRONTEND_BASE_URL}/flight/${FLIGHT_ID}/delay).`,
     );
   });
 

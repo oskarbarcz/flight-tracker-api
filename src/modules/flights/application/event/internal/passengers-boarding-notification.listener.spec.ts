@@ -82,7 +82,7 @@ describe('PassengersBoardingNotificationListener', () => {
       'Estimated block time: **08:25hrs**, Passengers on board: **293**',
     );
     expect(message.content).toContain(
-      `[Flight Tracker](${FRONTEND_BASE_URL}/map/${FLIGHT_ID})!`,
+      `[MyPreflight](${FRONTEND_BASE_URL}/map/${FLIGHT_ID})!`,
     );
   });
 

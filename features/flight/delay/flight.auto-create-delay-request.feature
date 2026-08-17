@@ -26,7 +26,7 @@ Feature: Auto-create a delay allocation request on a late off-block
       """
     And I see Discord "delay-allocation" message for flight "f14a2141-4737-4622-a387-40513ff3baf1" containing ":hourglass: **Flight AA 4910 delay**"
     And I see Discord "delay-allocation" message for flight "f14a2141-4737-4622-a387-40513ff3baf1" containing "has to be allocated."
-    And I see Discord "delay-allocation" message for flight "f14a2141-4737-4622-a387-40513ff3baf1" containing "[**Flight Tracker app**](http://localhost:5173/flight/f14a2141-4737-4622-a387-40513ff3baf1/delay)."
+    And I see Discord "delay-allocation" message for flight "f14a2141-4737-4622-a387-40513ff3baf1" containing "[**MyPreflight app**](http://localhost:5173/flight/f14a2141-4737-4622-a387-40513ff3baf1/delay)."
     And I set database to initial state
     And I clear Discord messages directory
 

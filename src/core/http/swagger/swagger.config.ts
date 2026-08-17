@@ -4,7 +4,7 @@ import { INestApplication } from '@nestjs/common';
 
 function createSwaggerConfig() {
   return new DocumentBuilder()
-    .setTitle('Flight Tracker API')
+    .setTitle('MyPreflight API')
     .setDescription(
       [
         'REST API for managing virtual flight operations, fleet monitoring, and logbook tracking.',
@@ -13,7 +13,7 @@ function createSwaggerConfig() {
       ].join('\n'),
     )
     .setVersion(pack.version)
-    .addServer('https://api.flights.barcz.me', 'Production')
+    .addServer('https://api.mypreflight.io', 'Production')
     .addServer('http://localhost', 'Local development')
     .addBearerAuth(
       {

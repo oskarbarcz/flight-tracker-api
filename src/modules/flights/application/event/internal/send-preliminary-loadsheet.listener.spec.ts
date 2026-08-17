@@ -96,7 +96,7 @@ describe('SendPreliminaryLoadsheetListener', () => {
     expect(message.content).toContain('FA  Anna Nowak');
     expect(message.content).toContain('passengers:  200');
     expect(message.content).toContain(
-      `[**Flight Tracker app**](${FRONTEND_BASE_URL}/flight/${FLIGHT_ID}).`,
+      `[**MyPreflight app**](${FRONTEND_BASE_URL}/flight/${FLIGHT_ID}).`,
     );
   });
 

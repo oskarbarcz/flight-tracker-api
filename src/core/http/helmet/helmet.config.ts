@@ -23,7 +23,7 @@ export function configureHelmet(app: INestApplication): void {
           'style-src': ["'self'", "'unsafe-inline'"],
           'img-src': ["'self'", 'data:', 'validator.swagger.io'],
           'connect-src': isProduction
-            ? ["'self'", 'https://flights.barcz.me']
+            ? ["'self'", 'https://mypreflight.io']
             : ["'self'", 'http://localhost:5173'],
         },
       },
