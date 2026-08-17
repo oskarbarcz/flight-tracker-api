@@ -4,18 +4,20 @@ import expect from 'expect';
 import { deepCompare } from '../_helper/deep-compare';
 import { SignInResponse } from '../../src/modules/auth/infra/http/request/sign-in.dto';
 import * as http from 'node:http';
-type ApiUserType =
+import * as https from 'node:https';
+
+export type ApiUserType =
   | 'admin'
   | 'operations'
   | 'operations with valid Simbrief ID'
   | 'operations with Simbrief ID but empty etops'
   | 'operations with Simbrief ID but non existing aircraft'
   | 'operations with Simbrief ID and alternate airport missing from database'
-  | 'cabin crew';
+  | 'cabin crew'
+  | 'Alan Doe'
+  | 'Michael Doe';
 
-import * as https from 'node:https';
-
-const apiUsers = {
+const apiUsers: Record<ApiUserType, { email: string; password: string }> = {
   admin: {
     email: 'admin@example.com',
     password: 'P@$$w0rd',
@@ -52,25 +54,50 @@ const apiUsers = {
     email: 'michael.doe@example.com',
     password: 'P@$$w0rd',
   },
-} as Record<ApiUserType, { email: string; password: string }>;
+};
 
 const apiBaseUrl = 'http://localhost:3000';
-let apiTokens = {
-  admin: '',
-  operations: '',
-  'cabin crew': '',
-  currentRole: 'admin',
-} as Record<string, string>;
+
+const ACCESS_TOKEN_REUSE_WINDOW_MS = 8 * 60 * 1000;
+
+type MintedAccessToken = { accessToken: string; mintedAt: number };
+
+const accessTokens = new Map<ApiUserType, MintedAccessToken>();
+
+let bearerToken: string | null = null;
 let apiResponse: AxiosResponse;
 
 const httpAgent = new http.Agent({ keepAlive: true });
 const httpsAgent = new https.Agent({ keepAlive: true });
 const apiClient = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: apiBaseUrl,
   httpAgent,
   httpsAgent,
   validateStatus: () => true,
 });
+
+function signIn(user: ApiUserType): Promise<AxiosResponse<SignInResponse>> {
+  return apiClient.post<SignInResponse>(
+    `${apiBaseUrl}/api/v1/auth/sign-in`,
+    apiUsers[user],
+  );
+}
+
+export async function accessTokenFor(user: ApiUserType): Promise<string> {
+  const minted = accessTokens.get(user);
+
+  if (
+    minted !== undefined &&
+    Date.now() - minted.mintedAt < ACCESS_TOKEN_REUSE_WINDOW_MS
+  ) {
+    return minted.accessToken;
+  }
+
+  const { accessToken } = (await signIn(user)).data;
+  accessTokens.set(user, { accessToken, mintedAt: Date.now() });
+
+  return accessToken;
+}
 
 export async function sendApiRequest(
   method: string,
@@ -83,22 +110,12 @@ export async function sendApiRequest(
     data: body,
     validateStatus: () => true,
     headers:
-      apiTokens[apiTokens.currentRole] === ''
-        ? {}
-        : { Authorization: `Bearer ${apiTokens[apiTokens.currentRole]}` },
+      bearerToken === null ? {} : { Authorization: `Bearer ${bearerToken}` },
   });
 }
 
-Given('I am signed in as {string}', async (role: ApiUserType) => {
-  const credentials = apiUsers[role];
-  const url = `${apiBaseUrl}/api/v1/auth/sign-in`;
-  apiResponse = (await apiClient.post(
-    url,
-    credentials,
-  )) as AxiosResponse<SignInResponse>;
-
-  apiTokens[role] = (apiResponse.data as SignInResponse).accessToken;
-  apiTokens.currentRole = role;
+Given('I am signed in as {string}', async (user: ApiUserType) => {
+  bearerToken = await accessTokenFor(user);
 });
 
 Given(
@@ -109,21 +126,14 @@ Given(
       idToken,
     })) as AxiosResponse<SignInResponse>;
 
-    apiTokens.google = (apiResponse.data as SignInResponse).accessToken;
-    apiTokens.currentRole = 'google';
+    bearerToken = (apiResponse.data as SignInResponse).accessToken;
   },
 );
 
-Given('I hold a refresh token as {string}', async (role: ApiUserType) => {
-  const credentials = apiUsers[role];
-  const url = `${apiBaseUrl}/api/v1/auth/sign-in`;
-  apiResponse = (await apiClient.post(
-    url,
-    credentials,
-  )) as AxiosResponse<SignInResponse>;
+Given('I hold a refresh token as {string}', async (user: ApiUserType) => {
+  apiResponse = await signIn(user);
 
-  apiTokens[role] = (apiResponse.data as SignInResponse).refreshToken;
-  apiTokens.currentRole = role;
+  bearerToken = (apiResponse.data as SignInResponse).refreshToken;
 });
 
 When(
@@ -187,10 +197,5 @@ Then('I dump response', () => {
 });
 
 After(() => {
-  apiTokens = {
-    admin: '',
-    operations: '',
-    'cabin crew': '',
-    currentRole: 'admin',
-  };
+  bearerToken = null;
 });
