@@ -3,7 +3,7 @@
 [![oskar barcz / flight-tracker-api][banner]][homepage]
 
 The backend service of [**MyPreflight**][homepage] platform. Serves the REST API and the live flight event stream that
-the web app and the transponder companion run on.
+the web app, and the transponder companion run on.
 
 </div>
 
@@ -85,21 +85,15 @@ This app uses docker-based virtualization to run. To set up the project, follow 
 ### Websockets
 
 App is using Websockets for dynamic communication in the areas of flight tracking dashboard. Read more about websocket
-implementation [in the dedicated document][docs-websockets].
+implementation [in a dedicated document][docs-websockets].
 
 ### Email
 
-Outbound email needs `MAILGUN_API_HOST`, `MAILGUN_DOMAIN`, `MAILGUN_API_KEY`, `MAIL_FROM_ADDRESS` and
-`FRONTEND_BASE_URL` (the base URL that links in emails point at). `.env.dist` ships working development placeholders.
-
-Only `NODE_ENV=production` sends anything. Everywhere else each message is written to
-`test-data/mail/<type>_<recipient>_<uuid>.json` instead.
-
-This app sends a few emails, read what they say and when they go out [in the dedicated document][docs-emails].
+This app sends transactional emails, see more [in a dedicated document][docs-emails].
 
 ### Discord
 
-This app integrates deeply with Discord, read more about it [in the dedicated document][docs-discord].
+This app integrates deeply with Discord, read more about it [in a dedicated document][docs-discord].
 
 ### Generating certs
 
