@@ -1,6 +1,6 @@
 {
   "name": "flight-tracker-api",
-  "version": "3.26.0",
+  "version": "3.27.0",
   "private": true,
   "homepage": "https://mypreflight.io",
   "author": "oskarbarcz",
@@ -65,7 +65,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
-    "@types/node": "^22.19.19",
+    "@types/node": "^26.2.0",
     "@types/pg": "^8.20.0",
     "axios": "^1.16.0",
     "eslint": "^10.3.0",
