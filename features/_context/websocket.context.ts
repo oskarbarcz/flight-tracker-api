@@ -1,8 +1,8 @@
 import { After, Given, Then, When } from '@cucumber/cucumber';
 import expect from 'expect';
 import { io, Socket } from 'socket.io-client';
-import axios from 'axios';
 import { deepCompare } from '../_helper/deep-compare';
+import { accessTokenFor } from './rest-api.context';
 
 type WebsocketRole =
   | 'admin'
@@ -13,12 +13,6 @@ type WebsocketRole =
 
 const apiBaseUrl = 'http://localhost:3000';
 const namespaceUrl = `${apiBaseUrl}/flight-events`;
-
-const credentials: Record<string, { email: string; password: string }> = {
-  admin: { email: 'admin@example.com', password: 'P@$$w0rd' },
-  operations: { email: 'operations@example.com', password: 'P@$$w0rd' },
-  'cabin crew': { email: 'cabin-crew@example.com', password: 'P@$$w0rd' },
-};
 
 const sockets: Socket[] = [];
 
@@ -39,16 +33,6 @@ let received: ReceivedEvents = {
 };
 
 let socket: Socket | null = null;
-
-async function signIn(
-  role: 'admin' | 'operations' | 'cabin crew',
-): Promise<string> {
-  const response = await axios.post(
-    `${apiBaseUrl}/api/v1/auth/sign-in`,
-    credentials[role],
-  );
-  return (response.data as { accessToken: string }).accessToken;
-}
 
 function trackSocket(s: Socket): void {
   sockets.push(s);
@@ -90,7 +74,7 @@ Given(
     } else if (role === 'invalid-token') {
       token = 'not-a-real-jwt';
     } else {
-      token = await signIn(role);
+      token = await accessTokenFor(role);
     }
 
     const s = io(namespaceUrl, {

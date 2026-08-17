@@ -1,34 +1,34 @@
-name: "release"
+name: 'release'
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
 
 jobs:
   tag:
-    runs-on: "ubuntu-latest"
+    runs-on: 'ubuntu-latest'
     steps:
-      - name: "Clone repository"
+      - name: 'Clone repository'
         uses: actions/checkout@v7
-      - name: "Release and push git tag"
+      - name: 'Release and push git tag'
         run: "git tag $(jq -r '.version' package.json) && git push --tags"
-      - name: "Create a GitHub release"
+      - name: 'Create a GitHub release'
         run: "gh release create $(jq -r '.version' package.json) --generate-notes"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy:
-    runs-on: "ubuntu-latest"
+    runs-on: 'ubuntu-latest'
     environment: image
     steps:
-      - name: "Login to ghcr.io"
+      - name: 'Login to ghcr.io'
         uses: docker/login-action@v4
         with:
-          registry: "ghcr.io"
-          username: "${{github.actor}}"
-          password: "${{secrets.GITHUB_TOKEN}}"
-      - name: "Clone repository"
+          registry: 'ghcr.io'
+          username: '${{github.actor}}'
+          password: '${{secrets.GITHUB_TOKEN}}'
+      - name: 'Clone repository'
         uses: actions/checkout@v7
-      - name: "Build app docker image"
+      - name: 'Build app docker image'
         run: |
           AUTHOR=$(jq -r ".author" package.json)
           NAME=$(jq -r ".name" package.json)
@@ -39,7 +39,7 @@ jobs:
 
           # tag same image as :latest
           docker tag "${IMAGE}:${VERSION}" "${IMAGE}:latest"
-      - name: "Push docker image to ghcr.io"
+      - name: 'Push docker image to ghcr.io'
         run: |
           AUTHOR=$(jq -r ".author" package.json)
           NAME=$(jq -r ".name" package.json)
@@ -51,10 +51,16 @@ jobs:
   release:
     needs: deploy
     runs-on: ubuntu-latest
-    environment: "production"
+    environment: 'production'
     steps:
-      - name: "Build and deploy on production"
-        uses: "digitalocean/app_action@v1.1.5"
+      - name: 'Clone repository'
+        uses: actions/checkout@v4
+      - name: 'Pin deployed image to the released version'
+        run: 'echo "IMAGE_TAG_FLIGHT_TRACKER_API=$(jq -r ''.version'' package.json)" >> "$GITHUB_ENV"'
+      - name: 'Build and deploy on production'
+        uses: 'digitalocean/app_action/deploy@v2'
         with:
-          app_name: "flight-tracker-api"
+          app_name: 'mypreflight'
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          print_build_logs: true
+          print_deploy_logs: true
