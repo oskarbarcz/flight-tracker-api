@@ -432,6 +432,82 @@ Feature: Update own profile
       """
     And I set database to initial state
 
+  Scenario: As a cabin crew I cannot set a Simbrief user ID that Simbrief does not know
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me" with body:
+      """json
+      {
+        "simbriefUserId": "999999"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "SimBrief account with given ID does not exist.",
+        "error": "Bad Request",
+        "statusCode": 400
+      }
+      """
+    When I send a "GET" request to "/api/v1/user/me"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+        "name": "Rick Doe",
+        "email": "cabin-crew@example.com",
+        "role": "CabinCrew",
+        "pilotLicenseId": "UK-31270",
+        "currentFlightId": "b3899775-278e-4496-add1-21385a13d93e",
+        "homeAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportId": "3c721cc6-c653-4fad-be43-dc9d6a149383",
+        "lastAirportUpdatedAt": null,
+        "simbriefUserId": null,
+        "defaultWeatherSource": "aviation_weather_gov",
+        "identities": {
+          "google": {
+            "linked": false
+          },
+          "discord": {
+            "linked": true,
+            "userId": "100000000000000300",
+            "username": "rick.doe",
+            "globalName": "Rick Doe",
+            "avatarUrl": "https://cdn.discordapp.com/avatars/100000000000000300/c4d5e6f70819202a3b4c5d6e7f809a1b.png"
+          }
+        },
+        "emails": [
+          {
+            "email": "cabin-crew@example.com",
+            "isConfirmed": true,
+            "active": true
+          }
+        ]
+      }
+      """
+
+  Scenario: As a cabin crew I cannot set a Simbrief user ID that is not a number
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me" with body:
+      """json
+      {
+        "simbriefUserId": "my-simbrief-account"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "simbriefUserId": ["Simbrief user ID must be a number."]
+        }
+      }
+      """
+
   Scenario: As a cabin crew I cannot set my own Discord account through my profile
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/user/me" with body:

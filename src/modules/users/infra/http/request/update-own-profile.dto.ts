@@ -48,7 +48,8 @@ export class UpdateOwnProfileDto {
   homeAirportId?: string;
 
   @ApiProperty({
-    description: 'Simbrief userId',
+    description:
+      'Simbrief userId. Verified against SimBrief before it is stored, and rejected when SimBrief does not know it.',
     example: '123456',
     type: 'string',
     nullable: true,
@@ -56,6 +57,9 @@ export class UpdateOwnProfileDto {
   })
   @IsString()
   @IsOptional()
+  @Matches(/^\d+$/, {
+    message: 'Simbrief user ID must be a number.',
+  })
   simbriefUserId?: string | null;
 
   @ApiProperty({

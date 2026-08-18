@@ -53,6 +53,10 @@ import { GetUserDiscordSettingsHandler } from './application/query/get-user-disc
 import { GetDiscordPresenceHandler } from './application/query/get-discord-presence.query';
 import { GetDiscordRecipientHandler } from './application/query/get-discord-recipient.query';
 import { UpdateDiscordSettingsHandler } from './application/command/update-discord-settings.command';
+import { VerifySimbriefUserAction } from './infra/http/action/verify-simbrief-user.action';
+import { VerifySimbriefUserHandler } from './application/query/verify-simbrief-user.query';
+import { AssertSimbriefUserExistsHandler } from './application/assert/assert-simbrief-user-exists.query';
+import { SimbriefModule } from '../../core/provider/simbrief/simbrief.module';
 
 @Module({
   controllers: [
@@ -60,6 +64,7 @@ import { UpdateDiscordSettingsHandler } from './application/command/update-disco
     ListUsersAction,
     GetCurrentUserAction,
     GetMyAircraftAction,
+    VerifySimbriefUserAction,
     GetUserAction,
     UpdateOwnProfileAction,
     UpdateUserAction,
@@ -88,6 +93,8 @@ import { UpdateDiscordSettingsHandler } from './application/command/update-disco
     GetDiscordRecipientHandler,
     GetUserWeatherSourceHandler,
     AssertUserExistsHandler,
+    AssertSimbriefUserExistsHandler,
+    VerifySimbriefUserHandler,
     CreateUserHandler,
     UpdateOwnProfileHandler,
     UpdateUserHandler,
@@ -111,7 +118,7 @@ import { UpdateDiscordSettingsHandler } from './application/command/update-disco
     PasswordResetMailListener,
     UpdateDiscordSettingsHandler,
   ],
-  imports: [PrismaModule, MailgunModule],
+  imports: [PrismaModule, MailgunModule, SimbriefModule],
   exports: [UsersRepository, UserTokenRepository],
 })
 export class UsersModule {}
