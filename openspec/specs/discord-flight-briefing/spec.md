@@ -3,9 +3,7 @@
 ## Purpose
 
 Delivers the pre-flight briefing to a pilot as a Discord private message the moment they check in, and lets each pilot decide whether they want to receive it.
-
 ## Requirements
-
 ### Requirement: Briefing is delivered on check-in
 
 The system SHALL send a briefing private message on Discord to the pilot who checks in for a flight, provided that pilot has a linked Discord account and has briefing messages enabled.
@@ -87,12 +85,12 @@ The briefing SHALL close with a link that opens the briefed flight in the MyPref
 
 ### Requirement: Pilot can read their Discord briefing setting
 
-The system SHALL let a signed-in user read every Discord private-message setting held for them. A setting MAY govern more than one message. A user who has never changed a setting SHALL be reported as having it enabled.
+The system SHALL let a signed-in user read every Discord setting held for them. A setting MAY govern more than one message. A user who has never changed a setting that governs a message the system sends them SHALL be reported as having it enabled; a setting that publishes what the user is doing outside the app SHALL default to disabled instead.
 
 #### Scenario: Reading the default setting
 
 - **WHEN** a signed-in user who never changed a setting reads their Discord settings
-- **THEN** the response reports every setting as enabled
+- **THEN** the response reports every message setting as enabled and rich presence as disabled
 
 #### Scenario: Unauthenticated read is rejected
 
@@ -127,3 +125,4 @@ The system SHALL let a signed-in user enable or disable each Discord private-mes
 
 - **WHEN** Discord settings are changed without a valid token
 - **THEN** the request is rejected as unauthorized
+
