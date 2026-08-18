@@ -47,14 +47,25 @@ operation, which requires the current password.
 
 ### Requirement: The first password is validated and revokes other sessions
 
-The system SHALL apply the same validation to a first password as to a changed
-password, rejecting one shorter than 8 characters with a validation error. On success
-the system SHALL revoke every other session belonging to the user and SHALL keep the
-session that set the password valid.
+The system SHALL apply the same strength rules to a first password as to a changed
+password, rejecting one that is shorter than 12 characters or that lacks an uppercase
+letter, a lowercase letter, a number, or a symbol, with a validation error naming the
+field. On success the system SHALL revoke every other session belonging to the user and
+SHALL keep the session that set the password valid.
 
 #### Scenario: A too-short password is rejected
 
-- **WHEN** an authenticated user without a password submits a new password shorter than 8 characters
+- **WHEN** an authenticated user without a password submits a new password shorter than 12 characters
+- **THEN** the request is rejected with a validation error and no password is stored
+
+#### Scenario: A long password with no uppercase, number or symbol is rejected
+
+- **WHEN** an authenticated user without a password submits a long new password of lowercase letters only
+- **THEN** the request is rejected with a validation error and no password is stored
+
+#### Scenario: A missing password is rejected
+
+- **WHEN** an authenticated user without a password submits a request carrying no new password
 - **THEN** the request is rejected with a validation error and no password is stored
 
 #### Scenario: Another device's session is revoked

@@ -9,9 +9,7 @@ flights and continues backing up paths through taxi, cruise, and taxi-in. The fi
 transition from "no stored path" to "stored path" raises a single `LivePositionReceived`
 event that is persisted as a flight event and broadcast to subscribed WebSocket clients.
 The final on-block backup fetch is excluded so on-block never counts as first receipt.
-
 ## Requirements
-
 ### Requirement: First live position is detected during check-in and boarding
 
 The system SHALL periodically poll ADS-B for the first available live position of every flight whose status is `checked_in`, `boarding_started`, or `boarding_finished` and that does not yet have a stored flight path. The poll SHALL run once per minute. When a poll produces the first stored position for a flight, the system SHALL signal that the flight's live position has been received.
@@ -51,7 +49,7 @@ The system SHALL signal `LivePositionReceived` only on the transition from no st
 
 ### Requirement: Live position receipt is persisted and broadcast
 
-When the system signals that a flight's live position has been received, it SHALL persist a `LivePositionReceived` flight event and SHALL broadcast it to WebSocket clients subscribed to that flight. The event SHALL be recorded with `user` scope and no actor, reflecting that live tracking became available because the aircraft's transponder is active, so that it appears in the flight event timeline alongside crew actions rather than being hidden as a system-internal signal.
+When the system signals that a flight's live position has been received, it SHALL persist a `LivePositionReceived` flight event, SHALL broadcast it to WebSocket clients subscribed to that flight, and SHALL invalidate the cached flight body so that the next read of the flight reports its path as available. The event SHALL be recorded with `user` scope and no actor, reflecting that live tracking became available because the aircraft's transponder is active, so that it appears in the flight event timeline alongside crew actions rather than being hidden as a system-internal signal.
 
 #### Scenario: Subscribed client is notified
 
@@ -62,6 +60,16 @@ When the system signals that a flight's live position has been received, it SHAL
 
 - **WHEN** a flight has received its first live position
 - **THEN** the flight's event timeline includes the `LivePositionReceived` event with `user` scope and no actor
+
+#### Scenario: A cached flight read reports the path immediately
+
+- **WHEN** a flight's body has been read and cached while it had no stored path, and its first live position is then received
+- **THEN** the next read of that flight reports its path as available rather than repeating the cached answer until the cache entry expires
+
+#### Scenario: Later path updates do not evict the flight body
+
+- **WHEN** a flight that already has a stored path receives a further path backup
+- **THEN** the cached flight body is left in place, because the body states only whether a path exists and that answer has not changed
 
 ### Requirement: Live position receipt is not signalled at on-block
 
@@ -113,3 +121,4 @@ already has a stored path.
 
 - **WHEN** a flight transitions out of `boarding_finished` to `taxiing_out`
 - **THEN** it is no longer selected by the boarding-finished backup and is instead tracked by the in-flight backup
+

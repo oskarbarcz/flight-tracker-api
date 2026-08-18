@@ -1,6 +1,6 @@
 ## Context
 
-Google Sign-In is link-only (`README.md § Google Sign-In`): `POST /api/v1/auth/google/link`
+Google Sign-In is link-only (`README.md § Google Sign-In`): `POST /api/v1/user/me/link-google-account`
 stores Google's `sub` on the signed-in user, and `POST /api/v1/auth/google` exchanges a
 Google ID token for the app's own JWT pair by resolving `googleId` — never email.
 `UsersRepository.linkGoogleAccount` refuses to link when `googleId` is already set or
@@ -25,7 +25,7 @@ migration.
 
 **Non-Goals:**
 
-- Relaxing `PATCH /api/v1/auth/password`. It keeps requiring a current password.
+- Relaxing `PATCH /api/v1/user/me/change-password`. It keeps requiring a current password.
 - Multiple linked identities, or any second OAuth provider.
 - Verifying the account's email address as part of setting a first password. The
   address came from Google's verified claim on sign-up, and email verification in
@@ -34,7 +34,7 @@ migration.
 
 ## Decisions
 
-**1. Setting a first password is a separate `POST /api/v1/auth/password`, not a relaxed
+**1. Setting a first password is a separate `POST /api/v1/user/me/set-password`, not a relaxed
 `PATCH`.** The obvious alternative was to make `currentPassword` optional on the
 existing endpoint and branch in the handler. Rejected: it turns a strictly validated
 DTO into a conditionally validated one, so the pipe can no longer reject a missing
@@ -52,11 +52,11 @@ _Alternative considered:_ requiring a fresh Google ID token in the request body.
 Rejected as redundant — the access token is downstream of exactly that proof — and it
 would push Google-token verification into a `users`-shaped operation.
 
-**3. Unlink is `POST /api/v1/auth/google/unlink`, not `DELETE .../link`.** The operation
+**3. Unlink is `POST /api/v1/user/me/unlink-google-account`, not `DELETE .../link-google-account`.** The operation
 takes a `currentPassword` in the body, and a `DELETE` carrying a request body is
 awkward for clients and proxies alike. `POST .../unlink` is also the mirror of the
 existing `POST .../link`, so the pair reads consistently in Swagger.
-_Alternative considered:_ `DELETE /api/v1/auth/google/link` with the password in a
+_Alternative considered:_ `DELETE /api/v1/user/me/link-google-account` with the password in a
 header or query string. Rejected — a secret in a query string ends up in access logs.
 
 **4. Unlink requires the current password.** Without it, anyone holding a stolen access
@@ -65,8 +65,8 @@ user who had _just_ set a password, a way to strip the identity they actually us
 password check also makes the "no password" case unreachable by accident.
 
 **5. Guard order in the unlink handler: not-linked, then no-password, then wrong
-password.** `GoogleAccountNotLinkedError` (409) first, because it is a statement about
-the request being moot rather than about credentials; then `PasswordNotSetError` (409),
+password.** `UserHasNoLinkedGoogleAccountError` (409) first, because it is a statement about
+the request being moot rather than about credentials; then `CannotUnlinkWithoutPasswordError` (409),
 which tells the user what to do (set a password first); then
 `InvalidCredentialsError` (401). Both 409s describe account state, matching how the
 existing link errors use `ConflictError`.
@@ -74,7 +74,7 @@ existing link errors use `ConflictError`.
 **6. Setting a first password revokes other sessions; unlinking revokes nothing.**
 Setting a password mirrors a password change — other devices should be re-authenticated
 against the new credential, and the acting session is preserved because it just
-performed the action (`closeAllForUserExcept`). Unlinking removes an alternative sign-in
+performed the action (the other-session sign-out). Unlinking removes an alternative sign-in
 route but does not change the credential any session was issued against, so revoking
 would be gratuitous.
 _Alternative considered:_ revoking everything on unlink, on the theory that the Google
