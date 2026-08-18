@@ -2,23 +2,25 @@ FROM node:26-alpine AS alpine-node-base
 RUN apk --no-cache add curl
 RUN npm install -g npm@12 && npm cache clean --force
 
-FROM alpine-node-base AS development
+FROM alpine-node-base AS deps
 WORKDIR /app
 COPY --chown=node:node package*.json ./
-COPY --chown=node:node prisma ./prisma
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+    npm ci --prefer-offline --no-audit --fund=false
+
+FROM alpine-node-base AS development
+WORKDIR /app
 COPY --chown=node:node . .
 ENTRYPOINT ["./docker/dev/entrypoint"]
 
 FROM alpine-node-base AS build
 WORKDIR /app
 COPY --chown=node:node package*.json ./
-COPY --chown=node:node prisma ./prisma
-COPY --chown=node:node --from=development /app/node_modules ./node_modules
+COPY --chown=node:node --from=deps /app/node_modules ./node_modules
 COPY --chown=node:node . .
 RUN npx prisma generate && npm run build
 ENV NODE_ENV="production"
-RUN npm ci --omit=dev && npm cache clean --force
+RUN npm prune --omit=dev
 USER node
 
 FROM alpine-node-base AS production
