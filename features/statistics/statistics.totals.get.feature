@@ -1,4 +1,4 @@
-Feature: Get user stats
+Feature: Get lifetime stats totals
 
   Scenario: As an admin I can get my user stats
     Given I am signed in as "admin"

@@ -791,5 +791,123 @@
         }
       }
     }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/xml.fetcher.php",
+      "queryStringParameters": {
+        "userid": ["987654"],
+        "json": ["2"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"]
+      },
+      "body": {
+        "fetch": {
+          "userid": "987654",
+          "static_id": {},
+          "status": "Success",
+          "time": "0.053"
+        },
+        "params": {
+          "request_id": "162595444",
+          "sequence_id": "816599746ea6",
+          "time_generated": "1786892517"
+        },
+        "general": {
+          "icao_airline": "DLH",
+          "flight_number": "0400",
+          "is_etops": "0",
+          "gc_distance": "480",
+          "total_burn": "5400",
+          "cont_rule": "3%"
+        },
+        "origin": {
+          "icao_code": "EDDF",
+          "iata_code": "FRA",
+          "name": "FRANKFURT INTL",
+          "plan_rwy": "07C"
+        },
+        "destination": {
+          "icao_code": "EPWA",
+          "iata_code": "WAW",
+          "name": "WARSAW CHOPIN",
+          "plan_rwy": "33"
+        },
+        "alternate": [
+          {
+            "icao_code": "EPMO"
+          }
+        ],
+        "fuel": {
+          "taxi": "300",
+          "enroute_burn": "5100",
+          "contingency": "150",
+          "alternate_burn": "900",
+          "reserve": "1100",
+          "etops": "0",
+          "min_takeoff": "7250",
+          "plan_takeoff": "7250",
+          "plan_ramp": "7550",
+          "plan_landing": "2150",
+          "avg_fuel_flow": "2400",
+          "max_tanks": "18700"
+        },
+        "fuel_extra": {
+          "bucket": []
+        },
+        "aircraft": {
+          "reg": "D-AIRC",
+          "icaocode": "A320",
+          "name": "A320-200"
+        },
+        "times": {
+          "sched_out": "1786891620",
+          "sched_off": "1786892220",
+          "sched_on": "1786898220",
+          "sched_in": "1786898820"
+        },
+        "weights": {
+          "cargo": "1200",
+          "payload": "14200",
+          "est_zfw": "56200",
+          "pax_count": "148"
+        },
+        "text": {
+          "tlr_section": "TAKEOFF AND LANDING REPORT DLH400",
+          "plan_html": "<div><h2>Simbrief OFP</h2><p>Mock OFP</p></div>"
+        },
+        "files": {
+          "directory": "https://www.simbrief.com/ofp/flightplans/",
+          "pdf": {
+            "link": "EDDFEPWA_PDF_1786892517.pdf"
+          }
+        }
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/xml.fetcher.php"
+    },
+    "httpResponse": {
+      "statusCode": 400,
+      "headers": {
+        "Content-Type": ["application/json; charset=utf-8"]
+      },
+      "body": {
+        "fetch": {
+          "userid": "unknown",
+          "static_id": "",
+          "status": "Error: Unknown UserID",
+          "time": "0.0002"
+        }
+      }
+    }
   }
 ]

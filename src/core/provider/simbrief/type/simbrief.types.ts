@@ -1,6 +1,12 @@
 type Params = {
   request_id: string;
   sequence_id: string;
+  time_generated?: string;
+};
+
+export type Fetch = {
+  userid?: string;
+  status?: string;
 };
 
 type General = {
@@ -34,12 +40,16 @@ export type SimbriefNotam = {
 
 type Airport = {
   icao_code: string;
+  iata_code?: string | EmptyElement;
+  name?: string | EmptyElement;
   plan_rwy?: string;
   notam?: SimbriefNotam[] | SimbriefNotam;
 };
 
 type Aircraft = {
   reg: string;
+  icaocode?: string | EmptyElement;
+  name?: string | EmptyElement;
 };
 
 export type Times = {
@@ -103,6 +113,7 @@ export type Crew = {
 };
 
 export type OperationalFlightPlan = {
+  fetch?: Fetch;
   params: Params;
   general: General;
   origin: Airport;
