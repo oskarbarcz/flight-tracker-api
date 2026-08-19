@@ -1,8 +1,11 @@
 # operator-service-type Specification
 
 ## Purpose
+
 Records what an operator carries — passengers, freight, or both — so that clients can distinguish freight carriers from passenger airlines. The classification is descriptive metadata only; no backend behaviour is derived from it.
+
 ## Requirements
+
 ### Requirement: Operator service type classification
 
 The system SHALL classify every operator as carrying `passenger` traffic, `cargo` traffic, or `both`, and SHALL treat `passenger` as the value for any operator whose service type was never specified. No other values are accepted.
@@ -265,4 +268,3 @@ Because a filtered request is never answered from cache, an unsupported filter v
 
 - **WHEN** a valid traffic-filtered list is requested and an unsupported traffic kind is then requested
 - **THEN** the second response status is `400`
-

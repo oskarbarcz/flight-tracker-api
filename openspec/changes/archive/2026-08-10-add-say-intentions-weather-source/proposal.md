@@ -50,10 +50,10 @@ provider from a schema change into a data change.
 
 Coverage is deliberately asymmetric, and the filter exists because of it:
 
-| | `metar` | `taf` | `atis` | upstream call pattern |
-| --- | --- | --- | --- | --- |
-| `aviation_weather_gov` | yes | yes | — | one batched call for all ICAO codes |
-| `say_intentions` | yes | yes | yes | one call per ICAO code |
+|                        | `metar` | `taf` | `atis` | upstream call pattern               |
+| ---------------------- | ------- | ----- | ------ | ----------------------------------- |
+| `aviation_weather_gov` | yes     | yes   | —      | one batched call for all ICAO codes |
+| `say_intentions`       | yes     | yes   | yes    | one call per ICAO code              |
 
 So a fully populated airport holds five reports, `?source=say_intentions` returns at most
 three, and `?source=aviation_weather_gov` at most two. The two providers also format the

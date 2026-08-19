@@ -24,7 +24,7 @@
 
 - [x] 5.1 Update the parameter names in the living specs `openspec/specs/operator-recent-carriers/spec.md` and `openspec/specs/operator-service-type/spec.md`.
 - [x] 5.2 Update the archived changes that named the parameters — `2026-08-07-add-recent-operators-filter`, `2026-08-11-add-operator-service-type`, and `2026-08-11-add-operator-service-type-filter` — matching only the standalone parameter tokens, so the capability names `operator-service-type` and `flight-service-type` are not corrupted.
-- [x] 5.3 Rewrite the three sentences that argued *for* the kebab spelling, in the recent-operators `design.md` and `tasks.md` and the filter change's `design.md`, so they no longer contradict the names they now show.
+- [x] 5.3 Rewrite the three sentences that argued _for_ the kebab spelling, in the recent-operators `design.md` and `tasks.md` and the filter change's `design.md`, so they no longer contradict the names they now show.
 - [x] 5.4 Leave `PATCH /:id/service-type` in `2026-08-06-flight-service-type/design.md` alone — it is a rejected URL path on the flight endpoint, not this query parameter.
 
 ## 6. Verification

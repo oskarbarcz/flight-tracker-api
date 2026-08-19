@@ -5,6 +5,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   Length,
   ValidateNested,
@@ -64,6 +65,17 @@ export class Airframe {
   @IsNotEmpty()
   @Length(4, 4)
   type!: string;
+
+  @ApiProperty({
+    description:
+      'IATA aircraft type code; null for airframes IATA publishes no code for. Cabin layouts are keyed by this code, aircraft by the ICAO designator.',
+    example: '77W',
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  iataType!: string | null;
 
   @ApiProperty({
     description: 'Airframe model name',

@@ -1,6 +1,7 @@
 [
   {
     "type": "A148",
+    "iataType": null,
     "name": "Antonov An-148",
     "cruiseSpeed": {
       "value": 0.78,
@@ -13,6 +14,7 @@
   },
   {
     "type": "A225",
+    "iataType": null,
     "name": "Antonov An-225",
     "cruiseSpeed": {
       "value": 0.74,
@@ -25,6 +27,7 @@
   },
   {
     "type": "BCS1",
+    "iataType": "221",
     "name": "Airbus A220-100",
     "cruiseSpeed": {
       "value": 0.78,
@@ -37,6 +40,7 @@
   },
   {
     "type": "BCS3",
+    "iataType": "223",
     "name": "Airbus A220-300",
     "cruiseSpeed": {
       "value": 0.78,
@@ -49,6 +53,7 @@
   },
   {
     "type": "A306",
+    "iataType": "AB6",
     "name": "Airbus A300B4-600",
     "cruiseSpeed": {
       "value": 0.78,
@@ -61,6 +66,7 @@
   },
   {
     "type": "A3ST",
+    "iataType": null,
     "name": "Airbus A300F4-608ST",
     "cruiseSpeed": {
       "value": 0.68,
@@ -73,6 +79,7 @@
   },
   {
     "type": "A30B",
+    "iataType": "AB4",
     "name": "Airbus A300B4-200",
     "cruiseSpeed": {
       "value": 0.78,
@@ -85,6 +92,7 @@
   },
   {
     "type": "A30F",
+    "iataType": null,
     "name": "Airbus A300F4-600R",
     "cruiseSpeed": {
       "value": 0.78,
@@ -97,6 +105,7 @@
   },
   {
     "type": "A310",
+    "iataType": "313",
     "name": "Airbus A310-304",
     "cruiseSpeed": {
       "value": 0.8,
@@ -109,6 +118,7 @@
   },
   {
     "type": "A318",
+    "iataType": "318",
     "name": "Airbus A318-100",
     "cruiseSpeed": {
       "value": 0.78,
@@ -121,6 +131,7 @@
   },
   {
     "type": "A319",
+    "iataType": "319",
     "name": "Airbus A319-100",
     "cruiseSpeed": {
       "value": 0.78,
@@ -133,6 +144,7 @@
   },
   {
     "type": "A320",
+    "iataType": "320",
     "name": "Airbus A320-200",
     "cruiseSpeed": {
       "value": 0.78,
@@ -145,6 +157,7 @@
   },
   {
     "type": "A20N",
+    "iataType": "32N",
     "name": "Airbus A320-200N",
     "cruiseSpeed": {
       "value": 0.78,
@@ -157,6 +170,7 @@
   },
   {
     "type": "A321",
+    "iataType": "321",
     "name": "Airbus A321-200",
     "cruiseSpeed": {
       "value": 0.78,
@@ -169,6 +183,7 @@
   },
   {
     "type": "A21N",
+    "iataType": "32Q",
     "name": "Airbus A321-200N",
     "cruiseSpeed": {
       "value": 0.78,
@@ -181,6 +196,7 @@
   },
   {
     "type": "A332",
+    "iataType": "332",
     "name": "Airbus A330-200",
     "cruiseSpeed": {
       "value": 0.8,
@@ -193,6 +209,7 @@
   },
   {
     "type": "A333",
+    "iataType": "333",
     "name": "Airbus A330-300",
     "cruiseSpeed": {
       "value": 0.8,
@@ -205,6 +222,7 @@
   },
   {
     "type": "A338",
+    "iataType": "338",
     "name": "Airbus A330-800",
     "cruiseSpeed": {
       "value": 0.8,
@@ -217,6 +235,7 @@
   },
   {
     "type": "A339",
+    "iataType": "339",
     "name": "Airbus A330-900",
     "cruiseSpeed": {
       "value": 0.8,
@@ -229,6 +248,7 @@
   },
   {
     "type": "A342",
+    "iataType": "342",
     "name": "Airbus A340-200",
     "cruiseSpeed": {
       "value": 0.8,
@@ -241,6 +261,7 @@
   },
   {
     "type": "A343",
+    "iataType": "343",
     "name": "Airbus A340-300",
     "cruiseSpeed": {
       "value": 0.8,
@@ -253,6 +274,7 @@
   },
   {
     "type": "A345",
+    "iataType": "345",
     "name": "Airbus A340-500",
     "cruiseSpeed": {
       "value": 0.83,
@@ -265,6 +287,7 @@
   },
   {
     "type": "A346",
+    "iataType": "346",
     "name": "Airbus A340-600",
     "cruiseSpeed": {
       "value": 0.83,
@@ -277,6 +300,7 @@
   },
   {
     "type": "A359",
+    "iataType": "359",
     "name": "Airbus A350-900",
     "cruiseSpeed": {
       "value": 0.85,
@@ -289,6 +313,7 @@
   },
   {
     "type": "A35K",
+    "iataType": "351",
     "name": "Airbus A350-1000",
     "cruiseSpeed": {
       "value": 0.85,
@@ -301,6 +326,7 @@
   },
   {
     "type": "A388",
+    "iataType": "388",
     "name": "Airbus A380-800",
     "cruiseSpeed": {
       "value": 0.85,
@@ -313,6 +339,7 @@
   },
   {
     "type": "AEST",
+    "iataType": null,
     "name": "Aerostar 600",
     "cruiseSpeed": {
       "value": 160.0,
@@ -325,6 +352,7 @@
   },
   {
     "type": "AT43",
+    "iataType": "AT4",
     "name": "ATR-42-300",
     "cruiseSpeed": {
       "value": 240.0,
@@ -337,6 +365,7 @@
   },
   {
     "type": "AT45",
+    "iataType": "AT5",
     "name": "ATR-42-500",
     "cruiseSpeed": {
       "value": 240.0,
@@ -349,6 +378,7 @@
   },
   {
     "type": "AT46",
+    "iataType": "AT4",
     "name": "ATR-42-600",
     "cruiseSpeed": {
       "value": 240.0,
@@ -361,6 +391,7 @@
   },
   {
     "type": "AT72",
+    "iataType": "AT7",
     "name": "ATR-72-201",
     "cruiseSpeed": {
       "value": 240.0,
@@ -373,6 +404,7 @@
   },
   {
     "type": "AT73",
+    "iataType": "AT7",
     "name": "ATR-72-211",
     "cruiseSpeed": {
       "value": 240.0,
@@ -385,6 +417,7 @@
   },
   {
     "type": "AT75",
+    "iataType": "AT7",
     "name": "ATR-72-500",
     "cruiseSpeed": {
       "value": 240.0,
@@ -397,6 +430,7 @@
   },
   {
     "type": "AT76",
+    "iataType": "AT7",
     "name": "ATR-72-600",
     "cruiseSpeed": {
       "value": 240.0,
@@ -409,6 +443,7 @@
   },
   {
     "type": "B190",
+    "iataType": "BE1",
     "name": "B1900D",
     "cruiseSpeed": {
       "value": 215.0,
@@ -421,6 +456,7 @@
   },
   {
     "type": "B350",
+    "iataType": null,
     "name": "King Air 350",
     "cruiseSpeed": {
       "value": 240.0,
@@ -433,6 +469,7 @@
   },
   {
     "type": "B461",
+    "iataType": "141",
     "name": "BAe 146-100",
     "cruiseSpeed": {
       "value": 0.7,
@@ -445,6 +482,7 @@
   },
   {
     "type": "B462",
+    "iataType": "142",
     "name": "BAe 146-200",
     "cruiseSpeed": {
       "value": 0.7,
@@ -457,6 +495,7 @@
   },
   {
     "type": "B463",
+    "iataType": "143",
     "name": "BAe 146-300",
     "cruiseSpeed": {
       "value": 0.7,
@@ -469,6 +508,7 @@
   },
   {
     "type": "B703",
+    "iataType": "703",
     "name": "Boeing 707-320C",
     "cruiseSpeed": {
       "value": 0.82,
@@ -481,6 +521,7 @@
   },
   {
     "type": "B712",
+    "iataType": "717",
     "name": "Boeing 717-200",
     "cruiseSpeed": {
       "value": 0.76,
@@ -493,6 +534,7 @@
   },
   {
     "type": "B721",
+    "iataType": "721",
     "name": "Boeing 727-100",
     "cruiseSpeed": {
       "value": 0.8,
@@ -505,6 +547,7 @@
   },
   {
     "type": "B722",
+    "iataType": "722",
     "name": "Boeing 727-200",
     "cruiseSpeed": {
       "value": 0.8,
@@ -517,6 +560,7 @@
   },
   {
     "type": "R722",
+    "iataType": "722",
     "name": "Boeing 727-200 Super 27",
     "cruiseSpeed": {
       "value": 0.8,
@@ -529,6 +573,7 @@
   },
   {
     "type": "B732",
+    "iataType": "732",
     "name": "Boeing 737-200",
     "cruiseSpeed": {
       "value": 0.74,
@@ -541,6 +586,7 @@
   },
   {
     "type": "B733",
+    "iataType": "733",
     "name": "Boeing 737-300",
     "cruiseSpeed": {
       "value": 0.74,
@@ -553,6 +599,7 @@
   },
   {
     "type": "B734",
+    "iataType": "734",
     "name": "Boeing 737-400",
     "cruiseSpeed": {
       "value": 0.74,
@@ -565,6 +612,7 @@
   },
   {
     "type": "B735",
+    "iataType": "735",
     "name": "Boeing 737-500",
     "cruiseSpeed": {
       "value": 0.74,
@@ -577,6 +625,7 @@
   },
   {
     "type": "B736",
+    "iataType": "736",
     "name": "Boeing 737-600",
     "cruiseSpeed": {
       "value": 0.78,
@@ -589,6 +638,7 @@
   },
   {
     "type": "B737",
+    "iataType": "73G",
     "name": "Boeing 737-700",
     "cruiseSpeed": {
       "value": 0.78,
@@ -601,6 +651,7 @@
   },
   {
     "type": "BBJ1",
+    "iataType": null,
     "name": "Boeing 737 BBJ",
     "cruiseSpeed": {
       "value": 0.78,
@@ -613,6 +664,7 @@
   },
   {
     "type": "B738",
+    "iataType": "738",
     "name": "Boeing 737-800",
     "cruiseSpeed": {
       "value": 0.78,
@@ -625,6 +677,7 @@
   },
   {
     "type": "BBJ2",
+    "iataType": null,
     "name": "Boeing 737 BBJ2",
     "cruiseSpeed": {
       "value": 0.78,
@@ -637,6 +690,7 @@
   },
   {
     "type": "B38M",
+    "iataType": "7M8",
     "name": "Boeing 737 MAX 8",
     "cruiseSpeed": {
       "value": 0.78,
@@ -649,6 +703,7 @@
   },
   {
     "type": "B739",
+    "iataType": "739",
     "name": "Boeing 737-900",
     "cruiseSpeed": {
       "value": 0.78,
@@ -661,6 +716,7 @@
   },
   {
     "type": "BBJ3",
+    "iataType": null,
     "name": "Boeing 737 BBJ3",
     "cruiseSpeed": {
       "value": 0.78,
@@ -673,6 +729,7 @@
   },
   {
     "type": "B741",
+    "iataType": "741",
     "name": "Boeing 747-100B",
     "cruiseSpeed": {
       "value": 0.85,
@@ -685,6 +742,7 @@
   },
   {
     "type": "B742",
+    "iataType": "742",
     "name": "Boeing 747-200B",
     "cruiseSpeed": {
       "value": 0.85,
@@ -697,6 +755,7 @@
   },
   {
     "type": "B744",
+    "iataType": "744",
     "name": "Boeing 747-400",
     "cruiseSpeed": {
       "value": 0.85,
@@ -709,6 +768,7 @@
   },
   {
     "type": "B74F",
+    "iataType": "74Y",
     "name": "Boeing 747-400F",
     "cruiseSpeed": {
       "value": 0.85,
@@ -721,6 +781,7 @@
   },
   {
     "type": "B748",
+    "iataType": "748",
     "name": "Boeing 747-8",
     "cruiseSpeed": {
       "value": 0.85,
@@ -733,6 +794,7 @@
   },
   {
     "type": "B48F",
+    "iataType": "74N",
     "name": "Boeing 747-8F",
     "cruiseSpeed": {
       "value": 0.85,
@@ -745,6 +807,7 @@
   },
   {
     "type": "B752",
+    "iataType": "752",
     "name": "Boeing 757-200",
     "cruiseSpeed": {
       "value": 0.8,
@@ -757,6 +820,7 @@
   },
   {
     "type": "B75F",
+    "iataType": "75F",
     "name": "Boeing 757-200PF",
     "cruiseSpeed": {
       "value": 0.8,
@@ -769,6 +833,7 @@
   },
   {
     "type": "B753",
+    "iataType": "753",
     "name": "Boeing 757-300",
     "cruiseSpeed": {
       "value": 0.8,
@@ -781,6 +846,7 @@
   },
   {
     "type": "B762",
+    "iataType": "762",
     "name": "Boeing 767-200ER",
     "cruiseSpeed": {
       "value": 0.8,
@@ -793,6 +859,7 @@
   },
   {
     "type": "B763",
+    "iataType": "763",
     "name": "Boeing 767-300ER",
     "cruiseSpeed": {
       "value": 0.8,
@@ -805,6 +872,7 @@
   },
   {
     "type": "B76F",
+    "iataType": "76F",
     "name": "Boeing 767-300F",
     "cruiseSpeed": {
       "value": 0.8,
@@ -817,6 +885,7 @@
   },
   {
     "type": "B764",
+    "iataType": "764",
     "name": "Boeing 767-400ER",
     "cruiseSpeed": {
       "value": 0.8,
@@ -829,6 +898,7 @@
   },
   {
     "type": "B772",
+    "iataType": "772",
     "name": "Boeing 777-200ER",
     "cruiseSpeed": {
       "value": 0.84,
@@ -841,6 +911,7 @@
   },
   {
     "type": "B77F",
+    "iataType": "77F",
     "name": "Boeing 777-F",
     "cruiseSpeed": {
       "value": 0.84,
@@ -853,6 +924,7 @@
   },
   {
     "type": "B77L",
+    "iataType": "77L",
     "name": "Boeing 777-200LR",
     "cruiseSpeed": {
       "value": 0.84,
@@ -865,6 +937,7 @@
   },
   {
     "type": "B77W",
+    "iataType": "77W",
     "name": "Boeing 777-300ER",
     "cruiseSpeed": {
       "value": 0.84,
@@ -877,6 +950,7 @@
   },
   {
     "type": "B788",
+    "iataType": "788",
     "name": "Boeing 787-8",
     "cruiseSpeed": {
       "value": 0.85,
@@ -889,6 +963,7 @@
   },
   {
     "type": "B789",
+    "iataType": "789",
     "name": "Boeing 787-9",
     "cruiseSpeed": {
       "value": 0.85,
@@ -901,6 +976,7 @@
   },
   {
     "type": "B78X",
+    "iataType": "781",
     "name": "Boeing 787-10",
     "cruiseSpeed": {
       "value": 0.85,
@@ -913,6 +989,7 @@
   },
   {
     "type": "BE9L",
+    "iataType": null,
     "name": "King Air C90B",
     "cruiseSpeed": {
       "value": 180.0,
@@ -925,6 +1002,7 @@
   },
   {
     "type": "BE20",
+    "iataType": null,
     "name": "King Air 200",
     "cruiseSpeed": {
       "value": 230.0,
@@ -937,6 +1015,7 @@
   },
   {
     "type": "BE24",
+    "iataType": null,
     "name": "Beechcraft C24R",
     "cruiseSpeed": {
       "value": 135.0,
@@ -949,6 +1028,7 @@
   },
   {
     "type": "BE36",
+    "iataType": null,
     "name": "Bonanza A36",
     "cruiseSpeed": {
       "value": 160.0,
@@ -961,6 +1041,7 @@
   },
   {
     "type": "BT36",
+    "iataType": null,
     "name": "Bonanza B36TC",
     "cruiseSpeed": {
       "value": 160.0,
@@ -973,6 +1054,7 @@
   },
   {
     "type": "B36T",
+    "iataType": null,
     "name": "Bonanza B36TP",
     "cruiseSpeed": {
       "value": 180.0,
@@ -985,6 +1067,7 @@
   },
   {
     "type": "BE58",
+    "iataType": null,
     "name": "Baron 58",
     "cruiseSpeed": {
       "value": 175.0,
@@ -997,6 +1080,7 @@
   },
   {
     "type": "B58T",
+    "iataType": null,
     "name": "Baron 58P",
     "cruiseSpeed": {
       "value": 180.0,
@@ -1009,6 +1093,7 @@
   },
   {
     "type": "BE60",
+    "iataType": null,
     "name": "Duke B60",
     "cruiseSpeed": {
       "value": 190.0,
@@ -1021,6 +1106,7 @@
   },
   {
     "type": "BE6G",
+    "iataType": null,
     "name": "Grand Duke",
     "cruiseSpeed": {
       "value": 200.0,
@@ -1033,6 +1119,7 @@
   },
   {
     "type": "B60T",
+    "iataType": null,
     "name": "Turbine Duke",
     "cruiseSpeed": {
       "value": 200.0,
@@ -1045,6 +1132,7 @@
   },
   {
     "type": "BN2P",
+    "iataType": null,
     "name": "BN-2 Islander",
     "cruiseSpeed": {
       "value": 140.0,
@@ -1057,6 +1145,7 @@
   },
   {
     "type": "C130",
+    "iataType": null,
     "name": "C-130K Hercules",
     "cruiseSpeed": {
       "value": 280.0,
@@ -1069,6 +1158,7 @@
   },
   {
     "type": "C160",
+    "iataType": null,
     "name": "Transall C-160",
     "cruiseSpeed": {
       "value": 140.0,
@@ -1081,6 +1171,7 @@
   },
   {
     "type": "C172",
+    "iataType": null,
     "name": "Cessna 172R",
     "cruiseSpeed": {
       "value": 105.0,
@@ -1093,6 +1184,7 @@
   },
   {
     "type": "C17",
+    "iataType": null,
     "name": "C-17A Globemaster",
     "cruiseSpeed": {
       "value": 0.74,
@@ -1105,6 +1197,7 @@
   },
   {
     "type": "C182",
+    "iataType": null,
     "name": "Cessna 182T",
     "cruiseSpeed": {
       "value": 120.0,
@@ -1117,6 +1210,7 @@
   },
   {
     "type": "R182",
+    "iataType": null,
     "name": "Cessna 182RG",
     "cruiseSpeed": {
       "value": 120.0,
@@ -1129,6 +1223,7 @@
   },
   {
     "type": "C208",
+    "iataType": "CN1",
     "name": "Cessna 208B",
     "cruiseSpeed": {
       "value": 150.0,
@@ -1141,6 +1236,7 @@
   },
   {
     "type": "C310",
+    "iataType": null,
     "name": "Cessna 310R",
     "cruiseSpeed": {
       "value": 165.0,
@@ -1153,6 +1249,7 @@
   },
   {
     "type": "C337",
+    "iataType": null,
     "name": "Cessna 337H",
     "cruiseSpeed": {
       "value": 140.0,
@@ -1165,6 +1262,7 @@
   },
   {
     "type": "C404",
+    "iataType": null,
     "name": "C404 Titan",
     "cruiseSpeed": {
       "value": 205.0,
@@ -1177,6 +1275,7 @@
   },
   {
     "type": "C408",
+    "iataType": null,
     "name": "Cessna 408",
     "cruiseSpeed": {
       "value": 187.0,
@@ -1189,6 +1288,7 @@
   },
   {
     "type": "C414",
+    "iataType": null,
     "name": "Cessna 414AW",
     "cruiseSpeed": {
       "value": 140.0,
@@ -1201,6 +1301,7 @@
   },
   {
     "type": "C46",
+    "iataType": null,
     "name": "Curtiss C-46D",
     "cruiseSpeed": {
       "value": 180.0,
@@ -1213,6 +1314,7 @@
   },
   {
     "type": "C510",
+    "iataType": null,
     "name": "C510 Mustang",
     "cruiseSpeed": {
       "value": 0.57,
@@ -1225,6 +1327,7 @@
   },
   {
     "type": "C25A",
+    "iataType": null,
     "name": "Citation CJ2",
     "cruiseSpeed": {
       "value": 0.7,
@@ -1237,6 +1340,7 @@
   },
   {
     "type": "C25B",
+    "iataType": null,
     "name": "Citation CJ3",
     "cruiseSpeed": {
       "value": 0.72,
@@ -1249,6 +1353,7 @@
   },
   {
     "type": "C525",
+    "iataType": null,
     "name": "Citation CJ1",
     "cruiseSpeed": {
       "value": 0.63,
@@ -1261,6 +1366,7 @@
   },
   {
     "type": "C25C",
+    "iataType": null,
     "name": "Citation CJ4",
     "cruiseSpeed": {
       "value": 0.78,
@@ -1273,6 +1379,7 @@
   },
   {
     "type": "C550",
+    "iataType": null,
     "name": "Citation II",
     "cruiseSpeed": {
       "value": 0.64,
@@ -1285,6 +1392,7 @@
   },
   {
     "type": "C56X",
+    "iataType": null,
     "name": "Citation 560XL",
     "cruiseSpeed": {
       "value": 0.72,
@@ -1297,6 +1405,7 @@
   },
   {
     "type": "C680",
+    "iataType": null,
     "name": "Sovereign+",
     "cruiseSpeed": {
       "value": 0.76,
@@ -1309,6 +1418,7 @@
   },
   {
     "type": "C700",
+    "iataType": null,
     "name": "Longitude",
     "cruiseSpeed": {
       "value": 0.82,
@@ -1321,6 +1431,7 @@
   },
   {
     "type": "C750",
+    "iataType": null,
     "name": "Citation X",
     "cruiseSpeed": {
       "value": 0.86,
@@ -1333,6 +1444,7 @@
   },
   {
     "type": "C919",
+    "iataType": "919",
     "name": "C919-100",
     "cruiseSpeed": {
       "value": 0.78,
@@ -1345,6 +1457,7 @@
   },
   {
     "type": "CL30",
+    "iataType": null,
     "name": "Challenger 300",
     "cruiseSpeed": {
       "value": 0.82,
@@ -1357,6 +1470,7 @@
   },
   {
     "type": "CL35",
+    "iataType": null,
     "name": "Challenger 350",
     "cruiseSpeed": {
       "value": 0.82,
@@ -1369,6 +1483,7 @@
   },
   {
     "type": "CL60",
+    "iataType": null,
     "name": "Challenger 650",
     "cruiseSpeed": {
       "value": 0.8,
@@ -1381,6 +1496,7 @@
   },
   {
     "type": "CONI",
+    "iataType": null,
     "name": "L-049",
     "cruiseSpeed": {
       "value": 190.0,
@@ -1393,6 +1509,7 @@
   },
   {
     "type": "CONS",
+    "iataType": null,
     "name": "L-1049G",
     "cruiseSpeed": {
       "value": 187.0,
@@ -1405,6 +1522,7 @@
   },
   {
     "type": "CRJ2",
+    "iataType": "CR2",
     "name": "CRJ-200",
     "cruiseSpeed": {
       "value": 0.72,
@@ -1417,6 +1535,7 @@
   },
   {
     "type": "CRJ5",
+    "iataType": "CR5",
     "name": "CRJ-550",
     "cruiseSpeed": {
       "value": 0.78,
@@ -1429,6 +1548,7 @@
   },
   {
     "type": "CRJ7",
+    "iataType": "CR7",
     "name": "CRJ-700",
     "cruiseSpeed": {
       "value": 0.78,
@@ -1441,6 +1561,7 @@
   },
   {
     "type": "CRJ9",
+    "iataType": "CR9",
     "name": "CRJ-900",
     "cruiseSpeed": {
       "value": 0.78,
@@ -1453,6 +1574,7 @@
   },
   {
     "type": "CRJX",
+    "iataType": "CRK",
     "name": "CRJ-1000",
     "cruiseSpeed": {
       "value": 0.78,
@@ -1465,6 +1587,7 @@
   },
   {
     "type": "D328",
+    "iataType": "D38",
     "name": "Dornier 328-100",
     "cruiseSpeed": {
       "value": 240.0,
@@ -1477,6 +1600,7 @@
   },
   {
     "type": "DA42",
+    "iataType": null,
     "name": "Diamond DA42",
     "cruiseSpeed": {
       "value": 160.0,
@@ -1489,6 +1613,7 @@
   },
   {
     "type": "DA62",
+    "iataType": null,
     "name": "Diamond DA62",
     "cruiseSpeed": {
       "value": 150.0,
@@ -1501,6 +1626,7 @@
   },
   {
     "type": "DC10",
+    "iataType": "D10",
     "name": "DC-10-30",
     "cruiseSpeed": {
       "value": 0.82,
@@ -1513,6 +1639,7 @@
   },
   {
     "type": "DC3",
+    "iataType": null,
     "name": "Douglas DC-3",
     "cruiseSpeed": {
       "value": 180.0,
@@ -1525,6 +1652,7 @@
   },
   {
     "type": "DC6",
+    "iataType": null,
     "name": "Douglas DC-6",
     "cruiseSpeed": {
       "value": 230.0,
@@ -1537,6 +1665,7 @@
   },
   {
     "type": "DC85",
+    "iataType": null,
     "name": "DC-8-55",
     "cruiseSpeed": {
       "value": 0.8,
@@ -1549,6 +1678,7 @@
   },
   {
     "type": "DC86",
+    "iataType": null,
     "name": "DC-8-63",
     "cruiseSpeed": {
       "value": 0.8,
@@ -1561,6 +1691,7 @@
   },
   {
     "type": "DH8A",
+    "iataType": "DH1",
     "name": "DHC8-102",
     "cruiseSpeed": {
       "value": 195.0,
@@ -1573,6 +1704,7 @@
   },
   {
     "type": "DH8B",
+    "iataType": "DH2",
     "name": "DHC8-200",
     "cruiseSpeed": {
       "value": 200.0,
@@ -1585,6 +1717,7 @@
   },
   {
     "type": "DH8C",
+    "iataType": "DH3",
     "name": "DHC8-311",
     "cruiseSpeed": {
       "value": 200.0,
@@ -1597,6 +1730,7 @@
   },
   {
     "type": "DH8D",
+    "iataType": "DH4",
     "name": "DHC8-402",
     "cruiseSpeed": {
       "value": 280.0,
@@ -1609,6 +1743,7 @@
   },
   {
     "type": "DHC2",
+    "iataType": null,
     "name": "Beaver",
     "cruiseSpeed": {
       "value": 110.0,
@@ -1621,6 +1756,7 @@
   },
   {
     "type": "DHC6",
+    "iataType": "DHT",
     "name": "Twin Otter",
     "cruiseSpeed": {
       "value": 140.0,
@@ -1633,6 +1769,7 @@
   },
   {
     "type": "DHC7",
+    "iataType": "DH7",
     "name": "Dash 7",
     "cruiseSpeed": {
       "value": 125.0,
@@ -1645,6 +1782,7 @@
   },
   {
     "type": "E110",
+    "iataType": null,
     "name": "Embraer EMB-110",
     "cruiseSpeed": {
       "value": 230.0,
@@ -1657,6 +1795,7 @@
   },
   {
     "type": "E135",
+    "iataType": "ER3",
     "name": "Embraer ERJ-135LR",
     "cruiseSpeed": {
       "value": 0.74,
@@ -1669,6 +1808,7 @@
   },
   {
     "type": "E13L",
+    "iataType": null,
     "name": "Embraer Legacy 600",
     "cruiseSpeed": {
       "value": 0.78,
@@ -1681,6 +1821,7 @@
   },
   {
     "type": "E140",
+    "iataType": "ERD",
     "name": "Embraer ERJ-140LR",
     "cruiseSpeed": {
       "value": 0.74,
@@ -1693,6 +1834,7 @@
   },
   {
     "type": "E145",
+    "iataType": "ER4",
     "name": "Embraer ERJ-145LR",
     "cruiseSpeed": {
       "value": 0.74,
@@ -1705,6 +1847,7 @@
   },
   {
     "type": "E170",
+    "iataType": "E70",
     "name": "Embraer ERJ-170",
     "cruiseSpeed": {
       "value": 0.78,
@@ -1717,6 +1860,7 @@
   },
   {
     "type": "E175",
+    "iataType": "E75",
     "name": "Embraer ERJ-175",
     "cruiseSpeed": {
       "value": 0.78,
@@ -1729,6 +1873,7 @@
   },
   {
     "type": "E190",
+    "iataType": "E90",
     "name": "Embraer ERJ-190",
     "cruiseSpeed": {
       "value": 0.78,
@@ -1741,6 +1886,7 @@
   },
   {
     "type": "E19L",
+    "iataType": null,
     "name": "Embraer Lineage 1000",
     "cruiseSpeed": {
       "value": 0.78,
@@ -1753,6 +1899,7 @@
   },
   {
     "type": "E195",
+    "iataType": "E95",
     "name": "Embraer ERJ-195",
     "cruiseSpeed": {
       "value": 0.78,
@@ -1765,6 +1912,7 @@
   },
   {
     "type": "E50P",
+    "iataType": null,
     "name": "Embraer Phenom 100",
     "cruiseSpeed": {
       "value": 0.65,
@@ -1777,6 +1925,7 @@
   },
   {
     "type": "E55P",
+    "iataType": null,
     "name": "Embraer Phenom 300",
     "cruiseSpeed": {
       "value": 0.7,
@@ -1789,6 +1938,7 @@
   },
   {
     "type": "EA50",
+    "iataType": null,
     "name": "Eclipse 550",
     "cruiseSpeed": {
       "value": 0.6,
@@ -1801,6 +1951,7 @@
   },
   {
     "type": "EVAL",
+    "iataType": null,
     "name": "Eviation Alice",
     "cruiseSpeed": {
       "value": 220.0,
@@ -1813,6 +1964,7 @@
   },
   {
     "type": "F28",
+    "iataType": null,
     "name": "Fokker F28",
     "cruiseSpeed": {
       "value": 0.7,
@@ -1825,6 +1977,7 @@
   },
   {
     "type": "F50",
+    "iataType": "F50",
     "name": "Fokker F50",
     "cruiseSpeed": {
       "value": 210.0,
@@ -1837,6 +1990,7 @@
   },
   {
     "type": "F70",
+    "iataType": "F70",
     "name": "Fokker 70",
     "cruiseSpeed": {
       "value": 0.7,
@@ -1849,6 +2003,7 @@
   },
   {
     "type": "F100",
+    "iataType": "100",
     "name": "Fokker 100",
     "cruiseSpeed": {
       "value": 0.7,
@@ -1861,6 +2016,7 @@
   },
   {
     "type": "F406",
+    "iataType": null,
     "name": "Cessna F406",
     "cruiseSpeed": {
       "value": 210.0,
@@ -1873,6 +2029,7 @@
   },
   {
     "type": "FA50",
+    "iataType": null,
     "name": "Falcon 50",
     "cruiseSpeed": {
       "value": 0.8,
@@ -1885,6 +2042,7 @@
   },
   {
     "type": "FA8X",
+    "iataType": null,
     "name": "Falcon 8X",
     "cruiseSpeed": {
       "value": 0.85,
@@ -1897,6 +2055,7 @@
   },
   {
     "type": "GLF4",
+    "iataType": null,
     "name": "GLF.IV-SP",
     "cruiseSpeed": {
       "value": 0.8,
@@ -1909,6 +2068,7 @@
   },
   {
     "type": "GLF6",
+    "iataType": null,
     "name": "GLF.VI G650",
     "cruiseSpeed": {
       "value": 0.85,
@@ -1921,6 +2081,7 @@
   },
   {
     "type": "H25B",
+    "iataType": null,
     "name": "Hawker 800A",
     "cruiseSpeed": {
       "value": 0.7,
@@ -1933,6 +2094,7 @@
   },
   {
     "type": "HDJT",
+    "iataType": null,
     "name": "Hondajet",
     "cruiseSpeed": {
       "value": 0.72,
@@ -1945,6 +2107,7 @@
   },
   {
     "type": "IL76",
+    "iataType": "IL7",
     "name": "Ilyushin IL-76",
     "cruiseSpeed": {
       "value": 0.8,
@@ -1957,6 +2120,7 @@
   },
   {
     "type": "JS41",
+    "iataType": "J41",
     "name": "BAe JS-41",
     "cruiseSpeed": {
       "value": 200.0,
@@ -1969,6 +2133,7 @@
   },
   {
     "type": "KODI",
+    "iataType": null,
     "name": "Kodiak 100",
     "cruiseSpeed": {
       "value": 160.0,
@@ -1981,6 +2146,7 @@
   },
   {
     "type": "L101",
+    "iataType": "L15",
     "name": "L1011-500",
     "cruiseSpeed": {
       "value": 0.83,
@@ -1993,6 +2159,7 @@
   },
   {
     "type": "L410",
+    "iataType": "L4T",
     "name": "Let L-410",
     "cruiseSpeed": {
       "value": 220.0,
@@ -2005,6 +2172,7 @@
   },
   {
     "type": "LJ25",
+    "iataType": null,
     "name": "Learjet 25",
     "cruiseSpeed": {
       "value": 0.77,
@@ -2017,6 +2185,7 @@
   },
   {
     "type": "LJ35",
+    "iataType": null,
     "name": "Learjet 35A",
     "cruiseSpeed": {
       "value": 0.75,
@@ -2029,6 +2198,7 @@
   },
   {
     "type": "LJ45",
+    "iataType": null,
     "name": "Learjet 45",
     "cruiseSpeed": {
       "value": 0.76,
@@ -2041,6 +2211,7 @@
   },
   {
     "type": "MD11",
+    "iataType": "M11",
     "name": "MD-11",
     "cruiseSpeed": {
       "value": 0.82,
@@ -2053,6 +2224,7 @@
   },
   {
     "type": "MD1F",
+    "iataType": "M1F",
     "name": "MD-11F",
     "cruiseSpeed": {
       "value": 0.82,
@@ -2065,6 +2237,7 @@
   },
   {
     "type": "MD82",
+    "iataType": "M82",
     "name": "DC-9-82",
     "cruiseSpeed": {
       "value": 0.76,
@@ -2077,6 +2250,7 @@
   },
   {
     "type": "MD83",
+    "iataType": "M83",
     "name": "DC-9-83",
     "cruiseSpeed": {
       "value": 0.76,
@@ -2089,6 +2263,7 @@
   },
   {
     "type": "MD88",
+    "iataType": "M88",
     "name": "MD-88",
     "cruiseSpeed": {
       "value": 0.77,
@@ -2101,6 +2276,7 @@
   },
   {
     "type": "MD90",
+    "iataType": "M90",
     "name": "MD-90-30",
     "cruiseSpeed": {
       "value": 0.77,
@@ -2113,6 +2289,7 @@
   },
   {
     "type": "MU2",
+    "iataType": null,
     "name": "MU-2B-60",
     "cruiseSpeed": {
       "value": 190.0,
@@ -2125,6 +2302,7 @@
   },
   {
     "type": "P06T",
+    "iataType": null,
     "name": "Tecnam P2006T",
     "cruiseSpeed": {
       "value": 120.0,
@@ -2137,6 +2315,7 @@
   },
   {
     "type": "P180",
+    "iataType": null,
     "name": "P.180 Avanti II",
     "cruiseSpeed": {
       "value": 0.62,
@@ -2149,6 +2328,7 @@
   },
   {
     "type": "P18E",
+    "iataType": null,
     "name": "P.180 Avanti EVO",
     "cruiseSpeed": {
       "value": 0.62,
@@ -2161,6 +2341,7 @@
   },
   {
     "type": "P212",
+    "iataType": null,
     "name": "Tecnam P2012",
     "cruiseSpeed": {
       "value": 165.0,
@@ -2173,6 +2354,7 @@
   },
   {
     "type": "P46T",
+    "iataType": null,
     "name": "Piper M500",
     "cruiseSpeed": {
       "value": 170.0,
@@ -2185,6 +2367,7 @@
   },
   {
     "type": "M600",
+    "iataType": null,
     "name": "Piper M600",
     "cruiseSpeed": {
       "value": 170.0,
@@ -2197,6 +2380,7 @@
   },
   {
     "type": "PA24",
+    "iataType": null,
     "name": "Piper Comanche",
     "cruiseSpeed": {
       "value": 140.0,
@@ -2209,6 +2393,7 @@
   },
   {
     "type": "PA31",
+    "iataType": null,
     "name": "Piper Chieftain",
     "cruiseSpeed": {
       "value": 170.0,
@@ -2221,6 +2406,7 @@
   },
   {
     "type": "PA34",
+    "iataType": null,
     "name": "Piper Seneca",
     "cruiseSpeed": {
       "value": 150.0,
@@ -2233,6 +2419,7 @@
   },
   {
     "type": "PA44",
+    "iataType": null,
     "name": "Piper Seminole",
     "cruiseSpeed": {
       "value": 150.0,
@@ -2245,6 +2432,7 @@
   },
   {
     "type": "PC12",
+    "iataType": null,
     "name": "Pilatus PC12",
     "cruiseSpeed": {
       "value": 220.0,
@@ -2257,6 +2445,7 @@
   },
   {
     "type": "PC24",
+    "iataType": null,
     "name": "Pilatus PC24",
     "cruiseSpeed": {
       "value": 0.74,
@@ -2269,6 +2458,7 @@
   },
   {
     "type": "PRM1",
+    "iataType": null,
     "name": "Beech Premier IA",
     "cruiseSpeed": {
       "value": 0.78,
@@ -2281,6 +2471,7 @@
   },
   {
     "type": "RJ70",
+    "iataType": "AR7",
     "name": "Avro RJ70",
     "cruiseSpeed": {
       "value": 0.7,
@@ -2293,6 +2484,7 @@
   },
   {
     "type": "RJ85",
+    "iataType": "AR8",
     "name": "Avro RJ85",
     "cruiseSpeed": {
       "value": 0.7,
@@ -2305,6 +2497,7 @@
   },
   {
     "type": "RJ1H",
+    "iataType": "AR1",
     "name": "Avro RJ100",
     "cruiseSpeed": {
       "value": 0.7,
@@ -2317,6 +2510,7 @@
   },
   {
     "type": "SB20",
+    "iataType": "S20",
     "name": "Saab 2000",
     "cruiseSpeed": {
       "value": 280.0,
@@ -2329,6 +2523,7 @@
   },
   {
     "type": "SF34",
+    "iataType": "SF3",
     "name": "Saab 340B",
     "cruiseSpeed": {
       "value": 195.0,
@@ -2341,6 +2536,7 @@
   },
   {
     "type": "SF50",
+    "iataType": null,
     "name": "Vision Jet",
     "cruiseSpeed": {
       "value": 0.56,
@@ -2353,6 +2549,7 @@
   },
   {
     "type": "SH33",
+    "iataType": "SH3",
     "name": "Short 330",
     "cruiseSpeed": {
       "value": 187.0,
@@ -2365,6 +2562,7 @@
   },
   {
     "type": "SH36",
+    "iataType": "SH6",
     "name": "Short 360",
     "cruiseSpeed": {
       "value": 187.0,
@@ -2377,6 +2575,7 @@
   },
   {
     "type": "SR22",
+    "iataType": null,
     "name": "Cirrus SR22",
     "cruiseSpeed": {
       "value": 165.0,
@@ -2389,6 +2588,7 @@
   },
   {
     "type": "SR2T",
+    "iataType": null,
     "name": "Cirrus SR22T",
     "cruiseSpeed": {
       "value": 165.0,
@@ -2401,6 +2601,7 @@
   },
   {
     "type": "STAR",
+    "iataType": null,
     "name": "Starship 2000A",
     "cruiseSpeed": {
       "value": 180.0,
@@ -2413,6 +2614,7 @@
   },
   {
     "type": "SU95",
+    "iataType": "SU9",
     "name": "Superjet 100",
     "cruiseSpeed": {
       "value": 0.78,
@@ -2425,6 +2627,7 @@
   },
   {
     "type": "SW4",
+    "iataType": null,
     "name": "Metroliner",
     "cruiseSpeed": {
       "value": 190.0,
@@ -2437,6 +2640,7 @@
   },
   {
     "type": "T134",
+    "iataType": "TU3",
     "name": "Tu-134A-3",
     "cruiseSpeed": {
       "value": 0.7,
@@ -2449,6 +2653,7 @@
   },
   {
     "type": "T154",
+    "iataType": "TU5",
     "name": "Tu-154B2",
     "cruiseSpeed": {
       "value": 0.8,
@@ -2461,6 +2666,7 @@
   },
   {
     "type": "T204",
+    "iataType": "T20",
     "name": "Tu-204-100B",
     "cruiseSpeed": {
       "value": 0.8,
@@ -2473,6 +2679,7 @@
   },
   {
     "type": "TBM8",
+    "iataType": null,
     "name": "TBM 850",
     "cruiseSpeed": {
       "value": 210.0,
@@ -2485,6 +2692,7 @@
   },
   {
     "type": "TBM9",
+    "iataType": null,
     "name": "TBM 900",
     "cruiseSpeed": {
       "value": 210.0,
@@ -2497,6 +2705,7 @@
   },
   {
     "type": "VC10",
+    "iataType": null,
     "name": "Vickers VC-10",
     "cruiseSpeed": {
       "value": 0.82,
@@ -2509,6 +2718,7 @@
   },
   {
     "type": "YK40",
+    "iataType": "YK4",
     "name": "Yak-40",
     "cruiseSpeed": {
       "value": 0.7,
@@ -2521,6 +2731,7 @@
   },
   {
     "type": "YK42",
+    "iataType": "YK2",
     "name": "Yak-42",
     "cruiseSpeed": {
       "value": 0.8,
@@ -2533,6 +2744,7 @@
   },
   {
     "type": "YS11",
+    "iataType": null,
     "name": "NAMC YS-11",
     "cruiseSpeed": {
       "value": 190.0,

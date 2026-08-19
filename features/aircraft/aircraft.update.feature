@@ -33,6 +33,7 @@ Feature: Update aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
+          "iataType": "339",
           "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
@@ -45,6 +46,7 @@ Feature: Update aircraft
         "selcal": "LR-CK",
         "currentState": "planned",
         "etopsThresholdMinutes": 180,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -99,6 +101,7 @@ Feature: Update aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "B748",
+          "iataType": "748",
           "name": "Boeing 747-8",
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
@@ -111,6 +114,7 @@ Feature: Update aircraft
         "selcal": "LR-CK",
         "currentState": "planned",
         "etopsThresholdMinutes": 180,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -141,6 +145,7 @@ Feature: Update aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
+          "iataType": "339",
           "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
@@ -153,6 +158,7 @@ Feature: Update aircraft
         "selcal": "LR-CK",
         "currentState": "planned",
         "etopsThresholdMinutes": 120,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -183,6 +189,7 @@ Feature: Update aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
+          "iataType": "339",
           "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
@@ -195,6 +202,7 @@ Feature: Update aircraft
         "selcal": "LR-CK",
         "currentState": "planned",
         "etopsThresholdMinutes": null,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -225,6 +233,7 @@ Feature: Update aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
+          "iataType": "339",
           "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
@@ -237,6 +246,7 @@ Feature: Update aircraft
         "selcal": "LR-CK",
         "currentState": "planned",
         "etopsThresholdMinutes": 180,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
@@ -267,6 +277,7 @@ Feature: Update aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
+          "iataType": "339",
           "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
@@ -279,6 +290,7 @@ Feature: Update aircraft
         "selcal": "LR-CK",
         "currentState": "planned",
         "etopsThresholdMinutes": 180,
+        "cabinLayout": null,
         "baseAirport": null,
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
@@ -471,6 +483,27 @@ Feature: Update aircraft
         "message": "Validation failed (uuid v 4 is expected)",
         "error": "Bad Request",
         "statusCode": 400
+      }
+      """
+
+  Scenario: As operations I cannot assign a cabin layout while editing an aircraft
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f" with body:
+      """json
+      {
+        "cabinLayout": "lh-32n"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 400,
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "violations": {
+          "cabinLayout": ["property cabinLayout should not exist"]
+        }
       }
       """
 

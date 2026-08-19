@@ -69,6 +69,25 @@ export class CabinLayoutsRepository {
     });
   }
 
+  async findCandidates(
+    airlineIata: string | null,
+    aircraftIata: string | null,
+  ): Promise<CabinLayout[]> {
+    const criteria = [
+      ...(airlineIata ? [{ airlineIata }] : []),
+      ...(aircraftIata ? [{ aircraftIata }] : []),
+    ];
+
+    if (criteria.length === 0) {
+      return [];
+    }
+
+    return this.prisma.cabinLayout.findMany({
+      where: { OR: criteria },
+      orderBy: [{ airlineIata: 'asc' }, { aircraftIata: 'asc' }, { id: 'asc' }],
+    });
+  }
+
   async upsertMany(layouts: CollapsedLayout[]): Promise<void> {
     for (const layout of layouts) {
       await this.prisma.cabinLayout.upsert({

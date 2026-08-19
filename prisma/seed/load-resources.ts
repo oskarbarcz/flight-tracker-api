@@ -1,6 +1,7 @@
 import { PrismaService } from '../../src/core/provider/prisma/prisma.service';
 import { loadAircraft } from './resource/aircrafts.seed';
 import { loadOperators } from './resource/operators.seed';
+import { loadCabinLayouts } from './resource/cabin-layouts.seed';
 import { loadAirports } from './resource/airports.seed';
 import { loadFlights } from './resource/flights.seed';
 import { loadUsers } from './resource/users.seed';
@@ -35,6 +36,7 @@ export async function loadResources() {
         await loadRunways(tx);
         await loadOperators(tx);
         await loadCrew(tx);
+        await loadCabinLayouts(tx);
         await loadAircraft(tx);
         await loadUsers(tx);
         await loadSessions(tx);

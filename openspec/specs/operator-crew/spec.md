@@ -6,7 +6,9 @@ Persist named crew (first officer, purser, flight attendants) as ambient,
 operator-owned non-player characters imported idempotently from the SimBrief
 flight plan, and expose them per operator. Crew never authenticate; they exist
 to give a flight a plausible roster around the live captain.
+
 ## Requirements
+
 ### Requirement: Crew are operator-owned ambient records
 
 The system SHALL persist crew as records owned by an operator, each with an `id`, `name`, `email`, `operatorId`, `role`, and `createdAt`. A crew member's `role` MUST be one of `fo` (first officer), `pu` (purser), or `fa` (flight attendant). Crew are non-player characters and MUST NOT be able to authenticate — they are not users.
@@ -137,4 +139,3 @@ The system SHALL derive the cabin crew count recorded on a flight's preliminary 
 
 - **WHEN** a plan reports an unfilled purser field and two named flight attendants among entries that are blank
 - **THEN** the flight's preliminary loadsheet records two cabin crew
-

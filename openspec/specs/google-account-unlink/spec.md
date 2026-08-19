@@ -1,9 +1,12 @@
 # google-account-unlink Specification
 
 ## Purpose
+
 Lets a user detach the Google identity linked to their account, with the safeguards
 needed to ensure they always retain at least one working way to sign in.
+
 ## Requirements
+
 ### Requirement: A user unlinks their Google account
 
 The system SHALL allow an authenticated user, on submitting their current password, to
@@ -88,4 +91,3 @@ credential is unchanged.
 
 - **WHEN** a user with an open session unlinks their Google account
 - **THEN** that session can still be refreshed
-

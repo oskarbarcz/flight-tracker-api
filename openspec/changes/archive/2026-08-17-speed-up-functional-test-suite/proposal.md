@@ -26,7 +26,7 @@ failed at runtime instead of in the compiler.
   checked rather than by every Cucumber run.
 - Mint each test user's access token once and reuse it for 8 minutes, comfortably inside the
   15-minute token lifetime, so a reused token cannot expire mid-scenario. `Given I am signed
-  in as "…"` becomes a lookup for all but the first scenario per user.
+in as "…"` becomes a lookup for all but the first scenario per user.
 - Export the token helper and use it from the WebSocket context, deleting that context's
   duplicate credentials map and sign-in call.
 - Replace the token map plus its `currentRole` entry with one `bearerToken` variable, since

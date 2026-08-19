@@ -1,12 +1,15 @@
 # simbrief-account-verification Specification
 
 ## Purpose
+
 Resolves a SimBrief user ID to the account behind it, so that a pilot can confirm the ID is
 theirs before saving it and so that an ID SimBrief does not know is refused at the moment it
 is stored rather than at the moment a flight import needs it. SimBrief exposes no account
 endpoint, so the account is confirmed by asking for the most recent flight plan generated
 on it.
+
 ## Requirements
+
 ### Requirement: A SimBrief user ID can be resolved to its account
 
 The system SHALL expose an authenticated read that resolves a SimBrief user ID and answers with the ID together with the most recent flight plan generated on that account. The plan SHALL report its callsign, its origin and destination airports, the aircraft it was filed for, its scheduled off-block and on-block times, and when it was generated, so that a pilot can recognise the account as their own. The read SHALL reject an unauthenticated request.
@@ -87,4 +90,3 @@ The system SHALL resolve a Simbrief user ID against SimBrief before storing it o
 
 - **WHEN** a user whose stored Simbrief user ID was never verified updates an unrelated profile field
 - **THEN** the update succeeds and the stored ID is neither verified nor rejected
-

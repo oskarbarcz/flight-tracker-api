@@ -73,6 +73,7 @@ Feature: Update flight arrival parking position
           "id": "becc1596-dfa0-452b-81ec-3f1f2fa0dce2",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,

@@ -9,6 +9,7 @@ import { AircraftRepository } from '../../infra/database/repository/aircraft.rep
 import { findAirframeByType } from '../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../airframes/model/error/airframe.error';
 import { AircraftState } from '../../model/aircraft.model';
+import { toAircraftCabinLayout } from '../../model/cabin-layout-assignment';
 
 export class ListAllAircraftQuery extends Query<GetAircraftResponse[]> {
   constructor(public readonly operatorId: string) {
@@ -32,7 +33,15 @@ export class ListAllAircraftHandler implements IQueryHandler<ListAllAircraftQuer
     );
 
     return aircrafts.map(
-      ({ type, baseAirport, lastAirport, lastParkingPosition, ...rest }) => {
+      ({
+        type,
+        baseAirport,
+        lastAirport,
+        lastParkingPosition,
+        operator,
+        layout,
+        ...rest
+      }) => {
         const airframe = findAirframeByType(type);
 
         if (!airframe) {
@@ -43,6 +52,11 @@ export class ListAllAircraftHandler implements IQueryHandler<ListAllAircraftQuer
           ...rest,
           airframe,
           currentState: rest.currentState as unknown as AircraftState,
+          cabinLayout: toAircraftCabinLayout(
+            layout,
+            operator?.iataCode ?? null,
+            airframe.iataType,
+          ),
           baseAirport: baseAirport as AircraftAirport | null,
           lastAirport: lastAirport as AircraftAirport | null,
           lastParkingPosition:

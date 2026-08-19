@@ -123,6 +123,7 @@ Feature: Report off-block
           "id": "ffe14007-9147-40a1-a228-573c9c87a2e7",
           "airframe": {
             "type": "B77W",
+            "iataType": "77W",
             "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
@@ -332,6 +333,7 @@ Feature: Report off-block
         "id": "ffe14007-9147-40a1-a228-573c9c87a2e7",
         "airframe": {
           "type": "B77W",
+          "iataType": "77W",
           "name": "Boeing 777-300ER",
           "cruiseSpeed": { "value": 0.84, "unit": "mach" },
           "serviceCeiling": 43000,
@@ -344,6 +346,7 @@ Feature: Report off-block
         "selcal": "AB-DE",
         "currentState": "cruise",
         "etopsThresholdMinutes": null,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",

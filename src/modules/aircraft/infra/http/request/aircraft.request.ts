@@ -10,6 +10,7 @@ import {
 } from 'class-validator';
 import { LegacyOperatorResponse } from '../../../../operators/infra/http/request/operator.request';
 import { Coordinates } from '../../../../airports/model/airport.model';
+import { AircraftCabinLayout } from '../../../model/cabin-layout.model';
 
 export class CreateAircraftRequest {
   @ApiProperty({
@@ -163,6 +164,14 @@ export class GetAircraftResponse extends Aircraft {
     example: 180,
   })
   etopsThresholdMinutes!: number | null;
+
+  @ApiProperty({
+    description:
+      'Cabin layout assigned to the aircraft; null when none is assigned',
+    type: AircraftCabinLayout,
+    nullable: true,
+  })
+  cabinLayout!: AircraftCabinLayout | null;
 }
 
 export class LegacyCreateAircraftResponse extends Aircraft {

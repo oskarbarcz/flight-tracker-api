@@ -31,19 +31,19 @@ every group, not a separate issue.
 - [x] 2.6 `GetCabinSeatMapQuery` returning the newest revision with decks and seats; `GET /api/v1/cabin-layout/:id/seat-map`, lazy-fetching via `EnsureCabinLayoutVersionCommand` (kept off `/:id`, which stays the catalogue entry, so its body remains assertable)
 - [x] 2.7 `POST /api/v1/cabin-layout/:id/refresh` action, `@Role(UserRole.Operations)`
 - [x] 2.8 Mock: real upstream seat maps for `aa-77w`, `de-321`, `kl-738`, `fi-752-1`, `lh-74h-m`, `lh-74h-u`
-- [x] 2.9 Feature: `features/cabin-layout/layout.seat-map.feature`, `layout.refresh.feature` — lazy fetch on first read, unchanged refresh writes no version, dual-deck totals and both canvases, RBAC. Seat *arrays* are asserted as `@any` (an existing deep-compare matcher) because the smallest real cabin is 180 seats; every other field, including per-deck canvas, cabin specs and summed seat counts, is asserted exactly, and seat-level mapping is covered by `layout-version.spec.ts`
-- [ ] 2.10 Not covered by a feature: "changed refresh adds a revision". It needs the provider to return *different* seat data for one slug, which the mockserver fixture cannot do without becoming order-dependent. Hash-gating is unit-tested in `layout-version.spec.ts`; revisit if mockserver `times`-based expectations prove safe
+- [x] 2.9 Feature: `features/cabin-layout/layout.seat-map.feature`, `layout.refresh.feature` — lazy fetch on first read, unchanged refresh writes no version, dual-deck totals and both canvases, RBAC. Seat _arrays_ are asserted as `@any` (an existing deep-compare matcher) because the smallest real cabin is 180 seats; every other field, including per-deck canvas, cabin specs and summed seat counts, is asserted exactly, and seat-level mapping is covered by `layout-version.spec.ts`
+- [ ] 2.10 Not covered by a feature: "changed refresh adds a revision". It needs the provider to return _different_ seat data for one slug, which the mockserver fixture cannot do without becoming order-dependent. Hash-gating is unit-tested in `layout-version.spec.ts`; revisit if mockserver `times`-based expectations prove safe
 
 ## 3. Aircraft cabin assignment (needs 2) — capability `aircraft-cabin-assignment`
 
-- [ ] 3.1 Add `iataType` to all 212 entries of `src/modules/airframes/data/airframes.json`; extend `Airframe` model + `airframes.spec.ts` coverage
-- [ ] 3.2 Migration: `aircraft.cabinLayout` nullable string
-- [ ] 3.3 `AssignCabinLayoutCommand` + `RemoveCabinLayoutCommand`; `PUT`/`DELETE /api/v1/aircraft/:id/cabin-layout`, `@Role(UserRole.Operations)`
-- [ ] 3.4 `SuggestCabinLayoutsQuery` ranking operator+type, then operator, then type; `GET /api/v1/aircraft/:id/cabin-layout/suggestions`
-- [ ] 3.5 Extend aircraft read models with the assigned layout, current revision, retired flag and mismatch flag
-- [ ] 3.6 Assert the aircraft create/edit DTOs reject or ignore a cabin layout field
-- [ ] 3.7 Seed: assign `aa-77w`, `de-321`, `kl-738`, `fi-752-1`; leave AF and LH tails unassigned
-- [ ] 3.8 Feature: `features/aircraft/cabin-layout.assign.feature` — assign, replace, remove, unknown layout 404, foreign-airline assignment flagged not refused, suggestions ranked, suggestions empty, RBAC
+- [x] 3.1 Add `iataType` to all 212 entries of `src/modules/airframes/data/airframes.json`; extend `Airframe` model + `airframes.spec.ts` coverage
+- [x] 3.2 Migration: `aircraft.cabinLayout` nullable string
+- [x] 3.3 `AssignCabinLayoutCommand` + `RemoveCabinLayoutCommand`; `PUT`/`DELETE /api/v1/aircraft/:id/cabin-layout`, `@Role(UserRole.Operations)`
+- [x] 3.4 `SuggestCabinLayoutsQuery` ranking operator+type, then operator, then type; `GET /api/v1/aircraft/:id/cabin-layout/suggestions`
+- [x] 3.5 Extend aircraft read models with the assigned layout, current revision, retired flag and mismatch flag
+- [x] 3.6 Assert the aircraft create/edit DTOs reject or ignore a cabin layout field
+- [x] 3.7 Seed: assign `aa-77w`, `de-321`, `kl-738`, `fi-752-1`; leave AF and LH tails unassigned
+- [x] 3.8 Feature: `features/aircraft/cabin-layout.assign.feature` — assign, replace, remove, unknown layout 404, foreign-airline assignment flagged not refused, suggestions ranked, suggestions empty, RBAC
 
 ## 4. Manifest generation (needs 3) — capability `flight-manifest`
 

@@ -11,6 +11,7 @@ Feature: List aircraft
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
@@ -23,6 +24,7 @@ Feature: List aircraft
           "selcal": "LR-CK",
           "currentState": "planned",
           "etopsThresholdMinutes": 180,
+          "cabinLayout": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -39,6 +41,7 @@ Feature: List aircraft
           "id": "b84e4c67-7565-4846-84c4-ab8215308fbd",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
@@ -51,6 +54,7 @@ Feature: List aircraft
           "selcal": "BD-EF",
           "currentState": "idle",
           "etopsThresholdMinutes": null,
+          "cabinLayout": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -78,6 +82,7 @@ Feature: List aircraft
           "id": "becc1596-dfa0-452b-81ec-3f1f2fa0dce2",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
@@ -90,6 +95,7 @@ Feature: List aircraft
           "selcal": "BD-EG",
           "currentState": "planned",
           "etopsThresholdMinutes": null,
+          "cabinLayout": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -117,6 +123,7 @@ Feature: List aircraft
           "id": "a9b9205d-53b1-4eec-bb24-548a12159997",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
@@ -129,6 +136,7 @@ Feature: List aircraft
           "selcal": "BD-FG",
           "currentState": "idle",
           "etopsThresholdMinutes": null,
+          "cabinLayout": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -152,6 +160,7 @@ Feature: List aircraft
           "id": "ed7ed4bb-95ff-4e79-9331-11212ef727ec",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
@@ -164,6 +173,7 @@ Feature: List aircraft
           "selcal": "BE-FG",
           "currentState": "cruise",
           "etopsThresholdMinutes": null,
+          "cabinLayout": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -187,6 +197,7 @@ Feature: List aircraft
           "id": "5637d186-d9e4-45e4-9940-ae6f6552c9ae",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
@@ -199,6 +210,7 @@ Feature: List aircraft
           "selcal": "CD-EF",
           "currentState": "cruise",
           "etopsThresholdMinutes": null,
+          "cabinLayout": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -222,6 +234,7 @@ Feature: List aircraft
           "id": "785bdfda-291a-4c11-a5d9-b57b5c0b8e5e",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
@@ -234,6 +247,7 @@ Feature: List aircraft
           "selcal": "CD-EG",
           "currentState": "planned",
           "etopsThresholdMinutes": null,
+          "cabinLayout": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -257,6 +271,7 @@ Feature: List aircraft
           "id": "cfedcfae-6e80-4801-8a89-12b2430c908b",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
@@ -269,6 +284,7 @@ Feature: List aircraft
           "selcal": "CE-FG",
           "currentState": "cruise",
           "etopsThresholdMinutes": null,
+          "cabinLayout": null,
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",

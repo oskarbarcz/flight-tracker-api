@@ -1,10 +1,13 @@
 # discord-server-membership Specification
 
 ## Purpose
+
 Makes membership of the Discord server a visible, actionable fact, because a direct
 message only reaches somebody who shares the server with the bot — so a linked account
 that never joined receives no briefings at all.
+
 ## Requirements
+
 ### Requirement: A user joins the server during linking
 
 The system SHALL add the user to the Discord server as part of a link request that
@@ -77,4 +80,3 @@ absence of an answer is not evidence of absence from the server.
 
 - **WHEN** an authenticated user reads their membership while the connection to Discord is unavailable
 - **THEN** the response reports `unknown` rather than `not_member`
-

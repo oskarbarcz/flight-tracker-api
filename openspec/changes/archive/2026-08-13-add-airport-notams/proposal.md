@@ -44,22 +44,22 @@ vs. 805 flat records across 26 ICAO identifiers, most of them FIRs).
 
 Stored fields, and where each comes from:
 
-| Column | OFP field |
-| --- | --- |
-| `airportId` | resolved from `notam.location_icao` |
-| `notamId` | `notam_id` (e.g. `A3912/26`) |
-| `dateCreated` | `date_created` |
-| `dateEffective` | `date_effective` |
-| `dateExpire` | `date_expire` — nullable, absent for NOTAMs with no stated end |
-| `dateModified` | `date_modified` |
-| `html` | `notam_html` |
-| `text` | `notam_text` |
-| `raw` | `notam_raw` |
-| `nrc` | `notam_nrc` (`NOTAMN` / `NOTAMR` / `NOTAMC`) |
-| `qcode` | `notam_qcode` (e.g. `QMXLC`) |
-| `qcodeCategory` | `notam_qcode_category` (e.g. `Airport`, `Runway`, `SID`) |
-| `qcodeSubject` | `notam_qcode_subject` (e.g. `Taxiway`) |
-| `qcodeStatus` | `notam_qcode_status` (e.g. `Closed`) |
+| Column          | OFP field                                                      |
+| --------------- | -------------------------------------------------------------- |
+| `airportId`     | resolved from `notam.location_icao`                            |
+| `notamId`       | `notam_id` (e.g. `A3912/26`)                                   |
+| `dateCreated`   | `date_created`                                                 |
+| `dateEffective` | `date_effective`                                               |
+| `dateExpire`    | `date_expire` — nullable, absent for NOTAMs with no stated end |
+| `dateModified`  | `date_modified`                                                |
+| `html`          | `notam_html`                                                   |
+| `text`          | `notam_text`                                                   |
+| `raw`           | `notam_raw`                                                    |
+| `nrc`           | `notam_nrc` (`NOTAMN` / `NOTAMR` / `NOTAMC`)                   |
+| `qcode`         | `notam_qcode` (e.g. `QMXLC`)                                   |
+| `qcodeCategory` | `notam_qcode_category` (e.g. `Airport`, `Runway`, `SID`)       |
+| `qcodeSubject`  | `notam_qcode_subject` (e.g. `Taxiway`)                         |
+| `qcodeStatus`   | `notam_qcode_status` (e.g. `Closed`)                           |
 
 `notamId` and `qcode` are additions to the requested field list: `notamId` is the only
 stable identifier a NOTAM has, so it carries the uniqueness constraint and lets a client

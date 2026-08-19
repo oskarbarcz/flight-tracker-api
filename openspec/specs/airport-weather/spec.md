@@ -237,4 +237,3 @@ every fetch fails SHALL NOT fail the request or scheduled run that triggered it.
 
 - **WHEN** a pilot checks in and every weather fetch for the flight's airports fails
 - **THEN** the check-in still succeeds and the airports are still marked as monitored
-

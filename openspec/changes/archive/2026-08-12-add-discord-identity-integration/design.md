@@ -55,7 +55,7 @@ is the normal local and test configuration — and lets the REST side be pointed
 mockserver (`DISCORD_API_HOST`) while the gateway simply stays offline. discord.js
 offers no useful abstraction over the OAuth endpoints anyway.
 
-**The join happens inside the link request.** `guilds.join` needs the *user* access
+**The join happens inside the link request.** `guilds.join` needs the _user_ access
 token alongside the bot token, and we deliberately do not store the user token. The
 alternative — storing a refresh token so a user could join later — trades a permanent
 credential at rest for a convenience that an invite link already covers. So the choice
@@ -63,7 +63,7 @@ is: join now, or re-link later.
 
 **A failed join does not fail the link.** They are independent facts, and a link is
 useful on its own (sign-in works, the profile is populated). Rolling the link back
-because the bot lacked *Create Invite* would be a worse outcome than reporting
+because the bot lacked _Create Invite_ would be a worse outcome than reporting
 `joinOutcome: failed` and letting the user join by hand. The link response therefore
 carries the join outcome as its own field rather than as an error.
 
@@ -85,7 +85,7 @@ fault, and every existing `DomainError` category maps to a 4xx. This is the firs
 only non-4xx category.
 
 **`DISCORD_GATEWAY_ENABLED` is separate from the delivery gate.** Connecting the
-gateway locally is useful for exercising membership against a real server; *sending*
+gateway locally is useful for exercising membership against a real server; _sending_
 messages from a dev box is not. So connection is gated on `NODE_ENV=production` or the
 flag, while delivery stays gated on `NODE_ENV` alone — outside production every
 message is still written to `test-data/discord/` and no test run can post to a real
@@ -101,7 +101,7 @@ server.
   field was recent and the replacement endpoint ships in the same change.
 - **Denormalised Discord profile data goes stale.** → Accepted, as above; re-linking
   refreshes it.
-- **The join needs the bot to hold *Create Invite* in the server.** → A missing
+- **The join needs the bot to hold _Create Invite_ in the server.** → A missing
   permission surfaces as `joinOutcome: failed` rather than a broken link, and is
   documented in README as a setup step.
 - **Membership depends on the gateway's guild cache.** → Reported as `unknown` when

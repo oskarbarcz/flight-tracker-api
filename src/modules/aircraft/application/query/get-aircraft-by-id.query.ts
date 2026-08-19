@@ -10,6 +10,7 @@ import { AssertOperatorExistsQuery } from '../../../operators/application/assert
 import { findAirframeByType } from '../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../airframes/model/error/airframe.error';
 import { AircraftState } from '../../model/aircraft.model';
+import { toAircraftCabinLayout } from '../../model/cabin-layout-assignment';
 
 export class GetAircraftByIdQuery extends Query<GetAircraftResponse> {
   constructor(
@@ -54,6 +55,11 @@ export class GetAircraftByIdHandler implements IQueryHandler<GetAircraftByIdQuer
       livery: aircraft.livery,
       currentState: aircraft.currentState as unknown as AircraftState,
       etopsThresholdMinutes: aircraft.etopsThresholdMinutes,
+      cabinLayout: toAircraftCabinLayout(
+        aircraft.layout,
+        aircraft.operator?.iataCode ?? null,
+        airframe.iataType,
+      ),
       baseAirport: aircraft.baseAirport as AircraftAirport | null,
       lastAirport: aircraft.lastAirport as AircraftAirport | null,
       lastAirportUpdatedAt: aircraft.lastAirportUpdatedAt,

@@ -122,6 +122,7 @@ Feature: Finish offboarding for flight that started onboarding
           "id": "8f27ca75-01e0-4a3f-bcf2-f838e02b9af9",
           "airframe": {
             "type": "B77W",
+            "iataType": "77W",
             "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,

@@ -8,6 +8,7 @@ Feature: Get airframe by type
       """json
       {
         "type": "B77W",
+        "iataType": "77W",
         "name": "Boeing 777-300ER",
         "cruiseSpeed": { "value": 0.84, "unit": "mach" },
         "serviceCeiling": 43000,
@@ -25,6 +26,7 @@ Feature: Get airframe by type
       """json
       {
         "type": "A339",
+        "iataType": "339",
         "name": "Airbus A330-900",
         "cruiseSpeed": { "value": 0.8, "unit": "mach" },
         "serviceCeiling": 41400,
@@ -42,6 +44,7 @@ Feature: Get airframe by type
       """json
       {
         "type": "A319",
+        "iataType": "319",
         "name": "Airbus A319-100",
         "cruiseSpeed": { "value": 0.78, "unit": "mach" },
         "serviceCeiling": 39000,
@@ -59,6 +62,7 @@ Feature: Get airframe by type
       """json
       {
         "type": "B77F",
+        "iataType": "77F",
         "name": "Boeing 777-F",
         "cruiseSpeed": { "value": 0.84, "unit": "mach" },
         "serviceCeiling": 43000,
@@ -76,6 +80,7 @@ Feature: Get airframe by type
       """json
       {
         "type": "C208",
+        "iataType": "CN1",
         "name": "Cessna 208B",
         "cruiseSpeed": { "value": 150, "unit": "knots" },
         "serviceCeiling": 20000,

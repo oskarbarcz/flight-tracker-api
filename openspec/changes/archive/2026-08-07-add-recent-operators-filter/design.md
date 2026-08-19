@@ -5,9 +5,9 @@
 - **`@CacheKey` is a static key.** Nest's `CacheInterceptor.trackBy` returns the decorated key verbatim when one is present, and only falls back to the request URL when it is absent. So a query parameter does not vary the cache entry by default. Adding `recentOnly` without touching caching would make both variants collide on `operators:list` — and since the filtered variant is caller-dependent, that is a cross-user data leak, not merely a stale read.
 - **The existing invalidation is coarse.** `OperatorCacheListener` deletes the one key on operator and aircraft lifecycle events. There is no wildcard delete in the cache-manager API in use, so a per-user key can only be cleared when the user's identity is known at invalidation time.
 
-Two per-user cache interceptors already exist in `src/core/cache/`: `UserAwareCacheInterceptor`, which prefixes the base key with `user:<sub>:`, and `PeriodStatsCacheInterceptor`, which extends it with a further suffix. Neither fits directly, because this endpoint must stay *globally* cached in its default form and become *per-user* only when the filter is set.
+Two per-user cache interceptors already exist in `src/core/cache/`: `UserAwareCacheInterceptor`, which prefixes the base key with `user:<sub>:`, and `PeriodStatsCacheInterceptor`, which extends it with a further suffix. Neither fits directly, because this endpoint must stay _globally_ cached in its default form and become _per-user_ only when the filter is set.
 
-The recency data is half-present. `flight` carries `operatorId` and `captainId`, but nothing records who *scheduled* a flight — only a `flight_event` row of type `flight.created` names the actor. That gap is what forces a schema change rather than a pure read-side feature; see the recency decision below.
+The recency data is half-present. `flight` carries `operatorId` and `captainId`, but nothing records who _scheduled_ a flight — only a `flight_event` row of type `flight.created` names the actor. That gap is what forces a schema change rather than a pure read-side feature; see the recency decision below.
 
 ## Goals / Non-Goals
 
@@ -50,7 +50,7 @@ Distinct key namespaces are what make the two variants unable to collide; the sp
 
 ### The interceptor declines to cache a request it cannot recognise
 
-Discovered during implementation: Nest runs interceptors *before* pipes, and `CacheInterceptor` returns the cached value directly on a hit, so the route handler and its `ValidationPipe` never execute. Combined with a static `@CacheKey`, that means any query string at all — `?recentOnly=maybe`, `?bogus=1` — collides with the cached entry and is answered `200` with the shared list instead of `400`.
+Discovered during implementation: Nest runs interceptors _before_ pipes, and `CacheInterceptor` returns the cached value directly on a hit, so the route handler and its `ValidationPipe` never execute. Combined with a static `@CacheKey`, that means any query string at all — `?recentOnly=maybe`, `?bogus=1` — collides with the cached entry and is answered `200` with the shared list instead of `400`.
 
 This hole predates the change (`?bogus=1` already behaved this way), but the filter makes it consequential: a typo'd parameter would silently return the full list where the view expects at most four, which is precisely the failure the strict boolean validation was chosen to prevent. Validation cannot be moved ahead of the interceptor, so the interceptor is made conservative instead — `trackBy` returns `undefined`, opting the request out of both cache read and cache write, unless the query consists of nothing but a `recentOnly` whose value is exactly `true` or `false`. Unrecognised requests therefore always reach the handler and are rejected by the pipe.
 
@@ -75,13 +75,13 @@ Ranking on `createdAt` rather than `completedAt` follows from the same audience 
 
 Two things stale a cached recent list, and they need different mechanisms:
 
-| Trigger | Whose entry | Mechanism |
-| --- | --- | --- |
-| Caller creates a flight | Exactly one, known id | Explicit `del` on the creator's key |
-| Caller checks in as captain | Exactly one, known id | Explicit `del` on the pilot's key |
-| An operator's details are edited | Every user involved with it | TTL expiry |
+| Trigger                          | Whose entry                 | Mechanism                           |
+| -------------------------------- | --------------------------- | ----------------------------------- |
+| Caller creates a flight          | Exactly one, known id       | Explicit `del` on the creator's key |
+| Caller checks in as captain      | Exactly one, known id       | Explicit `del` on the pilot's key   |
+| An operator's details are edited | Every user involved with it | TTL expiry                          |
 
-Flight *completion* no longer affects the ranking at all, so the listener watches `FlightWasCreated` and `PilotCheckedIn` instead. Both carry `actorId` in their payload — the creator and the checking-in pilot respectively — so the listener needs no bus query to resolve a user, unlike the completion-based version it replaces.
+Flight _completion_ no longer affects the ranking at all, so the listener watches `FlightWasCreated` and `PilotCheckedIn` instead. Both carry `actorId` in their payload — the creator and the checking-in pilot respectively — so the listener needs no bus query to resolve a user, unlike the completion-based version it replaces.
 
 The operator-details case cannot be precise without a wildcard delete or a registry of which users cached which operators, both of which cost more than the problem is worth. A bounded TTL on the per-user entry accepts the staleness instead. `CACHE_TTL_MS.USER_ME` (60s) is the closest existing precedent for a per-user read of frequently-edited data; reuse that magnitude.
 
@@ -105,7 +105,7 @@ flight.groupBy({
 })
 ```
 
-The secondary `operatorId` ordering is not cosmetic: without it, two operators tied on recency at the fourth and fifth positions would be *selected* nondeterministically, before the presentation tie-break below ever runs. Sorting on a grouped column is the one tie-break the aggregation itself can express.
+The secondary `operatorId` ordering is not cosmetic: without it, two operators tied on recency at the fourth and fifth positions would be _selected_ nondeterministically, before the presentation tie-break below ever runs. Sorting on a grouped column is the one tie-break the aggregation itself can express.
 
 Then hydrate the operator bodies by id and re-apply the ranking order — `findMany({ where: { id: { in: ids } } })` does not preserve the order of `in`, so the handler must reorder against the ranked id list rather than trusting the fetch.
 

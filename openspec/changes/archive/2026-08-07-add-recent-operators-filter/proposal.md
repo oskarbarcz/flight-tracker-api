@@ -17,7 +17,7 @@ Flights gain a recorded creator, set whenever a flight is created — by hand or
 
 "Involved with" means the caller is the flight's captain **or** its creator, so operations see the carriers they schedule and crew see the carriers they fly, from one rule with no role branching. Recency is the flight's creation time, not its completion, so a carrier appears the moment a flight is scheduled for it rather than after it lands.
 
-It returns fewer than 4 entries — including an empty array — when the caller is involved with fewer than 4 distinct carriers. It is deliberately *only* the recents: the frontend already holds the full list and composes the two sections itself, including any de-duplication.
+It returns fewer than 4 entries — including an empty array — when the caller is involved with fewer than 4 distinct carriers. It is deliberately _only_ the recents: the frontend already holds the full list and composes the two sections itself, including any de-duplication.
 
 Because the response becomes caller-dependent, the endpoint's existing single global cache entry is no longer safe for the filtered variant. The filtered response is cached per user and invalidated when the caller creates a flight or checks in as its captain.
 

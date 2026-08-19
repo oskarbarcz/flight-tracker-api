@@ -1,10 +1,13 @@
 # discord-account-link Specification
 
 ## Purpose
+
 Lets a user prove they own a Discord account and attach it to their own account, so
 the system can address them on Discord with an identity nobody could simply claim,
 and lets them detach it again without losing access to the account.
+
 ## Requirements
+
 ### Requirement: A user links a Discord account by proving they own it
 
 The system SHALL link a Discord account to the requesting user only on presentation of
@@ -104,4 +107,3 @@ and SHALL allow the same user to link a different Discord account afterwards.
 
 - **WHEN** a user who unlinked their Discord account links a different one
 - **THEN** the new Discord account is linked
-

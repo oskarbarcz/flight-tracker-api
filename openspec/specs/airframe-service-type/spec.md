@@ -1,11 +1,14 @@
 # airframe-service-type Specification
 
 ## Purpose
+
 Records the service each airframe is built for — passengers, freight, or either — so that
 a client can tell a freighter from a passenger type without keeping its own list of ICAO
 designators. The classification is descriptive reference data: nothing else in the system
 is derived from it.
+
 ## Requirements
+
 ### Requirement: Every airframe declares the service it is built for
 
 The system SHALL classify every airframe it knows as `passenger`, `cargo`, or `both`, and SHALL accept no other value. The classification SHALL be present on every airframe in the reference dataset, so that no airframe can be read without it.
@@ -76,4 +79,3 @@ The system SHALL NOT derive a flight's or an operator's service type from an air
 
 - **WHEN** an aircraft whose airframe is `cargo` is added to an operator classified as `passenger`
 - **THEN** the aircraft is created and neither classification is changed
-
