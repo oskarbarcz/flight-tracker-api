@@ -853,3 +853,17 @@ model UserStatsDaily {
   @@index([userId])
   @@map("user_stats_daily")
 }
+
+model CabinLayout {
+  id           String    @id
+  airlineIata  String    @db.VarChar(2)
+  aircraftIata String    @db.VarChar(6)
+  variant      String?
+  sourceSlugs  String[]
+  firstSeenAt  DateTime  @default(now())
+  retiredAt    DateTime?
+
+  @@index([airlineIata, aircraftIata])
+  @@index([retiredAt])
+  @@map("cabin_layout")
+}

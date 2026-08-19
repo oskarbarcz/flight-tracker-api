@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "MyPreflight AeroLOPA provider",
-    "description": "DigitalOcean Function returning AeroLOPA seat maps and cabin configurations.\n\nDeployed as a functions component of the `mypreflight` App Platform app. Every request must carry the `X-Require-Whisk-Auth` header declared as `webSecure` in project.yml; the platform rejects the request before the function runs otherwise.",
+    "description": "DigitalOcean Functions returning AeroLOPA seat maps, cabin configurations, and the index of published layouts.\n\nDeployed as a functions component of the `mypreflight` App Platform app. Every request must carry the `X-Require-Whisk-Auth` header declared as `webSecure` in project.yml; the platform rejects the request before the function runs otherwise.",
     "version": "1.0.0",
     "license": {
       "name": "Unlicense",
@@ -132,6 +132,60 @@
           },
           "502": {
             "description": "AeroLOPA unreachable, or its payload unparseable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "servers": [
+        {
+          "url": "http://localhost:3001",
+          "description": "Local development server for the seatmap function"
+        }
+      ]
+    },
+    "/aerolopa/layouts": {
+      "servers": [
+        {
+          "url": "http://localhost:3002",
+          "description": "Local development server for the layouts function"
+        }
+      ],
+      "get": {
+        "summary": "List every published cabin layout",
+        "description": "Returns the identifier of every cabin layout AeroLOPA publishes, with the airline and aircraft IATA codes parsed out of it and the trailing discriminator that separates several layouts of the same airline and type.\n\nThe whole index comes from a single sitemap read, so the call is cheap and takes no parameters. Nothing here requires fetching a seat map: for cabins, seats, or aircraft names, follow up with `/aerolopa/seatmap?slug=<id>`.\n\nThe index is cached in the function instance for 24 hours.",
+        "operationId": "listLayouts",
+        "responses": {
+          "200": {
+            "description": "The layout index",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LayoutIndex"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or wrong X-Require-Whisk-Auth header; rejected by the platform"
+          },
+          "500": {
+            "description": "Unexpected failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "AeroLOPA unreachable, or its sitemap unparseable",
             "content": {
               "application/json": {
                 "schema": {
@@ -552,6 +606,46 @@
             "items": {
               "$ref": "#/components/schemas/Configuration"
             }
+          }
+        }
+      },
+      "LayoutIndex": {
+        "type": "object",
+        "required": ["count", "layouts"],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "examples": [1601]
+          },
+          "layouts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Layout"
+            }
+          }
+        }
+      },
+      "Layout": {
+        "type": "object",
+        "required": ["id", "airlineIata", "aircraftIata", "variant"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The AeroLOPA slug; pass it as `slug` to /aerolopa/seatmap.",
+            "examples": ["lo-7m8-1"]
+          },
+          "airlineIata": {
+            "type": "string",
+            "examples": ["LO"]
+          },
+          "aircraftIata": {
+            "type": "string",
+            "examples": ["7M8"]
+          },
+          "variant": {
+            "type": ["string", "null"],
+            "description": "Trailing part of the slug, telling apart several layouts of one airline and aircraft type. Null when the pair has only one layout.",
+            "examples": ["1"]
           }
         }
       }
