@@ -49,7 +49,7 @@ export class ResolveEmergencyHandler implements ICommandHandler<ResolveEmergency
 
     await this.emergencyRepository.resolve(flightId, emergencyId, actor.sub);
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new EmergencyWasResolvedEvent({
         flightId,
         scope: FlightEventScope.User,

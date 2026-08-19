@@ -51,7 +51,7 @@ export class UpdateEmergencyHandler implements ICommandHandler<UpdateEmergencyCo
 
     await this.emergencyRepository.update(emergencyId, payload);
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new EmergencyWasUpdatedEvent({
         flightId,
         scope: FlightEventScope.User,
