@@ -10,6 +10,7 @@ Feature: Get aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
+          "iataType": "339",
           "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
@@ -22,6 +23,7 @@ Feature: Get aircraft
         "selcal": "LR-CK",
         "currentState": "planned",
         "etopsThresholdMinutes": 180,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -46,6 +48,7 @@ Feature: Get aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
+          "iataType": "339",
           "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
@@ -58,6 +61,7 @@ Feature: Get aircraft
         "selcal": "LR-CK",
         "currentState": "planned",
         "etopsThresholdMinutes": 180,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -82,6 +86,7 @@ Feature: Get aircraft
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
         "airframe": {
           "type": "A339",
+          "iataType": "339",
           "name": "Airbus A330-900",
           "cruiseSpeed": { "value": 0.8, "unit": "mach" },
           "serviceCeiling": 41400,
@@ -94,6 +99,7 @@ Feature: Get aircraft
         "selcal": "LR-CK",
         "currentState": "planned",
         "etopsThresholdMinutes": 180,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -118,6 +124,7 @@ Feature: Get aircraft
         "id": "3f34bc59-c9c3-4ad0-88fa-2cc570298602",
         "airframe": {
           "type": "A319",
+          "iataType": "319",
           "name": "Airbus A319-100",
           "cruiseSpeed": { "value": 0.78, "unit": "mach" },
           "serviceCeiling": 39000,
@@ -130,6 +137,7 @@ Feature: Get aircraft
         "selcal": null,
         "currentState": "idle",
         "etopsThresholdMinutes": null,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
           "iataCode": "BRE",

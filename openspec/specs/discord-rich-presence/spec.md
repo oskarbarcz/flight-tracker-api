@@ -1,11 +1,14 @@
 # discord-rich-presence Specification
 
 ## Purpose
+
 Renders the flight a pilot is on as the Discord activity they want published on their
 profile, for the companion application running on the machine they fly on. Discord accepts
 an activity only from a process on the user's own computer, so the system decides what to
 publish and the companion publishes it.
+
 ## Requirements
+
 ### Requirement: A pilot decides whether their flight is published as their Discord activity
 
 The system SHALL hold a per-user rich presence setting alongside the Discord message settings, readable and writable through the same settings pair, and SHALL default it to disabled. Publishing a pilot's activity is visible to everyone who can see their Discord profile, so it SHALL NOT be enabled without the pilot asking for it.
@@ -124,4 +127,3 @@ The published activity SHALL carry the asset keys of the images Discord shows wi
 
 - **WHEN** an activity is published
 - **THEN** it names both the small and the large image asset key
-

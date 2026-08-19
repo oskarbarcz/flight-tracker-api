@@ -42,6 +42,21 @@ const aircraft = {
   livery: true,
   currentState: true,
   etopsThresholdMinutes: true,
+  operator: { select: { iataCode: true } },
+  layout: {
+    select: {
+      id: true,
+      airlineIata: true,
+      aircraftIata: true,
+      variant: true,
+      retiredAt: true,
+      versions: {
+        select: { revision: true },
+        orderBy: { revision: 'desc' },
+        take: 1,
+      },
+    },
+  },
   baseAirport: {
     select: {
       id: true,
@@ -140,6 +155,16 @@ export class AircraftRepository {
     await this.prisma.aircraft.update({
       where: { id },
       data: data,
+    });
+  }
+
+  async updateCabinLayout(
+    id: string,
+    cabinLayout: string | null,
+  ): Promise<void> {
+    await this.prisma.aircraft.update({
+      where: { id },
+      data: { cabinLayout },
     });
   }
 

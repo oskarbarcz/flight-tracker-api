@@ -89,7 +89,9 @@ nothing matches.
 
 The system SHALL record, for each curated airframe, the IATA aircraft type code alongside its
 ICAO type designator, because aircraft are identified by ICAO designator while cabin layouts
-are keyed by IATA code, and suggestions cannot match the two without it.
+are keyed by IATA code, and suggestions cannot match the two without it. Airframes IATA
+publishes no code for — light aircraft, business jets, military types — SHALL report none
+rather than an invented code, and SHALL simply match no layout.
 
 #### Scenario: An airframe reports both designators
 
@@ -101,3 +103,8 @@ are keyed by IATA code, and suggestions cannot match the two without it.
 - **GIVEN** an aircraft whose ICAO designator maps to an IATA code covered by the catalogue
 - **WHEN** operations requests suggestions for that aircraft
 - **THEN** layouts for that IATA code are suggested
+
+#### Scenario: An airframe outside IATA's coding reports no IATA code
+
+- **WHEN** an authenticated user reads a curated airframe IATA publishes no type code for
+- **THEN** the airframe reports its ICAO designator and no IATA aircraft type code

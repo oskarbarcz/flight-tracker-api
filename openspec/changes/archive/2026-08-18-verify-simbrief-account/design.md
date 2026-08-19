@@ -35,7 +35,7 @@ external precondition on a profile field has an established shape to follow.
 
 **Non-Goals:**
 
-- Proving the pilot *owns* the account. SimBrief's fetch route is public and exposes the
+- Proving the pilot _owns_ the account. SimBrief's fetch route is public and exposes the
   latest plan of any user ID, so the check confirms the account exists, not that it is
   theirs. Showing the plan back is what lets the pilot recognise it.
 - Re-verifying IDs already stored, or verifying on read.

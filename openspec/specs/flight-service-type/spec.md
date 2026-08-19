@@ -1,8 +1,11 @@
 # flight-service-type Specification
 
 ## Purpose
+
 Records whether a flight operates as a passenger service or a cargo service, so that clients can label and filter freight operations. The classification is descriptive metadata only — no backend behaviour is derived from it.
+
 ## Requirements
+
 ### Requirement: Flight service type classification
 
 The system SHALL classify every flight as either a `passenger` service or a `cargo` service, and SHALL treat `passenger` as the value for any flight whose service type was never specified. No other values are accepted.
@@ -146,4 +149,3 @@ The system SHALL restrict `PATCH /api/v1/flight/{id}` to users holding the `oper
 
 - **WHEN** a user with the `admin`, `operations`, or `cabin crew` role requests `GET /api/v1/flight/{id}`
 - **THEN** the response status is `200` and the body includes `serviceType`
-

@@ -17,6 +17,7 @@ model Aircraft {
   livery                String
   currentState          AircraftState @default(idle)
   etopsThresholdMinutes Int?
+  cabinLayout           String?
   operatorId            String?       @db.Uuid
   baseAirportId         String?       @db.Uuid
   lastAirportId         String?       @db.Uuid
@@ -24,6 +25,7 @@ model Aircraft {
   lastParkingPositionId String?       @db.Uuid
 
   operator            Operator?            @relation(fields: [operatorId], references: [id])
+  layout              CabinLayout?         @relation(fields: [cabinLayout], references: [id], onDelete: SetNull)
   baseAirport         Airport?             @relation("AircraftBaseAirport", fields: [baseAirportId], references: [id], onDelete: SetNull)
   lastAirport         Airport?             @relation("AircraftLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
   lastParkingPosition ParkingPosition?     @relation("AircraftLastParkingPosition", fields: [lastParkingPositionId], references: [id], onDelete: SetNull)
@@ -31,6 +33,7 @@ model Aircraft {
   repositions         AircraftReposition[]
   userAircraft        UserAircraft[]
 
+  @@index([cabinLayout])
   @@map("aircraft")
 }
 
@@ -864,6 +867,7 @@ model CabinLayout {
   retiredAt    DateTime?
 
   versions CabinLayoutVersion[]
+  aircraft Aircraft[]
 
   @@index([airlineIata, aircraftIata])
   @@index([retiredAt])

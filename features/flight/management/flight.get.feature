@@ -29,6 +29,7 @@ Feature: Get flight
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
@@ -270,6 +271,7 @@ Feature: Get flight
           "id": "8694eb6d-83e4-4f24-8a72-b67523b4d6bf",
           "airframe": {
             "type": "B77W",
+            "iataType": "77W",
             "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
@@ -506,6 +508,7 @@ Feature: Get flight
           "id": "30a0d850-5440-436d-95a2-fa8fdc79f715",
           "airframe": {
             "type": "B77W",
+            "iataType": "77W",
             "name": "Boeing 777-300ER",
             "cruiseSpeed": {
               "value": 0.84,

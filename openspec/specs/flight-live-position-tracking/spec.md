@@ -9,7 +9,9 @@ flights and continues backing up paths through taxi, cruise, and taxi-in. The fi
 transition from "no stored path" to "stored path" raises a single `LivePositionReceived`
 event that is persisted as a flight event and broadcast to subscribed WebSocket clients.
 The final on-block backup fetch is excluded so on-block never counts as first receipt.
+
 ## Requirements
+
 ### Requirement: First live position is detected during check-in and boarding
 
 The system SHALL periodically poll ADS-B for the first available live position of every flight whose status is `checked_in`, `boarding_started`, or `boarding_finished` and that does not yet have a stored flight path. The poll SHALL run once per minute. When a poll produces the first stored position for a flight, the system SHALL signal that the flight's live position has been received.
@@ -121,4 +123,3 @@ already has a stored path.
 
 - **WHEN** a flight transitions out of `boarding_finished` to `taxiing_out`
 - **THEN** it is no longer selected by the boarding-finished backup and is instead tracked by the in-flight backup
-

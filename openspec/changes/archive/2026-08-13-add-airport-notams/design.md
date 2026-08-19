@@ -106,7 +106,7 @@ flight references, purely as a side effect of briefing data.
 
 **5. Replace per airport, in one transaction, including airports whose list is empty.**
 `deleteMany({ airportId: { in: resolvedIds } })` then `createMany(rows)` inside
-`prisma.$transaction`. The delete set is *every* airport resolved from the plan, not just
+`prisma.$transaction`. The delete set is _every_ airport resolved from the plan, not just
 those with NOTAMs — otherwise an airport whose restrictions were lifted would keep serving
 yesterday's set forever. Scoping the delete to the plan's airports (rather than truncating
 the table) means two users importing different routes at the same time do not erase each

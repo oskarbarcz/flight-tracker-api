@@ -154,8 +154,14 @@ fidelity, and comments. Unique on `(deckId, designator)`.
 ### `aircraft.cabinLayout` — nullable slug
 
 Named for the domain, not the relation, matching `Aircraft.type` which likewise holds a code
-against a curated list rather than a uuid. Null means no cabin is known. The aircraft floats
-to the newest version of its layout; only flights pin.
+against a curated list rather than a uuid. Unlike `type` it does carry a foreign key to
+`layout`, because the catalogue is a table: the database then refuses an assignment to a slug
+nobody has catalogued, and the aircraft read joins the layout in one query. Null means no
+cabin is known. The aircraft floats to the newest version of its layout; only flights pin.
+
+Every aircraft endpoint in the module is operator-scoped, so assignment lives under
+`/operator/:operatorId/aircraft/:aircraftId` rather than the shorter path first sketched
+above.
 
 ### `flight.cabinLayout` + `flight.cabinLayoutRevision` — pinned at release
 
@@ -212,9 +218,9 @@ GET    /api/v1/cabin-layout                      auth   list/search, paginated
 GET    /api/v1/cabin-layout/:id                  auth   catalogue entry only
 GET    /api/v1/cabin-layout/:id/seat-map        auth   newest revision, decks, seats
 POST   /api/v1/cabin-layout/:id/refresh          ops    refetch, version if changed
-GET    /api/v1/aircraft/:id/cabin-layout/suggestions   ops    ranked candidates
-PUT    /api/v1/aircraft/:id/cabin-layout         ops    assign
-DELETE /api/v1/aircraft/:id/cabin-layout         ops    unassign
+GET    …/operator/:operatorId/aircraft/:aircraftId/cabin-layout/suggestions  ops  ranked candidates
+PUT    …/operator/:operatorId/aircraft/:aircraftId/cabin-layout             ops  assign
+DELETE …/operator/:operatorId/aircraft/:aircraftId/cabin-layout             ops  unassign
 GET    /api/v1/flight/:id/manifest               ops + captain   ?status=boarded|no_show
 ```
 

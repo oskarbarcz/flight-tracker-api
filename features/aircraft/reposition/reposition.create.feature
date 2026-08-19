@@ -122,6 +122,7 @@ Feature: Reposition an aircraft
         "id": "7d27a031-5abb-415f-bde5-1aa563ad394e",
         "airframe": {
           "type": "A321",
+          "iataType": "321",
           "name": "Airbus A321-200",
           "cruiseSpeed": { "value": 0.78, "unit": "mach" },
           "serviceCeiling": 39000,
@@ -134,6 +135,15 @@ Feature: Reposition an aircraft
         "selcal": "SK-PK",
         "currentState": "idle",
         "etopsThresholdMinutes": null,
+        "cabinLayout": {
+          "id": "de-321",
+          "airlineIata": "DE",
+          "aircraftIata": "321",
+          "variant": null,
+          "revision": null,
+          "retired": false,
+          "mismatched": false
+        },
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",

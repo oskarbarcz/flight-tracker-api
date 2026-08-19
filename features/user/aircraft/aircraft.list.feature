@@ -12,6 +12,7 @@ Feature: List aircraft the current user has flown
           "registration": "D-AIMG",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": {
               "value": 0.8,
@@ -49,6 +50,7 @@ Feature: List aircraft the current user has flown
           "registration": "D-AIMF",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": {
               "value": 0.8,
@@ -86,6 +88,7 @@ Feature: List aircraft the current user has flown
           "registration": "N718AN",
           "airframe": {
             "type": "B77W",
+            "iataType": "77W",
             "name": "Boeing 777-300ER",
             "cruiseSpeed": {
               "value": 0.84,

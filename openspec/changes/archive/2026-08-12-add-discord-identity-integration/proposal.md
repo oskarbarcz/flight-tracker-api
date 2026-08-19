@@ -1,7 +1,7 @@
 ## Why
 
 Discord was already the delivery channel for flight announcements and pilot briefings,
-but the API had no way to know *which* Discord account belonged to which user. The
+but the API had no way to know _which_ Discord account belonged to which user. The
 link was a self-declared `discordId` typed into `PATCH /api/v1/user/me` — an
 authentication identifier set by the very account it was supposed to authenticate.
 Anyone could claim any snowflake, so the field could not be trusted to prove identity

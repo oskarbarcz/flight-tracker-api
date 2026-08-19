@@ -83,6 +83,7 @@ Feature: Mark flight as ready
           "id": "ed247c36-58f0-43ff-81fd-ffae548a73e2",
           "airframe": {
             "type": "B77W",
+            "iataType": "77W",
             "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,

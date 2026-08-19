@@ -1,8 +1,11 @@
 # operator-recent-carriers Specification
 
 ## Purpose
+
 Ranks the carriers a user has recently worked with — whether they flew the flight or scheduled it — and exposes the leading few through the operator list endpoint, so clients can offer a shortcut to the airlines a person actually deals with.
+
 ## Requirements
+
 ### Requirement: A flight records who created it
 
 The system SHALL record the user who created a flight, on the flight itself, for every flight created through the API — both flights entered by hand and flights imported from a SimBrief operational flight plan. The recorded creator SHALL be the authenticated user who made the request.
@@ -214,4 +217,3 @@ The system SHALL discard a user's cached recent carriers when they become involv
 
 - **WHEN** a user's recent carriers are cached and a different user creates a flight
 - **THEN** the first user's recent carriers are unchanged
-

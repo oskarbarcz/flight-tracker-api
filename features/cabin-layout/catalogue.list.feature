@@ -60,7 +60,7 @@ Feature: Browse the cabin layout catalogue
             "aircraftIata": "738",
             "variant": null,
             "sourceSlugs": ["kl-738"],
-            "firstSeenAt": "@date('within 1 minute from now')",
+            "firstSeenAt": "2026-08-01T09:00:00.000Z",
             "retiredAt": null
           }
         ],
@@ -98,7 +98,7 @@ Feature: Browse the cabin layout catalogue
             "aircraftIata": "321",
             "variant": null,
             "sourceSlugs": ["de-321"],
-            "firstSeenAt": "@date('within 1 minute from now')",
+            "firstSeenAt": "2026-08-01T09:00:00.000Z",
             "retiredAt": null
           },
           {
@@ -107,11 +107,11 @@ Feature: Browse the cabin layout catalogue
             "aircraftIata": "752",
             "variant": "1",
             "sourceSlugs": ["fi-752-1"],
-            "firstSeenAt": "@date('within 1 minute from now')",
+            "firstSeenAt": "2026-08-01T09:00:00.000Z",
             "retiredAt": null
           }
         ],
-        "total": 12,
+        "total": 13,
         "limit": 2,
         "offset": 2
       }
@@ -148,7 +148,7 @@ Feature: Browse the cabin layout catalogue
             "aircraftIata": "738",
             "variant": null,
             "sourceSlugs": ["kl-738"],
-            "firstSeenAt": "@date('within 1 minute from now')",
+            "firstSeenAt": "2026-08-01T09:00:00.000Z",
             "retiredAt": null
           }
         ],

@@ -96,6 +96,7 @@ Feature: Resolve a flight emergency
           "id": "cfedcfae-6e80-4801-8a89-12b2430c908b",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,
@@ -281,6 +282,7 @@ Feature: Resolve a flight emergency
           "id": "cfedcfae-6e80-4801-8a89-12b2430c908b",
           "airframe": {
             "type": "A339",
+            "iataType": "339",
             "name": "Airbus A330-900",
             "cruiseSpeed": { "value": 0.8, "unit": "mach" },
             "serviceCeiling": 41400,

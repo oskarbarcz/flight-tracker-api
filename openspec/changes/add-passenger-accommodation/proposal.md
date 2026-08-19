@@ -24,7 +24,7 @@ judgement call. Assignment is therefore deliberately manual.
   `/aerolopa/layouts` into a local `layout` table, on an operations-triggered request.
   Layouts that vanish upstream are retired, never deleted, because aircraft and flights
   reference them.
-- **Collapse the deck split.** AeroLOPA publishes each double-deck aircraft as *two*
+- **Collapse the deck split.** AeroLOPA publishes each double-deck aircraft as _two_
   layouts — `lh-74h-m` and `lh-74h-u` — with separate canvases and seat counts that are
   each only half the aircraft. These are merged into one layout carrying a deck per seat,
   so a 747-8 is one 364-seat cabin rather than two unrelated 332- and 32-seat ones.

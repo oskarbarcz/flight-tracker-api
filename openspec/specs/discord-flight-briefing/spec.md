@@ -3,7 +3,9 @@
 ## Purpose
 
 Delivers the pre-flight briefing to a pilot as a Discord private message the moment they check in, and lets each pilot decide whether they want to receive it.
+
 ## Requirements
+
 ### Requirement: Briefing is delivered on check-in
 
 The system SHALL send a briefing private message on Discord to the pilot who checks in for a flight, provided that pilot has a linked Discord account and has briefing messages enabled.
@@ -125,4 +127,3 @@ The system SHALL let a signed-in user enable or disable each Discord private-mes
 
 - **WHEN** Discord settings are changed without a valid token
 - **THEN** the request is rejected as unauthorized
-

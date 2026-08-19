@@ -127,6 +127,7 @@ Feature: Close flight
           "id": "69811511-fa34-4837-ab5d-dd480aeab8b6",
           "airframe": {
             "type": "B77W",
+            "iataType": "77W",
             "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
@@ -411,6 +412,7 @@ Feature: Close flight
         "id": "69811511-fa34-4837-ab5d-dd480aeab8b6",
         "airframe": {
           "type": "B77W",
+          "iataType": "77W",
           "name": "Boeing 777-300ER",
           "cruiseSpeed": { "value": 0.84, "unit": "mach" },
           "serviceCeiling": 43000,
@@ -423,6 +425,7 @@ Feature: Close flight
         "selcal": "AB-FG",
         "currentState": "idle",
         "etopsThresholdMinutes": null,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
@@ -617,6 +620,7 @@ Feature: Close flight
           "id": "7e059d96-260c-44e3-a08c-a216cb76398b",
           "airframe": {
             "type": "B77W",
+            "iataType": "77W",
             "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,
@@ -824,6 +828,7 @@ Feature: Close flight
           "id": "b0ea1829-61ea-4b50-8bf6-bfccfb4fe5c7",
           "airframe": {
             "type": "B77W",
+            "iataType": "77W",
             "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,

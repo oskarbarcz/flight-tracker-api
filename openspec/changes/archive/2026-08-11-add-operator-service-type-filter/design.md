@@ -6,7 +6,7 @@ Three pieces of current state shape the approach:
 
 **The operator list already carries one filter.** `ListOperatorsAction` takes an `OperatorListFilters` query DTO whose only member is `recentOnly`, and branches between `ListAllOperatorsQuery` and `ListRecentOperatorsQuery`. That camelCase parameter name — identical on the wire and as a TypeScript property — and the branch are the pattern a second filter has to fit.
 
-**The recent-carrier query aggregates over flights, not operators.** `findRecentlyInvolvedWith` runs `flight.groupBy({ by: ['operatorId'], where: { OR: [captain, creator] }, take: limit })` and only then hydrates the operator rows. Anything that has to narrow the *ranking* rather than the *page* must go into that `where`, which means reaching the operator through the flight relation.
+**The recent-carrier query aggregates over flights, not operators.** `findRecentlyInvolvedWith` runs `flight.groupBy({ by: ['operatorId'], where: { OR: [captain, creator] }, take: limit })` and only then hydrates the operator rows. Anything that has to narrow the _ranking_ rather than the _page_ must go into that `where`, which means reaching the operator through the flight relation.
 
 **The list cache is conservative by construction.** `OperatorListCacheInterceptor.trackBy` returns `undefined` — no caching — as soon as the request carries a query parameter it does not recognise, and only `recentOnly` is recognised. A new parameter therefore lands in the uncached path with no interceptor change, and cannot collide with `operators:list` or the per-user recent key.
 
@@ -31,7 +31,7 @@ Three pieces of current state shape the approach:
 
 `serviceType=cargo` returns operators classified `cargo` or `both`; `serviceType=passenger` returns `passenger` or `both`; `serviceType=both` returns only `both`.
 
-_Why:_ the `operator-service-type` capability already stated the rule from the consumer's side — selecting freight carriers must match `cargo` or `both`. Exact matching would make the API contradict its own spec and would make `serviceType=cargo` answer the question "which operators carry *only* freight", which is almost never what a caller wants. The useful question is "who can carry freight for me".
+_Why:_ the `operator-service-type` capability already stated the rule from the consumer's side — selecting freight carriers must match `cargo` or `both`. Exact matching would make the API contradict its own spec and would make `serviceType=cargo` answer the question "which operators carry _only_ freight", which is almost never what a caller wants. The useful question is "who can carry freight for me".
 
 _Alternative considered:_ exact matching, with `both` reachable only by asking for it. Simpler to describe and the more conventional reading of a filter parameter, but it pushes the union back onto every consumer — two requests and a client-side merge to answer the common question. Rejected.
 

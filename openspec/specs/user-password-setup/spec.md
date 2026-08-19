@@ -1,10 +1,13 @@
 # user-password-setup Specification
 
 ## Purpose
+
 Lets a user whose account has no password establish one, so that an account created
 through Google Sign-In can gain local credentials without an administrator handling
 the secret.
+
 ## Requirements
+
 ### Requirement: A user sets a first password on an account that has none
 
 The system SHALL allow an authenticated user whose account has no stored password to
@@ -87,4 +90,3 @@ SHALL have rejected while the account had no password.
 
 - **WHEN** a user who had no password sets one and a password reset is then requested for their address
 - **THEN** a reset email is sent to that address
-

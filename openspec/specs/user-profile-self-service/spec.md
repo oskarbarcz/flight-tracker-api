@@ -5,7 +5,9 @@
 Lets an authenticated user read and maintain their own profile attributes without
 administrative help, while keeping role, credentials, and system-managed fields
 out of reach of self-service.
+
 ## Requirements
+
 ### Requirement: A user updates their own profile
 
 The system SHALL allow any authenticated user to update their own name, pilot license, home airport, Simbrief user ID, and default weather source, and SHALL return the updated user. The system SHALL apply the update to the requesting user only, identified from the access token, and SHALL ignore any user identifier supplied in the request. Fields omitted from the request SHALL be left unchanged. The default weather source SHALL accept only a source the system actually collects weather from — `aviation_weather_gov` or `say_intentions` — and SHALL reject any other value, including the filter-only values accepted by the weather read endpoint, with a validation error. The Simbrief user ID SHALL consist of digits only, since that is what SimBrief issues, and SHALL be rejected with a validation error otherwise; a well-formed ID SHALL additionally be verified against SimBrief before it is stored.
@@ -292,4 +294,3 @@ user list SHALL keep their existing shape.
 
 - **WHEN** a user's details are read administratively, or the user list is read
 - **THEN** the response does not include the linked identity providers
-

@@ -70,7 +70,6 @@
 
 ## 10. Verification
 
-
 - [x] 10.1 `docker compose exec app npm run lint` and `format:fix`, reverting the three feature files repo-wide Prettier is known to churn
 - [x] 10.2 `docker compose exec app npm test`
 - [x] 10.3 `docker compose exec app npx cucumber-js features/operator/` — restart the app container first if a build ran while `start:dev` was watching

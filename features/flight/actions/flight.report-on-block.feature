@@ -160,6 +160,7 @@ Feature: Report on-block
         "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
         "airframe": {
           "type": "B77W",
+          "iataType": "77W",
           "name": "Boeing 777-300ER",
           "cruiseSpeed": { "value": 0.84, "unit": "mach" },
           "serviceCeiling": 43000,
@@ -172,6 +173,15 @@ Feature: Report on-block
         "selcal": "KY-JO",
         "currentState": "idle",
         "etopsThresholdMinutes": 180,
+        "cabinLayout": {
+          "id": "aa-77w",
+          "airlineIata": "AA",
+          "aircraftIata": "77W",
+          "variant": null,
+          "revision": null,
+          "retired": false,
+          "mismatched": false
+        },
         "baseAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
@@ -294,6 +304,7 @@ Feature: Report on-block
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
           "airframe": {
             "type": "B77W",
+            "iataType": "77W",
             "name": "Boeing 777-300ER",
             "cruiseSpeed": { "value": 0.84, "unit": "mach" },
             "serviceCeiling": 43000,

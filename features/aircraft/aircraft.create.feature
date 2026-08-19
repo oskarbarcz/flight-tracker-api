@@ -41,6 +41,7 @@ Feature: Create aircraft for operator
         "id": "@uuid",
         "airframe": {
           "type": "B748",
+          "iataType": "748",
           "name": "Boeing 747-8",
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
@@ -53,6 +54,7 @@ Feature: Create aircraft for operator
         "livery": "Sunshine",
         "currentState": "idle",
         "etopsThresholdMinutes": null,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -119,6 +121,7 @@ Feature: Create aircraft for operator
         "id": "@uuid",
         "airframe": {
           "type": "B748",
+          "iataType": "748",
           "name": "Boeing 747-8",
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
@@ -131,6 +134,7 @@ Feature: Create aircraft for operator
         "livery": "Sunshine",
         "currentState": "idle",
         "etopsThresholdMinutes": 180,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -171,6 +175,7 @@ Feature: Create aircraft for operator
         "id": "@uuid",
         "airframe": {
           "type": "B748",
+          "iataType": "748",
           "name": "Boeing 747-8",
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
@@ -183,6 +188,7 @@ Feature: Create aircraft for operator
         "livery": "Sunshine",
         "currentState": "idle",
         "etopsThresholdMinutes": null,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -223,6 +229,7 @@ Feature: Create aircraft for operator
         "id": "@uuid",
         "airframe": {
           "type": "B748",
+          "iataType": "748",
           "name": "Boeing 747-8",
           "cruiseSpeed": { "value": 0.85, "unit": "mach" },
           "serviceCeiling": 43100,
@@ -235,6 +242,7 @@ Feature: Create aircraft for operator
         "livery": "@defaultLivery('Lufthansa')",
         "currentState": "idle",
         "etopsThresholdMinutes": null,
+        "cabinLayout": null,
         "baseAirport": {
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
@@ -409,6 +417,31 @@ Feature: Create aircraft for operator
         "message": "Validation failed (uuid v 4 is expected)",
         "error": "Bad Request",
         "statusCode": 400
+      }
+      """
+
+  Scenario: As operations I cannot assign a cabin layout while registering an aircraft
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft" with body:
+      """json
+      {
+        "type": "B738",
+        "selcal": "SL-PR",
+        "registration": "SP-LRZ",
+        "baseAirportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "cabinLayout": "kl-738"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 400,
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "violations": {
+          "cabinLayout": ["property cabinLayout should not exist"]
+        }
       }
       """
 

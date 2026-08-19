@@ -7,11 +7,11 @@ Feature: Synchronise the cabin layout catalogue
     And the response body should contain:
       """json
       {
-        "reported": 13,
-        "catalogued": 12,
-        "created": 12,
+        "reported": 14,
+        "catalogued": 13,
+        "created": 7,
         "retired": 0,
-        "restored": 0,
+        "restored": 1,
         "skipped": 0
       }
       """
@@ -26,8 +26,8 @@ Feature: Synchronise the cabin layout catalogue
     And the response body should contain:
       """json
       {
-        "reported": 13,
-        "catalogued": 12,
+        "reported": 14,
+        "catalogued": 13,
         "created": 0,
         "retired": 0,
         "restored": 0,

@@ -3,7 +3,7 @@
 See proposal.md — Why. What shapes the design is the current implementation's assumptions,
 all of which this change invalidates:
 
-- `airport_weather` is keyed by `airportId` alone, so the row *is* the airport's weather.
+- `airport_weather` is keyed by `airportId` alone, so the row _is_ the airport's weather.
   `AirportWeatherRepository.saveWeather()` is a plain `update` on that key, and the read is a
   `findUnique`.
 - `airport_weather.watch` doubles as monitoring state. `watchAirports()` upserts a row whose
@@ -73,7 +73,7 @@ drops the placeholder-row upsert: check-in now just flips a flag on rows that al
 and the refresh selects airports with `where: { monitorWeather: true }` instead of joining
 through the weather table to reach `icaoCode`.
 
-Sitting on `airport` next to `dataQuality`, the flag *looks* like configuration, so the
+Sitting on `airport` next to `dataQuality`, the flag _looks_ like configuration, so the
 decision to keep it system-managed is deliberate and needs enforcing rather than assuming:
 it is absent from `UpdateAirportDto`, and the global validation pipe runs with
 `forbidNonWhitelisted: true`, so a client that sends it gets a `400` with the field named in
@@ -134,7 +134,7 @@ invisible. Nothing about a failed fetch touches storage — no empty string, no 
 `lastFetched`.
 
 This matters more than it did: the request count per cycle goes from a fixed 2 to `2 + N`
-against two independent vendors, so the probability that *something* fails in a given cycle
+against two independent vendors, so the probability that _something_ fails in a given cycle
 approaches certainty as the monitoring set grows. Isolation is what keeps that a non-event.
 
 ### Filter resolution lives in the query handler
@@ -223,7 +223,7 @@ One forward migration, ordered so nothing reads a column that does not exist yet
 2. `ALTER TABLE "airport" ADD COLUMN "monitorWeather" boolean NOT NULL DEFAULT false`, then
    backfill from `airport_weather.watch`.
 3. `ALTER TABLE "user" ADD COLUMN "defaultWeatherSource" "WeatherSource" NOT NULL DEFAULT
-   'aviation_weather_gov'`. The default backfills every existing row, and keeping the default
+'aviation_weather_gov'`. The default backfills every existing row, and keeping the default
    on the column means new users need no application-side write.
 4. Create the new `airport_weather` shape, then populate it from the old one with two
    `SELECT`s unioned — one per legacy column pair — each filtered to `IS NOT NULL` and

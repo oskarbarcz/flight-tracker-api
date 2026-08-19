@@ -1,10 +1,13 @@
 # discord-sign-in Specification
 
 ## Purpose
+
 Lets a user obtain a session by proving control of a Discord account that is already
 linked to their account, as an alternative to email and password, without ever
 creating an account from a Discord identity alone.
+
 ## Requirements
+
 ### Requirement: A user signs in with a linked Discord account
 
 The system SHALL open a session when presented with a Discord authorization code that
@@ -59,4 +62,3 @@ a way of obtaining one.
 
 - **WHEN** a Discord sign-in request is made with no access token
 - **THEN** the request is processed on its merits rather than rejected as unauthorized
-
