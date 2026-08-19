@@ -1,0 +1,223 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/seatmap",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      },
+      "queryStringParameters": {
+        "op": ["seatmap"],
+        "slug": ["lh-32n"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"seatMap\": {\"slug\": \"lh-32n\", \"airlineIata\": \"LH\", \"aircraftIata\": \"32N\", \"aircraftType\": \"Airbus A320-271N\", \"aircraftTypeDisplayed\": \"Airbus A320neo\", \"manufacturer\": \"Airbus\", \"haulType\": \"Short Haul\", \"isDualDeck\": false, \"totalSeats\": 4, \"lastUpdated\": \"2025-08-23\", \"seatCounts\": {\"first\": 0, \"business\": 0, \"premium_economy\": 0, \"economy\": 4, \"total\": 4}, \"canvas\": {\"width\": 800, \"height\": 3970}, \"assets\": {\"image\": \"https://cdn.example/maptool/seatmaps/lh-32n.webp\", \"imageNeutral\": \"https://cdn.example/maptool/seatmaps/lh-32n.neutral.webp\", \"svg\": \"https://maptool.example/api/v1/aircraft/lh-32n/svg\", \"seatRects\": \"https://maptool.example/api/v1/aircraft/lh-32n/seat-rects\"}, \"cabins\": [{\"code\": \"M\", \"name\": \"Economy seats\", \"seatCount\": 4, \"rows\": \"1 to 2\", \"pitch\": \"30\\\"\", \"width\": \"18\\\"\", \"recline\": \"2\\\"\", \"description\": \"Slimline seats\"}], \"seats\": [{\"designator\": \"01A\", \"x\": 177.9, \"y\": 849.5, \"width\": 57.3, \"height\": 77.2, \"rotation\": 0, \"reversed\": false, \"cabin\": \"economy\", \"rating\": \"green\", \"color\": \"\", \"bookable\": true, \"blocked\": false, \"crewRest\": false, \"windowStatus\": \"great\", \"seatProduct\": null, \"comments\": []}, {\"designator\": \"01B\", \"x\": 241.3, \"y\": 849.3, \"width\": 57.4, \"height\": 77.5, \"rotation\": 0, \"reversed\": false, \"cabin\": \"economy\", \"rating\": null, \"color\": \"\", \"bookable\": true, \"blocked\": false, \"crewRest\": false, \"windowStatus\": null, \"seatProduct\": null, \"comments\": []}, {\"designator\": \"01C\", \"x\": 304.9, \"y\": 849.3, \"width\": 57.3, \"height\": 77.4, \"rotation\": 0, \"reversed\": false, \"cabin\": \"economy\", \"rating\": \"red\", \"color\": \"#dc3c3c\", \"bookable\": true, \"blocked\": false, \"crewRest\": false, \"windowStatus\": null, \"seatProduct\": null, \"comments\": [{\"slug\": \"bathroom_door\", \"comment\": \"Immediately adjacent to lavatory (behind) \\u2014 expect noise, odors, and queuing traffic\", \"sentiment\": \"bad\", \"severity\": \"major\"}]}, {\"designator\": \"02A\", \"x\": 177.4, \"y\": 948.9, \"width\": 57.9, \"height\": 77.3, \"rotation\": 0, \"reversed\": false, \"cabin\": \"economy\", \"rating\": null, \"color\": \"\", \"bookable\": false, \"blocked\": true, \"crewRest\": true, \"windowStatus\": \"average\", \"seatProduct\": null, \"comments\": []}]}}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/seatmap",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      },
+      "queryStringParameters": {
+        "op": ["seatmap"],
+        "slug": ["lo-7m8-1"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"seatMap\": {\"slug\": \"lo-7m8-1\", \"airlineIata\": \"LO\", \"aircraftIata\": \"7M8\", \"aircraftType\": \"Airbus A320-271N\", \"aircraftTypeDisplayed\": \"Airbus A320neo\", \"manufacturer\": \"Airbus\", \"haulType\": \"Short Haul\", \"isDualDeck\": false, \"totalSeats\": 2, \"lastUpdated\": \"2025-08-23\", \"seatCounts\": {\"first\": 0, \"business\": 0, \"premium_economy\": 0, \"economy\": 2, \"total\": 2}, \"canvas\": {\"width\": 800, \"height\": 3970}, \"assets\": {\"image\": \"https://cdn.example/maptool/seatmaps/lo-7m8-1.webp\", \"imageNeutral\": \"https://cdn.example/maptool/seatmaps/lo-7m8-1.neutral.webp\", \"svg\": \"https://maptool.example/api/v1/aircraft/lo-7m8-1/svg\", \"seatRects\": \"https://maptool.example/api/v1/aircraft/lo-7m8-1/seat-rects\"}, \"cabins\": [{\"code\": \"M\", \"name\": \"Economy seats\", \"seatCount\": 2, \"rows\": \"1 to 2\", \"pitch\": \"30\\\"\", \"width\": \"18\\\"\", \"recline\": \"2\\\"\", \"description\": \"Slimline seats\"}], \"seats\": [{\"designator\": \"10A\", \"x\": 240, \"y\": 1294, \"width\": 40.0, \"height\": 58.0, \"rotation\": 0, \"reversed\": false, \"cabin\": \"economy\", \"rating\": \"yellow\", \"color\": \"#f0c030\", \"bookable\": true, \"blocked\": false, \"crewRest\": false, \"windowStatus\": \"great\", \"seatProduct\": null, \"comments\": []}, {\"designator\": \"10B\", \"x\": 284, \"y\": 1294, \"width\": 40.0, \"height\": 58.0, \"rotation\": 0, \"reversed\": false, \"cabin\": \"economy\", \"rating\": null, \"color\": \"\", \"bookable\": true, \"blocked\": false, \"crewRest\": false, \"windowStatus\": \"none\", \"seatProduct\": null, \"comments\": []}]}}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/seatmap",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      },
+      "queryStringParameters": {
+        "op": ["seatmap"],
+        "slug": ["zz-999"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 404,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"error\": {\"code\": \"SEAT_MAP_NOT_FOUND\", \"message\": \"Seat map for configuration zz-999 does not exist.\", \"status\": 404}}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/seatmap",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      },
+      "queryStringParameters": {
+        "op": ["seatmap"],
+        "slug": ["boom"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 502,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"error\": {\"code\": \"AEROLOPA_UNAVAILABLE\", \"message\": \"AeroLOPA is unavailable.\", \"status\": 502}}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/seatmap",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      },
+      "queryStringParameters": {
+        "op": ["resolve"],
+        "airline": ["LH"],
+        "aircraft": ["32N"],
+        "includeSeatMaps": ["false"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"airlineIata\": \"LH\", \"aircraftIata\": \"32N\", \"candidateCount\": 1, \"ambiguous\": false, \"candidates\": [\"lh-32n\"], \"seatMaps\": []}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/seatmap",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      },
+      "queryStringParameters": {
+        "op": ["resolve"],
+        "airline": ["LO"],
+        "aircraft": ["7M8"],
+        "includeSeatMaps": ["false"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"airlineIata\": \"LO\", \"aircraftIata\": \"7M8\", \"candidateCount\": 3, \"ambiguous\": true, \"candidates\": [\"lo-7m8-1\", \"lo-7m8-2\", \"lo-7m8-3\"], \"seatMaps\": []}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/seatmap",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      },
+      "queryStringParameters": {
+        "op": ["resolve"],
+        "airline": ["BA"],
+        "aircraft": ["744"],
+        "includeSeatMaps": ["false"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"airlineIata\": \"BA\", \"aircraftIata\": \"744\", \"candidateCount\": 0, \"ambiguous\": false, \"candidates\": [], \"seatMaps\": []}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/seatmap",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      },
+      "queryStringParameters": {
+        "op": ["resolve"],
+        "airline": ["LO"],
+        "aircraft": ["7M8"],
+        "includeSeatMaps": ["true"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"airlineIata\": \"LO\", \"aircraftIata\": \"7M8\", \"candidateCount\": 1, \"ambiguous\": false, \"candidates\": [\"lo-7m8-1\"], \"seatMaps\": [{\"slug\": \"lo-7m8-1\", \"airlineIata\": \"LO\", \"aircraftIata\": \"7M8\", \"aircraftType\": \"Airbus A320-271N\", \"aircraftTypeDisplayed\": \"Airbus A320neo\", \"manufacturer\": \"Airbus\", \"haulType\": \"Short Haul\", \"isDualDeck\": false, \"totalSeats\": 2, \"lastUpdated\": \"2025-08-23\", \"seatCounts\": {\"first\": 0, \"business\": 0, \"premium_economy\": 0, \"economy\": 2, \"total\": 2}, \"canvas\": {\"width\": 800, \"height\": 3970}, \"assets\": {\"image\": \"https://cdn.example/maptool/seatmaps/lo-7m8-1.webp\", \"imageNeutral\": \"https://cdn.example/maptool/seatmaps/lo-7m8-1.neutral.webp\", \"svg\": \"https://maptool.example/api/v1/aircraft/lo-7m8-1/svg\", \"seatRects\": \"https://maptool.example/api/v1/aircraft/lo-7m8-1/seat-rects\"}, \"cabins\": [{\"code\": \"M\", \"name\": \"Economy seats\", \"seatCount\": 2, \"rows\": \"1 to 2\", \"pitch\": \"30\\\"\", \"width\": \"18\\\"\", \"recline\": \"2\\\"\", \"description\": \"Slimline seats\"}], \"seats\": [{\"designator\": \"10A\", \"x\": 240, \"y\": 1294, \"width\": 40.0, \"height\": 58.0, \"rotation\": 0, \"reversed\": false, \"cabin\": \"economy\", \"rating\": \"yellow\", \"color\": \"#f0c030\", \"bookable\": true, \"blocked\": false, \"crewRest\": false, \"windowStatus\": \"great\", \"seatProduct\": null, \"comments\": []}, {\"designator\": \"10B\", \"x\": 284, \"y\": 1294, \"width\": 40.0, \"height\": 58.0, \"rotation\": 0, \"reversed\": false, \"cabin\": \"economy\", \"rating\": null, \"color\": \"\", \"bookable\": true, \"blocked\": false, \"crewRest\": false, \"windowStatus\": \"none\", \"seatProduct\": null, \"comments\": []}]}]}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/seatmap",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      },
+      "queryStringParameters": {
+        "op": ["seatmap"],
+        "slug": ["unreadable"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 502,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"error\": {\"code\": \"SEAT_MAP_UNREADABLE\", \"message\": \"Seat map payload for configuration unreadable could not be read.\", \"status\": 502}}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/seatmap",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      },
+      "queryStringParameters": {
+        "op": ["configurations"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"count\": 4, \"configurations\": [{\"slug\": \"lh-32n\", \"airlineIata\": \"LH\", \"aircraftIata\": \"32N\"}, {\"slug\": \"lo-7m8-1\", \"airlineIata\": \"LO\", \"aircraftIata\": \"7M8\"}, {\"slug\": \"lo-7m8-2\", \"airlineIata\": \"LO\", \"aircraftIata\": \"7M8\"}, {\"slug\": \"lo-7m8-3\", \"airlineIata\": \"LO\", \"aircraftIata\": \"7M8\"}]}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/seatmap"
+    },
+    "httpResponse": {
+      "statusCode": 401,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"error\": \"Authentication is possible but has failed or not yet been provided.\"}"
+    },
+    "priority": -1
+  }
+]

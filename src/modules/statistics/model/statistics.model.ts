@@ -180,9 +180,17 @@ export class PeriodTotals {
   fuelBurned!: number;
 }
 
+export class UnlockedAirport {
+  @ApiProperty({ example: 'LFPG' })
+  icaoCode!: string;
+
+  @ApiProperty({ example: '2026-08-17T09:40:00.000Z' })
+  firstVisitAt!: Date;
+}
+
 export class PeriodUnlocked {
-  @ApiProperty({ type: [String], example: ['LFPG', 'LEBL'] })
-  airports!: string[];
+  @ApiProperty({ type: [UnlockedAirport] })
+  airports!: UnlockedAirport[];
 
   @ApiProperty({ type: [String], example: ['B738'] })
   aircraftTypes!: string[];

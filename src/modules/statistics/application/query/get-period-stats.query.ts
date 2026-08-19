@@ -85,7 +85,15 @@ export class GetPeriodStatsHandler implements IQueryHandler<GetPeriodStatsQuery>
       unlocked: {
         airports: byAirport
           .filter((entry) => isWithin(entry.firstVisitAt as Date, current))
-          .map((entry) => entry.icaoCode),
+          .sort(
+            (a, b) =>
+              (a.firstVisitAt as Date).getTime() -
+              (b.firstVisitAt as Date).getTime(),
+          )
+          .map((entry) => ({
+            icaoCode: entry.icaoCode,
+            firstVisitAt: entry.firstVisitAt as Date,
+          })),
         aircraftTypes: byType
           .filter((entry) => isWithin(entry.firstFlownAt as Date, current))
           .map((entry) => entry.type),
