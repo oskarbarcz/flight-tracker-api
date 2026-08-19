@@ -863,7 +863,85 @@ model CabinLayout {
   firstSeenAt  DateTime  @default(now())
   retiredAt    DateTime?
 
+  versions CabinLayoutVersion[]
+
   @@index([airlineIata, aircraftIata])
   @@index([retiredAt])
   @@map("cabin_layout")
+}
+
+enum CabinDeck {
+  main
+  upper
+}
+
+model CabinLayoutVersion {
+  id                    String   @id @default(uuid()) @db.Uuid
+  layoutId              String
+  revision              Int
+  contentHash           String   @db.VarChar(64)
+  aircraftType          String
+  aircraftTypeDisplayed String
+  manufacturer          String
+  haulType              String
+  isDualDeck            Boolean
+  totalSeats            Int
+  seatCounts            Json
+  lastUpdated           DateTime @db.Date
+  fetchedAt             DateTime @default(now())
+  rawPayload            Json
+
+  layout CabinLayout       @relation(fields: [layoutId], references: [id], onDelete: Cascade)
+  decks  CabinLayoutDeck[]
+
+  @@unique([layoutId, revision])
+  @@index([layoutId])
+  @@map("cabin_layout_version")
+}
+
+model CabinLayoutDeck {
+  id           String    @id @default(uuid()) @db.Uuid
+  versionId    String    @db.Uuid
+  deck         CabinDeck
+  sourceSlug   String
+  canvasWidth  Int
+  canvasHeight Int
+  seatCount    Int
+  lastUpdated  DateTime  @db.Date
+  assets       Json
+  cabins       Json
+
+  version CabinLayoutVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  seats   CabinLayoutSeat[]
+
+  @@unique([versionId, deck])
+  @@index([versionId])
+  @@map("cabin_layout_deck")
+}
+
+model CabinLayoutSeat {
+  id           String  @id @default(uuid()) @db.Uuid
+  deckId       String  @db.Uuid
+  designator   String
+  x            Float
+  y            Float
+  width        Float
+  height       Float
+  rotation     Float
+  reversed     Boolean
+  cabin        String
+  rating       String?
+  color        String
+  bookable     Boolean
+  blocked      Boolean
+  crewRest     Boolean
+  windowStatus String?
+  seatProduct  String?
+  comments     Json
+
+  deck CabinLayoutDeck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+  @@unique([deckId, designator])
+  @@index([deckId])
+  @@map("cabin_layout_seat")
 }

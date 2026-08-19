@@ -5,9 +5,14 @@ import { CabinLayoutsRepository } from './infra/database/repository/cabin-layout
 import { SyncCabinLayoutsCommandHandler } from './application/command/sync-cabin-layouts.command';
 import { ListCabinLayoutsQueryHandler } from './application/query/list-cabin-layouts.query';
 import { GetCabinLayoutQueryHandler } from './application/query/get-cabin-layout.query';
+import { GetCabinSeatMapQueryHandler } from './application/query/get-cabin-seat-map.query';
+import { EnsureCabinLayoutVersionCommandHandler } from './application/command/ensure-cabin-layout-version.command';
+import { RefreshCabinLayoutCommandHandler } from './application/command/refresh-cabin-layout.command';
 import { SyncCabinLayoutsAction } from './infra/http/action/sync-cabin-layouts.action';
 import { ListCabinLayoutsAction } from './infra/http/action/list-cabin-layouts.action';
 import { GetCabinLayoutAction } from './infra/http/action/get-cabin-layout.action';
+import { GetCabinSeatMapAction } from './infra/http/action/get-cabin-seat-map.action';
+import { RefreshCabinLayoutAction } from './infra/http/action/refresh-cabin-layout.action';
 
 @Module({
   imports: [PrismaModule, AerolopaModule],
@@ -15,12 +20,17 @@ import { GetCabinLayoutAction } from './infra/http/action/get-cabin-layout.actio
     SyncCabinLayoutsAction,
     ListCabinLayoutsAction,
     GetCabinLayoutAction,
+    GetCabinSeatMapAction,
+    RefreshCabinLayoutAction,
   ],
   providers: [
     CabinLayoutsRepository,
     SyncCabinLayoutsCommandHandler,
     ListCabinLayoutsQueryHandler,
     GetCabinLayoutQueryHandler,
+    GetCabinSeatMapQueryHandler,
+    EnsureCabinLayoutVersionCommandHandler,
+    RefreshCabinLayoutCommandHandler,
   ],
   exports: [CabinLayoutsRepository],
 })
