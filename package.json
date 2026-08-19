@@ -1,6 +1,6 @@
 {
   "name": "flight-tracker-api",
-  "version": "3.33.0",
+  "version": "3.34.0",
   "private": true,
   "homepage": "https://mypreflight.io",
   "author": "oskarbarcz",
@@ -27,6 +27,7 @@
     "database:migrate": "npx prisma migrate deploy"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.9.0",
     "@nestjs/cache-manager": "^3.1.2",
     "@nestjs/common": "^11.1.19",
     "@nestjs/config": "^4.0.4",

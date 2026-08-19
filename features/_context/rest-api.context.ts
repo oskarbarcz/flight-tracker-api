@@ -192,6 +192,37 @@ Then('the response body should contain:', async function (docString: string) {
   deepCompare(actual, expected);
 });
 
+Then(
+  'the response body list {string} should have distinct {string} values',
+  (listProperty: string, itemProperty: string) => {
+    const items = itemsOf(listProperty);
+    const values = items.map((item) => item[itemProperty]);
+
+    expect(new Set(values).size).toBe(values.length);
+  },
+);
+
+Then(
+  'every entry of the response body list {string} should have a {string}',
+  (listProperty: string, itemProperty: string) => {
+    const items = itemsOf(listProperty);
+    const missing = items.filter(
+      (item) => item[itemProperty] === undefined || item[itemProperty] === '',
+    );
+
+    expect(missing).toEqual([]);
+    expect(items.length).toBeGreaterThan(0);
+  },
+);
+
+function itemsOf(listProperty: string): Record<string, any>[] {
+  const items = apiResponse.data[listProperty];
+
+  expect(Array.isArray(items)).toBe(true);
+
+  return items;
+}
+
 Then('I dump response', () => {
   console.log(JSON.stringify(apiResponse.data));
 });
