@@ -74,7 +74,7 @@ export class DeclareEmergencyHandler implements ICommandHandler<
       reportedBy: actor.sub,
     });
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new EmergencyWasDeclaredEvent({
         flightId,
         scope: FlightEventScope.User,
