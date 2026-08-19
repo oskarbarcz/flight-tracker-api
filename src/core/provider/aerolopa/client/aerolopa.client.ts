@@ -1,9 +1,9 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable, Logger } from '@nestjs/common';
 import {
-  AerolopaConfigurationIndex,
   AerolopaErrorBody,
   AerolopaErrorCode,
+  AerolopaLayoutIndex,
   AerolopaResolution,
   AerolopaSeatMap,
   AerolopaSeatMapResponse,
@@ -31,12 +31,13 @@ export class AerolopaClient {
   private readonly logger = new Logger(AerolopaClient.name);
 
   constructor(
-    private readonly functionUrl: string,
+    private readonly baseUrl: string,
     private readonly functionSecret: string,
   ) {}
 
   async getSeatMap(slug: string): Promise<AerolopaSeatMap> {
     const body = await this.invoke<AerolopaSeatMapResponse>(
+      'seatmap',
       { op: 'seatmap', slug },
       slug,
     );
@@ -49,7 +50,7 @@ export class AerolopaClient {
     aircraftIata: string,
     includeSeatMaps = false,
   ): Promise<AerolopaResolution> {
-    return this.invoke<AerolopaResolution>({
+    return this.invoke<AerolopaResolution>('seatmap', {
       op: 'resolve',
       airline: airlineIata.toUpperCase(),
       aircraft: aircraftIata.toUpperCase(),
@@ -57,15 +58,17 @@ export class AerolopaClient {
     });
   }
 
-  async listConfigurations(): Promise<AerolopaConfigurationIndex> {
-    return this.invoke<AerolopaConfigurationIndex>({ op: 'configurations' });
+  async listLayouts(): Promise<AerolopaLayoutIndex> {
+    return this.invoke<AerolopaLayoutIndex>('layouts', {});
   }
 
   private async invoke<T>(
+    operation: string,
     params: Record<string, string>,
     slug?: string,
   ): Promise<T> {
-    const url = `${this.functionUrl}?${new URLSearchParams(params).toString()}`;
+    const query = new URLSearchParams(params).toString();
+    const url = `${this.baseUrl}/${operation}${query ? `?${query}` : ''}`;
 
     let response: Response;
 
@@ -122,12 +125,12 @@ export class AerolopaClient {
 export const AerolopaClientProvider = {
   provide: AerolopaClient,
   useFactory: (config: ConfigService) => {
-    const functionUrl = config.getOrThrow<string>('AEROLOPA_FUNCTION_URL');
+    const baseUrl = config.getOrThrow<string>('AEROLOPA_FUNCTION_BASE_URL');
     const functionSecret = config.getOrThrow<string>(
       'AEROLOPA_FUNCTION_SECRET',
     );
 
-    return new AerolopaClient(functionUrl, functionSecret);
+    return new AerolopaClient(baseUrl, functionSecret);
   },
   inject: [ConfigService],
 };

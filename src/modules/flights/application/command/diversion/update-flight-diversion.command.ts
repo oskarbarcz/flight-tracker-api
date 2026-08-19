@@ -54,7 +54,7 @@ export class UpdateFlightDiversionHandler implements ICommandHandler<UpdateFligh
 
     await this.diversionRepository.update(flightId, payload);
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new DiversionWasUpdatedEvent({
         flightId,
         scope: scopeForActor(actor),

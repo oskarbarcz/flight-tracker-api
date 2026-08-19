@@ -6,7 +6,9 @@ import {
   SeatMapUnreadableError,
 } from '../error/aerolopa.error';
 
-const FUNCTION_URL = 'https://faas.example/aerolopa-provider/aerolopa/seatmap';
+const BASE_URL = 'https://faas.example/aerolopa-provider/aerolopa';
+
+const SEATMAP_URL = `${BASE_URL}/seatmap`;
 
 const SECRET = 'shared-secret';
 
@@ -26,7 +28,7 @@ function jsonResponse(status: number, body: unknown): Response {
 describe('AerolopaClient', () => {
   let fetchMock: jest.SpyInstance;
 
-  const client = new AerolopaClient(FUNCTION_URL, SECRET);
+  const client = new AerolopaClient(BASE_URL, SECRET);
 
   afterEach(() => {
     fetchMock?.mockRestore();
@@ -40,7 +42,7 @@ describe('AerolopaClient', () => {
     expect(await client.getSeatMap('lh-32n')).toEqual(seatMap);
 
     const [url, init] = fetchMock.mock.calls[0];
-    expect(url).toBe(`${FUNCTION_URL}?op=seatmap&slug=lh-32n`);
+    expect(url).toBe(`${SEATMAP_URL}?op=seatmap&slug=lh-32n`);
     expect(init.headers['X-Require-Whisk-Auth']).toBe(SECRET);
   });
 
@@ -59,7 +61,7 @@ describe('AerolopaClient', () => {
 
     expect(await client.resolve('lo', '7m8')).toEqual(resolution);
     expect(fetchMock.mock.calls[0][0]).toBe(
-      `${FUNCTION_URL}?op=resolve&airline=LO&aircraft=7M8&includeSeatMaps=false`,
+      `${SEATMAP_URL}?op=resolve&airline=LO&aircraft=7M8&includeSeatMaps=false`,
     );
   });
 
@@ -73,22 +75,41 @@ describe('AerolopaClient', () => {
     expect(fetchMock.mock.calls[0][0]).toContain('includeSeatMaps=true');
   });
 
-  it('lists every known configuration', async () => {
+  it('lists the published layouts from its own operation', async () => {
     const index = {
-      count: 2,
-      configurations: [
-        { slug: 'lh-32n', airlineIata: 'LH', aircraftIata: '32N' },
-        { slug: 'lo-7m8-1', airlineIata: 'LO', aircraftIata: '7M8' },
+      count: 3,
+      layouts: [
+        { id: 'lh-32n', airlineIata: 'LH', aircraftIata: '32N', variant: null },
+        {
+          id: 'lo-7m8-1',
+          airlineIata: 'LO',
+          aircraftIata: '7M8',
+          variant: '1',
+        },
+        {
+          id: 'lh-74h-m',
+          airlineIata: 'LH',
+          aircraftIata: '74H',
+          variant: 'm',
+        },
       ],
     };
     fetchMock = jest
       .spyOn(global, 'fetch')
       .mockResolvedValue(jsonResponse(200, index));
 
-    expect(await client.listConfigurations()).toEqual(index);
-    expect(fetchMock.mock.calls[0][0]).toBe(
-      `${FUNCTION_URL}?op=configurations`,
-    );
+    expect(await client.listLayouts()).toEqual(index);
+    expect(fetchMock.mock.calls[0][0]).toBe(`${BASE_URL}/layouts`);
+  });
+
+  it('sends no query string when an operation takes no parameters', async () => {
+    fetchMock = jest
+      .spyOn(global, 'fetch')
+      .mockResolvedValue(jsonResponse(200, { count: 0, layouts: [] }));
+
+    await client.listLayouts();
+
+    expect(fetchMock.mock.calls[0][0]).not.toContain('?');
   });
 
   it('translates a 404 into a missing seat map', async () => {
@@ -123,6 +144,18 @@ describe('AerolopaClient', () => {
       );
 
     await expect(client.resolve('ZZ', '999')).rejects.toBeInstanceOf(
+      AerolopaUnavailableError,
+    );
+  });
+
+  it('keeps a seat map failure off the layouts path', async () => {
+    fetchMock = jest
+      .spyOn(global, 'fetch')
+      .mockResolvedValue(
+        jsonResponse(404, { error: { code: 'SEAT_MAP_NOT_FOUND' } }),
+      );
+
+    await expect(client.listLayouts()).rejects.toBeInstanceOf(
       AerolopaUnavailableError,
     );
   });

@@ -92,10 +92,16 @@ export interface AerolopaSeatMap {
   seats: AerolopaSeat[];
 }
 
-export interface AerolopaConfiguration {
-  slug: string;
+export interface AerolopaLayout {
+  id: string;
   airlineIata: string;
   aircraftIata: string;
+  variant: string | null;
+}
+
+export interface AerolopaLayoutIndex {
+  count: number;
+  layouts: AerolopaLayout[];
 }
 
 export interface AerolopaResolution {
@@ -109,11 +115,6 @@ export interface AerolopaResolution {
 
 export interface AerolopaSeatMapResponse {
   seatMap: AerolopaSeatMap;
-}
-
-export interface AerolopaConfigurationIndex {
-  count: number;
-  configurations: AerolopaConfiguration[];
 }
 
 export interface AerolopaErrorBody {

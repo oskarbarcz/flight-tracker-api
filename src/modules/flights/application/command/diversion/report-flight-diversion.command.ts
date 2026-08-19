@@ -27,7 +27,7 @@ export class ReportFlightDiversionHandler implements ICommandHandler<ReportFligh
 
     await this.diversionRepository.create(flightId, actor, payload);
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new DiversionWasReportedEvent({
         flightId,
         scope: scopeForActor(actor),
