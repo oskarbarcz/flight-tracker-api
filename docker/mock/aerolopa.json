@@ -31465,6 +31465,22 @@
   {
     "httpRequest": {
       "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/layouts",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"count\": 13, \"layouts\": [{\"id\": \"lh-32n\", \"airlineIata\": \"LH\", \"aircraftIata\": \"32N\", \"variant\": null}, {\"id\": \"lo-7m8-1\", \"airlineIata\": \"LO\", \"aircraftIata\": \"7M8\", \"variant\": \"1\"}, {\"id\": \"lo-7m8-2\", \"airlineIata\": \"LO\", \"aircraftIata\": \"7M8\", \"variant\": \"2\"}, {\"id\": \"lo-7m8-3\", \"airlineIata\": \"LO\", \"aircraftIata\": \"7M8\", \"variant\": \"3\"}, {\"id\": \"aa-77w\", \"airlineIata\": \"AA\", \"aircraftIata\": \"77W\", \"variant\": null}, {\"id\": \"aa-77w-2\", \"airlineIata\": \"AA\", \"aircraftIata\": \"77W\", \"variant\": \"2\"}, {\"id\": \"de-321\", \"airlineIata\": \"DE\", \"aircraftIata\": \"321\", \"variant\": null}, {\"id\": \"kl-738\", \"airlineIata\": \"KL\", \"aircraftIata\": \"738\", \"variant\": null}, {\"id\": \"fi-752-1\", \"airlineIata\": \"FI\", \"aircraftIata\": \"752\", \"variant\": \"1\"}, {\"id\": \"fi-752-2\", \"airlineIata\": \"FI\", \"aircraftIata\": \"752\", \"variant\": \"2\"}, {\"id\": \"lh-74h-m\", \"airlineIata\": \"LH\", \"aircraftIata\": \"74H\", \"variant\": \"m\"}, {\"id\": \"lh-74h-u\", \"airlineIata\": \"LH\", \"aircraftIata\": \"74H\", \"variant\": \"u\"}, {\"id\": \"sq-359-m\", \"airlineIata\": \"SQ\", \"aircraftIata\": \"359\", \"variant\": \"m\"}]}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
       "path": "/aerolopa-provider/aerolopa/seatmap"
     },
     "httpResponse": {
@@ -31491,6 +31507,20 @@
       "body": {
         "error": "Authentication is possible but has failed or not yet been provided."
       }
+    },
+    "priority": -1
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/layouts"
+    },
+    "httpResponse": {
+      "statusCode": 401,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": "{\"error\": \"Authentication is possible but has failed or not yet been provided.\"}"
     },
     "priority": -1
   }
