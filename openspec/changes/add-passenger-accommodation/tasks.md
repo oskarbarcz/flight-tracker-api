@@ -23,15 +23,16 @@ every group, not a separate issue.
 
 ## 2. Versioned seat data (needs 1) — capability `cabin-layout-versions`
 
-- [ ] 2.1 Migration: `layout_version` (layoutId, revision, contentHash, lastUpdated, fetchedAt, totalSeats, rawPayload), `layout_deck` (versionId, deck, sourceSlug, canvas, assets, cabins), `layout_seat` (deckId, designator + geometry + cabin + rating + windowStatus + comments), unique `(deckId, designator)`
-- [ ] 2.2 Content-hash function stripping asset URL query strings + unit spec proving a rotated `?v=` is not a change
-- [ ] 2.3 Deck merge on fetch: one or two source slugs → one version with per-deck canvas/assets/cabins, `totalSeats` summed; unit spec against the real `lh-74h` pair (332 + 32 = 364, no designator collision, two canvases)
-- [ ] 2.4 `EnsureLayoutVersionCommand`: lazy first fetch, store nothing on provider failure
-- [ ] 2.5 `RefreshLayoutCommand`: refetch, compare hash, add a version only on change; report changed/unchanged
-- [ ] 2.6 `GetLayoutQuery` returning the newest version with decks and seats; `GET /api/v1/cabin-layout/:id`
-- [ ] 2.7 `POST /api/v1/cabin-layout/:id/refresh` action, `@Role(UserRole.Operations)`
-- [ ] 2.8 Mock: real upstream seat maps for `aa-77w`, `de-321`, `kl-738`, `fi-752-1`, `lh-74h-m`, `lh-74h-u`
-- [ ] 2.9 Feature: `features/cabin-layout/layout.get.feature`, `layout.refresh.feature` — lazy fetch on first read, unchanged refresh writes no version, changed refresh adds one, dual-deck totals, RBAC
+- [x] 2.1 Migration: `layout_version` (layoutId, revision, contentHash, lastUpdated, fetchedAt, totalSeats, rawPayload), `layout_deck` (versionId, deck, sourceSlug, canvas, assets, cabins), `layout_seat` (deckId, designator + geometry + cabin + rating + windowStatus + comments), unique `(deckId, designator)`
+- [x] 2.2 Content-hash function stripping asset URL query strings + unit spec proving a rotated `?v=` is not a change
+- [x] 2.3 Deck merge on fetch: one or two source slugs → one version with per-deck canvas/assets/cabins, `totalSeats` summed; unit spec against the real `lh-74h` pair (332 + 32 = 364, no designator collision, two canvases)
+- [x] 2.4 `EnsureLayoutVersionCommand`: lazy first fetch, store nothing on provider failure
+- [x] 2.5 `RefreshLayoutCommand`: refetch, compare hash, add a version only on change; report changed/unchanged
+- [x] 2.6 `GetCabinSeatMapQuery` returning the newest revision with decks and seats; `GET /api/v1/cabin-layout/:id/seat-map`, lazy-fetching via `EnsureCabinLayoutVersionCommand` (kept off `/:id`, which stays the catalogue entry, so its body remains assertable)
+- [x] 2.7 `POST /api/v1/cabin-layout/:id/refresh` action, `@Role(UserRole.Operations)`
+- [x] 2.8 Mock: real upstream seat maps for `aa-77w`, `de-321`, `kl-738`, `fi-752-1`, `lh-74h-m`, `lh-74h-u`
+- [x] 2.9 Feature: `features/cabin-layout/layout.seat-map.feature`, `layout.refresh.feature` — lazy fetch on first read, unchanged refresh writes no version, dual-deck totals and both canvases, RBAC. Seat *arrays* are asserted as `@any` (an existing deep-compare matcher) because the smallest real cabin is 180 seats; every other field, including per-deck canvas, cabin specs and summed seat counts, is asserted exactly, and seat-level mapping is covered by `layout-version.spec.ts`
+- [ ] 2.10 Not covered by a feature: "changed refresh adds a revision". It needs the provider to return *different* seat data for one slug, which the mockserver fixture cannot do without becoming order-dependent. Hash-gating is unit-tested in `layout-version.spec.ts`; revisit if mockserver `times`-based expectations prove safe
 
 ## 3. Aircraft cabin assignment (needs 2) — capability `aircraft-cabin-assignment`
 

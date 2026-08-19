@@ -209,7 +209,8 @@ path directly and could not reach the layout index.
 ```
 POST   /api/v1/cabin-layout/sync                 ops    refresh the index
 GET    /api/v1/cabin-layout                      auth   list/search, paginated
-GET    /api/v1/cabin-layout/:id                  auth   one layout, newest version, seats
+GET    /api/v1/cabin-layout/:id                  auth   catalogue entry only
+GET    /api/v1/cabin-layout/:id/seat-map        auth   newest revision, decks, seats
 POST   /api/v1/cabin-layout/:id/refresh          ops    refetch, version if changed
 GET    /api/v1/aircraft/:id/cabin-layout/suggestions   ops    ranked candidates
 PUT    /api/v1/aircraft/:id/cabin-layout         ops    assign
@@ -219,6 +220,11 @@ GET    /api/v1/flight/:id/manifest               ops + captain   ?status=boarded
 
 The manifest is its own endpoint rather than part of the flight body, because flight bodies
 are cached and a manifest that changes at boarding completion would be served stale.
+
+Seats sit behind `/:id/seat-map` rather than on `/:id` for the same reason in reverse: a
+catalogue read is a small, assertable body used to browse and pick, while a seat map is 180 to
+364 seats. Folding them together would make every catalogue read carry a payload nobody
+browsing needs.
 
 ## Testing
 
