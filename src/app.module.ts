@@ -16,6 +16,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { SkyLinkModule } from './modules/skylink/skylink.module';
 import { CabinLayoutsModule } from './modules/cabin-layouts/cabin-layouts.module';
+import { PassengersModule } from './modules/passengers/passengers.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { DiscordModule } from './core/provider/discord/discord.module';
 import { CqrsModule } from '@nestjs/cqrs';
@@ -43,6 +44,7 @@ const schedulerEnabled = process.env.SCHEDULER_ENABLED !== 'false';
     JwtModule,
     SkyLinkModule,
     CabinLayoutsModule,
+    PassengersModule,
     DiscordModule,
     EventEmitterModule.forRoot({ maxListeners: 20, verboseMemoryLeak: true }),
     DomainEventsModule,

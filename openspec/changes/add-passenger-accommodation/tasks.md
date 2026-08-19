@@ -47,16 +47,16 @@ every group, not a separate issue.
 
 ## 4. Manifest generation (needs 3) — capability `flight-manifest`
 
-- [ ] 4.1 Migration: `flight.cabinLayout`, `flight.cabinLayoutRevision` nullable; `flight_passenger` (flightId, designator, name, pnr, cabin, status, ssr nullable), unique `(flightId, designator)`
-- [ ] 4.2 Add the faker dependency (production); locale resolution from operator hub → `Airport.country` → locale, falling back to `Operator.continent`; unit spec the fallback chain
-- [ ] 4.3 PNR generator: six uppercase alphanumerics, roughly one in five shared; unit spec
-- [ ] 4.4 Proportional distribution function + unit spec: remainder to largest cabins, sums exactly, full load fills every seat
-- [ ] 4.5 Seat allocation: random within cabin, no seat twice
-- [ ] 4.6 Hook `mark-as-ready`: pin layout + revision, generate the manifest, skip entirely when no layout assigned
-- [ ] 4.7 `SeatCapacityExceededError` (422) in `mark-as-ready` when the preliminary count exceeds capacity; skip when no layout
-- [ ] 4.8 `GetFlightManifestQuery` + `GET /api/v1/flight/:id/manifest`, readable by operations and the flight's captain; `CabinLayoutNotAssignedError` when the aircraft has none
-- [ ] 4.9 Correct the `finish-boarding` Swagger example, which uses 366 passengers against a narrowbody
-- [ ] 4.10 Feature: `features/flight/manifest.get.feature` — release generates, seats distinct, proportional per cabin, no-layout release succeeds with no manifest, over-capacity 422, captain reads own flight, RBAC. Assert on shape, counts and invariants, not whole bodies
+- [x] 4.1 Migration: `flight.cabinLayout`, `flight.cabinLayoutRevision` nullable; `flight_passenger` (flightId, designator, name, pnr, cabin, status, ssr nullable), unique `(flightId, designator)`
+- [x] 4.2 Add the faker dependency (production); locale resolution from operator hub → `Airport.country` → locale, falling back to `Operator.continent`; unit spec the fallback chain
+- [x] 4.3 PNR generator: six uppercase alphanumerics, roughly one in five shared; unit spec
+- [x] 4.4 Proportional distribution function + unit spec: remainder to largest cabins, sums exactly, full load fills every seat
+- [x] 4.5 Seat allocation: random within cabin, no seat twice
+- [x] 4.6 Hook `mark-as-ready`: pin layout + revision, generate the manifest, skip entirely when no layout assigned
+- [x] 4.7 `SeatCapacityExceededError` (422) in `mark-as-ready` when the preliminary count exceeds capacity; skip when no layout
+- [x] 4.8 `GetFlightManifestQuery` + `GET /api/v1/flight/:id/manifest`, readable by operations and the flight's captain; `CabinLayoutNotAssignedError` when the aircraft has none
+- [x] 4.9 Correct the `finish-boarding` Swagger example, which uses 366 passengers against a narrowbody
+- [x] 4.10 Feature: `features/flight/manifest.get.feature` — release generates, seats distinct, proportional per cabin, no-layout release succeeds with no manifest, over-capacity 422, captain reads own flight, RBAC. Assert on shape, counts and invariants, not whole bodies
 
 ## 5. Manifest reconciliation (needs 4) — capability `manifest-reconciliation`
 

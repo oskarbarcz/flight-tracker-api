@@ -117,3 +117,21 @@ class, the passenger's name, their booking reference and their status.
 
 - **WHEN** an unauthenticated request reads a flight's manifest
 - **THEN** the request is rejected as unauthorised
+
+#### Scenario: Cabin crew who do not command the flight are refused
+
+- **GIVEN** a released flight captained by another pilot
+- **WHEN** a pilot who is not its captain reads the manifest
+- **THEN** the request is rejected as forbidden
+
+### Requirement: An unreleased flight reports no manifest rather than no layout
+
+The system SHALL distinguish a flight that has not been released, and therefore has no
+manifest yet, from a flight whose aircraft carries no cabin layout at all, so that a client is
+never told the aircraft is uncatalogued when the flight is merely unreleased.
+
+#### Scenario: Reading the manifest of a flight awaiting release
+
+- **GIVEN** a flight whose aircraft has an assigned cabin layout and which has not been released
+- **WHEN** its manifest is read
+- **THEN** the request reports that no manifest has been generated yet

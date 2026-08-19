@@ -1,4 +1,9 @@
-import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
+import {
+  CommandBus,
+  CommandHandler,
+  ICommandHandler,
+  QueryBus,
+} from '@nestjs/cqrs';
 import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
 import {
@@ -9,6 +14,7 @@ import { FlightWasReleasedEvent } from '../../../../core/domain/events/dto/fligh
 import { FlightEventScope } from '../../model/event.model';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
+import { GenerateFlightManifestCommand } from '../../../passengers/application/command/generate-flight-manifest.command';
 
 export class MarkAsReadyCommand {
   constructor(
@@ -21,6 +27,7 @@ export class MarkAsReadyCommand {
 export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyCommand> {
   constructor(
     private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
     private readonly flightsRepository: FlightsRepository,
     private readonly domainEvents: DomainEventEmitter,
   ) {}
@@ -38,6 +45,14 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
     if (!flight.loadsheets.preliminary) {
       throw new PreliminaryLoadsheetMissingError();
     }
+
+    const generateManifest = new GenerateFlightManifestCommand(
+      flightId,
+      flight.aircraft.id,
+      flight.operator.id,
+      flight.loadsheets.preliminary.passengers,
+    );
+    await this.commandBus.execute(generateManifest);
 
     await this.flightsRepository.updateStatus(flightId, FlightStatus.Ready);
     this.domainEvents.emit(

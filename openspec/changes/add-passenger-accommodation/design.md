@@ -204,6 +204,24 @@ falling back to the operator's continent when the hub is unknown or the country 
 supported locale. `Operator` carries no country of its own, which is why the hub is the
 route to one.
 
+## Module ownership
+
+The manifest is its own bounded context, not an extension of the flight: a `passengers`
+module owns `flight_passenger`, the generation algorithms, the locale and name machinery and
+the read endpoint. The flights module keeps the two pinned columns, because they are columns
+of the flight, and publishes them over the bus — `PinFlightCabinLayoutCommand` to write the
+pin and `GetFlightManifestContextQuery` to read pin, aircraft and captain together. Release
+reaches the manifest the same way, by dispatching `GenerateFlightManifestCommand`. No module
+touches the other's tables, which keeps release lean and leaves reconciliation and special
+services (groups 5 and 6) with an obvious home.
+
+The generator reads the cabin through the cabin-layouts module (`EnsureCabinLayoutVersion`
+then `GetCabinSeatMap`), the airline through the operators module and the hub's country
+through the airports module, all over the bus.
+
+**Faker must stay on v9.** `@faker-js/faker` 10 ships ESM only, which the CJS runtime and
+ts-node cannot load — the same trap as `jose` 6.
+
 ## API surface
 
 The provider exposes each operation as its own function path — `/aerolopa/seatmap` and
@@ -225,7 +243,12 @@ GET    /api/v1/flight/:id/manifest               ops + captain   ?status=boarded
 ```
 
 The manifest is its own endpoint rather than part of the flight body, because flight bodies
-are cached and a manifest that changes at boarding completion would be served stale.
+are cached and a manifest that changes at boarding completion would be served stale. The
+flight body does not carry the pinned layout either, for the same reason.
+
+A manifest read that finds no pin answers 404 with one of two messages: the aircraft has no
+cabin layout, or the flight has not been released yet. Collapsing them would tell a client
+its aircraft is uncatalogued when the flight is merely unreleased.
 
 Seats sit behind `/:id/seat-map` rather than on `/:id` for the same reason in reverse: a
 catalogue read is a small, assertable body used to browse and pick, while a seat map is 180 to

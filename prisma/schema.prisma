@@ -257,6 +257,8 @@ model Flight {
   actualAirborneMinutes      Int?
   actualBlockMinutes         Int?
   completedAt                DateTime?
+  cabinLayout                String?
+  cabinLayoutRevision        Int?
 
   operator                 Operator               @relation(fields: [operatorId], references: [id])
   captain                  User?                  @relation("FlightCaptain", fields: [captainId], references: [id])
@@ -277,10 +279,13 @@ model Flight {
   userAircraft             UserAircraft[]
   crew                     CrewOnFlights[]
   rotationLeg              RotationLeg?
+  passengers               FlightPassenger[]
+  pinnedCabinVersion       CabinLayoutVersion?    @relation(fields: [cabinLayout, cabinLayoutRevision], references: [layoutId, revision])
 
   @@index([captainId, completedAt])
   @@index([captainId, createdAt])
   @@index([createdById, createdAt])
+  @@index([cabinLayout, cabinLayoutRevision])
   @@map("flight")
 }
 
@@ -895,8 +900,9 @@ model CabinLayoutVersion {
   fetchedAt             DateTime @default(now())
   rawPayload            Json
 
-  layout CabinLayout       @relation(fields: [layoutId], references: [id], onDelete: Cascade)
-  decks  CabinLayoutDeck[]
+  layout  CabinLayout       @relation(fields: [layoutId], references: [id], onDelete: Cascade)
+  decks   CabinLayoutDeck[]
+  flights Flight[]
 
   @@unique([layoutId, revision])
   @@index([layoutId])
@@ -921,6 +927,29 @@ model CabinLayoutDeck {
   @@unique([versionId, deck])
   @@index([versionId])
   @@map("cabin_layout_deck")
+}
+
+enum FlightPassengerStatus {
+  boarded
+  no_show
+}
+
+model FlightPassenger {
+  id         String                @id @default(uuid()) @db.Uuid
+  flightId   String                @db.Uuid
+  designator String
+  deck       CabinDeck
+  cabin      String
+  name       String
+  pnr        String                @db.VarChar(6)
+  status     FlightPassengerStatus @default(boarded)
+  ssr        String?
+
+  flight Flight @relation(fields: [flightId], references: [id], onDelete: Cascade)
+
+  @@unique([flightId, designator])
+  @@index([flightId])
+  @@map("flight_passenger")
 }
 
 model CabinLayoutSeat {

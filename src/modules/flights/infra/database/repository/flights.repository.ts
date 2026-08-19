@@ -207,6 +207,13 @@ export type FlightWithAircraftAndAirports = Omit<
   'aircraft'
 > & { aircraft: AircraftWithAirframe };
 
+export type ManifestPin = {
+  aircraftId: string;
+  cabinLayout: string | null;
+  cabinLayoutRevision: number | null;
+  captainId: string | null;
+};
+
 export type FlightIdAndCallsign = Prisma.FlightGetPayload<{
   select: typeof flightIdAndCallsign;
 }>;
@@ -547,6 +554,29 @@ export class FlightsRepository {
     await this.prisma.flight.update({
       where: { id },
       data: { status },
+    });
+  }
+
+  async pinCabinLayout(
+    id: string,
+    cabinLayout: string,
+    cabinLayoutRevision: number,
+  ): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id },
+      data: { cabinLayout, cabinLayoutRevision },
+    });
+  }
+
+  async getManifestPin(id: string): Promise<ManifestPin | null> {
+    return this.prisma.flight.findUnique({
+      where: { id },
+      select: {
+        aircraftId: true,
+        cabinLayout: true,
+        cabinLayoutRevision: true,
+        captainId: true,
+      },
     });
   }
 

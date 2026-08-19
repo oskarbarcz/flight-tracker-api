@@ -55,6 +55,8 @@ import { UpdateEmergencyHandler } from './application/command/emergency/update-e
 import { ResolveEmergencyHandler } from './application/command/emergency/resolve-emergency.command';
 import { ListEmergenciesHandler } from './application/query/emergency/list-emergencies.query';
 import { MarkFlightAsReadyHandler } from './application/command/mark-as-ready.command';
+import { PinFlightCabinLayoutHandler } from './application/command/pin-flight-cabin-layout.command';
+import { GetFlightManifestContextHandler } from './application/query/get-flight-manifest-context.query';
 import { GetFlightHandler } from './application/query/get-flight.query';
 import { ListAllFlightsHandler } from './application/query/list-all-flights.query';
 import { GetAircraftFlightHistoryHandler } from './application/query/get-aircraft-flight-history.query';
@@ -176,6 +178,8 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     ResolveEmergencyHandler,
     ListEmergenciesHandler,
     MarkFlightAsReadyHandler,
+    PinFlightCabinLayoutHandler,
+    GetFlightManifestContextHandler,
     GetFlightHandler,
     ListAllFlightsHandler,
     GetAircraftFlightHistoryHandler,

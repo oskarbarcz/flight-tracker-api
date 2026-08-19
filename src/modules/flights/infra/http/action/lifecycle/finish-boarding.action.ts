@@ -53,11 +53,11 @@ export class FinishBoardingAction {
       withFuel: {
         summary: 'Final loadsheet with a fuel breakdown',
         value: {
-          flightCrew: { pilots: 2, reliefPilots: 0, cabinCrew: 6 },
-          passengers: 366,
-          payload: 28.3,
-          cargo: 8.9,
-          zeroFuelWeight: 202.9,
+          flightCrew: { pilots: 2, reliefPilots: 0, cabinCrew: 4 },
+          passengers: 174,
+          payload: 19.3,
+          cargo: 1.9,
+          zeroFuelWeight: 60.7,
           blockFuel: 11.9,
           fuel: {
             block: 11.9,

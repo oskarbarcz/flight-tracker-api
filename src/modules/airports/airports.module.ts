@@ -14,6 +14,7 @@ import { RemoveAirportHandler } from './application/command/remove-airport.comma
 import { GetAirportByIdHandler } from './application/query/get-airport-by-id.query';
 import { ListAllAirportsHandler } from './application/query/list-all-airports.query';
 import { GetAirportByIcaoCodeHandler } from './application/query/get-airport-by-icao-code.query';
+import { GetAirportCountryByIataCodeHandler } from './application/query/get-airport-country-by-iata-code.query';
 import { TerminalsRepository } from './infra/database/terminals.repository';
 import { CreateTerminalAction } from './infra/http/action/terminal/create-terminal.action';
 import { ListTerminalsAction } from './infra/http/action/terminal/list-terminals.action';
@@ -120,6 +121,7 @@ import { ReplaceAirportNotamsHandler } from './application/command/notam/replace
     RemoveAirportHandler,
     GetAirportByIdHandler,
     GetAirportByIcaoCodeHandler,
+    GetAirportCountryByIataCodeHandler,
     ListAllAirportsHandler,
     CreateTerminalHandler,
     UpdateTerminalHandler,
