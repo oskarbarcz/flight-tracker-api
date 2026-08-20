@@ -215,6 +215,31 @@ Then(
   },
 );
 
+Then(
+  'between {int} and {int} entries of the response body list {string} should have a {string}',
+  (least: number, most: number, listProperty: string, itemProperty: string) => {
+    const carrying = itemsOf(listProperty).filter(
+      (item) => item[itemProperty] !== null && item[itemProperty] !== undefined,
+    );
+
+    expect(carrying.length).toBeGreaterThanOrEqual(least);
+    expect(carrying.length).toBeLessThanOrEqual(most);
+  },
+);
+
+Then(
+  'every {string} of the response body list {string} should be one of {string}',
+  (itemProperty: string, listProperty: string, allowed: string) => {
+    const permitted = allowed.split(',').map((value) => value.trim());
+    const unexpected = itemsOf(listProperty)
+      .map((item) => item[itemProperty])
+      .filter((value) => value !== null && value !== undefined)
+      .filter((value) => !permitted.includes(value as string));
+
+    expect(unexpected).toEqual([]);
+  },
+);
+
 function itemsOf(listProperty: string): Record<string, any>[] {
   const items = apiResponse.data[listProperty];
 

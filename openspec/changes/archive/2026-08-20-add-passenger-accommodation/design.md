@@ -246,6 +246,13 @@ The manifest is its own endpoint rather than part of the flight body, because fl
 are cached and a manifest that changes at boarding completion would be served stale. The
 flight body does not carry the pinned layout either, for the same reason.
 
+Capacity is checked twice, and deliberately not the same way. When a loadsheet is filed the
+check reads only what is already stored — no revision on record means no check — so editing a
+loadsheet never depends on AeroLOPA being reachable. Release is where the version is
+materialised, and where the check therefore always applies. Both the total and the per-cabin
+breakdown are validated at filing time, so a plan is refused by the endpoint that accepted it
+rather than by a later release.
+
 The per-class breakdown on the loadsheet is keyed by the cabin names the layout itself uses,
 the same keys the seat map and the manifest report, rather than a second camelCase vocabulary
 that would have to be translated at both ends. Its counts are validated where the fuel
@@ -282,6 +289,12 @@ for an American 777-300ER.
 
 ## Testing
 
+Feature files follow endpoints, not behaviours: everything about releasing a flight lives in
+`flight.mark-as-ready.feature`, everything about closing boarding in
+`flight.finish-boarding.feature`, and `manifest.get.feature` holds only what the read endpoint
+owns. New logic on an existing endpoint extends that endpoint's file rather than starting a
+themed one.
+
 Generated content is random, so manifest features assert on shape, counts and invariants —
 every passenger has a distinct seat, seats belong to the pinned version, class totals match
 the loadsheet — rather than on whole response bodies. This is a deliberate exception to the
@@ -291,6 +304,16 @@ Seeds assign `aa-77w`, `de-321`, `kl-738` and `fi-752-1` to their matching aircr
 and LH tails are left unassigned so the no-layout path stays exercised. The mock carries real
 upstream payloads for those four plus the `lh-74h` deck pair, because the deck collapse is
 not meaningfully testable against synthetic geometry.
+
+## Special service requests
+
+A code lands on roughly one passenger in seven, drawn uniformly from the nine curated IATA
+codes, and a passenger carries at most one because the field holds one value rather than a
+list. Reconciliation never touches it: a survivor's row is only ever updated on `status`, and
+passengers added at boarding are coded on the same basis as at release.
+
+The manifest reports the code as `ssr`, the industry's own name for it, rather than a coined
+field name — the same reasoning that keeps the cabin keys as the layout writes them.
 
 ## Resolved decisions
 

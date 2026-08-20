@@ -4,6 +4,7 @@ import { CabinLayout } from '../../../model/cabin-layout.model';
 import { CollapsedLayout } from '../../../model/deck-collapse';
 import { AssembledVersion } from '../../../model/layout-version';
 import { CabinSeatMap } from '../../../model/cabin-seat-map.model';
+import { CabinCapacity } from '../../../model/cabin-capacity.model';
 
 export interface CabinLayoutFilters {
   airlineIata?: string;
@@ -137,6 +138,31 @@ export class CabinLayoutsRepository {
     });
 
     return version?.revision ?? null;
+  }
+
+  async findCapacity(layoutId: string): Promise<CabinCapacity | null> {
+    const version = await this.prisma.cabinLayoutVersion.findFirst({
+      where: { layoutId },
+      orderBy: { revision: 'desc' },
+      select: { id: true, totalSeats: true },
+    });
+
+    if (!version) {
+      return null;
+    }
+
+    const perCabin = await this.prisma.cabinLayoutSeat.groupBy({
+      by: ['cabin'],
+      where: { deck: { versionId: version.id } },
+      _count: { _all: true },
+    });
+
+    const cabinSizes: Record<string, number> = {};
+    for (const cabin of perCabin) {
+      cabinSizes[cabin.cabin] = cabin._count._all;
+    }
+
+    return { totalSeats: version.totalSeats, cabinSizes };
   }
 
   async findSeatMap(

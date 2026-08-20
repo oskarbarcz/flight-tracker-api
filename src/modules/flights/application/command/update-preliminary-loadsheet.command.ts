@@ -16,6 +16,8 @@ import {
 } from '../../model/loadsheet.policy';
 import { GetSeatCapacityQuery } from '../../../passengers/application/query/get-seat-capacity.query';
 import { SeatCapacityExceededError } from '../../../passengers/model/error/manifest.error';
+import { assertBreakdownFitsCabins } from '../../../passengers/model/manifest-generation';
+import { CabinCapacity } from '../../../cabin-layouts/model/cabin-capacity.model';
 
 export class UpdatePreliminaryLoadsheetCommand {
   constructor(
@@ -50,10 +52,23 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
     assertPassengerBreakdownConsistent(loadsheet);
 
     const capacityQuery = new GetSeatCapacityQuery(flight.aircraft.id);
-    const capacity: number | null = await this.queryBus.execute(capacityQuery);
+    const capacity: CabinCapacity | null =
+      await this.queryBus.execute(capacityQuery);
 
-    if (capacity !== null && loadsheet.passengers > capacity) {
-      throw new SeatCapacityExceededError(loadsheet.passengers, capacity);
+    if (capacity) {
+      if (loadsheet.passengers > capacity.totalSeats) {
+        throw new SeatCapacityExceededError(
+          loadsheet.passengers,
+          capacity.totalSeats,
+        );
+      }
+
+      if (loadsheet.passengersByCabin) {
+        assertBreakdownFitsCabins(
+          capacity.cabinSizes,
+          loadsheet.passengersByCabin,
+        );
+      }
     }
 
     const loadsheets: Loadsheets = {

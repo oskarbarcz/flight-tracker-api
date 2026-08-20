@@ -12,6 +12,7 @@ import {
 import {
   FlightManifest,
   ManifestPassenger,
+  PassengerSpecialService,
   PassengerStatus,
 } from '../../model/manifest.model';
 import { CabinDeckName } from '../../../cabin-layouts/model/layout-version';
@@ -64,6 +65,7 @@ export class GetFlightManifestHandler implements IQueryHandler<GetFlightManifest
       name: row.name,
       pnr: row.pnr,
       status: row.status as PassengerStatus,
+      ssr: row.ssr as PassengerSpecialService | null,
     }));
 
     return {

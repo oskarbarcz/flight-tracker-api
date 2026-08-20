@@ -6,6 +6,7 @@ import {
 import { SeatCapacityExceededError } from '../../model/error/manifest.error';
 import {
   assignPnrs,
+  assignSpecialServices,
   cabinSizesOf,
   planReconciliation,
   targetPerCabin,
@@ -86,11 +87,13 @@ export class ReconcileFlightManifestHandler implements ICommandHandler<Reconcile
       await this.queryBus.execute(localeQuery),
     );
     const pnrs = assignPnrs(plan.additions.length);
+    const specialServices = assignSpecialServices(plan.additions.length);
 
     const added: NewPassenger[] = plan.additions.map((seat, index) => ({
       ...seat,
       name: nextName(),
       pnr: pnrs[index],
+      ssr: specialServices[index],
     }));
 
     await this.passengersRepository.add(flightId, added);

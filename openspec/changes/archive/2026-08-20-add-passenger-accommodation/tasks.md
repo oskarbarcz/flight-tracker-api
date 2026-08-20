@@ -56,7 +56,7 @@ every group, not a separate issue.
 - [x] 4.7 `SeatCapacityExceededError` (422) in `mark-as-ready` when the preliminary count exceeds capacity; skip when no layout
 - [x] 4.8 `GetFlightManifestQuery` + `GET /api/v1/flight/:id/manifest`, readable by operations and the flight's captain; `CabinLayoutNotAssignedError` when the aircraft has none
 - [x] 4.9 Correct the `finish-boarding` Swagger example, which uses 366 passengers against a narrowbody
-- [x] 4.10 Feature: `features/flight/manifest.get.feature` — release generates, seats distinct, proportional per cabin, no-layout release succeeds with no manifest, over-capacity 422, captain reads own flight, RBAC. Assert on shape, counts and invariants, not whole bodies
+- [x] 4.10 Feature coverage, one file per endpoint: releasing lives in `features/flight/actions/flight.mark-as-ready.feature` (seats distinct, proportional per cabin, planned breakdown, withdrawn cabin, no-layout release, over-capacity 422) and reading in `features/flight/manifest.get.feature` (captain reads own flight, filters, RBAC). Assert on shape, counts and invariants, not whole bodies
 
 ## 5. Manifest reconciliation (needs 4) — capability `manifest-reconciliation`
 
@@ -65,25 +65,25 @@ every group, not a separate issue.
 - [x] 5.3 Reconciliation function + unit spec: per-class surplus → no-shows, shortfall → new passengers, survivors untouched, total-only loadsheet distributes proportionally first
 - [x] 5.4 Hook `finish-boarding`: reconcile, and reject over-capacity final counts as 422
 - [x] 5.5 Status filter on the manifest endpoint (`?status=boarded|no_show`)
-- [x] 5.6 Feature: `features/flight/manifest.reconcile.feature` — fewer produces no-shows, more adds, unchanged is a no-op, survivors keep seat/name/PNR, class shift reconciles both ways, no-show seat not reused, filters work
+- [x] 5.6 Feature coverage in `features/flight/actions/flight.finish-boarding.feature` — fewer produces no-shows, more adds, unchanged is a no-op, class shift reconciles both ways, no-show seat not reused, over-capacity refused — with the status filters covered on the endpoint that offers them, `features/flight/manifest.get.feature`
 - [x] 5.7 Seed the manifest fixtures the features read: cabin layout versions assembled from the provider fixtures (`aa-77w`, `de-321`, `lh-74h`), cabins on the AA and LH fleets, seven Condor/Air France fixture flights, and a generated manifest for every released flight — 22 of 35 flights now carry one
 - [ ] 5.8 Not covered by a feature: "reconciliation leaves survivors untouched". Asserting it end to end needs the manifest remembered across two requests, which the step vocabulary deliberately cannot do; `planReconciliation` only ever returns designators to flip and free seats to fill, and that is unit-tested in `manifest-generation.spec.ts`
 
 ## 6. Special service requests (needs 4) — capability `manifest-special-services`
 
-- [ ] 6.1 Curated SSR code list (`INFT`, `WCHR`, `WCHS`, `WCHC`, `UMNR`, `BLND`, `DEAF`, `MAAS`, `PETC`) as a domain enum
-- [ ] 6.2 Assign a code to roughly 15% of generated passengers, at most one each; unit spec the distribution
-- [ ] 6.3 Report the code on manifest reads; preserve it across reconciliation
-- [ ] 6.4 Feature: `features/flight/manifest.special-services.feature` — majority uncoded, codes are curated values, one code per passenger, infants occupy a seat, occupied seats equal boarded count, codes survive reconciliation
+- [x] 6.1 Curated SSR code list (`INFT`, `WCHR`, `WCHS`, `WCHC`, `UMNR`, `BLND`, `DEAF`, `MAAS`, `PETC`) as a domain enum
+- [x] 6.2 Assign a code to roughly 15% of generated passengers, at most one each; unit spec the distribution
+- [x] 6.3 Report the code on manifest reads; preserve it across reconciliation
+- [x] 6.4 Feature coverage folded into the endpoints that produce and report codes — `flight.mark-as-ready.feature` (a minority coded at release, every coded passenger on a seat of their own), `flight.finish-boarding.feature` (codes survive reconciliation, added passengers coded on the same basis) and `manifest.get.feature` (codes reported, curated values only)
 
 ## 7. Definition of done (applied inside every group)
 
-- [ ] 7.1 `docker compose exec app npm run lint` and `npm run typecheck` clean
-- [ ] 7.2 `docker compose exec app npx jest --runInBand` green
-- [ ] 7.3 `docker compose exec app npm run test:functional` green
-- [ ] 7.4 `docker compose exec app npm run format:fix`, reverting the three feature files repo-wide Prettier always churns
-- [ ] 7.5 New handlers registered in module `providers`, new actions in `controllers`
-- [ ] 7.6 Errors are typed classes extending a `DomainError` category, defined in `model/error/*.error.ts`
-- [ ] 7.7 Swagger documented, with no descriptions that merely restate the status or type
-- [ ] 7.8 RBAC covered for operations, cabin crew and unauthenticated on every new endpoint
-- [ ] 7.9 `prisma db push` applied to the dev database and the migration committed
+- [x] 7.1 `docker compose exec app npm run lint` and `npm run typecheck` clean
+- [x] 7.2 `docker compose exec app npx jest --runInBand` green
+- [x] 7.3 `docker compose exec app npm run test:functional` green
+- [x] 7.4 `docker compose exec app npm run format:fix`, reverting the three feature files repo-wide Prettier always churns
+- [x] 7.5 New handlers registered in module `providers`, new actions in `controllers`
+- [x] 7.6 Errors are typed classes extending a `DomainError` category, defined in `model/error/*.error.ts`
+- [x] 7.7 Swagger documented, with no descriptions that merely restate the status or type
+- [x] 7.8 RBAC covered for operations, cabin crew and unauthenticated on every new endpoint
+- [x] 7.9 `prisma db push` applied to the dev database and the migration committed

@@ -5,12 +5,16 @@ import {
   AllocatableSeat,
   allocateSeats,
   assignPnrs,
+  assignSpecialServices,
   cabinSizesOf,
   planReconciliation,
   SeatedPassenger,
   targetPerCabin,
 } from '../../../src/modules/passengers/model/manifest-generation';
-import { PassengerStatus } from '../../../src/modules/passengers/model/manifest.model';
+import {
+  PassengerSpecialService,
+  PassengerStatus,
+} from '../../../src/modules/passengers/model/manifest.model';
 import { passengerNameFactory } from '../../../src/modules/passengers/model/passenger-name';
 import { resolvePassengerLocale } from '../../../src/modules/passengers/model/passenger-name';
 import { CabinDeckName } from '../../../src/modules/cabin-layouts/model/layout-version';
@@ -35,6 +39,8 @@ export async function loadFlightManifests(
   });
 
   const locales = new Map<string, string>();
+  const seatsByLayout = new Map<string, AllocatableSeat[]>();
+  const rows: (ManifestRow & { flightId: string })[] = [];
 
   for (const flight of flights) {
     const layoutId = flight.aircraft.cabinLayout;
@@ -44,7 +50,8 @@ export async function loadFlightManifests(
       continue;
     }
 
-    const seats = seatsOfLayout(layoutId);
+    const seats = seatsByLayout.get(layoutId) ?? seatsOfLayout(layoutId);
+    seatsByLayout.set(layoutId, seats);
     const sizes = cabinSizesOf(seats);
     const released = allocateSeats(
       seats,
@@ -58,6 +65,7 @@ export async function loadFlightManifests(
     const locale = await localeFor(tx, flight.operatorId, locales);
     const nextName = passengerNameFactory(locale);
     const pnrs = assignPnrs(released.length);
+    const specialServices = assignSpecialServices(released.length);
 
     const manifest = released.map((seat, index) => ({
       designator: seat.designator,
@@ -66,17 +74,11 @@ export async function loadFlightManifests(
       name: nextName(),
       pnr: pnrs[index],
       status: FlightPassengerStatus.boarded,
+      ssr: specialServices[index],
     }));
 
     if (final) {
-      applyBoardingOutcome(
-        manifest,
-        seats,
-        sizes,
-        final,
-        nextName,
-        () => assignPnrs(1)[0],
-      );
+      applyBoardingOutcome(manifest, seats, sizes, final, nextName);
     }
 
     await tx.flight.update({
@@ -84,13 +86,12 @@ export async function loadFlightManifests(
       data: { cabinLayout: layoutId, cabinLayoutRevision: 1 },
     });
 
-    await tx.flightPassenger.createMany({
-      data: manifest.map((passenger) => ({
-        ...passenger,
-        flightId: flight.id,
-      })),
-    });
+    rows.push(
+      ...manifest.map((passenger) => ({ ...passenger, flightId: flight.id })),
+    );
   }
+
+  await tx.flightPassenger.createMany({ data: rows });
 }
 
 type ManifestRow = {
@@ -100,6 +101,7 @@ type ManifestRow = {
   name: string;
   pnr: string;
   status: FlightPassengerStatus;
+  ssr: PassengerSpecialService | null;
 };
 
 function applyBoardingOutcome(
@@ -111,7 +113,6 @@ function applyBoardingOutcome(
     passengersByCabin?: Record<string, number> | null;
   },
   nextName: () => string,
-  nextPnr: () => string,
 ): void {
   const seated: SeatedPassenger[] = manifest.map((passenger) => ({
     designator: passenger.designator,
@@ -135,16 +136,20 @@ function applyBoardingOutcome(
     }
   }
 
-  for (const seat of plan.additions) {
+  const pnrs = assignPnrs(plan.additions.length);
+  const specialServices = assignSpecialServices(plan.additions.length);
+
+  plan.additions.forEach((seat, index) => {
     manifest.push({
       designator: seat.designator,
       deck: seat.deck,
       cabin: seat.cabin,
       name: nextName(),
-      pnr: nextPnr(),
+      pnr: pnrs[index],
       status: FlightPassengerStatus.boarded,
+      ssr: specialServices[index],
     });
-  }
+  });
 }
 
 async function localeFor(

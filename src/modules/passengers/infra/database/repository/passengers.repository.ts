@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from 'prisma/client/client';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import { CabinDeckName } from '../../../../cabin-layouts/model/layout-version';
-import { PassengerStatus } from '../../../model/manifest.model';
+import {
+  PassengerSpecialService,
+  PassengerStatus,
+} from '../../../model/manifest.model';
 
 export type NewPassenger = {
   designator: string;
@@ -10,6 +13,7 @@ export type NewPassenger = {
   cabin: string;
   name: string;
   pnr: string;
+  ssr: PassengerSpecialService | null;
 };
 
 const passenger = {
@@ -19,6 +23,7 @@ const passenger = {
   name: true,
   pnr: true,
   status: true,
+  ssr: true,
 } as const satisfies Prisma.FlightPassengerSelect;
 
 export type PassengerRow = Prisma.FlightPassengerGetPayload<{
@@ -41,6 +46,7 @@ export class PassengersRepository {
           name: entry.name,
           pnr: entry.pnr,
           status: PassengerStatus.Boarded,
+          ssr: entry.ssr,
         })),
       }),
     ]);
@@ -67,6 +73,7 @@ export class PassengersRepository {
         name: entry.name,
         pnr: entry.pnr,
         status: PassengerStatus.Boarded,
+        ssr: entry.ssr,
       })),
     });
   }

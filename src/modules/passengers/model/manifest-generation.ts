@@ -1,5 +1,5 @@
 import { CabinDeckName } from '../../cabin-layouts/model/layout-version';
-import { PassengerStatus } from './manifest.model';
+import { PassengerSpecialService, PassengerStatus } from './manifest.model';
 import {
   CabinCapacityExceededError,
   UnknownCabinError,
@@ -25,6 +25,8 @@ export type ReconciliationPlan = {
 const PNR_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 const PNR_LENGTH = 6;
 const SHARED_PNR_CHANCE = 0.2;
+const SPECIAL_SERVICE_CHANCE = 0.15;
+const SPECIAL_SERVICES = Object.values(PassengerSpecialService);
 
 export function cabinSizesOf(seats: AllocatableSeat[]): Record<string, number> {
   const sizes: Record<string, number> = {};
@@ -36,6 +38,21 @@ export function cabinSizesOf(seats: AllocatableSeat[]): Record<string, number> {
   return sizes;
 }
 
+export function assertBreakdownFitsCabins(
+  cabinSizes: Record<string, number>,
+  breakdown: Record<string, number>,
+): void {
+  for (const [cabin, count] of Object.entries(breakdown)) {
+    if (!Object.prototype.hasOwnProperty.call(cabinSizes, cabin)) {
+      throw new UnknownCabinError(cabin);
+    }
+
+    if (count > cabinSizes[cabin]) {
+      throw new CabinCapacityExceededError(cabin, count, cabinSizes[cabin]);
+    }
+  }
+}
+
 export function targetPerCabin(
   cabinSizes: Record<string, number>,
   passengers: number,
@@ -45,20 +62,14 @@ export function targetPerCabin(
     return distributePassengers(cabinSizes, passengers);
   }
 
+  assertBreakdownFitsCabins(cabinSizes, breakdown);
+
   const target: Record<string, number> = {};
   for (const cabin of Object.keys(cabinSizes)) {
     target[cabin] = 0;
   }
 
   for (const [cabin, count] of Object.entries(breakdown)) {
-    if (!(cabin in cabinSizes)) {
-      throw new UnknownCabinError(cabin);
-    }
-
-    if (count > cabinSizes[cabin]) {
-      throw new CabinCapacityExceededError(cabin, count, cabinSizes[cabin]);
-    }
-
     target[cabin] = count;
   }
 
@@ -170,6 +181,16 @@ export function assignPnrs(count: number): string[] {
   }
 
   return pnrs;
+}
+
+export function assignSpecialServices(
+  count: number,
+): (PassengerSpecialService | null)[] {
+  return Array.from({ length: Math.max(0, count) }, () =>
+    Math.random() < SPECIAL_SERVICE_CHANCE
+      ? SPECIAL_SERVICES[Math.floor(Math.random() * SPECIAL_SERVICES.length)]
+      : null,
+  );
 }
 
 function groupByCabin(

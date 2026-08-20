@@ -12,14 +12,25 @@ const SEEDED_LAYOUTS: Record<string, string[]> = {
   'lh-74h': ['lh-74h-m', 'lh-74h-u'],
 };
 
+const assembled = new Map<string, AssembledVersion>();
+
 export function assembledLayout(layoutId: string): AssembledVersion {
+  const cached = assembled.get(layoutId);
+
+  if (cached) {
+    return cached;
+  }
+
   const sourceSlugs = SEEDED_LAYOUTS[layoutId];
 
   if (!sourceSlugs) {
     throw new Error(`Cabin layout "${layoutId}" is not seeded.`);
   }
 
-  return assembleVersion(sourceSlugs.map(readSeatMap));
+  const version = assembleVersion(sourceSlugs.map(readSeatMap));
+  assembled.set(layoutId, version);
+
+  return version;
 }
 
 export async function loadCabinLayoutVersions(
@@ -29,57 +40,65 @@ export async function loadCabinLayoutVersions(
 
   for (const [layoutId, sourceSlugs] of Object.entries(SEEDED_LAYOUTS)) {
     const seatMaps = sourceSlugs.map(readSeatMap);
-    const assembled = assembleVersion(seatMaps);
+    const layout = assembledLayout(layoutId);
 
-    await tx.cabinLayoutVersion.create({
+    const version = await tx.cabinLayoutVersion.create({
       data: {
         layoutId,
         revision: 1,
-        contentHash: assembled.contentHash,
-        aircraftType: assembled.aircraftType,
-        aircraftTypeDisplayed: assembled.aircraftTypeDisplayed,
-        manufacturer: assembled.manufacturer,
-        haulType: assembled.haulType,
-        isDualDeck: assembled.isDualDeck,
-        totalSeats: assembled.totalSeats,
-        seatCounts: assembled.seatCounts as never,
-        lastUpdated: new Date(assembled.lastUpdated),
+        contentHash: layout.contentHash,
+        aircraftType: layout.aircraftType,
+        aircraftTypeDisplayed: layout.aircraftTypeDisplayed,
+        manufacturer: layout.manufacturer,
+        haulType: layout.haulType,
+        isDualDeck: layout.isDualDeck,
+        totalSeats: layout.totalSeats,
+        seatCounts: layout.seatCounts as never,
+        lastUpdated: new Date(layout.lastUpdated),
         fetchedAt,
         rawPayload: seatMaps as never,
-        decks: {
-          create: assembled.decks.map((deck) => ({
-            deck: deck.deck,
-            sourceSlug: deck.sourceSlug,
-            canvasWidth: deck.canvasWidth,
-            canvasHeight: deck.canvasHeight,
-            seatCount: deck.seatCount,
-            lastUpdated: new Date(deck.lastUpdated),
-            assets: deck.assets as never,
-            cabins: deck.cabins as never,
-            seats: {
-              create: deck.seats.map((seat) => ({
-                designator: seat.designator,
-                x: seat.x,
-                y: seat.y,
-                width: seat.width,
-                height: seat.height,
-                rotation: seat.rotation,
-                reversed: seat.reversed,
-                cabin: seat.cabin,
-                rating: seat.rating,
-                color: seat.color,
-                bookable: seat.bookable,
-                blocked: seat.blocked,
-                crewRest: seat.crewRest,
-                windowStatus: seat.windowStatus,
-                seatProduct: seat.seatProduct,
-                comments: seat.comments as never,
-              })),
-            },
-          })),
-        },
       },
+      select: { id: true },
     });
+
+    for (const deck of layout.decks) {
+      const created = await tx.cabinLayoutDeck.create({
+        data: {
+          versionId: version.id,
+          deck: deck.deck,
+          sourceSlug: deck.sourceSlug,
+          canvasWidth: deck.canvasWidth,
+          canvasHeight: deck.canvasHeight,
+          seatCount: deck.seatCount,
+          lastUpdated: new Date(deck.lastUpdated),
+          assets: deck.assets as never,
+          cabins: deck.cabins as never,
+        },
+        select: { id: true },
+      });
+
+      await tx.cabinLayoutSeat.createMany({
+        data: deck.seats.map((seat) => ({
+          deckId: created.id,
+          designator: seat.designator,
+          x: seat.x,
+          y: seat.y,
+          width: seat.width,
+          height: seat.height,
+          rotation: seat.rotation,
+          reversed: seat.reversed,
+          cabin: seat.cabin,
+          rating: seat.rating,
+          color: seat.color,
+          bookable: seat.bookable,
+          blocked: seat.blocked,
+          crewRest: seat.crewRest,
+          windowStatus: seat.windowStatus,
+          seatProduct: seat.seatProduct,
+          comments: seat.comments as never,
+        })),
+      });
+    }
   }
 }
 
