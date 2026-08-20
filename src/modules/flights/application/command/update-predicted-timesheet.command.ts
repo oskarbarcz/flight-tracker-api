@@ -109,7 +109,7 @@ export class UpdatePredictedTimesheetHandler implements ICommandHandler<UpdatePr
     };
     await this.flightsRepository.updateTimesheet(flightId, nextTimesheet);
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new PredictedTimesheetWasUpdatedEvent({
         flightId,
         scope: scopeForActor(actor),

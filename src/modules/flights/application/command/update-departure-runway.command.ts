@@ -50,7 +50,7 @@ export class UpdateDepartureRunwayHandler implements ICommandHandler<UpdateDepar
       departureRunwayId,
     );
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new DepartureRunwayWasChangedEvent({
         flightId,
         scope: scopeForActor(actor),

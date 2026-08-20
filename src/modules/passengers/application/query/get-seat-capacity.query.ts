@@ -1,16 +1,9 @@
-import {
-  CommandBus,
-  IQueryHandler,
-  Query,
-  QueryBus,
-  QueryHandler,
-} from '@nestjs/cqrs';
+import { IQueryHandler, Query, QueryBus, QueryHandler } from '@nestjs/cqrs';
 import { GetAircraftCabinLayoutQuery } from '../../../aircraft/application/query/get-aircraft-cabin-layout.query';
-import { EnsureCabinLayoutVersionCommand } from '../../../cabin-layouts/application/command/ensure-cabin-layout-version.command';
-import { GetCabinSeatMapQuery } from '../../../cabin-layouts/application/query/get-cabin-seat-map.query';
-import { CabinSeatMap } from '../../../cabin-layouts/model/cabin-seat-map.model';
+import { GetCabinCapacityQuery } from '../../../cabin-layouts/application/query/get-cabin-capacity.query';
+import { CabinCapacity } from '../../../cabin-layouts/model/cabin-capacity.model';
 
-export class GetSeatCapacityQuery extends Query<number | null> {
+export class GetSeatCapacityQuery extends Query<CabinCapacity | null> {
   constructor(public readonly aircraftId: string) {
     super();
   }
@@ -18,12 +11,9 @@ export class GetSeatCapacityQuery extends Query<number | null> {
 
 @QueryHandler(GetSeatCapacityQuery)
 export class GetSeatCapacityHandler implements IQueryHandler<GetSeatCapacityQuery> {
-  constructor(
-    private readonly commandBus: CommandBus,
-    private readonly queryBus: QueryBus,
-  ) {}
+  constructor(private readonly queryBus: QueryBus) {}
 
-  async execute(query: GetSeatCapacityQuery): Promise<number | null> {
+  async execute(query: GetSeatCapacityQuery): Promise<CabinCapacity | null> {
     const layoutQuery = new GetAircraftCabinLayoutQuery(query.aircraftId);
     const cabinLayout: string | null = await this.queryBus.execute(layoutQuery);
 
@@ -31,12 +21,8 @@ export class GetSeatCapacityHandler implements IQueryHandler<GetSeatCapacityQuer
       return null;
     }
 
-    const ensureVersion = new EnsureCabinLayoutVersionCommand(cabinLayout);
-    await this.commandBus.execute(ensureVersion);
+    const capacityQuery = new GetCabinCapacityQuery(cabinLayout);
 
-    const seatMapQuery = new GetCabinSeatMapQuery(cabinLayout);
-    const seatMap: CabinSeatMap = await this.queryBus.execute(seatMapQuery);
-
-    return seatMap.totalSeats;
+    return this.queryBus.execute(capacityQuery);
   }
 }

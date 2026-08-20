@@ -533,6 +533,71 @@ Feature: Update flight preliminary loadsheet
       """
     And I set database to initial state
 
+  Scenario: As operations I cannot plan more passengers into a cabin than it holds
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/a5fffa17-7803-4e85-8291-d1dc9276bd46/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 5
+        },
+        "passengers": 150,
+        "passengersByCabin": {
+          "business": 40,
+          "economy": 110
+        },
+        "payload": 19.8,
+        "cargo": 4.2,
+        "zeroFuelWeight": 68.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Content",
+        "message": "Cannot seat 40 passengers in cabin \"business\", which has 36 seats."
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot plan a cabin the aircraft does not have
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/a5fffa17-7803-4e85-8291-d1dc9276bd46/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 5
+        },
+        "passengers": 150,
+        "passengersByCabin": {
+          "first": 10,
+          "business": 20,
+          "economy": 120
+        },
+        "payload": 19.8,
+        "cargo": 4.2,
+        "zeroFuelWeight": 68.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Content",
+        "message": "Cabin \"first\" does not exist in the cabin of this flight."
+      }
+      """
+    And I set database to initial state
+
   Scenario: As a cabin crew I cannot update flight preliminary loadsheet
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/loadsheet/preliminary" with body:

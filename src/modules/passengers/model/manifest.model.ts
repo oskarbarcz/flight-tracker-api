@@ -6,6 +6,18 @@ export enum PassengerStatus {
   NoShow = 'no_show',
 }
 
+export enum PassengerSpecialService {
+  Infant = 'INFT',
+  WheelchairRamp = 'WCHR',
+  WheelchairSteps = 'WCHS',
+  WheelchairCabin = 'WCHC',
+  UnaccompaniedMinor = 'UMNR',
+  Blind = 'BLND',
+  Deaf = 'DEAF',
+  MeetAndAssist = 'MAAS',
+  PetInCabin = 'PETC',
+}
+
 export class ManifestPassenger {
   @ApiProperty({ description: 'Seat the passenger occupies', example: '12A' })
   designator!: string;
@@ -31,6 +43,15 @@ export class ManifestPassenger {
 
   @ApiProperty({ enum: PassengerStatus, example: PassengerStatus.Boarded })
   status!: PassengerStatus;
+
+  @ApiProperty({
+    description:
+      'IATA special service request the passenger travels with; null when they need none',
+    enum: PassengerSpecialService,
+    example: PassengerSpecialService.WheelchairRamp,
+    nullable: true,
+  })
+  ssr!: PassengerSpecialService | null;
 }
 
 export class FlightManifest {
@@ -50,11 +71,16 @@ export class FlightManifest {
   })
   cabinLayoutRevision!: number;
 
-  @ApiProperty({ description: 'Passengers on the manifest', example: 150 })
+  @ApiProperty({
+    description:
+      'Passengers the manifest reports, counting only those matching the status filter when one is given',
+    example: 150,
+  })
   passengerCount!: number;
 
   @ApiProperty({
-    description: 'Passengers per commercial cabin',
+    description:
+      'Reported passengers per commercial cabin, on the same filtered basis as `passengerCount`',
     example: { business: 24, economy: 126 },
     type: Object,
   })

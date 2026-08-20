@@ -13,6 +13,7 @@ import { SeatCapacityExceededError } from '../../model/error/manifest.error';
 import {
   allocateSeats,
   assignPnrs,
+  assignSpecialServices,
   cabinSizesOf,
   targetPerCabin,
 } from '../../model/manifest-generation';
@@ -76,11 +77,13 @@ export class GenerateFlightManifestHandler implements ICommandHandler<GenerateFl
     );
     const seats = allocateSeats(cabinSeats, target);
     const pnrs = assignPnrs(seats.length);
+    const specialServices = assignSpecialServices(seats.length);
 
     const manifest: NewPassenger[] = seats.map((seat, index) => ({
       ...seat,
       name: nextName(),
       pnr: pnrs[index],
+      ssr: specialServices[index],
     }));
 
     await this.passengersRepository.replace(flightId, manifest);

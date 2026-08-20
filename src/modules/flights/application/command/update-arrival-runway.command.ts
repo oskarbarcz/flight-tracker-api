@@ -48,7 +48,7 @@ export class UpdateArrivalRunwayHandler implements ICommandHandler<UpdateArrival
 
     await this.flightsRepository.updateArrivalRunway(flightId, arrivalRunwayId);
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new ArrivalRunwayWasChangedEvent({
         flightId,
         scope: scopeForActor(actor),

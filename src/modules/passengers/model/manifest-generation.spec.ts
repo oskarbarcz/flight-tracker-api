@@ -2,6 +2,8 @@ import {
   AllocatableSeat,
   allocateSeats,
   assignPnrs,
+  assertBreakdownFitsCabins,
+  assignSpecialServices,
   cabinSizesOf,
   distributePassengers,
   generatePnr,
@@ -9,7 +11,7 @@ import {
   SeatedPassenger,
   targetPerCabin,
 } from './manifest-generation';
-import { PassengerStatus } from './manifest.model';
+import { PassengerSpecialService, PassengerStatus } from './manifest.model';
 import {
   CabinCapacityExceededError,
   UnknownCabinError,
@@ -354,5 +356,81 @@ describe('manifest reconciliation', () => {
 
     expect(plan.noShows).toHaveLength(24);
     expect(plan.additions).toEqual([]);
+  });
+});
+
+describe('special service requests', () => {
+  const CURATED = Object.values(PassengerSpecialService);
+
+  it('leaves the large majority of passengers with no code', () => {
+    const codes = assignSpecialServices(5000);
+    const coded = codes.filter((code) => code !== null);
+
+    expect(coded.length / codes.length).toBeGreaterThan(0.1);
+    expect(coded.length / codes.length).toBeLessThan(0.2);
+  });
+
+  it('gives a code to a minority rather than nobody', () => {
+    expect(
+      assignSpecialServices(500).filter((code) => code !== null).length,
+    ).toBeGreaterThan(0);
+  });
+
+  it('only ever uses curated IATA codes', () => {
+    const invalid = assignSpecialServices(5000).filter(
+      (code) => code !== null && !CURATED.includes(code),
+    );
+
+    expect(invalid).toEqual([]);
+  });
+
+  it('gives every passenger at most one code', () => {
+    const codes = assignSpecialServices(200);
+
+    expect(codes).toHaveLength(200);
+    expect(
+      codes.every((code) => code === null || typeof code === 'string'),
+    ).toBe(true);
+  });
+
+  it('spreads codes across the curated set', () => {
+    const used = new Set(
+      assignSpecialServices(5000).filter((code) => code !== null),
+    );
+
+    expect(used.size).toBe(CURATED.length);
+  });
+
+  it('codes nobody on an empty manifest', () => {
+    expect(assignSpecialServices(0)).toEqual([]);
+  });
+});
+
+describe('cabin breakdown validation', () => {
+  it('refuses a cabin name inherited from the prototype chain', () => {
+    for (const key of [
+      'toString',
+      'constructor',
+      'valueOf',
+      'hasOwnProperty',
+    ]) {
+      const breakdown = JSON.parse(`{"${key}": 150}`) as Record<string, number>;
+
+      expect(() => targetPerCabin(KL738_CABINS, 150, breakdown)).toThrow(
+        UnknownCabinError,
+      );
+    }
+  });
+
+  it('accepts a breakdown naming only real cabins', () => {
+    expect(() =>
+      assertBreakdownFitsCabins(KL738_CABINS, { business: 30, economy: 120 }),
+    ).not.toThrow();
+  });
+
+  it('refuses a breakdown asking for more than a cabin holds', () => {
+    expect(() =>
+      assertBreakdownFitsCabins(KL738_CABINS, { business: 40 }),
+    ).toThrow(CabinCapacityExceededError);
   });
 });

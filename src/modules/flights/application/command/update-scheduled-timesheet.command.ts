@@ -42,7 +42,7 @@ export class UpdateScheduledTimesheetHandler implements ICommandHandler<UpdateSc
 
     const timesheet: FullTimesheet = { scheduled: schedule };
     await this.flightsRepository.updateTimesheet(flightId, timesheet);
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new ScheduledTimesheetWasUpdatedEvent({
         flightId,
         scope: FlightEventScope.Operations,

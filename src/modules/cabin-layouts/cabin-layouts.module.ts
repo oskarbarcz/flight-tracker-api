@@ -7,6 +7,7 @@ import { ListCabinLayoutsQueryHandler } from './application/query/list-cabin-lay
 import { GetCabinLayoutQueryHandler } from './application/query/get-cabin-layout.query';
 import { GetCabinSeatMapQueryHandler } from './application/query/get-cabin-seat-map.query';
 import { SuggestCabinLayoutsQueryHandler } from './application/query/suggest-cabin-layouts.query';
+import { GetCabinCapacityQueryHandler } from './application/query/get-cabin-capacity.query';
 import { EnsureCabinLayoutVersionCommandHandler } from './application/command/ensure-cabin-layout-version.command';
 import { RefreshCabinLayoutCommandHandler } from './application/command/refresh-cabin-layout.command';
 import { SyncCabinLayoutsAction } from './infra/http/action/sync-cabin-layouts.action';
@@ -31,6 +32,7 @@ import { RefreshCabinLayoutAction } from './infra/http/action/refresh-cabin-layo
     GetCabinLayoutQueryHandler,
     GetCabinSeatMapQueryHandler,
     SuggestCabinLayoutsQueryHandler,
+    GetCabinCapacityQueryHandler,
     EnsureCabinLayoutVersionCommandHandler,
     RefreshCabinLayoutCommandHandler,
   ],
