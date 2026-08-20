@@ -55,7 +55,7 @@ Feature: Aircraft flight history
 
   Scenario: Aircraft with no flights returns an empty history
     Given I am signed in as "operations"
-    When I send a "GET" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871/aircraft/7d27a031-5abb-415f-bde5-1aa563ad394e/flights"
+    When I send a "GET" request to "/api/v1/operator/5c649579-22eb-4c07-a96c-b74a77f53871/aircraft/3f34bc59-c9c3-4ad0-88fa-2cc570298602/flights"
     Then the response status should be 200
     And the response header "X-Total-Count" should be "0"
     And the response body should contain:

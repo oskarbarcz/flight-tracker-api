@@ -53,6 +53,15 @@ export async function loadCabinLayouts(
       retiredAt: null,
     },
     {
+      id: 'lh-74h',
+      airlineIata: 'LH',
+      aircraftIata: '74H',
+      variant: null,
+      sourceSlugs: ['lh-74h-m', 'lh-74h-u'],
+      firstSeenAt: catalogued,
+      retiredAt: null,
+    },
+    {
       id: 'fi-752-1',
       airlineIata: 'FI',
       aircraftIata: '752',

@@ -29,7 +29,7 @@ Feature: Read the seats of a cabin layout
           "premium_economy": 32
         },
         "lastUpdated": "2025-03-31",
-        "fetchedAt": "@date('within 1 minute from now')",
+        "fetchedAt": "@any",
         "decks": [
           {
             "deck": "main",

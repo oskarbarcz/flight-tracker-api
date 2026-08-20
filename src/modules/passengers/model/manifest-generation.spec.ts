@@ -2,9 +2,18 @@ import {
   AllocatableSeat,
   allocateSeats,
   assignPnrs,
+  cabinSizesOf,
   distributePassengers,
   generatePnr,
+  planReconciliation,
+  SeatedPassenger,
+  targetPerCabin,
 } from './manifest-generation';
+import { PassengerStatus } from './manifest.model';
+import {
+  CabinCapacityExceededError,
+  UnknownCabinError,
+} from './error/manifest.error';
 
 const KL738_CABINS = { business: 30, economy: 156 };
 
@@ -82,7 +91,10 @@ describe('passenger distribution', () => {
 
 describe('seat allocation', () => {
   it('allocates one distinct seat per passenger', () => {
-    const allocated = allocateSeats(seatsOf(KL738_CABINS), 150);
+    const allocated = allocateSeats(
+      seatsOf(KL738_CABINS),
+      distributePassengers(KL738_CABINS, 150),
+    );
     const designators = new Set(allocated.map((seat) => seat.designator));
 
     expect(allocated).toHaveLength(150);
@@ -90,7 +102,10 @@ describe('seat allocation', () => {
   });
 
   it('respects the proportional split per cabin', () => {
-    const allocated = allocateSeats(seatsOf(KL738_CABINS), 150);
+    const allocated = allocateSeats(
+      seatsOf(KL738_CABINS),
+      distributePassengers(KL738_CABINS, 150),
+    );
 
     const perCabin = allocated.reduce<Record<string, number>>(
       (counts, seat) => ({
@@ -105,7 +120,7 @@ describe('seat allocation', () => {
 
   it('occupies every seat on a full load', () => {
     const seats = seatsOf(KL738_CABINS);
-    const allocated = allocateSeats(seats, seats.length);
+    const allocated = allocateSeats(seats, KL738_CABINS);
 
     expect(new Set(allocated.map((seat) => seat.designator)).size).toBe(
       seats.length,
@@ -114,10 +129,11 @@ describe('seat allocation', () => {
 
   it('picks different seats on different runs of a partial load', () => {
     const seats = seatsOf(KL738_CABINS);
-    const first = allocateSeats(seats, 20)
+    const target = distributePassengers(KL738_CABINS, 20);
+    const first = allocateSeats(seats, target)
       .map((seat) => seat.designator)
       .sort();
-    const second = allocateSeats(seats, 20)
+    const second = allocateSeats(seats, target)
       .map((seat) => seat.designator)
       .sort();
 
@@ -130,7 +146,7 @@ describe('seat allocation', () => {
       { designator: '81A', deck: 'upper', cabin: 'business' },
     ];
 
-    const allocated = allocateSeats(decks, 2);
+    const allocated = allocateSeats(decks, { business: 2 });
 
     expect(
       allocated
@@ -173,5 +189,170 @@ describe('booking references', () => {
 
   it('needs no reference for an empty manifest', () => {
     expect(assignPnrs(0)).toEqual([]);
+  });
+});
+
+describe('per-cabin targets', () => {
+  it('distributes proportionally when the loadsheet gives only a total', () => {
+    expect(targetPerCabin(KL738_CABINS, 150)).toEqual({
+      business: 24,
+      economy: 126,
+    });
+  });
+
+  it('takes a loadsheet breakdown verbatim', () => {
+    expect(
+      targetPerCabin(KL738_CABINS, 150, { business: 30, economy: 120 }),
+    ).toEqual({ business: 30, economy: 120 });
+  });
+
+  it('leaves a cabin the breakdown omits empty', () => {
+    expect(targetPerCabin(KL738_CABINS, 30, { business: 30 })).toEqual({
+      business: 30,
+      economy: 0,
+    });
+  });
+
+  it('refuses a cabin the aircraft does not have', () => {
+    expect(() =>
+      targetPerCabin(KL738_CABINS, 150, { first: 8, economy: 142 }),
+    ).toThrow(UnknownCabinError);
+  });
+
+  it('refuses more passengers than a cabin holds', () => {
+    expect(() =>
+      targetPerCabin(KL738_CABINS, 150, { business: 40, economy: 110 }),
+    ).toThrow(CabinCapacityExceededError);
+  });
+
+  it('derives cabin sizes from the seats of the layout', () => {
+    expect(cabinSizesOf(seatsOf(KL738_CABINS))).toEqual(KL738_CABINS);
+  });
+});
+
+describe('manifest reconciliation', () => {
+  const seats = seatsOf(KL738_CABINS);
+
+  function manifestOf(
+    boardedPerCabin: Record<string, number>,
+    noShowPerCabin: Record<string, number> = {},
+  ): SeatedPassenger[] {
+    const manifest: SeatedPassenger[] = [];
+
+    for (const [cabin, size] of Object.entries(KL738_CABINS)) {
+      const cabinSeats = seats.filter((seat) => seat.cabin === cabin);
+      const boarded = boardedPerCabin[cabin] ?? 0;
+      const noShows = noShowPerCabin[cabin] ?? 0;
+
+      expect(boarded + noShows).toBeLessThanOrEqual(size);
+
+      cabinSeats.slice(0, boarded).forEach((seat) =>
+        manifest.push({
+          designator: seat.designator,
+          cabin,
+          status: PassengerStatus.Boarded,
+        }),
+      );
+      cabinSeats.slice(boarded, boarded + noShows).forEach((seat) =>
+        manifest.push({
+          designator: seat.designator,
+          cabin,
+          status: PassengerStatus.NoShow,
+        }),
+      );
+    }
+
+    return manifest;
+  }
+
+  it('marks the surplus as no-shows', () => {
+    const manifest = manifestOf({ business: 24, economy: 126 });
+
+    const plan = planReconciliation(seats, manifest, {
+      business: 20,
+      economy: 120,
+    });
+
+    expect(plan.noShows).toHaveLength(10);
+    expect(plan.additions).toEqual([]);
+  });
+
+  it('fills the shortfall with free seats of the same cabin', () => {
+    const manifest = manifestOf({ business: 24, economy: 126 });
+
+    const plan = planReconciliation(seats, manifest, {
+      business: 24,
+      economy: 140,
+    });
+
+    expect(plan.noShows).toEqual([]);
+    expect(plan.additions).toHaveLength(14);
+    expect(plan.additions.every((seat) => seat.cabin === 'economy')).toBe(true);
+  });
+
+  it('changes nothing when the count is unchanged', () => {
+    const manifest = manifestOf({ business: 24, economy: 126 });
+
+    expect(
+      planReconciliation(seats, manifest, { business: 24, economy: 126 }),
+    ).toEqual({ noShows: [], additions: [] });
+  });
+
+  it('reconciles a shift between cabins in both directions', () => {
+    const manifest = manifestOf({ business: 24, economy: 126 });
+
+    const plan = planReconciliation(seats, manifest, {
+      business: 18,
+      economy: 132,
+    });
+
+    expect(plan.noShows).toHaveLength(6);
+    expect(plan.additions).toHaveLength(6);
+    expect(plan.additions.every((seat) => seat.cabin === 'economy')).toBe(true);
+  });
+
+  it('never adds a passenger into a seat the manifest already holds', () => {
+    const manifest = manifestOf(
+      { business: 10, economy: 100 },
+      { business: 4, economy: 20 },
+    );
+    const held = new Set(manifest.map((passenger) => passenger.designator));
+
+    const plan = planReconciliation(seats, manifest, {
+      business: 20,
+      economy: 130,
+    });
+
+    expect(plan.additions).toHaveLength(40);
+    expect(plan.additions.some((seat) => held.has(seat.designator))).toBe(
+      false,
+    );
+  });
+
+  it('only ever marks boarded passengers as no-shows', () => {
+    const manifest = manifestOf(
+      { business: 20, economy: 120 },
+      { business: 4, economy: 6 },
+    );
+    const noShowSeats = manifest
+      .filter((passenger) => passenger.status === PassengerStatus.NoShow)
+      .map((passenger) => passenger.designator);
+
+    const plan = planReconciliation(seats, manifest, {
+      business: 10,
+      economy: 110,
+    });
+
+    expect(plan.noShows).toHaveLength(20);
+    expect(plan.noShows.some((seat) => noShowSeats.includes(seat))).toBe(false);
+  });
+
+  it('empties a cabin the final loadsheet leaves out', () => {
+    const manifest = manifestOf({ business: 24, economy: 126 });
+
+    const plan = planReconciliation(seats, manifest, { economy: 126 });
+
+    expect(plan.noShows).toHaveLength(24);
+    expect(plan.additions).toEqual([]);
   });
 });

@@ -209,6 +209,7 @@ export type FlightWithAircraftAndAirports = Omit<
 
 export type ManifestPin = {
   aircraftId: string;
+  operatorId: string;
   cabinLayout: string | null;
   cabinLayoutRevision: number | null;
   captainId: string | null;
@@ -573,6 +574,7 @@ export class FlightsRepository {
       where: { id },
       select: {
         aircraftId: true,
+        operatorId: true,
         cabinLayout: true,
         cabinLayoutRevision: true,
         captainId: true,

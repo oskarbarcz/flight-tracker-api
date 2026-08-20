@@ -9,7 +9,7 @@ Feature: Synchronise the cabin layout catalogue
       {
         "reported": 14,
         "catalogued": 13,
-        "created": 7,
+        "created": 6,
         "retired": 0,
         "restored": 1,
         "skipped": 0
@@ -50,7 +50,7 @@ Feature: Synchronise the cabin layout catalogue
         "aircraftIata": "74H",
         "variant": null,
         "sourceSlugs": ["lh-74h-m", "lh-74h-u"],
-        "firstSeenAt": "@date('within 1 minute from now')",
+        "firstSeenAt": "2026-08-01T09:00:00.000Z",
         "retiredAt": null
       }
       """

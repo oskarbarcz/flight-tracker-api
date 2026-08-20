@@ -33,7 +33,7 @@ Feature: Assign a cabin layout to an aircraft
           "airlineIata": "AA",
           "aircraftIata": "77W",
           "variant": null,
-          "revision": null,
+          "revision": 1,
           "retired": false,
           "mismatched": false
         },
@@ -192,7 +192,7 @@ Feature: Assign a cabin layout to an aircraft
           "airlineIata": "AA",
           "aircraftIata": "77W",
           "variant": null,
-          "revision": null,
+          "revision": 1,
           "retired": false,
           "mismatched": true
         },

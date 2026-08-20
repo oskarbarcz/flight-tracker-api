@@ -130,6 +130,44 @@ Feature: List recent operators
           "continent": "north_america",
           "alliance": "oneworld",
           "group": null
+        },
+        {
+          "id": "3a1354c5-d9fb-428b-9f87-0e887e491f0d",
+          "icaoCode": "AFR",
+          "iataCode": "AF",
+          "shortName": "Air France",
+          "fullName": "Soci\u00e9t\u00e9 Air France S.A.",
+          "callsign": "AIRFRANS",
+          "type": "legacy",
+          "serviceType": "both",
+          "hubs": ["CDG", "ORY"],
+          "fleetSize": 1,
+          "fleetTypes": ["A320"],
+          "avgFleetAge": 13.4,
+          "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/air_france.png",
+          "backgroundUrl": null,
+          "continent": "europe",
+          "alliance": "sky_team",
+          "group": "air_france_klm"
+        },
+        {
+          "id": "5c649579-22eb-4c07-a96c-b74a77f53871",
+          "icaoCode": "CFG",
+          "iataCode": "DE",
+          "shortName": "Condor",
+          "fullName": "Condor Flugdienst",
+          "callsign": "CONDOR",
+          "type": "low_cost",
+          "serviceType": "passenger",
+          "hubs": ["BER", "DUS", "FRA", "HAM", "MUC", "STR", "ZRH"],
+          "fleetSize": 2,
+          "fleetTypes": ["A321", "A319"],
+          "avgFleetAge": 9.2,
+          "logoUrl": "https://api-ninjas-data.s3.us-west-2.amazonaws.com/airline_logos/brandmark/condor.png",
+          "backgroundUrl": null,
+          "continent": "europe",
+          "alliance": null,
+          "group": null
         }
       ]
       """

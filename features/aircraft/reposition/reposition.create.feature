@@ -133,14 +133,14 @@ Feature: Reposition an aircraft
         "livery": "Sunshine (2024)",
         "registration": "D-AIDA",
         "selcal": "SK-PK",
-        "currentState": "idle",
+        "currentState": "checked_in",
         "etopsThresholdMinutes": null,
         "cabinLayout": {
           "id": "de-321",
           "airlineIata": "DE",
           "aircraftIata": "321",
           "variant": null,
-          "revision": null,
+          "revision": 1,
           "retired": false,
           "mismatched": false
         },

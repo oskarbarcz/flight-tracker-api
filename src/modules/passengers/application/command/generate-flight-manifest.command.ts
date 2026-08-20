@@ -11,21 +11,18 @@ import {
 import { PinFlightCabinLayoutCommand } from '../../../flights/application/command/pin-flight-cabin-layout.command';
 import { SeatCapacityExceededError } from '../../model/error/manifest.error';
 import {
-  AllocatableSeat,
   allocateSeats,
   assignPnrs,
+  cabinSizesOf,
+  targetPerCabin,
 } from '../../model/manifest-generation';
-import {
-  passengerNameFactory,
-  resolvePassengerLocale,
-} from '../../model/passenger-name';
+import { passengerNameFactory } from '../../model/passenger-name';
+import { GetPassengerLocaleQuery } from '../query/get-passenger-locale.query';
+import { seatsOf } from '../../model/seat-map.reader';
 import { GetAircraftCabinLayoutQuery } from '../../../aircraft/application/query/get-aircraft-cabin-layout.query';
 import { EnsureCabinLayoutVersionCommand } from '../../../cabin-layouts/application/command/ensure-cabin-layout-version.command';
 import { GetCabinSeatMapQuery } from '../../../cabin-layouts/application/query/get-cabin-seat-map.query';
 import { CabinSeatMap } from '../../../cabin-layouts/model/cabin-seat-map.model';
-import { GetOperatorByIdQuery } from '../../../operators/application/query/get-operator-by-id.query';
-import { Operator } from '../../../operators/model/operator.model';
-import { GetAirportCountryByIataCodeQuery } from '../../../airports/application/query/get-airport-country-by-iata-code.query';
 
 export class GenerateFlightManifestCommand {
   constructor(
@@ -33,6 +30,7 @@ export class GenerateFlightManifestCommand {
     public readonly aircraftId: string,
     public readonly operatorId: string,
     public readonly passengers: number,
+    public readonly passengersByCabin?: Record<string, number> | null,
   ) {}
 }
 
@@ -45,7 +43,8 @@ export class GenerateFlightManifestHandler implements ICommandHandler<GenerateFl
   ) {}
 
   async execute(command: GenerateFlightManifestCommand): Promise<void> {
-    const { flightId, aircraftId, operatorId, passengers } = command;
+    const { flightId, aircraftId, operatorId, passengers, passengersByCabin } =
+      command;
 
     const layoutQuery = new GetAircraftCabinLayoutQuery(aircraftId);
     const cabinLayout: string | null = await this.queryBus.execute(layoutQuery);
@@ -64,8 +63,18 @@ export class GenerateFlightManifestHandler implements ICommandHandler<GenerateFl
       throw new SeatCapacityExceededError(passengers, seatMap.totalSeats);
     }
 
-    const nextName = passengerNameFactory(await this.resolveLocale(operatorId));
-    const seats = allocateSeats(seatsOf(seatMap), passengers);
+    const cabinSeats = seatsOf(seatMap);
+    const target = targetPerCabin(
+      cabinSizesOf(cabinSeats),
+      passengers,
+      passengersByCabin,
+    );
+
+    const localeQuery = new GetPassengerLocaleQuery(operatorId);
+    const nextName = passengerNameFactory(
+      await this.queryBus.execute(localeQuery),
+    );
+    const seats = allocateSeats(cabinSeats, target);
     const pnrs = assignPnrs(seats.length);
 
     const manifest: NewPassenger[] = seats.map((seat, index) => ({
@@ -83,29 +92,4 @@ export class GenerateFlightManifestHandler implements ICommandHandler<GenerateFl
     );
     await this.commandBus.execute(pinLayout);
   }
-
-  private async resolveLocale(operatorId: string): Promise<string> {
-    const operatorQuery = new GetOperatorByIdQuery(operatorId);
-    const operator: Operator = await this.queryBus.execute(operatorQuery);
-    const [hub] = operator.hubs;
-
-    if (!hub) {
-      return resolvePassengerLocale(null, operator.continent);
-    }
-
-    const countryQuery = new GetAirportCountryByIataCodeQuery(hub);
-    const country: string | null = await this.queryBus.execute(countryQuery);
-
-    return resolvePassengerLocale(country, operator.continent);
-  }
-}
-
-function seatsOf(seatMap: CabinSeatMap): AllocatableSeat[] {
-  return seatMap.decks.flatMap((deck) =>
-    deck.seats.map((seat) => ({
-      designator: seat.designator,
-      deck: deck.deck,
-      cabin: seat.cabin,
-    })),
-  );
 }

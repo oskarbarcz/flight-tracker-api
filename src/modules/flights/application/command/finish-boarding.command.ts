@@ -1,4 +1,9 @@
-import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
+import {
+  CommandBus,
+  CommandHandler,
+  ICommandHandler,
+  QueryBus,
+} from '@nestjs/cqrs';
 import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
 import {
@@ -10,7 +15,11 @@ import { BoardingWasFinishedEvent } from '../../../../core/domain/events/dto/fli
 import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { Loadsheet } from '../../model/loadsheet.model';
-import { assertFuelBreakdownConsistent } from '../../model/loadsheet.policy';
+import {
+  assertFuelBreakdownConsistent,
+  assertPassengerBreakdownConsistent,
+} from '../../model/loadsheet.policy';
+import { ReconcileFlightManifestCommand } from '../../../passengers/application/command/reconcile-flight-manifest.command';
 
 export class FinishBoardingCommand {
   constructor(
@@ -24,6 +33,7 @@ export class FinishBoardingCommand {
 export class FinishBoardingHandler implements ICommandHandler<FinishBoardingCommand> {
   constructor(
     private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
     private readonly flightsRepository: FlightsRepository,
     private readonly domainEvents: DomainEventEmitter,
   ) {}
@@ -42,6 +52,14 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
     }
 
     assertFuelBreakdownConsistent(finalLoadsheet);
+    assertPassengerBreakdownConsistent(finalLoadsheet);
+
+    const reconcileManifest = new ReconcileFlightManifestCommand(
+      flightId,
+      finalLoadsheet.passengers,
+      finalLoadsheet.passengersByCabin,
+    );
+    await this.commandBus.execute(reconcileManifest);
 
     await Promise.all([
       await this.flightsRepository.updateLoadsheets(flightId, {

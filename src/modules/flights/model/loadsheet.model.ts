@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsNumber,
+  IsObject,
   IsOptional,
   IsString,
   ValidateNested,
@@ -185,6 +186,18 @@ export class Loadsheet {
   @IsNotEmpty()
   @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 0 })
   passengers!: number;
+
+  @ApiProperty({
+    description:
+      'Planned passengers per commercial cabin, keyed as the cabin layout names them; must sum to `passengers`. Omit to let the system spread passengers across the cabins in proportion to their size.',
+    example: { business: 20, economy: 130 },
+    type: Object,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsObject()
+  passengersByCabin?: Record<string, number> | null;
 
   @ApiProperty({
     description: 'Cargo in tons',

@@ -46,11 +46,35 @@ export class PassengersRepository {
     ]);
   }
 
-  async findByFlight(flightId: string): Promise<PassengerRow[]> {
+  async findByFlight(
+    flightId: string,
+    status?: PassengerStatus,
+  ): Promise<PassengerRow[]> {
     return this.prisma.flightPassenger.findMany({
-      where: { flightId },
+      where: { flightId, ...(status ? { status } : {}) },
       orderBy: [{ deck: 'asc' }, { designator: 'asc' }],
       select: passenger,
+    });
+  }
+
+  async add(flightId: string, passengers: NewPassenger[]): Promise<void> {
+    await this.prisma.flightPassenger.createMany({
+      data: passengers.map((entry) => ({
+        flightId,
+        designator: entry.designator,
+        deck: entry.deck,
+        cabin: entry.cabin,
+        name: entry.name,
+        pnr: entry.pnr,
+        status: PassengerStatus.Boarded,
+      })),
+    });
+  }
+
+  async markAsNoShow(flightId: string, designators: string[]): Promise<void> {
+    await this.prisma.flightPassenger.updateMany({
+      where: { flightId, designator: { in: designators } },
+      data: { status: PassengerStatus.NoShow },
     });
   }
 }

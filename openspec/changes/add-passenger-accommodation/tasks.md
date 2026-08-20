@@ -60,12 +60,14 @@ every group, not a separate issue.
 
 ## 5. Manifest reconciliation (needs 4) — capability `manifest-reconciliation`
 
-- [ ] 5.1 Add the optional per-class passenger breakdown to `Loadsheet`, validated to sum to `passengers`
-- [ ] 5.2 Seat-capacity check on loadsheet submission; skip when the aircraft has no layout
-- [ ] 5.3 Reconciliation function + unit spec: per-class surplus → no-shows, shortfall → new passengers, survivors untouched, total-only loadsheet distributes proportionally first
-- [ ] 5.4 Hook `finish-boarding`: reconcile, and reject over-capacity final counts as 422
-- [ ] 5.5 Status filter on the manifest endpoint (`?status=boarded|no_show`)
-- [ ] 5.6 Feature: `features/flight/manifest.reconcile.feature` — fewer produces no-shows, more adds, unchanged is a no-op, survivors keep seat/name/PNR, class shift reconciles both ways, no-show seat not reused, filters work
+- [x] 5.1 Add the optional per-class passenger breakdown to `Loadsheet`, validated to sum to `passengers`
+- [x] 5.2 Seat-capacity check on loadsheet submission; skip when the aircraft has no layout
+- [x] 5.3 Reconciliation function + unit spec: per-class surplus → no-shows, shortfall → new passengers, survivors untouched, total-only loadsheet distributes proportionally first
+- [x] 5.4 Hook `finish-boarding`: reconcile, and reject over-capacity final counts as 422
+- [x] 5.5 Status filter on the manifest endpoint (`?status=boarded|no_show`)
+- [x] 5.6 Feature: `features/flight/manifest.reconcile.feature` — fewer produces no-shows, more adds, unchanged is a no-op, survivors keep seat/name/PNR, class shift reconciles both ways, no-show seat not reused, filters work
+- [x] 5.7 Seed the manifest fixtures the features read: cabin layout versions assembled from the provider fixtures (`aa-77w`, `de-321`, `lh-74h`), cabins on the AA and LH fleets, seven Condor/Air France fixture flights, and a generated manifest for every released flight — 22 of 35 flights now carry one
+- [ ] 5.8 Not covered by a feature: "reconciliation leaves survivors untouched". Asserting it end to end needs the manifest remembered across two requests, which the step vocabulary deliberately cannot do; `planReconciliation` only ever returns designators to flip and free seats to fill, and that is unit-tested in `manifest-generation.spec.ts`
 
 ## 6. Special service requests (needs 4) — capability `manifest-special-services`
 

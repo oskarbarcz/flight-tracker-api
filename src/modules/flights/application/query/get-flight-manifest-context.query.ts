@@ -4,6 +4,7 @@ import { FlightDoesNotExistError } from '../../model/error/flight.error';
 
 export type FlightManifestContext = {
   aircraftId: string;
+  operatorId: string;
   cabinLayout: string | null;
   cabinLayoutRevision: number | null;
   captainId: string | null;

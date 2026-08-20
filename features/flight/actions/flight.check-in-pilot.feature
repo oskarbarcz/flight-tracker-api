@@ -89,7 +89,7 @@ Feature: Check in pilot for flight
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 370,
+            "passengers": 296,
             "payload": 40.3,
             "cargo": 8.5,
             "zeroFuelWeight": 208.9,
@@ -445,7 +445,7 @@ Feature: Check in pilot for flight
           "airlineIata": "AA",
           "aircraftIata": "77W",
           "variant": null,
-          "revision": null,
+          "revision": 1,
           "retired": false,
           "mismatched": false
         },

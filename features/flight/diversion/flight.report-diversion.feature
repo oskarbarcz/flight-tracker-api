@@ -113,7 +113,7 @@ Feature: Report a flight diversion
               "cabinCrew": 6,
               "reliefPilots": 0
             },
-            "passengers": 366,
+            "passengers": 292,
             "zeroFuelWeight": 202.9
           },
           "preliminary": {
@@ -139,7 +139,7 @@ Feature: Report a flight diversion
               "cabinCrew": 6,
               "reliefPilots": 0
             },
-            "passengers": 370,
+            "passengers": 296,
             "zeroFuelWeight": 208.9
           }
         },
@@ -458,7 +458,7 @@ Feature: Report a flight diversion
               "cabinCrew": 6,
               "reliefPilots": 0
             },
-            "passengers": 366,
+            "passengers": 292,
             "zeroFuelWeight": 202.9
           },
           "preliminary": {
@@ -484,7 +484,7 @@ Feature: Report a flight diversion
               "cabinCrew": 6,
               "reliefPilots": 0
             },
-            "passengers": 370,
+            "passengers": 296,
             "zeroFuelWeight": 208.9
           }
         },

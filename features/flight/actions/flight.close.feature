@@ -76,7 +76,7 @@ Feature: Close flight
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 370,
+            "passengers": 296,
             "payload": 40.3,
             "cargo": 8.5,
             "zeroFuelWeight": 208.9,
@@ -102,7 +102,7 @@ Feature: Close flight
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 366,
+            "passengers": 292,
             "payload": 28.3,
             "cargo": 8.9,
             "zeroFuelWeight": 202.9,
@@ -425,7 +425,15 @@ Feature: Close flight
         "selcal": "AB-FG",
         "currentState": "idle",
         "etopsThresholdMinutes": null,
-        "cabinLayout": null,
+        "cabinLayout": {
+          "id": "aa-77w",
+          "airlineIata": "AA",
+          "aircraftIata": "77W",
+          "variant": null,
+          "revision": 1,
+          "retired": false,
+          "mismatched": false
+        },
         "baseAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
@@ -573,7 +581,7 @@ Feature: Close flight
         "loadsheets": {
           "preliminary": {
             "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
-            "passengers": 358,
+            "passengers": 287,
             "payload": 39.7,
             "cargo": 8.2,
             "zeroFuelWeight": 208.1,
@@ -595,7 +603,7 @@ Feature: Close flight
           },
           "final": {
             "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
-            "passengers": 354,
+            "passengers": 283,
             "payload": 27.8,
             "cargo": 8.6,
             "zeroFuelWeight": 202.1,
@@ -726,7 +734,7 @@ Feature: Close flight
           "squawk": "7700",
           "intention": "immediate-landing",
           "lastKnownPosition": { "longitude": -73.42, "latitude": 41.08 },
-          "soulsOnBoard": 362,
+          "soulsOnBoard": 291,
           "fuelEnduranceMinutes": 95,
           "dangerousGoodsOnBoard": [],
           "freeText": "Passenger in seat 24B suffering suspected cardiac arrest. CPR in progress, requesting priority handling and medical team at gate.",
@@ -781,7 +789,7 @@ Feature: Close flight
         "loadsheets": {
           "preliminary": {
             "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
-            "passengers": 341,
+            "passengers": 273,
             "payload": 38.6,
             "cargo": 7.9,
             "zeroFuelWeight": 207.0,
@@ -803,7 +811,7 @@ Feature: Close flight
           },
           "final": {
             "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
-            "passengers": 339,
+            "passengers": 271,
             "payload": 27.4,
             "cargo": 8.2,
             "zeroFuelWeight": 201.4,
