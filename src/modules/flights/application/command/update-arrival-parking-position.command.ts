@@ -52,7 +52,7 @@ export class UpdateArrivalParkingPositionHandler implements ICommandHandler<Upda
       arrivalParkingPositionId,
     );
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new ArrivalParkingPositionWasChangedEvent({
         flightId,
         scope: scopeForActor(actor),

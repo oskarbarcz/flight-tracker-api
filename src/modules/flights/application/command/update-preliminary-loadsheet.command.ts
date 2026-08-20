@@ -76,7 +76,7 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
       final: flight.loadsheets.final,
     };
     await this.flightsRepository.updateLoadsheets(flightId, loadsheets);
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new PreliminaryLoadsheetWasUpdatedEvent({
         flightId,
         scope: FlightEventScope.Operations,
