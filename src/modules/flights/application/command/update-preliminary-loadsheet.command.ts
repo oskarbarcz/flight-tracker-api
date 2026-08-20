@@ -10,7 +10,12 @@ import { Loadsheet, Loadsheets } from '../../model/loadsheet.model';
 import { PreliminaryLoadsheetWasUpdatedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
-import { assertFuelBreakdownConsistent } from '../../model/loadsheet.policy';
+import {
+  assertFuelBreakdownConsistent,
+  assertPassengerBreakdownConsistent,
+} from '../../model/loadsheet.policy';
+import { GetSeatCapacityQuery } from '../../../passengers/application/query/get-seat-capacity.query';
+import { SeatCapacityExceededError } from '../../../passengers/model/error/manifest.error';
 
 export class UpdatePreliminaryLoadsheetCommand {
   constructor(
@@ -42,6 +47,14 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
     }
 
     assertFuelBreakdownConsistent(loadsheet);
+    assertPassengerBreakdownConsistent(loadsheet);
+
+    const capacityQuery = new GetSeatCapacityQuery(flight.aircraft.id);
+    const capacity: number | null = await this.queryBus.execute(capacityQuery);
+
+    if (capacity !== null && loadsheet.passengers > capacity) {
+      throw new SeatCapacityExceededError(loadsheet.passengers, capacity);
+    }
 
     const loadsheets: Loadsheets = {
       preliminary: loadsheet,

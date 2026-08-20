@@ -62,7 +62,7 @@ Feature: Update flight scheduled timesheet
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 370,
+            "passengers": 296,
             "payload": 40.3,
             "cargo": 8.5,
             "zeroFuelWeight": 208.9,
@@ -88,7 +88,7 @@ Feature: Update flight scheduled timesheet
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 368,
+            "passengers": 294,
             "payload": 39.1,
             "cargo": 8.2,
             "zeroFuelWeight": 207.7,

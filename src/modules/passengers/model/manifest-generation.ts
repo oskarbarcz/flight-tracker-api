@@ -1,4 +1,9 @@
 import { CabinDeckName } from '../../cabin-layouts/model/layout-version';
+import { PassengerStatus } from './manifest.model';
+import {
+  CabinCapacityExceededError,
+  UnknownCabinError,
+} from './error/manifest.error';
 
 export type AllocatableSeat = {
   designator: string;
@@ -6,9 +11,59 @@ export type AllocatableSeat = {
   cabin: string;
 };
 
+export type SeatedPassenger = {
+  designator: string;
+  cabin: string;
+  status: PassengerStatus;
+};
+
+export type ReconciliationPlan = {
+  noShows: string[];
+  additions: AllocatableSeat[];
+};
+
 const PNR_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 const PNR_LENGTH = 6;
 const SHARED_PNR_CHANCE = 0.2;
+
+export function cabinSizesOf(seats: AllocatableSeat[]): Record<string, number> {
+  const sizes: Record<string, number> = {};
+
+  for (const seat of seats) {
+    sizes[seat.cabin] = (sizes[seat.cabin] ?? 0) + 1;
+  }
+
+  return sizes;
+}
+
+export function targetPerCabin(
+  cabinSizes: Record<string, number>,
+  passengers: number,
+  breakdown?: Record<string, number> | null,
+): Record<string, number> {
+  if (!breakdown) {
+    return distributePassengers(cabinSizes, passengers);
+  }
+
+  const target: Record<string, number> = {};
+  for (const cabin of Object.keys(cabinSizes)) {
+    target[cabin] = 0;
+  }
+
+  for (const [cabin, count] of Object.entries(breakdown)) {
+    if (!(cabin in cabinSizes)) {
+      throw new UnknownCabinError(cabin);
+    }
+
+    if (count > cabinSizes[cabin]) {
+      throw new CabinCapacityExceededError(cabin, count, cabinSizes[cabin]);
+    }
+
+    target[cabin] = count;
+  }
+
+  return target;
+}
 
 export function distributePassengers(
   cabinSizes: Record<string, number>,
@@ -51,29 +106,48 @@ export function distributePassengers(
 
 export function allocateSeats(
   seats: AllocatableSeat[],
-  total: number,
+  target: Record<string, number>,
 ): AllocatableSeat[] {
-  const byCabin = new Map<string, AllocatableSeat[]>();
-
-  for (const seat of seats) {
-    const cabinSeats = byCabin.get(seat.cabin) ?? [];
-    cabinSeats.push(seat);
-    byCabin.set(seat.cabin, cabinSeats);
-  }
-
-  const cabinSizes: Record<string, number> = {};
-  for (const [cabin, cabinSeats] of byCabin) {
-    cabinSizes[cabin] = cabinSeats.length;
-  }
-
-  const allocation = distributePassengers(cabinSizes, total);
   const allocated: AllocatableSeat[] = [];
 
-  for (const [cabin, cabinSeats] of byCabin) {
-    allocated.push(...shuffle(cabinSeats).slice(0, allocation[cabin]));
+  for (const [cabin, cabinSeats] of groupByCabin(seats)) {
+    allocated.push(...shuffle(cabinSeats).slice(0, target[cabin] ?? 0));
   }
 
   return allocated;
+}
+
+export function planReconciliation(
+  seats: AllocatableSeat[],
+  manifest: SeatedPassenger[],
+  target: Record<string, number>,
+): ReconciliationPlan {
+  const taken = new Set(manifest.map((passenger) => passenger.designator));
+  const plan: ReconciliationPlan = { noShows: [], additions: [] };
+
+  for (const [cabin, cabinSeats] of groupByCabin(seats)) {
+    const boarded = manifest.filter(
+      (passenger) =>
+        passenger.cabin === cabin &&
+        passenger.status === PassengerStatus.Boarded,
+    );
+    const wanted = target[cabin] ?? 0;
+
+    if (boarded.length > wanted) {
+      plan.noShows.push(
+        ...shuffle(boarded)
+          .slice(0, boarded.length - wanted)
+          .map((passenger) => passenger.designator),
+      );
+
+      continue;
+    }
+
+    const free = cabinSeats.filter((seat) => !taken.has(seat.designator));
+    plan.additions.push(...shuffle(free).slice(0, wanted - boarded.length));
+  }
+
+  return plan;
 }
 
 export function generatePnr(): string {
@@ -96,6 +170,20 @@ export function assignPnrs(count: number): string[] {
   }
 
   return pnrs;
+}
+
+function groupByCabin(
+  seats: AllocatableSeat[],
+): Map<string, AllocatableSeat[]> {
+  const byCabin = new Map<string, AllocatableSeat[]>();
+
+  for (const seat of seats) {
+    const cabinSeats = byCabin.get(seat.cabin) ?? [];
+    cabinSeats.push(seat);
+    byCabin.set(seat.cabin, cabinSeats);
+  }
+
+  return byCabin;
 }
 
 function shuffle<T>(items: T[]): T[] {

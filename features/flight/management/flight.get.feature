@@ -220,7 +220,7 @@ Feature: Get flight
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 370,
+            "passengers": 296,
             "payload": 40.3,
             "cargo": 8.5,
             "zeroFuelWeight": 208.9,
@@ -246,7 +246,7 @@ Feature: Get flight
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 366,
+            "passengers": 292,
             "payload": 28.3,
             "cargo": 8.9,
             "zeroFuelWeight": 202.9,
@@ -457,7 +457,7 @@ Feature: Get flight
               "cabinCrew": 6,
               "reliefPilots": 0
             },
-            "passengers": 366,
+            "passengers": 292,
             "zeroFuelWeight": 202.9
           },
           "preliminary": {
@@ -483,7 +483,7 @@ Feature: Get flight
               "cabinCrew": 6,
               "reliefPilots": 0
             },
-            "passengers": 370,
+            "passengers": 296,
             "zeroFuelWeight": 208.9
           }
         },

@@ -94,6 +94,18 @@ export class InvalidStatusToModifyCrewError extends UnprocessableError {
   }
 }
 
+export class InvalidPassengerBreakdownError extends BadRequestError {
+  constructor() {
+    super('Passenger breakdown counts must be whole numbers of zero or more.');
+  }
+}
+
+export class InconsistentPassengerBreakdownError extends UnprocessableError {
+  constructor() {
+    super('Passenger breakdown must sum to the total passenger count.');
+  }
+}
+
 export class InconsistentFuelBlockError extends UnprocessableError {
   constructor() {
     super('Fuel breakdown block must equal the loadsheet block fuel.');

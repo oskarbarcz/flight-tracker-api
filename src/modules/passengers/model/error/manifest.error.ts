@@ -31,3 +31,17 @@ export class ManifestReadableByCaptainOnlyError extends ForbiddenError {
     super('Cabin crew can only read the manifest of a flight they captain.');
   }
 }
+
+export class UnknownCabinError extends UnprocessableError {
+  constructor(cabin: string) {
+    super(`Cabin "${cabin}" does not exist in the cabin of this flight.`);
+  }
+}
+
+export class CabinCapacityExceededError extends UnprocessableError {
+  constructor(cabin: string, passengers: number, seats: number) {
+    super(
+      `Cannot seat ${passengers} passengers in cabin "${cabin}", which has ${seats} seats.`,
+    );
+  }
+}

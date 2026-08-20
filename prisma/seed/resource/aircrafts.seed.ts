@@ -27,7 +27,7 @@ export async function loadAircraft(
     livery: 'Sunshine (2024)',
     cabinLayout: 'de-321',
     operatorId: '5c649579-22eb-4c07-a96c-b74a77f53871', // Condor
-    currentState: AircraftState.idle,
+    currentState: AircraftState.checked_in, // DE1014 CheckedIn
     etopsThresholdMinutes: null,
     baseAirportId: 'f35c094a-bec5-4803-be32-bd80a14b441a', // EDDF
     lastAirportId: '3c721cc6-c653-4fad-be43-dc9d6a149383', // KJFK
@@ -103,7 +103,7 @@ export async function loadAircraft(
     registration,
     selcal,
     livery,
-    cabinLayout: null,
+    cabinLayout: CABIN_LAYOUTS[registration] ?? null,
     operatorId,
     currentState,
     etopsThresholdMinutes,
@@ -112,6 +112,26 @@ export async function loadAircraft(
     lastAirportUpdatedAt,
     lastParkingPositionId,
   });
+
+  const CABIN_LAYOUTS: Record<string, string> = {
+    N720AN: 'aa-77w',
+    N721AN: 'aa-77w',
+    N722AN: 'aa-77w',
+    N723AN: 'aa-77w',
+    N724AN: 'aa-77w',
+    N725AN: 'aa-77w',
+    N726AN: 'aa-77w',
+    N727AN: 'aa-77w',
+    N728AN: 'aa-77w',
+    N729AN: 'aa-77w',
+    N730AN: 'aa-77w',
+    'D-AIMD': 'lh-74h',
+    'D-AIMF': 'lh-74h',
+    'D-AIMG': 'lh-74h',
+    'D-AIMH': 'lh-74h',
+    'D-AIMK': 'lh-74h',
+    'D-AIML': 'lh-74h',
+  };
 
   const fleet: Aircraft[] = [
     // American — B77W, based KJFK (deadhead KJFK -> KBOS on every checked-in leg)

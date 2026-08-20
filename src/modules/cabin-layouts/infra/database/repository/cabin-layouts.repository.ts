@@ -139,14 +139,17 @@ export class CabinLayoutsRepository {
     return version?.revision ?? null;
   }
 
-  async findNewestSeatMap(layoutId: string): Promise<CabinSeatMap | null> {
+  async findSeatMap(
+    layoutId: string,
+    revision?: number,
+  ): Promise<CabinSeatMap | null> {
     const layout = await this.prisma.cabinLayout.findUnique({
       where: { id: layoutId },
       select: { airlineIata: true, aircraftIata: true },
     });
 
     const version = await this.prisma.cabinLayoutVersion.findFirst({
-      where: { layoutId },
+      where: { layoutId, ...(revision === undefined ? {} : { revision }) },
       orderBy: { revision: 'desc' },
       include: {
         decks: {

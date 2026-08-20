@@ -4,7 +4,10 @@ import { CabinSeatMap } from '../../model/cabin-seat-map.model';
 import { CabinLayoutNotFoundError } from '../../model/error/cabin-layout.error';
 
 export class GetCabinSeatMapQuery extends Query<CabinSeatMap> {
-  constructor(public readonly layoutId: string) {
+  constructor(
+    public readonly layoutId: string,
+    public readonly revision?: number,
+  ) {
     super();
   }
 }
@@ -16,8 +19,9 @@ export class GetCabinSeatMapQueryHandler implements IQueryHandler<GetCabinSeatMa
   ) {}
 
   async execute(query: GetCabinSeatMapQuery): Promise<CabinSeatMap> {
-    const seatMap = await this.cabinLayoutsRepository.findNewestSeatMap(
+    const seatMap = await this.cabinLayoutsRepository.findSeatMap(
       query.layoutId,
+      query.revision,
     );
 
     if (!seatMap) {

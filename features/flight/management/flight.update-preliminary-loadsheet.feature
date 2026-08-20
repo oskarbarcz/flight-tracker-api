@@ -86,7 +86,7 @@ Feature: Update flight preliminary loadsheet
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 368,
+            "passengers": 294,
             "payload": 39.1,
             "cargo": 8.2,
             "zeroFuelWeight": 207.7,
@@ -322,7 +322,7 @@ Feature: Update flight preliminary loadsheet
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 368,
+            "passengers": 294,
             "payload": 39.1,
             "cargo": 8.2,
             "zeroFuelWeight": 207.7,
@@ -472,6 +472,66 @@ Feature: Update flight preliminary loadsheet
         "statusCode": 422
       }
       """
+
+  Scenario: As operations I cannot plan more passengers than the cabin has seats
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/a5fffa17-7803-4e85-8291-d1dc9276bd46/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 5
+        },
+        "passengers": 221,
+        "payload": 19.8,
+        "cargo": 4.2,
+        "zeroFuelWeight": 68.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Content",
+        "message": "Cannot seat 221 passengers in a cabin of 220 seats."
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot plan a cabin breakdown that misses the total
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/a5fffa17-7803-4e85-8291-d1dc9276bd46/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 5
+        },
+        "passengers": 150,
+        "passengersByCabin": {
+          "business": 18,
+          "economy": 130
+        },
+        "payload": 19.8,
+        "cargo": 4.2,
+        "zeroFuelWeight": 68.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Content",
+        "message": "Passenger breakdown must sum to the total passenger count."
+      }
+      """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot update flight preliminary loadsheet
     Given I am signed in as "cabin crew"

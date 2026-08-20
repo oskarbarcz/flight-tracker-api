@@ -54,7 +54,15 @@ Feature: List aircraft
           "selcal": "BD-EF",
           "currentState": "idle",
           "etopsThresholdMinutes": null,
-          "cabinLayout": null,
+          "cabinLayout": {
+            "id": "lh-74h",
+            "airlineIata": "LH",
+            "aircraftIata": "74H",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": true
+          },
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -136,7 +144,15 @@ Feature: List aircraft
           "selcal": "BD-FG",
           "currentState": "idle",
           "etopsThresholdMinutes": null,
-          "cabinLayout": null,
+          "cabinLayout": {
+            "id": "lh-74h",
+            "airlineIata": "LH",
+            "aircraftIata": "74H",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": true
+          },
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -173,7 +189,15 @@ Feature: List aircraft
           "selcal": "BE-FG",
           "currentState": "cruise",
           "etopsThresholdMinutes": null,
-          "cabinLayout": null,
+          "cabinLayout": {
+            "id": "lh-74h",
+            "airlineIata": "LH",
+            "aircraftIata": "74H",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": true
+          },
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -210,7 +234,15 @@ Feature: List aircraft
           "selcal": "CD-EF",
           "currentState": "cruise",
           "etopsThresholdMinutes": null,
-          "cabinLayout": null,
+          "cabinLayout": {
+            "id": "lh-74h",
+            "airlineIata": "LH",
+            "aircraftIata": "74H",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": true
+          },
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -247,7 +279,15 @@ Feature: List aircraft
           "selcal": "CD-EG",
           "currentState": "planned",
           "etopsThresholdMinutes": null,
-          "cabinLayout": null,
+          "cabinLayout": {
+            "id": "lh-74h",
+            "airlineIata": "LH",
+            "aircraftIata": "74H",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": true
+          },
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",
@@ -284,7 +324,15 @@ Feature: List aircraft
           "selcal": "CE-FG",
           "currentState": "cruise",
           "etopsThresholdMinutes": null,
-          "cabinLayout": null,
+          "cabinLayout": {
+            "id": "lh-74h",
+            "airlineIata": "LH",
+            "aircraftIata": "74H",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": true
+          },
           "baseAirport": {
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "iataCode": "FRA",

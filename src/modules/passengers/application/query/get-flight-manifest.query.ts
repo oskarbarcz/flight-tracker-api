@@ -23,6 +23,7 @@ export class GetFlightManifestQuery extends Query<FlightManifest> {
     public readonly flightId: string,
     public readonly actorId: string,
     public readonly actorRole: string,
+    public readonly status?: PassengerStatus,
   ) {
     super();
   }
@@ -36,7 +37,7 @@ export class GetFlightManifestHandler implements IQueryHandler<GetFlightManifest
   ) {}
 
   async execute(query: GetFlightManifestQuery): Promise<FlightManifest> {
-    const { flightId, actorId, actorRole } = query;
+    const { flightId, actorId, actorRole, status } = query;
 
     const contextQuery = new GetFlightManifestContextQuery(flightId);
     const flight: FlightManifestContext =
@@ -55,7 +56,7 @@ export class GetFlightManifestHandler implements IQueryHandler<GetFlightManifest
       throw new ManifestNotGeneratedError();
     }
 
-    const rows = await this.passengersRepository.findByFlight(flightId);
+    const rows = await this.passengersRepository.findByFlight(flightId, status);
     const passengers: ManifestPassenger[] = rows.map((row) => ({
       designator: row.designator,
       deck: row.deck as CabinDeckName,

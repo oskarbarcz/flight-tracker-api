@@ -72,7 +72,7 @@ Feature: Report off-block
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 370,
+            "passengers": 296,
             "payload": 40.3,
             "cargo": 8.5,
             "zeroFuelWeight": 208.9,
@@ -98,7 +98,7 @@ Feature: Report off-block
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 366,
+            "passengers": 292,
             "payload": 28.3,
             "cargo": 8.9,
             "zeroFuelWeight": 202.9,
@@ -346,7 +346,15 @@ Feature: Report off-block
         "selcal": "AB-DE",
         "currentState": "cruise",
         "etopsThresholdMinutes": null,
-        "cabinLayout": null,
+        "cabinLayout": {
+          "id": "aa-77w",
+          "airlineIata": "AA",
+          "aircraftIata": "77W",
+          "variant": null,
+          "revision": 1,
+          "retired": false,
+          "mismatched": false
+        },
         "baseAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",

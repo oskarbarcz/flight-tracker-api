@@ -40,7 +40,7 @@ Feature: Finish flight boarding
           "reliefPilots": 0,
           "cabinCrew": 6
         },
-        "passengers": 366,
+        "passengers": 292,
         "payload": 28.3,
         "cargo": 8.9,
         "zeroFuelWeight": 202.9,
@@ -94,7 +94,7 @@ Feature: Finish flight boarding
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 370,
+            "passengers": 296,
             "payload": 40.3,
             "cargo": 8.5,
             "zeroFuelWeight": 208.9,
@@ -120,7 +120,7 @@ Feature: Finish flight boarding
               "reliefPilots": 0,
               "cabinCrew": 6
             },
-            "passengers": 366,
+            "passengers": 292,
             "payload": 28.3,
             "cargo": 8.9,
             "zeroFuelWeight": 202.9,
@@ -332,7 +332,7 @@ Feature: Finish flight boarding
     And I see Discord "final-loadsheet" message for flight "05986dd3-ff01-4112-ad35-ecd85db05c77" containing "FO  James Carter"
     And I see Discord "final-loadsheet" message for flight "05986dd3-ff01-4112-ad35-ecd85db05c77" containing "PU  Susan Brooks"
     And I see Discord "final-loadsheet" message for flight "05986dd3-ff01-4112-ad35-ecd85db05c77" containing "FA  Emily Ross"
-    And I see Discord "final-loadsheet" message for flight "05986dd3-ff01-4112-ad35-ecd85db05c77" containing "passengers:  366"
+    And I see Discord "final-loadsheet" message for flight "05986dd3-ff01-4112-ad35-ecd85db05c77" containing "passengers:  292"
     And I see Discord "final-loadsheet" message for flight "05986dd3-ff01-4112-ad35-ecd85db05c77" containing "block fuel:  11.9 t"
     And I should receive a live flight event of type "flight.boarding-finished" within 2000ms
     And I set database to initial state
@@ -348,7 +348,7 @@ Feature: Finish flight boarding
           "reliefPilots": 0,
           "cabinCrew": 6
         },
-        "passengers": 366,
+        "passengers": 292,
         "payload": 28.3,
         "cargo": 8.9,
         "zeroFuelWeight": 202.9,
@@ -389,7 +389,7 @@ Feature: Finish flight boarding
           "reliefPilots": 0,
           "cabinCrew": 6
         },
-        "passengers": 366,
+        "passengers": 292,
         "payload": 28.3,
         "cargo": 8.9,
         "zeroFuelWeight": 202.9,
@@ -405,7 +405,7 @@ Feature: Finish flight boarding
           "reliefPilots": 0,
           "cabinCrew": 6
         },
-        "passengers": 366,
+        "passengers": 292,
         "payload": 28.3,
         "cargo": 8.9,
         "zeroFuelWeight": 202.9,
@@ -433,7 +433,7 @@ Feature: Finish flight boarding
           "reliefPilots": 0,
           "cabinCrew": 6
         },
-        "passengers": 366,
+        "passengers": 292,
         "payload": 28.3,
         "cargo": 8.9,
         "zeroFuelWeight": 202.9,
@@ -458,7 +458,7 @@ Feature: Finish flight boarding
         "flightCrew": {
           "pilots": 2
         },
-        "passengers": 366,
+        "passengers": 292,
         "payload": 28.3,
         "blockFuel": 11.9
       }
@@ -490,7 +490,7 @@ Feature: Finish flight boarding
           "reliefPilots": 0,
           "cabinCrew": 6
         },
-        "passengers": 366,
+        "passengers": 292,
         "payload": 28.3,
         "cargo": 8.9,
         "zeroFuelWeight": 202.9,
@@ -517,7 +517,7 @@ Feature: Finish flight boarding
           "reliefPilots": 0,
           "cabinCrew": 6
         },
-        "passengers": 366,
+        "passengers": 292,
         "payload": 28.3,
         "cargo": 8.9,
         "zeroFuelWeight": 202.9,
@@ -543,7 +543,7 @@ Feature: Finish flight boarding
           "reliefPilots": 0,
           "cabinCrew": 6
         },
-        "passengers": 366,
+        "passengers": 292,
         "payload": 28.3,
         "cargo": 8.9,
         "zeroFuelWeight": 202.9,

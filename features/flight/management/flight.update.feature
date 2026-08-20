@@ -38,7 +38,7 @@ Feature: Update flight
               "cabinCrew": 6,
               "reliefPilots": 0
             },
-            "passengers": 368,
+            "passengers": 294,
             "zeroFuelWeight": 207.7
           },
           "preliminary": {
@@ -64,7 +64,7 @@ Feature: Update flight
               "cabinCrew": 6,
               "reliefPilots": 0
             },
-            "passengers": 370,
+            "passengers": 296,
             "zeroFuelWeight": 208.9
           }
         },
@@ -219,7 +219,7 @@ Feature: Update flight
               "cabinCrew": 6,
               "reliefPilots": 0
             },
-            "passengers": 368,
+            "passengers": 294,
             "zeroFuelWeight": 207.7
           },
           "preliminary": {
@@ -245,7 +245,7 @@ Feature: Update flight
               "cabinCrew": 6,
               "reliefPilots": 0
             },
-            "passengers": 370,
+            "passengers": 296,
             "zeroFuelWeight": 208.9
           }
         },

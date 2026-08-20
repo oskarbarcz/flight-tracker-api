@@ -1,4 +1,4 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Query, Req } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -20,6 +20,7 @@ import { AuthorizedRequest } from '../../../../../core/http/request/authorized.r
 import { UuidParam } from '../../../../../core/validation/uuid.param';
 import { UserRole } from '../../../../users/model/user-role';
 import { FlightManifest } from '../../../model/manifest.model';
+import { ManifestFilters } from '../request/manifest.request';
 import { GetFlightManifestQuery } from '../../../application/query/get-flight-manifest.query';
 
 @ApiTags('flight')
@@ -44,12 +45,14 @@ export class GetFlightManifestAction {
   @Role(UserRole.Operations, UserRole.CabinCrew)
   async run(
     @UuidParam('id') id: string,
+    @Query() filters: ManifestFilters,
     @Req() request: AuthorizedRequest,
   ): Promise<FlightManifest> {
     const query = new GetFlightManifestQuery(
       id,
       request.user.sub,
       request.user.role,
+      filters.status,
     );
 
     return this.queryBus.execute(query);

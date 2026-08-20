@@ -51,6 +51,7 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
       flight.aircraft.id,
       flight.operator.id,
       flight.loadsheets.preliminary.passengers,
+      flight.loadsheets.preliminary.passengersByCabin,
     );
     await this.commandBus.execute(generateManifest);
 
