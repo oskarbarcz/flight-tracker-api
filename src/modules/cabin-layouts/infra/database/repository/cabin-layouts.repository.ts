@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import { CabinLayout } from '../../../model/cabin-layout.model';
 import { CollapsedLayout } from '../../../model/deck-collapse';
-import { AssembledVersion } from '../../../model/layout-version';
+import { AssembledVersion, revisionDate } from '../../../model/layout-version';
 import { CabinSeatMap } from '../../../model/cabin-seat-map.model';
 import { CabinCapacity } from '../../../model/cabin-capacity.model';
 
@@ -242,6 +242,8 @@ export class CabinLayoutsRepository {
     assembled: AssembledVersion,
     rawPayload: unknown,
   ): Promise<void> {
+    const fetchedAt = new Date();
+
     await this.prisma.cabinLayoutVersion.create({
       data: {
         layoutId,
@@ -254,7 +256,8 @@ export class CabinLayoutsRepository {
         isDualDeck: assembled.isDualDeck,
         totalSeats: assembled.totalSeats,
         seatCounts: assembled.seatCounts as never,
-        lastUpdated: new Date(assembled.lastUpdated),
+        lastUpdated: revisionDate(assembled.lastUpdated, fetchedAt),
+        fetchedAt,
         rawPayload: rawPayload as never,
         decks: {
           create: assembled.decks.map((deck) => ({
@@ -263,7 +266,7 @@ export class CabinLayoutsRepository {
             canvasWidth: deck.canvasWidth,
             canvasHeight: deck.canvasHeight,
             seatCount: deck.seatCount,
-            lastUpdated: new Date(deck.lastUpdated),
+            lastUpdated: revisionDate(deck.lastUpdated, fetchedAt),
             assets: deck.assets as never,
             cabins: deck.cabins as never,
             seats: {

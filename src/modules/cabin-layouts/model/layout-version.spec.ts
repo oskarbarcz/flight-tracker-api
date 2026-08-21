@@ -1,4 +1,9 @@
-import { assembleVersion, deckNameFor, hashSeatMaps } from './layout-version';
+import {
+  assembleVersion,
+  deckNameFor,
+  hashSeatMaps,
+  revisionDate,
+} from './layout-version';
 import {
   AerolopaSeat,
   AerolopaSeatMap,
@@ -248,5 +253,54 @@ describe('assembleVersion', () => {
     expect(
       assembleVersion([upper, main]).decks.map(({ deck }) => deck),
     ).toEqual(['main', 'upper']);
+  });
+
+  it('takes the sibling deck date when AeroLOPA leaves one deck undated', () => {
+    const [main, upper] = realisticDeckPair();
+    const version = assembleVersion([
+      { ...main, lastUpdated: '' },
+      { ...upper, lastUpdated: '2025-06-30' },
+    ]);
+
+    expect(version.lastUpdated).toBe('2025-06-30');
+    expect(version.decks.map(({ lastUpdated }) => lastUpdated)).toEqual([
+      '2025-06-30',
+      '2025-06-30',
+    ]);
+  });
+
+  it('reports no revision date when AeroLOPA dates neither deck', () => {
+    const [main, upper] = realisticDeckPair();
+    const version = assembleVersion([
+      { ...main, lastUpdated: '' },
+      { ...upper, lastUpdated: '' },
+    ]);
+
+    expect(version.lastUpdated).toBeNull();
+    expect(version.decks.map(({ lastUpdated }) => lastUpdated)).toEqual([
+      null,
+      null,
+    ]);
+  });
+
+  it('reports no revision date when a single deck carries none', () => {
+    const version = assembleVersion([seatMap('lh-32n', { lastUpdated: '' })]);
+
+    expect(version.lastUpdated).toBeNull();
+    expect(version.decks[0].lastUpdated).toBeNull();
+  });
+});
+
+describe('revisionDate', () => {
+  it('keeps the date AeroLOPA published', () => {
+    const date = revisionDate('2025-06-30', new Date('2026-08-21T09:12:00Z'));
+
+    expect(date.toISOString().slice(0, 10)).toBe('2025-06-30');
+  });
+
+  it('falls back to the fetch time when the layout carries no date', () => {
+    const fetchedAt = new Date('2026-08-21T09:12:00Z');
+
+    expect(revisionDate(null, fetchedAt)).toBe(fetchedAt);
   });
 });

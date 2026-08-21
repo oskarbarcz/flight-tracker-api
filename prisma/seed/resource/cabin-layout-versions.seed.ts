@@ -3,6 +3,7 @@ import { AerolopaSeatMap } from '../../../src/core/provider/aerolopa/type/aerolo
 import {
   AssembledVersion,
   assembleVersion,
+  revisionDate,
 } from '../../../src/modules/cabin-layouts/model/layout-version';
 import expectations from '../../../docker/mock/aerolopa.json';
 
@@ -54,7 +55,7 @@ export async function loadCabinLayoutVersions(
         isDualDeck: layout.isDualDeck,
         totalSeats: layout.totalSeats,
         seatCounts: layout.seatCounts as never,
-        lastUpdated: new Date(layout.lastUpdated),
+        lastUpdated: revisionDate(layout.lastUpdated, fetchedAt),
         fetchedAt,
         rawPayload: seatMaps as never,
       },
@@ -70,7 +71,7 @@ export async function loadCabinLayoutVersions(
           canvasWidth: deck.canvasWidth,
           canvasHeight: deck.canvasHeight,
           seatCount: deck.seatCount,
-          lastUpdated: new Date(deck.lastUpdated),
+          lastUpdated: revisionDate(deck.lastUpdated, fetchedAt),
           assets: deck.assets as never,
           cabins: deck.cabins as never,
         },

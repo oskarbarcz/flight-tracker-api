@@ -9,7 +9,7 @@ export interface AssembledDeck {
   canvasWidth: number;
   canvasHeight: number;
   seatCount: number;
-  lastUpdated: string;
+  lastUpdated: string | null;
   assets: AerolopaSeatMap['assets'];
   cabins: AerolopaSeatMap['cabins'];
   seats: AerolopaSeatMap['seats'];
@@ -24,7 +24,7 @@ export interface AssembledVersion {
   isDualDeck: boolean;
   totalSeats: number;
   seatCounts: AerolopaSeatMap['seatCounts'];
-  lastUpdated: string;
+  lastUpdated: string | null;
   decks: AssembledDeck[];
 }
 
@@ -42,6 +42,14 @@ function withoutAssetQueries(
   return Object.fromEntries(
     Object.entries(assets).map(([key, value]) => [key, stripQuery(value)]),
   );
+}
+
+function publishedDate(value: string): string | null {
+  return Number.isNaN(Date.parse(value)) ? null : value;
+}
+
+export function revisionDate(value: string | null, fallback: Date): Date {
+  return value === null ? fallback : new Date(value);
 }
 
 function stripQuery(url: string): string {
@@ -81,7 +89,7 @@ export function assembleVersion(seatMaps: AerolopaSeatMap[]): AssembledVersion {
     canvasWidth: seatMap.canvas.width,
     canvasHeight: seatMap.canvas.height,
     seatCount: seatMap.seats.length,
-    lastUpdated: seatMap.lastUpdated,
+    lastUpdated: publishedDate(seatMap.lastUpdated),
     assets: seatMap.assets,
     cabins: seatMap.cabins,
     seats: seatMap.seats,
@@ -98,6 +106,13 @@ export function assembleVersion(seatMaps: AerolopaSeatMap[]): AssembledVersion {
     {} as AerolopaSeatMap['seatCounts'],
   );
 
+  const lastUpdated =
+    decks
+      .map((deck) => deck.lastUpdated)
+      .filter((value): value is string => value !== null)
+      .sort()
+      .at(-1) ?? null;
+
   return {
     contentHash: hashSeatMaps(seatMaps),
     aircraftType: primary.aircraftType,
@@ -107,10 +122,10 @@ export function assembleVersion(seatMaps: AerolopaSeatMap[]): AssembledVersion {
     isDualDeck: ordered.some((seatMap) => seatMap.isDualDeck),
     totalSeats: decks.reduce((sum, deck) => sum + deck.seatCount, 0),
     seatCounts,
-    lastUpdated: ordered
-      .map((seatMap) => seatMap.lastUpdated)
-      .sort()
-      .at(-1) as string,
-    decks,
+    lastUpdated,
+    decks: decks.map((deck) => ({
+      ...deck,
+      lastUpdated: deck.lastUpdated ?? lastUpdated,
+    })),
   };
 }

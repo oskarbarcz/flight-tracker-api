@@ -33,6 +33,19 @@ Feature: Refresh a cabin layout from AeroLOPA
       """
     And I set database to initial state
 
+  Scenario: Refreshing a layout AeroLOPA left undated stores its first revision
+    When I send a "POST" request to "/api/v1/cabin-layout/kl-77w/refresh"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "layoutId": "kl-77w",
+        "changed": true,
+        "revision": 1
+      }
+      """
+    And I set database to initial state
+
   Scenario: Refreshing repeatedly leaves the layout on one revision
     When I send a "POST" request to "/api/v1/cabin-layout/aa-77w/refresh"
     Then the response status should be 200
