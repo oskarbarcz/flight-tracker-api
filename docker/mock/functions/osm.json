@@ -1,0 +1,312 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/osm-provider/airport/pull",
+      "queryStringParameters": {
+        "icao": [
+          "EDDW"
+        ]
+      },
+      "headers": {
+        "X-Require-Whisk-Auth": [
+          "very-secret-token"
+        ]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "airport": {
+          "icaoCode": "EDDW",
+          "name": "Bremen Airport",
+          "source": "OpenStreetMap via Overpass",
+          "location": {
+            "longitude": 8.786667,
+            "latitude": 53.0475
+          },
+          "shape": [
+            {
+              "longitude": 8.78,
+              "latitude": 53.052
+            },
+            {
+              "longitude": 8.81,
+              "latitude": 53.052
+            },
+            {
+              "longitude": 8.81,
+              "latitude": 53.043
+            },
+            {
+              "longitude": 8.78,
+              "latitude": 53.043
+            },
+            {
+              "longitude": 8.78,
+              "latitude": 53.052
+            }
+          ],
+          "runways": [
+            {
+              "designator": "09",
+              "length": 2037,
+              "width": 45,
+              "magneticHeading": 90,
+              "trueHeading": 90,
+              "elevation": 4,
+              "surfaceType": "asphalt",
+              "lightingType": "unknown",
+              "coordinates": {
+                "longitude": 8.77006,
+                "latitude": 53.04648
+              }
+            },
+            {
+              "designator": "27",
+              "length": 2100,
+              "width": 45,
+              "magneticHeading": 270,
+              "trueHeading": 270,
+              "elevation": 4,
+              "surfaceType": "asphalt",
+              "lightingType": "unknown",
+              "coordinates": {
+                "longitude": 8.80934,
+                "latitude": 53.04737
+              }
+            },
+            {
+              "designator": "14",
+              "length": 1200,
+              "width": 30,
+              "magneticHeading": 140,
+              "trueHeading": 142,
+              "elevation": 4,
+              "surfaceType": "concrete",
+              "lightingType": "unknown",
+              "coordinates": {
+                "longitude": 8.784,
+                "latitude": 53.042
+              }
+            }
+          ],
+          "terminals": [
+            {
+              "shortName": "HT",
+              "fullName": "Bremen Hauptterminal",
+              "averageTaxiTime": 0,
+              "operatorCodes": [],
+              "shape": [
+                {
+                  "longitude": 8.784,
+                  "latitude": 53.053
+                },
+                {
+                  "longitude": 8.787,
+                  "latitude": 53.053
+                },
+                {
+                  "longitude": 8.787,
+                  "latitude": 53.0515
+                },
+                {
+                  "longitude": 8.784,
+                  "latitude": 53.0515
+                },
+                {
+                  "longitude": 8.784,
+                  "latitude": 53.053
+                }
+              ]
+            },
+            {
+              "shortName": "NT",
+              "fullName": "North Terminal",
+              "averageTaxiTime": 0,
+              "operatorCodes": [],
+              "shape": [
+                {
+                  "longitude": 8.79,
+                  "latitude": 53.053
+                },
+                {
+                  "longitude": 8.7925,
+                  "latitude": 53.053
+                },
+                {
+                  "longitude": 8.7925,
+                  "latitude": 53.0518
+                },
+                {
+                  "longitude": 8.79,
+                  "latitude": 53.0518
+                },
+                {
+                  "longitude": 8.79,
+                  "latitude": 53.053
+                }
+              ]
+            }
+          ],
+          "parkingPositions": [
+            {
+              "name": "05",
+              "terminal": "HT",
+              "location": "remote",
+              "coordinates": {
+                "longitude": 8.783696,
+                "latitude": 53.051918
+              },
+              "bridge": "no",
+              "stairs": "no",
+              "deicing": "no",
+              "gpu": "no",
+              "pca": "no",
+              "type": "straight-in",
+              "spotType": "other",
+              "assistance": "none",
+              "noiseSensitivity": "no",
+              "fuelingOptions": "none"
+            },
+            {
+              "name": "06",
+              "terminal": "HT",
+              "location": "gate",
+              "coordinates": {
+                "longitude": 8.7841,
+                "latitude": 53.05194
+              },
+              "bridge": "no",
+              "stairs": "no",
+              "deicing": "no",
+              "gpu": "no",
+              "pca": "no",
+              "type": "straight-in",
+              "spotType": "other",
+              "assistance": "none",
+              "noiseSensitivity": "no",
+              "fuelingOptions": "none"
+            },
+            {
+              "name": "20",
+              "terminal": "NT",
+              "location": "remote",
+              "coordinates": {
+                "longitude": 8.7912,
+                "latitude": 53.0524
+              },
+              "bridge": "no",
+              "stairs": "no",
+              "deicing": "no",
+              "gpu": "no",
+              "pca": "no",
+              "type": "straight-in",
+              "spotType": "other",
+              "assistance": "none",
+              "noiseSensitivity": "no",
+              "fuelingOptions": "none"
+            }
+          ],
+          "gates": [
+            {
+              "name": "6",
+              "category": "schengen",
+              "terminal": "HT",
+              "parkingPosition": "06",
+              "coordinates": {
+                "longitude": 8.7841,
+                "latitude": 53.05194
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/osm-provider/airport/pull",
+      "queryStringParameters": {
+        "icao": [
+          "CYYT"
+        ]
+      },
+      "headers": {
+        "X-Require-Whisk-Auth": [
+          "very-secret-token"
+        ]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 404,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "error": {
+          "code": "AERODROME_NOT_FOUND",
+          "message": "OpenStreetMap has no aerodrome tagged with the ICAO code CYYT.",
+          "status": 404
+        }
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/osm-provider/airport/pull",
+      "queryStringParameters": {
+        "icao": [
+          "EDDF"
+        ]
+      },
+      "headers": {
+        "X-Require-Whisk-Auth": [
+          "very-secret-token"
+        ]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 502,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "error": {
+          "code": "OVERPASS_UNAVAILABLE",
+          "message": "Every Overpass mirror is unavailable.",
+          "status": 502
+        }
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/osm-provider/airport/pull"
+    },
+    "httpResponse": {
+      "statusCode": 401,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "error": "Authentication is possible but has failed or not yet been provided."
+      }
+    },
+    "priority": -1
+  }
+]

@@ -20,6 +20,7 @@ export const FLIGHT_CACHE_RESOURCE = {
 } as const;
 
 export const CACHE_TTL_MS = {
+  AIRPORT_OSM_PULL: 3_600_000,
   FLIGHT: 60_000,
   USER_ME: 60_000,
   DELAY: 300_000,
@@ -66,3 +67,12 @@ export const flightDelayCacheKeys = (flightId: string): string[] =>
 
 export const flightCrewCacheKeys = (flightId: string): string[] =>
   flightScopedCacheKeys(flightId, FLIGHT_CACHE_RESOURCE.crew);
+
+/**
+ * Where an OpenStreetMap pull is retained between an operations user reviewing it
+ * and pushing the parts they accepted. Overpass is a free public service, so the
+ * review is served from this rather than re-queried on every reload.
+ */
+export function airportOsmPullCacheKey(airportId: string): string {
+  return `airport:${airportId}:osm-pull`;
+}
