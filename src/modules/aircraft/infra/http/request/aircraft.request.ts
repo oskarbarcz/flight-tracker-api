@@ -181,4 +181,12 @@ export class LegacyCreateAircraftResponse extends Aircraft {
     deprecated: true,
   })
   operator!: LegacyOperatorResponse | null;
+
+  @ApiProperty({
+    description:
+      'Cabin layout assigned to the aircraft; null when none is assigned',
+    type: AircraftCabinLayout,
+    nullable: true,
+  })
+  cabinLayout!: AircraftCabinLayout | null;
 }

@@ -101,7 +101,8 @@ Feature: Mark flight as ready
             "shortName": "American Airlines",
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
-          }
+          },
+          "cabinLayout": null
         },
         "operator": {
           "id": "1f630d38-ad24-47cc-950b-3783e71bbd10",

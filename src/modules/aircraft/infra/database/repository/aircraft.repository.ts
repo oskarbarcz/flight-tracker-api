@@ -31,6 +31,20 @@ const aircraftWithOperatorFields = {
       callsign: true,
     },
   },
+  layout: {
+    select: {
+      id: true,
+      airlineIata: true,
+      aircraftIata: true,
+      variant: true,
+      retiredAt: true,
+      versions: {
+        select: { revision: true },
+        orderBy: { revision: 'desc' },
+        take: 1,
+      },
+    },
+  },
   operatorId: false,
 } as const satisfies Prisma.AircraftSelect;
 

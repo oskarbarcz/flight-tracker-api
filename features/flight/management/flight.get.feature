@@ -47,7 +47,8 @@ Feature: Get flight
             "shortName": "Lufthansa",
             "fullName": "Deutsche Lufthansa AG",
             "callsign": "LUFTHANSA"
-          }
+          },
+          "cabinLayout": null
         },
         "operator": {
           "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",
@@ -289,6 +290,15 @@ Feature: Get flight
             "shortName": "American Airlines",
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
+          },
+          "cabinLayout": {
+            "id": "aa-77w",
+            "airlineIata": "AA",
+            "aircraftIata": "77W",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": false
           }
         },
         "operator": {
@@ -529,6 +539,15 @@ Feature: Get flight
             "shortName": "American Airlines",
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
+          },
+          "cabinLayout": {
+            "id": "aa-77w",
+            "airlineIata": "AA",
+            "aircraftIata": "77W",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": false
           }
         },
         "airports": [

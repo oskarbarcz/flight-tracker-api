@@ -114,6 +114,15 @@ Feature: Resolve a flight emergency
             "shortName": "Lufthansa",
             "fullName": "Deutsche Lufthansa AG",
             "callsign": "LUFTHANSA"
+          },
+          "cabinLayout": {
+            "id": "lh-74h",
+            "airlineIata": "LH",
+            "aircraftIata": "74H",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": true
           }
         },
         "operator": {
@@ -300,6 +309,15 @@ Feature: Resolve a flight emergency
             "shortName": "Lufthansa",
             "fullName": "Deutsche Lufthansa AG",
             "callsign": "LUFTHANSA"
+          },
+          "cabinLayout": {
+            "id": "lh-74h",
+            "airlineIata": "LH",
+            "aircraftIata": "74H",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": true
           }
         },
         "operator": {

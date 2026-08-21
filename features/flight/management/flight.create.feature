@@ -103,6 +103,15 @@ Feature: Create a flight
             "shortName": "American Airlines",
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
+          },
+          "cabinLayout": {
+            "id": "aa-77w",
+            "airlineIata": "AA",
+            "aircraftIata": "77W",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": false
           }
         },
         "operator": {
@@ -287,6 +296,15 @@ Feature: Create a flight
             "shortName": "American Airlines",
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
+          },
+          "cabinLayout": {
+            "id": "aa-77w",
+            "airlineIata": "AA",
+            "aircraftIata": "77W",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": false
           }
         },
         "operator": {
@@ -528,6 +546,15 @@ Feature: Create a flight
             "shortName": "American Airlines",
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
+          },
+          "cabinLayout": {
+            "id": "aa-77w",
+            "airlineIata": "AA",
+            "aircraftIata": "77W",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": false
           }
         },
         "operator": {
@@ -671,6 +698,15 @@ Feature: Create a flight
             "shortName": "American Airlines",
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
+          },
+          "cabinLayout": {
+            "id": "aa-77w",
+            "airlineIata": "AA",
+            "aircraftIata": "77W",
+            "variant": null,
+            "revision": 1,
+            "retired": false,
+            "mismatched": false
           }
         },
         "operator": {
