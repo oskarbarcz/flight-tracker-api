@@ -3,6 +3,7 @@ import { AircraftRepository } from '../../infra/database/repository/aircraft.rep
 import { LegacyCreateAircraftResponse } from '../../infra/http/request/aircraft.request';
 import { AircraftWithRegistrationNotFoundError } from '../../model/error/aircraft.error';
 import { findAirframeByType } from '../../../airframes/data/airframes';
+import { toAircraftCabinLayout } from '../../model/cabin-layout-assignment';
 import { AirframeNotFoundError } from '../../../airframes/model/error/airframe.error';
 
 export class GetAircraftByRegistrationQuery extends Query<LegacyCreateAircraftResponse> {
@@ -39,6 +40,11 @@ export class GetAircraftByRegistrationHandler implements IQueryHandler<GetAircra
       selcal: aircraft.selcal,
       livery: aircraft.livery,
       operator: aircraft.operator,
+      cabinLayout: toAircraftCabinLayout(
+        aircraft.layout,
+        aircraft.operator?.iataCode ?? null,
+        airframe.iataType,
+      ),
     };
   }
 }

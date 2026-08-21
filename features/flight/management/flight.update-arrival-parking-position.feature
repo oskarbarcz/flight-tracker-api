@@ -91,7 +91,8 @@ Feature: Update flight arrival parking position
             "shortName": "Lufthansa",
             "fullName": "Deutsche Lufthansa AG",
             "callsign": "LUFTHANSA"
-          }
+          },
+          "cabinLayout": null
         },
         "operator": {
           "id": "40b1b34e-aea1-4cec-acbe-f2bf97c06d7d",

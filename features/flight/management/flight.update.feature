@@ -110,7 +110,8 @@ Feature: Update flight
             "shortName": "American Airlines",
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
-          }
+          },
+          "cabinLayout": null
         },
         "airports": [
           {
@@ -291,7 +292,8 @@ Feature: Update flight
             "shortName": "American Airlines",
             "fullName": "American Airlines, Inc.",
             "callsign": "AMERICAN"
-          }
+          },
+          "cabinLayout": null
         },
         "airports": [
           {

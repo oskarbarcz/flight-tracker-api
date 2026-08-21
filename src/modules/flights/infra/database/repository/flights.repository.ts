@@ -10,6 +10,8 @@ import {
   FlightTracking,
 } from '../../../model/flight.model';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
+import { AircraftCabinLayout } from '../../../../aircraft/model/cabin-layout.model';
+import { toAircraftCabinLayout } from '../../../../aircraft/model/cabin-layout-assignment';
 import {
   CreateFlightRequest,
   FlightListFilters,
@@ -84,6 +86,20 @@ export const flightWithAircraftAndAirportsFields = {
           shortName: true,
           fullName: true,
           callsign: true,
+        },
+      },
+      layout: {
+        select: {
+          id: true,
+          airlineIata: true,
+          aircraftIata: true,
+          variant: true,
+          retiredAt: true,
+          versions: {
+            select: { revision: true },
+            orderBy: { revision: 'desc' },
+            take: 1,
+          },
         },
       },
     },
@@ -200,7 +216,10 @@ type FlightWithRawAircraft = Prisma.FlightGetPayload<{
 }>;
 
 type RawAircraft = FlightWithRawAircraft['aircraft'];
-type AircraftWithAirframe = Omit<RawAircraft, 'type'> & { airframe: Airframe };
+type AircraftWithAirframe = Omit<RawAircraft, 'type' | 'layout'> & {
+  airframe: Airframe;
+  cabinLayout: AircraftCabinLayout | null;
+};
 
 export type FlightWithAircraftAndAirports = Omit<
   FlightWithRawAircraft,
@@ -246,6 +265,11 @@ function expandAircraftAirframe(aircraft: RawAircraft): AircraftWithAirframe {
     selcal: aircraft.selcal,
     livery: aircraft.livery,
     operator: aircraft.operator,
+    cabinLayout: toAircraftCabinLayout(
+      aircraft.layout,
+      aircraft.operator?.iataCode ?? null,
+      airframe.iataType,
+    ),
   };
 }
 
