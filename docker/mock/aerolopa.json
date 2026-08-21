@@ -19588,6 +19588,124 @@
       "method": "GET",
       "path": "/aerolopa-provider/aerolopa/seatmap",
       "headers": {
+        "X-Require-Whisk-Auth": [
+          "very-secret-token"
+        ]
+      },
+      "queryStringParameters": {
+        "op": [
+          "seatmap"
+        ],
+        "slug": [
+          "kl-77w"
+        ]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "seatMap": {
+          "slug": "kl-77w",
+          "airlineIata": "KL",
+          "aircraftIata": "77W",
+          "aircraftType": "Boeing 777-306ER",
+          "aircraftTypeDisplayed": "Boeing 777-300ER",
+          "manufacturer": "Boeing",
+          "haulType": "Long Haul",
+          "isDualDeck": false,
+          "totalSeats": 2,
+          "lastUpdated": "",
+          "seatCounts": {
+            "first": 0,
+            "business": 1,
+            "premium_economy": 0,
+            "economy": 1,
+            "total": 2
+          },
+          "canvas": {
+            "width": 800,
+            "height": 5304
+          },
+          "assets": {
+            "image": "https://d9k46j35fmriq.cloudfront.net/maptool/seatmaps/kl-77w.webp?v=1786776298",
+            "imageNeutral": "https://d9k46j35fmriq.cloudfront.net/maptool/seatmaps/kl-77w.neutral.webp?v=1786776298",
+            "svg": "https://maptool.aerolopa.com/api/v1/aircraft/kl-77w/svg",
+            "seatRects": "https://maptool.aerolopa.com/api/v1/aircraft/kl-77w/seat-rects"
+          },
+          "cabins": [
+            {
+              "code": "C",
+              "name": "Business Class seats",
+              "seatCount": 1,
+              "rows": "1 to 9",
+              "pitch": "78\"",
+              "width": "20\"",
+              "recline": "Fully flat",
+              "description": "Business Class seats in a 1-2-1 configuration"
+            },
+            {
+              "code": "M",
+              "name": "Economy seats",
+              "seatCount": 1,
+              "rows": "30 to 47",
+              "pitch": "31\"",
+              "width": "17\"",
+              "recline": "3\"",
+              "description": "Economy seats in a 3-3-3 configuration"
+            }
+          ],
+          "seats": [
+            {
+              "designator": "01A",
+              "x": 187,
+              "y": 893.9,
+              "width": 57.7,
+              "height": 78.4,
+              "rotation": 0,
+              "reversed": false,
+              "cabin": "business",
+              "rating": null,
+              "color": "",
+              "bookable": true,
+              "blocked": false,
+              "crewRest": false,
+              "windowStatus": "average",
+              "seatProduct": null,
+              "comments": []
+            },
+            {
+              "designator": "30A",
+              "x": 187,
+              "y": 2894.4,
+              "width": 57.7,
+              "height": 78.4,
+              "rotation": 0,
+              "reversed": false,
+              "cabin": "economy",
+              "rating": null,
+              "color": "",
+              "bookable": true,
+              "blocked": false,
+              "crewRest": false,
+              "windowStatus": "great",
+              "seatProduct": null,
+              "comments": []
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/aerolopa-provider/aerolopa/seatmap",
+      "headers": {
         "X-Require-Whisk-Auth": ["very-secret-token"]
       },
       "queryStringParameters": {
