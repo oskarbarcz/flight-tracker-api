@@ -1,0 +1,675 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "MyPreflight OpenStreetMap provider",
+    "description": "A DigitalOcean Function returning one airport's infrastructure \u2014 boundary, runways, terminals, parking positions and gates \u2014 read from OpenStreetMap through the Overpass API and transformed into the platform's common airport format.\n\nRead-only by design: the function holds no Flight Tracker credentials and writes nothing. The backend keeps the answer in memory, an operator reviews it, and only then does the backend write it into the airport model.\n\nDeployed as a functions component of the `mypreflight` App Platform app. Every request must carry the `X-Require-Whisk-Auth` header declared as `webSecure` in project.yml; the platform rejects the request before the function runs otherwise.",
+    "version": "1.0.0",
+    "license": {
+      "name": "Unlicense",
+      "url": "https://opensource.org/licenses/Unlicense"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://<app-host>/osm",
+      "description": "App Platform ingress route"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local development server"
+    }
+  ],
+  "paths": {
+    "/airport/pull": {
+      "get": {
+        "summary": "Pull one airport's infrastructure from OpenStreetMap",
+        "description": "Queries Overpass for everything tagged `aeroway` inside the aerodrome whose `icao` tag matches, then transforms it into the common format: runways split per landing direction, stands and gates assigned to their nearest terminal, and each gate linked to the stand it boards onto.\n\nAn aerodrome mapped as a bare node encloses no area, so the client falls back to searching a 8 km radius around it. Nothing is cached \u2014 the backend holds the answer for its review flow, and a second cache here would only serve an operator stale data after they fixed something in OpenStreetMap.\n\n`POST` behaves identically; the platform merges a JSON body into the same arguments.",
+        "operationId": "pullAirport",
+        "parameters": [
+          {
+            "name": "icao",
+            "in": "query",
+            "required": true,
+            "description": "Four-letter ICAO code, matched against the aerodrome's `icao` tag. Case-insensitive.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z]{4}$",
+              "examples": [
+                "EDDF"
+              ]
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Comma-separated sections to narrow the response to, for staying under the 1 MB result cap on a large hub. The identity fields (`icaoCode`, `name`, `source`) always travel.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "location",
+                  "shape",
+                  "runways",
+                  "terminals",
+                  "parkingPositions",
+                  "gates"
+                ]
+              },
+              "examples": [
+                [
+                  "runways",
+                  "terminals"
+                ]
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The airport, in the common format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AirportResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or malformed `icao`, or an unknown `include` section",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or wrong X-Require-Whisk-Auth header; rejected by the platform"
+          },
+          "404": {
+            "description": "OpenStreetMap has no aerodrome tagged with that ICAO code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "A method other than GET or POST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "The airport would not fit in a function result; narrow it with `include`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Every Overpass mirror is unreachable or answering unusably",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Pull one airport's infrastructure from OpenStreetMap",
+        "description": "Identical to `GET`; the arguments may arrive as a JSON body instead of a query string.",
+        "operationId": "pullAirportPost",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "icao"
+                ],
+                "properties": {
+                  "icao": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z]{4}$",
+                    "examples": [
+                      "EDDF"
+                    ]
+                  },
+                  "include": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "location",
+                        "shape",
+                        "runways",
+                        "terminals",
+                        "parkingPositions",
+                        "gates"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The airport, in the common format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AirportResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or malformed `icao`, or an unknown `include` section",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "BAD_REQUEST",
+                  "METHOD_NOT_ALLOWED",
+                  "AERODROME_NOT_FOUND",
+                  "OVERPASS_UNAVAILABLE",
+                  "RESULT_TOO_LARGE",
+                  "INTERNAL_ERROR"
+                ]
+              },
+              "message": {
+                "type": "string"
+              },
+              "status": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "Coordinates": {
+        "type": "object",
+        "required": [
+          "longitude",
+          "latitude"
+        ],
+        "properties": {
+          "longitude": {
+            "type": "number"
+          },
+          "latitude": {
+            "type": "number"
+          }
+        }
+      },
+      "Runway": {
+        "type": "object",
+        "description": "One landing direction. An OSM way tagged `ref=07C/25C` yields two of these.",
+        "required": [
+          "designator",
+          "length",
+          "width",
+          "magneticHeading",
+          "trueHeading",
+          "surfaceType",
+          "lightingType",
+          "coordinates"
+        ],
+        "properties": {
+          "designator": {
+            "type": "string",
+            "examples": [
+              "07C"
+            ]
+          },
+          "length": {
+            "type": "integer",
+            "description": "Metres, from the OSM `length` tag."
+          },
+          "width": {
+            "type": "integer",
+            "description": "Metres, from the OSM `width` tag."
+          },
+          "magneticHeading": {
+            "type": "integer",
+            "description": "Derived from the designator: its number times ten."
+          },
+          "trueHeading": {
+            "type": "integer",
+            "description": "Computed from the centreline geometry."
+          },
+          "elevation": {
+            "type": "integer",
+            "description": "Metres, from the OSM `ele` tag. Absent when untagged."
+          },
+          "surfaceType": {
+            "type": "string",
+            "enum": [
+              "asphalt",
+              "concrete",
+              "grass",
+              "gravel",
+              "unknown"
+            ]
+          },
+          "lightingType": {
+            "type": "string",
+            "enum": [
+              "HIRL",
+              "MIRL",
+              "LIRL",
+              "ALS",
+              "unknown"
+            ],
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `unknown` on a pull."
+          },
+          "coordinates": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Coordinates"
+              }
+            ],
+            "description": "The threshold for this direction."
+          }
+        }
+      },
+      "Terminal": {
+        "type": "object",
+        "required": [
+          "shortName",
+          "fullName",
+          "averageTaxiTime",
+          "operatorCodes"
+        ],
+        "properties": {
+          "shortName": {
+            "type": "string",
+            "description": "From the OSM `ref`, else initials of the name. At most 8 characters, unique within the airport.",
+            "examples": [
+              "T1"
+            ]
+          },
+          "fullName": {
+            "type": "string",
+            "examples": [
+              "Terminal One"
+            ]
+          },
+          "averageTaxiTime": {
+            "type": "integer",
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `0` on a pull."
+          },
+          "operatorCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "OpenStreetMap holds nothing for this. Always empty on a pull."
+          },
+          "text": {
+            "type": "string",
+            "description": "From the OSM `description` or `note` tag, when present."
+          },
+          "shape": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Coordinates"
+            },
+            "description": "The building footprint, when OSM maps one."
+          }
+        }
+      },
+      "ParkingPosition": {
+        "type": "object",
+        "description": "An OSM `aeroway=parking_position`: the stand, as ATC and crews use it.",
+        "required": [
+          "name",
+          "terminal",
+          "bridge",
+          "stairs",
+          "deicing",
+          "gpu",
+          "pca",
+          "type",
+          "spotType",
+          "assistance",
+          "location",
+          "noiseSensitivity",
+          "fuelingOptions",
+          "coordinates"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The OSM `ref`. Absent it, the stand is not importable.",
+            "examples": [
+              "A12"
+            ]
+          },
+          "terminal": {
+            "type": "string",
+            "description": "References a `Terminal.shortName`: the terminal whose footprint this stand is nearest."
+          },
+          "bridge": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `no` on a pull."
+          },
+          "stairs": {
+            "type": "string",
+            "enum": [
+              "no",
+              "with-bus-transport",
+              "with-passenger-walking",
+              "with-bus-or-passenger-walking"
+            ],
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `no` on a pull."
+          },
+          "deicing": {
+            "type": "string",
+            "enum": [
+              "no",
+              "possible",
+              "recommended",
+              "mandatory"
+            ],
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `no` on a pull."
+          },
+          "gpu": {
+            "type": "string",
+            "enum": [
+              "no",
+              "bridge",
+              "standalone",
+              "both"
+            ],
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `no` on a pull."
+          },
+          "pca": {
+            "type": "string",
+            "enum": [
+              "no",
+              "bridge",
+              "standalone",
+              "both"
+            ],
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `no` on a pull."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "angled",
+              "straight-in",
+              "angled-taxi-through",
+              "straight-in-taxi-through"
+            ],
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `straight-in` on a pull."
+          },
+          "spotType": {
+            "type": "string",
+            "enum": [
+              "passenger",
+              "cargo",
+              "other"
+            ],
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `other` on a pull."
+          },
+          "assistance": {
+            "type": "string",
+            "enum": [
+              "none",
+              "vdgs",
+              "marshaller",
+              "vdgs-or-marshaller"
+            ],
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `none` on a pull."
+          },
+          "location": {
+            "type": "string",
+            "enum": [
+              "remote",
+              "gate"
+            ],
+            "description": "`gate` once a gate links to this stand, otherwise `remote`."
+          },
+          "noiseSensitivity": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `no` on a pull."
+          },
+          "fuelingOptions": {
+            "type": "string",
+            "enum": [
+              "none",
+              "truck",
+              "hydrant"
+            ],
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `none` on a pull."
+          },
+          "coordinates": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Coordinates"
+              }
+            ],
+            "description": "The stand itself, on the apron."
+          }
+        }
+      },
+      "Gate": {
+        "type": "object",
+        "description": "An OSM `aeroway=gate`: the boarding door, as passengers see it.",
+        "required": [
+          "name",
+          "category",
+          "terminal",
+          "parkingPosition",
+          "coordinates"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The OSM `ref`.",
+            "examples": [
+              "A12"
+            ]
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "schengen",
+              "non-schengen",
+              "domestic",
+              "international"
+            ],
+            "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `international` on a pull."
+          },
+          "terminal": {
+            "type": "string",
+            "description": "References a `Terminal.shortName`."
+          },
+          "parkingPosition": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "References a `ParkingPosition.name`: the same-named stand when one sits within 100 m, else the nearest within 100 m, else null. Several gates may share one stand."
+          },
+          "coordinates": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Coordinates"
+              }
+            ],
+            "description": "The boarding door on the terminal wall, not the stand."
+          }
+        }
+      },
+      "AirportData": {
+        "type": "object",
+        "required": [
+          "icaoCode",
+          "name",
+          "source",
+          "runways",
+          "terminals",
+          "parkingPositions",
+          "gates"
+        ],
+        "properties": {
+          "icaoCode": {
+            "type": "string",
+            "examples": [
+              "EDDF"
+            ]
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "As OpenStreetMap names the aerodrome; null when it carries no usable name."
+          },
+          "source": {
+            "type": "string",
+            "description": "Provenance of every value in this payload.",
+            "examples": [
+              "OpenStreetMap via Overpass"
+            ]
+          },
+          "location": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Coordinates"
+              }
+            ],
+            "description": "Centroid of the boundary, or the aerodrome node when there is no boundary."
+          },
+          "shape": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Coordinates"
+            },
+            "description": "The aerodrome boundary. Absent when OSM maps the aerodrome as a node."
+          },
+          "runways": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Runway"
+            }
+          },
+          "terminals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Terminal"
+            },
+            "description": "Only terminals hosting at least one stand or gate. A single `MAIN` terminal is invented when an airport has stands but no mapped terminal."
+          },
+          "parkingPositions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ParkingPosition"
+            }
+          },
+          "gates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Gate"
+            }
+          }
+        }
+      },
+      "AirportResponse": {
+        "type": "object",
+        "required": [
+          "airport"
+        ],
+        "properties": {
+          "airport": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AirportData"
+              }
+            ],
+            "description": "With `include`, only the identity fields and the sections asked for are present."
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "whiskAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Require-Whisk-Auth"
+      }
+    }
+  },
+  "security": [
+    {
+      "whiskAuth": []
+    }
+  ]
+}

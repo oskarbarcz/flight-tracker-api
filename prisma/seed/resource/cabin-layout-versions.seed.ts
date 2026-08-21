@@ -5,7 +5,7 @@ import {
   assembleVersion,
   revisionDate,
 } from '../../../src/modules/cabin-layouts/model/layout-version';
-import expectations from '../../../docker/mock/aerolopa.json';
+import expectations from '../../../docker/mock/functions/aerolopa.json';
 
 const SEEDED_LAYOUTS: Record<string, string[]> = {
   'aa-77w': ['aa-77w'],

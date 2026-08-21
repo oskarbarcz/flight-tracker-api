@@ -89,14 +89,14 @@ services:
     environment:
       - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/google.json
 
-  aerolopa-mock:
+  functions-mock:
     image: mockserver/mockserver:mockserver-5.15.0
     ports:
       - '8080:1080'
     volumes:
-      - ./docker/mock:/config
+      - ./docker/mock/functions:/config
     environment:
-      - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/aerolopa.json
+      - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/*.json
 
   discord-mock:
     image: mockserver/mockserver:mockserver-5.15.0

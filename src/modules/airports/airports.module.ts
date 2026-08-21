@@ -77,9 +77,21 @@ import { AirportNotamsRepository } from './infra/database/airport-notams.reposit
 import { ListNotamsAction } from './infra/http/action/notam/list-notams.action';
 import { ListAirportNotamsHandler } from './application/query/notam/list-airport-notams.query';
 import { ReplaceAirportNotamsHandler } from './application/command/notam/replace-airport-notams.command';
+import { OsmModule } from '../../core/provider/osm/osm.module';
+import { OsmAirportDataService } from './infra/service/osm-airport-data.service';
+import { PullOsmDataAction } from './infra/http/action/enrich/pull-osm-data.action';
+import { PushOsmDataAction } from './infra/http/action/enrich/push-osm-data.action';
+import { PullAirportOsmDataHandler } from './application/query/osm/pull-airport-osm-data.query';
+import { PushAirportOsmDataHandler } from './application/command/osm/push-airport-osm-data.command';
 
 @Module({
-  imports: [PrismaModule, SkyLinkModule, WeatherModule, SayIntentionsModule],
+  imports: [
+    PrismaModule,
+    SkyLinkModule,
+    WeatherModule,
+    SayIntentionsModule,
+    OsmModule,
+  ],
   controllers: [
     CreateAirportAction,
     ListAirportsAction,
@@ -108,6 +120,8 @@ import { ReplaceAirportNotamsHandler } from './application/command/notam/replace
     DeleteRunwayAction,
     GetWeatherAction,
     ListNotamsAction,
+    PullOsmDataAction,
+    PushOsmDataAction,
   ],
   providers: [
     AirportsRepository,
@@ -157,6 +171,9 @@ import { ReplaceAirportNotamsHandler } from './application/command/notam/replace
     AirportNotamsRepository,
     ListAirportNotamsHandler,
     ReplaceAirportNotamsHandler,
+    OsmAirportDataService,
+    PullAirportOsmDataHandler,
+    PushAirportOsmDataHandler,
   ],
 })
 export class AirportsModule {}

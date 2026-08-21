@@ -193,6 +193,13 @@ Then('the response body should contain:', async function (docString: string) {
 });
 
 Then(
+  'the response body property {string} should contain:',
+  (property: string, docString: string) => {
+    deepCompare(valueAt(property), JSON.parse(docString));
+  },
+);
+
+Then(
   'the response body list {string} should have distinct {string} values',
   (listProperty: string, itemProperty: string) => {
     const items = itemsOf(listProperty);
@@ -239,6 +246,15 @@ Then(
     expect(unexpected).toEqual([]);
   },
 );
+
+function valueAt(property: string): unknown {
+  return property
+    .split('.')
+    .reduce<any>(
+      (value, key) => (value === undefined ? value : value[key]),
+      apiResponse.data,
+    );
+}
 
 function itemsOf(listProperty: string): Record<string, any>[] {
   const items = apiResponse.data[listProperty];
