@@ -6,8 +6,9 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { CacheInterceptor, CacheKey, CacheTTL } from '@nestjs/cache-manager';
+import { CacheKey, CacheTTL } from '@nestjs/cache-manager';
 import { QueryBus } from '@nestjs/cqrs';
+import { CacheableInterceptor } from '../../../../../core/cache/cacheable.interceptor';
 import { AircraftHoldLayout } from '../../../model/hold-layout.model';
 import { ListHoldLayoutsQuery } from '../../../application/query/list-hold-layouts.query';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
@@ -26,7 +27,7 @@ export class ListHoldLayoutsAction {
   @ApiBearerAuth('jwt')
   @ApiOkResponse({ type: AircraftHoldLayout, isArray: true })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
-  @UseInterceptors(CacheInterceptor)
+  @UseInterceptors(CacheableInterceptor)
   @CacheKey(CACHE_KEYS.CARGO_HOLDS_LIST)
   @CacheTTL(CACHE_TTL_MS.CARGO_HOLDS)
   @Get()

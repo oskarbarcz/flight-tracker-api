@@ -1,6 +1,7 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { CACHE_KEY_METADATA, CacheInterceptor } from '@nestjs/cache-manager';
+import { CacheableInterceptor } from './cacheable.interceptor';
+import { CACHE_KEY_METADATA } from '@nestjs/cache-manager';
 
 type CacheableRequest = {
   method: string;
@@ -9,7 +10,7 @@ type CacheableRequest = {
 };
 
 @Injectable()
-export class PerFlightCacheInterceptor extends CacheInterceptor {
+export class PerFlightCacheInterceptor extends CacheableInterceptor {
   constructor(cacheManager: any, reflector: Reflector) {
     super(cacheManager, reflector);
   }

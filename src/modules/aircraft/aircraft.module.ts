@@ -31,6 +31,7 @@ import { GetOperatorFleetSummaryHandler } from './application/query/get-operator
 import { ListAircraftRepositionHandler } from './application/query/reposition/list-aircraft-reposition.query';
 import { SuggestAircraftCabinLayoutsHandler } from './application/query/suggest-aircraft-cabin-layouts.query';
 import { GetAircraftCabinLayoutHandler } from './application/query/get-aircraft-cabin-layout.query';
+import { GetAircraftHoldHandler } from './application/query/get-aircraft-hold.query';
 import { FlightLifecycleListener } from './application/event/external/flight-lifecycle.listener';
 import { RepositionFlightLifecycleListener } from './application/event/external/reposition-flight-lifecycle.listener';
 
@@ -70,6 +71,7 @@ import { RepositionFlightLifecycleListener } from './application/event/external/
     ListAircraftRepositionHandler,
     SuggestAircraftCabinLayoutsHandler,
     GetAircraftCabinLayoutHandler,
+    GetAircraftHoldHandler,
     FlightLifecycleListener,
     RepositionFlightLifecycleListener,
   ],

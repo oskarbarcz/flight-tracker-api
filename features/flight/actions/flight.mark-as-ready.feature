@@ -345,6 +345,162 @@ Feature: Mark flight as ready
       """
     And I set database to initial state
 
+  Scenario: As operations I load the hold when I mark a widebody as ready
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64",
+        "holdVariant": "b77w-ld3",
+        "cargoKg": 18000,
+        "containerCount": "@any",
+        "bulkLotCount": "@any",
+        "shipmentCount": "@any",
+        "compartmentLoad": "@any",
+        "units": "@any"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I load a bulk-only narrowbody as loose lots with no container
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86",
+        "holdVariant": "b738-bulk",
+        "cargoKg": 1800,
+        "containerCount": 0,
+        "bulkLotCount": 1,
+        "shipmentCount": 1,
+        "compartmentLoad": "@any",
+        "units": [
+          {
+            "kind": "bulk_lot",
+            "uldCode": null,
+            "uldType": null,
+            "positionDesignator": null,
+            "compartment": "@any",
+            "deck": "lower",
+            "tareKg": 0,
+            "grossKg": 1800,
+            "volumeM3": "@any",
+            "contentClass": "cargo",
+            "shipments": "@any"
+          }
+        ]
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I load containers into a narrowbody fitted with a cargo loading system
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/2c7a5d0b-3e89-4f62-8b14-6d9f0a2c3e75/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/2c7a5d0b-3e89-4f62-8b14-6d9f0a2c3e75/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "2c7a5d0b-3e89-4f62-8b14-6d9f0a2c3e75",
+        "holdVariant": "a320-cls",
+        "cargoKg": 2500,
+        "containerCount": "@any",
+        "bulkLotCount": "@any",
+        "shipmentCount": "@any",
+        "compartmentLoad": "@any",
+        "units": "@any"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I load the main deck of a freighter
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/4e9c7f2d-5a01-4b84-8d36-8f1b2c4e5a97/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/4e9c7f2d-5a01-4b84-8d36-8f1b2c4e5a97/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "4e9c7f2d-5a01-4b84-8d36-8f1b2c4e5a97",
+        "holdVariant": "b74f-nose",
+        "cargoKg": 62000,
+        "containerCount": "@any",
+        "bulkLotCount": "@any",
+        "shipmentCount": "@any",
+        "compartmentLoad": "@any",
+        "units": "@any"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I load a flight whose aircraft type has no curated hold data
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/5f0d8a3e-6b12-4c95-9e47-9a2c3d5f6b08/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/5f0d8a3e-6b12-4c95-9e47-9a2c3d5f6b08/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "5f0d8a3e-6b12-4c95-9e47-9a2c3d5f6b08",
+        "holdVariant": null,
+        "cargoKg": 8000,
+        "containerCount": 0,
+        "bulkLotCount": 1,
+        "shipmentCount": 1,
+        "compartmentLoad": [],
+        "units": [
+          {
+            "kind": "bulk_lot",
+            "uldCode": null,
+            "uldType": null,
+            "positionDesignator": null,
+            "compartment": null,
+            "deck": null,
+            "tareKg": 0,
+            "grossKg": 8000,
+            "volumeM3": "@any",
+            "contentClass": "cargo",
+            "shipments": "@any"
+          }
+        ]
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot mark as ready more cargo than the hold can carry
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/7b2f0c50-8d34-4eb7-9a69-1c4e5f7b8d2a/mark-as-ready"
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Content",
+        "message": "Cannot load 10000 kg of cargo into a hold that carries 7700 kg."
+      }
+      """
+    When I send a "GET" request to "/api/v1/flight/7b2f0c50-8d34-4eb7-9a69-1c4e5f7b8d2a/cargo-manifest"
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 404,
+        "error": "Not Found",
+        "message": "Flight has no cargo manifest yet. It is generated when the flight is released to the pilot."
+      }
+      """
+
   Scenario: As a cabin crew I cannot mark flight as ready
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/e91e13a9-09d8-48bf-8453-283cef467b88/mark-as-ready"
