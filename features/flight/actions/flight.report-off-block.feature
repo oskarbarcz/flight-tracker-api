@@ -381,6 +381,7 @@ Feature: Report off-block
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T12:00:00.000Z",
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """

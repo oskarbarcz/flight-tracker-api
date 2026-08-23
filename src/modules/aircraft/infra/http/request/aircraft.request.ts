@@ -172,6 +172,14 @@ export class GetAircraftResponse extends Aircraft {
     nullable: true,
   })
   cabinLayout!: AircraftCabinLayout | null;
+
+  @ApiProperty({
+    description:
+      'Cargo hold variant assigned to the aircraft; null when none is assigned, meaning the aircraft uses its airframe type default rather than having no hold',
+    example: 'a320-cls',
+    nullable: true,
+  })
+  holdVariant!: string | null;
 }
 
 export class LegacyCreateAircraftResponse extends Aircraft {

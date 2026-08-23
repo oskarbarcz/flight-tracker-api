@@ -72,6 +72,7 @@ Feature: Create aircraft for operator
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -152,6 +153,7 @@ Feature: Create aircraft for operator
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -206,6 +208,7 @@ Feature: Create aircraft for operator
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -260,6 +263,7 @@ Feature: Create aircraft for operator
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """

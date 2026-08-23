@@ -18,6 +18,7 @@ const aircraftWithOperatorFields = {
   selcal: true,
   livery: true,
   currentState: true,
+  holdVariant: true,
   baseAirportId: true,
   lastAirportId: true,
   lastAirportUpdatedAt: true,
@@ -56,6 +57,7 @@ const aircraft = {
   livery: true,
   currentState: true,
   etopsThresholdMinutes: true,
+  holdVariant: true,
   operator: { select: { iataCode: true } },
   layout: {
     select: {
@@ -179,6 +181,16 @@ export class AircraftRepository {
     await this.prisma.aircraft.update({
       where: { id },
       data: { cabinLayout },
+    });
+  }
+
+  async updateHoldVariant(
+    id: string,
+    holdVariant: string | null,
+  ): Promise<void> {
+    await this.prisma.aircraft.update({
+      where: { id },
+      data: { holdVariant },
     });
   }
 

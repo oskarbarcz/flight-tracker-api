@@ -475,6 +475,7 @@ Feature: Check in pilot for flight
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """

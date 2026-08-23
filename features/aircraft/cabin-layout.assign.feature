@@ -54,6 +54,7 @@ Feature: Assign a cabin layout to an aircraft
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T16:18:00.000Z",
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -113,6 +114,7 @@ Feature: Assign a cabin layout to an aircraft
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -154,6 +156,7 @@ Feature: Assign a cabin layout to an aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -206,6 +209,7 @@ Feature: Assign a cabin layout to an aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": "a320-cls",
         "lastParkingPosition": null
       }
       """
@@ -289,6 +293,7 @@ Feature: Assign a cabin layout to an aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -337,6 +342,7 @@ Feature: Assign a cabin layout to an aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """

@@ -199,6 +199,7 @@ Feature: Report on-block
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
