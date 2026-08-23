@@ -57,6 +57,7 @@ Feature: Update aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -125,6 +126,7 @@ Feature: Update aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -169,6 +171,7 @@ Feature: Update aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -213,6 +216,7 @@ Feature: Update aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -257,6 +261,7 @@ Feature: Update aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -294,6 +299,7 @@ Feature: Update aircraft
         "baseAirport": null,
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """

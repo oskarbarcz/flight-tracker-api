@@ -34,6 +34,7 @@ Feature: Get aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -72,6 +73,7 @@ Feature: Get aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -110,6 +112,7 @@ Feature: Get aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -148,6 +151,7 @@ Feature: Get aircraft
         },
         "lastAirport": null,
         "lastAirportUpdatedAt": null,
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """

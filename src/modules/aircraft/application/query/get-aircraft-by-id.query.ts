@@ -60,6 +60,7 @@ export class GetAircraftByIdHandler implements IQueryHandler<GetAircraftByIdQuer
         aircraft.operator?.iataCode ?? null,
         airframe.iataType,
       ),
+      holdVariant: aircraft.holdVariant,
       baseAirport: aircraft.baseAirport as AircraftAirport | null,
       lastAirport: aircraft.lastAirport as AircraftAirport | null,
       lastAirportUpdatedAt: aircraft.lastAirportUpdatedAt,

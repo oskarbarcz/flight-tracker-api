@@ -2,10 +2,13 @@
 
 ### Requirement: Aircraft read models expose the assigned hold variant
 
-The system SHALL include the assigned hold variant in every response carrying an aircraft body,
-using the field name `holdVariant`, reporting null where none is assigned. A null value SHALL be
-understood as the aircraft using its airframe type's default hold variant, not as the aircraft
-having no hold.
+The system SHALL include the assigned hold variant in every response carrying a full aircraft
+body, using the field name `holdVariant`, reporting null where none is assigned. This covers the
+aircraft list, the single aircraft read, and the aircraft body returned by the assignment
+actions. A null value SHALL be understood as the aircraft using its airframe
+type's default hold variant, not as the aircraft having no hold. The abbreviated aircraft body
+embedded in a flight is out of scope here and gains its cargo information with the cargo
+manifest.
 
 #### Scenario: Single aircraft read
 

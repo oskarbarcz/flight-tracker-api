@@ -460,6 +460,7 @@ Feature: Close flight
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T16:28:00.000Z",
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """

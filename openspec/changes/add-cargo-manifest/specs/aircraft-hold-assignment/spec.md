@@ -41,6 +41,18 @@ assigned one.
 - **WHEN** its hold configuration is resolved
 - **THEN** no compartments and no positions are reported
 
+### Requirement: An assignment the data no longer offers falls back to the default
+
+The system SHALL treat an aircraft whose assigned hold variant its airframe type no longer
+offers as having the type's default variant, so that editing the curated hold data can never
+leave an aircraft without a hold.
+
+#### Scenario: A withdrawn variant resolves to the default
+
+- **GIVEN** an aircraft assigned a hold variant its type no longer offers
+- **WHEN** its hold configuration is resolved
+- **THEN** the type's default variant is used
+
 ### Requirement: A hold variant assignment can be removed
 
 The system SHALL allow operations to remove an aircraft's hold variant assignment, returning it

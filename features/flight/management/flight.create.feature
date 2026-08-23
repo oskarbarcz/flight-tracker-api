@@ -221,6 +221,7 @@ Feature: Create a flight
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """
@@ -414,6 +415,7 @@ Feature: Create a flight
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
+        "holdVariant": null,
         "lastParkingPosition": null
       }
       """

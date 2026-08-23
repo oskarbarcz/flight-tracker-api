@@ -13,12 +13,16 @@ import { ListAircraftRepositionAction } from './infra/http/action/reposition/lis
 import { AssignCabinLayoutAction } from './infra/http/action/cabin-layout/assign-cabin-layout.action';
 import { RemoveCabinLayoutAction } from './infra/http/action/cabin-layout/remove-cabin-layout.action';
 import { SuggestCabinLayoutsAction } from './infra/http/action/cabin-layout/suggest-cabin-layouts.action';
+import { AssignHoldVariantAction } from './infra/http/action/hold-variant/assign-hold-variant.action';
+import { RemoveHoldVariantAction } from './infra/http/action/hold-variant/remove-hold-variant.action';
 import { CreateAircraftHandler } from './application/command/create-aircraft.command';
 import { UpdateAircraftHandler } from './application/command/update-aircraft.command';
 import { RemoveAircraftHandler } from './application/command/remove-aircraft.command';
 import { CreateManualRepositionHandler } from './application/command/reposition/create-manual-reposition.command';
 import { AssignCabinLayoutHandler } from './application/command/assign-cabin-layout.command';
 import { RemoveCabinLayoutHandler } from './application/command/remove-cabin-layout.command';
+import { AssignHoldVariantHandler } from './application/command/assign-hold-variant.command';
+import { RemoveHoldVariantHandler } from './application/command/remove-hold-variant.command';
 import { GetAircraftByIdHandler } from './application/query/get-aircraft-by-id.query';
 import { GetAircraftByRegistrationHandler } from './application/query/get-aircraft-by-registration.query';
 import { ListAllAircraftHandler } from './application/query/list-all-aircraft.query';
@@ -44,6 +48,8 @@ import { RepositionFlightLifecycleListener } from './application/event/external/
     AssignCabinLayoutAction,
     RemoveCabinLayoutAction,
     SuggestCabinLayoutsAction,
+    AssignHoldVariantAction,
+    RemoveHoldVariantAction,
   ],
   providers: [
     AircraftRepository,
@@ -54,6 +60,8 @@ import { RepositionFlightLifecycleListener } from './application/event/external/
     CreateManualRepositionHandler,
     AssignCabinLayoutHandler,
     RemoveCabinLayoutHandler,
+    AssignHoldVariantHandler,
+    RemoveHoldVariantHandler,
     GetAircraftByIdHandler,
     GetAircraftByRegistrationHandler,
     ListAllAircraftHandler,

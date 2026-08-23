@@ -20,13 +20,13 @@ fixtures to add.
 
 ## 2. Hold variant assignment (needs 1) — capabilities `aircraft-hold-assignment`, `aircraft-management`
 
-- [ ] 2.1 Migration: `aircraft.holdVariant` nullable string
-- [ ] 2.2 `resolveHoldVariant(aircraft, airframeType)` + unit spec: assigned variant wins, null falls back to the type default, uncurated type resolves to nothing
-- [ ] 2.3 `AssignAircraftHoldVariantCommand` and `RemoveAircraftHoldVariantCommand`, rejecting a variant the type does not offer
-- [ ] 2.4 `PUT` and `DELETE /api/v1/aircraft/:id/hold-variant`, `@Role(UserRole.Operations)`
-- [ ] 2.5 Add `holdVariant` to every aircraft read model; confirm aircraft create and edit ignore it
-- [ ] 2.6 Seed: assign the container-capable variant to one A320 and leave the rest defaulted, so both paths stay covered
-- [ ] 2.7 Feature: `features/aircraft/hold-variant.assign.feature` — assign, reject unknown variant, remove restores default, RBAC, `holdVariant` present on aircraft reads
+- [x] 2.1 Migration: `aircraft.holdVariant` nullable string
+- [x] 2.2 `resolveHoldVariant(aircraft, airframeType)` + unit spec: assigned variant wins, null falls back to the type default, uncurated type resolves to nothing
+- [x] 2.3 `AssignAircraftHoldVariantCommand` and `RemoveAircraftHoldVariantCommand`, rejecting a variant the type does not offer
+- [x] 2.4 `PUT` and `DELETE /api/v1/operator/:operatorId/aircraft/:aircraftId/hold-variant`, `@Role(UserRole.Operations)`, following the nesting the cabin layout assignment already uses
+- [x] 2.5 Add `holdVariant` to every aircraft read model; confirm aircraft create and edit ignore it
+- [x] 2.6 Seed: assign the container-capable variant to one A320 and leave the rest defaulted, so both paths stay covered
+- [x] 2.7 Feature: `features/aircraft/hold-variant.assign.feature` — assign, reject unknown variant, remove restores default, RBAC, `holdVariant` present on aircraft reads
 
 ## 3. Commodity catalogue (independent) — capability `cargo-commodity-catalogue`
 

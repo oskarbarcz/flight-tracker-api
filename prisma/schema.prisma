@@ -18,6 +18,7 @@ model Aircraft {
   currentState          AircraftState @default(idle)
   etopsThresholdMinutes Int?
   cabinLayout           String?
+  holdVariant           String?
   operatorId            String?       @db.Uuid
   baseAirportId         String?       @db.Uuid
   lastAirportId         String?       @db.Uuid
