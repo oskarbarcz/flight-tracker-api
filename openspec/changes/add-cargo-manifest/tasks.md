@@ -40,18 +40,18 @@ fixtures to add.
 
 ## 4. Cargo manifest generation (needs 1, 2, 3) — capabilities `flight-cargo-manifest`, `flight-fuel-planning`
 
-- [ ] 4.1 Migration: `flight_cargo_unit`, `flight_cargo_shipment` with their enums (`kind`, `contentClass`, `status`, `offloadReason`, `transferRole`) and indexes; unique `(flightId, positionDesignator)` where the designator is not null
-- [ ] 4.2 `model/awb.ts`: 11-digit air waybill number with a check digit equal to the serial modulo 7 + unit spec including a known-good example
-- [ ] 4.3 `model/uld.ts`: ULD type table with base, contour, volume, tare range and maximum gross weight; serial and owner code generation
-- [ ] 4.4 `model/cargo-packing.ts` single-pass packer + unit spec: tare consumes the same budget as freight; a unit stops at whichever of weight and volume binds first; the closing trim lands the total exactly on the tonnage; a remainder below the smallest sensible unit becomes a loose lot; two flights with the same tonnage and different densities need different unit counts
-- [ ] 4.5 Position assignment respecting accepted bases and contours, compartment weight limits and one unit per position + unit spec
-- [ ] 4.6 Shipper and consignee names via the existing faker dependency, locale resolved from the departure airport's country then continent
-- [ ] 4.7 `GenerateFlightCargoManifestCommand`, dispatched from `mark-as-ready` alongside the passenger manifest
-- [ ] 4.8 `HoldCapacityExceededError` (422) on release when the tonnage exceeds the resolved variant's weight or volume; skipped for uncurated types
-- [ ] 4.9 Degraded path: an uncurated type generates units and shipments with no position and no compartment
-- [ ] 4.10 `GetFlightCargoManifestQuery` + `GET /api/v1/flight/:id/cargo-manifest` with a status filter, operations and the flight's captain, reporting weight per compartment; distinct responses for "not released", "no manifest" and "hold configuration unknown"
-- [ ] 4.11 Seed: cargo manifests across a widebody, a container-capable narrowbody, a bulk-only narrowbody, a freighter and an uncurated type
-- [ ] 4.12 Feature: `features/cargo/manifest.generate.feature`, `manifest.get.feature` — the tonnage invariant, no duplicate positions, no compartment over its limit, bulk-only carries no ULD, uncurated type carries no positions, over-capacity 422, RBAC. Contents are asserted by shape, counts and invariants rather than whole bodies, because they are generated
+- [x] 4.1 Migration: `flight_cargo_unit`, `flight_cargo_shipment` with their enums (`kind`, `contentClass`, `status`, `offloadReason`, `transferRole`) and indexes; unique `(flightId, positionDesignator)` where the designator is not null
+- [x] 4.2 `model/awb.ts`: 11-digit air waybill number with a check digit equal to the serial modulo 7 + unit spec including a known-good example
+- [x] 4.3 `model/uld.ts`: ULD type table with base, contour, volume, tare range and maximum gross weight; serial and owner code generation
+- [x] 4.4 `model/cargo-packing.ts` single-pass packer + unit spec: tare consumes the same budget as freight; a unit stops at whichever of weight and volume binds first; the closing trim lands the total exactly on the tonnage; a remainder below the smallest sensible unit becomes a loose lot; two flights with the same tonnage and different densities need different unit counts
+- [x] 4.5 Position assignment respecting accepted bases and contours, compartment weight limits and one unit per position + unit spec
+- [x] 4.6 Shipper and consignee names via the existing faker dependency, locale resolved from the departure airport's country then continent
+- [x] 4.7 `GenerateFlightCargoManifestCommand`, dispatched from `mark-as-ready` alongside the passenger manifest
+- [x] 4.8 `HoldCapacityExceededError` (422) on release when the tonnage exceeds the resolved variant's weight or volume; skipped for uncurated types
+- [x] 4.9 Degraded path: an uncurated type generates units and shipments with no position and no compartment
+- [x] 4.10 `GetFlightCargoManifestQuery` + `GET /api/v1/flight/:id/cargo-manifest` with a status filter, operations and the flight's captain, reporting weight per compartment; distinct responses for "not released", "no manifest" and "hold configuration unknown"
+- [x] 4.11 Seed: cargo manifests across a widebody, a container-capable narrowbody, a bulk-only narrowbody, a freighter and an uncurated type
+- [x] 4.12 Feature: cargo generation scenarios in `features/flight/actions/flight.mark-as-ready.feature` (generation has no endpoint of its own, so it is tested where it is triggered) and `features/flight/cargo-manifest.get.feature` — the tonnage invariant, no duplicate positions, no compartment over its limit, bulk-only carries no ULD, uncurated type carries no positions, over-capacity 422, RBAC. Contents are asserted by shape, counts and invariants rather than whole bodies, because they are generated
 
 ## 5. Shipment journey (needs 4) — capability `cargo-shipment-journey`
 

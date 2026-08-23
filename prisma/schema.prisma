@@ -281,6 +281,8 @@ model Flight {
   crew                     CrewOnFlights[]
   rotationLeg              RotationLeg?
   passengers               FlightPassenger[]
+  cargoUnits               FlightCargoUnit[]
+  cargoShipments           FlightCargoShipment[]
   pinnedCabinVersion       CabinLayoutVersion?    @relation(fields: [cabinLayout, cabinLayoutRevision], references: [layoutId, revision])
 
   @@index([captainId, completedAt])
@@ -978,4 +980,72 @@ model CabinLayoutSeat {
   @@unique([deckId, designator])
   @@index([deckId])
   @@map("cabin_layout_seat")
+}
+
+enum CargoDeck {
+  main
+  lower
+}
+
+enum CargoUnitKind {
+  uld
+  bulk_lot
+}
+
+enum CargoContentClass {
+  cargo
+  baggage
+  mail
+}
+
+enum CargoShipmentStatus {
+  loaded
+  offloaded
+}
+
+model FlightCargoUnit {
+  id                 String            @id @default(uuid()) @db.Uuid
+  flightId           String            @db.Uuid
+  kind               CargoUnitKind
+  deck               CargoDeck?
+  compartment        Int?
+  positionDesignator String?           @db.VarChar(8)
+  uldType            String?           @db.VarChar(3)
+  uldSerial          String?           @db.VarChar(5)
+  uldOwner           String?           @db.VarChar(2)
+  tareKg             Int
+  grossKg            Int
+  volumeM3           Decimal           @db.Decimal(8, 3)
+  contentClass       CargoContentClass @default(cargo)
+
+  flight    Flight                @relation(fields: [flightId], references: [id], onDelete: Cascade)
+  shipments FlightCargoShipment[]
+
+  @@unique([flightId, positionDesignator])
+  @@index([flightId])
+  @@map("flight_cargo_unit")
+}
+
+model FlightCargoShipment {
+  id          String              @id @default(uuid()) @db.Uuid
+  flightId    String              @db.Uuid
+  unitId      String?             @db.Uuid
+  commodityId String
+  description String
+  awb         String              @db.VarChar(12)
+  pieces      Int
+  grossKg     Int
+  volumeM3    Decimal             @db.Decimal(8, 3)
+  shc         String[]
+  shipper     String
+  consignee   String
+  status      CargoShipmentStatus @default(loaded)
+
+  flight Flight           @relation(fields: [flightId], references: [id], onDelete: Cascade)
+  unit   FlightCargoUnit? @relation(fields: [unitId], references: [id], onDelete: Cascade)
+
+  @@index([flightId])
+  @@index([flightId, status])
+  @@index([unitId])
+  @@map("flight_cargo_shipment")
 }

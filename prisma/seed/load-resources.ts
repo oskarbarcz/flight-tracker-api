@@ -6,6 +6,7 @@ import { loadCabinLayoutVersions } from './resource/cabin-layout-versions.seed';
 import { loadAirports } from './resource/airports.seed';
 import { loadFlights } from './resource/flights.seed';
 import { loadManifestFlights } from './resource/manifest-flights.seed';
+import { loadCargoFlights } from './resource/cargo-flights.seed';
 import { loadFlightManifests } from './resource/flight-manifests.seed';
 import { loadUsers } from './resource/users.seed';
 import { loadSessions } from './resource/session.seed';
@@ -47,6 +48,7 @@ export async function loadResources() {
         await loadUserTokens(tx);
         await loadFlights(tx);
         await loadManifestFlights(tx);
+        await loadCargoFlights(tx);
         await loadFlightManifests(tx);
         await loadFlightCrew(tx);
         await loadRotations(tx);

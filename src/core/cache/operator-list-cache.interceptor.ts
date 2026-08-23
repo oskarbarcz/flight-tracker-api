@@ -1,5 +1,6 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
-import { CacheInterceptor, CacheTTLFactory } from '@nestjs/cache-manager';
+import { CacheTTLFactory } from '@nestjs/cache-manager';
+import { CacheableInterceptor } from './cacheable.interceptor';
 import { AuthorizedRequest } from '../http/request/authorized.request';
 import { CACHE_TTL_MS, recentOperatorsCacheKey } from './cache.key';
 
@@ -39,7 +40,7 @@ export const operatorListCacheTtl = ((context: ExecutionContext) =>
     : undefined) as CacheTTLFactory;
 
 @Injectable()
-export class OperatorListCacheInterceptor extends CacheInterceptor {
+export class OperatorListCacheInterceptor extends CacheableInterceptor {
   trackBy(context: ExecutionContext): string | undefined {
     const baseKey = super.trackBy(context) as string | undefined;
     if (!baseKey) return undefined;

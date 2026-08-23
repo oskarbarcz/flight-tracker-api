@@ -97,7 +97,7 @@ export function passengerNameFactory(locale: string): () => string {
   return () => faker.person.fullName();
 }
 
-function fakerFor(locale: string): Faker {
+export function fakerFor(locale: string): Faker {
   const cached = fakers.get(locale);
 
   if (cached) {

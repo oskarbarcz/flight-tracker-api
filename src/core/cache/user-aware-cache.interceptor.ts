@@ -1,10 +1,10 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { CacheInterceptor } from '@nestjs/cache-manager';
+import { CacheableInterceptor } from './cacheable.interceptor';
 import { AuthorizedRequest } from '../http/request/authorized.request';
 
 @Injectable()
-export class UserAwareCacheInterceptor extends CacheInterceptor {
+export class UserAwareCacheInterceptor extends CacheableInterceptor {
   constructor(cacheManager: any, reflector: Reflector) {
     super(cacheManager, reflector);
   }

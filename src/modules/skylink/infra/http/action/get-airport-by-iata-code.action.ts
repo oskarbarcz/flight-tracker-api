@@ -10,7 +10,8 @@ import {
 import { Controller, Get } from '@nestjs/common';
 import { SkyLinkClient } from '../../../../../core/provider/skylink/client/skylink.client';
 import { Param, UseInterceptors } from '@nestjs/common';
-import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
+import { CacheableInterceptor } from '../../../../../core/cache/cacheable.interceptor';
+import { CacheTTL } from '@nestjs/cache-manager';
 import { Role } from '../../../../../core/http/auth/decorator/role.decorator';
 import { AirportResponse } from '../../../dto/airport.dto';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
@@ -20,7 +21,7 @@ import { UserRole } from '../../../../users/model/user-role';
 
 @ApiTags('skylink')
 @Controller('api/v1/skylink')
-@UseInterceptors(CacheInterceptor)
+@UseInterceptors(CacheableInterceptor)
 export class GetAirportByIataCodeAction {
   constructor(private readonly client: SkyLinkClient) {}
 

@@ -6,8 +6,9 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { CacheInterceptor, CacheKey, CacheTTL } from '@nestjs/cache-manager';
+import { CacheKey, CacheTTL } from '@nestjs/cache-manager';
 import { QueryBus } from '@nestjs/cqrs';
+import { CacheableInterceptor } from '../../../../../core/cache/cacheable.interceptor';
 import { Airframe } from '../../../model/airframe.model';
 import { ListAllAirframesQuery } from '../../../application/query/list-all-airframes.query';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
@@ -22,7 +23,7 @@ export class ListAllAirframesAction {
   @ApiBearerAuth('jwt')
   @ApiOkResponse({ type: Airframe, isArray: true })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
-  @UseInterceptors(CacheInterceptor)
+  @UseInterceptors(CacheableInterceptor)
   @CacheKey(CACHE_KEYS.AIRFRAMES_LIST)
   @CacheTTL(CACHE_TTL_MS.AIRFRAMES)
   @Get()

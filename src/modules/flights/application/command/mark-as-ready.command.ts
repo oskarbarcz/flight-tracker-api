@@ -15,6 +15,8 @@ import { FlightEventScope } from '../../model/event.model';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { GenerateFlightManifestCommand } from '../../../passengers/application/command/generate-flight-manifest.command';
+import { GenerateFlightCargoManifestCommand } from '../../../cargo/application/command/generate-flight-cargo-manifest.command';
+import { AirportType } from '../../../airports/model/airport.model';
 
 export class MarkAsReadyCommand {
   constructor(
@@ -54,6 +56,36 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
       flight.loadsheets.preliminary.passengersByCabin,
     );
     await this.commandBus.execute(generateManifest);
+
+    const departure = flight.airports.find(
+      (airport) => airport.type === AirportType.Departure,
+    );
+    const arrival = flight.airports.find(
+      (airport) => airport.type === AirportType.Destination,
+    );
+
+    if (departure && arrival) {
+      const generateCargoManifest = new GenerateFlightCargoManifestCommand(
+        flightId,
+        flight.aircraft.id,
+        flight.operator.iataCode,
+        flight.loadsheets.preliminary.cargo,
+        {
+          iataCode: departure.iataCode,
+          country: departure.country,
+          continent: departure.continent,
+        },
+        {
+          iataCode: arrival.iataCode,
+          country: arrival.country,
+          continent: arrival.continent,
+        },
+        flight.timesheet.scheduled?.offBlockTime
+          ? new Date(flight.timesheet.scheduled.offBlockTime)
+          : new Date(),
+      );
+      await this.commandBus.execute(generateCargoManifest);
+    }
 
     await this.flightsRepository.updateStatus(flightId, FlightStatus.Ready);
     this.domainEvents.emit(
