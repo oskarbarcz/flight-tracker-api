@@ -1055,6 +1055,7 @@ model FlightCargoShipment {
   onwardFlightNumber String?             @db.VarChar(8)
   connectionMinutes  Int?
   dangerousGoods     Json?
+  temperatureControl Json?
   status             CargoShipmentStatus @default(loaded)
 
   flight Flight           @relation(fields: [flightId], references: [id], onDelete: Cascade)

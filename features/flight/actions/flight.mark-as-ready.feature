@@ -360,6 +360,7 @@ Feature: Mark flight as ready
         "containerCount": "@any",
         "bulkLotCount": "@any",
         "shipmentCount": "@any",
+        "worstColdChainRisk": "@any",
         "dangerousGoodsCount": "@any",
         "cargoAircraftOnlyCount": "@any",
         "transferCount": "@any",
@@ -385,6 +386,7 @@ Feature: Mark flight as ready
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 1,
+        "worstColdChainRisk": "@any",
         "dangerousGoodsCount": "@any",
         "cargoAircraftOnlyCount": "@any",
         "transferCount": "@any",
@@ -426,6 +428,7 @@ Feature: Mark flight as ready
         "containerCount": "@any",
         "bulkLotCount": "@any",
         "shipmentCount": "@any",
+        "worstColdChainRisk": "@any",
         "dangerousGoodsCount": "@any",
         "cargoAircraftOnlyCount": "@any",
         "transferCount": "@any",
@@ -451,6 +454,7 @@ Feature: Mark flight as ready
         "containerCount": "@any",
         "bulkLotCount": "@any",
         "shipmentCount": "@any",
+        "worstColdChainRisk": "@any",
         "dangerousGoodsCount": "@any",
         "cargoAircraftOnlyCount": "@any",
         "transferCount": "@any",
@@ -476,6 +480,7 @@ Feature: Mark flight as ready
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 1,
+        "worstColdChainRisk": "@any",
         "dangerousGoodsCount": "@any",
         "cargoAircraftOnlyCount": "@any",
         "transferCount": "@any",
@@ -540,8 +545,35 @@ Feature: Mark flight as ready
         "containerCount": "@any",
         "bulkLotCount": "@any",
         "shipmentCount": "@any",
+        "worstColdChainRisk": "@any",
         "dangerousGoodsCount": "@any",
         "cargoAircraftOnlyCount": 0,
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
+        "compartmentLoad": "@any",
+        "units": "@any"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I release a flight whose cold chain is at risk, the assessment being advisory
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/4e9c7f2d-5a01-4b84-8d36-8f1b2c4e5a97/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/4e9c7f2d-5a01-4b84-8d36-8f1b2c4e5a97/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "4e9c7f2d-5a01-4b84-8d36-8f1b2c4e5a97",
+        "holdVariant": "b74f-nose",
+        "cargoKg": 62000,
+        "containerCount": "@any",
+        "bulkLotCount": "@any",
+        "shipmentCount": "@any",
+        "worstColdChainRisk": "@any",
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": "@any",
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",

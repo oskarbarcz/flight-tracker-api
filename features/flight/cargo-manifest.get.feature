@@ -15,6 +15,7 @@ Feature: Read the cargo manifest of a flight
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 1,
+        "worstColdChainRisk": "@any",
         "dangerousGoodsCount": "@any",
         "cargoAircraftOnlyCount": "@any",
         "transferCount": "@any",
@@ -53,6 +54,7 @@ Feature: Read the cargo manifest of a flight
                 "connectionMinutes": "@any",
                 "connectionAtRisk": "@any",
                 "dangerousGoods": "@any",
+                "coldChain": "@any",
                 "status": "loaded"
               }
             ]
@@ -88,6 +90,7 @@ Feature: Read the cargo manifest of a flight
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 1,
+        "worstColdChainRisk": "@any",
         "dangerousGoodsCount": "@any",
         "cargoAircraftOnlyCount": "@any",
         "transferCount": "@any",
@@ -113,6 +116,7 @@ Feature: Read the cargo manifest of a flight
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 1,
+        "worstColdChainRisk": "@any",
         "dangerousGoodsCount": "@any",
         "cargoAircraftOnlyCount": "@any",
         "transferCount": "@any",
@@ -138,6 +142,7 @@ Feature: Read the cargo manifest of a flight
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 0,
+        "worstColdChainRisk": "@any",
         "dangerousGoodsCount": "@any",
         "cargoAircraftOnlyCount": "@any",
         "transferCount": "@any",

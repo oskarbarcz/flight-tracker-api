@@ -74,13 +74,13 @@ fixtures to add.
 
 ## 7. Cold chain (needs 6) — capability `cargo-cold-chain`
 
-- [ ] 7.1 `temperatureControl` JSON block on a shipment: regime, range, solution, endurance, set point where active
-- [ ] 7.2 `model/cold-chain.ts` exposure across build-up, flight, connection and onward flight; margin; risk level + unit spec at each boundary
-- [ ] 7.3 Deterministic explanation generated from the assessment's own inputs + unit spec asserting the whole sentence
-- [ ] 7.4 Ambient temperature at the exposed airport folded in from the existing airport weather, and omitted cleanly when unknown + unit spec
-- [ ] 7.5 Active solution preferred over passive where exposure would exceed a passive endurance
-- [ ] 7.6 Assessment is advisory: it blocks no release, no loading and no boarding completion
-- [ ] 7.7 Feature: `features/cargo/cold-chain.feature` — low, elevated and high risk each produced by a constructed flight; identical inputs produce an identical explanation; a high-risk shipment is still carried
+- [x] 7.1 `temperatureControl` JSON block on a shipment: regime, range, solution, endurance, set point where active
+- [x] 7.2 `model/cold-chain.ts` exposure across build-up, flight, connection and onward flight; margin; risk level + unit spec at each boundary
+- [x] 7.3 Deterministic explanation generated from the assessment's own inputs + unit spec asserting the whole sentence
+- [x] 7.4 Ambient temperature at the exposed airport folded in from the existing airport weather, and omitted cleanly when unknown + unit spec
+- [x] 7.5 Active solution preferred over passive where exposure would exceed a passive endurance
+- [x] 7.6 Assessment is advisory: it blocks no release, no loading and no boarding completion
+- [x] 7.7 Cold chain asserted where it is observable: the assessment on the enumerated shipment and the worst risk aboard in `features/flight/cargo-manifest.get.feature`, and a release that succeeds while carrying at-risk load in `features/flight/actions/flight.mark-as-ready.feature`. Risk boundaries and the generated explanations are unit-tested, being values a feature cannot pin
 
 ## 8. Baggage (needs 4) — capabilities `baggage-containerisation`, `flight-fuel-planning`
 

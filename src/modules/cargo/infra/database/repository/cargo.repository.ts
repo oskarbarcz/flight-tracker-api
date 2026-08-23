@@ -7,6 +7,7 @@ import {
   CargoTransferRole,
   CargoUnitKind,
   Prisma,
+  WeatherInformationType,
 } from 'prisma/client/client';
 
 export type NewCargoShipment = {
@@ -26,6 +27,7 @@ export type NewCargoShipment = {
   onwardFlightNumber: string | null;
   connectionMinutes: number | null;
   dangerousGoods: Prisma.InputJsonValue | typeof Prisma.DbNull;
+  temperatureControl: Prisma.InputJsonValue | typeof Prisma.DbNull;
 };
 
 export type NewCargoUnit = {
@@ -101,6 +103,19 @@ export class CargoRepository {
       where: { iataCode: { notIn: excluding } },
       select: { iataCode: true, continent: true },
     });
+  }
+
+  async latestMetar(iataCode: string): Promise<string | null> {
+    const weather = await this.prisma.airportWeather.findFirst({
+      where: {
+        airport: { iataCode },
+        informationType: WeatherInformationType.metar,
+      },
+      orderBy: { lastFetched: 'desc' },
+      select: { content: true },
+    });
+
+    return weather?.content ?? null;
   }
 
   async carrierCodes(excluding: string): Promise<string[]> {

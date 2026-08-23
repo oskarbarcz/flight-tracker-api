@@ -16,6 +16,11 @@ import {
 import { offeredCommodities } from '../../model/commodity-selection';
 import { offeredCommoditiesFor } from '../../model/cargo-aircraft-only.policy';
 import {
+  ambientFromMetar,
+  upgradeOfferedSolutions,
+} from '../../model/cold-chain';
+import { ColdChainContext } from '../../model/cargo-packing';
+import {
   LoadUnitKind,
   looseSlotsOf,
   planCargoLoad,
@@ -41,6 +46,8 @@ import {
   Prisma,
 } from 'prisma/client/client';
 
+const BUILD_UP_HOURS = 3;
+
 export type CargoEndpoint = {
   iataCode: string;
   country: string;
@@ -57,6 +64,7 @@ export class GenerateFlightCargoManifestCommand {
     public readonly departure: CargoEndpoint,
     public readonly arrival: CargoEndpoint,
     public readonly departureAt: Date,
+    public readonly flightHours: number,
   ) {}
 }
 
@@ -77,6 +85,7 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
       departure,
       arrival,
       departureAt,
+      flightHours,
     } = command;
 
     const hold: AircraftHold = await this.queryBus.execute(
@@ -103,14 +112,25 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
       return;
     }
 
-    const offered = offeredCommoditiesFor(
-      offeredCommodities({
-        iataCode: departure.iataCode,
-        country: departure.country,
-        continent: departure.continent,
-        month: departureAt.getUTCMonth() + 1,
-      }),
-      passengers,
+    const coldChain: ColdChainContext = {
+      buildUpHours: BUILD_UP_HOURS,
+      flightHours,
+      ambientC: ambientFromMetar(
+        await this.cargoRepository.latestMetar(arrival.iataCode),
+      ),
+    };
+
+    const offered = upgradeOfferedSolutions(
+      offeredCommoditiesFor(
+        offeredCommodities({
+          iataCode: departure.iataCode,
+          country: departure.country,
+          continent: departure.continent,
+          month: departureAt.getUTCMonth() + 1,
+        }),
+        passengers,
+      ),
+      coldChain.buildUpHours + coldChain.flightHours,
     );
 
     const [networkAirports, carriers] = await Promise.all([
@@ -136,6 +156,7 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
       slots: variant ? slotsOf(variant) : [],
       looseSlots: variant ? looseSlotsOf(variant) : [],
       journey,
+      coldChain,
       random: Math.random,
     });
 
@@ -199,6 +220,9 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
         onwardFlightNumber: shipment.journey.onwardFlightNumber,
         connectionMinutes: shipment.journey.connectionMinutes,
         dangerousGoods: dangerousGoodsOf(shipment.commodityId),
+        temperatureControl:
+          (shipment.coldChain as unknown as Prisma.InputJsonValue) ??
+          Prisma.DbNull,
       })),
     };
   }

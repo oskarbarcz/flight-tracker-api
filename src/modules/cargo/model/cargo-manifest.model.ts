@@ -4,6 +4,7 @@ import { LoadUnitKind } from './cargo-packing';
 import { UldType } from './uld';
 import { TransferRole } from './shipment-journey';
 import { DangerousGoodsProfile } from './commodity.model';
+import { ColdChainAssessment, ColdChainRisk } from './cold-chain';
 
 export enum CargoContentClassName {
   Cargo = 'cargo',
@@ -125,6 +126,27 @@ export class CargoShipmentEntry {
     },
   })
   dangerousGoods!: DangerousGoodsProfile | null;
+
+  @ApiProperty({
+    description:
+      'Cold chain assessment for a temperature-controlled shipment: the regime it must be kept within, the solution carrying it, its endurance, the exposure across this flight and any onward leg, the resulting margin, a risk level and the reasoning behind it. Advisory only: it blocks no release and no loading. Null for a shipment needing no temperature control.',
+    nullable: true,
+    example: {
+      regime: 'COL',
+      minC: 2,
+      maxC: 8,
+      solution: 'active',
+      setPointC: 5,
+      enduranceHours: 100,
+      exposureHours: 14.1,
+      marginHours: 85.9,
+      risk: 'low',
+      explanation:
+        'An active container with 85.9 h margin on a 100 h endurance.',
+      advisory: true,
+    },
+  })
+  coldChain!: ColdChainAssessment | null;
 
   @ApiProperty({ enum: CargoShipmentStatusName })
   status!: CargoShipmentStatusName;
@@ -270,6 +292,15 @@ export class FlightCargoManifest {
     example: 4,
   })
   dangerousGoodsCount!: number;
+
+  @ApiProperty({
+    description:
+      'Highest cold chain risk aboard; null when the flight carries no temperature-controlled load. Advisory only.',
+    enum: ColdChainRisk,
+    nullable: true,
+    example: ColdChainRisk.Elevated,
+  })
+  worstColdChainRisk!: ColdChainRisk | null;
 
   @ApiProperty({
     description:

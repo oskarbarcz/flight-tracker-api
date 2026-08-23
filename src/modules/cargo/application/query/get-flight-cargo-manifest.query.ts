@@ -24,6 +24,7 @@ import {
   SpecialHandlingCode,
 } from '../../model/commodity.model';
 import { dryIceKgOf } from '../../model/segregation.policy';
+import { ColdChainAssessment, ColdChainRisk } from '../../model/cold-chain';
 import { LoadUnitKind } from '../../model/cargo-packing';
 import { formatUldCode, UldType } from '../../model/uld';
 import { UserRole } from '../../../users/model/user-role';
@@ -96,6 +97,7 @@ export class GetFlightCargoManifestHandler implements IQueryHandler<GetFlightCar
         (sum, unit) => sum + unit.shipments.length,
         0,
       ),
+      worstColdChainRisk: worstRiskOf(units),
       dangerousGoodsCount: units
         .flatMap((unit) => unit.shipments)
         .filter((shipment) => shipment.dangerousGoods !== null).length,
@@ -149,9 +151,30 @@ function toUnitEntry(row: CargoUnitRow): CargoUnitEntry {
       connectionAtRisk: isTightConnection(shipment.connectionMinutes),
       dangerousGoods:
         (shipment.dangerousGoods as DangerousGoodsProfile | null) ?? null,
+      coldChain:
+        (shipment.temperatureControl as ColdChainAssessment | null) ?? null,
       status: shipment.status as unknown as CargoShipmentStatusName,
     })),
   };
+}
+
+const RISK_ORDER = [
+  ColdChainRisk.Low,
+  ColdChainRisk.Elevated,
+  ColdChainRisk.High,
+];
+
+function worstRiskOf(units: CargoUnitEntry[]): ColdChainRisk | null {
+  const risks = units
+    .flatMap((unit) => unit.shipments)
+    .map((shipment) => shipment.coldChain?.risk)
+    .filter((risk): risk is ColdChainRisk => risk !== undefined);
+
+  return risks.length === 0
+    ? null
+    : risks.reduce((worst, risk) =>
+        RISK_ORDER.indexOf(risk) > RISK_ORDER.indexOf(worst) ? risk : worst,
+      );
 }
 
 function tightestConnectionOf(units: CargoUnitEntry[]): number | null {

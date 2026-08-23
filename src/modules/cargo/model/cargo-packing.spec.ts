@@ -57,6 +57,8 @@ function journeyContext(seed: number): JourneyContext {
   };
 }
 
+const coldChain = { buildUpHours: 3, flightHours: 9, ambientC: null };
+
 const frankfurt = {
   iataCode: 'FRA',
   country: 'Germany',
@@ -82,6 +84,7 @@ function plan(
     slots: slotsOf(variant),
     looseSlots: looseSlotsOf(variant),
     journey: journeyContext(seed),
+    coldChain,
     random: seededRandom(seed),
   });
 }
@@ -233,6 +236,7 @@ describe('cargo packing', () => {
         slots: slotsOf(variant),
         looseSlots: looseSlotsOf(variant),
         journey: journeyContext(9),
+        coldChain,
         random: seededRandom(9),
       }).filter((unit) => unit.kind === LoadUnitKind.Uld).length;
 
@@ -249,6 +253,7 @@ describe('cargo packing', () => {
         slots: slotsOf(variant),
         looseSlots: looseSlotsOf(variant),
         journey: journeyContext(1),
+        coldChain,
         random: seededRandom(1),
       }),
     ).toEqual([]);
@@ -259,6 +264,7 @@ describe('cargo packing', () => {
         slots: slotsOf(variant),
         looseSlots: looseSlotsOf(variant),
         journey: journeyContext(1),
+        coldChain,
         random: seededRandom(1),
       }),
     ).toEqual([]);
@@ -480,6 +486,7 @@ describe('cargo packing', () => {
       slots: slotsOf(variant),
       looseSlots: looseSlotsOf(variant),
       journey: journeyContext(4),
+      coldChain,
       random: seededRandom(4),
     });
 
