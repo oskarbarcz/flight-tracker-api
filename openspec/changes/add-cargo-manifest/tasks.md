@@ -30,13 +30,13 @@ fixtures to add.
 
 ## 3. Commodity catalogue (independent) — capability `cargo-commodity-catalogue`
 
-- [ ] 3.1 `data/cargo-commodities.json`: 100 entries across perishables, pharma, live animals, high tech, batteries, other dangerous goods, automotive and industrial, aerospace and AOG, consumer, valuables, human and restricted, mail, dry foodstuffs, outsize and project cargo
-- [ ] 3.2 Roughly 30 entries carry a `dg` block with a real UN number, proper shipping name, class, subsidiary risk, packing group, net quantity per package and cargo-aircraft-only flag
-- [ ] 3.3 `ercCode` derived per dangerous goods entry from the published drill chart (drill number from the hazard class, letters from the additional risks); `sourceNote` records the reasoning wherever a letter is a judgement call
-- [ ] 3.4 `model/commodity.model.ts` and the special handling code vocabulary as a domain enum in PascalCase
-- [ ] 3.5 `data/cargo-commodities.spec.ts` dataset invariants: exactly 100 entries; every entry has a name, at least one SHC, a density in 30–2000 kg/m³, a piece range, a piece count range, an offload priority in range, at least one month and at least one source tier; every SHC is in the vocabulary; every `dg` entry has a UN number, class and `ercCode`; `ercCode` matches `/^(?:[1-9]|1[01])[ACEFHILMNPSWXY]+$/` and its drill number equals the mapping for its hazard class; `heaviestPiece` present only on heavy or outsized entries
-- [ ] 3.6 `selectCommodities(departureAirport, month)` + unit spec for the resolution ladder: airport tier, country tier, continent tier, generic fallback never empty, out-of-season entry excluded, frequency weighting respected
-- [ ] 3.7 `commodityDensity` derived volume helper + unit spec proving cube-out below and weigh-out above the 369 kg/m³ break-even of an `AKE`
+- [x] 3.1 `data/cargo-commodities.json`: 100 entries across perishables, pharma, live animals, high tech, batteries, other dangerous goods, automotive and industrial, aerospace and AOG, consumer, valuables, human and restricted, mail, dry foodstuffs, outsize and project cargo
+- [x] 3.2 Roughly 30 entries carry a `dg` block with a real UN number, proper shipping name, class, subsidiary risk, packing group, net quantity per package and cargo-aircraft-only flag
+- [x] 3.3 `ercCode` derived per dangerous goods entry from the published drill chart (drill number from the hazard class, letters from the additional risks); `sourceNote` records the reasoning wherever a letter is a judgement call
+- [x] 3.4 `model/commodity.model.ts` and the special handling code vocabulary as a domain enum in PascalCase
+- [x] 3.5 `data/cargo-commodities.spec.ts` dataset invariants: exactly 100 entries; every entry has a name, at least one SHC, a density in 30–2000 kg/m³, a piece range, a piece count range, an offload priority in range, at least one month and at least one source tier; every SHC is in the vocabulary; every `dg` entry has a UN number, class and `ercCode`; `ercCode` matches `/^(?:[1-9]|1[01])[ACEFHILMNPSWXY]+$/` and its drill number equals the mapping for its hazard class; `heaviestPiece` present only on heavy or outsized entries
+- [x] 3.6 `selectCommodities(departureAirport, month)` + unit spec for the resolution ladder: airport tier, country tier, continent tier, generic fallback never empty, out-of-season entry excluded, frequency weighting respected
+- [x] 3.7 `commodityDensity` derived volume helper + unit spec proving cube-out below and weigh-out above the 369 kg/m³ break-even of an `AKE`
 
 ## 4. Cargo manifest generation (needs 1, 2, 3) — capabilities `flight-cargo-manifest`, `flight-fuel-planning`
 
