@@ -11,7 +11,8 @@ goods carrying a real UN number.
 #### Scenario: The catalogue is complete and well formed
 
 - **WHEN** the commodity catalogue is loaded
-- **THEN** every entry declares a name, special handling codes, a density, a piece range, an offload priority, at least one month and at least one source tier
+- **THEN** every entry declares a name, a density, a piece range, an offload priority and at least one month
+- **AND** every entry either names at least one source tier or is declared available from anywhere
 
 #### Scenario: Dangerous goods entries are fully described
 
