@@ -1,0 +1,1876 @@
+[
+  {
+    "type": "B77W",
+    "variants": [
+      {
+        "id": "b77w-ld3",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 19056,
+                "volumeM3": 51.6,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 6,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 2,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 19056,
+                "volumeM3": 51.6,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 6,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 15880,
+                "volumeM3": 43.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 5,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 4,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 15880,
+                "volumeM3": 43.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 5,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                },
+                "positionOverrides": [
+                  {
+                    "designator": "45L",
+                    "acceptedContours": [
+                      "H"
+                    ]
+                  },
+                  {
+                    "designator": "45R",
+                    "acceptedContours": [
+                      "H"
+                    ]
+                  }
+                ]
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 2170,
+                "volumeM3": 12.4,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "b77w-mixed",
+        "isDefault": false,
+        "decks": [
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 27200,
+                "volumeM3": 51.6,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 4,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "A",
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "G",
+                    "C",
+                    "P"
+                  ],
+                  "maxWeightKg": 6800
+                }
+              },
+              {
+                "number": 2,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 27200,
+                "volumeM3": 51.6,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 4,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "A",
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "G",
+                    "C",
+                    "P"
+                  ],
+                  "maxWeightKg": 6800
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 15880,
+                "volumeM3": 43.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 5,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 4,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 15880,
+                "volumeM3": 43.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 5,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 2170,
+                "volumeM3": 12.4,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "A339",
+    "variants": [
+      {
+        "id": "a339-ld3",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 15880,
+                "volumeM3": 43.0,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 5,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 2,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 12704,
+                "volumeM3": 34.4,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 4,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 15880,
+                "volumeM3": 43.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 5,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 4,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 12704,
+                "volumeM3": 34.4,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 4,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 3448,
+                "volumeM3": 19.7,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "B752",
+    "variants": [
+      {
+        "id": "b752-bulk",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "loose",
+                "maxWeightKg": 2205,
+                "volumeM3": 12.6,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right"
+              },
+              {
+                "number": 2,
+                "name": "forward",
+                "loading": "loose",
+                "maxWeightKg": 1995,
+                "volumeM3": 11.4,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right"
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 2292,
+                "volumeM3": 13.1,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              },
+              {
+                "number": 4,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 1785,
+                "volumeM3": 10.2,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "B738",
+    "variants": [
+      {
+        "id": "b738-bulk",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "loose",
+                "maxWeightKg": 1995,
+                "volumeM3": 11.4,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right"
+              },
+              {
+                "number": 2,
+                "name": "forward",
+                "loading": "loose",
+                "maxWeightKg": 1750,
+                "volumeM3": 10.0,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right"
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 2205,
+                "volumeM3": 12.6,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              },
+              {
+                "number": 4,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 1750,
+                "volumeM3": 10.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "A320",
+    "variants": [
+      {
+        "id": "a320-bulk",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "loose",
+                "maxWeightKg": 2328,
+                "volumeM3": 13.3,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right"
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 2100,
+                "volumeM3": 12.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              },
+              {
+                "number": 4,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 1400,
+                "volumeM3": 8.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 717,
+                "volumeM3": 4.1,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a320-cls",
+        "isDefault": false,
+        "decks": [
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 3402,
+                "volumeM3": 13.3,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 3,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "H"
+                  ],
+                  "maxWeightKg": 1134
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 4536,
+                "volumeM3": 12.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 4,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "H"
+                  ],
+                  "maxWeightKg": 1134
+                }
+              },
+              {
+                "number": 4,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 1400,
+                "volumeM3": 8.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 717,
+                "volumeM3": 4.1,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "A321",
+    "variants": [
+      {
+        "id": "a321-bulk",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "loose",
+                "maxWeightKg": 3710,
+                "volumeM3": 21.2,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right"
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 3238,
+                "volumeM3": 18.5,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              },
+              {
+                "number": 4,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 1400,
+                "volumeM3": 8.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 700,
+                "volumeM3": 4.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a321-cls",
+        "isDefault": false,
+        "decks": [
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 4536,
+                "volumeM3": 21.2,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 4,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "H"
+                  ],
+                  "maxWeightKg": 1134
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 6804,
+                "volumeM3": 18.5,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 6,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "H"
+                  ],
+                  "maxWeightKg": 1134
+                }
+              },
+              {
+                "number": 4,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 1400,
+                "volumeM3": 8.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 700,
+                "volumeM3": 4.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "A319",
+    "variants": [
+      {
+        "id": "a319-bulk",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "loose",
+                "maxWeightKg": 1697,
+                "volumeM3": 9.7,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right"
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 1610,
+                "volumeM3": 9.2,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              },
+              {
+                "number": 4,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 717,
+                "volumeM3": 4.1,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 700,
+                "volumeM3": 4.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a319-cls",
+        "isDefault": false,
+        "decks": [
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 2268,
+                "volumeM3": 9.7,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 2,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "H"
+                  ],
+                  "maxWeightKg": 1134
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 3402,
+                "volumeM3": 9.2,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 3,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "H"
+                  ],
+                  "maxWeightKg": 1134
+                }
+              },
+              {
+                "number": 4,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 717,
+                "volumeM3": 4.1,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 700,
+                "volumeM3": 4.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "B77F",
+    "variants": [
+      {
+        "id": "b77f-side",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "main",
+            "compartments": [
+              {
+                "number": 6,
+                "name": "main",
+                "loading": "uld",
+                "maxWeightKg": 176904,
+                "volumeM3": 457.6,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "left",
+                "positionTemplate": {
+                  "ordinals": "alpha",
+                  "rows": 13,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "A",
+                    "C"
+                  ],
+                  "maxWeightKg": 6804
+                }
+              },
+              {
+                "number": 7,
+                "name": "main",
+                "loading": "uld",
+                "maxWeightKg": 6804,
+                "volumeM3": 17.6,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "left",
+                "positionTemplate": {
+                  "ordinals": "alpha",
+                  "rows": 1,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "C"
+                  ],
+                  "maxWeightKg": 6804
+                }
+              }
+            ]
+          },
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 34000,
+                "volumeM3": 55.0,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 5,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "A",
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "G",
+                    "C",
+                    "P"
+                  ],
+                  "maxWeightKg": 6800
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 34000,
+                "volumeM3": 55.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 5,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "A",
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "G",
+                    "C",
+                    "P"
+                  ],
+                  "maxWeightKg": 6800
+                }
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 2975,
+                "volumeM3": 17.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "B74F",
+    "variants": [
+      {
+        "id": "b74f-nose",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "main",
+            "compartments": [
+              {
+                "number": 6,
+                "name": "main",
+                "loading": "uld",
+                "maxWeightKg": 204120,
+                "volumeM3": 528.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "nose",
+                "positionTemplate": {
+                  "ordinals": "alpha",
+                  "rows": 15,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "A",
+                    "C"
+                  ],
+                  "maxWeightKg": 6804
+                },
+                "positionOverrides": [
+                  {
+                    "designator": "OL",
+                    "acceptedContours": [
+                      "C"
+                    ]
+                  },
+                  {
+                    "designator": "OR",
+                    "acceptedContours": [
+                      "C"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 25408,
+                "volumeM3": 68.8,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 8,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 25408,
+                "volumeM3": 68.8,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 8,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 2975,
+                "volumeM3": 17.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "b74f-side",
+        "isDefault": false,
+        "decks": [
+          {
+            "deck": "main",
+            "compartments": [
+              {
+                "number": 6,
+                "name": "main",
+                "loading": "uld",
+                "maxWeightKg": 204120,
+                "volumeM3": 528.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "left",
+                "positionTemplate": {
+                  "ordinals": "alpha",
+                  "rows": 15,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "A",
+                    "C"
+                  ],
+                  "maxWeightKg": 6804
+                }
+              }
+            ]
+          },
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 25408,
+                "volumeM3": 68.8,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 8,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 25408,
+                "volumeM3": 68.8,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 8,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 2975,
+                "volumeM3": 17.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "B48F",
+    "variants": [
+      {
+        "id": "b48f-nose",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "main",
+            "compartments": [
+              {
+                "number": 6,
+                "name": "main",
+                "loading": "uld",
+                "maxWeightKg": 231336,
+                "volumeM3": 598.4,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "nose",
+                "positionTemplate": {
+                  "ordinals": "alpha",
+                  "rows": 17,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "A",
+                    "C"
+                  ],
+                  "maxWeightKg": 6804
+                }
+              }
+            ]
+          },
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 28584,
+                "volumeM3": 77.4,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 9,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 28584,
+                "volumeM3": 77.4,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 9,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 2975,
+                "volumeM3": 17.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "B76F",
+    "variants": [
+      {
+        "id": "b76f-side",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "main",
+            "compartments": [
+              {
+                "number": 6,
+                "name": "main",
+                "loading": "uld",
+                "maxWeightKg": 163296,
+                "volumeM3": 316.8,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "left",
+                "positionTemplate": {
+                  "ordinals": "alpha",
+                  "rows": 12,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "A",
+                    "C"
+                  ],
+                  "maxWeightKg": 6804
+                }
+              }
+            ]
+          },
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "loose",
+                "maxWeightKg": 7875,
+                "volumeM3": 45.0,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right"
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 7875,
+                "volumeM3": 45.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 2100,
+                "volumeM3": 12.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "B75F",
+    "variants": [
+      {
+        "id": "b75f-side",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "main",
+            "compartments": [
+              {
+                "number": 6,
+                "name": "main",
+                "loading": "uld",
+                "maxWeightKg": 102000,
+                "volumeM3": 187.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "left",
+                "positionTemplate": {
+                  "ordinals": "alpha",
+                  "rows": 15,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "A",
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "G",
+                    "C",
+                    "P"
+                  ],
+                  "maxWeightKg": 6800
+                }
+              }
+            ]
+          },
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "loose",
+                "maxWeightKg": 4200,
+                "volumeM3": 24.0,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right"
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "loose",
+                "maxWeightKg": 4078,
+                "volumeM3": 23.3,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "MD1F",
+    "variants": [
+      {
+        "id": "md1f-side",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "main",
+            "compartments": [
+              {
+                "number": 6,
+                "name": "main",
+                "loading": "uld",
+                "maxWeightKg": 176904,
+                "volumeM3": 457.6,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "left",
+                "positionTemplate": {
+                  "ordinals": "alpha",
+                  "rows": 13,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "A",
+                    "C"
+                  ],
+                  "maxWeightKg": 6804
+                }
+              }
+            ]
+          },
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 34000,
+                "volumeM3": 55.0,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 5,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "A",
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "G",
+                    "C",
+                    "P"
+                  ],
+                  "maxWeightKg": 6800
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 27200,
+                "volumeM3": 44.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 4,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "A",
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "G",
+                    "C",
+                    "P"
+                  ],
+                  "maxWeightKg": 6800
+                }
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 2678,
+                "volumeM3": 15.3,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "A30F",
+    "variants": [
+      {
+        "id": "a30f-side",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "main",
+            "compartments": [
+              {
+                "number": 6,
+                "name": "main",
+                "loading": "uld",
+                "maxWeightKg": 136080,
+                "volumeM3": 352.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "left",
+                "positionTemplate": {
+                  "ordinals": "alpha",
+                  "rows": 10,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "A",
+                    "C"
+                  ],
+                  "maxWeightKg": 6804
+                }
+              },
+              {
+                "number": 7,
+                "name": "main",
+                "loading": "uld",
+                "maxWeightKg": 6804,
+                "volumeM3": 17.6,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "left",
+                "positionTemplate": {
+                  "ordinals": "alpha",
+                  "rows": 1,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "C"
+                  ],
+                  "maxWeightKg": 6804
+                }
+              }
+            ]
+          },
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 27200,
+                "volumeM3": 44.0,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 4,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "A",
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "G",
+                    "C",
+                    "P"
+                  ],
+                  "maxWeightKg": 6800
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 20400,
+                "volumeM3": 33.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 3,
+                  "sides": [
+                    "full"
+                  ],
+                  "acceptedBases": [
+                    "A",
+                    "M"
+                  ],
+                  "acceptedContours": [
+                    "G",
+                    "C",
+                    "P"
+                  ],
+                  "maxWeightKg": 6800
+                }
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 3028,
+                "volumeM3": 17.3,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "A3ST",
+    "variants": [
+      {
+        "id": "a3st-oversize",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "main",
+            "compartments": [
+              {
+                "number": 6,
+                "name": "main",
+                "loading": "loose",
+                "maxWeightKg": 47000,
+                "volumeM3": 1400.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "nose"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "A225",
+    "variants": [
+      {
+        "id": "a225-oversize",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "main",
+            "compartments": [
+              {
+                "number": 6,
+                "name": "main",
+                "loading": "loose",
+                "maxWeightKg": 250000,
+                "volumeM3": 1300.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "nose"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "SH33",
+    "variants": [
+      {
+        "id": "sh33-bulk",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "main",
+            "compartments": [
+              {
+                "number": 6,
+                "name": "main",
+                "loading": "loose",
+                "maxWeightKg": 7350,
+                "volumeM3": 42.0,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "left"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
