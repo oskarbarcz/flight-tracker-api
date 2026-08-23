@@ -5,10 +5,25 @@ import {
   HoldPosition,
   HoldVariant,
 } from './hold-layout.model';
-import { Commodity, TemperatureSolution } from './commodity.model';
+import {
+  Commodity,
+  SpecialHandlingCode,
+  TemperatureSolution,
+} from './commodity.model';
 import { drawCommodity, OfferedCommodity } from './commodity-selection';
 import { capacityAt, fits, ULD_SPECS, UldSpec, UldType } from './uld';
 import { volumeOf } from './cargo-volume';
+import {
+  drawBeyondPoint,
+  drawJourney,
+  JourneyContext,
+  ShipmentJourney,
+} from './shipment-journey';
+import {
+  compartmentAccepts,
+  conflicts,
+  mayJoinCompartment,
+} from './segregation.policy';
 
 export enum LoadUnitKind {
   Uld = 'uld',
@@ -17,6 +32,7 @@ export enum LoadUnitKind {
 
 export const MIN_UNIT_PAYLOAD_KG = 200;
 export const MIN_BULK_LOT_KG = 50;
+export const SEALED_UNIT_CHANCE = 0.35;
 const MIN_SHIPMENT_KG = 20;
 const UNIT_FILL_FLOOR_KG = 60;
 
@@ -26,6 +42,7 @@ export type PlannedShipment = {
   pieces: number;
   grossKg: number;
   volumeM3: number;
+  journey: ShipmentJourney;
 };
 
 export type PlannedUnit = {
@@ -37,6 +54,8 @@ export type PlannedUnit = {
   tareKg: number;
   grossKg: number;
   volumeM3: number;
+  beyondDestination: string | null;
+  sealed: boolean;
   shipments: PlannedShipment[];
 };
 
@@ -56,6 +75,7 @@ export type CargoLoadRequest = {
   offered: OfferedCommodity[];
   slots: PlacementSlot[];
   looseSlots: LooseSlot[];
+  journey: JourneyContext;
   random: () => number;
 };
 
@@ -108,7 +128,23 @@ export function canShareUnit(one: Commodity, other: Commodity): boolean {
     return false;
   }
 
+  if (conflicts(one.shc, other.shc)) {
+    return false;
+  }
+
   return one.temperature?.regime === other.temperature?.regime;
+}
+
+export function admissibleFor(
+  offered: OfferedCommodity[],
+  slot: PlacementSlot,
+  loadedShc: SpecialHandlingCode[],
+): OfferedCommodity[] {
+  return offered.filter(
+    (offer) =>
+      compartmentAccepts(offer.commodity, slot.compartment) &&
+      mayJoinCompartment(offer.commodity.shc, loadedShc),
+  );
 }
 
 export function specFor(
@@ -143,6 +179,7 @@ function shipmentOf(
   commodity: Commodity,
   grossKg: number,
   random: () => number,
+  journey: ShipmentJourney,
 ): PlannedShipment {
   const perPiece = pieceWeight(commodity, random());
   const description =
@@ -156,6 +193,7 @@ function shipmentOf(
     pieces: Math.max(1, Math.round(grossKg / perPiece)),
     grossKg,
     volumeM3: round3(volumeOf(grossKg, commodity.densityKgM3)),
+    journey,
   };
 }
 
@@ -170,6 +208,8 @@ function fillUnit(
   budgetKg: number,
   offered: OfferedCommodity[],
   random: () => number,
+  journeyContext: JourneyContext,
+  fixedDestination: string | null | undefined,
 ): PlannedShipment[] {
   const shipments: PlannedShipment[] = [];
   let remainingWeight = Math.min(weightCapacityKg, budgetKg);
@@ -190,7 +230,12 @@ function fillUnit(
       break;
     }
 
-    const shipment = shipmentOf(commodity, take, random);
+    const shipment = shipmentOf(
+      commodity,
+      take,
+      random,
+      drawJourney(journeyContext, fixedDestination),
+    );
     shipments.push(shipment);
     remainingWeight -= take;
     remainingVolume = round3(remainingVolume - shipment.volumeM3);
@@ -207,7 +252,7 @@ function fillUnit(
 }
 
 export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
-  const { targetKg, offered, slots, looseSlots, random } = request;
+  const { targetKg, offered, slots, looseSlots, journey, random } = request;
 
   if (targetKg <= 0 || offered.length === 0) {
     return [];
@@ -215,6 +260,7 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
 
   const units: PlannedUnit[] = [];
   const compartmentLoad = new Map<number, number>();
+  const compartmentShc = new Map<number, SpecialHandlingCode[]>();
   let budget = Math.round(targetKg);
 
   for (const slot of slots) {
@@ -222,7 +268,14 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
       break;
     }
 
-    const commodity = drawCommodity(offered, random());
+    const loadedShc = compartmentShc.get(slot.compartment.number) ?? [];
+    const admissible = admissibleFor(offered, slot, loadedShc);
+
+    if (admissible.length === 0) {
+      continue;
+    }
+
+    const commodity = drawCommodity(admissible, random());
     const spec = specFor(commodity, slot.position);
 
     if (!spec || budget < spec.tareKg + MIN_UNIT_PAYLOAD_KG) {
@@ -242,13 +295,17 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
       continue;
     }
 
+    const beyondDestination =
+      random() < SEALED_UNIT_CHANCE ? drawBeyondPoint(journey) : null;
     const shipments = fillUnit(
       commodity,
       Math.min(capacity.maxGrossKg, headroom),
       capacity.volumeM3,
       budget - spec.tareKg,
-      offered,
+      admissible,
       random,
+      journey,
+      beyondDestination === null ? undefined : beyondDestination,
     );
 
     if (shipments.length === 0) {
@@ -262,6 +319,12 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
 
     budget -= spec.tareKg + grossKg;
     compartmentLoad.set(slot.compartment.number, used + spec.tareKg + grossKg);
+    compartmentShc.set(slot.compartment.number, [
+      ...loadedShc,
+      ...shipments.flatMap(
+        (shipment) => shcOf(shipment.commodityId, offered) ?? [],
+      ),
+    ]);
 
     units.push({
       kind: LoadUnitKind.Uld,
@@ -274,12 +337,14 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
       volumeM3: round3(
         shipments.reduce((sum, shipment) => sum + shipment.volumeM3, 0),
       ),
+      beyondDestination,
+      sealed: beyondDestination !== null,
       shipments,
     });
   }
 
   if (budget >= MIN_BULK_LOT_KG || (budget > 0 && units.length === 0)) {
-    units.push(bulkLot(budget, offered, looseSlots, random));
+    units.push(bulkLot(budget, offered, looseSlots, random, journey));
 
     return units;
   }
@@ -309,9 +374,15 @@ function bulkLot(
   offered: OfferedCommodity[],
   looseSlots: LooseSlot[],
   random: () => number,
+  journey: JourneyContext,
 ): PlannedUnit {
   const commodity = drawCommodity(offered, random());
-  const shipment = shipmentOf(commodity, budgetKg, random);
+  const shipment = shipmentOf(
+    commodity,
+    budgetKg,
+    random,
+    drawJourney(journey),
+  );
   const slot = looseSlots[Math.floor(random() * looseSlots.length)];
 
   return {
@@ -323,8 +394,20 @@ function bulkLot(
     tareKg: 0,
     grossKg: budgetKg,
     volumeM3: shipment.volumeM3,
+    beyondDestination: null,
+    sealed: false,
     shipments: [shipment],
   };
+}
+
+function shcOf(
+  commodityId: string,
+  offered: OfferedCommodity[],
+): SpecialHandlingCode[] | null {
+  return (
+    offered.find((offer) => offer.commodity.id === commodityId)?.commodity
+      .shc ?? null
+  );
 }
 
 export function totalCargoKg(units: PlannedUnit[]): number {

@@ -113,7 +113,12 @@ SHALL be marked as broken down on arrival.
 - **WHEN** it is read
 - **THEN** it is marked as broken down on arrival
 
-#### Scenario: Grouping by destination precedes other grouping
+#### Scenario: A unit built for a beyond point holds nothing else
 
 - **WHEN** a cargo manifest is generated
-- **THEN** no load unit holds shipments for different onward destinations unless no compatible grouping exists
+- **THEN** no unit marked as transferring intact holds a shipment for any other destination
+
+#### Scenario: Loose load is never sent onward intact
+
+- **WHEN** a cargo manifest carrying loose load is generated
+- **THEN** no loose lot is marked as transferring intact

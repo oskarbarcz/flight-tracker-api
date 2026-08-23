@@ -2,6 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import { CargoDeck } from './hold-layout.model';
 import { LoadUnitKind } from './cargo-packing';
 import { UldType } from './uld';
+import { TransferRole } from './shipment-journey';
+import { DangerousGoodsProfile } from './commodity.model';
 
 export enum CargoContentClassName {
   Cargo = 'cargo',
@@ -53,6 +55,76 @@ export class CargoShipmentEntry {
 
   @ApiProperty({ example: 'Dupont SARL' })
   consignee!: string;
+
+  @ApiProperty({
+    description:
+      'Airport the shipment was raised at, which may precede this flight',
+    example: 'BLR',
+  })
+  origin!: string;
+
+  @ApiProperty({
+    description:
+      'Airport the shipment is destined for, which may lie beyond this flight',
+    example: 'YYZ',
+  })
+  destination!: string;
+
+  @ApiProperty({
+    description:
+      'What the shipment is doing on this flight, read from its origin against the departure and its destination against the arrival',
+    enum: TransferRole,
+    example: TransferRole.ThroughTransfer,
+  })
+  transferRole!: TransferRole;
+
+  @ApiProperty({
+    description:
+      'Carrier the shipment continues on; null when it terminates here',
+    example: 'AC',
+    nullable: true,
+  })
+  onwardCarrier!: string | null;
+
+  @ApiProperty({
+    description:
+      'Flight the shipment continues on; null when it terminates here',
+    example: 'AC8802',
+    nullable: true,
+  })
+  onwardFlightNumber!: string | null;
+
+  @ApiProperty({
+    description:
+      'Minutes available to make the onward connection; null when the shipment terminates here',
+    example: 205,
+    nullable: true,
+  })
+  connectionMinutes!: number | null;
+
+  @ApiProperty({
+    description:
+      'Whether the onward connection falls below the minimum a transfer needs, so the shipment is at risk of missing it',
+    example: false,
+  })
+  connectionAtRisk!: boolean;
+
+  @ApiProperty({
+    description:
+      'Dangerous goods declaration: UN number, proper shipping name, hazard class and division, subsidiary risk, packing group, net quantity per package, cargo aircraft restriction and emergency response code. Null for a shipment carrying no dangerous goods.',
+    nullable: true,
+    example: {
+      unNumber: '3480',
+      properShippingName: 'Lithium ion batteries',
+      hazardClass: '9',
+      subsidiaryRisk: null,
+      packingGroup: 'II',
+      netPerPackage: '10 kg',
+      cargoAircraftOnly: true,
+      ercCode: '9F',
+    },
+  })
+  dangerousGoods!: DangerousGoodsProfile | null;
 
   @ApiProperty({ enum: CargoShipmentStatusName })
   status!: CargoShipmentStatusName;
@@ -121,6 +193,21 @@ export class CargoUnitEntry {
   @ApiProperty({ enum: CargoContentClassName })
   contentClass!: CargoContentClassName;
 
+  @ApiProperty({
+    description:
+      'Point beyond this flight the unit was built for; null when the unit is broken down on arrival',
+    example: 'YYZ',
+    nullable: true,
+  })
+  beyondDestination!: string | null;
+
+  @ApiProperty({
+    description:
+      'Whether the unit transfers intact to its beyond point rather than being broken down on arrival',
+    example: false,
+  })
+  sealed!: boolean;
+
   @ApiProperty({ type: CargoShipmentEntry, isArray: true })
   shipments!: CargoShipmentEntry[];
 }
@@ -137,6 +224,13 @@ export class CompartmentLoad {
     example: 6104,
   })
   weightKg!: number;
+
+  @ApiProperty({
+    description:
+      'Dry ice carried in the compartment, in kilograms. Dry ice is an asphyxiant, so its quantity is reported per compartment.',
+    example: 132,
+  })
+  dryIceKg!: number;
 }
 
 export class FlightCargoManifest {
@@ -170,6 +264,33 @@ export class FlightCargoManifest {
     example: 7,
   })
   shipmentCount!: number;
+
+  @ApiProperty({
+    description: 'Shipments carrying dangerous goods',
+    example: 4,
+  })
+  dangerousGoodsCount!: number;
+
+  @ApiProperty({
+    description:
+      'Shipments restricted to cargo aircraft; always zero on a flight carrying passengers',
+    example: 1,
+  })
+  cargoAircraftOnlyCount!: number;
+
+  @ApiProperty({
+    description: 'Shipments continuing beyond this flight',
+    example: 3,
+  })
+  transferCount!: number;
+
+  @ApiProperty({
+    description:
+      'Shortest onward connection among the shipments continuing beyond this flight, in minutes; null when none continue',
+    example: 65,
+    nullable: true,
+  })
+  tightestConnectionMinutes!: number | null;
 
   @ApiProperty({ type: CompartmentLoad, isArray: true })
   compartmentLoad!: CompartmentLoad[];

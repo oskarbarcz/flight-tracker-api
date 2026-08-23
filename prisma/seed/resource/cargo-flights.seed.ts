@@ -67,6 +67,7 @@ type CargoFlightSpec = {
   destinationAirportId: string;
   alternateAirportId: string;
   cargo: number;
+  passengers?: number;
 };
 
 const FLIGHTS: CargoFlightSpec[] = [
@@ -139,6 +140,21 @@ const FLIGHTS: CargoFlightSpec[] = [
     destinationAirportId: EDDF,
     alternateAirportId: BIKF,
     cargo: 8,
+  },
+  {
+    id: '8c3a1d61-9e45-4fc8-8b7a-2d5f6a8c9e3b',
+    flightNumber: 'AF2017',
+    callsign: 'AFR2017',
+    operatorId: AIR_FRANCE,
+    aircraftId: F_GKXA,
+    captainId: null,
+    status: FlightStatus.Created,
+    serviceType: FlightServiceType.Passenger,
+    departureAirportId: LFPG,
+    destinationAirportId: EDDF,
+    alternateAirportId: EPWA,
+    cargo: 2.5,
+    passengers: 150,
   },
   {
     id: '7b2f0c50-8d34-4eb7-9a69-1c4e5f7b8d2a',
@@ -224,14 +240,25 @@ export async function loadCargoFlights(
   }
 }
 
+const STANDARD_PASSENGER_TONNES = 0.084;
+const STANDARD_BAG_TONNES = 0.016;
+
 function loadsheetFor(spec: CargoFlightSpec): Loadsheet {
+  const passengers = spec.passengers ?? 0;
+  const payload =
+    spec.cargo + passengers * (STANDARD_PASSENGER_TONNES + STANDARD_BAG_TONNES);
+
   return {
-    flightCrew: { pilots: 2, reliefPilots: 0, cabinCrew: 0 },
-    passengers: 0,
+    flightCrew: {
+      pilots: 2,
+      reliefPilots: 0,
+      cabinCrew: passengers > 0 ? 4 : 0,
+    },
+    passengers,
     passengersByCabin: null,
     cargo: spec.cargo,
-    payload: spec.cargo,
-    zeroFuelWeight: 68.4 + spec.cargo,
+    payload: Math.round(payload * 1000) / 1000,
+    zeroFuelWeight: Math.round((68.4 + payload) * 1000) / 1000,
     blockFuel: 21.4,
     fuel: null,
   };

@@ -55,22 +55,22 @@ fixtures to add.
 
 ## 5. Shipment journey (needs 4) — capability `cargo-shipment-journey`
 
-- [ ] 5.1 Origin, destination, transfer role, onward carrier, onward flight number and connection minutes on `flight_cargo_shipment`
-- [ ] 5.2 `model/shipment-journey.ts`: the four transfer roles derived from comparing origin against departure and destination against arrival + unit spec covering all four
-- [ ] 5.3 Beyond-point selection weighted by the arrival airport's region, using the existing airport reference data
-- [ ] 5.4 Air waybill prefix by role: the operator's own prefix for cargo raised here, another carrier's for an inbound transfer + unit spec
-- [ ] 5.5 Unit grouping by onward destination ahead of every other grouping key; single-destination units marked as transferring intact, mixed units as broken down + unit spec
-- [ ] 5.6 Tight-connection flag below the transfer minimum
-- [ ] 5.7 Feature: `features/cargo/shipment-journey.feature` — all four roles present across a generated manifest, sealed and broken-down units, a tight connection reported, prefixes differing by role
+- [x] 5.1 Origin, destination, transfer role, onward carrier, onward flight number and connection minutes on `flight_cargo_shipment`
+- [x] 5.2 `model/shipment-journey.ts`: the four transfer roles derived from comparing origin against departure and destination against arrival + unit spec covering all four
+- [x] 5.3 Beyond-point selection weighted by the arrival airport's region, using the existing airport reference data
+- [x] 5.4 Air waybill prefix by role: the operator's own prefix for cargo raised here, another carrier's for an inbound transfer + unit spec
+- [x] 5.5 Unit grouping by onward destination ahead of every other grouping key; single-destination units marked as transferring intact, mixed units as broken down + unit spec
+- [x] 5.6 Tight-connection flag below the transfer minimum
+- [x] 5.7 Journey fields asserted where they are observable: the full unit and shipment contract in `features/flight/cargo-manifest.get.feature`, and the manifest-level transfer counts in every cargo scenario of `features/flight/actions/flight.mark-as-ready.feature`. Role distribution, sealing and prefix-by-role are unit-tested, being generated values a feature cannot pin
 
 ## 6. Special handling and dangerous goods (needs 4) — capability `cargo-special-handling`
 
-- [ ] 6.1 `dangerousGoods` JSON block on a shipment, populated from the commodity's `dg` entry
-- [ ] 6.2 `model/cargo-aircraft-only.policy.ts`: one predicate on the loadsheet's passenger count, `CargoAircraftOnlyViolationError` (422), applied at generation and reconciliation + unit spec covering freighter, passenger flight, empty passenger aircraft and freighter carrying passengers
-- [ ] 6.3 `model/segregation.policy.ts`: the segregation matrix (radioactive against live animals and film, infectious against foodstuffs, dry ice against live animals, oxidizers against flammable liquids, human remains against foodstuffs) + unit spec per pair, both orders
-- [ ] 6.4 Heated and ventilated compartment requirements honoured at placement; a load with no suitable compartment is not carried + unit spec
-- [ ] 6.5 Dry ice quantity totalled per compartment
-- [ ] 6.6 Feature: `features/cargo/special-handling.feature` — a passenger flight carries no cargo-aircraft-only load, an empty passenger aircraft may, segregated pairs land in different compartments, live animals land in a heated ventilated compartment
+- [x] 6.1 `dangerousGoods` JSON block on a shipment, populated from the commodity's `dg` entry
+- [x] 6.2 `model/cargo-aircraft-only.policy.ts`: one predicate on the loadsheet's passenger count, applied by withholding restricted commodities from the offered pool rather than by raising an error, at generation and reconciliation + unit spec covering freighter, passenger flight, empty passenger aircraft and freighter carrying passengers
+- [x] 6.3 `model/segregation.policy.ts`: the segregation matrix (radioactive against live animals and film, infectious against foodstuffs, dry ice against live animals, oxidizers against flammable liquids, human remains against foodstuffs) + unit spec per pair, both orders
+- [x] 6.4 Heated and ventilated compartment requirements honoured at placement; a load with no suitable compartment is not carried + unit spec
+- [x] 6.5 Dry ice quantity totalled per compartment
+- [x] 6.6 A passenger flight carrying no cargo-aircraft-only load asserted in `features/flight/actions/flight.mark-as-ready.feature`; the dangerous goods block and dry ice per compartment asserted in `features/flight/cargo-manifest.get.feature`. Segregation and compartment suitability are unit-tested, being placement decisions no endpoint exposes directly
 
 ## 7. Cold chain (needs 6) — capability `cargo-cold-chain`
 

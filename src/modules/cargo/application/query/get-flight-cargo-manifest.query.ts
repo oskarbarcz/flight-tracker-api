@@ -19,6 +19,11 @@ import {
   FlightCargoManifest,
 } from '../../model/cargo-manifest.model';
 import { CargoDeck } from '../../model/hold-layout.model';
+import {
+  DangerousGoodsProfile,
+  SpecialHandlingCode,
+} from '../../model/commodity.model';
+import { dryIceKgOf } from '../../model/segregation.policy';
 import { LoadUnitKind } from '../../model/cargo-packing';
 import { formatUldCode, UldType } from '../../model/uld';
 import { UserRole } from '../../../users/model/user-role';
@@ -28,6 +33,7 @@ import {
 } from '../../../aircraft/application/query/get-aircraft-hold.query';
 import { resolveHoldVariant } from '../../model/hold-variant-resolution';
 import { CargoShipmentStatus } from 'prisma/client/client';
+import { isTightConnection, TransferRole } from '../../model/shipment-journey';
 
 export class GetFlightCargoManifestQuery extends Query<FlightCargoManifest> {
   constructor(
@@ -90,6 +96,17 @@ export class GetFlightCargoManifestHandler implements IQueryHandler<GetFlightCar
         (sum, unit) => sum + unit.shipments.length,
         0,
       ),
+      dangerousGoodsCount: units
+        .flatMap((unit) => unit.shipments)
+        .filter((shipment) => shipment.dangerousGoods !== null).length,
+      cargoAircraftOnlyCount: units
+        .flatMap((unit) => unit.shipments)
+        .filter((shipment) => shipment.dangerousGoods?.cargoAircraftOnly)
+        .length,
+      transferCount: units
+        .flatMap((unit) => unit.shipments)
+        .filter((shipment) => shipment.onwardCarrier !== null).length,
+      tightestConnectionMinutes: tightestConnectionOf(units),
       compartmentLoad: compartmentLoadOf(rows),
       units,
     };
@@ -111,6 +128,8 @@ function toUnitEntry(row: CargoUnitRow): CargoUnitEntry {
     grossKg: row.grossKg,
     volumeM3: Number(row.volumeM3),
     contentClass: row.contentClass as unknown as CargoContentClassName,
+    beyondDestination: row.beyondDestination,
+    sealed: row.sealed,
     shipments: row.shipments.map((shipment) => ({
       awb: shipment.awb,
       commodity: shipment.commodityId,
@@ -121,9 +140,27 @@ function toUnitEntry(row: CargoUnitRow): CargoUnitEntry {
       shc: shipment.shc,
       shipper: shipment.shipper,
       consignee: shipment.consignee,
+      origin: shipment.origin,
+      destination: shipment.destination,
+      transferRole: shipment.transferRole as unknown as TransferRole,
+      onwardCarrier: shipment.onwardCarrier,
+      onwardFlightNumber: shipment.onwardFlightNumber,
+      connectionMinutes: shipment.connectionMinutes,
+      connectionAtRisk: isTightConnection(shipment.connectionMinutes),
+      dangerousGoods:
+        (shipment.dangerousGoods as DangerousGoodsProfile | null) ?? null,
       status: shipment.status as unknown as CargoShipmentStatusName,
     })),
   };
+}
+
+function tightestConnectionOf(units: CargoUnitEntry[]): number | null {
+  const connections = units
+    .flatMap((unit) => unit.shipments)
+    .map((shipment) => shipment.connectionMinutes)
+    .filter((minutes): minutes is number => minutes !== null);
+
+  return connections.length === 0 ? null : Math.min(...connections);
 }
 
 function compartmentLoadOf(rows: CargoUnitRow[]): CompartmentLoad[] {
@@ -137,9 +174,16 @@ function compartmentLoadOf(rows: CargoUnitRow[]): CompartmentLoad[] {
     const key = `${row.deck}/${row.compartment}`;
     const existing = byCompartment.get(key);
     const weightKg = row.tareKg + row.grossKg;
+    const dryIceKg = row.shipments.reduce(
+      (sum, shipment) =>
+        sum +
+        dryIceKgOf(shipment.shc as SpecialHandlingCode[], shipment.grossKg),
+      0,
+    );
 
     if (existing) {
       existing.weightKg += weightKg;
+      existing.dryIceKg += dryIceKg;
       continue;
     }
 
@@ -147,6 +191,7 @@ function compartmentLoadOf(rows: CargoUnitRow[]): CompartmentLoad[] {
       compartment: row.compartment,
       deck: row.deck as unknown as CargoDeck,
       weightKg,
+      dryIceKg,
     });
   }
 

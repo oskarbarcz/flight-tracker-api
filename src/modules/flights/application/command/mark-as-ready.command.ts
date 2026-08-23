@@ -70,6 +70,7 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
         flight.aircraft.id,
         flight.operator.iataCode,
         flight.loadsheets.preliminary.cargo,
+        flight.loadsheets.preliminary.passengers,
         {
           iataCode: departure.iataCode,
           country: departure.country,

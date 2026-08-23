@@ -15,8 +15,49 @@ Feature: Read the cargo manifest of a flight
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 1,
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": "@any",
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
-        "units": "@any"
+        "units": [
+          {
+            "kind": "bulk_lot",
+            "uldCode": null,
+            "uldType": null,
+            "positionDesignator": null,
+            "compartment": "@any",
+            "deck": "lower",
+            "tareKg": 0,
+            "grossKg": 1800,
+            "volumeM3": "@any",
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "shipments": [
+              {
+                "awb": "@any",
+                "commodity": "@any",
+                "description": "@any",
+                "pieces": "@any",
+                "grossKg": 1800,
+                "volumeM3": "@any",
+                "shc": "@any",
+                "shipper": "@any",
+                "consignee": "@any",
+                "origin": "@any",
+                "destination": "@any",
+                "transferRole": "@any",
+                "onwardCarrier": "@any",
+                "onwardFlightNumber": "@any",
+                "connectionMinutes": "@any",
+                "connectionAtRisk": "@any",
+                "dangerousGoods": "@any",
+                "status": "loaded"
+              }
+            ]
+          }
+        ]
       }
       """
     And I set database to initial state
@@ -47,6 +88,10 @@ Feature: Read the cargo manifest of a flight
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 1,
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": "@any",
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
         "units": "@any"
       }
@@ -68,6 +113,10 @@ Feature: Read the cargo manifest of a flight
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 1,
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": "@any",
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
         "units": "@any"
       }
@@ -89,6 +138,10 @@ Feature: Read the cargo manifest of a flight
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 0,
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": "@any",
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
         "units": "@any"
       }

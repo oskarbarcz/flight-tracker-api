@@ -360,6 +360,10 @@ Feature: Mark flight as ready
         "containerCount": "@any",
         "bulkLotCount": "@any",
         "shipmentCount": "@any",
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": "@any",
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
         "units": "@any"
       }
@@ -381,6 +385,10 @@ Feature: Mark flight as ready
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 1,
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": "@any",
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
         "units": [
           {
@@ -394,6 +402,8 @@ Feature: Mark flight as ready
             "grossKg": 1800,
             "volumeM3": "@any",
             "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
             "shipments": "@any"
           }
         ]
@@ -416,6 +426,10 @@ Feature: Mark flight as ready
         "containerCount": "@any",
         "bulkLotCount": "@any",
         "shipmentCount": "@any",
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": "@any",
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
         "units": "@any"
       }
@@ -437,6 +451,10 @@ Feature: Mark flight as ready
         "containerCount": "@any",
         "bulkLotCount": "@any",
         "shipmentCount": "@any",
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": "@any",
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
         "units": "@any"
       }
@@ -458,6 +476,10 @@ Feature: Mark flight as ready
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 1,
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": "@any",
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
         "compartmentLoad": [],
         "units": [
           {
@@ -471,6 +493,8 @@ Feature: Mark flight as ready
             "grossKg": 8000,
             "volumeM3": "@any",
             "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
             "shipments": "@any"
           }
         ]
@@ -500,6 +524,31 @@ Feature: Mark flight as ready
         "message": "Flight has no cargo manifest yet. It is generated when the flight is released to the pilot."
       }
       """
+
+  Scenario: As operations I load no cargo-aircraft-only shipment onto a flight carrying passengers
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/8c3a1d61-9e45-4fc8-8b7a-2d5f6a8c9e3b/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/8c3a1d61-9e45-4fc8-8b7a-2d5f6a8c9e3b/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "8c3a1d61-9e45-4fc8-8b7a-2d5f6a8c9e3b",
+        "holdVariant": "a320-cls",
+        "cargoKg": 2500,
+        "containerCount": "@any",
+        "bulkLotCount": "@any",
+        "shipmentCount": "@any",
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": 0,
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
+        "compartmentLoad": "@any",
+        "units": "@any"
+      }
+      """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot mark flight as ready
     Given I am signed in as "cabin crew"

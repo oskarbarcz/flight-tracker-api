@@ -1003,6 +1003,13 @@ enum CargoShipmentStatus {
   offloaded
 }
 
+enum CargoTransferRole {
+  local
+  outbound_transfer
+  inbound_transfer
+  through_transfer
+}
+
 model FlightCargoUnit {
   id                 String            @id @default(uuid()) @db.Uuid
   flightId           String            @db.Uuid
@@ -1017,6 +1024,8 @@ model FlightCargoUnit {
   grossKg            Int
   volumeM3           Decimal           @db.Decimal(8, 3)
   contentClass       CargoContentClass @default(cargo)
+  beyondDestination  String?           @db.VarChar(3)
+  sealed             Boolean           @default(false)
 
   flight    Flight                @relation(fields: [flightId], references: [id], onDelete: Cascade)
   shipments FlightCargoShipment[]
@@ -1027,25 +1036,33 @@ model FlightCargoUnit {
 }
 
 model FlightCargoShipment {
-  id          String              @id @default(uuid()) @db.Uuid
-  flightId    String              @db.Uuid
-  unitId      String?             @db.Uuid
-  commodityId String
-  description String
-  awb         String              @db.VarChar(12)
-  pieces      Int
-  grossKg     Int
-  volumeM3    Decimal             @db.Decimal(8, 3)
-  shc         String[]
-  shipper     String
-  consignee   String
-  status      CargoShipmentStatus @default(loaded)
+  id                 String              @id @default(uuid()) @db.Uuid
+  flightId           String              @db.Uuid
+  unitId             String?             @db.Uuid
+  commodityId        String
+  description        String
+  awb                String              @db.VarChar(12)
+  pieces             Int
+  grossKg            Int
+  volumeM3           Decimal             @db.Decimal(8, 3)
+  shc                String[]
+  shipper            String
+  consignee          String
+  origin             String              @db.VarChar(3)
+  destination        String              @db.VarChar(3)
+  transferRole       CargoTransferRole
+  onwardCarrier      String?             @db.VarChar(2)
+  onwardFlightNumber String?             @db.VarChar(8)
+  connectionMinutes  Int?
+  dangerousGoods     Json?
+  status             CargoShipmentStatus @default(loaded)
 
   flight Flight           @relation(fields: [flightId], references: [id], onDelete: Cascade)
   unit   FlightCargoUnit? @relation(fields: [unitId], references: [id], onDelete: Cascade)
 
   @@index([flightId])
   @@index([flightId, status])
+  @@index([flightId, transferRole])
   @@index([unitId])
   @@map("flight_cargo_shipment")
 }
