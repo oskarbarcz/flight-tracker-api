@@ -22,7 +22,7 @@ Feature: Get flights list
     Given I am signed in as "cabin crew"
     When I send a "GET" request to "/api/v1/flight?phase=upcoming"
     Then the response status should be 200
-    And the response header "X-Total-Count" should be "20"
+    And the response header "X-Total-Count" should be "21"
 
   Scenario: As operations I can list flights with unresolved emergencies
     Given I am signed in as "operations"

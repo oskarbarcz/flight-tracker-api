@@ -54,10 +54,13 @@ export class NotocRepository {
     });
   }
 
-  async findManyByFlights(flightIds: string[]): Promise<NotocRow[]> {
-    return this.prisma.flightNotoc.findMany({
+  async flightIdsWithNotoc(flightIds: string[]): Promise<string[]> {
+    const rows = await this.prisma.flightNotoc.findMany({
       where: { flightId: { in: flightIds } },
-      orderBy: { issuedAt: 'asc' },
+      select: { flightId: true },
+      distinct: ['flightId'],
     });
+
+    return rows.map((row) => row.flightId);
   }
 }

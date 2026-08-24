@@ -19,8 +19,7 @@ import {
   DataQuality,
 } from '../../../airports/model/airport.model';
 import { GetFlightResponse } from '../../infra/http/request/flight.dto';
-import { GetFlightNotocSummariesQuery } from '../../../notoc/application/query/get-flight-notoc-summary.query';
-import { FlightNotocSummary } from '../../../notoc/model/notoc-summary.model';
+import { FlightsWithNotocQuery } from '../../../notoc/application/query/has-flight-notoc.query';
 
 export class GetFlightQuery extends Query<GetFlightResponse> {
   constructor(public readonly flightId: string) {
@@ -73,18 +72,15 @@ export class GetFlightHandler implements IQueryHandler<GetFlightQuery> {
       tracking: flight.tracking as FlightTracking,
       serviceType: flight.serviceType as FlightServiceType,
       pilot: await this.resolvePilot(captainId),
-      notoc: await this.resolveNotoc(query.flightId),
+      hasNotoc: await this.resolveHasNotoc(query.flightId),
     };
   }
 
-  private async resolveNotoc(
-    flightId: string,
-  ): Promise<FlightNotocSummary | null> {
-    const summaryQuery = new GetFlightNotocSummariesQuery([flightId]);
-    const summaries: Map<string, FlightNotocSummary> =
-      await this.queryBus.execute(summaryQuery);
+  private async resolveHasNotoc(flightId: string): Promise<boolean> {
+    const notocQuery = new FlightsWithNotocQuery([flightId]);
+    const issued: Set<string> = await this.queryBus.execute(notocQuery);
 
-    return summaries.get(flightId) ?? null;
+    return issued.has(flightId);
   }
 
   private async resolvePilot(

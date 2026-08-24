@@ -180,7 +180,7 @@ Feature: Update flight arrival runway
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
-        "notoc": null,
+        "hasNotoc": false,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",

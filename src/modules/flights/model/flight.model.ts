@@ -13,7 +13,6 @@ import {
 } from 'class-validator';
 import { LegacyCreateAircraftResponse } from '../../aircraft/infra/http/request/aircraft.request';
 import { ShortOperatorResponse } from '../infra/http/request/operator.request';
-import { FlightNotocSummary } from '../../notoc/model/notoc-summary.model';
 
 export enum FlightStatus {
   Created = 'created',
@@ -247,11 +246,10 @@ export class Flight {
 
   @ApiProperty({
     description:
-      'What the notification to captain says is aboard, and whether the pilot has accepted it at each stage. Null until the flight is released.',
-    type: FlightNotocSummary,
-    nullable: true,
+      'Flag if a notification to captain has been issued for this flight and can be retrieved from the flight notoc endpoint',
+    example: false,
   })
-  notoc!: FlightNotocSummary | null;
+  hasNotoc!: boolean;
 
   @ApiProperty({
     description: 'Timestamp when the flight record was created',

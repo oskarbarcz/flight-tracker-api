@@ -4,7 +4,7 @@ import { GetFlightNotocAction } from './infra/http/action/get-flight-notoc.actio
 import { IssueNotocHandler } from './application/command/issue-notoc.command';
 import { AcknowledgeNotocHandler } from './application/command/acknowledge-notoc.command';
 import { GetFlightNotocHandler } from './application/query/get-flight-notoc.query';
-import { GetFlightNotocSummaryHandler } from './application/query/get-flight-notoc-summary.query';
+import { FlightsWithNotocHandler } from './application/query/has-flight-notoc.query';
 import { NotocRepository } from './infra/database/repository/notoc.repository';
 
 @Module({
@@ -15,7 +15,7 @@ import { NotocRepository } from './infra/database/repository/notoc.repository';
     IssueNotocHandler,
     AcknowledgeNotocHandler,
     GetFlightNotocHandler,
-    GetFlightNotocSummaryHandler,
+    FlightsWithNotocHandler,
   ],
 })
 export class NotocModule {}

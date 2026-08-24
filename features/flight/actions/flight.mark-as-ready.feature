@@ -172,7 +172,7 @@ Feature: Mark flight as ready
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
-        "notoc": "@any",
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -706,16 +706,28 @@ Feature: Mark flight as ready
       {
         "flightId": "1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64",
         "stage": "preliminary",
-        "issuedAt": "@any",
+        "issuedAt": "@date('within 1 minute from now')",
         "acknowledgedById": null,
         "acknowledgedAt": null,
-        "document": "@any",
+        "document": {
+          "statement": "@any",
+          "dangerousGoods": "@any",
+          "specialLoads": "@any",
+          "coldChain": "@any",
+          "summary": {
+            "compartments": "@any",
+            "containerCount": "@any",
+            "palletCount": "@any",
+            "looseLotCount": "@any",
+            "cargoKg": 18000,
+            "baggageKg": 0,
+            "deadloadKg": 18000,
+            "beyondCount": "@any",
+            "tightestConnectionMinutes": "@any"
+          }
+        },
         "changes": null
       }
-      """
-    And the response body property "document.summary.cargoKg" should contain:
-      """json
-      18000
       """
     And I set database to initial state
 

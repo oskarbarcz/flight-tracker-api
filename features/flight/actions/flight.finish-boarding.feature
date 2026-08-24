@@ -242,7 +242,7 @@ Feature: Finish flight boarding
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
-        "notoc": "@any",
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -754,9 +754,9 @@ Feature: Finish flight boarding
           "cabinCrew": 0
         },
         "passengers": 0,
-        "payload": 4.5,
-        "cargo": 4.5,
-        "zeroFuelWeight": 72.9,
+        "payload": 4,
+        "cargo": 4,
+        "zeroFuelWeight": 72.4,
         "blockFuel": 21.4
       }
       """
@@ -769,106 +769,190 @@ Feature: Finish flight boarding
       {
         "flightId": "d2601432-e8cb-4018-8cee-f24aaaa29ca5",
         "holdVariant": "b77w-ld3",
-        "cargoKg": 4500,
+        "cargoKg": 4000,
         "baggageKg": 0,
         "bagCount": 0,
         "baggageSource": null,
-        "containerCount": "@any",
-        "bulkLotCount": "@any",
-        "shipmentCount": "@any",
-        "worstColdChainRisk": "@any",
-        "dangerousGoodsCount": "@any",
-        "cargoAircraftOnlyCount": "@any",
-        "transferCount": "@any",
-        "tightestConnectionMinutes": "@any",
-        "compartmentLoad": "@any",
-        "units": "@any"
-      }
-      """
-    And the only entry of the response body list "units" with "uldCode" set to "AKE48201AA" should contain:
-      """json
-      {
-        "kind": "uld",
-        "uldCode": "AKE48201AA",
-        "uldType": "AKE",
-        "positionDesignator": null,
-        "compartment": 1,
-        "deck": "lower",
-        "tareKg": 0,
-        "grossKg": 0,
-        "volumeM3": 0,
-        "contentClass": "cargo",
-        "beyondDestination": null,
-        "sealed": false,
-        "bagCount": null,
-        "priority": false,
-        "shipments": [
+        "containerCount": 4,
+        "bulkLotCount": 0,
+        "shipmentCount": 4,
+        "worstColdChainRisk": null,
+        "dangerousGoodsCount": 0,
+        "cargoAircraftOnlyCount": 0,
+        "transferCount": 0,
+        "tightestConnectionMinutes": null,
+        "compartmentLoad": [
           {
-            "awb": "001-48203713",
-            "commodity": "printed-matter",
-            "description": "Books, palletised",
-            "pieces": 68,
-            "grossKg": 1500,
-            "volumeM3": 2.143,
-            "shc": [],
-            "shipper": "Bauer Verlag GmbH",
-            "consignee": "Whitaker Distribution LLC",
-            "origin": "FRA",
-            "destination": "JFK",
-            "transferRole": "local",
-            "onwardCarrier": null,
-            "onwardFlightNumber": null,
-            "connectionMinutes": null,
-            "connectionAtRisk": false,
-            "dangerousGoods": null,
-            "coldChain": null,
-            "status": "offloaded",
-            "offloadReason": "payload_restriction",
-            "offloadedFrom": "11L"
+            "compartment": 1,
+            "deck": "lower",
+            "weightKg": 4000,
+            "dryIceKg": 0
           }
-        ]
-      }
-      """
-    And the only entry of the response body list "units" with "uldCode" set to "AKE48204AA" should contain:
-      """json
-      {
-        "kind": "uld",
-        "uldCode": "AKE48204AA",
-        "uldType": "AKE",
-        "positionDesignator": "12R",
-        "compartment": 1,
-        "deck": "lower",
-        "tareKg": 82,
-        "grossKg": 1472,
-        "volumeM3": 2.453,
-        "contentClass": "cargo",
-        "beyondDestination": null,
-        "sealed": false,
-        "bagCount": null,
-        "priority": false,
-        "shipments": [
+        ],
+        "units": [
           {
-            "awb": "001-48203746",
-            "commodity": "engine-fan-blades",
-            "description": "Turbofan blade set, AOG",
-            "pieces": 4,
-            "grossKg": 1472,
-            "volumeM3": 2.453,
-            "shc": ["HEA"],
-            "shipper": "Rhein-Main Aero Services GmbH",
-            "consignee": "Kennedy Line Maintenance Inc.",
-            "origin": "FRA",
-            "destination": "JFK",
-            "transferRole": "local",
-            "onwardCarrier": null,
-            "onwardFlightNumber": null,
-            "connectionMinutes": null,
-            "connectionAtRisk": false,
-            "dangerousGoods": null,
-            "coldChain": null,
-            "status": "loaded",
-            "offloadReason": null,
-            "offloadedFrom": null
+            "kind": "uld",
+            "uldCode": "AKE48201AA",
+            "uldType": "AKE",
+            "positionDesignator": null,
+            "compartment": 1,
+            "deck": "lower",
+            "tareKg": 0,
+            "grossKg": 0,
+            "volumeM3": 0,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-48203713",
+                "commodity": "printed-matter",
+                "description": "Books, palletised",
+                "pieces": 64,
+                "grossKg": 1418,
+                "volumeM3": 2.026,
+                "shc": [],
+                "shipper": "Bauer Verlag GmbH",
+                "consignee": "Whitaker Distribution LLC",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "offloaded",
+                "offloadReason": "payload_restriction",
+                "offloadedFrom": "11L"
+              }
+            ]
+          },
+          {
+            "kind": "uld",
+            "uldCode": "AKE48202AA",
+            "uldType": "AKE",
+            "positionDesignator": "11R",
+            "compartment": 1,
+            "deck": "lower",
+            "tareKg": 82,
+            "grossKg": 1400,
+            "volumeM3": 2.545,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-48203724",
+                "commodity": "coffee-beans",
+                "description": "Speciality green coffee, bagged",
+                "pieces": 35,
+                "grossKg": 1400,
+                "volumeM3": 2.545,
+                "shc": ["EAT"],
+                "shipper": "Rheinhafen Rohkaffee GmbH",
+                "consignee": "Hudson Roasting Co.",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "loaded",
+                "offloadReason": null,
+                "offloadedFrom": null
+              }
+            ]
+          },
+          {
+            "kind": "uld",
+            "uldCode": "AKE48203AA",
+            "uldType": "AKE",
+            "positionDesignator": "12L",
+            "compartment": 1,
+            "deck": "lower",
+            "tareKg": 82,
+            "grossKg": 900,
+            "volumeM3": 4.091,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-48203735",
+                "commodity": "medical-devices",
+                "description": "Sterile medical devices",
+                "pieces": 56,
+                "grossKg": 900,
+                "volumeM3": 4.091,
+                "shc": ["PIL"],
+                "shipper": "Kirchner Medizintechnik GmbH",
+                "consignee": "Bayside Hospital Supply Inc.",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "loaded",
+                "offloadReason": null,
+                "offloadedFrom": null
+              }
+            ]
+          },
+          {
+            "kind": "uld",
+            "uldCode": "AKE48204AA",
+            "uldType": "AKE",
+            "positionDesignator": "12R",
+            "compartment": 1,
+            "deck": "lower",
+            "tareKg": 82,
+            "grossKg": 1454,
+            "volumeM3": 2.423,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-48203746",
+                "commodity": "engine-fan-blades",
+                "description": "Turbofan blade set, AOG",
+                "pieces": 4,
+                "grossKg": 1454,
+                "volumeM3": 2.423,
+                "shc": ["HEA"],
+                "shipper": "Rhein-Main Aero Services GmbH",
+                "consignee": "Kennedy Line Maintenance Inc.",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "loaded",
+                "offloadReason": null,
+                "offloadedFrom": null
+              }
+            ]
           }
         ]
       }
@@ -929,8 +1013,8 @@ Feature: Finish flight boarding
         "compartment": 1,
         "deck": "lower",
         "tareKg": 82,
-        "grossKg": 800,
-        "volumeM3": 3.636,
+        "grossKg": 900,
+        "volumeM3": 4.091,
         "contentClass": "cargo",
         "beyondDestination": null,
         "sealed": false,
@@ -941,9 +1025,9 @@ Feature: Finish flight boarding
             "awb": "001-48203735",
             "commodity": "medical-devices",
             "description": "Sterile medical devices",
-            "pieces": 50,
-            "grossKg": 800,
-            "volumeM3": 3.636,
+            "pieces": 56,
+            "grossKg": 900,
+            "volumeM3": 4.091,
             "shc": ["PIL"],
             "shipper": "Kirchner Medizintechnik GmbH",
             "consignee": "Bayside Hospital Supply Inc.",
@@ -1021,8 +1105,8 @@ Feature: Finish flight boarding
             "compartment": 1,
             "deck": "lower",
             "tareKg": 82,
-            "grossKg": 1500,
-            "volumeM3": 2.143,
+            "grossKg": 1418,
+            "volumeM3": 2.026,
             "contentClass": "cargo",
             "beyondDestination": null,
             "sealed": false,
@@ -1033,9 +1117,9 @@ Feature: Finish flight boarding
                 "awb": "001-48203713",
                 "commodity": "printed-matter",
                 "description": "Books, palletised",
-                "pieces": 68,
-                "grossKg": 1500,
-                "volumeM3": 2.143,
+                "pieces": 64,
+                "grossKg": 1418,
+                "volumeM3": 2.026,
                 "shc": [],
                 "shipper": "Bauer Verlag GmbH",
                 "consignee": "Whitaker Distribution LLC",
@@ -1103,8 +1187,8 @@ Feature: Finish flight boarding
             "compartment": 1,
             "deck": "lower",
             "tareKg": 82,
-            "grossKg": 800,
-            "volumeM3": 3.636,
+            "grossKg": 900,
+            "volumeM3": 4.091,
             "contentClass": "cargo",
             "beyondDestination": null,
             "sealed": false,
@@ -1115,9 +1199,9 @@ Feature: Finish flight boarding
                 "awb": "001-48203735",
                 "commodity": "medical-devices",
                 "description": "Sterile medical devices",
-                "pieces": 50,
-                "grossKg": 800,
-                "volumeM3": 3.636,
+                "pieces": 56,
+                "grossKg": 900,
+                "volumeM3": 4.091,
                 "shc": ["PIL"],
                 "shipper": "Kirchner Medizintechnik GmbH",
                 "consignee": "Bayside Hospital Supply Inc.",
@@ -1144,8 +1228,8 @@ Feature: Finish flight boarding
             "compartment": 1,
             "deck": "lower",
             "tareKg": 82,
-            "grossKg": 1472,
-            "volumeM3": 2.453,
+            "grossKg": 1454,
+            "volumeM3": 2.423,
             "contentClass": "cargo",
             "beyondDestination": null,
             "sealed": false,
@@ -1157,8 +1241,8 @@ Feature: Finish flight boarding
                 "commodity": "engine-fan-blades",
                 "description": "Turbofan blade set, AOG",
                 "pieces": 4,
-                "grossKg": 1472,
-                "volumeM3": 2.453,
+                "grossKg": 1454,
+                "volumeM3": 2.423,
                 "shc": ["HEA"],
                 "shipper": "Rhein-Main Aero Services GmbH",
                 "consignee": "Kennedy Line Maintenance Inc.",
@@ -1205,7 +1289,7 @@ Feature: Finish flight boarding
       {
         "statusCode": 422,
         "error": "Unprocessable Content",
-        "message": "Cannot reduce the load to 1000 kg while 1554 kg aboard may not be offloaded."
+        "message": "Cannot reduce the load to 1000 kg while 1536 kg aboard may not be offloaded."
       }
       """
     When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
@@ -1325,9 +1409,9 @@ Feature: Finish flight boarding
           "cabinCrew": 0
         },
         "passengers": 0,
-        "payload": 4.5,
-        "cargo": 4.5,
-        "zeroFuelWeight": 72.9,
+        "payload": 4,
+        "cargo": 4,
+        "zeroFuelWeight": 72.4,
         "blockFuel": 21.4
       }
       """
@@ -1340,24 +1424,70 @@ Feature: Finish flight boarding
       {
         "flightId": "d2601432-e8cb-4018-8cee-f24aaaa29ca5",
         "stage": "final",
-        "issuedAt": "@any",
+        "issuedAt": "@date('within 1 minute from now')",
         "acknowledgedById": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
-        "acknowledgedAt": "@any",
-        "document": "@any",
-        "changes": "@any"
+        "acknowledgedAt": "@date('within 1 minute from now')",
+        "document": {
+          "summary": {
+            "cargoKg": 4000,
+            "baggageKg": 0,
+            "deadloadKg": 4000,
+            "beyondCount": 0,
+            "palletCount": 0,
+            "compartments": [
+              {
+                "deck": "lower",
+                "dryIceKg": 0,
+                "weightKg": 4000,
+                "compartment": 1
+              }
+            ],
+            "looseLotCount": 0,
+            "containerCount": 3,
+            "tightestConnectionMinutes": null
+          },
+          "coldChain": [],
+          "statement": "No dangerous goods loaded.",
+          "specialLoads": [
+            {
+              "awb": "001-48203735",
+              "shc": ["PIL"],
+              "grossKg": 900,
+              "position": "12L",
+              "compartment": 1,
+              "description": "Sterile medical devices",
+              "heaviestPiece": null,
+              "unloadingAirport": "JFK"
+            },
+            {
+              "awb": "001-48203746",
+              "shc": ["HEA"],
+              "grossKg": 1454,
+              "position": "12R",
+              "compartment": 1,
+              "description": "Turbofan blade set, AOG",
+              "heaviestPiece": {
+                "kg": 900,
+                "widthCm": 110,
+                "heightCm": 95,
+                "lengthCm": 240
+              },
+              "unloadingAirport": "JFK"
+            }
+          ],
+          "dangerousGoods": []
+        },
+        "changes": {
+          "changed": true,
+          "dangerousGoodsAdded": [],
+          "dangerousGoodsRemoved": [],
+          "specialLoadsAdded": [],
+          "specialLoadsRemoved": [],
+          "repositioned": [],
+          "cargoChangeKg": -1500,
+          "deadloadChangeKg": -1500
+        }
       }
-      """
-    And the response body property "document.summary.cargoKg" should contain:
-      """json
-      4500
-      """
-    And the response body property "changes.changed" should contain:
-      """json
-      true
-      """
-    And the response body property "changes.cargoChangeKg" should contain:
-      """json
-      -1000
       """
     And I set database to initial state
 
@@ -1382,17 +1512,74 @@ Feature: Finish flight boarding
     Given I am signed in as "operations"
     When I send a "GET" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/notoc"
     Then the response status should be 200
-    And the response body property "changes" should contain:
+    And the response body should contain:
       """json
       {
-        "changed": false,
-        "dangerousGoodsAdded": [],
-        "dangerousGoodsRemoved": [],
-        "specialLoadsAdded": [],
-        "specialLoadsRemoved": [],
-        "repositioned": [],
-        "cargoChangeKg": 0,
-        "deadloadChangeKg": 0
+        "flightId": "d2601432-e8cb-4018-8cee-f24aaaa29ca5",
+        "stage": "final",
+        "issuedAt": "@date('within 1 minute from now')",
+        "acknowledgedById": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+        "acknowledgedAt": "@date('within 1 minute from now')",
+        "document": {
+          "summary": {
+            "cargoKg": 5500,
+            "baggageKg": 0,
+            "deadloadKg": 5500,
+            "beyondCount": 0,
+            "palletCount": 0,
+            "compartments": [
+              {
+                "deck": "lower",
+                "dryIceKg": 0,
+                "weightKg": 5500,
+                "compartment": 1
+              }
+            ],
+            "looseLotCount": 0,
+            "containerCount": 4,
+            "tightestConnectionMinutes": null
+          },
+          "coldChain": [],
+          "statement": "No dangerous goods loaded.",
+          "specialLoads": [
+            {
+              "awb": "001-48203735",
+              "shc": ["PIL"],
+              "grossKg": 900,
+              "position": "12L",
+              "compartment": 1,
+              "description": "Sterile medical devices",
+              "heaviestPiece": null,
+              "unloadingAirport": "JFK"
+            },
+            {
+              "awb": "001-48203746",
+              "shc": ["HEA"],
+              "grossKg": 1454,
+              "position": "12R",
+              "compartment": 1,
+              "description": "Turbofan blade set, AOG",
+              "heaviestPiece": {
+                "kg": 900,
+                "widthCm": 110,
+                "heightCm": 95,
+                "lengthCm": 240
+              },
+              "unloadingAirport": "JFK"
+            }
+          ],
+          "dangerousGoods": []
+        },
+        "changes": {
+          "changed": false,
+          "dangerousGoodsAdded": [],
+          "dangerousGoodsRemoved": [],
+          "specialLoadsAdded": [],
+          "specialLoadsRemoved": [],
+          "repositioned": [],
+          "cargoChangeKg": 0,
+          "deadloadChangeKg": 0
+        }
       }
       """
     And I set database to initial state

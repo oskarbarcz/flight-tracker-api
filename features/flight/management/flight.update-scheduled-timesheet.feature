@@ -188,7 +188,7 @@ Feature: Update flight scheduled timesheet
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
-        "notoc": null,
+        "hasNotoc": false,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",

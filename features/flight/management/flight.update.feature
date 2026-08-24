@@ -168,7 +168,7 @@ Feature: Update flight
         ],
         "isFlightDiverted": false,
         "hasFlightPath": false,
-        "notoc": null,
+        "hasNotoc": false,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "pilot": null
@@ -351,7 +351,7 @@ Feature: Update flight
         ],
         "isFlightDiverted": false,
         "hasFlightPath": false,
-        "notoc": null,
+        "hasNotoc": false,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "pilot": null
