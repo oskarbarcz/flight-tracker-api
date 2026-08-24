@@ -4,8 +4,10 @@ import {
   CargoContentClass,
   CargoDeck,
   CargoShipmentStatus,
+  CargoTransferRole,
   CargoUnitKind,
   Prisma,
+  WeatherInformationType,
 } from 'prisma/client/client';
 
 export type NewCargoShipment = {
@@ -18,6 +20,14 @@ export type NewCargoShipment = {
   shc: string[];
   shipper: string;
   consignee: string;
+  origin: string;
+  destination: string;
+  transferRole: CargoTransferRole;
+  onwardCarrier: string | null;
+  onwardFlightNumber: string | null;
+  connectionMinutes: number | null;
+  dangerousGoods: Prisma.InputJsonValue | typeof Prisma.DbNull;
+  temperatureControl: Prisma.InputJsonValue | typeof Prisma.DbNull;
 };
 
 export type NewCargoUnit = {
@@ -32,6 +42,8 @@ export type NewCargoUnit = {
   grossKg: number;
   volumeM3: number;
   contentClass: CargoContentClass;
+  beyondDestination: string | null;
+  sealed: boolean;
   shipments: NewCargoShipment[];
 };
 
@@ -82,5 +94,37 @@ export class CargoRepository {
 
   async countForFlight(flightId: string): Promise<number> {
     return this.prisma.flightCargoUnit.count({ where: { flightId } });
+  }
+
+  async networkAirports(
+    excluding: string[],
+  ): Promise<{ iataCode: string; continent: string }[]> {
+    return this.prisma.airport.findMany({
+      where: { iataCode: { notIn: excluding } },
+      select: { iataCode: true, continent: true },
+    });
+  }
+
+  async latestMetar(iataCode: string): Promise<string | null> {
+    const weather = await this.prisma.airportWeather.findFirst({
+      where: {
+        airport: { iataCode },
+        informationType: WeatherInformationType.metar,
+      },
+      orderBy: { lastFetched: 'desc' },
+      select: { content: true },
+    });
+
+    return weather?.content ?? null;
+  }
+
+  async carrierCodes(excluding: string): Promise<string[]> {
+    const operators = await this.prisma.operator.findMany({
+      where: { iataCode: { not: excluding } },
+      select: { iataCode: true },
+      distinct: ['iataCode'],
+    });
+
+    return operators.map((operator) => operator.iataCode);
   }
 }

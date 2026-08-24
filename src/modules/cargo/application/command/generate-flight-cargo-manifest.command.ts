@@ -14,6 +14,12 @@ import {
   HoldWeightCapacityExceededError,
 } from '../../model/error/cargo.error';
 import { offeredCommodities } from '../../model/commodity-selection';
+import { offeredCommoditiesFor } from '../../model/cargo-aircraft-only.policy';
+import {
+  ambientFromMetar,
+  upgradeOfferedSolutions,
+} from '../../model/cold-chain';
+import { ColdChainContext } from '../../model/cargo-packing';
 import {
   LoadUnitKind,
   looseSlotsOf,
@@ -23,6 +29,11 @@ import {
 } from '../../model/cargo-packing';
 import { findCommodityById } from '../../data/cargo-commodities';
 import { awbPrefixFor, generateAwb } from '../../model/awb';
+import {
+  CargoAirport,
+  isRaisedByOperator,
+  JourneyContext,
+} from '../../model/shipment-journey';
 import { generateUldSerial } from '../../model/uld';
 import { tradePartyFactory, TradeParties } from '../../model/trade-party';
 import { resolvePassengerLocale } from '../../../passengers/model/passenger-name';
@@ -30,8 +41,12 @@ import { Continent } from '../../../airports/model/airport.model';
 import {
   CargoContentClass,
   CargoDeck as PrismaCargoDeck,
+  CargoTransferRole as PrismaTransferRole,
   CargoUnitKind,
+  Prisma,
 } from 'prisma/client/client';
+
+const BUILD_UP_HOURS = 3;
 
 export type CargoEndpoint = {
   iataCode: string;
@@ -45,9 +60,11 @@ export class GenerateFlightCargoManifestCommand {
     public readonly aircraftId: string,
     public readonly operatorIata: string,
     public readonly cargoTons: number,
+    public readonly passengers: number,
     public readonly departure: CargoEndpoint,
     public readonly arrival: CargoEndpoint,
     public readonly departureAt: Date,
+    public readonly flightHours: number,
   ) {}
 }
 
@@ -64,9 +81,11 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
       aircraftId,
       operatorIata,
       cargoTons,
+      passengers,
       departure,
       arrival,
       departureAt,
+      flightHours,
     } = command;
 
     const hold: AircraftHold = await this.queryBus.execute(
@@ -93,18 +112,51 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
       return;
     }
 
-    const offered = offeredCommodities({
-      iataCode: departure.iataCode,
-      country: departure.country,
-      continent: departure.continent,
-      month: departureAt.getUTCMonth() + 1,
-    });
+    const coldChain: ColdChainContext = {
+      buildUpHours: BUILD_UP_HOURS,
+      flightHours,
+      ambientC: ambientFromMetar(
+        await this.cargoRepository.latestMetar(arrival.iataCode),
+      ),
+    };
+
+    const offered = upgradeOfferedSolutions(
+      offeredCommoditiesFor(
+        offeredCommodities({
+          iataCode: departure.iataCode,
+          country: departure.country,
+          continent: departure.continent,
+          month: departureAt.getUTCMonth() + 1,
+        }),
+        passengers,
+      ),
+      coldChain.buildUpHours + coldChain.flightHours,
+    );
+
+    const [networkAirports, carriers] = await Promise.all([
+      this.cargoRepository.networkAirports([
+        departure.iataCode,
+        arrival.iataCode,
+      ]),
+      this.cargoRepository.carrierCodes(operatorIata),
+    ]);
+
+    const journey: JourneyContext = {
+      leg: { departure: departure.iataCode, arrival: arrival.iataCode },
+      departureContinent: departure.continent,
+      arrivalContinent: arrival.continent,
+      candidates: networkAirports as CargoAirport[],
+      carriers,
+      random: Math.random,
+    };
 
     const planned = planCargoLoad({
       targetKg,
       offered,
       slots: variant ? slotsOf(variant) : [],
       looseSlots: variant ? looseSlotsOf(variant) : [],
+      journey,
+      coldChain,
       random: Math.random,
     });
 
@@ -117,7 +169,7 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
     await this.cargoRepository.replace(
       flightId,
       planned.map((unit) =>
-        this.toNewUnit(unit, operatorIata, prefix, parties),
+        this.toNewUnit(unit, operatorIata, prefix, parties, carriers),
       ),
     );
   }
@@ -127,6 +179,7 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
     operatorIata: string,
     prefix: string,
     parties: TradeParties,
+    carriers: string[],
   ): NewCargoUnit {
     const containerised = unit.kind === LoadUnitKind.Uld;
 
@@ -142,17 +195,51 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
       grossKg: unit.grossKg,
       volumeM3: unit.volumeM3,
       contentClass: CargoContentClass.cargo,
+      beyondDestination: unit.beyondDestination,
+      sealed: unit.sealed,
       shipments: unit.shipments.map((shipment) => ({
         commodityId: shipment.commodityId,
         description: shipment.description,
-        awb: generateAwb(prefix, Math.random()),
+        awb: generateAwb(
+          isRaisedByOperator(shipment.journey.transferRole)
+            ? prefix
+            : awbPrefixFor(inboundCarrier(carriers)),
+          Math.random(),
+        ),
         pieces: shipment.pieces,
         grossKg: shipment.grossKg,
         volumeM3: shipment.volumeM3,
         shc: findCommodityById(shipment.commodityId)?.shc ?? [],
         shipper: parties.shipper(),
         consignee: parties.consignee(),
+        origin: shipment.journey.origin,
+        destination: shipment.journey.destination,
+        transferRole: shipment.journey
+          .transferRole as unknown as PrismaTransferRole,
+        onwardCarrier: shipment.journey.onwardCarrier,
+        onwardFlightNumber: shipment.journey.onwardFlightNumber,
+        connectionMinutes: shipment.journey.connectionMinutes,
+        dangerousGoods: dangerousGoodsOf(shipment.commodityId),
+        temperatureControl:
+          (shipment.coldChain as unknown as Prisma.InputJsonValue) ??
+          Prisma.DbNull,
       })),
     };
   }
+}
+
+function dangerousGoodsOf(
+  commodityId: string,
+): Prisma.InputJsonValue | typeof Prisma.DbNull {
+  const declaration = findCommodityById(commodityId)?.dangerousGoods;
+
+  return declaration
+    ? (declaration as unknown as Prisma.InputJsonValue)
+    : Prisma.DbNull;
+}
+
+function inboundCarrier(carriers: string[]): string {
+  return carriers.length === 0
+    ? 'ZZ'
+    : carriers[Math.floor(Math.random() * carriers.length)];
 }

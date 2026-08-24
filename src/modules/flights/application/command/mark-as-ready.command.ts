@@ -17,6 +17,7 @@ import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-
 import { GenerateFlightManifestCommand } from '../../../passengers/application/command/generate-flight-manifest.command';
 import { GenerateFlightCargoManifestCommand } from '../../../cargo/application/command/generate-flight-cargo-manifest.command';
 import { AirportType } from '../../../airports/model/airport.model';
+import { scheduledFlightHours } from '../../model/timesheet.model';
 
 export class MarkAsReadyCommand {
   constructor(
@@ -70,6 +71,7 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
         flight.aircraft.id,
         flight.operator.iataCode,
         flight.loadsheets.preliminary.cargo,
+        flight.loadsheets.preliminary.passengers,
         {
           iataCode: departure.iataCode,
           country: departure.country,
@@ -83,12 +85,13 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
         flight.timesheet.scheduled?.offBlockTime
           ? new Date(flight.timesheet.scheduled.offBlockTime)
           : new Date(),
+        scheduledFlightHours(flight.timesheet.scheduled),
       );
       await this.commandBus.execute(generateCargoManifest);
     }
 
     await this.flightsRepository.updateStatus(flightId, FlightStatus.Ready);
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new FlightWasReleasedEvent({
         flightId,
         scope: FlightEventScope.User,

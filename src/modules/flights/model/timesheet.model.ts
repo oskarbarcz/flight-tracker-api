@@ -113,3 +113,22 @@ export const mergeSchedulePatch = (
   }
   return result;
 };
+
+export const DEFAULT_FLIGHT_HOURS = 8;
+
+export const scheduledFlightHours = (
+  schedule: Partial<Schedule> | undefined,
+): number => {
+  if (!schedule?.offBlockTime || !schedule.onBlockTime) {
+    return DEFAULT_FLIGHT_HOURS;
+  }
+
+  const minutes =
+    (new Date(schedule.onBlockTime).getTime() -
+      new Date(schedule.offBlockTime).getTime()) /
+    60000;
+
+  return minutes > 0
+    ? Math.round((minutes / 60) * 10) / 10
+    : DEFAULT_FLIGHT_HOURS;
+};

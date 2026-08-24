@@ -1,4 +1,5 @@
 import {
+  admissibleFor,
   canShareUnit,
   LoadUnitKind,
   looseSlotsOf,
@@ -15,6 +16,11 @@ import { findHoldLayoutByType } from '../data/cargo-holds';
 import { findCommodityById } from '../data/cargo-commodities';
 import { offeredCommodities, OfferedCommodity } from './commodity-selection';
 import { Continent } from '../../airports/model/airport.model';
+import { JourneyContext, transferRoleOf } from './shipment-journey';
+import { conflicts } from './segregation.policy';
+import { SpecialHandlingCode } from './commodity.model';
+import { offeredCommoditiesFor } from './cargo-aircraft-only.policy';
+import { SourceTier } from './commodity-selection';
 import { defaultVariantOf, HoldVariant } from './hold-layout.model';
 import { UldType } from './uld';
 
@@ -34,6 +40,24 @@ function variantOf(type: string, id?: string): HoldVariant {
     ? layout.variants.find((variant) => variant.id === id)!
     : defaultVariantOf(layout);
 }
+
+function journeyContext(seed: number): JourneyContext {
+  return {
+    leg: { departure: 'FRA', arrival: 'JFK' },
+    departureContinent: Continent.Europe,
+    arrivalContinent: Continent.NorthAmerica,
+    candidates: [
+      { iataCode: 'CDG', continent: Continent.Europe },
+      { iataCode: 'WAW', continent: Continent.Europe },
+      { iataCode: 'BOS', continent: Continent.NorthAmerica },
+      { iataCode: 'YYT', continent: Continent.NorthAmerica },
+    ],
+    carriers: ['AC', 'DL'],
+    random: seededRandom(seed),
+  };
+}
+
+const coldChain = { buildUpHours: 3, flightHours: 9, ambientC: null };
 
 const frankfurt = {
   iataCode: 'FRA',
@@ -59,6 +83,8 @@ function plan(
     offered: offersFor(),
     slots: slotsOf(variant),
     looseSlots: looseSlotsOf(variant),
+    journey: journeyContext(seed),
+    coldChain,
     random: seededRandom(seed),
   });
 }
@@ -209,6 +235,8 @@ describe('cargo packing', () => {
         offered,
         slots: slotsOf(variant),
         looseSlots: looseSlotsOf(variant),
+        journey: journeyContext(9),
+        coldChain,
         random: seededRandom(9),
       }).filter((unit) => unit.kind === LoadUnitKind.Uld).length;
 
@@ -224,6 +252,8 @@ describe('cargo packing', () => {
         offered: offersFor(),
         slots: slotsOf(variant),
         looseSlots: looseSlotsOf(variant),
+        journey: journeyContext(1),
+        coldChain,
         random: seededRandom(1),
       }),
     ).toEqual([]);
@@ -233,6 +263,8 @@ describe('cargo packing', () => {
         offered: [],
         slots: slotsOf(variant),
         looseSlots: looseSlotsOf(variant),
+        journey: journeyContext(1),
+        coldChain,
         random: seededRandom(1),
       }),
     ).toEqual([]);
@@ -293,6 +325,180 @@ describe('cargo packing', () => {
     );
 
     expect(tinyLots).toEqual([]);
+    expect(totalCargoKg(units)).toBe(18000);
+  });
+
+  it('gives every shipment a journey consistent with its role', () => {
+    const shipments = plan('B77W', 18000).flatMap((unit) => unit.shipments);
+
+    expect(shipments.length).toBeGreaterThan(0);
+    expect(
+      shipments.every(
+        (shipment) =>
+          shipment.journey.transferRole ===
+          transferRoleOf(
+            shipment.journey.origin,
+            shipment.journey.destination,
+            { departure: 'FRA', arrival: 'JFK' },
+          ),
+      ),
+    ).toBe(true);
+  });
+
+  it('builds some units for a single point beyond the arrival', () => {
+    const sealed = plan('B77W', 18000).filter((unit) => unit.sealed);
+
+    expect(sealed.length).toBeGreaterThan(0);
+    expect(sealed.every((unit) => unit.beyondDestination !== null)).toBe(true);
+  });
+
+  it('holds nothing but its own destination in a unit that transfers intact', () => {
+    const wrong = plan('B77W', 18000)
+      .filter((unit) => unit.sealed)
+      .filter((unit) =>
+        unit.shipments.some(
+          (shipment) => shipment.journey.destination !== unit.beyondDestination,
+        ),
+      );
+
+    expect(wrong).toEqual([]);
+  });
+
+  it('marks a unit that is not built for a beyond point as broken down', () => {
+    const brokenDown = plan('B77W', 18000).filter((unit) => !unit.sealed);
+
+    expect(brokenDown.length).toBeGreaterThan(0);
+    expect(brokenDown.every((unit) => unit.beyondDestination === null)).toBe(
+      true,
+    );
+  });
+
+  it('never sends a loose lot onward as a sealed unit', () => {
+    const lots = plan('B738', 2000);
+
+    expect(lots.every((unit) => unit.sealed === false)).toBe(true);
+    expect(lots.every((unit) => unit.beyondDestination === null)).toBe(true);
+  });
+
+  it('names an onward carrier on every shipment that continues', () => {
+    const shipments = plan('B77W', 18000).flatMap((unit) => unit.shipments);
+    const continuing = shipments.filter(
+      (shipment) => shipment.journey.destination !== 'JFK',
+    );
+
+    expect(continuing.length).toBeGreaterThan(0);
+    expect(
+      continuing.every(
+        (shipment) =>
+          shipment.journey.onwardCarrier !== null &&
+          shipment.journey.connectionMinutes !== null,
+      ),
+    ).toBe(true);
+  });
+
+  it('places live animals only in a heated and ventilated compartment', () => {
+    const variant = variantOf('B77W');
+    const compartments = new Map(
+      variant.decks
+        .flatMap((deck) => deck.compartments)
+        .map((compartment) => [compartment.number, compartment]),
+    );
+
+    const wrong = plan('B77W', 40000)
+      .filter((unit) =>
+        unit.shipments.some((shipment) =>
+          (findCommodityById(shipment.commodityId)?.shc ?? []).includes(
+            SpecialHandlingCode.LiveAnimals,
+          ),
+        ),
+      )
+      .filter((unit) => {
+        const compartment = compartments.get(unit.compartment!);
+
+        return !compartment?.heated || !compartment?.ventilated;
+      });
+
+    expect(wrong).toEqual([]);
+  });
+
+  it('never puts a segregated pair in the same compartment', () => {
+    const byCompartment = new Map<number, SpecialHandlingCode[]>();
+
+    for (const unit of plan('B77W', 40000)) {
+      if (unit.compartment === null) {
+        continue;
+      }
+
+      const codes = unit.shipments.flatMap(
+        (shipment) => findCommodityById(shipment.commodityId)?.shc ?? [],
+      );
+      const existing = byCompartment.get(unit.compartment) ?? [];
+
+      expect(conflicts(codes, existing)).toBe(false);
+      byCompartment.set(unit.compartment, [...existing, ...codes]);
+    }
+  });
+
+  it('withholds a load its compartment cannot take', () => {
+    const variant = variantOf('B77W');
+    const slot = slotsOf(variant).find(
+      (candidate) => !candidate.compartment.heated,
+    )!;
+    const chicks = findCommodityById('day-old-chicks')!;
+    const admissible = admissibleFor(
+      [{ commodity: chicks, tier: SourceTier.Generic, weight: 1 }],
+      slot,
+      [],
+    );
+
+    expect(admissible).toEqual([]);
+  });
+
+  it('withholds a load that conflicts with what the compartment already holds', () => {
+    const variant = variantOf('B77W');
+    const slot = slotsOf(variant).find(
+      (candidate) => candidate.compartment.heated,
+    )!;
+    const dryIce = findCommodityById('dry-ice')!;
+
+    expect(
+      admissibleFor(
+        [{ commodity: dryIce, tier: SourceTier.Generic, weight: 1 }],
+        slot,
+        [SpecialHandlingCode.LiveAnimals],
+      ),
+    ).toEqual([]);
+    expect(
+      admissibleFor(
+        [{ commodity: dryIce, tier: SourceTier.Generic, weight: 1 }],
+        slot,
+        [],
+      ),
+    ).toHaveLength(1);
+  });
+
+  it('loads no restricted cargo when the pool excludes it', () => {
+    const variant = variantOf('B77W');
+    const allowed = offeredCommoditiesFor(offersFor(), 150);
+    const units = planCargoLoad({
+      targetKg: 18000,
+      offered: allowed,
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      journey: journeyContext(4),
+      coldChain,
+      random: seededRandom(4),
+    });
+
+    const restricted = units
+      .flatMap((unit) => unit.shipments)
+      .filter((shipment) =>
+        (findCommodityById(shipment.commodityId)?.shc ?? []).includes(
+          SpecialHandlingCode.CargoAircraftOnly,
+        ),
+      );
+
+    expect(restricted).toEqual([]);
     expect(totalCargoKg(units)).toBe(18000);
   });
 
