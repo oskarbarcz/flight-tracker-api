@@ -1,20 +1,20 @@
 import { IQueryHandler, Query, QueryBus, QueryHandler } from '@nestjs/cqrs';
 import {
-  CargoRepository,
-  CargoUnitRow,
-} from '../../infra/database/repository/cargo.repository';
-import {
   FlightManifestContext,
   GetFlightManifestContextQuery,
 } from '../../../flights/application/query/get-flight-manifest-context.query';
+<<<<<<<< HEAD:src/modules/manifest/application/query/get-flight-cargo-load.query.ts
 import { CargoManifestNotGeneratedError } from '../../model/error/cargo.error';
 import {
   CargoContentClassName,
+========
+import { CargoManifestReadableByCaptainOnlyError } from '../../model/error/cargo.error';
+import {
+>>>>>>>> main:src/modules/cargo/application/query/get-flight-cargo-manifest.query.ts
   CargoShipmentStatusName,
-  CargoUnitEntry,
-  CompartmentLoad,
   FlightCargoManifest,
 } from '../../model/cargo-manifest.model';
+<<<<<<<< HEAD:src/modules/manifest/application/query/get-flight-cargo-load.query.ts
 import { CargoDeck } from '../../model/hold-layout.model';
 import {
   DangerousGoodsProfile,
@@ -33,6 +33,10 @@ import { CargoContentClass, CargoShipmentStatus } from 'prisma/client/client';
 import { BaggageSource } from '../../model/baggage';
 import { isTightConnection, TransferRole } from '../../model/shipment-journey';
 import { OffloadReason } from '../../model/cargo-reconciliation';
+========
+import { UserRole } from '../../../users/model/user-role';
+import { GetFlightCargoLoadQuery } from './get-flight-cargo-load.query';
+>>>>>>>> main:src/modules/cargo/application/query/get-flight-cargo-manifest.query.ts
 
 export class GetFlightCargoLoadQuery extends Query<FlightCargoManifest> {
   constructor(
@@ -43,21 +47,25 @@ export class GetFlightCargoLoadQuery extends Query<FlightCargoManifest> {
   }
 }
 
+<<<<<<<< HEAD:src/modules/manifest/application/query/get-flight-cargo-load.query.ts
 @QueryHandler(GetFlightCargoLoadQuery)
 export class GetFlightCargoLoadHandler implements IQueryHandler<GetFlightCargoLoadQuery> {
   constructor(
     private readonly cargoRepository: CargoRepository,
     private readonly queryBus: QueryBus,
   ) {}
+========
+@QueryHandler(GetFlightCargoManifestQuery)
+export class GetFlightCargoManifestHandler implements IQueryHandler<GetFlightCargoManifestQuery> {
+  constructor(private readonly queryBus: QueryBus) {}
+>>>>>>>> main:src/modules/cargo/application/query/get-flight-cargo-manifest.query.ts
 
   async execute(query: GetFlightCargoLoadQuery): Promise<FlightCargoManifest> {
     const { flightId, status } = query;
 
-    const rows = await this.cargoRepository.findByFlight(
-      flightId,
-      status as unknown as CargoShipmentStatus | undefined,
-    );
+    const load = new GetFlightCargoLoadQuery(flightId, status);
 
+<<<<<<<< HEAD:src/modules/manifest/application/query/get-flight-cargo-load.query.ts
     if (rows.length === 0) {
       throw new CargoManifestNotGeneratedError();
     }
@@ -111,126 +119,8 @@ export class GetFlightCargoLoadHandler implements IQueryHandler<GetFlightCargoLo
       compartmentLoad: compartmentLoadOf(rows),
       units,
     };
+========
+    return this.queryBus.execute(load);
+>>>>>>>> main:src/modules/cargo/application/query/get-flight-cargo-manifest.query.ts
   }
-}
-
-function toUnitEntry(row: CargoUnitRow): CargoUnitEntry {
-  return {
-    kind: row.kind as unknown as LoadUnitKind,
-    uldCode:
-      row.uldType && row.uldSerial && row.uldOwner
-        ? formatUldCode(row.uldType as UldType, row.uldSerial, row.uldOwner)
-        : null,
-    uldType: (row.uldType as UldType) ?? null,
-    positionDesignator: row.positionDesignator,
-    compartment: row.compartment,
-    deck: (row.deck as unknown as CargoDeck) ?? null,
-    tareKg: row.tareKg,
-    grossKg: row.grossKg,
-    volumeM3: Number(row.volumeM3),
-    contentClass: row.contentClass as unknown as CargoContentClassName,
-    beyondDestination: row.beyondDestination,
-    sealed: row.sealed,
-    bagCount: row.bagCount,
-    priority: row.priority,
-    shipments: row.shipments.map((shipment) => ({
-      awb: shipment.awb,
-      commodity: shipment.commodityId,
-      description: shipment.description,
-      pieces: shipment.pieces,
-      grossKg: shipment.grossKg,
-      volumeM3: Number(shipment.volumeM3),
-      shc: shipment.shc,
-      shipper: shipment.shipper,
-      consignee: shipment.consignee,
-      origin: shipment.origin,
-      destination: shipment.destination,
-      transferRole: shipment.transferRole as unknown as TransferRole,
-      onwardCarrier: shipment.onwardCarrier,
-      onwardFlightNumber: shipment.onwardFlightNumber,
-      connectionMinutes: shipment.connectionMinutes,
-      connectionAtRisk: isTightConnection(shipment.connectionMinutes),
-      dangerousGoods:
-        (shipment.dangerousGoods as DangerousGoodsProfile | null) ?? null,
-      coldChain:
-        (shipment.temperatureControl as ColdChainAssessment | null) ?? null,
-      status: shipment.status as unknown as CargoShipmentStatusName,
-      offloadReason:
-        (shipment.offloadReason as unknown as OffloadReason) ?? null,
-      offloadedFrom: shipment.offloadedFrom,
-    })),
-  };
-}
-
-function baggageSourceOf(rows: CargoUnitRow[]): BaggageSource | null {
-  return (
-    (rows.find((row) => row.baggageSource !== null)
-      ?.baggageSource as BaggageSource) ?? null
-  );
-}
-
-const RISK_ORDER = [
-  ColdChainRisk.Low,
-  ColdChainRisk.Elevated,
-  ColdChainRisk.High,
-];
-
-function worstRiskOf(units: CargoUnitEntry[]): ColdChainRisk | null {
-  const risks = units
-    .flatMap((unit) => unit.shipments)
-    .map((shipment) => shipment.coldChain?.risk)
-    .filter((risk): risk is ColdChainRisk => risk !== undefined);
-
-  return risks.length === 0
-    ? null
-    : risks.reduce((worst, risk) =>
-        RISK_ORDER.indexOf(risk) > RISK_ORDER.indexOf(worst) ? risk : worst,
-      );
-}
-
-function tightestConnectionOf(units: CargoUnitEntry[]): number | null {
-  const connections = units
-    .flatMap((unit) => unit.shipments)
-    .map((shipment) => shipment.connectionMinutes)
-    .filter((minutes): minutes is number => minutes !== null);
-
-  return connections.length === 0 ? null : Math.min(...connections);
-}
-
-function compartmentLoadOf(rows: CargoUnitRow[]): CompartmentLoad[] {
-  const byCompartment = new Map<string, CompartmentLoad>();
-
-  for (const row of rows) {
-    if (row.compartment === null || row.deck === null) {
-      continue;
-    }
-
-    const key = `${row.deck}/${row.compartment}`;
-    const existing = byCompartment.get(key);
-    const weightKg = row.tareKg + row.grossKg;
-    const dryIceKg = row.shipments.reduce(
-      (sum, shipment) =>
-        sum +
-        dryIceKgOf(shipment.shc as SpecialHandlingCode[], shipment.grossKg),
-      0,
-    );
-
-    if (existing) {
-      existing.weightKg += weightKg;
-      existing.dryIceKg += dryIceKg;
-      continue;
-    }
-
-    byCompartment.set(key, {
-      compartment: row.compartment,
-      deck: row.deck as unknown as CargoDeck,
-      weightKg,
-      dryIceKg,
-    });
-  }
-
-  return [...byCompartment.values()].sort(
-    (one, other) =>
-      one.deck.localeCompare(other.deck) || one.compartment - other.compartment,
-  );
 }
