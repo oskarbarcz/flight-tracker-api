@@ -114,9 +114,8 @@ requirements, the position compatibility rules and the compartment weight limits
 ### Requirement: A final cargo tonnage the hold cannot take is rejected
 
 The system SHALL reject as unprocessable an attempt to finish boarding when the final loadsheet
-reports more cargo than the aircraft's resolved hold variant can carry by weight or by volume, or
-when its payload leaves no plausible baggage residual. The checks SHALL apply only where the
-airframe type has curated hold data.
+reports more cargo than the aircraft's resolved hold variant can carry by weight or by volume.
+The check SHALL apply only where the airframe type has curated hold data.
 
 #### Scenario: An over-capacity final tonnage blocks boarding completion
 
@@ -125,7 +124,7 @@ airframe type has curated hold data.
 - **THEN** the request is rejected as unprocessable
 - **AND** boarding is not finished
 
-#### Scenario: A flight whose type has no hold data skips the checks
+#### Scenario: A flight whose type has no hold data skips the check
 
 - **GIVEN** a released flight whose aircraft's type has no curated hold data
 - **WHEN** boarding is finished with any cargo tonnage

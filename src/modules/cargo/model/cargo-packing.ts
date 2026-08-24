@@ -29,11 +29,20 @@ import {
   ColdChainAssessment,
   ColdChainExposure,
 } from './cold-chain';
+import { BaggagePlan, BaggageSource } from './baggage';
 
 export enum LoadUnitKind {
   Uld = 'uld',
   BulkLot = 'bulk_lot',
 }
+
+export enum LoadContentClass {
+  Cargo = 'cargo',
+  Baggage = 'baggage',
+  Mail = 'mail',
+}
+
+export const BAGS_PER_CUBIC_METRE = 10;
 
 export const MIN_UNIT_PAYLOAD_KG = 200;
 export const MIN_BULK_LOT_KG = 50;
@@ -70,6 +79,10 @@ export type PlannedUnit = {
   volumeM3: number;
   beyondDestination: string | null;
   sealed: boolean;
+  contentClass: LoadContentClass;
+  bagCount: number | null;
+  priority: boolean;
+  baggageSource: BaggageSource | null;
   shipments: PlannedShipment[];
 };
 
@@ -389,6 +402,10 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
       ),
       beyondDestination,
       sealed: beyondDestination !== null,
+      contentClass: LoadContentClass.Cargo,
+      bagCount: null,
+      priority: false,
+      baggageSource: null,
       shipments,
     });
   }
@@ -450,8 +467,184 @@ function bulkLot(
     volumeM3: shipment.volumeM3,
     beyondDestination: null,
     sealed: false,
+    contentClass: LoadContentClass.Cargo,
+    bagCount: null,
+    priority: false,
+    baggageSource: null,
     shipments: [shipment],
   };
+}
+
+export type BaggagePlacementRequest = {
+  plan: BaggagePlan;
+  slots: PlacementSlot[];
+  looseSlots: LooseSlot[];
+  occupied: Set<string>;
+  compartmentLoad: Map<number, number>;
+  random: () => number;
+};
+
+export function compartmentLoadOfUnits(
+  units: PlannedUnit[],
+): Map<number, number> {
+  const load = new Map<number, number>();
+
+  for (const unit of units) {
+    if (unit.compartment === null) {
+      continue;
+    }
+
+    load.set(
+      unit.compartment,
+      (load.get(unit.compartment) ?? 0) + unit.tareKg + unit.grossKg,
+    );
+  }
+
+  return load;
+}
+
+export function occupiedPositionsOf(units: PlannedUnit[]): Set<string> {
+  return new Set(
+    units
+      .map((unit) => unit.positionDesignator)
+      .filter((designator): designator is string => designator !== null),
+  );
+}
+
+export function planBaggageUnits(
+  request: BaggagePlacementRequest,
+): PlannedUnit[] {
+  const { plan, slots, looseSlots, occupied, compartmentLoad, random } =
+    request;
+
+  if (plan.bagCount === 0) {
+    return [];
+  }
+
+  const units: PlannedUnit[] = [];
+  let priorityLeft = plan.priorityBagCount;
+  let ordinaryLeft = plan.bagCount - plan.priorityBagCount;
+
+  for (const slot of slots) {
+    if (priorityLeft + ordinaryLeft === 0) {
+      break;
+    }
+
+    if (occupied.has(slot.position.designator)) {
+      continue;
+    }
+
+    const spec = Object.values(ULD_SPECS)
+      .filter(
+        (candidate) => fits(candidate, slot.position) && !candidate.active,
+      )
+      .sort((one, other) => other.volumeM3 - one.volumeM3)[0];
+
+    if (!spec) {
+      continue;
+    }
+
+    const used = compartmentLoad.get(slot.compartment.number) ?? 0;
+    const allowanceKg = Math.min(
+      spec.maxGrossKg - spec.tareKg,
+      slot.position.maxWeightKg - spec.tareKg,
+      slot.compartment.maxWeightKg - used - spec.tareKg,
+    );
+    const capacity = Math.max(
+      0,
+      Math.min(
+        Math.floor(allowanceKg / plan.bagMassKg),
+        Math.floor(spec.volumeM3 * BAGS_PER_CUBIC_METRE),
+      ),
+    );
+
+    if (capacity === 0) {
+      continue;
+    }
+
+    const priority = priorityLeft > 0;
+    const bags = Math.min(capacity, priority ? priorityLeft : ordinaryLeft);
+
+    if (bags === 0) {
+      continue;
+    }
+
+    if (priority) {
+      priorityLeft -= bags;
+    } else {
+      ordinaryLeft -= bags;
+    }
+
+    const grossKg = bags * plan.bagMassKg;
+
+    compartmentLoad.set(slot.compartment.number, used + spec.tareKg + grossKg);
+    occupied.add(slot.position.designator);
+
+    units.push({
+      kind: LoadUnitKind.Uld,
+      uldType: spec.type,
+      positionDesignator: slot.position.designator,
+      compartment: slot.compartment.number,
+      deck: slot.deck,
+      tareKg: spec.tareKg,
+      grossKg,
+      volumeM3: round3(bags / BAGS_PER_CUBIC_METRE),
+      beyondDestination: null,
+      sealed: false,
+      contentClass: LoadContentClass.Baggage,
+      bagCount: bags,
+      priority,
+      baggageSource: plan.source,
+      shipments: [],
+    });
+  }
+
+  const slot = looseSlots[Math.floor(random() * looseSlots.length)];
+
+  for (const [bags, priority] of [
+    [priorityLeft, true],
+    [ordinaryLeft, false],
+  ] as [number, boolean][]) {
+    if (bags === 0) {
+      continue;
+    }
+
+    units.push({
+      kind: LoadUnitKind.BulkLot,
+      uldType: null,
+      positionDesignator: null,
+      compartment: slot?.compartment.number ?? null,
+      deck: slot?.deck ?? null,
+      tareKg: 0,
+      grossKg: bags * plan.bagMassKg,
+      volumeM3: round3(bags / BAGS_PER_CUBIC_METRE),
+      beyondDestination: null,
+      sealed: false,
+      contentClass: LoadContentClass.Baggage,
+      bagCount: bags,
+      priority,
+      baggageSource: plan.source,
+      shipments: [],
+    });
+  }
+
+  return settleBaggageWeight(units, plan.weightKg);
+}
+
+function settleBaggageWeight(
+  units: PlannedUnit[],
+  weightKg: number,
+): PlannedUnit[] {
+  if (units.length === 0) {
+    return units;
+  }
+
+  const assigned = units.reduce((sum, unit) => sum + unit.grossKg, 0);
+  const last = units[units.length - 1];
+
+  last.grossKg = Math.max(0, last.grossKg + (weightKg - assigned));
+
+  return units;
 }
 
 function shcOf(

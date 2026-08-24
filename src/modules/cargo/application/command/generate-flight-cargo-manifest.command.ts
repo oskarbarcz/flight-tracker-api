@@ -21,12 +21,17 @@ import {
 } from '../../model/cold-chain';
 import { ColdChainContext } from '../../model/cargo-packing';
 import {
+  compartmentLoadOfUnits,
+  LoadContentClass,
   LoadUnitKind,
   looseSlotsOf,
+  occupiedPositionsOf,
+  planBaggageUnits,
   planCargoLoad,
   PlannedUnit,
   slotsOf,
 } from '../../model/cargo-packing';
+import { planBaggage } from '../../model/baggage';
 import { findCommodityById } from '../../data/cargo-commodities';
 import { awbPrefixFor, generateAwb } from '../../model/awb';
 import {
@@ -65,6 +70,8 @@ export class GenerateFlightCargoManifestCommand {
     public readonly arrival: CargoEndpoint,
     public readonly departureAt: Date,
     public readonly flightHours: number,
+    public readonly payloadTons: number,
+    public readonly passengersByCabin: Record<string, number> | null,
   ) {}
 }
 
@@ -86,6 +93,8 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
       arrival,
       departureAt,
       flightHours,
+      payloadTons,
+      passengersByCabin,
     } = command;
 
     const hold: AircraftHold = await this.queryBus.execute(
@@ -104,12 +113,6 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
       if (targetKg > maxWeightByVolume(capacity)) {
         throw new HoldVolumeCapacityExceededError(targetKg, capacity.volumeM3);
       }
-    }
-
-    if (targetKg <= 0) {
-      await this.cargoRepository.replace(flightId, []);
-
-      return;
     }
 
     const coldChain: ColdChainContext = {
@@ -160,6 +163,25 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
       random: Math.random,
     });
 
+    const baggage = planBaggage({
+      payloadTons,
+      passengers,
+      cargoTons,
+      distanceKm: await this.cargoRepository.flightDistanceKm(flightId),
+      passengersByCabin,
+    });
+
+    const baggageUnits = variant
+      ? planBaggageUnits({
+          plan: baggage,
+          slots: slotsOf(variant),
+          looseSlots: looseSlotsOf(variant),
+          occupied: occupiedPositionsOf(planned),
+          compartmentLoad: compartmentLoadOfUnits(planned),
+          random: Math.random,
+        })
+      : [];
+
     const parties = tradePartyFactory(
       resolvePassengerLocale(departure.country, departure.continent),
       resolvePassengerLocale(arrival.country, arrival.continent),
@@ -168,7 +190,7 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
 
     await this.cargoRepository.replace(
       flightId,
-      planned.map((unit) =>
+      [...planned, ...baggageUnits].map((unit) =>
         this.toNewUnit(unit, operatorIata, prefix, parties, carriers),
       ),
     );
@@ -194,9 +216,15 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
       tareKg: unit.tareKg,
       grossKg: unit.grossKg,
       volumeM3: unit.volumeM3,
-      contentClass: CargoContentClass.cargo,
+      contentClass:
+        unit.contentClass === LoadContentClass.Baggage
+          ? CargoContentClass.baggage
+          : CargoContentClass.cargo,
       beyondDestination: unit.beyondDestination,
       sealed: unit.sealed,
+      bagCount: unit.bagCount,
+      priority: unit.priority,
+      baggageSource: unit.baggageSource,
       shipments: unit.shipments.map((shipment) => ({
         commodityId: shipment.commodityId,
         description: shipment.description,

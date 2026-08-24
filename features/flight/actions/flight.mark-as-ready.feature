@@ -357,6 +357,9 @@ Feature: Mark flight as ready
         "flightId": "1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64",
         "holdVariant": "b77w-ld3",
         "cargoKg": 18000,
+        "baggageKg": "@any",
+        "bagCount": "@any",
+        "baggageSource": "@any",
         "containerCount": "@any",
         "bulkLotCount": "@any",
         "shipmentCount": "@any",
@@ -383,6 +386,9 @@ Feature: Mark flight as ready
         "flightId": "3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86",
         "holdVariant": "b738-bulk",
         "cargoKg": 1800,
+        "baggageKg": "@any",
+        "bagCount": "@any",
+        "baggageSource": "@any",
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 1,
@@ -406,6 +412,8 @@ Feature: Mark flight as ready
             "contentClass": "cargo",
             "beyondDestination": null,
             "sealed": false,
+            "bagCount": null,
+            "priority": false,
             "shipments": "@any"
           }
         ]
@@ -425,6 +433,9 @@ Feature: Mark flight as ready
         "flightId": "2c7a5d0b-3e89-4f62-8b14-6d9f0a2c3e75",
         "holdVariant": "a320-cls",
         "cargoKg": 2500,
+        "baggageKg": "@any",
+        "bagCount": "@any",
+        "baggageSource": "@any",
         "containerCount": "@any",
         "bulkLotCount": "@any",
         "shipmentCount": "@any",
@@ -451,6 +462,9 @@ Feature: Mark flight as ready
         "flightId": "4e9c7f2d-5a01-4b84-8d36-8f1b2c4e5a97",
         "holdVariant": "b74f-nose",
         "cargoKg": 62000,
+        "baggageKg": "@any",
+        "bagCount": "@any",
+        "baggageSource": "@any",
         "containerCount": "@any",
         "bulkLotCount": "@any",
         "shipmentCount": "@any",
@@ -477,6 +491,9 @@ Feature: Mark flight as ready
         "flightId": "5f0d8a3e-6b12-4c95-9e47-9a2c3d5f6b08",
         "holdVariant": null,
         "cargoKg": 8000,
+        "baggageKg": "@any",
+        "bagCount": "@any",
+        "baggageSource": "@any",
         "containerCount": 0,
         "bulkLotCount": 1,
         "shipmentCount": 1,
@@ -500,6 +517,8 @@ Feature: Mark flight as ready
             "contentClass": "cargo",
             "beyondDestination": null,
             "sealed": false,
+            "bagCount": null,
+            "priority": false,
             "shipments": "@any"
           }
         ]
@@ -542,6 +561,9 @@ Feature: Mark flight as ready
         "flightId": "8c3a1d61-9e45-4fc8-8b7a-2d5f6a8c9e3b",
         "holdVariant": "a320-cls",
         "cargoKg": 2500,
+        "baggageKg": "@any",
+        "bagCount": "@any",
+        "baggageSource": "@any",
         "containerCount": "@any",
         "bulkLotCount": "@any",
         "shipmentCount": "@any",
@@ -568,9 +590,99 @@ Feature: Mark flight as ready
         "flightId": "4e9c7f2d-5a01-4b84-8d36-8f1b2c4e5a97",
         "holdVariant": "b74f-nose",
         "cargoKg": 62000,
+        "baggageKg": "@any",
+        "bagCount": "@any",
+        "baggageSource": "@any",
         "containerCount": "@any",
         "bulkLotCount": "@any",
         "shipmentCount": "@any",
+        "worstColdChainRisk": "@any",
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": "@any",
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
+        "compartmentLoad": "@any",
+        "units": "@any"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I containerise the baggage of a flight whose payload accounts for it
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/8c3a1d61-9e45-4fc8-8b7a-2d5f6a8c9e3b/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/8c3a1d61-9e45-4fc8-8b7a-2d5f6a8c9e3b/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "8c3a1d61-9e45-4fc8-8b7a-2d5f6a8c9e3b",
+        "holdVariant": "a320-cls",
+        "cargoKg": 2500,
+        "baggageKg": 2400,
+        "bagCount": 133,
+        "baggageSource": "reconciled",
+        "containerCount": "@any",
+        "bulkLotCount": "@any",
+        "shipmentCount": "@any",
+        "worstColdChainRisk": "@any",
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": 0,
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
+        "compartmentLoad": "@any",
+        "units": "@any"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I derive the baggage of a flight whose payload cannot account for it
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/c9c526f4-7b97-4454-b1e4-28b5ea57851f/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/c9c526f4-7b97-4454-b1e4-28b5ea57851f/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "c9c526f4-7b97-4454-b1e4-28b5ea57851f",
+        "holdVariant": "a321-bulk",
+        "cargoKg": 4200,
+        "baggageKg": 2772,
+        "bagCount": 154,
+        "baggageSource": "derived",
+        "containerCount": 0,
+        "bulkLotCount": 1,
+        "shipmentCount": 1,
+        "worstColdChainRisk": "@any",
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": 0,
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
+        "compartmentLoad": "@any",
+        "units": "@any"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I carry no baggage on a flight with no passengers
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86",
+        "holdVariant": "b738-bulk",
+        "cargoKg": 1800,
+        "baggageKg": 0,
+        "bagCount": 0,
+        "baggageSource": null,
+        "containerCount": 0,
+        "bulkLotCount": 1,
+        "shipmentCount": 1,
         "worstColdChainRisk": "@any",
         "dangerousGoodsCount": "@any",
         "cargoAircraftOnlyCount": "@any",

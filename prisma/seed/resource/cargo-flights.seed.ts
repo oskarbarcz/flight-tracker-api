@@ -68,6 +68,7 @@ type CargoFlightSpec = {
   alternateAirportId: string;
   cargo: number;
   passengers?: number;
+  passengersByCabin?: Record<string, number>;
 };
 
 const FLIGHTS: CargoFlightSpec[] = [
@@ -155,6 +156,7 @@ const FLIGHTS: CargoFlightSpec[] = [
     alternateAirportId: EPWA,
     cargo: 2.5,
     passengers: 150,
+    passengersByCabin: { business: 20, economy: 130 },
   },
   {
     id: '7b2f0c50-8d34-4eb7-9a69-1c4e5f7b8d2a',
@@ -255,7 +257,7 @@ function loadsheetFor(spec: CargoFlightSpec): Loadsheet {
       cabinCrew: passengers > 0 ? 4 : 0,
     },
     passengers,
-    passengersByCabin: null,
+    passengersByCabin: spec.passengersByCabin ?? null,
     cargo: spec.cargo,
     payload: Math.round(payload * 1000) / 1000,
     zeroFuelWeight: Math.round((68.4 + payload) * 1000) / 1000,
