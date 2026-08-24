@@ -20,6 +20,9 @@ import {
   assertPassengerBreakdownConsistent,
 } from '../../model/loadsheet.policy';
 import { ReconcileFlightManifestCommand } from '../../../passengers/application/command/reconcile-flight-manifest.command';
+import { ReconcileFlightCargoManifestCommand } from '../../../cargo/application/command/reconcile-flight-cargo-manifest.command';
+import { AirportType } from '../../../airports/model/airport.model';
+import { scheduledFlightHours } from '../../model/timesheet.model';
 
 export class FinishBoardingCommand {
   constructor(
@@ -60,6 +63,38 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
       finalLoadsheet.passengersByCabin,
     );
     await this.commandBus.execute(reconcileManifest);
+
+    const departure = flight.airports.find(
+      (airport) => airport.type === AirportType.Departure,
+    );
+    const arrival = flight.airports.find(
+      (airport) => airport.type === AirportType.Destination,
+    );
+
+    if (departure && arrival) {
+      const reconcileCargoManifest = new ReconcileFlightCargoManifestCommand(
+        flightId,
+        flight.aircraft.id,
+        flight.operator.iataCode,
+        finalLoadsheet.cargo,
+        finalLoadsheet.passengers,
+        {
+          iataCode: departure.iataCode,
+          country: departure.country,
+          continent: departure.continent,
+        },
+        {
+          iataCode: arrival.iataCode,
+          country: arrival.country,
+          continent: arrival.continent,
+        },
+        flight.timesheet.scheduled?.offBlockTime
+          ? new Date(flight.timesheet.scheduled.offBlockTime)
+          : new Date(),
+        scheduledFlightHours(flight.timesheet.scheduled),
+      );
+      await this.commandBus.execute(reconcileCargoManifest);
+    }
 
     await Promise.all([
       await this.flightsRepository.updateLoadsheets(flightId, {

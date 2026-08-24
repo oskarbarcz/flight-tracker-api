@@ -7,6 +7,7 @@ import { ListHoldLayoutsHandler } from './application/query/list-hold-layouts.qu
 import { GetHoldLayoutHandler } from './application/query/get-hold-layout.query';
 import { AssertHoldVariantOfferedHandler } from './application/assert/assert-hold-variant-offered.query';
 import { GenerateFlightCargoManifestHandler } from './application/command/generate-flight-cargo-manifest.command';
+import { ReconcileFlightCargoManifestHandler } from './application/command/reconcile-flight-cargo-manifest.command';
 import { GetFlightCargoManifestHandler } from './application/query/get-flight-cargo-manifest.query';
 import { CargoRepository } from './infra/database/repository/cargo.repository';
 
@@ -23,6 +24,7 @@ import { CargoRepository } from './infra/database/repository/cargo.repository';
     GetHoldLayoutHandler,
     AssertHoldVariantOfferedHandler,
     GenerateFlightCargoManifestHandler,
+    ReconcileFlightCargoManifestHandler,
     GetFlightCargoManifestHandler,
   ],
 })

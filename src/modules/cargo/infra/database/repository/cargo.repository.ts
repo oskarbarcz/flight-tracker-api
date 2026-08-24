@@ -3,6 +3,7 @@ import { PrismaService } from '../../../../../core/provider/prisma/prisma.servic
 import {
   CargoContentClass,
   CargoDeck,
+  CargoOffloadReason,
   CargoShipmentStatus,
   CargoTransferRole,
   CargoUnitKind,
@@ -54,6 +55,25 @@ export type CargoUnitRow = Prisma.FlightCargoUnitGetPayload<{
   include: { shipments: true };
 }>;
 
+export type CargoOffloadWrite = {
+  shipmentId: string;
+  reason: CargoOffloadReason;
+  offloadedFrom: string | null;
+};
+
+export type CargoUnitTotals = {
+  id: string;
+  grossKg: number;
+  volumeM3: number;
+};
+
+export type CargoReconciliationWrite = {
+  offloads: CargoOffloadWrite[];
+  emptiedUnitIds: string[];
+  totals: CargoUnitTotals[];
+  added: NewCargoUnit[];
+};
+
 @Injectable()
 export class CargoRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -64,6 +84,57 @@ export class CargoRepository {
       await transaction.flightCargoUnit.deleteMany({ where: { flightId } });
 
       for (const unit of units) {
+        const { shipments, ...fields } = unit;
+
+        await transaction.flightCargoUnit.create({
+          data: {
+            ...fields,
+            flightId,
+            shipments: {
+              create: shipments.map((shipment) => ({ ...shipment, flightId })),
+            },
+          },
+        });
+      }
+    });
+  }
+
+  async reconcile(
+    flightId: string,
+    write: CargoReconciliationWrite,
+  ): Promise<void> {
+    await this.prisma.$transaction(async (transaction) => {
+      for (const offload of write.offloads) {
+        await transaction.flightCargoShipment.update({
+          where: { id: offload.shipmentId },
+          data: {
+            status: CargoShipmentStatus.offloaded,
+            offloadReason: offload.reason,
+            offloadedFrom: offload.offloadedFrom,
+          },
+        });
+      }
+
+      for (const totals of write.totals) {
+        await transaction.flightCargoUnit.update({
+          where: { id: totals.id },
+          data: { grossKg: totals.grossKg, volumeM3: totals.volumeM3 },
+        });
+      }
+
+      for (const unitId of write.emptiedUnitIds) {
+        await transaction.flightCargoUnit.update({
+          where: { id: unitId },
+          data: {
+            positionDesignator: null,
+            tareKg: 0,
+            grossKg: 0,
+            volumeM3: 0,
+          },
+        });
+      }
+
+      for (const unit of write.added) {
         const { shipments, ...fields } = unit;
 
         await transaction.flightCargoUnit.create({

@@ -36,6 +36,7 @@ import { resolveHoldVariant } from '../../model/hold-variant-resolution';
 import { CargoContentClass, CargoShipmentStatus } from 'prisma/client/client';
 import { BaggageSource } from '../../model/baggage';
 import { isTightConnection, TransferRole } from '../../model/shipment-journey';
+import { OffloadReason } from '../../model/cargo-reconciliation';
 
 export class GetFlightCargoManifestQuery extends Query<FlightCargoManifest> {
   constructor(
@@ -170,6 +171,9 @@ function toUnitEntry(row: CargoUnitRow): CargoUnitEntry {
       coldChain:
         (shipment.temperatureControl as ColdChainAssessment | null) ?? null,
       status: shipment.status as unknown as CargoShipmentStatusName,
+      offloadReason:
+        (shipment.offloadReason as unknown as OffloadReason) ?? null,
+      offloadedFrom: shipment.offloadedFrom,
     })),
   };
 }

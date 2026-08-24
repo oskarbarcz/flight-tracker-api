@@ -1003,6 +1003,11 @@ enum CargoShipmentStatus {
   offloaded
 }
 
+enum CargoOffloadReason {
+  payload_restriction
+  space_restriction
+}
+
 enum CargoTransferRole {
   local
   outbound_transfer
@@ -1060,6 +1065,8 @@ model FlightCargoShipment {
   dangerousGoods     Json?
   temperatureControl Json?
   status             CargoShipmentStatus @default(loaded)
+  offloadReason      CargoOffloadReason?
+  offloadedFrom      String?             @db.VarChar(8)
 
   flight Flight           @relation(fields: [flightId], references: [id], onDelete: Cascade)
   unit   FlightCargoUnit? @relation(fields: [unitId], references: [id], onDelete: Cascade)

@@ -7,6 +7,7 @@ import { loadAirports } from './resource/airports.seed';
 import { loadFlights } from './resource/flights.seed';
 import { loadManifestFlights } from './resource/manifest-flights.seed';
 import { loadCargoFlights } from './resource/cargo-flights.seed';
+import { loadCargoManifests } from './resource/cargo-manifests.seed';
 import { loadFlightManifests } from './resource/flight-manifests.seed';
 import { loadUsers } from './resource/users.seed';
 import { loadSessions } from './resource/session.seed';
@@ -49,6 +50,7 @@ export async function loadResources() {
         await loadFlights(tx);
         await loadManifestFlights(tx);
         await loadCargoFlights(tx);
+        await loadCargoManifests(tx);
         await loadFlightManifests(tx);
         await loadFlightCrew(tx);
         await loadRotations(tx);
