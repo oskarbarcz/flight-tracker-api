@@ -370,6 +370,7 @@ Feature: Mark flight as ready
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """
@@ -399,6 +400,7 @@ Feature: Mark flight as ready
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": [
           {
             "kind": "bulk_lot",
@@ -446,6 +448,7 @@ Feature: Mark flight as ready
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """
@@ -475,6 +478,7 @@ Feature: Mark flight as ready
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """
@@ -504,6 +508,7 @@ Feature: Mark flight as ready
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": [],
+        "segregationAdvisories": [],
         "units": [
           {
             "kind": "bulk_lot",
@@ -574,6 +579,7 @@ Feature: Mark flight as ready
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """
@@ -603,6 +609,7 @@ Feature: Mark flight as ready
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """
@@ -632,6 +639,7 @@ Feature: Mark flight as ready
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """
@@ -661,6 +669,7 @@ Feature: Mark flight as ready
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """
@@ -690,6 +699,7 @@ Feature: Mark flight as ready
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """

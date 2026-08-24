@@ -6,7 +6,11 @@ import {
   NotocDocument,
   NotocSpecialLoad,
 } from './notoc.model';
-import { HazardClass, PackingGroup } from './commodity.model';
+import {
+  HazardClass,
+  PackingGroup,
+  SpecialHandlingCode,
+} from './commodity.model';
 import { CargoDeck } from './hold-layout.model';
 
 function dangerousGoods(
@@ -40,7 +44,7 @@ function specialLoad(awb: string, position: string | null): NotocSpecialLoad {
   return {
     awb,
     description: 'Live tropical fish, boxed',
-    shc: ['AVI'],
+    shc: [SpecialHandlingCode.LiveAnimals],
     grossKg: 640,
     position,
     compartment: 3,

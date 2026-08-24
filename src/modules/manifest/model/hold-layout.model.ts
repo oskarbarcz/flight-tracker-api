@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { UldBaseCode, UldContourCode } from './uld-code.model';
+import { CURATED_HOLD_TYPES } from '../data/hold-identifiers';
 
 export enum CargoDeck {
   Main = 'main',
@@ -175,6 +176,7 @@ export class HoldVariant {
 export class AircraftHoldLayout {
   @ApiProperty({
     description: 'ICAO aircraft type designator the configuration describes',
+    enum: CURATED_HOLD_TYPES,
     example: 'B77W',
   })
   type!: string;

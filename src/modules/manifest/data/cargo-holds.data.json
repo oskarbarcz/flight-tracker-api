@@ -277,6 +277,140 @@
     ]
   },
   {
+    "type": "B788",
+    "variants": [
+      {
+        "id": "b788-ld3",
+        "isDefault": true,
+        "decks": [
+          {
+            "deck": "lower",
+            "compartments": [
+              {
+                "number": 1,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 12704,
+                "volumeM3": 34.4,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 4,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 2,
+                "name": "forward",
+                "loading": "uld",
+                "maxWeightKg": 12704,
+                "volumeM3": 34.4,
+                "heated": false,
+                "ventilated": false,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 4,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 3,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 9528,
+                "volumeM3": 25.8,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 3,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 4,
+                "name": "aft",
+                "loading": "uld",
+                "maxWeightKg": 9528,
+                "volumeM3": 25.8,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right",
+                "positionTemplate": {
+                  "ordinals": "numeric",
+                  "rows": 3,
+                  "sides": [
+                    "L",
+                    "R"
+                  ],
+                  "acceptedBases": [
+                    "K"
+                  ],
+                  "acceptedContours": [
+                    "E",
+                    "H",
+                    "N"
+                  ],
+                  "maxWeightKg": 1588
+                }
+              },
+              {
+                "number": 5,
+                "name": "bulk",
+                "loading": "loose",
+                "maxWeightKg": 1996,
+                "volumeM3": 11.4,
+                "heated": true,
+                "ventilated": true,
+                "doorSide": "right"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "type": "A339",
     "variants": [
       {

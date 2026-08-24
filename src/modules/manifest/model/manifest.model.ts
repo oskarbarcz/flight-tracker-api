@@ -82,7 +82,8 @@ export class FlightManifest {
     description:
       'Reported passengers per commercial cabin, on the same filtered basis as `passengerCount`',
     example: { business: 24, economy: 126 },
-    type: Object,
+    type: 'object',
+    additionalProperties: { type: 'number' },
   })
   passengersByCabin!: Record<string, number>;
 

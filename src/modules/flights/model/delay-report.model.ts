@@ -56,6 +56,7 @@ export class DelayReport {
     example: 'Catering truck arrived late to stand.',
     nullable: true,
     required: false,
+    type: String,
   })
   @IsOptional()
   @IsString()
@@ -88,6 +89,7 @@ export class DelayReport {
       'Reason Operations gave when rejecting this report. `null` unless rejected.',
     example: 'Wrong code — this was a ramp delay, not ATC.',
     nullable: true,
+    type: String,
   })
   rejectionReason!: string | null;
 
@@ -96,6 +98,7 @@ export class DelayReport {
       'Time the report was accepted or rejected. `null` while still pending.',
     example: '2026-06-12T12:45:00.000Z',
     nullable: true,
+    type: 'string',
   })
   decidedAt!: Date | null;
 

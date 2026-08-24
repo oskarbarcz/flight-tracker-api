@@ -35,15 +35,57 @@ export const SEGREGATION_PAIRS: SegregationPair[] = SEGREGATION_RULES.flatMap(
     left.flatMap((one) => right.map((other): SegregationPair => [one, other])),
 );
 
+export function conflictingPairs(
+  one: SpecialHandlingCode[],
+  other: SpecialHandlingCode[],
+): SegregationPair[] {
+  const found = new Map<string, SegregationPair>();
+
+  for (const [left, right] of SEGREGATION_PAIRS) {
+    if (one.includes(left) && other.includes(right)) {
+      remember(found, left, right);
+    }
+
+    if (one.includes(right) && other.includes(left)) {
+      remember(found, right, left);
+    }
+  }
+
+  return [...found.values()];
+}
+
+export function conflictingPairsWithin(
+  codes: SpecialHandlingCode[],
+): SegregationPair[] {
+  const carried = [...new Set(codes)];
+  const found = new Map<string, SegregationPair>();
+
+  for (const [left, right] of SEGREGATION_PAIRS) {
+    if (left !== right && carried.includes(left) && carried.includes(right)) {
+      remember(found, left, right);
+    }
+  }
+
+  return [...found.values()];
+}
+
+function remember(
+  found: Map<string, SegregationPair>,
+  one: SpecialHandlingCode,
+  other: SpecialHandlingCode,
+): void {
+  const key = [one, other].sort().join('|');
+
+  if (!found.has(key)) {
+    found.set(key, [one, other]);
+  }
+}
+
 export function conflicts(
   one: SpecialHandlingCode[],
   other: SpecialHandlingCode[],
 ): boolean {
-  return SEGREGATION_PAIRS.some(
-    ([left, right]) =>
-      (one.includes(left) && other.includes(right)) ||
-      (one.includes(right) && other.includes(left)),
-  );
+  return conflictingPairs(one, other).length > 0;
 }
 
 export function mayJoinCompartment(

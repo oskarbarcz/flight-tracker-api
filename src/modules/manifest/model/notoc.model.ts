@@ -2,9 +2,11 @@ import { ApiProperty } from '@nestjs/swagger';
 import { NotocChanges } from './notoc-delta';
 import { CargoDeck } from './hold-layout.model';
 import {
+  ERC_PATTERN,
   HazardClass,
   HeaviestPiece,
   PackingGroup,
+  SpecialHandlingCode,
   TemperatureRegime,
 } from './commodity.model';
 import { ColdChainRisk } from './cold-chain';
@@ -19,7 +21,12 @@ export const DANGEROUS_GOODS_STATEMENT =
   'Dangerous goods loaded as listed below.';
 
 export class NotocDrill {
-  @ApiProperty({ example: '3L' })
+  @ApiProperty({
+    description:
+      'Emergency response code: a drill number of 1 to 11 followed by one letter per additional risk. Constructed from the published drill chart rather than drawn from a fixed list.',
+    pattern: ERC_PATTERN.source,
+    example: '3L',
+  })
   ercCode!: string;
 
   @ApiProperty({
@@ -79,10 +86,11 @@ export class NotocDangerousGoods {
       'Hold position the load occupies, composed of compartment number, ordinal and side. This is a convention of this system, not a published designation. Null for loose load and for an aircraft whose type carries no curated hold data.',
     example: '12R',
     nullable: true,
+    type: String,
   })
   position!: string | null;
 
-  @ApiProperty({ example: 1, nullable: true })
+  @ApiProperty({ example: 1, nullable: true, type: Number })
   compartment!: number | null;
 
   @ApiProperty({
@@ -101,6 +109,93 @@ export class NotocDangerousGoods {
   drill!: NotocDrill;
 }
 
+export class NotocHeaviestPiece {
+  @ApiProperty({ description: 'Weight of the largest piece', example: 620 })
+  kg!: number;
+
+  @ApiProperty({ example: 300 })
+  lengthCm!: number;
+
+  @ApiProperty({ example: 110 })
+  widthCm!: number;
+
+  @ApiProperty({ example: 230 })
+  heightCm!: number;
+}
+
+export class NotocReposition {
+  @ApiProperty({ example: '020-53729071' })
+  awb!: string;
+
+  @ApiProperty({
+    description: 'Position it held on the preliminary document',
+    example: '11L',
+    nullable: true,
+    type: String,
+  })
+  from!: string | null;
+
+  @ApiProperty({
+    description: 'Position it holds now; null once its unit lost its position',
+    example: '21R',
+    nullable: true,
+    type: String,
+  })
+  to!: string | null;
+}
+
+export class NotocChangeSet {
+  @ApiProperty({
+    description:
+      'Whether anything at all changed since the preliminary document',
+    example: true,
+  })
+  changed!: boolean;
+
+  @ApiProperty({
+    description: 'Air waybills of dangerous goods loaded since',
+    isArray: true,
+    type: String,
+  })
+  dangerousGoodsAdded!: string[];
+
+  @ApiProperty({
+    description: 'Air waybills of dangerous goods offloaded since',
+    isArray: true,
+    type: String,
+  })
+  dangerousGoodsRemoved!: string[];
+
+  @ApiProperty({
+    description: 'Air waybills of other notifiable loads loaded since',
+    isArray: true,
+    type: String,
+  })
+  specialLoadsAdded!: string[];
+
+  @ApiProperty({
+    description: 'Air waybills of other notifiable loads offloaded since',
+    isArray: true,
+    type: String,
+  })
+  specialLoadsRemoved!: string[];
+
+  @ApiProperty({ type: NotocReposition, isArray: true })
+  repositioned!: NotocReposition[];
+
+  @ApiProperty({
+    description: 'Change in cargo weight, negative when freight was shed',
+    example: -1500,
+  })
+  cargoChangeKg!: number;
+
+  @ApiProperty({
+    description: 'Change in total deadload',
+    example: -1500,
+  })
+  deadloadChangeKg!: number;
+}
+
 export class NotocSpecialLoad {
   @ApiProperty({ example: '020-53729071' })
   awb!: string;
@@ -110,11 +205,11 @@ export class NotocSpecialLoad {
 
   @ApiProperty({
     description: 'IATA special handling codes that make the load notifiable',
-    example: ['AVI'],
+    enum: SpecialHandlingCode,
     isArray: true,
-    type: String,
+    example: [SpecialHandlingCode.LiveAnimals],
   })
-  shc!: string[];
+  shc!: SpecialHandlingCode[];
 
   @ApiProperty({ example: 640 })
   grossKg!: number;
@@ -124,10 +219,11 @@ export class NotocSpecialLoad {
       'Hold position the load occupies, composed of compartment number, ordinal and side. This is a convention of this system, not a published designation. Null for loose load and for an aircraft whose type carries no curated hold data.',
     example: '31L',
     nullable: true,
+    type: String,
   })
   position!: string | null;
 
-  @ApiProperty({ example: 3, nullable: true })
+  @ApiProperty({ example: 3, nullable: true, type: Number })
   compartment!: number | null;
 
   @ApiProperty({ example: 'JFK' })
@@ -137,7 +233,7 @@ export class NotocSpecialLoad {
     description:
       'Weight and dimensions of the largest piece, reported for heavy and outsized loads only',
     nullable: true,
-    type: Object,
+    type: NotocHeaviestPiece,
   })
   heaviestPiece!: HeaviestPiece | null;
 }
@@ -221,6 +317,7 @@ export class NotocLoadSummary {
       'Tightest onward connection among them, in minutes; null when nothing continues',
     example: 95,
     nullable: true,
+    type: Number,
   })
   tightestConnectionMinutes!: number | null;
 }
@@ -260,10 +357,15 @@ export class FlightNotoc {
     description: 'Pilot who accepted the document; null until they do',
     example: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
     nullable: true,
+    type: String,
   })
   acknowledgedById!: string | null;
 
-  @ApiProperty({ example: '2025-06-02T08:40:00.000Z', nullable: true })
+  @ApiProperty({
+    example: '2025-06-02T08:40:00.000Z',
+    nullable: true,
+    type: 'string',
+  })
   acknowledgedAt!: Date | null;
 
   @ApiProperty({ type: NotocDocument })
@@ -273,7 +375,7 @@ export class FlightNotoc {
     description:
       'What changed since the preliminary document; null on the preliminary one itself',
     nullable: true,
-    type: Object,
+    type: NotocChangeSet,
   })
   changes!: NotocChanges | null;
 }

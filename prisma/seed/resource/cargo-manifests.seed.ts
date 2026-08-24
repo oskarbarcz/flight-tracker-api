@@ -1,6 +1,8 @@
 import {
   CargoContentClass,
   CargoDeck,
+  CargoOffloadReason,
+  CargoShipmentStatus,
   CargoTransferRole,
   CargoUnitKind,
   NotocStage,
@@ -35,6 +37,7 @@ const CV2020 = '2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380';
 const AA2021 = 'b4bad5cf-c049-488b-b979-8ef8fc85cdb4';
 const AAL4912 = '2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d';
 const AAL4911 = '7105891a-8008-4b47-b473-c81c97615ad7';
+const AA2022 = '792e3698-b46d-4c1b-bc99-451596660760';
 const RICK = 'fcf6f4bc-290d-43a9-843c-409cd47e143d';
 const UNLOADING_AIRPORT = 'JFK';
 
@@ -61,6 +64,9 @@ type ShipmentFixture = {
   consignee: string;
   dangerousGoods?: DangerousGoodsProfile;
   coldChain?: ColdChainAssessment;
+  status?: CargoShipmentStatus;
+  offloadReason?: CargoOffloadReason;
+  offloadedFrom?: string;
 };
 
 type UnitFixture = {
@@ -736,6 +742,90 @@ const UNITS: UnitFixture[] = [
       },
     ],
   },
+  {
+    id: '07eca074-f00e-4cc8-b5be-fff211adba5d',
+    flightId: AA2022,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 3,
+    positionDesignator: '31L',
+    uldType: 'AKE',
+    uldSerial: '55101',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: '9d941f40-0593-4da6-8dba-a2dfb98370b1',
+        commodityId: 'pets-in-hold',
+        description: 'Domestic pets in travel kennels',
+        awb: '001-55102202',
+        pieces: 12,
+        grossKg: 400,
+        volumeM3: 2.0,
+        shc: ['AVIH'],
+        shipper: 'Rhein-Main Pet Travel GmbH',
+        consignee: 'Queens Animal Reception Inc.',
+      },
+    ],
+  },
+  {
+    id: 'f8165df1-0761-4c9c-910f-6ef24a2febc4',
+    flightId: AA2022,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 3,
+    positionDesignator: '31R',
+    uldType: 'AKE',
+    uldSerial: '55102',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: 'd7582f29-1ab7-4a5d-b5f9-bbd5057edcae',
+        commodityId: 'dry-ice',
+        description: 'Carbon dioxide, solid, as refrigerant',
+        awb: '001-55102213',
+        pieces: 64,
+        grossKg: 1400,
+        volumeM3: 2.0,
+        shc: ['ICE'],
+        shipper: 'Hessen Kaeltetechnik GmbH',
+        consignee: 'Brooklyn Cold Logistics Inc.',
+        dangerousGoods: findCommodityById('dry-ice')!.dangerousGoods,
+      },
+    ],
+  },
+  {
+    id: '21f104c8-93c2-4aee-b213-62f78e9e1b51',
+    flightId: AA2022,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 3,
+    positionDesignator: null,
+    uldType: 'AKE',
+    uldSerial: '55103',
+    uldOwner: 'AA',
+    tareKg: 0,
+    shipments: [
+      {
+        id: 'c233972f-547b-4197-a869-6eef26fb8b9d',
+        commodityId: 'radiopharmaceuticals',
+        description: 'Radiopharmaceutical doses, shielded',
+        awb: '001-55102224',
+        pieces: 6,
+        grossKg: 120,
+        volumeM3: 0.1,
+        shc: ['PIL', 'RRY'],
+        shipper: 'Marburg Isotopes GmbH',
+        consignee: 'Bayside Nuclear Medicine Inc.',
+        dangerousGoods: findCommodityById('radiopharmaceuticals')!
+          .dangerousGoods,
+        status: CargoShipmentStatus.offloaded,
+        offloadReason: CargoOffloadReason.payload_restriction,
+        offloadedFrom: '32L',
+      },
+    ],
+  },
 ];
 
 export async function loadCargoManifests(
@@ -764,7 +854,7 @@ export async function loadCargoManifests(
             pieces: shipment.pieces,
             grossKg: shipment.grossKg,
             volumeM3: shipment.volumeM3,
-            shc: shipment.shc,
+            shc: shipment.shc as SpecialHandlingCode[],
             shipper: shipment.shipper,
             consignee: shipment.consignee,
             flightId: unit.flightId,
@@ -780,6 +870,9 @@ export async function loadCargoManifests(
             temperatureControl: shipment.coldChain
               ? (shipment.coldChain as unknown as Prisma.InputJsonValue)
               : Prisma.DbNull,
+            status: shipment.status ?? CargoShipmentStatus.loaded,
+            offloadReason: shipment.offloadReason ?? null,
+            offloadedFrom: shipment.offloadedFrom ?? null,
           })),
         },
       },
@@ -827,14 +920,17 @@ const NOTOCS = [
 ];
 
 function grossOf(unit: UnitFixture): number {
-  return unit.shipments.reduce((sum, shipment) => sum + shipment.grossKg, 0);
+  return unit.shipments
+    .filter((shipment) => shipment.status !== CargoShipmentStatus.offloaded)
+    .reduce((sum, shipment) => sum + shipment.grossKg, 0);
 }
 
 function volumeOf(unit: UnitFixture): number {
   return (
     Math.round(
-      unit.shipments.reduce((sum, shipment) => sum + shipment.volumeM3, 0) *
-        1000,
+      unit.shipments
+        .filter((shipment) => shipment.status !== CargoShipmentStatus.offloaded)
+        .reduce((sum, shipment) => sum + shipment.volumeM3, 0) * 1000,
     ) / 1000
   );
 }
@@ -866,6 +962,7 @@ function manifestOf(flightId: string): FlightCargoManifest {
     transferCount: 0,
     tightestConnectionMinutes: null,
     compartmentLoad: compartmentLoadOf(units),
+    segregationAdvisories: [],
     units,
   };
 }
@@ -896,7 +993,7 @@ function toUnitEntry(unit: UnitFixture): CargoUnitEntry {
       pieces: shipment.pieces,
       grossKg: shipment.grossKg,
       volumeM3: shipment.volumeM3,
-      shc: shipment.shc,
+      shc: shipment.shc as SpecialHandlingCode[],
       shipper: shipment.shipper,
       consignee: shipment.consignee,
       origin: 'FRA',

@@ -14,13 +14,17 @@ import {
   CargoUnitEntry,
   CompartmentLoad,
   FlightCargoManifest,
+  SegregationAdvisory,
 } from '../../model/cargo-manifest.model';
 import { CargoDeck } from '../../model/hold-layout.model';
 import {
   DangerousGoodsProfile,
   SpecialHandlingCode,
 } from '../../model/commodity.model';
-import { dryIceKgOf } from '../../model/segregation.policy';
+import {
+  conflictingPairsWithin,
+  dryIceKgOf,
+} from '../../model/segregation.policy';
 import { ColdChainAssessment, ColdChainRisk } from '../../model/cold-chain';
 import { LoadUnitKind } from '../../model/cargo-packing';
 import { formatUldCode, UldType } from '../../model/uld';
@@ -109,6 +113,7 @@ export class GetFlightCargoLoadHandler implements IQueryHandler<GetFlightCargoLo
         .filter((shipment) => shipment.onwardCarrier !== null).length,
       tightestConnectionMinutes: tightestConnectionOf(units),
       compartmentLoad: compartmentLoadOf(rows),
+      segregationAdvisories: segregationAdvisoriesOf(rows),
       units,
     };
   }
@@ -140,7 +145,7 @@ function toUnitEntry(row: CargoUnitRow): CargoUnitEntry {
       pieces: shipment.pieces,
       grossKg: shipment.grossKg,
       volumeM3: Number(shipment.volumeM3),
-      shc: shipment.shc,
+      shc: shipment.shc as SpecialHandlingCode[],
       shipper: shipment.shipper,
       consignee: shipment.consignee,
       origin: shipment.origin,
@@ -195,6 +200,54 @@ function tightestConnectionOf(units: CargoUnitEntry[]): number | null {
     .filter((minutes): minutes is number => minutes !== null);
 
   return connections.length === 0 ? null : Math.min(...connections);
+}
+
+function segregationAdvisoriesOf(rows: CargoUnitRow[]): SegregationAdvisory[] {
+  const byCompartment = new Map<
+    string,
+    { compartment: number; deck: CargoDeck; codes: SpecialHandlingCode[] }
+  >();
+
+  for (const row of rows) {
+    if (row.compartment === null || row.deck === null) {
+      continue;
+    }
+
+    const key = `${row.deck}/${row.compartment}`;
+    const carried = row.shipments
+      .filter((shipment) => shipment.status === CargoShipmentStatus.loaded)
+      .flatMap((shipment) => shipment.shc as SpecialHandlingCode[]);
+    const existing = byCompartment.get(key);
+
+    if (existing) {
+      existing.codes.push(...carried);
+      continue;
+    }
+
+    byCompartment.set(key, {
+      compartment: row.compartment,
+      deck: row.deck as unknown as CargoDeck,
+      codes: [...carried],
+    });
+  }
+
+  return [...byCompartment.values()]
+    .flatMap(({ compartment, deck, codes }) =>
+      conflictingPairsWithin(codes).map(
+        ([one, other]): SegregationAdvisory => ({
+          compartment,
+          deck,
+          one,
+          other,
+        }),
+      ),
+    )
+    .sort(
+      (left, right) =>
+        left.deck.localeCompare(right.deck) ||
+        left.compartment - right.compartment ||
+        left.one.localeCompare(right.one),
+    );
 }
 
 function compartmentLoadOf(rows: CargoUnitRow[]): CompartmentLoad[] {

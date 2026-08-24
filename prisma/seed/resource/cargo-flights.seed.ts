@@ -18,6 +18,7 @@ const F_GKXA = '54ae8e50-8712-40be-b4af-d22633b0956f';
 const PH_BXA = '5f8902a2-f2b2-46e9-8630-365f78ee6ff3';
 const LX_VCA = 'b2f5c1d4-9e3a-4c77-8a61-5d0f2b7e9c44';
 const N801AN = 'd7e41a08-6c52-4b93-9f18-3a6c8e0d5b71';
+const N767CX = '3fbb0d1e-1c05-4d3d-9a08-6b0d5a1f7e42';
 
 const OPERATIONS = '721ab705-8608-4386-86b4-2f391a3655a7';
 const RICK = 'fcf6f4bc-290d-43a9-843c-409cd47e143d';
@@ -40,6 +41,17 @@ const NEW_AIRCRAFT = [
     holdVariant: 'b74f-nose',
     operatorId: CARGOLUX,
     baseAirportId: EDDF,
+  },
+  {
+    id: N767CX,
+    type: 'B762',
+    registration: 'N767CX',
+    selcal: 'CX-67',
+    livery: 'American Airlines (2013)',
+    cabinLayout: null,
+    holdVariant: null,
+    operatorId: AMERICAN,
+    baseAirportId: KPHL,
   },
   {
     id: N801AN,
@@ -133,7 +145,7 @@ const FLIGHTS: CargoFlightSpec[] = [
     flightNumber: 'AA2014',
     callsign: 'AAL2014',
     operatorId: AMERICAN,
-    aircraftId: N801AN,
+    aircraftId: N767CX,
     captainId: null,
     status: FlightStatus.Created,
     serviceType: FlightServiceType.Passenger,
@@ -205,7 +217,7 @@ const FLIGHTS: CargoFlightSpec[] = [
     flightNumber: 'AA2019',
     callsign: 'AAL2019',
     operatorId: AMERICAN,
-    aircraftId: N801AN,
+    aircraftId: N767CX,
     captainId: RICK,
     status: FlightStatus.BoardingStarted,
     serviceType: FlightServiceType.Cargo,
@@ -233,7 +245,7 @@ const FLIGHTS: CargoFlightSpec[] = [
     flightNumber: 'AA2021',
     callsign: 'AAL2021',
     operatorId: AMERICAN,
-    aircraftId: N801AN,
+    aircraftId: N767CX,
     captainId: RICK,
     status: FlightStatus.Ready,
     serviceType: FlightServiceType.Cargo,
@@ -241,6 +253,20 @@ const FLIGHTS: CargoFlightSpec[] = [
     destinationAirportId: KJFK,
     alternateAirportId: KPHL,
     cargo: 1.2,
+  },
+  {
+    id: '792e3698-b46d-4c1b-bc99-451596660760',
+    flightNumber: 'AA2022',
+    callsign: 'AAL2022',
+    operatorId: AMERICAN,
+    aircraftId: N78881,
+    captainId: RICK,
+    status: FlightStatus.Ready,
+    serviceType: FlightServiceType.Cargo,
+    departureAirportId: EDDF,
+    destinationAirportId: KJFK,
+    alternateAirportId: KPHL,
+    cargo: 1.964,
   },
 ];
 

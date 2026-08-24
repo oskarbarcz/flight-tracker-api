@@ -216,6 +216,7 @@ export class Emergency {
       'Time the emergency was resolved (soft-deleted). `null` while still active.',
     example: '2026-05-13T12:45:00.000Z',
     nullable: true,
+    type: 'string',
   })
   resolvedAt!: Date | null;
 

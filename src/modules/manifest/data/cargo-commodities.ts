@@ -10,3 +10,7 @@ export function findCommodityById(id: string): Commodity | undefined {
 export function dangerousCommodities(): Commodity[] {
   return COMMODITIES.filter((commodity) => commodity.dangerousGoods);
 }
+
+export const COMMODITY_IDS: string[] = COMMODITIES.map(
+  (commodity) => commodity.id,
+);

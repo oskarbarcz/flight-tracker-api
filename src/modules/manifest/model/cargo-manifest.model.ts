@@ -3,7 +3,17 @@ import { CargoDeck } from './hold-layout.model';
 import { LoadUnitKind } from './cargo-packing';
 import { UldType } from './uld';
 import { TransferRole } from './shipment-journey';
-import { DangerousGoodsProfile } from './commodity.model';
+import { COMMODITY_IDS } from '../data/cargo-commodities';
+import { HOLD_VARIANT_IDS } from '../data/hold-identifiers';
+import {
+  DangerousGoodsProfile,
+  ERC_PATTERN,
+  HazardClass,
+  PackingGroup,
+  SpecialHandlingCode,
+  TemperatureRegime,
+  TemperatureSolution,
+} from './commodity.model';
 import { ColdChainAssessment, ColdChainRisk } from './cold-chain';
 import { BaggageSource } from './baggage';
 import { OffloadReason } from './cargo-reconciliation';
@@ -19,6 +29,102 @@ export enum CargoShipmentStatusName {
   Offloaded = 'offloaded',
 }
 
+export class DangerousGoods {
+  @ApiProperty({ example: '3480' })
+  unNumber!: string;
+
+  @ApiProperty({ example: 'Lithium ion batteries' })
+  properShippingName!: string;
+
+  @ApiProperty({ enum: HazardClass })
+  hazardClass!: HazardClass;
+
+  @ApiProperty({ enum: HazardClass, nullable: true, type: String })
+  subsidiaryRisk!: HazardClass | null;
+
+  @ApiProperty({ enum: PackingGroup, nullable: true, type: String })
+  packingGroup!: PackingGroup | null;
+
+  @ApiProperty({
+    description: 'Net quantity permitted per package',
+    example: '10 kg',
+  })
+  netPerPackage!: string;
+
+  @ApiProperty({
+    description: 'Whether the load may travel only on a cargo aircraft',
+    example: true,
+  })
+  cargoAircraftOnly!: boolean;
+
+  @ApiProperty({
+    description:
+      'Emergency response code: a drill number of 1 to 11 followed by one letter per additional risk',
+    pattern: ERC_PATTERN.source,
+    example: '9F',
+  })
+  ercCode!: string;
+
+  @ApiProperty({
+    description:
+      'Why a drill letter was chosen where the chart leaves it to judgement',
+    required: false,
+    type: String,
+  })
+  sourceNote?: string;
+}
+
+export class ColdChain {
+  @ApiProperty({ enum: TemperatureRegime })
+  regime!: TemperatureRegime;
+
+  @ApiProperty({ example: 2 })
+  minC!: number;
+
+  @ApiProperty({ example: 8 })
+  maxC!: number;
+
+  @ApiProperty({ enum: TemperatureSolution })
+  solution!: TemperatureSolution;
+
+  @ApiProperty({ example: 5, nullable: true, type: Number })
+  setPointC!: number | null;
+
+  @ApiProperty({
+    description: 'Hours the solution can hold the regime for',
+    example: 100,
+  })
+  enduranceHours!: number;
+
+  @ApiProperty({
+    description:
+      'Hours the load is exposed across build-up, flight and any onward leg',
+    example: 14.1,
+  })
+  exposureHours!: number;
+
+  @ApiProperty({
+    description:
+      'Endurance less exposure; negative when the regime cannot be held',
+    example: 85.9,
+  })
+  marginHours!: number;
+
+  @ApiProperty({ enum: ColdChainRisk })
+  risk!: ColdChainRisk;
+
+  @ApiProperty({
+    example: 'An active container with 85.9 h margin on a 100 h endurance.',
+  })
+  explanation!: string;
+
+  @ApiProperty({
+    description: 'Always true: the assessment informs and gates nothing',
+    example: true,
+  })
+  advisory!: boolean;
+}
+
 export class CargoShipmentEntry {
   @ApiProperty({
     description:
@@ -29,6 +135,7 @@ export class CargoShipmentEntry {
 
   @ApiProperty({
     description: 'Commodity the shipment was drawn from',
+    enum: COMMODITY_IDS,
     example: 'flowers-roses',
   })
   commodity!: string;
@@ -47,11 +154,14 @@ export class CargoShipmentEntry {
 
   @ApiProperty({
     description: 'IATA special handling codes the shipment carries',
-    example: ['PER', 'PEF'],
+    enum: SpecialHandlingCode,
     isArray: true,
-    type: String,
+    example: [
+      SpecialHandlingCode.Perishable,
+      SpecialHandlingCode.PerishableFlowers,
+    ],
   })
-  shc!: string[];
+  shc!: SpecialHandlingCode[];
 
   @ApiProperty({ example: 'Bauer AG' })
   shipper!: string;
@@ -86,6 +196,7 @@ export class CargoShipmentEntry {
       'Carrier the shipment continues on; null when it terminates here',
     example: 'AC',
     nullable: true,
+    type: String,
   })
   onwardCarrier!: string | null;
 
@@ -94,6 +205,7 @@ export class CargoShipmentEntry {
       'Flight the shipment continues on; null when it terminates here',
     example: 'AC8802',
     nullable: true,
+    type: String,
   })
   onwardFlightNumber!: string | null;
 
@@ -102,6 +214,7 @@ export class CargoShipmentEntry {
       'Minutes available to make the onward connection; null when the shipment terminates here',
     example: 205,
     nullable: true,
+    type: Number,
   })
   connectionMinutes!: number | null;
 
@@ -126,6 +239,7 @@ export class CargoShipmentEntry {
       cargoAircraftOnly: true,
       ercCode: '9F',
     },
+    type: DangerousGoods,
   })
   dangerousGoods!: DangerousGoodsProfile | null;
 
@@ -147,6 +261,7 @@ export class CargoShipmentEntry {
         'An active container with 85.9 h margin on a 100 h endurance.',
       advisory: true,
     },
+    type: ColdChain,
   })
   coldChain!: ColdChainAssessment | null;
 
@@ -165,6 +280,7 @@ export class CargoShipmentEntry {
       'Position the shipment had been loaded in before it was offloaded',
     example: '12R',
     nullable: true,
+    type: String,
   })
   offloadedFrom!: string | null;
 }
@@ -183,6 +299,7 @@ export class CargoUnitEntry {
       'Full device identifier: IATA type code, serial and owner code. Null for loose load.',
     example: 'AKE40218LH',
     nullable: true,
+    type: String,
   })
   uldCode!: string | null;
 
@@ -198,6 +315,7 @@ export class CargoUnitEntry {
       'Hold position the device occupies, composed of compartment number, ordinal and side. This is a convention of this system, not a published designation. Null for loose load and for an aircraft whose type carries no curated hold data.',
     example: '12R',
     nullable: true,
+    type: String,
   })
   positionDesignator!: string | null;
 
@@ -206,6 +324,7 @@ export class CargoUnitEntry {
       'Compartment number, counted from the nose; null when the hold configuration is unknown',
     example: 1,
     nullable: true,
+    type: Number,
   })
   compartment!: number | null;
 
@@ -237,6 +356,7 @@ export class CargoUnitEntry {
       'Point beyond this flight the unit was built for; null when the unit is broken down on arrival',
     example: 'YYZ',
     nullable: true,
+    type: String,
   })
   beyondDestination!: string | null;
 
@@ -251,6 +371,7 @@ export class CargoUnitEntry {
     description: 'Bags the unit holds; null for a unit holding cargo or mail',
     example: 42,
     nullable: true,
+    type: Number,
   })
   bagCount!: number | null;
 
@@ -286,6 +407,28 @@ export class CompartmentLoad {
   dryIceKg!: number;
 }
 
+export class SegregationAdvisory {
+  @ApiProperty({ example: 3 })
+  compartment!: number;
+
+  @ApiProperty({ enum: CargoDeck })
+  deck!: CargoDeck;
+
+  @ApiProperty({
+    description: 'One of the two handling codes that must be kept apart',
+    enum: SpecialHandlingCode,
+    example: SpecialHandlingCode.DryIce,
+  })
+  one!: SpecialHandlingCode;
+
+  @ApiProperty({
+    description: 'The handling code it may not share a compartment with',
+    enum: SpecialHandlingCode,
+    example: SpecialHandlingCode.LiveAnimals,
+  })
+  other!: SpecialHandlingCode;
+}
+
 export class FlightCargoManifest {
   @ApiProperty({ example: 'c0e83544-cefd-41c8-9c60-aadfaaf08590' })
   flightId!: string;
@@ -293,6 +436,7 @@ export class FlightCargoManifest {
   @ApiProperty({
     description:
       'Hold variant the load was planned against; null when the airframe type carries no curated hold data, in which case no unit has a position or a compartment',
+    enum: HOLD_VARIANT_IDS,
     example: 'b77w-ld3',
     nullable: true,
   })
@@ -351,6 +495,7 @@ export class FlightCargoManifest {
       'Shortest onward connection among the shipments continuing beyond this flight, in minutes; null when none continue',
     example: 65,
     nullable: true,
+    type: Number,
   })
   tightestConnectionMinutes!: number | null;
 
@@ -375,6 +520,14 @@ export class FlightCargoManifest {
 
   @ApiProperty({ type: CompartmentLoad, isArray: true })
   compartmentLoad!: CompartmentLoad[];
+
+  @ApiProperty({
+    description:
+      'Pairs of handling codes sharing a compartment that must be kept apart. Generation refuses to create one, so a manifest the system built reports none.',
+    type: SegregationAdvisory,
+    isArray: true,
+  })
+  segregationAdvisories!: SegregationAdvisory[];
 
   @ApiProperty({ type: CargoUnitEntry, isArray: true })
   units!: CargoUnitEntry[];

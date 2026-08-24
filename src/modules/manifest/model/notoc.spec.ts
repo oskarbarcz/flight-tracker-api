@@ -19,6 +19,7 @@ import {
   DangerousGoodsProfile,
   HazardClass,
   PackingGroup,
+  SpecialHandlingCode,
   TemperatureRegime,
   TemperatureSolution,
 } from './commodity.model';
@@ -33,7 +34,7 @@ function shipment(
     pieces: 68,
     grossKg: 1500,
     volumeM3: 2.143,
-    shc: [],
+    shc: [] as SpecialHandlingCode[],
     shipper: 'Bauer Verlag GmbH',
     consignee: 'Whitaker Distribution LLC',
     origin: 'FRA',
@@ -103,6 +104,7 @@ function manifest(units: CargoUnitEntry[]): FlightCargoManifest {
     compartmentLoad: [
       { compartment: 1, deck: CargoDeck.Lower, weightKg: cargoKg, dryIceKg: 0 },
     ],
+    segregationAdvisories: [],
     units,
   };
 }
@@ -149,7 +151,7 @@ describe('composeNotoc', () => {
             commodity: 'paint',
             description: 'Architectural paint, tins',
             pieces: 24,
-            shc: ['RFL'],
+            shc: [SpecialHandlingCode.FlammableLiquid],
             dangerousGoods: paint,
           }),
         ]),
@@ -189,7 +191,10 @@ describe('composeNotoc', () => {
         unit([
           shipment({
             commodity: 'radiopharmaceuticals',
-            shc: ['PIL', 'RRY'],
+            shc: [
+              SpecialHandlingCode.Pharmaceuticals,
+              SpecialHandlingCode.RadioactiveYellow,
+            ],
             dangerousGoods: paint,
           }),
         ]),
@@ -210,7 +215,7 @@ describe('composeNotoc', () => {
             commodity: 'horses',
             description: 'Sport horses in stalls',
             grossKg: 2400,
-            shc: ['AVI', 'HEA'],
+            shc: [SpecialHandlingCode.LiveAnimals, SpecialHandlingCode.Heavy],
           }),
         ]),
       ]),
@@ -220,7 +225,7 @@ describe('composeNotoc', () => {
     expect(document.specialLoads).toHaveLength(1);
     expect(document.specialLoads[0]).toMatchObject({
       awb: '001-22222225',
-      shc: ['AVI', 'HEA'],
+      shc: [SpecialHandlingCode.LiveAnimals, SpecialHandlingCode.Heavy],
       grossKg: 2400,
       position: '11L',
       compartment: 1,
@@ -240,7 +245,7 @@ describe('composeNotoc', () => {
         unit([
           shipment({
             commodity: 'engine-fan-blades',
-            shc: ['HEA'],
+            shc: [SpecialHandlingCode.Heavy],
             grossKg: 1472,
           }),
         ]),
@@ -260,7 +265,10 @@ describe('composeNotoc', () => {
             awb: '001-33333332',
             commodity: 'insulin',
             description: 'Insulin, insulated shipper',
-            shc: ['PIL', 'COL'],
+            shc: [
+              SpecialHandlingCode.Pharmaceuticals,
+              SpecialHandlingCode.Cool,
+            ],
             coldChain: chilled,
           }),
         ]),
@@ -342,10 +350,10 @@ describe('composeNotoc', () => {
     const document = composeNotoc(
       manifest([
         unit([
-          shipment({ shc: ['AVI'] }),
+          shipment({ shc: [SpecialHandlingCode.LiveAnimals] }),
           shipment({
             awb: '001-2',
-            shc: ['VAL'],
+            shc: [SpecialHandlingCode.Valuable],
             status: CargoShipmentStatusName.Offloaded,
           }),
         ]),
@@ -358,7 +366,9 @@ describe('composeNotoc', () => {
   });
 
   it('carries the compartment load, dry ice included', () => {
-    const load = manifest([unit([shipment({ shc: ['ICE'] })])]);
+    const load = manifest([
+      unit([shipment({ shc: [SpecialHandlingCode.DryIce] })]),
+    ]);
     load.compartmentLoad = [
       {
         compartment: 1,

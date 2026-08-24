@@ -69,6 +69,7 @@ export class Gate {
     required: false,
     nullable: true,
     default: null,
+    type: String,
   })
   @IsOptional()
   @IsUUID()

@@ -76,6 +76,7 @@ export class Terminal {
     required: false,
     nullable: true,
     default: null,
+    type: String,
   })
   @IsOptional()
   @IsString()

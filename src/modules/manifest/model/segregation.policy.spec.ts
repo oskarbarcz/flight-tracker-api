@@ -11,6 +11,7 @@ import { findHoldLayoutByType } from '../data/cargo-holds';
 import { compartmentsOf, defaultVariantOf } from './hold-layout.model';
 import { COMMODITIES } from '../data/cargo-commodities';
 import { FOODSTUFF_CODES, LIVE_ANIMAL_CODES } from './segregation.policy';
+import { conflictingPairs, conflictingPairsWithin } from './segregation.policy';
 
 const heatedAndVentilated = compartmentsOf(
   defaultVariantOf(findHoldLayoutByType('B77W')!),
@@ -187,6 +188,94 @@ describe('segregation against the real catalogue', () => {
   it('leaves unrelated freight free to share a compartment', () => {
     expect(conflicts(shcOf('printed-matter'), shcOf('coffee-beans'))).toBe(
       false,
+    );
+  });
+});
+
+describe('conflictingPairsWithin', () => {
+  it('reports nothing for a compartment with no clash', () => {
+    expect(
+      conflictingPairsWithin([
+        SpecialHandlingCode.Foodstuffs,
+        SpecialHandlingCode.Valuable,
+      ]),
+    ).toEqual([]);
+  });
+
+  it('reports the offending pair rather than a bare yes', () => {
+    expect(
+      conflictingPairsWithin([
+        SpecialHandlingCode.LiveAnimals,
+        SpecialHandlingCode.DryIce,
+      ]),
+    ).toEqual([[SpecialHandlingCode.DryIce, SpecialHandlingCode.LiveAnimals]]);
+  });
+
+  it('reports a pair once, however the codes are ordered', () => {
+    const oneWay = conflictingPairsWithin([
+      SpecialHandlingCode.DryIce,
+      SpecialHandlingCode.LiveAnimals,
+    ]);
+    const other = conflictingPairsWithin([
+      SpecialHandlingCode.LiveAnimals,
+      SpecialHandlingCode.DryIce,
+    ]);
+
+    expect(oneWay).toHaveLength(1);
+    expect(other).toEqual(oneWay);
+  });
+
+  it('reports every distinct clash in a compartment carrying several', () => {
+    const pairs = conflictingPairsWithin([
+      SpecialHandlingCode.RadioactiveYellow,
+      SpecialHandlingCode.LiveAnimals,
+      SpecialHandlingCode.UndevelopedFilm,
+    ]);
+
+    expect(pairs).toHaveLength(2);
+  });
+
+  it('never pairs a code with itself', () => {
+    expect(
+      conflictingPairsWithin([
+        SpecialHandlingCode.LiveAnimals,
+        SpecialHandlingCode.LiveAnimals,
+      ]),
+    ).toEqual([]);
+  });
+
+  it('reports a clash reached through a code family once per code pair', () => {
+    const pairs = conflictingPairsWithin([
+      SpecialHandlingCode.InfectiousSubstance,
+      SpecialHandlingCode.PerishableMeat,
+      SpecialHandlingCode.PerishableSeafood,
+    ]);
+
+    expect(pairs).toHaveLength(2);
+    expect(
+      pairs.every(([one]) => one === SpecialHandlingCode.InfectiousSubstance),
+    ).toBe(true);
+  });
+});
+
+describe('conflictingPairs', () => {
+  it('reports what a candidate clashes with in what is already loaded', () => {
+    expect(
+      conflictingPairs(
+        [SpecialHandlingCode.DryIce],
+        [SpecialHandlingCode.LiveAnimalsHold, SpecialHandlingCode.Valuable],
+      ),
+    ).toEqual([
+      [SpecialHandlingCode.DryIce, SpecialHandlingCode.LiveAnimalsHold],
+    ]);
+  });
+
+  it('agrees with the boolean it backs', () => {
+    const candidate = [SpecialHandlingCode.HumanRemains];
+    const loaded = [SpecialHandlingCode.PerishableProduce];
+
+    expect(conflictingPairs(candidate, loaded).length > 0).toBe(
+      conflicts(candidate, loaded),
     );
   });
 });

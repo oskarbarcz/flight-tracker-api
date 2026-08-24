@@ -76,6 +76,7 @@ function emptyLoad(flightId: string): FlightCargoManifest {
     transferCount: 0,
     tightestConnectionMinutes: null,
     compartmentLoad: [],
+    segregationAdvisories: [],
     units: [],
   };
 }

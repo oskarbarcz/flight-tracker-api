@@ -21,6 +21,7 @@ export class AircraftCabinLayout {
       'Discriminator separating several layouts of one airline and aircraft type',
     example: null,
     nullable: true,
+    type: String,
   })
   variant!: string | null;
 
@@ -29,6 +30,7 @@ export class AircraftCabinLayout {
       'Newest stored revision of the layout, which the aircraft follows; null until the seat map has been read for the first time',
     example: 1,
     nullable: true,
+    type: Number,
   })
   revision!: number | null;
 
