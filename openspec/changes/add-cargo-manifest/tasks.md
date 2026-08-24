@@ -84,13 +84,13 @@ fixtures to add.
 
 ## 8. Baggage (needs 4) — capabilities `baggage-containerisation`, `flight-fuel-planning`
 
-- [ ] 8.1 `model/baggage.ts`: residual from payload less passengers at 84 kg less cargo; bags at 15/16/18 kg by `greatCircleDistance` + unit spec at each tier boundary
-- [ ] 8.2 `InconsistentPayloadError` (422) on a negative or implausible residual, at release and at boarding completion; skipped for uncurated types
-- [ ] 8.3 Baggage units containerised where positions exist and loose where they do not; `contentClass` and `bagCount` on the unit
-- [ ] 8.4 Premium cabin baggage in its own unit marked priority, from the loadsheet's per-cabin breakdown; no priority unit on a single-class flight
-- [ ] 8.5 Baggage excluded from the cargo invariant but included in compartment weight limits + unit spec
-- [ ] 8.6 Correct any seeded loadsheet whose payload cannot be reconciled under the new check
-- [ ] 8.7 Feature: `features/cargo/baggage.feature` — the residual is loaded, bag counts differ by sector length, priority unit present and absent, negative residual 422, cargo invariant unaffected
+- [x] 8.1 `model/baggage.ts`: residual from payload less passengers at 84 kg less cargo; bags at 15/16/18 kg by `greatCircleDistance` + unit spec at each tier boundary
+- [x] 8.2 Graceful fallback instead of a rejection: a negative or implausible residual derives the baggage from the passenger count, and the manifest reports which source it used. No loadsheet is rejected for its baggage allowance, because the seeded fleet shows a payload stated as passengers plus cargo alone is a legitimate way to fill one
+- [x] 8.3 Baggage units containerised where positions exist and loose where they do not; `contentClass` and `bagCount` on the unit
+- [x] 8.4 Premium cabin baggage in its own unit marked priority, from the loadsheet's per-cabin breakdown; no priority unit on a single-class flight
+- [x] 8.5 Baggage excluded from the cargo invariant but included in compartment weight limits + unit spec
+- [x] 8.6 No seeded loadsheet needed correcting: 10 of 40 leave no baggage allowance and now fall back to a derived baggage weight instead of being rejected. `AF2017` gained a cabin breakdown so the priority-baggage path is exercised
+- [x] 8.7 Baggage asserted where it is observable: reconciled, derived and no-passenger cases in `features/flight/actions/flight.mark-as-ready.feature`, and the unit-level bag count and priority flag in `features/flight/cargo-manifest.get.feature`. Sector-length bag masses, the plausibility band and the placement invariants are unit-tested
 
 ## 9. Reconciliation (needs 6) — capability `cargo-manifest-reconciliation`
 

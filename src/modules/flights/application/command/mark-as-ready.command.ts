@@ -86,6 +86,8 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
           ? new Date(flight.timesheet.scheduled.offBlockTime)
           : new Date(),
         scheduledFlightHours(flight.timesheet.scheduled),
+        flight.loadsheets.preliminary.payload,
+        flight.loadsheets.preliminary.passengersByCabin ?? null,
       );
       await this.commandBus.execute(generateCargoManifest);
     }

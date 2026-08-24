@@ -44,6 +44,9 @@ export type NewCargoUnit = {
   contentClass: CargoContentClass;
   beyondDestination: string | null;
   sealed: boolean;
+  bagCount: number | null;
+  priority: boolean;
+  baggageSource: string | null;
   shipments: NewCargoShipment[];
 };
 
@@ -103,6 +106,15 @@ export class CargoRepository {
       where: { iataCode: { notIn: excluding } },
       select: { iataCode: true, continent: true },
     });
+  }
+
+  async flightDistanceKm(flightId: string): Promise<number> {
+    const flight = await this.prisma.flight.findUnique({
+      where: { id: flightId },
+      select: { greatCircleDistance: true },
+    });
+
+    return flight?.greatCircleDistance ?? 0;
   }
 
   async latestMetar(iataCode: string): Promise<string | null> {

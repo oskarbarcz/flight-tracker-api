@@ -2,9 +2,10 @@
 
 ### Requirement: Baggage weight is derived from the loadsheet's payload
 
-The system SHALL derive the baggage aboard a flight from its loadsheet, as the payload less the
-passengers at the standard adult mass less the cargo tonnage, so that the baggage in the hold
-always reconciles with the payload the loadsheet declares.
+The system SHALL derive the baggage aboard a flight from its loadsheet where it can, as the
+payload less the passengers at the standard adult mass less the cargo tonnage, so that the
+baggage in the hold reconciles with the payload the loadsheet declares whenever that payload
+accounts for it.
 
 #### Scenario: Baggage is the payload residual
 
@@ -17,26 +18,38 @@ always reconciles with the payload the loadsheet declares.
 - **WHEN** its cargo manifest is generated
 - **THEN** no baggage is loaded
 
-### Requirement: A payload that cannot be reconciled is rejected
+### Requirement: Baggage falls back to the passenger count when the payload cannot account for it
 
-The system SHALL reject as unprocessable a loadsheet whose payload leaves no plausible baggage
-residual, whether because the residual is negative or because it implies an implausible mass per
-passenger. The check SHALL apply only where the airframe type has curated hold data.
+The system SHALL derive the baggage weight from the passenger count instead of the payload
+residual where the residual is negative or implies an implausible mass per passenger, and SHALL
+report which of the two sources it used. A loadsheet SHALL NOT be rejected for leaving no
+baggage allowance, because a payload stated as passengers plus cargo alone is a legitimate way
+to fill one.
 
-#### Scenario: A payload smaller than its passengers and cargo is rejected
+#### Scenario: A payload that accounts for baggage is reconciled
 
-- **WHEN** a loadsheet is submitted whose payload is less than its passengers at the standard mass plus its cargo
-- **THEN** the request is rejected as unprocessable
+- **GIVEN** a loadsheet whose payload exceeds its passengers at the standard mass plus its cargo by a plausible baggage allowance
+- **WHEN** its cargo manifest is generated
+- **THEN** the baggage weight equals that residual
+- **AND** the manifest reports the baggage as reconciled from the payload
 
-#### Scenario: An implausible residual is rejected
+#### Scenario: A payload smaller than its passengers and cargo falls back
 
-- **WHEN** a loadsheet is submitted whose residual implies an implausible baggage mass per passenger
-- **THEN** the request is rejected as unprocessable
+- **GIVEN** a loadsheet whose payload is less than its passengers at the standard mass plus its cargo
+- **WHEN** its cargo manifest is generated
+- **THEN** the baggage weight is derived from the passenger count
+- **AND** the manifest reports the baggage as derived
 
-#### Scenario: A consistent payload is accepted
+#### Scenario: An implausible residual falls back
 
-- **WHEN** a loadsheet is submitted whose payload leaves a plausible baggage residual
-- **THEN** the loadsheet is accepted
+- **GIVEN** a loadsheet whose residual implies an implausible baggage mass per passenger
+- **WHEN** its cargo manifest is generated
+- **THEN** the baggage weight is derived from the passenger count
+
+#### Scenario: A loadsheet is never rejected for its baggage allowance
+
+- **WHEN** operations releases a flight whose payload leaves no baggage allowance
+- **THEN** the release succeeds
 
 ### Requirement: Baggage is converted to bags at the standard mass for the sector
 

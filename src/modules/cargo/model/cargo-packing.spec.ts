@@ -1,6 +1,10 @@
 import {
   admissibleFor,
   canShareUnit,
+  compartmentLoadOfUnits,
+  LoadContentClass,
+  occupiedPositionsOf,
+  planBaggageUnits,
   LoadUnitKind,
   looseSlotsOf,
   MIN_BULK_LOT_KG,
@@ -20,6 +24,7 @@ import { JourneyContext, transferRoleOf } from './shipment-journey';
 import { conflicts } from './segregation.policy';
 import { SpecialHandlingCode } from './commodity.model';
 import { offeredCommoditiesFor } from './cargo-aircraft-only.policy';
+import { BaggageSource } from './baggage';
 import { SourceTier } from './commodity-selection';
 import { defaultVariantOf, HoldVariant } from './hold-layout.model';
 import { UldType } from './uld';
@@ -58,6 +63,14 @@ function journeyContext(seed: number): JourneyContext {
 }
 
 const coldChain = { buildUpHours: 3, flightHours: 9, ambientC: null };
+
+const samplePlan = {
+  source: BaggageSource.Reconciled,
+  weightKg: 2400,
+  bagCount: 133,
+  bagMassKg: 18,
+  priorityBagCount: 18,
+};
 
 const frankfurt = {
   iataCode: 'FRA',
@@ -500,6 +513,150 @@ describe('cargo packing', () => {
 
     expect(restricted).toEqual([]);
     expect(totalCargoKg(units)).toBe(18000);
+  });
+
+  it('containerises baggage where the aircraft has positions', () => {
+    const variant = variantOf('B77W');
+    const cargo = plan('B77W', 6000);
+    const baggage = planBaggageUnits({
+      plan: samplePlan,
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      occupied: occupiedPositionsOf(cargo),
+      compartmentLoad: compartmentLoadOfUnits(cargo),
+      random: seededRandom(5),
+    });
+
+    expect(baggage.length).toBeGreaterThan(0);
+    expect(
+      baggage.every((unit) => unit.contentClass === LoadContentClass.Baggage),
+    ).toBe(true);
+    expect(baggage.some((unit) => unit.positionDesignator !== null)).toBe(true);
+  });
+
+  it('never puts baggage in a position cargo already holds', () => {
+    const variant = variantOf('B77W');
+    const cargo = plan('B77W', 18000);
+    const occupied = occupiedPositionsOf(cargo);
+    const baggage = planBaggageUnits({
+      plan: samplePlan,
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      occupied,
+      compartmentLoad: compartmentLoadOfUnits(cargo),
+      random: seededRandom(5),
+    });
+
+    const cargoPositions = occupiedPositionsOf(cargo);
+    const clashes = baggage.filter(
+      (unit) =>
+        unit.positionDesignator !== null &&
+        cargo.some(
+          (other) => other.positionDesignator === unit.positionDesignator,
+        ),
+    );
+
+    expect(cargoPositions.size).toBeGreaterThan(0);
+    expect(clashes).toEqual([]);
+  });
+
+  it('loads baggage loose where the aircraft has no positions', () => {
+    const variant = variantOf('B738');
+    const baggage = planBaggageUnits({
+      plan: samplePlan,
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      occupied: new Set<string>(),
+      compartmentLoad: new Map<number, number>(),
+      random: seededRandom(5),
+    });
+
+    expect(baggage.length).toBeGreaterThan(0);
+    expect(baggage.every((unit) => unit.kind === LoadUnitKind.BulkLot)).toBe(
+      true,
+    );
+  });
+
+  it('lands the baggage weight exactly on the plan', () => {
+    const variant = variantOf('B77W');
+    const baggage = planBaggageUnits({
+      plan: samplePlan,
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      occupied: new Set<string>(),
+      compartmentLoad: new Map<number, number>(),
+      random: seededRandom(5),
+    });
+
+    expect(baggage.reduce((sum, unit) => sum + unit.grossKg, 0)).toBe(
+      samplePlan.weightKg,
+    );
+  });
+
+  it('sets aside a priority unit when premium bags exist', () => {
+    const variant = variantOf('B77W');
+    const withPremium = planBaggageUnits({
+      plan: samplePlan,
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      occupied: new Set<string>(),
+      compartmentLoad: new Map<number, number>(),
+      random: seededRandom(5),
+    });
+    const withoutPremium = planBaggageUnits({
+      plan: { ...samplePlan, priorityBagCount: 0 },
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      occupied: new Set<string>(),
+      compartmentLoad: new Map<number, number>(),
+      random: seededRandom(5),
+    });
+
+    expect(withPremium.some((unit) => unit.priority)).toBe(true);
+    expect(withoutPremium.some((unit) => unit.priority)).toBe(false);
+  });
+
+  it('carries no baggage unit when there are no bags', () => {
+    const variant = variantOf('B77W');
+
+    expect(
+      planBaggageUnits({
+        plan: { ...samplePlan, bagCount: 0, priorityBagCount: 0, weightKg: 0 },
+        slots: slotsOf(variant),
+        looseSlots: looseSlotsOf(variant),
+        occupied: new Set<string>(),
+        compartmentLoad: new Map<number, number>(),
+        random: seededRandom(5),
+      }),
+    ).toEqual([]);
+  });
+
+  it('keeps baggage out of the cargo invariant but inside compartment limits', () => {
+    const variant = variantOf('B77W');
+    const cargo = plan('B77W', 18000);
+    const load = compartmentLoadOfUnits(cargo);
+    const baggage = planBaggageUnits({
+      plan: samplePlan,
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      occupied: occupiedPositionsOf(cargo),
+      compartmentLoad: load,
+      random: seededRandom(5),
+    });
+
+    expect(totalCargoKg(cargo)).toBe(18000);
+
+    const limits = new Map(
+      variant.decks
+        .flatMap((deck) => deck.compartments)
+        .map((compartment) => [compartment.number, compartment.maxWeightKg]),
+    );
+    const combined = compartmentLoadOfUnits([...cargo, ...baggage]);
+    const exceeded = [...combined.entries()].filter(
+      ([compartment, weight]) => weight > limits.get(compartment)!,
+    );
+
+    expect(exceeded).toEqual([]);
   });
 
   it('is deterministic for a given seed', () => {

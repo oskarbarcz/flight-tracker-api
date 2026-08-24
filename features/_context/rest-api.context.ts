@@ -247,6 +247,43 @@ Then(
   },
 );
 
+Then(
+  'the {string} values of the response body list {string} should sum to {int}',
+  (itemProperty: string, listProperty: string, expected: number) => {
+    const total = itemsOf(listProperty).reduce(
+      (sum, item) => sum + ((item[itemProperty] as number | null) ?? 0),
+      0,
+    );
+
+    expect(total).toBe(expected);
+  },
+);
+
+Then(
+  'the only entry of the response body list {string} with {string} set to {string} should contain:',
+  (
+    listProperty: string,
+    itemProperty: string,
+    value: string,
+    docString: string,
+  ) => {
+    const matching = itemsOf(listProperty).filter(
+      (item) => item[itemProperty] === literalOf(value),
+    );
+
+    expect(matching).toHaveLength(1);
+    deepCompare(matching[0], JSON.parse(docString));
+  },
+);
+
+function literalOf(value: string): unknown {
+  try {
+    return JSON.parse(value);
+  } catch {
+    return value;
+  }
+}
+
 function valueAt(property: string): unknown {
   return property
     .split('.')

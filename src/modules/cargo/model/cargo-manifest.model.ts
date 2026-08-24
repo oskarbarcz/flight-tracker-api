@@ -5,6 +5,7 @@ import { UldType } from './uld';
 import { TransferRole } from './shipment-journey';
 import { DangerousGoodsProfile } from './commodity.model';
 import { ColdChainAssessment, ColdChainRisk } from './cold-chain';
+import { BaggageSource } from './baggage';
 
 export enum CargoContentClassName {
   Cargo = 'cargo',
@@ -230,6 +231,20 @@ export class CargoUnitEntry {
   })
   sealed!: boolean;
 
+  @ApiProperty({
+    description: 'Bags the unit holds; null for a unit holding cargo or mail',
+    example: 42,
+    nullable: true,
+  })
+  bagCount!: number | null;
+
+  @ApiProperty({
+    description:
+      'Whether the unit holds premium cabin baggage, which comes off first',
+    example: false,
+  })
+  priority!: boolean;
+
   @ApiProperty({ type: CargoShipmentEntry, isArray: true })
   shipments!: CargoShipmentEntry[];
 }
@@ -322,6 +337,25 @@ export class FlightCargoManifest {
     nullable: true,
   })
   tightestConnectionMinutes!: number | null;
+
+  @ApiProperty({
+    description:
+      'Baggage weight in the hold, in kilograms. Kept separate from the cargo tonnage.',
+    example: 2207,
+  })
+  baggageKg!: number;
+
+  @ApiProperty({ description: 'Bags in the hold', example: 138 })
+  bagCount!: number;
+
+  @ApiProperty({
+    description:
+      'Whether the baggage weight was reconciled from the loadsheet payload or derived from the passenger count because the payload could not account for it',
+    enum: BaggageSource,
+    nullable: true,
+    example: BaggageSource.Reconciled,
+  })
+  baggageSource!: BaggageSource | null;
 
   @ApiProperty({ type: CompartmentLoad, isArray: true })
   compartmentLoad!: CompartmentLoad[];

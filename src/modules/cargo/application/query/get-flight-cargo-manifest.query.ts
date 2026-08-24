@@ -33,7 +33,8 @@ import {
   GetAircraftHoldQuery,
 } from '../../../aircraft/application/query/get-aircraft-hold.query';
 import { resolveHoldVariant } from '../../model/hold-variant-resolution';
-import { CargoShipmentStatus } from 'prisma/client/client';
+import { CargoContentClass, CargoShipmentStatus } from 'prisma/client/client';
+import { BaggageSource } from '../../model/baggage';
 import { isTightConnection, TransferRole } from '../../model/shipment-journey';
 
 export class GetFlightCargoManifestQuery extends Query<FlightCargoManifest> {
@@ -88,11 +89,24 @@ export class GetFlightCargoManifestHandler implements IQueryHandler<GetFlightCar
     return {
       flightId,
       holdVariant: variant?.id ?? null,
-      cargoKg: rows.reduce((sum, row) => sum + row.tareKg + row.grossKg, 0),
-      containerCount: rows.filter((row) => row.kind === LoadUnitKind.Uld)
-        .length,
-      bulkLotCount: rows.filter((row) => row.kind === LoadUnitKind.BulkLot)
-        .length,
+      cargoKg: rows
+        .filter((row) => row.contentClass === CargoContentClass.cargo)
+        .reduce((sum, row) => sum + row.tareKg + row.grossKg, 0),
+      baggageKg: rows
+        .filter((row) => row.contentClass === CargoContentClass.baggage)
+        .reduce((sum, row) => sum + row.grossKg, 0),
+      bagCount: rows.reduce((sum, row) => sum + (row.bagCount ?? 0), 0),
+      baggageSource: baggageSourceOf(rows),
+      containerCount: rows.filter(
+        (row) =>
+          row.kind === LoadUnitKind.Uld &&
+          row.contentClass === CargoContentClass.cargo,
+      ).length,
+      bulkLotCount: rows.filter(
+        (row) =>
+          row.kind === LoadUnitKind.BulkLot &&
+          row.contentClass === CargoContentClass.cargo,
+      ).length,
       shipmentCount: units.reduce(
         (sum, unit) => sum + unit.shipments.length,
         0,
@@ -132,6 +146,8 @@ function toUnitEntry(row: CargoUnitRow): CargoUnitEntry {
     contentClass: row.contentClass as unknown as CargoContentClassName,
     beyondDestination: row.beyondDestination,
     sealed: row.sealed,
+    bagCount: row.bagCount,
+    priority: row.priority,
     shipments: row.shipments.map((shipment) => ({
       awb: shipment.awb,
       commodity: shipment.commodityId,
@@ -156,6 +172,13 @@ function toUnitEntry(row: CargoUnitRow): CargoUnitEntry {
       status: shipment.status as unknown as CargoShipmentStatusName,
     })),
   };
+}
+
+function baggageSourceOf(rows: CargoUnitRow[]): BaggageSource | null {
+  return (
+    (rows.find((row) => row.baggageSource !== null)
+      ?.baggageSource as BaggageSource) ?? null
+  );
 }
 
 const RISK_ORDER = [

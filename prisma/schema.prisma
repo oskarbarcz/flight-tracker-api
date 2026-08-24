@@ -1026,6 +1026,9 @@ model FlightCargoUnit {
   contentClass       CargoContentClass @default(cargo)
   beyondDestination  String?           @db.VarChar(3)
   sealed             Boolean           @default(false)
+  bagCount           Int?
+  priority           Boolean           @default(false)
+  baggageSource      String?           @db.VarChar(16)
 
   flight    Flight                @relation(fields: [flightId], references: [id], onDelete: Cascade)
   shipments FlightCargoShipment[]
