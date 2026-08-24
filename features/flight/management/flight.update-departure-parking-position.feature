@@ -157,6 +157,7 @@ Feature: Update flight departure parking position
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "notoc": null,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",

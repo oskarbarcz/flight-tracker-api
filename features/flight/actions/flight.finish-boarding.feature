@@ -242,6 +242,7 @@ Feature: Finish flight boarding
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
+        "notoc": "@any",
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -1309,6 +1310,89 @@ Feature: Finish flight boarding
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": [],
         "units": "@any"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: Finishing boarding issues the final notification, acknowledges it and reports what changed
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 4.5,
+        "cargo": 4.5,
+        "zeroFuelWeight": 72.9,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/notoc"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "d2601432-e8cb-4018-8cee-f24aaaa29ca5",
+        "stage": "final",
+        "issuedAt": "@any",
+        "acknowledgedById": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+        "acknowledgedAt": "@any",
+        "document": "@any",
+        "changes": "@any"
+      }
+      """
+    And the response body property "document.summary.cargoKg" should contain:
+      """json
+      4500
+      """
+    And the response body property "changes.changed" should contain:
+      """json
+      true
+      """
+    And the response body property "changes.cargoChangeKg" should contain:
+      """json
+      -1000
+      """
+    And I set database to initial state
+
+  Scenario: A reconciliation that changed nothing reports no changes
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 5.5,
+        "cargo": 5.5,
+        "zeroFuelWeight": 73.9,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/notoc"
+    Then the response status should be 200
+    And the response body property "changes" should contain:
+      """json
+      {
+        "changed": false,
+        "dangerousGoodsAdded": [],
+        "dangerousGoodsRemoved": [],
+        "specialLoadsAdded": [],
+        "specialLoadsRemoved": [],
+        "repositioned": [],
+        "cargoChangeKg": 0,
+        "deadloadChangeKg": 0
       }
       """
     And I set database to initial state

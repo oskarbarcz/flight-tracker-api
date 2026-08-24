@@ -21,6 +21,8 @@ import {
   GetFlightResponse,
   FlightListFilters,
 } from '../../infra/http/request/flight.dto';
+import { GetFlightNotocSummariesQuery } from '../../../notoc/application/query/get-flight-notoc-summary.query';
+import { FlightNotocSummary } from '../../../notoc/model/notoc-summary.model';
 
 type ListAllFlightsResult = {
   flights: GetFlightResponse[];
@@ -49,9 +51,10 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
       query.onlyPublic,
     );
 
-    const pilotsById = await this.resolvePilots(
-      flights.map((flight) => flight.captainId),
-    );
+    const [pilotsById, notocsByFlight] = await Promise.all([
+      this.resolvePilots(flights.map((flight) => flight.captainId)),
+      this.resolveNotocs(flights.map((flight) => flight.id)),
+    ]);
 
     return {
       flights: flights.map(
@@ -79,10 +82,19 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
           tracking: flight.tracking as FlightTracking,
           serviceType: flight.serviceType as FlightServiceType,
           pilot: captainId ? (pilotsById.get(captainId) ?? null) : null,
+          notoc: notocsByFlight.get(flight.id) ?? null,
         }),
       ),
       totalCount,
     };
+  }
+
+  private async resolveNotocs(
+    flightIds: string[],
+  ): Promise<Map<string, FlightNotocSummary>> {
+    const summaryQuery = new GetFlightNotocSummariesQuery(flightIds);
+
+    return this.queryBus.execute(summaryQuery);
   }
 
   /**

@@ -152,6 +152,7 @@ Feature: Get flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "notoc": null,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -369,6 +370,7 @@ Feature: Get flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
+        "notoc": null,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -605,6 +607,7 @@ Feature: Get flight
         ],
         "isFlightDiverted": false,
         "hasFlightPath": true,
+        "notoc": null,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "pilot": {

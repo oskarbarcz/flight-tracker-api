@@ -1,4 +1,9 @@
-import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
+import {
+  CommandBus,
+  CommandHandler,
+  ICommandHandler,
+  QueryBus,
+} from '@nestjs/cqrs';
 import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
 import {
@@ -10,6 +15,8 @@ import { PilotCheckedInEvent } from '../../../../core/domain/events/dto/flight.e
 import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { Schedule } from '../../model/timesheet.model';
+import { AcknowledgeNotocCommand } from '../../../notoc/application/command/acknowledge-notoc.command';
+import { NotocStageName } from '../../../notoc/model/notoc.model';
 
 export class CheckInPilotCommand {
   constructor(
@@ -23,6 +30,7 @@ export class CheckInPilotCommand {
 export class CheckInPilotForFlightHandler implements ICommandHandler<CheckInPilotCommand> {
   constructor(
     private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
     private readonly flightsRepository: FlightsRepository,
     private readonly domainEvents: DomainEventEmitter,
   ) {}
@@ -39,6 +47,14 @@ export class CheckInPilotForFlightHandler implements ICommandHandler<CheckInPilo
     if (flight.status !== FlightStatus.Ready) {
       throw new InvalidStatusToCheckInError();
     }
+
+    const acknowledgeNotoc = new AcknowledgeNotocCommand(
+      flightId,
+      NotocStageName.Preliminary,
+      initiatorId,
+      new Date(),
+    );
+    await this.commandBus.execute(acknowledgeNotoc);
 
     const timesheet = flight.timesheet;
     timesheet.estimated = estimatedSchedule;

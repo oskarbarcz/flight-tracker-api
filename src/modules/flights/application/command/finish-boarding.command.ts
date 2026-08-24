@@ -23,6 +23,9 @@ import { ReconcileFlightManifestCommand } from '../../../passengers/application/
 import { ReconcileFlightCargoManifestCommand } from '../../../cargo/application/command/reconcile-flight-cargo-manifest.command';
 import { AirportType } from '../../../airports/model/airport.model';
 import { scheduledFlightHours } from '../../model/timesheet.model';
+import { IssueNotocCommand } from '../../../notoc/application/command/issue-notoc.command';
+import { AcknowledgeNotocCommand } from '../../../notoc/application/command/acknowledge-notoc.command';
+import { NotocStageName } from '../../../notoc/model/notoc.model';
 
 export class FinishBoardingCommand {
   constructor(
@@ -94,6 +97,23 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
         scheduledFlightHours(flight.timesheet.scheduled),
       );
       await this.commandBus.execute(reconcileCargoManifest);
+
+      const issuedAt = new Date();
+      const issueNotoc = new IssueNotocCommand(
+        flightId,
+        NotocStageName.Final,
+        arrival.iataCode,
+        issuedAt,
+      );
+      await this.commandBus.execute(issueNotoc);
+
+      const acknowledgeNotoc = new AcknowledgeNotocCommand(
+        flightId,
+        NotocStageName.Final,
+        initiatorId,
+        issuedAt,
+      );
+      await this.commandBus.execute(acknowledgeNotoc);
     }
 
     await Promise.all([

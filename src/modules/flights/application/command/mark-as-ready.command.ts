@@ -18,6 +18,8 @@ import { GenerateFlightManifestCommand } from '../../../passengers/application/c
 import { GenerateFlightCargoManifestCommand } from '../../../cargo/application/command/generate-flight-cargo-manifest.command';
 import { AirportType } from '../../../airports/model/airport.model';
 import { scheduledFlightHours } from '../../model/timesheet.model';
+import { IssueNotocCommand } from '../../../notoc/application/command/issue-notoc.command';
+import { NotocStageName } from '../../../notoc/model/notoc.model';
 
 export class MarkAsReadyCommand {
   constructor(
@@ -90,6 +92,14 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
         flight.loadsheets.preliminary.passengersByCabin ?? null,
       );
       await this.commandBus.execute(generateCargoManifest);
+
+      const issueNotoc = new IssueNotocCommand(
+        flightId,
+        NotocStageName.Preliminary,
+        arrival.iataCode,
+        new Date(),
+      );
+      await this.commandBus.execute(issueNotoc);
     }
 
     await this.flightsRepository.updateStatus(flightId, FlightStatus.Ready);

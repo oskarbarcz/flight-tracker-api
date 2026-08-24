@@ -9,6 +9,7 @@ import { AssertHoldVariantOfferedHandler } from './application/assert/assert-hol
 import { GenerateFlightCargoManifestHandler } from './application/command/generate-flight-cargo-manifest.command';
 import { ReconcileFlightCargoManifestHandler } from './application/command/reconcile-flight-cargo-manifest.command';
 import { GetFlightCargoManifestHandler } from './application/query/get-flight-cargo-manifest.query';
+import { GetFlightCargoLoadHandler } from './application/query/get-flight-cargo-load.query';
 import { CargoRepository } from './infra/database/repository/cargo.repository';
 
 @Module({
@@ -26,6 +27,7 @@ import { CargoRepository } from './infra/database/repository/cargo.repository';
     GenerateFlightCargoManifestHandler,
     ReconcileFlightCargoManifestHandler,
     GetFlightCargoManifestHandler,
+    GetFlightCargoLoadHandler,
   ],
 })
 export class CargoModule {}

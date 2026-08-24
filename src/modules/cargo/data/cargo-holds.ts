@@ -4,7 +4,7 @@ import {
   SourceHoldLayout,
   SourceVariant,
 } from '../model/hold-position-expander';
-import holdLayoutData from './cargo-holds.json';
+import holdLayoutData from './cargo-holds.data.json';
 
 export const HOLD_LAYOUT_SOURCE = holdLayoutData as SourceHoldLayout[];
 

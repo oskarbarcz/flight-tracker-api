@@ -212,6 +212,7 @@ Feature: Check in pilot for flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "notoc": null,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -795,6 +796,50 @@ Feature: Check in pilot for flight
         "statusCode": 422
       }
       """
+
+  Scenario: Checking in acknowledges the notification to captain
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380/notoc"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380",
+        "stage": "preliminary",
+        "issuedAt": "2025-06-02T07:40:00.000Z",
+        "acknowledgedById": null,
+        "acknowledgedAt": null,
+        "document": "@any",
+        "changes": null
+      }
+      """
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380/check-in" with body:
+      """json
+      {
+        "offBlockTime": "2025-06-02T09:05:00.000Z",
+        "takeoffTime": "2025-06-02T09:25:00.000Z",
+        "arrivalTime": "2025-06-02T17:35:00.000Z",
+        "onBlockTime": "2025-06-02T17:45:00.000Z"
+      }
+      """
+    Then the response status should be 204
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380/notoc"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380",
+        "stage": "preliminary",
+        "issuedAt": "2025-06-02T07:40:00.000Z",
+        "acknowledgedById": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+        "acknowledgedAt": "@any",
+        "document": "@any",
+        "changes": null
+      }
+      """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot check in pilot for flight with incorrect schedule payload
     Given I am signed in as "cabin crew"

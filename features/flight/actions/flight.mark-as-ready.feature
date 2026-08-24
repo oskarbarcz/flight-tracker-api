@@ -172,6 +172,7 @@ Feature: Mark flight as ready
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "notoc": "@any",
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -691,6 +692,30 @@ Feature: Mark flight as ready
         "compartmentLoad": "@any",
         "units": "@any"
       }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I issue the notification to captain when I release a flight
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64/notoc"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64",
+        "stage": "preliminary",
+        "issuedAt": "@any",
+        "acknowledgedById": null,
+        "acknowledgedAt": null,
+        "document": "@any",
+        "changes": null
+      }
+      """
+    And the response body property "document.summary.cargoKg" should contain:
+      """json
+      18000
       """
     And I set database to initial state
 
