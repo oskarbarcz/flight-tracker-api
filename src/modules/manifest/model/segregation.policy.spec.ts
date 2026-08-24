@@ -9,6 +9,8 @@ import { SpecialHandlingCode } from './commodity.model';
 import { findCommodityById } from '../data/cargo-commodities';
 import { findHoldLayoutByType } from '../data/cargo-holds';
 import { compartmentsOf, defaultVariantOf } from './hold-layout.model';
+import { COMMODITIES } from '../data/cargo-commodities';
+import { FOODSTUFF_CODES, LIVE_ANIMAL_CODES } from './segregation.policy';
 
 const heatedAndVentilated = compartmentsOf(
   defaultVariantOf(findHoldLayoutByType('B77W')!),
@@ -129,5 +131,62 @@ describe('segregation policy', () => {
   it('counts dry ice weight only where dry ice is carried', () => {
     expect(dryIceKgOf([SpecialHandlingCode.DryIce], 132)).toBe(132);
     expect(dryIceKgOf([SpecialHandlingCode.Perishable], 132)).toBe(0);
+  });
+});
+
+describe('segregation against the real catalogue', () => {
+  const shcOf = (id: string): SpecialHandlingCode[] =>
+    findCommodityById(id)!.shc;
+
+  it('keeps an infectious substance away from every food commodity', () => {
+    const foods = COMMODITIES.filter((commodity) =>
+      commodity.shc.some((code) => FOODSTUFF_CODES.includes(code)),
+    );
+    const allowed = foods.filter(
+      (food) => !conflicts(shcOf('infectious-cat-a'), food.shc),
+    );
+
+    expect(foods.length).toBeGreaterThan(10);
+    expect(allowed.map((food) => food.id)).toEqual([]);
+  });
+
+  it('keeps human remains away from every food commodity', () => {
+    const foods = COMMODITIES.filter((commodity) =>
+      commodity.shc.some((code) => FOODSTUFF_CODES.includes(code)),
+    );
+    const allowed = foods.filter(
+      (food) => !conflicts(shcOf('human-remains'), food.shc),
+    );
+
+    expect(allowed.map((food) => food.id)).toEqual([]);
+  });
+
+  it('keeps radioactive material away from every live animal commodity', () => {
+    const animals = COMMODITIES.filter((commodity) =>
+      commodity.shc.some((code) => LIVE_ANIMAL_CODES.includes(code)),
+    );
+    const allowed = animals.filter(
+      (animal) => !conflicts(shcOf('radiopharmaceuticals'), animal.shc),
+    );
+
+    expect(animals.length).toBeGreaterThan(3);
+    expect(allowed.map((animal) => animal.id)).toEqual([]);
+  });
+
+  it('keeps dry ice away from every live animal commodity', () => {
+    const animals = COMMODITIES.filter((commodity) =>
+      commodity.shc.some((code) => LIVE_ANIMAL_CODES.includes(code)),
+    );
+    const allowed = animals.filter(
+      (animal) => !conflicts(shcOf('dry-ice'), animal.shc),
+    );
+
+    expect(allowed.map((animal) => animal.id)).toEqual([]);
+  });
+
+  it('leaves unrelated freight free to share a compartment', () => {
+    expect(conflicts(shcOf('printed-matter'), shcOf('coffee-beans'))).toBe(
+      false,
+    );
   });
 });

@@ -3,17 +3,37 @@ import { Commodity, SpecialHandlingCode } from './commodity.model';
 
 export type SegregationPair = [SpecialHandlingCode, SpecialHandlingCode];
 
-export const SEGREGATION_PAIRS: SegregationPair[] = [
-  [SpecialHandlingCode.RadioactiveYellow, SpecialHandlingCode.LiveAnimals],
-  [SpecialHandlingCode.RadioactiveWhite, SpecialHandlingCode.LiveAnimals],
-  [SpecialHandlingCode.RadioactiveYellow, SpecialHandlingCode.UndevelopedFilm],
-  [SpecialHandlingCode.RadioactiveWhite, SpecialHandlingCode.UndevelopedFilm],
-  [SpecialHandlingCode.InfectiousSubstance, SpecialHandlingCode.Foodstuffs],
-  [SpecialHandlingCode.DryIce, SpecialHandlingCode.LiveAnimals],
-  [SpecialHandlingCode.DryIce, SpecialHandlingCode.LiveAnimalsHold],
-  [SpecialHandlingCode.Oxidizer, SpecialHandlingCode.FlammableLiquid],
-  [SpecialHandlingCode.HumanRemains, SpecialHandlingCode.Foodstuffs],
+export const FOODSTUFF_CODES: SpecialHandlingCode[] = [
+  SpecialHandlingCode.Foodstuffs,
+  SpecialHandlingCode.PerishableMeat,
+  SpecialHandlingCode.PerishableSeafood,
+  SpecialHandlingCode.PerishableProduce,
 ];
+
+export const LIVE_ANIMAL_CODES: SpecialHandlingCode[] = [
+  SpecialHandlingCode.LiveAnimals,
+  SpecialHandlingCode.LiveAnimalsHold,
+  SpecialHandlingCode.HatchingEggs,
+];
+
+export const RADIOACTIVE_CODES: SpecialHandlingCode[] = [
+  SpecialHandlingCode.RadioactiveWhite,
+  SpecialHandlingCode.RadioactiveYellow,
+];
+
+const SEGREGATION_RULES: [SpecialHandlingCode[], SpecialHandlingCode[]][] = [
+  [RADIOACTIVE_CODES, LIVE_ANIMAL_CODES],
+  [RADIOACTIVE_CODES, [SpecialHandlingCode.UndevelopedFilm]],
+  [[SpecialHandlingCode.InfectiousSubstance], FOODSTUFF_CODES],
+  [[SpecialHandlingCode.DryIce], LIVE_ANIMAL_CODES],
+  [[SpecialHandlingCode.Oxidizer], [SpecialHandlingCode.FlammableLiquid]],
+  [[SpecialHandlingCode.HumanRemains], FOODSTUFF_CODES],
+];
+
+export const SEGREGATION_PAIRS: SegregationPair[] = SEGREGATION_RULES.flatMap(
+  ([left, right]) =>
+    left.flatMap((one) => right.map((other): SegregationPair => [one, other])),
+);
 
 export function conflicts(
   one: SpecialHandlingCode[],

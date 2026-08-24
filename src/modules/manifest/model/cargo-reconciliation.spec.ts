@@ -228,3 +228,19 @@ describe('planCargoReconciliation', () => {
     });
   });
 });
+
+describe('an unresolvable commodity', () => {
+  it('is treated as freight that may not be offloaded, so the shortfall is refused rather than shed', () => {
+    const units = [
+      unit('u1', 100, '11L', [['unknown', 900, OffloadPriority.Never]]),
+      unit('u2', 100, '12L', [['general', 900, OffloadPriority.General]]),
+    ];
+
+    const plan = planCargoReconciliation(units, 1000);
+
+    expect(plan.offloads.map((offload) => offload.shipmentId)).toEqual([
+      'general',
+    ]);
+    expect(retainedCargoKg(units)).toBe(1000);
+  });
+});

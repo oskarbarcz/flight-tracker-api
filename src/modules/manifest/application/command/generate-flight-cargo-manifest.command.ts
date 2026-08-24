@@ -160,7 +160,6 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
           looseSlots: looseSlotsOf(variant),
           occupied: occupiedPositionsOf(planned),
           compartmentLoad: compartmentLoadOfUnits(planned),
-          random: Math.random,
         })
       : [];
 

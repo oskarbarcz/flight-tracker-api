@@ -254,7 +254,7 @@ function toReconcilableUnit(row: CargoUnitRow): ReconcilableUnit {
         grossKg: shipment.grossKg,
         offloadPriority:
           findCommodityById(shipment.commodityId)?.offloadPriority ??
-          OffloadPriority.General,
+          OffloadPriority.Never,
       })),
   };
 }

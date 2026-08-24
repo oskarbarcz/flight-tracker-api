@@ -524,7 +524,6 @@ describe('cargo packing', () => {
       looseSlots: looseSlotsOf(variant),
       occupied: occupiedPositionsOf(cargo),
       compartmentLoad: compartmentLoadOfUnits(cargo),
-      random: seededRandom(5),
     });
 
     expect(baggage.length).toBeGreaterThan(0);
@@ -544,7 +543,6 @@ describe('cargo packing', () => {
       looseSlots: looseSlotsOf(variant),
       occupied,
       compartmentLoad: compartmentLoadOfUnits(cargo),
-      random: seededRandom(5),
     });
 
     const cargoPositions = occupiedPositionsOf(cargo);
@@ -568,7 +566,6 @@ describe('cargo packing', () => {
       looseSlots: looseSlotsOf(variant),
       occupied: new Set<string>(),
       compartmentLoad: new Map<number, number>(),
-      random: seededRandom(5),
     });
 
     expect(baggage.length).toBeGreaterThan(0);
@@ -585,7 +582,6 @@ describe('cargo packing', () => {
       looseSlots: looseSlotsOf(variant),
       occupied: new Set<string>(),
       compartmentLoad: new Map<number, number>(),
-      random: seededRandom(5),
     });
 
     expect(baggage.reduce((sum, unit) => sum + unit.grossKg, 0)).toBe(
@@ -601,7 +597,6 @@ describe('cargo packing', () => {
       looseSlots: looseSlotsOf(variant),
       occupied: new Set<string>(),
       compartmentLoad: new Map<number, number>(),
-      random: seededRandom(5),
     });
     const withoutPremium = planBaggageUnits({
       plan: { ...samplePlan, priorityBagCount: 0 },
@@ -609,7 +604,6 @@ describe('cargo packing', () => {
       looseSlots: looseSlotsOf(variant),
       occupied: new Set<string>(),
       compartmentLoad: new Map<number, number>(),
-      random: seededRandom(5),
     });
 
     expect(withPremium.some((unit) => unit.priority)).toBe(true);
@@ -626,7 +620,6 @@ describe('cargo packing', () => {
         looseSlots: looseSlotsOf(variant),
         occupied: new Set<string>(),
         compartmentLoad: new Map<number, number>(),
-        random: seededRandom(5),
       }),
     ).toEqual([]);
   });
@@ -641,7 +634,6 @@ describe('cargo packing', () => {
       looseSlots: looseSlotsOf(variant),
       occupied: occupiedPositionsOf(cargo),
       compartmentLoad: load,
-      random: seededRandom(5),
     });
 
     expect(totalCargoKg(cargo)).toBe(18000);
@@ -761,6 +753,90 @@ describe('cargo packing', () => {
           compartmentShc.get(unit.compartment!) ?? [],
         ),
       );
+
+    expect(clashes).toEqual([]);
+  });
+});
+
+describe('bulk cargo placement', () => {
+  function limitsOf(variant: HoldVariant): Map<number, number> {
+    return new Map(
+      variant.decks
+        .flatMap((deck) => deck.compartments)
+        .map((compartment) => [compartment.number, compartment.maxWeightKg]),
+    );
+  }
+
+  it('never overloads a compartment on a bulk-only narrowbody', () => {
+    const variant = variantOf('B738');
+    const limits = limitsOf(variant);
+
+    for (const target of [1800, 3000, 5000, 7000]) {
+      const units = plan('B738', target);
+      const exceeded = [...compartmentLoadOfUnits(units).entries()].filter(
+        ([compartment, weight]) => weight > limits.get(compartment)!,
+      );
+
+      expect({ target, exceeded }).toEqual({ target, exceeded: [] });
+      expect(totalCargoKg(units)).toBe(target);
+    }
+  });
+
+  it('spreads a load too heavy for one compartment across several', () => {
+    const units = plan('B738', 5000).filter(
+      (unit) => unit.kind === LoadUnitKind.BulkLot,
+    );
+
+    expect(units.length).toBeGreaterThan(1);
+  });
+
+  it('keeps a load that fits in one compartment as a single lot', () => {
+    const units = plan('B738', 1800).filter(
+      (unit) => unit.kind === LoadUnitKind.BulkLot,
+    );
+
+    expect(units).toHaveLength(1);
+  });
+
+  it('never puts a load in a compartment its commodity cannot use', () => {
+    const variant = variantOf('B738');
+    const compartments = new Map(
+      variant.decks
+        .flatMap((deck) => deck.compartments)
+        .map((compartment) => [compartment.number, compartment]),
+    );
+    const wrong = plan('B738', 6000)
+      .filter((unit) => unit.compartment !== null)
+      .flatMap((unit) =>
+        unit.shipments.map((shipment) => ({
+          commodity: findCommodityById(shipment.commodityId)!,
+          compartment: compartments.get(unit.compartment!)!,
+        })),
+      )
+      .filter(({ commodity, compartment }) => {
+        const needsHeat =
+          commodity.compartment.requiresHeated && !compartment.heated;
+        const needsAir =
+          commodity.compartment.requiresVentilated && !compartment.ventilated;
+        return needsHeat || needsAir;
+      });
+
+    expect(wrong.map((entry) => entry.commodity.id)).toEqual([]);
+  });
+
+  it('never puts a segregated pair in one bulk compartment', () => {
+    const byCompartment = new Map<number, SpecialHandlingCode[]>();
+    const clashes: number[] = [];
+
+    for (const unit of plan('B738', 6000)) {
+      if (unit.compartment === null) continue;
+      const codes = unit.shipments.flatMap(
+        (shipment) => findCommodityById(shipment.commodityId)?.shc ?? [],
+      );
+      const loaded = byCompartment.get(unit.compartment) ?? [];
+      if (conflicts(codes, loaded)) clashes.push(unit.compartment);
+      byCompartment.set(unit.compartment, [...loaded, ...codes]);
+    }
 
     expect(clashes).toEqual([]);
   });
