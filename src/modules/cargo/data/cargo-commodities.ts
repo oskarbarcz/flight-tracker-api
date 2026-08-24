@@ -1,5 +1,5 @@
 import { Commodity } from '../model/commodity.model';
-import commodityData from './cargo-commodities.json';
+import commodityData from './cargo-commodities.data.json';
 
 export const COMMODITIES: readonly Commodity[] = commodityData as Commodity[];
 

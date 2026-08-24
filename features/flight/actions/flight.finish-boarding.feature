@@ -242,6 +242,7 @@ Feature: Finish flight boarding
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -1393,6 +1394,192 @@ Feature: Finish flight boarding
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": [],
         "units": "@any"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: Finishing boarding issues the final notification, acknowledges it and reports what changed
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 4,
+        "cargo": 4,
+        "zeroFuelWeight": 72.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/notoc"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "d2601432-e8cb-4018-8cee-f24aaaa29ca5",
+        "stage": "final",
+        "issuedAt": "@date('within 1 minute from now')",
+        "acknowledgedById": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+        "acknowledgedAt": "@date('within 1 minute from now')",
+        "document": {
+          "summary": {
+            "cargoKg": 4000,
+            "baggageKg": 0,
+            "deadloadKg": 4000,
+            "beyondCount": 0,
+            "palletCount": 0,
+            "compartments": [
+              {
+                "deck": "lower",
+                "dryIceKg": 0,
+                "weightKg": 4000,
+                "compartment": 1
+              }
+            ],
+            "looseLotCount": 0,
+            "containerCount": 3,
+            "tightestConnectionMinutes": null
+          },
+          "coldChain": [],
+          "statement": "No dangerous goods loaded.",
+          "specialLoads": [
+            {
+              "awb": "001-48203735",
+              "shc": ["PIL"],
+              "grossKg": 900,
+              "position": "12L",
+              "compartment": 1,
+              "description": "Sterile medical devices",
+              "heaviestPiece": null,
+              "unloadingAirport": "JFK"
+            },
+            {
+              "awb": "001-48203746",
+              "shc": ["HEA"],
+              "grossKg": 1454,
+              "position": "12R",
+              "compartment": 1,
+              "description": "Turbofan blade set, AOG",
+              "heaviestPiece": {
+                "kg": 900,
+                "widthCm": 110,
+                "heightCm": 95,
+                "lengthCm": 240
+              },
+              "unloadingAirport": "JFK"
+            }
+          ],
+          "dangerousGoods": []
+        },
+        "changes": {
+          "changed": true,
+          "dangerousGoodsAdded": [],
+          "dangerousGoodsRemoved": [],
+          "specialLoadsAdded": [],
+          "specialLoadsRemoved": [],
+          "repositioned": [],
+          "cargoChangeKg": -1500,
+          "deadloadChangeKg": -1500
+        }
+      }
+      """
+    And I set database to initial state
+
+  Scenario: A reconciliation that changed nothing reports no changes
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 5.5,
+        "cargo": 5.5,
+        "zeroFuelWeight": 73.9,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/notoc"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "d2601432-e8cb-4018-8cee-f24aaaa29ca5",
+        "stage": "final",
+        "issuedAt": "@date('within 1 minute from now')",
+        "acknowledgedById": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+        "acknowledgedAt": "@date('within 1 minute from now')",
+        "document": {
+          "summary": {
+            "cargoKg": 5500,
+            "baggageKg": 0,
+            "deadloadKg": 5500,
+            "beyondCount": 0,
+            "palletCount": 0,
+            "compartments": [
+              {
+                "deck": "lower",
+                "dryIceKg": 0,
+                "weightKg": 5500,
+                "compartment": 1
+              }
+            ],
+            "looseLotCount": 0,
+            "containerCount": 4,
+            "tightestConnectionMinutes": null
+          },
+          "coldChain": [],
+          "statement": "No dangerous goods loaded.",
+          "specialLoads": [
+            {
+              "awb": "001-48203735",
+              "shc": ["PIL"],
+              "grossKg": 900,
+              "position": "12L",
+              "compartment": 1,
+              "description": "Sterile medical devices",
+              "heaviestPiece": null,
+              "unloadingAirport": "JFK"
+            },
+            {
+              "awb": "001-48203746",
+              "shc": ["HEA"],
+              "grossKg": 1454,
+              "position": "12R",
+              "compartment": 1,
+              "description": "Turbofan blade set, AOG",
+              "heaviestPiece": {
+                "kg": 900,
+                "widthCm": 110,
+                "heightCm": 95,
+                "lengthCm": 240
+              },
+              "unloadingAirport": "JFK"
+            }
+          ],
+          "dangerousGoods": []
+        },
+        "changes": {
+          "changed": false,
+          "dangerousGoodsAdded": [],
+          "dangerousGoodsRemoved": [],
+          "specialLoadsAdded": [],
+          "specialLoadsRemoved": [],
+          "repositioned": [],
+          "cargoChangeKg": 0,
+          "deadloadChangeKg": 0
+        }
       }
       """
     And I set database to initial state

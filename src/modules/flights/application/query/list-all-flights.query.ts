@@ -21,6 +21,7 @@ import {
   GetFlightResponse,
   FlightListFilters,
 } from '../../infra/http/request/flight.dto';
+import { FlightsWithNotocQuery } from '../../../notoc/application/query/has-flight-notoc.query';
 
 type ListAllFlightsResult = {
   flights: GetFlightResponse[];
@@ -49,9 +50,10 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
       query.onlyPublic,
     );
 
-    const pilotsById = await this.resolvePilots(
-      flights.map((flight) => flight.captainId),
-    );
+    const [pilotsById, flightsWithNotoc] = await Promise.all([
+      this.resolvePilots(flights.map((flight) => flight.captainId)),
+      this.resolveFlightsWithNotoc(flights.map((flight) => flight.id)),
+    ]);
 
     return {
       flights: flights.map(
@@ -79,10 +81,19 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
           tracking: flight.tracking as FlightTracking,
           serviceType: flight.serviceType as FlightServiceType,
           pilot: captainId ? (pilotsById.get(captainId) ?? null) : null,
+          hasNotoc: flightsWithNotoc.has(flight.id),
         }),
       ),
       totalCount,
     };
+  }
+
+  private async resolveFlightsWithNotoc(
+    flightIds: string[],
+  ): Promise<Set<string>> {
+    const notocQuery = new FlightsWithNotocQuery(flightIds);
+
+    return this.queryBus.execute(notocQuery);
   }
 
   /**

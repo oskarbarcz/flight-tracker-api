@@ -181,6 +181,7 @@ Feature: Update flight arrival parking position
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "hasNotoc": false,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",

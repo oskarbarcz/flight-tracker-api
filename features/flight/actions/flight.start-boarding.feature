@@ -188,6 +188,7 @@ Feature: Start boarding
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
+        "hasNotoc": false,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",

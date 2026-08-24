@@ -214,6 +214,20 @@ const FLIGHTS: CargoFlightSpec[] = [
     alternateAirportId: KPHL,
     cargo: 3,
   },
+  {
+    id: '2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380',
+    flightNumber: 'CV2020',
+    callsign: 'CLX2020',
+    operatorId: CARGOLUX,
+    aircraftId: LX_VCA,
+    captainId: RICK,
+    status: FlightStatus.Ready,
+    serviceType: FlightServiceType.Cargo,
+    departureAirportId: EDDF,
+    destinationAirportId: KJFK,
+    alternateAirportId: KPHL,
+    cargo: 14.9,
+  },
 ];
 
 export async function loadCargoFlights(

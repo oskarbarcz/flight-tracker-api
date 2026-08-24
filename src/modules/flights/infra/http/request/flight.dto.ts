@@ -52,6 +52,7 @@ export class CreateFlightRequest extends OmitType(Flight, [
   'isEmergencyDeclared',
   'hasFlightPath',
   'isOffBlockDelayed',
+  'hasNotoc',
   'createdAt',
   'departureParkingPositionId',
   'departureRunwayId',

@@ -172,6 +172,7 @@ Feature: Mark flight as ready
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -690,6 +691,42 @@ Feature: Mark flight as ready
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
         "units": "@any"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I issue the notification to captain when I release a flight
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64/notoc"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64",
+        "stage": "preliminary",
+        "issuedAt": "@date('within 1 minute from now')",
+        "acknowledgedById": null,
+        "acknowledgedAt": null,
+        "document": {
+          "statement": "@any",
+          "dangerousGoods": "@any",
+          "specialLoads": "@any",
+          "coldChain": "@any",
+          "summary": {
+            "compartments": "@any",
+            "containerCount": "@any",
+            "palletCount": "@any",
+            "looseLotCount": "@any",
+            "cargoKg": 18000,
+            "baggageKg": 0,
+            "deadloadKg": 18000,
+            "beyondCount": "@any",
+            "tightestConnectionMinutes": "@any"
+          }
+        },
+        "changes": null
       }
       """
     And I set database to initial state

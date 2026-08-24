@@ -19,6 +19,7 @@ import {
   DataQuality,
 } from '../../../airports/model/airport.model';
 import { GetFlightResponse } from '../../infra/http/request/flight.dto';
+import { FlightsWithNotocQuery } from '../../../notoc/application/query/has-flight-notoc.query';
 
 export class GetFlightQuery extends Query<GetFlightResponse> {
   constructor(public readonly flightId: string) {
@@ -71,7 +72,15 @@ export class GetFlightHandler implements IQueryHandler<GetFlightQuery> {
       tracking: flight.tracking as FlightTracking,
       serviceType: flight.serviceType as FlightServiceType,
       pilot: await this.resolvePilot(captainId),
+      hasNotoc: await this.resolveHasNotoc(query.flightId),
     };
+  }
+
+  private async resolveHasNotoc(flightId: string): Promise<boolean> {
+    const notocQuery = new FlightsWithNotocQuery([flightId]);
+    const issued: Set<string> = await this.queryBus.execute(notocQuery);
+
+    return issued.has(flightId);
   }
 
   private async resolvePilot(

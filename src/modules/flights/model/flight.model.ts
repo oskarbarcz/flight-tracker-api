@@ -245,6 +245,13 @@ export class Flight {
   isOffBlockDelayed!: boolean;
 
   @ApiProperty({
+    description:
+      'Flag if a notification to captain has been issued for this flight and can be retrieved from the flight notoc endpoint',
+    example: false,
+  })
+  hasNotoc!: boolean;
+
+  @ApiProperty({
     description: 'Timestamp when the flight record was created',
     example: '2025-01-01T00:00:00.000Z',
     type: 'string',
