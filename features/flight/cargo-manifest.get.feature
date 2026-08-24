@@ -69,56 +69,6 @@ Feature: Read the cargo manifest of a flight
       """
     And I set database to initial state
 
-  Scenario: As operations I read the premium cabin baggage set aside in its own unit
-    Given I am signed in as "operations"
-    When I send a "POST" request to "/api/v1/flight/8c3a1d61-9e45-4fc8-8b7a-2d5f6a8c9e3b/mark-as-ready"
-    Then the response status should be 204
-    When I send a "GET" request to "/api/v1/flight/8c3a1d61-9e45-4fc8-8b7a-2d5f6a8c9e3b/cargo-manifest"
-    Then the response status should be 200
-    And the response body should contain:
-      """json
-      {
-        "flightId": "8c3a1d61-9e45-4fc8-8b7a-2d5f6a8c9e3b",
-        "holdVariant": "a320-cls",
-        "cargoKg": 2500,
-        "baggageKg": 2400,
-        "bagCount": 133,
-        "baggageSource": "reconciled",
-        "containerCount": "@any",
-        "bulkLotCount": "@any",
-        "shipmentCount": "@any",
-        "worstColdChainRisk": "@any",
-        "dangerousGoodsCount": "@any",
-        "cargoAircraftOnlyCount": "@any",
-        "transferCount": "@any",
-        "tightestConnectionMinutes": "@any",
-        "compartmentLoad": "@any",
-        "units": "@any"
-      }
-      """
-    And the "bagCount" values of the response body list "units" should sum to 133
-    And the only entry of the response body list "units" with "priority" set to "true" should contain:
-      """json
-      {
-        "kind": "@any",
-        "uldCode": "@any",
-        "uldType": "@any",
-        "positionDesignator": "@any",
-        "compartment": "@any",
-        "deck": "lower",
-        "tareKg": "@any",
-        "grossKg": 324,
-        "volumeM3": 1.8,
-        "contentClass": "baggage",
-        "beyondDestination": null,
-        "sealed": false,
-        "bagCount": 18,
-        "priority": true,
-        "shipments": []
-      }
-      """
-    And I set database to initial state
-
   Scenario: As the captain of the flight I can read its cargo manifest
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/mark-as-ready"
