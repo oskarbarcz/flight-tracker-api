@@ -21,7 +21,7 @@ import {
   GetFlightResponse,
   FlightListFilters,
 } from '../../infra/http/request/flight.dto';
-import { FlightsWithNotocQuery } from '../../../notoc/application/query/has-flight-notoc.query';
+import { FlightsWithNotocQuery } from '../../../manifest/application/query/has-flight-notoc.query';
 
 type ListAllFlightsResult = {
   flights: GetFlightResponse[];

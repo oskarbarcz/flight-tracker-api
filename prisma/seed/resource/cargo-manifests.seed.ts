@@ -6,32 +6,35 @@ import {
   NotocStage,
   Prisma,
 } from '../../client/client';
-import { findCommodityById } from '../../../src/modules/cargo/data/cargo-commodities';
+import { findCommodityById } from '../../../src/modules/manifest/data/cargo-commodities';
 import {
   assessColdChain,
   ColdChainAssessment,
-} from '../../../src/modules/cargo/model/cold-chain';
+} from '../../../src/modules/manifest/model/cold-chain';
 import {
   DangerousGoodsProfile,
   SpecialHandlingCode,
-} from '../../../src/modules/cargo/model/commodity.model';
-import { dryIceKgOf } from '../../../src/modules/cargo/model/segregation.policy';
-import { LoadUnitKind } from '../../../src/modules/cargo/model/cargo-packing';
-import { UldType } from '../../../src/modules/cargo/model/uld';
-import { TransferRole } from '../../../src/modules/cargo/model/shipment-journey';
+} from '../../../src/modules/manifest/model/commodity.model';
+import { dryIceKgOf } from '../../../src/modules/manifest/model/segregation.policy';
+import { LoadUnitKind } from '../../../src/modules/manifest/model/cargo-packing';
+import { UldType } from '../../../src/modules/manifest/model/uld';
+import { TransferRole } from '../../../src/modules/manifest/model/shipment-journey';
 import {
   CargoContentClassName,
   CargoShipmentStatusName,
   CargoUnitEntry,
   CompartmentLoad,
   FlightCargoManifest,
-} from '../../../src/modules/cargo/model/cargo-manifest.model';
-import { CargoDeck as CargoDeckName } from '../../../src/modules/cargo/model/hold-layout.model';
-import { composeNotoc } from '../../../src/modules/notoc/model/notoc';
+} from '../../../src/modules/manifest/model/cargo-manifest.model';
+import { CargoDeck as CargoDeckName } from '../../../src/modules/manifest/model/hold-layout.model';
+import { composeNotoc } from '../../../src/modules/manifest/model/notoc';
 
 const AA2018 = 'd2601432-e8cb-4018-8cee-f24aaaa29ca5';
 const AA2019 = 'dc20c7ff-114e-42be-86cc-34fd90b71b35';
 const CV2020 = '2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380';
+const AA2021 = 'b4bad5cf-c049-488b-b979-8ef8fc85cdb4';
+const AAL4912 = '2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d';
+const AAL4911 = '7105891a-8008-4b47-b473-c81c97615ad7';
 const RICK = 'fcf6f4bc-290d-43a9-843c-409cd47e143d';
 const UNLOADING_AIRPORT = 'JFK';
 
@@ -392,6 +395,347 @@ const UNITS: UnitFixture[] = [
       },
     ],
   },
+  {
+    id: '20d4d6fb-9696-439e-806a-61a030c430cf',
+    flightId: AA2021,
+    kind: CargoUnitKind.bulk_lot,
+    deck: null,
+    compartment: null,
+    positionDesignator: null,
+    uldType: null,
+    uldSerial: null,
+    uldOwner: null,
+    tareKg: 0,
+    shipments: [
+      {
+        id: 'c5d61371-1eb5-42cc-8a45-25a503ce3666',
+        commodityId: 'printed-matter',
+        description: 'Books, palletised',
+        awb: '001-71844102',
+        pieces: 54,
+        grossKg: 1200,
+        volumeM3: 1.714,
+        shc: [],
+        shipper: 'Bauer Verlag GmbH',
+        consignee: 'Whitaker Distribution LLC',
+      },
+    ],
+  },
+  {
+    id: 'e3e70682-c209-4cac-a29f-6fbed82c07cd',
+    flightId: AAL4912,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 1,
+    positionDesignator: '11L',
+    uldType: 'AKE',
+    uldSerial: '49201',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: 'f728b4fa-4248-4e3a-8a5d-2f346baa9455',
+        commodityId: 'paint',
+        description: 'Paint, flammable',
+        awb: '001-49201003',
+        pieces: 78,
+        grossKg: 1400,
+        volumeM3: 1.556,
+        shc: ['RFL'],
+        shipper: 'Rhein-Main Forwarding GmbH',
+        consignee: 'Liberty Freight Services Inc.',
+        dangerousGoods: findCommodityById('paint')!.dangerousGoods,
+      },
+    ],
+  },
+  {
+    id: 'eb1167b3-67a9-4378-bc65-c1e582e2e662',
+    flightId: AAL4912,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 1,
+    positionDesignator: '11R',
+    uldType: 'AKE',
+    uldSerial: '49202',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: 'f7c1bd87-4da5-4709-9471-3d60c8a70639',
+        commodityId: 'lithium-ion-standalone',
+        description: 'Lithium ion cells, standalone',
+        awb: '001-49201014',
+        pieces: 140,
+        grossKg: 1400,
+        volumeM3: 1.556,
+        shc: ['RLI', 'CAO'],
+        shipper: 'Rhein-Main Forwarding GmbH',
+        consignee: 'Liberty Freight Services Inc.',
+        dangerousGoods: findCommodityById('lithium-ion-standalone')!
+          .dangerousGoods,
+      },
+    ],
+  },
+  {
+    id: 'e443df78-9558-467f-9ba9-1faf7a024204',
+    flightId: AAL4912,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 1,
+    positionDesignator: '12L',
+    uldType: 'AKE',
+    uldSerial: '49203',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: '23a7711a-8133-4876-b7eb-dcd9e87a1613',
+        commodityId: 'printed-matter',
+        description: 'Books, palletised',
+        awb: '001-49201025',
+        pieces: 64,
+        grossKg: 1400,
+        volumeM3: 2.0,
+        shc: [],
+        shipper: 'Rhein-Main Forwarding GmbH',
+        consignee: 'Liberty Freight Services Inc.',
+      },
+    ],
+  },
+  {
+    id: '1846d424-c17c-4279-a3c6-612f48268673',
+    flightId: AAL4912,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 1,
+    positionDesignator: '12R',
+    uldType: 'AKE',
+    uldSerial: '49204',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: 'fcbd04c3-4021-4ef7-8ca5-a5a19e4d6e3c',
+        commodityId: 'coffee-beans',
+        description: 'Speciality green coffee, bagged',
+        awb: '001-49201036',
+        pieces: 35,
+        grossKg: 1400,
+        volumeM3: 2.545,
+        shc: ['EAT'],
+        shipper: 'Rhein-Main Forwarding GmbH',
+        consignee: 'Liberty Freight Services Inc.',
+      },
+    ],
+  },
+  {
+    id: 'b4862b21-fb97-4435-8856-1712e8e5216a',
+    flightId: AAL4912,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 2,
+    positionDesignator: '21L',
+    uldType: 'AKE',
+    uldSerial: '49205',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: '259f4329-e6f4-490b-9a16-4106cf6a659e',
+        commodityId: 'printed-matter',
+        description: 'Books, palletised',
+        awb: '001-49201040',
+        pieces: 64,
+        grossKg: 1400,
+        volumeM3: 2.0,
+        shc: [],
+        shipper: 'Rhein-Main Forwarding GmbH',
+        consignee: 'Liberty Freight Services Inc.',
+      },
+    ],
+  },
+  {
+    id: '12e0c8b2-bad6-40fb-9948-8dec4f65d4d9',
+    flightId: AAL4912,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 2,
+    positionDesignator: '21R',
+    uldType: 'AKE',
+    uldSerial: '49206',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: '5487ce1e-af19-422a-99b8-a714e61a441c',
+        commodityId: 'coffee-beans',
+        description: 'Speciality green coffee, bagged',
+        awb: '001-49201051',
+        pieces: 25,
+        grossKg: 1008,
+        volumeM3: 1.833,
+        shc: ['EAT'],
+        shipper: 'Rhein-Main Forwarding GmbH',
+        consignee: 'Liberty Freight Services Inc.',
+      },
+    ],
+  },
+  {
+    id: '5a921187-19c7-4df4-8f4f-f31e78de5857',
+    flightId: AAL4911,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 1,
+    positionDesignator: '11L',
+    uldType: 'AKE',
+    uldSerial: '49301',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: 'a3f2c9bf-9c63-46b9-90f2-44556f25e2a2',
+        commodityId: 'printed-matter',
+        description: 'Books, palletised',
+        awb: '001-49301000',
+        pieces: 64,
+        grossKg: 1400,
+        volumeM3: 2.0,
+        shc: [],
+        shipper: 'Rhein-Main Forwarding GmbH',
+        consignee: 'Liberty Freight Services Inc.',
+      },
+    ],
+  },
+  {
+    id: '8d723104-f773-43c1-b458-a748e9bb17bc',
+    flightId: AAL4911,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 1,
+    positionDesignator: '11R',
+    uldType: 'AKE',
+    uldSerial: '49302',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: '85776e9a-dd84-439e-b154-5a137a1d5006',
+        commodityId: 'coffee-beans',
+        description: 'Speciality green coffee, bagged',
+        awb: '001-49301011',
+        pieces: 35,
+        grossKg: 1400,
+        volumeM3: 2.545,
+        shc: ['EAT'],
+        shipper: 'Rhein-Main Forwarding GmbH',
+        consignee: 'Liberty Freight Services Inc.',
+      },
+    ],
+  },
+  {
+    id: 'eb2083e6-ce16-4dba-8ff1-8e0242af9fc3',
+    flightId: AAL4911,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 1,
+    positionDesignator: '12L',
+    uldType: 'AKE',
+    uldSerial: '49303',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: '17e0aa3c-0398-4ca8-aa7e-9d498c778ea6',
+        commodityId: 'printed-matter',
+        description: 'Books, palletised',
+        awb: '001-49301022',
+        pieces: 64,
+        grossKg: 1400,
+        volumeM3: 2.0,
+        shc: [],
+        shipper: 'Rhein-Main Forwarding GmbH',
+        consignee: 'Liberty Freight Services Inc.',
+      },
+    ],
+  },
+  {
+    id: 'b5d32b16-6619-4cb1-9710-37d1b83e90ec',
+    flightId: AAL4911,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 1,
+    positionDesignator: '12R',
+    uldType: 'AKE',
+    uldSerial: '49304',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: 'a0116be5-ab0c-4681-88f8-e3d0d3290a4c',
+        commodityId: 'coffee-beans',
+        description: 'Speciality green coffee, bagged',
+        awb: '001-49301033',
+        pieces: 35,
+        grossKg: 1400,
+        volumeM3: 2.545,
+        shc: ['EAT'],
+        shipper: 'Rhein-Main Forwarding GmbH',
+        consignee: 'Liberty Freight Services Inc.',
+      },
+    ],
+  },
+  {
+    id: 'd3fbf47a-7e5b-4e7f-9ca5-499d004ae545',
+    flightId: AAL4911,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 2,
+    positionDesignator: '21L',
+    uldType: 'AKE',
+    uldSerial: '49305',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: 'baf3897a-3e70-416a-9548-5822de1b372a',
+        commodityId: 'printed-matter',
+        description: 'Books, palletised',
+        awb: '001-49301044',
+        pieces: 64,
+        grossKg: 1400,
+        volumeM3: 2.0,
+        shc: [],
+        shipper: 'Rhein-Main Forwarding GmbH',
+        consignee: 'Liberty Freight Services Inc.',
+      },
+    ],
+  },
+  {
+    id: '101fbccc-ded7-43e8-b421-eaeb534097ca',
+    flightId: AAL4911,
+    kind: CargoUnitKind.uld,
+    deck: CargoDeck.lower,
+    compartment: 2,
+    positionDesignator: '21R',
+    uldType: 'AKE',
+    uldSerial: '49306',
+    uldOwner: 'AA',
+    tareKg: 82,
+    shipments: [
+      {
+        id: '38c1962e-9148-424f-aac1-c14f30e9c5cc',
+        commodityId: 'coffee-beans',
+        description: 'Speciality green coffee, bagged',
+        awb: '001-49301055',
+        pieces: 25,
+        grossKg: 1008,
+        volumeM3: 1.833,
+        shc: ['EAT'],
+        shipper: 'Rhein-Main Forwarding GmbH',
+        consignee: 'Liberty Freight Services Inc.',
+      },
+    ],
+  },
 ];
 
 export async function loadCargoManifests(
@@ -473,6 +817,11 @@ const NOTOCS = [
   {
     flightId: CV2020,
     issuedAt: new Date('2025-06-02 07:40'),
+    acknowledgedAt: null,
+  },
+  {
+    flightId: AA2021,
+    issuedAt: new Date('2025-06-02 07:45'),
     acknowledgedAt: null,
   },
 ];

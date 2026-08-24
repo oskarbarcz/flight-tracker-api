@@ -116,15 +116,15 @@ fixtures to add.
 
 ## 11. Briefing and emergency (needs 10) — capability `discord-flight-briefing`
 
-- [ ] 11.1 Special load summary block in the check-in briefing; the explicit "no dangerous goods loaded" line; omitted entirely where no cargo manifest exists
-- [ ] 11.2 Briefing carries the summary and a link back to the flight only, never the per-shipment detail
-- [ ] 11.3 Emergency declaration: fill `dangerousGoodsOnBoard` from the cargo manifest when the pilot supplies none, preserve an explicit value + unit spec for all three cases
-- [ ] 11.4 Feature: `features/flight/emergency` extension and a briefing assertion for the special load summary
+- [x] 11.1 Special load summary block in the check-in briefing; the explicit "no dangerous goods loaded" line where nothing notifiable is aboard; omitted entirely where no cargo manifest exists. The counts come from one `GetNotifiableLoadSummaryQuery` in the notoc module, derived from the same composition the document uses, so the briefing and the document can never disagree
+- [x] 11.2 Briefing carries the summary and a pointer to the flight only, never the per-shipment detail — asserted negatively against an air waybill, a proper shipping name and a shipment description
+- [x] 11.3 Emergency declaration: `dangerousGoodsOnBoard` became optional, filled from the loaded shipments' hazard classes when the pilot supplies none and kept verbatim when they do — an explicit empty array included, since a pilot declaring none is stating something. `model/emergency-dangerous-goods.ts` maps hazard classes onto the declarable classes, collapsing the gas and flammable-solid divisions, with a unit spec covering all three cases and asserting every hazard class maps
+- [x] 11.4 Feature: three briefing scenarios in `features/flight/actions/flight.check-in-pilot.feature` (carrying dangerous goods, carrying nothing notifiable, and no cargo manifest at all) and three in `features/flight/emergency/flight.declare-emergency.feature` (filled, preserved, and none aboard). Seed: a clean-load flight in `ready` for the "nothing notifiable" briefing, plus manifests on the two flights the emergency features already fly — one carrying class 3 and class 9, one carrying nothing hazardous — sized to the tonnage their loadsheets already declare. A `not containing` step was added to the Discord context, since "the briefing omits the summary" had no way to be expressed
 
 ## 12. Definition of Done (applied inside every group)
 
-- [ ] 12.1 Every command and query handler registered in the module's `providers`, every action in its `controllers`
-- [ ] 12.2 Swagger descriptions on every new field and endpoint, including the statement that position designators are this system's convention
-- [ ] 12.3 No code comments; domain enums PascalCase and separate from the Prisma enums, cast at the boundary
-- [ ] 12.4 `npm run lint`, `npm run test` and the functional suite green
-- [ ] 12.5 Seed data updated so that both the positioned and the degraded paths are exercised
+- [x] 12.1 Audited across the whole repository, not just this change: all 206 CQRS handlers appear in a module's `providers` and all 145 actions in a `controllers`, the `manifest` module's own 17 handlers and 5 actions included
+- [x] 12.2 Every field of the 23 API-shaped classes carries an `@ApiProperty`, and all five endpoints carry a summary and a description. The designator convention was stated on the hold-layout and cargo-manifest endpoints but not on the notification to captain, which prints positions of its own — added there, on both its position fields and its endpoint description
+- [x] 12.3 No comment survives in anything this change wrote; the one JSDoc left in a touched file predates it (PR #145, on `resolvePilots`) and was left alone. All 30 domain enums declare PascalCase members, none re-exports a Prisma enum, and Prisma types stay inside the repositories and the two write-boundary mappers that cast at the edge
+- [x] 12.4 `npm run lint`, `npm run format`, 733 unit tests and 1233 functional scenarios green; the Swagger document builds and serves all six paths and the ten new schemas
+- [x] 12.5 Both paths are seeded and exercised. Positioned: a widebody with four containers, a freighter on an explicit non-default variant loading a main deck, and two more widebodies carrying the emergency fixtures. Degraded: two flights on an uncurated type, every unit a loose lot with no position. Generation at release covers the same spread — widebody, container-capable A320 on `a320-cls`, bulk-only B738, freighter on `b74f-nose`, and the uncurated type

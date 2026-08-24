@@ -14,9 +14,9 @@ import {
   assertFuelBreakdownConsistent,
   assertPassengerBreakdownConsistent,
 } from '../../model/loadsheet.policy';
-import { GetSeatCapacityQuery } from '../../../passengers/application/query/get-seat-capacity.query';
-import { SeatCapacityExceededError } from '../../../passengers/model/error/manifest.error';
-import { assertBreakdownFitsCabins } from '../../../passengers/model/manifest-generation';
+import { GetSeatCapacityQuery } from '../../../manifest/application/query/get-seat-capacity.query';
+import { SeatCapacityExceededError } from '../../../manifest/model/error/manifest.error';
+import { assertBreakdownFitsCabins } from '../../../manifest/model/manifest-generation';
 import { CabinCapacity } from '../../../cabin-layouts/model/cabin-capacity.model';
 
 export class UpdatePreliminaryLoadsheetCommand {

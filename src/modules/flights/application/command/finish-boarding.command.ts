@@ -19,13 +19,13 @@ import {
   assertFuelBreakdownConsistent,
   assertPassengerBreakdownConsistent,
 } from '../../model/loadsheet.policy';
-import { ReconcileFlightManifestCommand } from '../../../passengers/application/command/reconcile-flight-manifest.command';
-import { ReconcileFlightCargoManifestCommand } from '../../../cargo/application/command/reconcile-flight-cargo-manifest.command';
+import { ReconcileFlightManifestCommand } from '../../../manifest/application/command/reconcile-flight-manifest.command';
+import { ReconcileFlightCargoManifestCommand } from '../../../manifest/application/command/reconcile-flight-cargo-manifest.command';
 import { AirportType } from '../../../airports/model/airport.model';
 import { scheduledFlightHours } from '../../model/timesheet.model';
-import { IssueNotocCommand } from '../../../notoc/application/command/issue-notoc.command';
-import { AcknowledgeNotocCommand } from '../../../notoc/application/command/acknowledge-notoc.command';
-import { NotocStageName } from '../../../notoc/model/notoc.model';
+import { IssueNotocCommand } from '../../../manifest/application/command/issue-notoc.command';
+import { AcknowledgeNotocCommand } from '../../../manifest/application/command/acknowledge-notoc.command';
+import { NotocStageName } from '../../../manifest/model/notoc.model';
 
 export class FinishBoardingCommand {
   constructor(

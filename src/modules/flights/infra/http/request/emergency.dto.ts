@@ -1,5 +1,7 @@
 import { Emergency } from '../../../model/emergency.model';
-import { PartialType, PickType } from '@nestjs/swagger';
+import { ApiPropertyOptional, PartialType, PickType } from '@nestjs/swagger';
+import { IsArray, IsEnum, IsOptional } from 'class-validator';
+import { DangerousGoodsClass } from '../../../model/emergency.model';
 
 export class DeclareEmergencyRequest extends PickType(Emergency, [
   'urgency',
@@ -9,9 +11,20 @@ export class DeclareEmergencyRequest extends PickType(Emergency, [
   'intention',
   'lastKnownPosition',
   'fuelEnduranceMinutes',
-  'dangerousGoodsOnBoard',
   'freeText',
-]) {}
+]) {
+  @ApiPropertyOptional({
+    description:
+      'IATA/ICAO dangerous goods classes carried on this flight. Omit to have them read from the cargo manifest; send an empty array to declare none.',
+    example: [DangerousGoodsClass.Class3FlammableLiquids],
+    enum: DangerousGoodsClass,
+    isArray: true,
+  })
+  @IsOptional()
+  @IsArray()
+  @IsEnum(DangerousGoodsClass, { each: true })
+  dangerousGoodsOnBoard?: DangerousGoodsClass[];
+}
 
 export class UpdateEmergencyRequest extends PartialType(
   DeclareEmergencyRequest,

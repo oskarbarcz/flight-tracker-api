@@ -15,6 +15,9 @@ import { FlightOfpNotFoundError } from '../../../model/error/flight.error';
 import { AirportType } from '../../../../airports/model/airport.model';
 import { PilotCheckedInEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../../model/event.model';
+import { GetNotifiableLoadSummaryQuery } from '../../../../manifest/application/query/get-notifiable-load-summary.query';
+import { NotifiableLoadSummary } from '../../../../manifest/model/notoc';
+import { ColdChainRisk } from '../../../../manifest/model/cold-chain';
 
 const FLIGHT_ID = 'b3899775-278e-4496-add1-21385a13d93e';
 const PILOT_ID = '629be07f-5e65-429a-9d69-d34b99185f50';
@@ -83,6 +86,7 @@ function checkedIn(actorId: string | null = PILOT_ID) {
 describe('SendFlightBriefingListener', () => {
   let client: { sendMessage: jest.Mock; sendDirectMessage: jest.Mock };
   let queryBus: { execute: jest.Mock };
+  let specialLoad: NotifiableLoadSummary | null;
   let commandBus: { execute: jest.Mock };
   let listener: SendFlightBriefingListener;
   let discordId: string | null;
@@ -114,6 +118,7 @@ describe('SendFlightBriefingListener', () => {
     ];
     ofp = { ofpDocumentUrl: OFP_URL };
 
+    specialLoad = null;
     client = { sendMessage: jest.fn(), sendDirectMessage: jest.fn() };
     commandBus = { execute: jest.fn().mockResolvedValue(undefined) };
     queryBus = {
@@ -134,6 +139,10 @@ describe('SendFlightBriefingListener', () => {
 
         if (query instanceof GetUserWeatherSourceQuery) {
           return Promise.resolve(weatherSource);
+        }
+
+        if (query instanceof GetNotifiableLoadSummaryQuery) {
+          return Promise.resolve(specialLoad);
         }
 
         if (query instanceof GetOfpQuery) {
@@ -274,6 +283,32 @@ describe('SendFlightBriefingListener', () => {
     await listener.onPilotCheckedIn(checkedIn());
 
     expect(client.sendDirectMessage).not.toHaveBeenCalled();
+  });
+
+  it('briefs the notifiable load when the flight carries one', async () => {
+    specialLoad = {
+      dangerousGoodsCount: 2,
+      cargoAircraftOnlyCount: 1,
+      specialLoadCount: 3,
+      worstColdChainRisk: ColdChainRisk.High,
+    };
+
+    await listener.onPilotCheckedIn(checkedIn());
+
+    const [, message] = client.sendDirectMessage.mock.calls[0];
+    expect(message.content).toContain(':warning: **Special load**');
+    expect(message.content).toContain(
+      'Dangerous goods: **2** (cargo aircraft only: **1**)',
+    );
+  });
+
+  it('briefs no special load block when the flight has no cargo manifest', async () => {
+    specialLoad = null;
+
+    await listener.onPilotCheckedIn(checkedIn());
+
+    const [, message] = client.sendDirectMessage.mock.calls[0];
+    expect(message.content).not.toContain('Special load');
   });
 
   it('sends nothing when the check-in has no actor', async () => {

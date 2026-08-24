@@ -228,6 +228,20 @@ const FLIGHTS: CargoFlightSpec[] = [
     alternateAirportId: KPHL,
     cargo: 14.9,
   },
+  {
+    id: 'b4bad5cf-c049-488b-b979-8ef8fc85cdb4',
+    flightNumber: 'AA2021',
+    callsign: 'AAL2021',
+    operatorId: AMERICAN,
+    aircraftId: N801AN,
+    captainId: RICK,
+    status: FlightStatus.Ready,
+    serviceType: FlightServiceType.Cargo,
+    departureAirportId: EDDF,
+    destinationAirportId: KJFK,
+    alternateAirportId: KPHL,
+    cargo: 1.2,
+  },
 ];
 
 export async function loadCargoFlights(

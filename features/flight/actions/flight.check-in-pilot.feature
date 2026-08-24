@@ -669,6 +669,50 @@ Feature: Check in pilot for flight
     And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "METAR KBOS 081154Z 21009KT 10SM FEW040 24/16 A3000"
     And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "TAF KBOS 081120Z 0812/0918 21010KT P6SM FEW040"
     And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "[**MyPreflight app**](http://localhost:5173/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab)."
+    And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" not containing "Special load"
+    And I set database to initial state
+    And I clear Discord messages directory
+
+  Scenario: The briefing tells the pilot what notifiable load the flight carries
+    Given I clear Discord messages directory
+    And I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380/check-in" with body:
+      """json
+      {
+        "offBlockTime": "2025-06-02T09:05:00.000Z",
+        "takeoffTime": "2025-06-02T09:25:00.000Z",
+        "arrivalTime": "2025-06-02T17:35:00.000Z",
+        "onBlockTime": "2025-06-02T17:45:00.000Z"
+      }
+      """
+    Then the response status should be 204
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" containing ":warning: **Special load**"
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" containing "Dangerous goods: **3** (cargo aircraft only: **1**)"
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" containing "Other special loads: **4**"
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" containing "Highest cold chain risk: **low**"
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" containing "See the notification to captain on the flight page."
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" not containing "172-62001133"
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" not containing "Lithium ion batteries"
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" not containing "Live horses in air stalls"
+    And I set database to initial state
+    And I clear Discord messages directory
+
+  Scenario: The briefing says so when the flight carries nothing notifiable
+    Given I clear Discord messages directory
+    And I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/b4bad5cf-c049-488b-b979-8ef8fc85cdb4/check-in" with body:
+      """json
+      {
+        "offBlockTime": "2025-06-02T09:05:00.000Z",
+        "takeoffTime": "2025-06-02T09:25:00.000Z",
+        "arrivalTime": "2025-06-02T17:35:00.000Z",
+        "onBlockTime": "2025-06-02T17:45:00.000Z"
+      }
+      """
+    Then the response status should be 204
+    And I see Discord "briefing" message for flight "b4bad5cf-c049-488b-b979-8ef8fc85cdb4" containing ":warning: **Special load**"
+    And I see Discord "briefing" message for flight "b4bad5cf-c049-488b-b979-8ef8fc85cdb4" containing "No dangerous goods loaded."
+    And I see Discord "briefing" message for flight "b4bad5cf-c049-488b-b979-8ef8fc85cdb4" not containing "Other special loads"
     And I set database to initial state
     And I clear Discord messages directory
 
