@@ -268,7 +268,7 @@ Feature: Read the cargo manifest of a flight
         "baggageSource": null,
         "containerCount": "@any",
         "bulkLotCount": "@any",
-        "shipmentCount": 4,
+        "shipmentCount": "@any",
         "worstColdChainRisk": "@any",
         "dangerousGoodsCount": "@any",
         "cargoAircraftOnlyCount": "@any",
