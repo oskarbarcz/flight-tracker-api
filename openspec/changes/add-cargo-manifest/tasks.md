@@ -94,13 +94,13 @@ fixtures to add.
 
 ## 9. Reconciliation (needs 6) — capability `cargo-manifest-reconciliation`
 
-- [ ] 9.1 `model/cargo-reconciliation.ts` plan: offloads in ascending offload priority, additions to close a shortfall, never offloading the highest priority + unit spec
-- [ ] 9.2 `offloadReason` recorded per offloaded shipment; offloaded shipments retained, never deleted; a unit emptied by offloading frees its position
-- [ ] 9.3 A final tonnage below the weight of the shipments that may not be offloaded is rejected as unprocessable
-- [ ] 9.4 Added shipments observe every generation rule: cargo-aircraft-only, segregation, compartment environment, position compatibility, compartment limits
-- [ ] 9.5 `ReconcileFlightCargoManifestCommand`, dispatched from `finish-boarding` alongside the passenger reconciliation
-- [ ] 9.6 `HoldCapacityExceededError` and `InconsistentPayloadError` on the final loadsheet; both skipped for uncurated types
-- [ ] 9.7 Feature: `features/cargo/manifest.reconcile.feature` — lower tonnage offloads by priority, higher adds, unchanged changes nothing, the invariant holds afterwards, remaining shipments untouched, offloaded shipments listed with reasons, status filter, over-capacity 422
+- [x] 9.1 `model/cargo-reconciliation.ts` plan: offloads in ascending offload priority, heaviest first within a priority, additions to close a shortfall, never offloading the highest priority + unit spec. A whole-shipment offload usually overshoots, so the plan reports the overshoot as an addition and the manifest lands on the tonnage exactly without touching a shipment that stays
+- [x] 9.2 `offloadReason` and the position the shipment left recorded per offloaded shipment; offloaded shipments retained, never deleted; a unit emptied by offloading frees its position and drops to zero tare and gross, so it stops counting against the tonnage while still carrying its offloaded freight
+- [x] 9.3 A final tonnage below the weight of the shipments that may not be offloaded is rejected as unprocessable
+- [x] 9.4 Added shipments observe every generation rule: `planCargoLoad` now accepts the hold's existing occupancy — positions taken, weight already in each compartment, special handling already loaded there — so cargo-aircraft-only, segregation, compartment environment, position compatibility and compartment limits all apply to an addition exactly as they do at generation
+- [x] 9.5 `ReconcileFlightCargoManifestCommand`, dispatched from `finish-boarding` alongside the passenger reconciliation
+- [x] 9.6 Hold weight and volume capacity rejected on the final loadsheet, skipped for uncurated types. `InconsistentPayloadError` is not implemented: group 8 established that a payload which cannot account for baggage falls back to a derived figure rather than being rejected, and the reconciliation spec carries no payload-consistency requirement
+- [x] 9.7 Feature: reconciliation has no endpoint of its own, so it is tested where it is triggered — `features/flight/actions/flight.finish-boarding.feature` (lower tonnage offloads by priority, higher adds without disturbing what is aboard, unchanged leaves the whole manifest byte-identical, below the protected load 422, over capacity 422, neither finishing boarding, uncurated type reconciles without positions) — and where it is read, `features/flight/cargo-manifest.get.feature` (offloaded shipments listed with reason and the position they left, loaded filter excluding them). Seed: `cargo-manifests.seed.ts` hand-writes a four-container manifest on a released B77W and a positionless one on an uncurated type, so the offload order is asserted against known freight rather than generated freight
 
 ## 10. Notification to captain (needs 7, 9) — capability `dangerous-goods-notification`
 

@@ -1,8 +1,5 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import {
-  CargoRepository,
-  NewCargoUnit,
-} from '../../infra/database/repository/cargo.repository';
+import { CargoRepository } from '../../infra/database/repository/cargo.repository';
 import {
   GetAircraftHoldQuery,
   AircraftHold,
@@ -22,34 +19,19 @@ import {
 import { ColdChainContext } from '../../model/cargo-packing';
 import {
   compartmentLoadOfUnits,
-  LoadContentClass,
-  LoadUnitKind,
   looseSlotsOf,
   occupiedPositionsOf,
   planBaggageUnits,
   planCargoLoad,
-  PlannedUnit,
   slotsOf,
 } from '../../model/cargo-packing';
 import { planBaggage } from '../../model/baggage';
-import { findCommodityById } from '../../data/cargo-commodities';
-import { awbPrefixFor, generateAwb } from '../../model/awb';
-import {
-  CargoAirport,
-  isRaisedByOperator,
-  JourneyContext,
-} from '../../model/shipment-journey';
-import { generateUldSerial } from '../../model/uld';
-import { tradePartyFactory, TradeParties } from '../../model/trade-party';
+import { awbPrefixFor } from '../../model/awb';
+import { CargoAirport, JourneyContext } from '../../model/shipment-journey';
+import { tradePartyFactory } from '../../model/trade-party';
+import { toNewCargoUnit } from '../../model/cargo-unit-write';
 import { resolvePassengerLocale } from '../../../passengers/model/passenger-name';
 import { Continent } from '../../../airports/model/airport.model';
-import {
-  CargoContentClass,
-  CargoDeck as PrismaCargoDeck,
-  CargoTransferRole as PrismaTransferRole,
-  CargoUnitKind,
-  Prisma,
-} from 'prisma/client/client';
 
 const BUILD_UP_HOURS = 3;
 
@@ -182,92 +164,22 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
         })
       : [];
 
-    const parties = tradePartyFactory(
-      resolvePassengerLocale(departure.country, departure.continent),
-      resolvePassengerLocale(arrival.country, arrival.continent),
-    );
-    const prefix = awbPrefixFor(operatorIata);
+    const context = {
+      operatorIata,
+      prefix: awbPrefixFor(operatorIata),
+      parties: tradePartyFactory(
+        resolvePassengerLocale(departure.country, departure.continent),
+        resolvePassengerLocale(arrival.country, arrival.continent),
+      ),
+      carriers,
+      random: Math.random,
+    };
 
     await this.cargoRepository.replace(
       flightId,
       [...planned, ...baggageUnits].map((unit) =>
-        this.toNewUnit(unit, operatorIata, prefix, parties, carriers),
+        toNewCargoUnit(unit, context),
       ),
     );
   }
-
-  private toNewUnit(
-    unit: PlannedUnit,
-    operatorIata: string,
-    prefix: string,
-    parties: TradeParties,
-    carriers: string[],
-  ): NewCargoUnit {
-    const containerised = unit.kind === LoadUnitKind.Uld;
-
-    return {
-      kind: containerised ? CargoUnitKind.uld : CargoUnitKind.bulk_lot,
-      deck: unit.deck ? (unit.deck as unknown as PrismaCargoDeck) : null,
-      compartment: unit.compartment,
-      positionDesignator: unit.positionDesignator,
-      uldType: unit.uldType,
-      uldSerial: containerised ? generateUldSerial(Math.random()) : null,
-      uldOwner: containerised ? operatorIata : null,
-      tareKg: unit.tareKg,
-      grossKg: unit.grossKg,
-      volumeM3: unit.volumeM3,
-      contentClass:
-        unit.contentClass === LoadContentClass.Baggage
-          ? CargoContentClass.baggage
-          : CargoContentClass.cargo,
-      beyondDestination: unit.beyondDestination,
-      sealed: unit.sealed,
-      bagCount: unit.bagCount,
-      priority: unit.priority,
-      baggageSource: unit.baggageSource,
-      shipments: unit.shipments.map((shipment) => ({
-        commodityId: shipment.commodityId,
-        description: shipment.description,
-        awb: generateAwb(
-          isRaisedByOperator(shipment.journey.transferRole)
-            ? prefix
-            : awbPrefixFor(inboundCarrier(carriers)),
-          Math.random(),
-        ),
-        pieces: shipment.pieces,
-        grossKg: shipment.grossKg,
-        volumeM3: shipment.volumeM3,
-        shc: findCommodityById(shipment.commodityId)?.shc ?? [],
-        shipper: parties.shipper(),
-        consignee: parties.consignee(),
-        origin: shipment.journey.origin,
-        destination: shipment.journey.destination,
-        transferRole: shipment.journey
-          .transferRole as unknown as PrismaTransferRole,
-        onwardCarrier: shipment.journey.onwardCarrier,
-        onwardFlightNumber: shipment.journey.onwardFlightNumber,
-        connectionMinutes: shipment.journey.connectionMinutes,
-        dangerousGoods: dangerousGoodsOf(shipment.commodityId),
-        temperatureControl:
-          (shipment.coldChain as unknown as Prisma.InputJsonValue) ??
-          Prisma.DbNull,
-      })),
-    };
-  }
-}
-
-function dangerousGoodsOf(
-  commodityId: string,
-): Prisma.InputJsonValue | typeof Prisma.DbNull {
-  const declaration = findCommodityById(commodityId)?.dangerousGoods;
-
-  return declaration
-    ? (declaration as unknown as Prisma.InputJsonValue)
-    : Prisma.DbNull;
-}
-
-function inboundCarrier(carriers: string[]): string {
-  return carriers.length === 0
-    ? 'ZZ'
-    : carriers[Math.floor(Math.random() * carriers.length)];
 }

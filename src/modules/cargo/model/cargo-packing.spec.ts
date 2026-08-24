@@ -662,4 +662,106 @@ describe('cargo packing', () => {
   it('is deterministic for a given seed', () => {
     expect(plan('B77W', 9000, 77)).toEqual(plan('B77W', 9000, 77));
   });
+
+  it('leaves an already occupied position alone when adding load', () => {
+    const variant = variantOf('B77W');
+    const aboard = plan('B77W', 9000);
+    const occupied = occupiedPositionsOf(aboard);
+
+    const added = planCargoLoad({
+      targetKg: 4000,
+      offered: offersFor(),
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      journey: journeyContext(7),
+      coldChain,
+      random: seededRandom(7),
+      occupied,
+      compartmentLoad: compartmentLoadOfUnits(aboard),
+    });
+
+    const collisions = added
+      .map((unit) => unit.positionDesignator)
+      .filter((designator) => designator !== null)
+      .filter((designator) => occupiedPositionsOf(aboard).has(designator!));
+
+    expect(added.length).toBeGreaterThan(0);
+    expect(collisions).toEqual([]);
+    expect(totalCargoKg(added)).toBe(4000);
+  });
+
+  it('keeps every compartment within its limit when adding to a loaded hold', () => {
+    const variant = variantOf('B77W');
+    const aboard = plan('B77W', 20000);
+    const load = compartmentLoadOfUnits(aboard);
+
+    const added = planCargoLoad({
+      targetKg: 2000,
+      offered: offersFor(),
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      journey: journeyContext(11),
+      coldChain,
+      random: seededRandom(11),
+      occupied: occupiedPositionsOf(aboard),
+      compartmentLoad: load,
+    });
+
+    const limits = new Map(
+      variant.decks
+        .flatMap((deck) => deck.compartments)
+        .map((compartment) => [compartment.number, compartment.maxWeightKg]),
+    );
+    const exceeded = [
+      ...compartmentLoadOfUnits([...aboard, ...added]).entries(),
+    ].filter(([compartment, weight]) => weight > limits.get(compartment)!);
+
+    expect(exceeded).toEqual([]);
+    expect(totalCargoKg(added)).toBe(2000);
+  });
+
+  it('honours the special handling already loaded in a compartment when adding', () => {
+    const variant = variantOf('B77W');
+    const aboard = plan('B77W', 9000);
+    const compartmentShc = new Map<number, SpecialHandlingCode[]>();
+
+    for (const unit of aboard) {
+      if (unit.compartment === null) {
+        continue;
+      }
+
+      compartmentShc.set(unit.compartment, [
+        ...(compartmentShc.get(unit.compartment) ?? []),
+        ...unit.shipments.flatMap(
+          (shipment) => findCommodityById(shipment.commodityId)?.shc ?? [],
+        ),
+      ]);
+    }
+
+    const added = planCargoLoad({
+      targetKg: 3000,
+      offered: offersFor(),
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      journey: journeyContext(3),
+      coldChain,
+      random: seededRandom(3),
+      occupied: occupiedPositionsOf(aboard),
+      compartmentLoad: compartmentLoadOfUnits(aboard),
+      compartmentShc,
+    });
+
+    const clashes = added
+      .filter((unit) => unit.compartment !== null)
+      .filter((unit) =>
+        conflicts(
+          unit.shipments.flatMap(
+            (shipment) => findCommodityById(shipment.commodityId)?.shc ?? [],
+          ),
+          compartmentShc.get(unit.compartment!) ?? [],
+        ),
+      );
+
+    expect(clashes).toEqual([]);
+  });
 });

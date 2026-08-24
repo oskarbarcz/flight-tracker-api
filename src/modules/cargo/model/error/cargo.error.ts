@@ -47,3 +47,11 @@ export class CargoManifestReadableByCaptainOnlyError extends ForbiddenError {
     );
   }
 }
+
+export class RetainedCargoExceedsFinalTonnageError extends UnprocessableError {
+  constructor(cargoKg: number, retainedKg: number) {
+    super(
+      `Cannot reduce the load to ${cargoKg} kg while ${retainedKg} kg aboard may not be offloaded.`,
+    );
+  }
+}

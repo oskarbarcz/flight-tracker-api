@@ -105,6 +105,9 @@ export type CargoLoadRequest = {
   journey: JourneyContext;
   coldChain: ColdChainContext;
   random: () => number;
+  occupied?: Set<string>;
+  compartmentLoad?: Map<number, number>;
+  compartmentShc?: Map<number, SpecialHandlingCode[]>;
 };
 
 export function slotsOf(variant: HoldVariant): PlacementSlot[] {
@@ -321,13 +324,19 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
   }
 
   const units: PlannedUnit[] = [];
-  const compartmentLoad = new Map<number, number>();
-  const compartmentShc = new Map<number, SpecialHandlingCode[]>();
+  const occupied = request.occupied ?? new Set<string>();
+  const compartmentLoad = request.compartmentLoad ?? new Map<number, number>();
+  const compartmentShc =
+    request.compartmentShc ?? new Map<number, SpecialHandlingCode[]>();
   let budget = Math.round(targetKg);
 
   for (const slot of slots) {
     if (budget < MIN_UNIT_PAYLOAD_KG) {
       break;
+    }
+
+    if (occupied.has(slot.position.designator)) {
+      continue;
     }
 
     const loadedShc = compartmentShc.get(slot.compartment.number) ?? [];
@@ -381,6 +390,7 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
     );
 
     budget -= spec.tareKg + grossKg;
+    occupied.add(slot.position.designator);
     compartmentLoad.set(slot.compartment.number, used + spec.tareKg + grossKg);
     compartmentShc.set(slot.compartment.number, [
       ...loadedShc,

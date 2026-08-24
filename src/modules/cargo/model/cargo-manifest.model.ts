@@ -6,6 +6,7 @@ import { TransferRole } from './shipment-journey';
 import { DangerousGoodsProfile } from './commodity.model';
 import { ColdChainAssessment, ColdChainRisk } from './cold-chain';
 import { BaggageSource } from './baggage';
+import { OffloadReason } from './cargo-reconciliation';
 
 export enum CargoContentClassName {
   Cargo = 'cargo',
@@ -151,6 +152,21 @@ export class CargoShipmentEntry {
 
   @ApiProperty({ enum: CargoShipmentStatusName })
   status!: CargoShipmentStatusName;
+
+  @ApiProperty({
+    description: 'Why the shipment was left behind, once it has been offloaded',
+    enum: OffloadReason,
+    nullable: true,
+  })
+  offloadReason!: OffloadReason | null;
+
+  @ApiProperty({
+    description:
+      'Position the shipment had been loaded in before it was offloaded',
+    example: '12R',
+    nullable: true,
+  })
+  offloadedFrom!: string | null;
 }
 
 export class CargoUnitEntry {
