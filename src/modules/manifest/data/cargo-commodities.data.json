@@ -1439,14 +1439,8 @@
     "maxPieces": 40,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "BOS",
-        "BSL"
-      ],
-      "countries": [
-        "United States of America",
-        "Switzerland"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "north_america",
         "europe"
@@ -1475,7 +1469,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 3,
+    "frequency": 0.45,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -1545,7 +1539,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 1,
+    "frequency": 0.15,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -1582,14 +1576,8 @@
     "maxPieces": 12,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "BRU",
-        "AMS"
-      ],
-      "countries": [
-        "Belgium",
-        "Netherlands"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -1617,7 +1605,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 2,
+    "frequency": 0.3,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -2603,14 +2591,8 @@
     "maxPieces": 40,
     "offloadPriority": 3,
     "sources": {
-      "airports": [
-        "NRT",
-        "FRA"
-      ],
-      "countries": [
-        "Japan",
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "asia",
         "europe"
@@ -2639,7 +2621,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 3,
+    "frequency": 0.45,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -2676,14 +2658,8 @@
     "maxPieces": 90,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "HKG",
-        "PVG",
-        "ICN"
-      ],
-      "countries": [
-        "China"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "asia"
       ]
@@ -2711,7 +2687,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 5,
+    "frequency": 0.75,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -2747,13 +2723,8 @@
     "maxPieces": 120,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "HKG",
-        "PVG"
-      ],
-      "countries": [
-        "China"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "asia"
       ]
@@ -2781,7 +2752,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 5,
+    "frequency": 0.75,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -2818,13 +2789,8 @@
     "maxPieces": 60,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "HKG",
-        "ICN"
-      ],
-      "countries": [
-        "China"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "asia"
       ]
@@ -2852,7 +2818,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 3,
+    "frequency": 0.45,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -2915,7 +2881,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 4,
+    "frequency": 0.6,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -2952,14 +2918,8 @@
     "maxPieces": 40,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA",
-        "NRT"
-      ],
-      "countries": [
-        "Germany",
-        "Japan"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe",
         "asia"
@@ -2988,7 +2948,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 3,
+    "frequency": 0.45,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3024,12 +2984,8 @@
     "maxPieces": 40,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA"
-      ],
-      "countries": [
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3057,7 +3013,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 2,
+    "frequency": 0.3,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3093,14 +3049,8 @@
     "maxPieces": 60,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA",
-        "CDG"
-      ],
-      "countries": [
-        "Germany",
-        "France"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3128,7 +3078,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 4,
+    "frequency": 0.6,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3164,14 +3114,8 @@
     "maxPieces": 90,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "CDG",
-        "FRA"
-      ],
-      "countries": [
-        "France",
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3199,7 +3143,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 4,
+    "frequency": 0.6,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3236,13 +3180,8 @@
     "maxPieces": 20,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA",
-        "CDG"
-      ],
-      "countries": [
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3270,7 +3209,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 2,
+    "frequency": 0.3,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3306,12 +3245,8 @@
     "maxPieces": 20,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA"
-      ],
-      "countries": [
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3339,7 +3274,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 2,
+    "frequency": 0.3,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3375,14 +3310,8 @@
     "maxPieces": 40,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA",
-        "CDG"
-      ],
-      "countries": [
-        "Germany",
-        "France"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3410,7 +3339,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 3,
+    "frequency": 0.45,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3446,12 +3375,8 @@
     "maxPieces": 40,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA"
-      ],
-      "countries": [
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3479,7 +3404,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 3,
+    "frequency": 0.45,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3515,12 +3440,8 @@
     "maxPieces": 80,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "CDG"
-      ],
-      "countries": [
-        "France"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3548,7 +3469,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 4,
+    "frequency": 0.6,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3584,12 +3505,8 @@
     "maxPieces": 60,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA"
-      ],
-      "countries": [
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3617,7 +3534,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 2,
+    "frequency": 0.3,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3653,12 +3570,8 @@
     "maxPieces": 30,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA"
-      ],
-      "countries": [
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3686,7 +3599,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 1,
+    "frequency": 0.15,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3723,12 +3636,8 @@
     "maxPieces": 30,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA"
-      ],
-      "countries": [
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3756,7 +3665,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 2,
+    "frequency": 0.3,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3792,14 +3701,8 @@
     "maxPieces": 30,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA",
-        "WAW"
-      ],
-      "countries": [
-        "Germany",
-        "Poland"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3827,7 +3730,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 2,
+    "frequency": 0.3,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3863,14 +3766,8 @@
     "maxPieces": 30,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA",
-        "WAW"
-      ],
-      "countries": [
-        "Germany",
-        "Poland"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -3898,7 +3795,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 2,
+    "frequency": 0.3,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -3935,14 +3832,8 @@
     "maxPieces": 30,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA",
-        "JFK"
-      ],
-      "countries": [
-        "Germany",
-        "United States of America"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe",
         "north_america"
@@ -3971,7 +3862,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 2,
+    "frequency": 0.3,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -4008,14 +3899,8 @@
     "maxPieces": 40,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA",
-        "WAW"
-      ],
-      "countries": [
-        "Germany",
-        "Poland"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -4043,7 +3928,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 2,
+    "frequency": 0.3,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -4142,13 +4027,8 @@
     "maxPieces": 12,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA",
-        "STR"
-      ],
-      "countries": [
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -4176,7 +4056,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 3,
+    "frequency": 0.45,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -4218,13 +4098,8 @@
     "maxPieces": 80,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA",
-        "STR"
-      ],
-      "countries": [
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -4252,7 +4127,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 3,
+    "frequency": 0.45,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -4755,15 +4630,8 @@
     "maxPieces": 20,
     "offloadPriority": 3,
     "sources": {
-      "airports": [
-        "BRE",
-        "FRA",
-        "PHL"
-      ],
-      "countries": [
-        "Germany",
-        "United States of America"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe",
         "north_america"
@@ -4792,7 +4660,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 4,
+    "frequency": 0.6,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -4889,14 +4757,8 @@
     "maxPieces": 30,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "CDG",
-        "FRA"
-      ],
-      "countries": [
-        "France",
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -4924,7 +4786,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 1,
+    "frequency": 0.15,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -5968,13 +5830,8 @@
     "maxPieces": 40,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA"
-      ],
-      "countries": [
-        "Germany",
-        "United States of America"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe",
         "north_america"
@@ -6003,7 +5860,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 1,
+    "frequency": 0.15,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false
@@ -6397,14 +6254,8 @@
     "maxPieces": 120,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "CDG",
-        "FRA"
-      ],
-      "countries": [
-        "France",
-        "Germany"
-      ],
+      "airports": [],
+      "countries": [],
       "continents": [
         "europe"
       ]
@@ -6432,7 +6283,7 @@
       12
     ],
     "peakMonths": [],
-    "frequency": 3,
+    "frequency": 0.45,
     "compartment": {
       "requiresHeated": false,
       "requiresVentilated": false

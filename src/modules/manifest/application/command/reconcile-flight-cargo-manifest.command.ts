@@ -24,7 +24,9 @@ import {
 } from '../../model/cold-chain';
 import {
   ColdChainContext,
+  CompartmentUsage,
   looseSlotsOf,
+  MAX_DANGEROUS_GOODS_PER_FLIGHT,
   planCargoLoad,
   slotsOf,
 } from '../../model/cargo-packing';
@@ -41,7 +43,10 @@ import { findCommodityById } from '../../data/cargo-commodities';
 import {
   OffloadPriority,
   SpecialHandlingCode,
+  TemperatureRegime,
+  TemperatureSolution,
 } from '../../model/commodity.model';
+import { ULD_SPECS, UldType } from '../../model/uld';
 import { resolvePassengerLocale } from '../../model/passenger-name';
 import { CargoEndpoint } from './generate-flight-cargo-manifest.command';
 import {
@@ -225,6 +230,10 @@ export class ReconcileFlightCargoManifestHandler implements ICommandHandler<Reco
       occupied: occupiedPositionsOf(surviving),
       compartmentLoad: compartmentLoadOf(surviving, offloaded),
       compartmentShc: compartmentShcOf(surviving, offloaded),
+      compartmentRegimes: compartmentRegimesOf(surviving, offloaded),
+      dangerousGoodsCeiling:
+        passengers > 0 ? MAX_DANGEROUS_GOODS_PER_FLIGHT : null,
+      dangerousGoodsAboard: dangerousGoodsAboardOf(surviving, offloaded),
     });
 
     const context = {
@@ -278,8 +287,8 @@ function occupiedPositionsOf(rows: CargoUnitRow[]): Set<string> {
 function compartmentLoadOf(
   rows: CargoUnitRow[],
   offloaded: Set<string>,
-): Map<number, number> {
-  const load = new Map<number, number>();
+): Map<number, CompartmentUsage> {
+  const load = new Map<number, CompartmentUsage>();
 
   for (const row of rows) {
     if (row.compartment === null) {
@@ -294,10 +303,12 @@ function compartmentLoadOf(
           )
         : row.grossKg;
 
-    load.set(
-      row.compartment,
-      (load.get(row.compartment) ?? 0) + row.tareKg + freight,
-    );
+    const used = load.get(row.compartment) ?? { weightKg: 0, volumeM3: 0 };
+
+    load.set(row.compartment, {
+      weightKg: used.weightKg + row.tareKg + freight,
+      volumeM3: used.volumeM3 + Number(row.volumeM3),
+    });
   }
 
   return load;
@@ -323,6 +334,77 @@ function compartmentShcOf(
   }
 
   return codes;
+}
+
+function compartmentRegimesOf(
+  rows: CargoUnitRow[],
+  offloaded: Set<string>,
+): Map<number, TemperatureRegime[]> {
+  const regimes = new Map<number, TemperatureRegime[]>();
+
+  for (const row of rows) {
+    if (row.compartment === null || isActiveContainer(row.uldType)) {
+      continue;
+    }
+
+    const carried = loadedShipmentsOf(row, offloaded)
+      .map((shipment) => regimeOfShipment(shipment.temperatureControl))
+      .filter((regime): regime is TemperatureRegime => regime !== null);
+
+    if (carried.length > 0) {
+      regimes.set(row.compartment, [
+        ...(regimes.get(row.compartment) ?? []),
+        ...carried,
+      ]);
+    }
+  }
+
+  return regimes;
+}
+
+function dangerousGoodsAboardOf(
+  rows: CargoUnitRow[],
+  offloaded: Set<string>,
+): number {
+  return rows.reduce(
+    (count, row) =>
+      count +
+      loadedShipmentsOf(row, offloaded).filter(
+        (shipment) => shipment.dangerousGoods !== null,
+      ).length,
+    0,
+  );
+}
+
+function isActiveContainer(uldType: string | null): boolean {
+  if (uldType === null) {
+    return false;
+  }
+
+  return ULD_SPECS[uldType as UldType]?.active === true;
+}
+
+function regimeOfShipment(
+  temperatureControl: unknown,
+): TemperatureRegime | null {
+  if (temperatureControl === null || typeof temperatureControl !== 'object') {
+    return null;
+  }
+
+  const profile = temperatureControl as {
+    regime?: string;
+    solution?: string;
+  };
+
+  if (profile.solution === TemperatureSolution.Active) {
+    return null;
+  }
+
+  const regimes: string[] = Object.values(TemperatureRegime);
+
+  return profile.regime !== undefined && regimes.includes(profile.regime)
+    ? (profile.regime as TemperatureRegime)
+    : null;
 }
 
 function round3(value: number): number {

@@ -488,9 +488,9 @@ Feature: Update flight preliminary loadsheet
           "cabinCrew": 5
         },
         "passengers": 221,
-        "payload": 19.8,
+        "payload": 23.206,
         "cargo": 4.2,
-        "zeroFuelWeight": 68.4,
+        "zeroFuelWeight": 91.606,
         "blockFuel": 21.4
       }
       """
@@ -692,6 +692,62 @@ Feature: Update flight preliminary loadsheet
         }
       }
       """
+
+  Scenario: As operations I cannot plan a payload smaller than the cargo it carries
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/a5fffa17-7803-4e85-8291-d1dc9276bd46/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 5
+        },
+        "passengers": 150,
+        "payload": 4,
+        "cargo": 7,
+        "zeroFuelWeight": 68.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Content",
+        "message": "Payload of 4000 kg cannot carry 19600 kg of cargo and passengers."
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot plan a payload that cannot carry its passengers
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/a5fffa17-7803-4e85-8291-d1dc9276bd46/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 5
+        },
+        "passengers": 150,
+        "payload": 5,
+        "cargo": 4.2,
+        "zeroFuelWeight": 68.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Content",
+        "message": "Payload of 5000 kg cannot carry 16800 kg of cargo and passengers."
+      }
+      """
+    And I set database to initial state
 
   Scenario: As operations I cannot update preliminary loadsheet of flight that does not exist
     Given I am signed in as "operations"

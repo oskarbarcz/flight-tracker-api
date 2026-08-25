@@ -8,6 +8,7 @@ import {
 import {
   Commodity,
   SpecialHandlingCode,
+  TemperatureRegime,
   TemperatureSolution,
 } from './commodity.model';
 import { drawCommodity, OfferedCommodity } from './commodity-selection';
@@ -30,6 +31,7 @@ import {
   ColdChainExposure,
 } from './cold-chain';
 import { BaggagePlan, BaggageSource } from './baggage';
+import { HoldCannotPlaceLoadError } from './error/cargo.error';
 
 export enum LoadUnitKind {
   Uld = 'uld',
@@ -97,6 +99,17 @@ export type LooseSlot = {
   compartment: HoldCompartment;
 };
 
+export type CompartmentUsage = {
+  weightKg: number;
+  volumeM3: number;
+};
+
+const DENSITY_REDRAWS = 6;
+
+export const MAX_DANGEROUS_GOODS_PER_FLIGHT = 2;
+
+export type DangerousGoodsBudget = { left: number };
+
 export type CargoLoadRequest = {
   targetKg: number;
   offered: OfferedCommodity[];
@@ -106,8 +119,11 @@ export type CargoLoadRequest = {
   coldChain: ColdChainContext;
   random: () => number;
   occupied?: Set<string>;
-  compartmentLoad?: Map<number, number>;
+  compartmentLoad?: Map<number, CompartmentUsage>;
   compartmentShc?: Map<number, SpecialHandlingCode[]>;
+  compartmentRegimes?: Map<number, TemperatureRegime[]>;
+  dangerousGoodsCeiling?: number | null;
+  dangerousGoodsAboard?: number;
 };
 
 export function slotsOf(variant: HoldVariant): PlacementSlot[] {
@@ -150,6 +166,50 @@ export function needsActiveContainer(commodity: Commodity): boolean {
   return commodity.temperature?.solution === TemperatureSolution.Active;
 }
 
+export function mayJoinCompartmentRegime(
+  commodity: Commodity,
+  loaded: TemperatureRegime[],
+): boolean {
+  if (needsActiveContainer(commodity)) {
+    return true;
+  }
+
+  const regime = commodity.temperature?.regime;
+
+  if (regime === undefined) {
+    return true;
+  }
+
+  return loaded.every((other) => other === regime);
+}
+
+function regimeCarriedBy(commodity: Commodity): TemperatureRegime | null {
+  if (needsActiveContainer(commodity)) {
+    return null;
+  }
+
+  return commodity.temperature?.regime ?? null;
+}
+
+function drawable(
+  offered: OfferedCommodity[],
+  budget: DangerousGoodsBudget,
+): OfferedCommodity[] {
+  if (budget.left > 0) {
+    return offered;
+  }
+
+  return offered.filter(
+    (offer) => offer.commodity.dangerousGoods === undefined,
+  );
+}
+
+function spendOn(budget: DangerousGoodsBudget, commodity: Commodity): void {
+  if (commodity.dangerousGoods !== undefined) {
+    budget.left -= 1;
+  }
+}
+
 export function canShareUnit(one: Commodity, other: Commodity): boolean {
   if (one.id === other.id) {
     return true;
@@ -170,11 +230,13 @@ export function admissibleFor(
   offered: OfferedCommodity[],
   slot: PlacementSlot,
   loadedShc: SpecialHandlingCode[],
+  loadedRegimes: TemperatureRegime[] = [],
 ): OfferedCommodity[] {
   return offered.filter(
     (offer) =>
       compartmentAccepts(offer.commodity, slot.compartment) &&
-      mayJoinCompartment(offer.commodity.shc, loadedShc),
+      mayJoinCompartment(offer.commodity.shc, loadedShc) &&
+      mayJoinCompartmentRegime(offer.commodity, loadedRegimes),
   );
 }
 
@@ -273,6 +335,7 @@ function fillUnit(
   journeyContext: JourneyContext,
   fixedDestination: string | null | undefined,
   coldChain: ColdChainContext,
+  dangerousGoods: DangerousGoodsBudget,
 ): PlannedShipment[] {
   const shipments: PlannedShipment[] = [];
   let remainingWeight = Math.min(weightCapacityKg, budgetKg);
@@ -301,6 +364,7 @@ function fillUnit(
       coldChain,
     );
     shipments.push(shipment);
+    spendOn(dangerousGoods, commodity);
     remainingWeight -= take;
     remainingVolume = round3(remainingVolume - shipment.volumeM3);
 
@@ -308,7 +372,13 @@ function fillUnit(
       break;
     }
 
-    const next = drawCommodity(offered, random());
+    const pool = drawable(offered, dangerousGoods);
+
+    if (pool.length === 0) {
+      break;
+    }
+
+    const next = drawCommodity(pool, random());
     commodity = canShareUnit(first, next) ? next : null;
   }
 
@@ -325,9 +395,19 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
 
   const units: PlannedUnit[] = [];
   const occupied = request.occupied ?? new Set<string>();
-  const compartmentLoad = request.compartmentLoad ?? new Map<number, number>();
+  const compartmentLoad =
+    request.compartmentLoad ?? new Map<number, CompartmentUsage>();
   const compartmentShc =
     request.compartmentShc ?? new Map<number, SpecialHandlingCode[]>();
+  const compartmentRegimes =
+    request.compartmentRegimes ?? new Map<number, TemperatureRegime[]>();
+  const ceiling = request.dangerousGoodsCeiling;
+  const dangerousGoods: DangerousGoodsBudget = {
+    left:
+      ceiling === undefined || ceiling === null
+        ? Number.POSITIVE_INFINITY
+        : Math.max(0, ceiling - (request.dangerousGoodsAboard ?? 0)),
+  };
   let budget = Math.round(targetKg);
 
   for (const slot of slots) {
@@ -340,7 +420,11 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
     }
 
     const loadedShc = compartmentShc.get(slot.compartment.number) ?? [];
-    const admissible = admissibleFor(offered, slot, loadedShc);
+    const loadedRegimes = compartmentRegimes.get(slot.compartment.number) ?? [];
+    const admissible = drawable(
+      admissibleFor(offered, slot, loadedShc, loadedRegimes),
+      dangerousGoods,
+    );
 
     if (admissible.length === 0) {
       continue;
@@ -359,8 +443,8 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
       continue;
     }
 
-    const used = compartmentLoad.get(slot.compartment.number) ?? 0;
-    const headroom = slot.compartment.maxWeightKg - used - spec.tareKg;
+    const used = usageOf(compartmentLoad, slot.compartment.number);
+    const headroom = slot.compartment.maxWeightKg - used.weightKg - spec.tareKg;
 
     if (headroom < MIN_UNIT_PAYLOAD_KG) {
       continue;
@@ -378,6 +462,7 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
       journey,
       beyondDestination === null ? undefined : beyondDestination,
       coldChain,
+      dangerousGoods,
     );
 
     if (shipments.length === 0) {
@@ -389,14 +474,30 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
       0,
     );
 
+    const volumeM3 = round3(
+      shipments.reduce((sum, shipment) => sum + shipment.volumeM3, 0),
+    );
+
     budget -= spec.tareKg + grossKg;
     occupied.add(slot.position.designator);
-    compartmentLoad.set(slot.compartment.number, used + spec.tareKg + grossKg);
+    addUsage(
+      compartmentLoad,
+      slot.compartment.number,
+      spec.tareKg + grossKg,
+      volumeM3,
+    );
     compartmentShc.set(slot.compartment.number, [
       ...loadedShc,
       ...shipments.flatMap(
         (shipment) => shcOf(shipment.commodityId, offered) ?? [],
       ),
+    ]);
+    compartmentRegimes.set(slot.compartment.number, [
+      ...loadedRegimes,
+      ...shipments.flatMap((shipment) => {
+        const carried = regimeOf(shipment.commodityId, offered);
+        return carried === null ? [] : [carried];
+      }),
     ]);
 
     units.push({
@@ -407,9 +508,7 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
       deck: slot.deck,
       tareKg: spec.tareKg,
       grossKg,
-      volumeM3: round3(
-        shipments.reduce((sum, shipment) => sum + shipment.volumeM3, 0),
-      ),
+      volumeM3,
       beyondDestination,
       sealed: beyondDestination !== null,
       contentClass: LoadContentClass.Cargo,
@@ -431,6 +530,8 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
         coldChain,
         compartmentLoad,
         compartmentShc,
+        compartmentRegimes,
+        dangerousGoods,
       }),
     );
 
@@ -464,18 +565,51 @@ type BulkLotRequest = {
   random: () => number;
   journey: JourneyContext;
   coldChain: ColdChainContext;
-  compartmentLoad: Map<number, number>;
+  compartmentLoad: Map<number, CompartmentUsage>;
   compartmentShc: Map<number, SpecialHandlingCode[]>;
+  compartmentRegimes: Map<number, TemperatureRegime[]>;
+  dangerousGoods: DangerousGoodsBudget;
 };
 
 export function headroomOf(
   slot: LooseSlot,
-  compartmentLoad: Map<number, number>,
-): number {
-  return (
-    slot.compartment.maxWeightKg -
-    (compartmentLoad.get(slot.compartment.number) ?? 0)
+  compartmentLoad: Map<number, CompartmentUsage>,
+): CompartmentUsage {
+  const used = usageOf(compartmentLoad, slot.compartment.number);
+
+  return {
+    weightKg: slot.compartment.maxWeightKg - used.weightKg,
+    volumeM3: round3(slot.compartment.volumeM3 - used.volumeM3),
+  };
+}
+
+function takeableKg(headroom: CompartmentUsage, densityKgM3: number): number {
+  return Math.floor(
+    Math.min(headroom.weightKg, headroom.volumeM3 * densityKgM3),
   );
+}
+
+function densestDraw(
+  admissible: OfferedCommodity[],
+  headroom: CompartmentUsage,
+  random: () => number,
+): { commodity: Commodity; takeKg: number } | null {
+  let best: { commodity: Commodity; takeKg: number } | null = null;
+
+  for (let attempt = 0; attempt < DENSITY_REDRAWS; attempt++) {
+    const commodity = drawCommodity(admissible, random());
+    const takeKg = takeableKg(headroom, commodity.densityKgM3);
+
+    if (!best || takeKg > best.takeKg) {
+      best = { commodity, takeKg };
+    }
+
+    if (best.takeKg >= headroom.weightKg) {
+      break;
+    }
+  }
+
+  return best;
 }
 
 function bulkLots(request: BulkLotRequest): PlannedUnit[] {
@@ -488,17 +622,21 @@ function bulkLots(request: BulkLotRequest): PlannedUnit[] {
     coldChain,
     compartmentLoad,
     compartmentShc,
+    compartmentRegimes,
+    dangerousGoods,
   } = request;
 
   const units: PlannedUnit[] = [];
   let remaining = budgetKg;
+  let volumeBound = false;
 
   const roomiest = [...looseSlots].sort(
     (one, other) =>
-      headroomOf(other, compartmentLoad) - headroomOf(one, compartmentLoad),
+      headroomOf(other, compartmentLoad).weightKg -
+      headroomOf(one, compartmentLoad).weightKg,
   );
   const whole = roomiest.find(
-    (slot) => headroomOf(slot, compartmentLoad) >= budgetKg,
+    (slot) => headroomOf(slot, compartmentLoad).weightKg >= budgetKg,
   );
 
   for (const slot of whole ? [whole, ...roomiest] : roomiest) {
@@ -508,42 +646,70 @@ function bulkLots(request: BulkLotRequest): PlannedUnit[] {
 
     const headroom = headroomOf(slot, compartmentLoad);
 
-    if (headroom <= 0) {
+    if (headroom.weightKg <= 0 || headroom.volumeM3 <= 0) {
       continue;
     }
 
     const loadedShc = compartmentShc.get(slot.compartment.number) ?? [];
-    const admissible = admissibleForCompartment(offered, slot, loadedShc);
+    const loadedRegimes = compartmentRegimes.get(slot.compartment.number) ?? [];
+    const admissible = drawable(
+      admissibleForCompartment(offered, slot, loadedShc, loadedRegimes),
+      dangerousGoods,
+    );
 
     if (admissible.length === 0) {
       continue;
     }
 
-    const commodity = drawCommodity(admissible, random());
-    const take = Math.min(remaining, headroom);
+    const draw = densestDraw(admissible, headroom, random);
+
+    if (!draw) {
+      continue;
+    }
+
+    const take = Math.min(remaining, draw.takeKg);
+
+    if (take < Math.min(MIN_BULK_LOT_KG, remaining)) {
+      volumeBound = volumeBound || headroom.weightKg > take;
+      continue;
+    }
+
     const shipment = shipmentOf(
-      commodity,
+      draw.commodity,
       take,
       random,
       drawJourney(journey),
       coldChain,
     );
 
-    compartmentLoad.set(
-      slot.compartment.number,
-      (compartmentLoad.get(slot.compartment.number) ?? 0) + take,
-    );
+    addUsage(compartmentLoad, slot.compartment.number, take, shipment.volumeM3);
     compartmentShc.set(slot.compartment.number, [
       ...loadedShc,
-      ...commodity.shc,
+      ...draw.commodity.shc,
     ]);
+
+    const carried = regimeCarriedBy(draw.commodity);
+
+    compartmentRegimes.set(
+      slot.compartment.number,
+      carried === null ? loadedRegimes : [...loadedRegimes, carried],
+    );
+    spendOn(dangerousGoods, draw.commodity);
     remaining -= take;
 
     units.push(looseUnit(shipment, take, slot));
   }
 
+  if (remaining > 0 && looseSlots.length > 0) {
+    throw new HoldCannotPlaceLoadError(
+      remaining,
+      volumeBound ? 'volume' : 'weight',
+    );
+  }
+
   if (remaining > 0) {
-    const commodity = drawCommodity(offered, random());
+    const pool = drawable(offered, dangerousGoods);
+    const commodity = drawCommodity(pool.length > 0 ? pool : offered, random());
 
     units.push(
       looseUnit(
@@ -567,11 +733,13 @@ export function admissibleForCompartment(
   offered: OfferedCommodity[],
   slot: LooseSlot,
   loadedShc: SpecialHandlingCode[],
+  loadedRegimes: TemperatureRegime[] = [],
 ): OfferedCommodity[] {
   return offered.filter(
     (offer) =>
       compartmentAccepts(offer.commodity, slot.compartment) &&
-      mayJoinCompartment(offer.commodity.shc, loadedShc),
+      mayJoinCompartment(offer.commodity.shc, loadedShc) &&
+      mayJoinCompartmentRegime(offer.commodity, loadedRegimes),
   );
 }
 
@@ -604,23 +772,41 @@ export type BaggagePlacementRequest = {
   slots: PlacementSlot[];
   looseSlots: LooseSlot[];
   occupied: Set<string>;
-  compartmentLoad: Map<number, number>;
+  compartmentLoad: Map<number, CompartmentUsage>;
 };
+
+export function usageOf(
+  load: Map<number, CompartmentUsage>,
+  compartment: number,
+): CompartmentUsage {
+  return load.get(compartment) ?? { weightKg: 0, volumeM3: 0 };
+}
+
+function addUsage(
+  load: Map<number, CompartmentUsage>,
+  compartment: number,
+  weightKg: number,
+  volumeM3: number,
+): void {
+  const used = usageOf(load, compartment);
+
+  load.set(compartment, {
+    weightKg: used.weightKg + weightKg,
+    volumeM3: round3(used.volumeM3 + volumeM3),
+  });
+}
 
 export function compartmentLoadOfUnits(
   units: PlannedUnit[],
-): Map<number, number> {
-  const load = new Map<number, number>();
+): Map<number, CompartmentUsage> {
+  const load = new Map<number, CompartmentUsage>();
 
   for (const unit of units) {
     if (unit.compartment === null) {
       continue;
     }
 
-    load.set(
-      unit.compartment,
-      (load.get(unit.compartment) ?? 0) + unit.tareKg + unit.grossKg,
-    );
+    addUsage(load, unit.compartment, unit.tareKg + unit.grossKg, unit.volumeM3);
   }
 
   return load;
@@ -666,11 +852,11 @@ export function planBaggageUnits(
       continue;
     }
 
-    const used = compartmentLoad.get(slot.compartment.number) ?? 0;
+    const used = usageOf(compartmentLoad, slot.compartment.number);
     const allowanceKg = Math.min(
       spec.maxGrossKg - spec.tareKg,
       slot.position.maxWeightKg - spec.tareKg,
-      slot.compartment.maxWeightKg - used - spec.tareKg,
+      slot.compartment.maxWeightKg - used.weightKg - spec.tareKg,
     );
     const capacity = Math.max(
       0,
@@ -698,8 +884,14 @@ export function planBaggageUnits(
     }
 
     const grossKg = bags * plan.bagMassKg;
+    const volumeM3 = round3(bags / BAGS_PER_CUBIC_METRE);
 
-    compartmentLoad.set(slot.compartment.number, used + spec.tareKg + grossKg);
+    addUsage(
+      compartmentLoad,
+      slot.compartment.number,
+      spec.tareKg + grossKg,
+      volumeM3,
+    );
     occupied.add(slot.position.designator);
 
     units.push({
@@ -710,7 +902,7 @@ export function planBaggageUnits(
       deck: slot.deck,
       tareKg: spec.tareKg,
       grossKg,
-      volumeM3: round3(bags / BAGS_PER_CUBIC_METRE),
+      volumeM3,
       beyondDestination: null,
       sealed: false,
       contentClass: LoadContentClass.Baggage,
@@ -733,7 +925,8 @@ export function planBaggageUnits(
 
     const roomiest = [...looseSlots].sort(
       (one, other) =>
-        headroomOf(other, compartmentLoad) - headroomOf(one, compartmentLoad),
+        headroomOf(other, compartmentLoad).weightKg -
+        headroomOf(one, compartmentLoad).weightKg,
     );
 
     for (const slot of roomiest) {
@@ -741,8 +934,12 @@ export function planBaggageUnits(
         break;
       }
 
+      const headroom = headroomOf(slot, compartmentLoad);
       const fits = Math.floor(
-        headroomOf(slot, compartmentLoad) / plan.bagMassKg,
+        Math.min(
+          headroom.weightKg / plan.bagMassKg,
+          headroom.volumeM3 * BAGS_PER_CUBIC_METRE,
+        ),
       );
 
       if (fits <= 0) {
@@ -751,14 +948,19 @@ export function planBaggageUnits(
 
       const taken = Math.min(left, fits);
 
-      compartmentLoad.set(
+      addUsage(
+        compartmentLoad,
         slot.compartment.number,
-        (compartmentLoad.get(slot.compartment.number) ?? 0) +
-          taken * plan.bagMassKg,
+        taken * plan.bagMassKg,
+        round3(taken / BAGS_PER_CUBIC_METRE),
       );
       left -= taken;
 
       units.push(baggageLot(taken, priority, plan, slot));
+    }
+
+    if (left > 0 && (slots.length > 0 || looseSlots.length > 0)) {
+      throw new HoldCannotPlaceLoadError(left * plan.bagMassKg, 'volume');
     }
 
     if (left > 0) {
@@ -808,6 +1010,17 @@ function settleBaggageWeight(
   last.grossKg = Math.max(0, last.grossKg + (weightKg - assigned));
 
   return units;
+}
+
+function regimeOf(
+  commodityId: string,
+  offered: OfferedCommodity[],
+): TemperatureRegime | null {
+  const commodity = offered.find(
+    (offer) => offer.commodity.id === commodityId,
+  )?.commodity;
+
+  return commodity ? regimeCarriedBy(commodity) : null;
 }
 
 function shcOf(

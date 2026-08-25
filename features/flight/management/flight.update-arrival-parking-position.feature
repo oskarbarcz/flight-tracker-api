@@ -48,9 +48,9 @@ Feature: Update flight arrival parking position
           "preliminary": {
             "flightCrew": { "pilots": 2, "reliefPilots": 1, "cabinCrew": 12 },
             "passengers": 335,
-            "payload": 34.9,
+            "payload": 41.565,
             "cargo": 8.4,
-            "zeroFuelWeight": 162.3,
+            "zeroFuelWeight": 168.965,
             "blockFuel": 47.9,
             "fuel": {
               "block": 47.9,

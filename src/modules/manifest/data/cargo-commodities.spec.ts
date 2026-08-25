@@ -140,7 +140,7 @@ describe('cargo commodities dataset', () => {
     expect(
       idsOf(
         (commodity) =>
-          commodity.frequency < 1 ||
+          commodity.frequency <= 0 ||
           commodity.demand.length === 0 ||
           commodity.demand.some((continent) => !continents.includes(continent)),
       ),
@@ -390,7 +390,7 @@ describe('cargo commodities dataset', () => {
     expect(findCommodityById('engine-fan-blades')!.sources.airports).toContain(
       'BRE',
     );
-    expect(findCommodityById('perfumery')!.sources.airports).toContain('CDG');
+    expect(findCommodityById('cosmetics')!.sources.airports).toContain('CDG');
     expect(findCommodityById('snow-crab')!.sources.airports).toContain('YYT');
   });
 });

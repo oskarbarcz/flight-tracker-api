@@ -83,7 +83,7 @@ export class GetFlightCargoLoadHandler implements IQueryHandler<GetFlightCargoLo
         .reduce((sum, row) => sum + row.tareKg + row.grossKg, 0),
       baggageKg: rows
         .filter((row) => row.contentClass === CargoContentClass.baggage)
-        .reduce((sum, row) => sum + row.grossKg, 0),
+        .reduce((sum, row) => sum + row.tareKg + row.grossKg, 0),
       bagCount: rows.reduce((sum, row) => sum + (row.bagCount ?? 0), 0),
       baggageSource: baggageSourceOf(rows),
       containerCount: rows.filter(

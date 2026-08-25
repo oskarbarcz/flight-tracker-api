@@ -103,9 +103,9 @@ Feature: Close flight
               "cabinCrew": 6
             },
             "passengers": 292,
-            "payload": 28.3,
+            "payload": 37.808,
             "cargo": 8.9,
-            "zeroFuelWeight": 202.9,
+            "zeroFuelWeight": 212.408,
             "blockFuel": 11.9,
             "fuel": {
               "block": 11.9,
@@ -615,9 +615,9 @@ Feature: Close flight
           "final": {
             "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
             "passengers": 283,
-            "payload": 27.8,
+            "payload": 36.617,
             "cargo": 8.6,
-            "zeroFuelWeight": 202.1,
+            "zeroFuelWeight": 210.917,
             "blockFuel": 11.7,
             "fuel": {
               "block": 11.7,
@@ -833,9 +833,9 @@ Feature: Close flight
           "final": {
             "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
             "passengers": 271,
-            "payload": 27.4,
+            "payload": 35.029,
             "cargo": 8.2,
-            "zeroFuelWeight": 201.4,
+            "zeroFuelWeight": 209.029,
             "blockFuel": 11.6,
             "fuel": {
               "block": 11.6,

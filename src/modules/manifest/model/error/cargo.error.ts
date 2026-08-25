@@ -32,6 +32,14 @@ export class HoldVolumeCapacityExceededError extends UnprocessableError {
   }
 }
 
+export class HoldCannotPlaceLoadError extends UnprocessableError {
+  constructor(unplacedKg: number, dimension: 'weight' | 'volume') {
+    super(
+      `Cannot place ${unplacedKg} kg of the load: the hold has no ${dimension} left for it.`,
+    );
+  }
+}
+
 export class CargoManifestNotGeneratedError extends NotFoundError {
   constructor() {
     super(

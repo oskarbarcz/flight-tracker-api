@@ -2,6 +2,9 @@ import {
   admissibleFor,
   canShareUnit,
   compartmentLoadOfUnits,
+  CompartmentUsage,
+  MAX_DANGEROUS_GOODS_PER_FLIGHT,
+  mayJoinCompartmentRegime,
   LoadContentClass,
   occupiedPositionsOf,
   planBaggageUnits,
@@ -22,12 +25,17 @@ import { offeredCommodities, OfferedCommodity } from './commodity-selection';
 import { Continent } from '../../airports/model/airport.model';
 import { JourneyContext, transferRoleOf } from './shipment-journey';
 import { conflicts } from './segregation.policy';
-import { SpecialHandlingCode } from './commodity.model';
+import {
+  SpecialHandlingCode,
+  TemperatureRegime,
+  TemperatureSolution,
+} from './commodity.model';
 import { offeredCommoditiesFor } from './cargo-aircraft-only.policy';
 import { BaggageSource } from './baggage';
 import { SourceTier } from './commodity-selection';
 import { defaultVariantOf, HoldVariant } from './hold-layout.model';
 import { UldType } from './uld';
+import { HoldCannotPlaceLoadError } from './error/cargo.error';
 
 function seededRandom(seed: number): () => number {
   let state = seed;
@@ -101,6 +109,304 @@ function plan(
     random: seededRandom(seed),
   });
 }
+
+describe('compartment volume', () => {
+  function volumeExceeded(
+    units: PlannedUnit[],
+    variant: HoldVariant,
+  ): number[] {
+    const limits = new Map(
+      variant.decks
+        .flatMap((deck) => deck.compartments)
+        .map((compartment) => [compartment.number, compartment.volumeM3]),
+    );
+
+    return [...compartmentLoadOfUnits(units).entries()]
+      .filter(
+        ([compartment, usage]) => usage.volumeM3 > limits.get(compartment)!,
+      )
+      .map(([compartment]) => compartment);
+  }
+
+  it('keeps every compartment within its volume across seeds', () => {
+    const variant = variantOf('A320', 'a320-cls');
+    const offending = Array.from(
+      { length: 40 },
+      (_, index) => index + 1,
+    ).filter(
+      (seed) =>
+        volumeExceeded(
+          planCargoLoad({
+            targetKg: 5000,
+            offered: offersFor(),
+            slots: slotsOf(variant),
+            looseSlots: looseSlotsOf(variant),
+            journey: journeyContext(seed),
+            coldChain,
+            random: seededRandom(seed),
+          }),
+          variant,
+        ).length > 0,
+    );
+
+    expect(offending).toEqual([]);
+  });
+
+  it('keeps a bulk-only narrowbody within every compartment volume', () => {
+    const variant = variantOf('B738');
+    const offending = Array.from(
+      { length: 20 },
+      (_, index) => index + 1,
+    ).filter(
+      (seed) =>
+        volumeExceeded(
+          planCargoLoad({
+            targetKg: 3000,
+            offered: offersFor(),
+            slots: slotsOf(variant),
+            looseSlots: looseSlotsOf(variant),
+            journey: journeyContext(seed),
+            coldChain,
+            random: seededRandom(seed),
+          }),
+          variant,
+        ).length > 0,
+    );
+
+    expect(offending).toEqual([]);
+  });
+
+  it('spills a load the first compartment cannot take into the next', () => {
+    const variant = variantOf('A320', 'a320-cls');
+    const units = planCargoLoad({
+      targetKg: 1800,
+      offered: offersFor(),
+      slots: [],
+      looseSlots: looseSlotsOf(variant),
+      journey: journeyContext(7),
+      coldChain,
+      random: seededRandom(7),
+    });
+
+    expect(totalCargoKg(units)).toBe(1800);
+    expect(new Set(units.map((unit) => unit.compartment)).size).toBeGreaterThan(
+      1,
+    );
+    expect(volumeExceeded(units, variant)).toEqual([]);
+  });
+
+  it('refuses a load no compartment can take', () => {
+    const variant = variantOf('A320', 'a320-cls');
+
+    expect(() =>
+      planCargoLoad({
+        targetKg: 9000,
+        offered: offersFor(),
+        slots: [],
+        looseSlots: looseSlotsOf(variant),
+        journey: journeyContext(3),
+        coldChain,
+        random: seededRandom(3),
+      }),
+    ).toThrow(HoldCannotPlaceLoadError);
+  });
+
+  it('carries a load with no hold data as one unplaced lot', () => {
+    const units = planCargoLoad({
+      targetKg: 9000,
+      offered: offersFor(),
+      slots: [],
+      looseSlots: [],
+      journey: journeyContext(3),
+      coldChain,
+      random: seededRandom(3),
+    });
+
+    expect(totalCargoKg(units)).toBe(9000);
+    expect(units.every((unit) => unit.compartment === null)).toBe(true);
+  });
+});
+
+describe('dangerous goods and temperature limits', () => {
+  function dangerousCount(units: PlannedUnit[]): number {
+    return units
+      .flatMap((unit) => unit.shipments)
+      .filter(
+        (shipment) =>
+          findCommodityById(shipment.commodityId)?.dangerousGoods !== undefined,
+      ).length;
+  }
+
+  function planForPassengers(targetKg: number, seed: number): PlannedUnit[] {
+    const variant = variantOf('B77W');
+
+    return planCargoLoad({
+      targetKg,
+      offered: offersFor(),
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      journey: journeyContext(seed),
+      coldChain,
+      random: seededRandom(seed),
+      dangerousGoodsCeiling: MAX_DANGEROUS_GOODS_PER_FLIGHT,
+    });
+  }
+
+  it('never carries more than two dangerous goods consignments on a passenger flight', () => {
+    const exceeding = Array.from({ length: 60 }, (_, index) => index + 1)
+      .map((seed) => dangerousCount(planForPassengers(24000, seed)))
+      .filter((count) => count > MAX_DANGEROUS_GOODS_PER_FLIGHT);
+
+    expect(exceeding).toEqual([]);
+  });
+
+  it('leaves a freighter uncapped, its rate held by the catalogue alone', () => {
+    const counts = Array.from({ length: 30 }, (_, index) => index + 1).map(
+      (seed) => dangerousCount(plan('B74F', 40000, seed)),
+    );
+
+    expect(Math.max(...counts)).toBeLessThan(8);
+  });
+
+  it('counts the consignments already aboard against the ceiling', () => {
+    const variant = variantOf('B77W');
+    const added = planCargoLoad({
+      targetKg: 12000,
+      offered: offersFor(),
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      journey: journeyContext(4),
+      coldChain,
+      random: seededRandom(4),
+      dangerousGoodsCeiling: MAX_DANGEROUS_GOODS_PER_FLIGHT,
+      dangerousGoodsAboard: MAX_DANGEROUS_GOODS_PER_FLIGHT,
+    });
+
+    expect(dangerousCount(added)).toBe(0);
+    expect(totalCargoKg(added)).toBe(12000);
+  });
+
+  it('still lands on the tonnage once the ceiling is reached', () => {
+    const misses = Array.from({ length: 30 }, (_, index) => index + 1).filter(
+      (seed) => totalCargoKg(plan('B77W', 18000, seed)) !== 18000,
+    );
+
+    expect(misses).toEqual([]);
+  });
+
+  it('keeps a compartment to one temperature regime', () => {
+    const offending = Array.from(
+      { length: 40 },
+      (_, index) => index + 1,
+    ).filter((seed) => {
+      const regimes = new Map<number, Set<string>>();
+
+      for (const unit of plan('B77W', 30000, seed)) {
+        if (unit.compartment === null) {
+          continue;
+        }
+
+        for (const shipment of unit.shipments) {
+          const commodity = findCommodityById(shipment.commodityId);
+
+          if (
+            commodity?.temperature === undefined ||
+            commodity.temperature.solution === TemperatureSolution.Active
+          ) {
+            continue;
+          }
+
+          const carried = regimes.get(unit.compartment) ?? new Set<string>();
+          carried.add(commodity.temperature.regime);
+          regimes.set(unit.compartment, carried);
+        }
+      }
+
+      return [...regimes.values()].some((carried) => carried.size > 1);
+    });
+
+    expect(offending).toEqual([]);
+  });
+
+  it('lets freight that controls its own temperature join any compartment', () => {
+    const frozen = findCommodityById('snow-crab')!;
+    const active = findCommodityById('vaccines')!;
+
+    expect(mayJoinCompartmentRegime(active, [TemperatureRegime.Frozen])).toBe(
+      true,
+    );
+    expect(mayJoinCompartmentRegime(frozen, [TemperatureRegime.Cool])).toBe(
+      false,
+    );
+  });
+
+  it('treats freight declaring no regime as neutral', () => {
+    const ordinary = findCommodityById('machine-tools')!;
+
+    expect(mayJoinCompartmentRegime(ordinary, [TemperatureRegime.Frozen])).toBe(
+      true,
+    );
+  });
+});
+
+describe('baggage keeps its room', () => {
+  const narrowbodyBags = {
+    source: BaggageSource.Derived,
+    weightKg: 1974,
+    bagCount: 132,
+    bagMassKg: 15,
+    priorityBagCount: 0,
+  };
+
+  it('places every bag before the cargo takes the positions', () => {
+    const variant = variantOf('A320', 'a320-cls');
+    const occupied = new Set<string>();
+    const compartmentLoad = new Map<number, CompartmentUsage>();
+
+    const baggage = planBaggageUnits({
+      plan: narrowbodyBags,
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      occupied,
+      compartmentLoad,
+    });
+
+    const cargo = planCargoLoad({
+      targetKg: 3000,
+      offered: offersFor(),
+      slots: slotsOf(variant),
+      looseSlots: looseSlotsOf(variant),
+      journey: journeyContext(5),
+      coldChain,
+      random: seededRandom(5),
+      occupied,
+      compartmentLoad,
+    });
+
+    expect(baggage.every((unit) => unit.compartment !== null)).toBe(true);
+    expect(baggage.reduce((sum, unit) => sum + (unit.bagCount ?? 0), 0)).toBe(
+      132,
+    );
+    expect(totalCargoKg(cargo)).toBe(3000);
+    expect(
+      cargo.filter((unit) => unit.kind === LoadUnitKind.Uld).length,
+    ).toBeLessThan(slotsOf(variant).length);
+  });
+
+  it('refuses bags a curated hold cannot take rather than leaving them unplaced', () => {
+    const variant = variantOf('A320', 'a320-cls');
+
+    expect(() =>
+      planBaggageUnits({
+        plan: { ...narrowbodyBags, bagCount: 900, weightKg: 13500 },
+        slots: slotsOf(variant),
+        looseSlots: looseSlotsOf(variant),
+        occupied: new Set<string>(),
+        compartmentLoad: new Map<number, CompartmentUsage>(),
+      }),
+    ).toThrow(HoldCannotPlaceLoadError);
+  });
+});
 
 describe('cargo packing', () => {
   it('lands exactly on the target tonnage', () => {
@@ -179,19 +485,10 @@ describe('cargo packing', () => {
         .map((compartment) => [compartment.number, compartment.maxWeightKg]),
     );
 
-    const load = new Map<number, number>();
-    for (const unit of plan('B77W', 40000)) {
-      if (unit.compartment === null) {
-        continue;
-      }
-      load.set(
-        unit.compartment,
-        (load.get(unit.compartment) ?? 0) + unit.tareKg + unit.grossKg,
-      );
-    }
+    const load = compartmentLoadOfUnits(plan('B77W', 40000));
 
     const exceeded = [...load.entries()].filter(
-      ([compartment, weight]) => weight > limits.get(compartment)!,
+      ([compartment, usage]) => usage.weightKg > limits.get(compartment)!,
     );
 
     expect(exceeded).toEqual([]);
@@ -234,12 +531,12 @@ describe('cargo packing', () => {
       continent: Continent.Africa,
       month: 2,
     }).filter((offer) => offer.commodity.id === 'flowers-roses');
-    const batteries = offeredCommodities({
-      iataCode: 'HKG',
-      country: 'China',
-      continent: Continent.Asia,
+    const moulds = offeredCommodities({
+      iataCode: 'FRA',
+      country: 'Germany',
+      continent: Continent.Europe,
       month: 6,
-    }).filter((offer) => offer.commodity.id === 'lithium-ion-standalone');
+    }).filter((offer) => offer.commodity.id === 'injection-moulds');
 
     const variant = variantOf('B77W');
     const countUnits = (offered: OfferedCommodity[]): number =>
@@ -253,7 +550,7 @@ describe('cargo packing', () => {
         random: seededRandom(9),
       }).filter((unit) => unit.kind === LoadUnitKind.Uld).length;
 
-    expect(countUnits(flowers)).toBeGreaterThan(countUnits(batteries));
+    expect(countUnits(flowers)).toBeGreaterThan(countUnits(moulds));
   });
 
   it('plans nothing for no cargo and nothing to offer', () => {
@@ -565,7 +862,7 @@ describe('cargo packing', () => {
       slots: slotsOf(variant),
       looseSlots: looseSlotsOf(variant),
       occupied: new Set<string>(),
-      compartmentLoad: new Map<number, number>(),
+      compartmentLoad: new Map<number, CompartmentUsage>(),
     });
 
     expect(baggage.length).toBeGreaterThan(0);
@@ -581,7 +878,7 @@ describe('cargo packing', () => {
       slots: slotsOf(variant),
       looseSlots: looseSlotsOf(variant),
       occupied: new Set<string>(),
-      compartmentLoad: new Map<number, number>(),
+      compartmentLoad: new Map<number, CompartmentUsage>(),
     });
 
     expect(baggage.reduce((sum, unit) => sum + unit.grossKg, 0)).toBe(
@@ -596,14 +893,14 @@ describe('cargo packing', () => {
       slots: slotsOf(variant),
       looseSlots: looseSlotsOf(variant),
       occupied: new Set<string>(),
-      compartmentLoad: new Map<number, number>(),
+      compartmentLoad: new Map<number, CompartmentUsage>(),
     });
     const withoutPremium = planBaggageUnits({
       plan: { ...samplePlan, priorityBagCount: 0 },
       slots: slotsOf(variant),
       looseSlots: looseSlotsOf(variant),
       occupied: new Set<string>(),
-      compartmentLoad: new Map<number, number>(),
+      compartmentLoad: new Map<number, CompartmentUsage>(),
     });
 
     expect(withPremium.some((unit) => unit.priority)).toBe(true);
@@ -619,7 +916,7 @@ describe('cargo packing', () => {
         slots: slotsOf(variant),
         looseSlots: looseSlotsOf(variant),
         occupied: new Set<string>(),
-        compartmentLoad: new Map<number, number>(),
+        compartmentLoad: new Map<number, CompartmentUsage>(),
       }),
     ).toEqual([]);
   });
@@ -645,7 +942,7 @@ describe('cargo packing', () => {
     );
     const combined = compartmentLoadOfUnits([...cargo, ...baggage]);
     const exceeded = [...combined.entries()].filter(
-      ([compartment, weight]) => weight > limits.get(compartment)!,
+      ([compartment, usage]) => usage.weightKg > limits.get(compartment)!,
     );
 
     expect(exceeded).toEqual([]);
@@ -706,7 +1003,9 @@ describe('cargo packing', () => {
     );
     const exceeded = [
       ...compartmentLoadOfUnits([...aboard, ...added]).entries(),
-    ].filter(([compartment, weight]) => weight > limits.get(compartment)!);
+    ].filter(
+      ([compartment, usage]) => usage.weightKg > limits.get(compartment)!,
+    );
 
     expect(exceeded).toEqual([]);
     expect(totalCargoKg(added)).toBe(2000);
@@ -774,7 +1073,7 @@ describe('bulk cargo placement', () => {
     for (const target of [1800, 3000, 5000, 7000]) {
       const units = plan('B738', target);
       const exceeded = [...compartmentLoadOfUnits(units).entries()].filter(
-        ([compartment, weight]) => weight > limits.get(compartment)!,
+        ([compartment, usage]) => usage.weightKg > limits.get(compartment)!,
       );
 
       expect({ target, exceeded }).toEqual({ target, exceeded: [] });

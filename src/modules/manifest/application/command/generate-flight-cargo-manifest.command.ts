@@ -18,9 +18,9 @@ import {
 } from '../../model/cold-chain';
 import { ColdChainContext } from '../../model/cargo-packing';
 import {
-  compartmentLoadOfUnits,
+  CompartmentUsage,
   looseSlotsOf,
-  occupiedPositionsOf,
+  MAX_DANGEROUS_GOODS_PER_FLIGHT,
   planBaggageUnits,
   planCargoLoad,
   slotsOf,
@@ -135,16 +135,6 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
       random: Math.random,
     };
 
-    const planned = planCargoLoad({
-      targetKg,
-      offered,
-      slots: variant ? slotsOf(variant) : [],
-      looseSlots: variant ? looseSlotsOf(variant) : [],
-      journey,
-      coldChain,
-      random: Math.random,
-    });
-
     const baggage = planBaggage({
       payloadTons,
       passengers,
@@ -153,15 +143,32 @@ export class GenerateFlightCargoManifestHandler implements ICommandHandler<Gener
       passengersByCabin,
     });
 
+    const occupied = new Set<string>();
+    const compartmentLoad = new Map<number, CompartmentUsage>();
+
     const baggageUnits = variant
       ? planBaggageUnits({
           plan: baggage,
           slots: slotsOf(variant),
           looseSlots: looseSlotsOf(variant),
-          occupied: occupiedPositionsOf(planned),
-          compartmentLoad: compartmentLoadOfUnits(planned),
+          occupied,
+          compartmentLoad,
         })
       : [];
+
+    const planned = planCargoLoad({
+      targetKg,
+      offered,
+      slots: variant ? slotsOf(variant) : [],
+      looseSlots: variant ? looseSlotsOf(variant) : [],
+      journey,
+      coldChain,
+      random: Math.random,
+      occupied,
+      compartmentLoad,
+      dangerousGoodsCeiling:
+        passengers > 0 ? MAX_DANGEROUS_GOODS_PER_FLIGHT : null,
+    });
 
     const context = {
       operatorIata,

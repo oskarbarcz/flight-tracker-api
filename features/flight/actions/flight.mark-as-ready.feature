@@ -627,7 +627,7 @@ Feature: Mark flight as ready
         "flightId": "8c3a1d61-9e45-4fc8-8b7a-2d5f6a8c9e3b",
         "holdVariant": "a320-cls",
         "cargoKg": 2500,
-        "baggageKg": 2400,
+        "baggageKg": 2775,
         "bagCount": 133,
         "baggageSource": "reconciled",
         "containerCount": "@any",
@@ -641,6 +641,30 @@ Feature: Mark flight as ready
         "compartmentLoad": "@any",
         "segregationAdvisories": [],
         "units": "@any"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot release a flight whose cargo and baggage do not fit the hold
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/f1a4d7c8-3b62-4e59-9d0a-6c8b2e5f7a41/mark-as-ready"
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Content",
+        "message": "@any"
+      }
+      """
+    When I send a "GET" request to "/api/v1/flight/f1a4d7c8-3b62-4e59-9d0a-6c8b2e5f7a41/cargo-manifest"
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 404,
+        "error": "Not Found",
+        "message": "Flight has no cargo manifest yet. It is generated when the flight is released to the pilot."
       }
       """
     And I set database to initial state

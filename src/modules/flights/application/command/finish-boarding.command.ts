@@ -18,6 +18,7 @@ import { Loadsheet } from '../../model/loadsheet.model';
 import {
   assertFuelBreakdownConsistent,
   assertPassengerBreakdownConsistent,
+  assertPayloadAccountsForLoad,
 } from '../../model/loadsheet.policy';
 import { ReconcileFlightManifestCommand } from '../../../manifest/application/command/reconcile-flight-manifest.command';
 import { ReconcileFlightCargoManifestCommand } from '../../../manifest/application/command/reconcile-flight-cargo-manifest.command';
@@ -59,6 +60,7 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
 
     assertFuelBreakdownConsistent(finalLoadsheet);
     assertPassengerBreakdownConsistent(finalLoadsheet);
+    assertPayloadAccountsForLoad(finalLoadsheet);
 
     const reconcileManifest = new ReconcileFlightManifestCommand(
       flightId,
