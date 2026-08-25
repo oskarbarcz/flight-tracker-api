@@ -141,6 +141,7 @@ export class ParkingPosition {
     required: false,
     nullable: true,
     default: null,
+    type: String,
   })
   @IsOptional()
   @IsString()
@@ -209,6 +210,7 @@ export class ParkingPosition {
     required: false,
     nullable: true,
     default: null,
+    type: String,
   })
   @IsOptional()
   @IsString()
@@ -220,6 +222,7 @@ export class ParkingPosition {
     required: false,
     nullable: true,
     default: null,
+    type: String,
   })
   @IsOptional()
   @IsMilitaryTime()
@@ -231,6 +234,7 @@ export class ParkingPosition {
     required: false,
     nullable: true,
     default: null,
+    type: String,
   })
   @IsOptional()
   @IsMilitaryTime()

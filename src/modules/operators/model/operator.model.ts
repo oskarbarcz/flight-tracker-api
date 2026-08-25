@@ -135,6 +135,7 @@ export class Operator {
     example: 'https://example.com/background.png',
     required: false,
     default: null,
+    type: String,
   })
   @IsOptional()
   @IsString()
@@ -146,6 +147,7 @@ export class Operator {
     example: 'https://example.com/background.png',
     required: false,
     default: null,
+    type: String,
   })
   @IsOptional()
   @IsString()

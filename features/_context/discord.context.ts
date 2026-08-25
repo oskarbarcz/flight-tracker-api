@@ -45,6 +45,14 @@ Then(
 );
 
 Then(
+  'I see Discord {string} message for flight {string} not containing {string}',
+  async (type: string, flightId: string, fragment: string) => {
+    const fileContent = await readWhenDelivered(messagePath(type, flightId));
+    expect(fileContent).not.toContain(fragment);
+  },
+);
+
+Then(
   'I see no Discord {string} message for flight {string}',
   async (type: string, flightId: string) => {
     await wait(DELIVERY_TIMEOUT_MS);

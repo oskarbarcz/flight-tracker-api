@@ -8,6 +8,7 @@ Feature: List aircraft hold layouts
       """json
       [
         { "type": "B77W", "variants": "@any" },
+        { "type": "B788", "variants": "@any" },
         { "type": "A339", "variants": "@any" },
         { "type": "B752", "variants": "@any" },
         { "type": "B738", "variants": "@any" },
@@ -35,6 +36,7 @@ Feature: List aircraft hold layouts
       """json
       [
         { "type": "B77W", "variants": "@any" },
+        { "type": "B788", "variants": "@any" },
         { "type": "A339", "variants": "@any" },
         { "type": "B752", "variants": "@any" },
         { "type": "B738", "variants": "@any" },
@@ -62,6 +64,7 @@ Feature: List aircraft hold layouts
       """json
       [
         { "type": "B77W", "variants": "@any" },
+        { "type": "B788", "variants": "@any" },
         { "type": "A339", "variants": "@any" },
         { "type": "B752", "variants": "@any" },
         { "type": "B738", "variants": "@any" },

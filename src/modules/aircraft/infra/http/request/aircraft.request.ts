@@ -11,6 +11,7 @@ import {
 import { LegacyOperatorResponse } from '../../../../operators/infra/http/request/operator.request';
 import { Coordinates } from '../../../../airports/model/airport.model';
 import { AircraftCabinLayout } from '../../../model/cabin-layout.model';
+import { HOLD_VARIANT_IDS } from '../../../../manifest/data/hold-identifiers';
 
 export class CreateAircraftRequest {
   @ApiProperty({
@@ -36,6 +37,7 @@ export class CreateAircraftRequest {
     example: 'KR-QL',
     nullable: true,
     required: false,
+    type: String,
   })
   @IsOptional()
   @IsString()
@@ -146,6 +148,7 @@ export class GetAircraftResponse extends Aircraft {
     example: '2025-01-01T00:00:00.000Z',
     nullable: true,
     default: null,
+    type: 'string',
   })
   lastAirportUpdatedAt!: Date | null;
 
@@ -176,6 +179,7 @@ export class GetAircraftResponse extends Aircraft {
   @ApiProperty({
     description:
       'Cargo hold variant assigned to the aircraft; null when none is assigned, meaning the aircraft uses its airframe type default rather than having no hold',
+    enum: HOLD_VARIANT_IDS,
     example: 'a320-cls',
     nullable: true,
   })

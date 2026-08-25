@@ -789,6 +789,7 @@ Feature: Finish flight boarding
             "dryIceKg": 0
           }
         ],
+        "segregationAdvisories": [],
         "units": [
           {
             "kind": "uld",
@@ -998,6 +999,7 @@ Feature: Finish flight boarding
         "transferCount": 0,
         "tightestConnectionMinutes": null,
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """
@@ -1096,6 +1098,7 @@ Feature: Finish flight boarding
             "dryIceKg": 0
           }
         ],
+        "segregationAdvisories": [],
         "units": [
           {
             "kind": "uld",
@@ -1393,6 +1396,7 @@ Feature: Finish flight boarding
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": [],
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """

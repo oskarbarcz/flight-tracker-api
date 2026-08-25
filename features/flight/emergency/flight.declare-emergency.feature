@@ -311,3 +311,86 @@ Feature: Declare a flight emergency
       }
       """
     Then the response status should be 401
+
+  Scenario: A declaration that states no dangerous goods is filled from what is loaded
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/emergency" with body:
+      """json
+      {
+        "urgency": "mayday",
+        "threatLevel": "critical",
+        "category": "ata-72-engine",
+        "squawk": "7700",
+        "intention": "divert",
+        "lastKnownPosition": { "longitude": 8.570556, "latitude": 50.033333 },
+        "fuelEnduranceMinutes": 95,
+        "freeText": "Engine #2 fire warning, ECAM actions completed, returning to FRA."
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "urgency": "mayday",
+        "threatLevel": "critical",
+        "category": "ata-72-engine",
+        "squawk": "7700",
+        "intention": "divert",
+        "lastKnownPosition": { "longitude": 8.570556, "latitude": 50.033333 },
+        "soulsOnBoard": 300,
+        "fuelEnduranceMinutes": 95,
+        "dangerousGoodsOnBoard": ["class-3-flammable-liquids", "class-9-miscellaneous"],
+        "freeText": "Engine #2 fire warning, ECAM actions completed, returning to FRA.",
+        "declarationTime": "@date('within 1 minute from now')",
+        "resolvedAt": null,
+        "reportedBy": { "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d", "name": "Rick Doe" },
+        "resolvedBy": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: A declaration that states its dangerous goods keeps exactly what the pilot stated
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/2d1c92f6-8ed1-4921-9a70-f71b1ed2e72d/emergency" with body:
+      """json
+      {
+        "urgency": "mayday",
+        "threatLevel": "critical",
+        "category": "ata-72-engine",
+        "squawk": "7700",
+        "intention": "divert",
+        "lastKnownPosition": { "longitude": 8.570556, "latitude": 50.033333 },
+        "fuelEnduranceMinutes": 95,
+        "dangerousGoodsOnBoard": ["class-7-radioactive"],
+        "freeText": "Engine #2 fire warning, ECAM actions completed, returning to FRA."
+      }
+      """
+    Then the response status should be 201
+    And the response body property "dangerousGoodsOnBoard" should contain:
+      """json
+      ["class-7-radioactive"]
+      """
+    And I set database to initial state
+
+  Scenario: A flight loaded with nothing hazardous declares no dangerous goods
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/7105891a-8008-4b47-b473-c81c97615ad7/emergency" with body:
+      """json
+      {
+        "urgency": "panpan",
+        "threatLevel": "high",
+        "category": "ata-21-air-conditioning",
+        "squawk": "7700",
+        "intention": "divert",
+        "lastKnownPosition": { "longitude": 8.570556, "latitude": 50.033333 },
+        "fuelEnduranceMinutes": 120,
+        "freeText": "Pack 1 fault, cabin altitude stable, requesting lower."
+      }
+      """
+    Then the response status should be 201
+    And the response body property "dangerousGoodsOnBoard" should contain:
+      """json
+      []
+      """
+    And I set database to initial state

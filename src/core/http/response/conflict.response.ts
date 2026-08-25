@@ -10,12 +10,14 @@ export class GenericConflictResponse {
   @ApiProperty({
     description: 'HTTP status message',
     example: 'Conflict',
+    type: String,
   })
   error = 'Conflict';
 
   @ApiProperty({
     description: 'HTTP status code',
     example: 409,
+    type: Number,
   })
   statusCode = 409;
 }

@@ -24,6 +24,7 @@ Feature: Read the cargo manifest of a flight
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": [
           {
             "kind": "bulk_lot",
@@ -106,6 +107,7 @@ Feature: Read the cargo manifest of a flight
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """
@@ -135,6 +137,7 @@ Feature: Read the cargo manifest of a flight
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """
@@ -164,6 +167,7 @@ Feature: Read the cargo manifest of a flight
         "transferCount": "@any",
         "tightestConnectionMinutes": "@any",
         "compartmentLoad": "@any",
+        "segregationAdvisories": [],
         "units": "@any"
       }
       """
@@ -215,6 +219,7 @@ Feature: Read the cargo manifest of a flight
             "dryIceKg": 0
           }
         ],
+        "segregationAdvisories": [],
         "units": [
           {
             "kind": "uld",
@@ -338,6 +343,7 @@ Feature: Read the cargo manifest of a flight
             "dryIceKg": 0
           }
         ],
+        "segregationAdvisories": [],
         "units": [
           {
             "kind": "uld",
@@ -483,6 +489,211 @@ Feature: Read the cargo manifest of a flight
       }
       """
     And I set database to initial state
+
+  Scenario: A compartment carrying an incompatible pair reports it, ignoring freight already offloaded
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/792e3698-b46d-4c1b-bc99-451596660760/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "792e3698-b46d-4c1b-bc99-451596660760",
+        "holdVariant": "b77w-ld3",
+        "cargoKg": 1964,
+        "baggageKg": 0,
+        "bagCount": 0,
+        "baggageSource": null,
+        "containerCount": 3,
+        "bulkLotCount": 0,
+        "shipmentCount": 3,
+        "worstColdChainRisk": null,
+        "dangerousGoodsCount": 2,
+        "cargoAircraftOnlyCount": 0,
+        "transferCount": 0,
+        "tightestConnectionMinutes": null,
+        "compartmentLoad": [
+          {
+            "compartment": 3,
+            "deck": "lower",
+            "weightKg": 1964,
+            "dryIceKg": 1400
+          }
+        ],
+        "segregationAdvisories": [
+          {
+            "compartment": 3,
+            "deck": "lower",
+            "one": "ICE",
+            "other": "AVIH"
+          }
+        ],
+        "units": [
+          {
+            "kind": "uld",
+            "uldCode": "AKE55101AA",
+            "uldType": "AKE",
+            "positionDesignator": "31L",
+            "compartment": 3,
+            "deck": "lower",
+            "tareKg": 82,
+            "grossKg": 400,
+            "volumeM3": 2,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-55102202",
+                "commodity": "pets-in-hold",
+                "description": "Domestic pets in travel kennels",
+                "pieces": 12,
+                "grossKg": 400,
+                "volumeM3": 2,
+                "shc": ["AVIH"],
+                "shipper": "Rhein-Main Pet Travel GmbH",
+                "consignee": "Queens Animal Reception Inc.",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "loaded",
+                "offloadReason": null,
+                "offloadedFrom": null
+              }
+            ]
+          },
+          {
+            "kind": "uld",
+            "uldCode": "AKE55103AA",
+            "uldType": "AKE",
+            "positionDesignator": null,
+            "compartment": 3,
+            "deck": "lower",
+            "tareKg": 0,
+            "grossKg": 0,
+            "volumeM3": 0,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-55102224",
+                "commodity": "radiopharmaceuticals",
+                "description": "Radiopharmaceutical doses, shielded",
+                "pieces": 6,
+                "grossKg": 120,
+                "volumeM3": 0.1,
+                "shc": ["PIL", "RRY"],
+                "shipper": "Marburg Isotopes GmbH",
+                "consignee": "Bayside Nuclear Medicine Inc.",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": {
+                  "ercCode": "7L",
+                  "unNumber": "2915",
+                  "hazardClass": "7",
+                  "packingGroup": null,
+                  "netPerPackage": "1 TBq",
+                  "subsidiaryRisk": null,
+                  "cargoAircraftOnly": false,
+                  "properShippingName": "Radioactive material, Type A package, non-special form"
+                },
+                "coldChain": null,
+                "status": "offloaded",
+                "offloadReason": "payload_restriction",
+                "offloadedFrom": "32L"
+              }
+            ]
+          },
+          {
+            "kind": "uld",
+            "uldCode": "AKE55102AA",
+            "uldType": "AKE",
+            "positionDesignator": "31R",
+            "compartment": 3,
+            "deck": "lower",
+            "tareKg": 82,
+            "grossKg": 1400,
+            "volumeM3": 2,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-55102213",
+                "commodity": "dry-ice",
+                "description": "Carbon dioxide, solid, as refrigerant",
+                "pieces": 64,
+                "grossKg": 1400,
+                "volumeM3": 2,
+                "shc": ["ICE"],
+                "shipper": "Hessen Kaeltetechnik GmbH",
+                "consignee": "Brooklyn Cold Logistics Inc.",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": {
+                  "ercCode": "9A",
+                  "unNumber": "1845",
+                  "sourceNote": "An asphyxiant rather than an anaesthetic; A is the nearest additional-risk letter the drill chart defines.",
+                  "hazardClass": "9",
+                  "packingGroup": null,
+                  "netPerPackage": "22 kg",
+                  "subsidiaryRisk": null,
+                  "cargoAircraftOnly": false,
+                  "properShippingName": "Carbon dioxide, solid"
+                },
+                "coldChain": null,
+                "status": "loaded",
+                "offloadReason": null,
+                "offloadedFrom": null
+              }
+            ]
+          }
+        ]
+      }
+      """
+
+  Scenario: A manifest the system generated reports no conflict
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/flight/1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64/mark-as-ready"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64/cargo-manifest"
+    Then the response status should be 200
+    And the response body property "segregationAdvisories" should contain:
+      """json
+      []
+      """
+    And I set database to initial state
+
+  Scenario: A flight whose aircraft type has no hold data reports no conflict
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/dc20c7ff-114e-42be-86cc-34fd90b71b35/cargo-manifest"
+    Then the response status should be 200
+    And the response body property "segregationAdvisories" should contain:
+      """json
+      []
+      """
 
   Scenario: Filtering the manifest by an unknown status is rejected
     Given I am signed in as "operations"

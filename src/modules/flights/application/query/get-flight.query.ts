@@ -19,7 +19,7 @@ import {
   DataQuality,
 } from '../../../airports/model/airport.model';
 import { GetFlightResponse } from '../../infra/http/request/flight.dto';
-import { FlightsWithNotocQuery } from '../../../notoc/application/query/has-flight-notoc.query';
+import { FlightsWithNotocQuery } from '../../../manifest/application/query/has-flight-notoc.query';
 
 export class GetFlightQuery extends Query<GetFlightResponse> {
   constructor(public readonly flightId: string) {

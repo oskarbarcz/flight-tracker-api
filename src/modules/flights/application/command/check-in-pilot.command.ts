@@ -15,8 +15,8 @@ import { PilotCheckedInEvent } from '../../../../core/domain/events/dto/flight.e
 import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { Schedule } from '../../model/timesheet.model';
-import { AcknowledgeNotocCommand } from '../../../notoc/application/command/acknowledge-notoc.command';
-import { NotocStageName } from '../../../notoc/model/notoc.model';
+import { AcknowledgeNotocCommand } from '../../../manifest/application/command/acknowledge-notoc.command';
+import { NotocStageName } from '../../../manifest/model/notoc.model';
 
 export class CheckInPilotCommand {
   constructor(

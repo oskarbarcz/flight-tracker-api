@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AirportsModule } from './modules/airports/airports.module';
 import { AirframesModule } from './modules/airframes/airframes.module';
+import { ManifestModule } from './modules/manifest/manifest.module';
 import { AircraftModule } from './modules/aircraft/aircraft.module';
 import { OperatorsModule } from './modules/operators/operators.module';
 import { CrewModule } from './modules/crew/crew.module';
@@ -16,9 +17,6 @@ import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { SkyLinkModule } from './modules/skylink/skylink.module';
 import { CabinLayoutsModule } from './modules/cabin-layouts/cabin-layouts.module';
-import { PassengersModule } from './modules/passengers/passengers.module';
-import { CargoModule } from './modules/cargo/cargo.module';
-import { NotocModule } from './modules/notoc/notoc.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { DiscordModule } from './core/provider/discord/discord.module';
 import { CqrsModule } from '@nestjs/cqrs';
@@ -35,6 +33,7 @@ const schedulerEnabled = process.env.SCHEDULER_ENABLED !== 'false';
     AirportsModule,
     AirframesModule,
     AircraftModule,
+    ManifestModule,
     OperatorsModule,
     CrewModule,
     RotationsModule,
@@ -46,9 +45,6 @@ const schedulerEnabled = process.env.SCHEDULER_ENABLED !== 'false';
     JwtModule,
     SkyLinkModule,
     CabinLayoutsModule,
-    PassengersModule,
-    CargoModule,
-    NotocModule,
     DiscordModule,
     EventEmitterModule.forRoot({ maxListeners: 20, verboseMemoryLeak: true }),
     DomainEventsModule,

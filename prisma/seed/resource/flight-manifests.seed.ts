@@ -10,13 +10,13 @@ import {
   planReconciliation,
   SeatedPassenger,
   targetPerCabin,
-} from '../../../src/modules/passengers/model/manifest-generation';
+} from '../../../src/modules/manifest/model/manifest-generation';
 import {
   PassengerSpecialService,
   PassengerStatus,
-} from '../../../src/modules/passengers/model/manifest.model';
-import { passengerNameFactory } from '../../../src/modules/passengers/model/passenger-name';
-import { resolvePassengerLocale } from '../../../src/modules/passengers/model/passenger-name';
+} from '../../../src/modules/manifest/model/manifest.model';
+import { passengerNameFactory } from '../../../src/modules/manifest/model/passenger-name';
+import { resolvePassengerLocale } from '../../../src/modules/manifest/model/passenger-name';
 import { CabinDeckName } from '../../../src/modules/cabin-layouts/model/layout-version';
 import { Continent } from '../../../src/modules/airports/model/airport.model';
 import { assembledLayout } from './cabin-layout-versions.seed';

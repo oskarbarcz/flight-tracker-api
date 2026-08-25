@@ -14,12 +14,12 @@ import { FlightWasReleasedEvent } from '../../../../core/domain/events/dto/fligh
 import { FlightEventScope } from '../../model/event.model';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
-import { GenerateFlightManifestCommand } from '../../../passengers/application/command/generate-flight-manifest.command';
-import { GenerateFlightCargoManifestCommand } from '../../../cargo/application/command/generate-flight-cargo-manifest.command';
+import { GenerateFlightManifestCommand } from '../../../manifest/application/command/generate-flight-manifest.command';
+import { GenerateFlightCargoManifestCommand } from '../../../manifest/application/command/generate-flight-cargo-manifest.command';
 import { AirportType } from '../../../airports/model/airport.model';
 import { scheduledFlightHours } from '../../model/timesheet.model';
-import { IssueNotocCommand } from '../../../notoc/application/command/issue-notoc.command';
-import { NotocStageName } from '../../../notoc/model/notoc.model';
+import { IssueNotocCommand } from '../../../manifest/application/command/issue-notoc.command';
+import { NotocStageName } from '../../../manifest/model/notoc.model';
 
 export class MarkAsReadyCommand {
   constructor(

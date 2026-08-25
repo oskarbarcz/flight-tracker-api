@@ -71,6 +71,7 @@ export class Airframe {
       'IATA aircraft type code; null for airframes IATA publishes no code for. Cabin layouts are keyed by this code, aircraft by the ICAO designator.',
     example: '77W',
     nullable: true,
+    type: String,
   })
   @IsOptional()
   @IsString()
