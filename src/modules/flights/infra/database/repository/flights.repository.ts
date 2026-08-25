@@ -232,6 +232,7 @@ export type ManifestPin = {
   cabinLayout: string | null;
   cabinLayoutRevision: number | null;
   captainId: string | null;
+  greatCircleDistance: number;
 };
 
 export type FlightIdAndCallsign = Prisma.FlightGetPayload<{
@@ -602,6 +603,7 @@ export class FlightsRepository {
         cabinLayout: true,
         cabinLayoutRevision: true,
         captainId: true,
+        greatCircleDistance: true,
       },
     });
   }

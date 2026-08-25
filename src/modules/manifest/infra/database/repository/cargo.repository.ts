@@ -8,7 +8,6 @@ import {
   CargoTransferRole,
   CargoUnitKind,
   Prisma,
-  WeatherInformationType,
 } from 'prisma/client/client';
 
 export type NewCargoShipment = {
@@ -168,46 +167,5 @@ export class CargoRepository {
 
   async countForFlight(flightId: string): Promise<number> {
     return this.prisma.flightCargoUnit.count({ where: { flightId } });
-  }
-
-  async networkAirports(
-    excluding: string[],
-  ): Promise<{ iataCode: string; continent: string }[]> {
-    return this.prisma.airport.findMany({
-      where: { iataCode: { notIn: excluding } },
-      select: { iataCode: true, continent: true },
-    });
-  }
-
-  async flightDistanceKm(flightId: string): Promise<number> {
-    const flight = await this.prisma.flight.findUnique({
-      where: { id: flightId },
-      select: { greatCircleDistance: true },
-    });
-
-    return flight?.greatCircleDistance ?? 0;
-  }
-
-  async latestMetar(iataCode: string): Promise<string | null> {
-    const weather = await this.prisma.airportWeather.findFirst({
-      where: {
-        airport: { iataCode },
-        informationType: WeatherInformationType.metar,
-      },
-      orderBy: { lastFetched: 'desc' },
-      select: { content: true },
-    });
-
-    return weather?.content ?? null;
-  }
-
-  async carrierCodes(excluding: string): Promise<string[]> {
-    const operators = await this.prisma.operator.findMany({
-      where: { iataCode: { not: excluding } },
-      select: { iataCode: true },
-      distinct: ['iataCode'],
-    });
-
-    return operators.map((operator) => operator.iataCode);
   }
 }

@@ -73,4 +73,6 @@ None.
   `finish-boarding.command.ts` — payload coherence check on both loadsheet write flows.
 - `prisma/seed/resource/cargo-flights.seed.ts` and `cargo-manifests.seed.ts` — seeded manifests
   are regenerated under the new rules; their dangerous goods counts fall.
+- `src/modules/manifest/infra/database/repository/cargo.repository.ts` — the four reads of other
+  modules' tables move onto the bus; the repository is left with the manifest's own tables.
 - No database migration: no schema change, only what may be written into it.

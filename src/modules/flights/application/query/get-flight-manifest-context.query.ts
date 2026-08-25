@@ -8,6 +8,7 @@ export type FlightManifestContext = {
   cabinLayout: string | null;
   cabinLayoutRevision: number | null;
   captainId: string | null;
+  greatCircleDistance: number;
 };
 
 export class GetFlightManifestContextQuery extends Query<FlightManifestContext> {

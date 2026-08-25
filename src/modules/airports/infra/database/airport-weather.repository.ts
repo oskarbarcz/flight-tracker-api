@@ -39,6 +39,19 @@ export class AirportWeatherRepository {
     });
   }
 
+  async findLatestMetarByIataCode(iataCode: string): Promise<string | null> {
+    const report = await this.prisma.airportWeather.findFirst({
+      where: {
+        airport: { iataCode },
+        informationType: WeatherInformationType.Metar,
+      },
+      orderBy: { lastFetched: 'desc' },
+      select: { content: true },
+    });
+
+    return report?.content ?? null;
+  }
+
   async saveReports(
     airportId: string,
     source: WeatherSource,

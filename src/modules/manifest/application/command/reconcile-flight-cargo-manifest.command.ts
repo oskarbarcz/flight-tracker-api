@@ -49,6 +49,11 @@ import {
 import { ULD_SPECS, UldType } from '../../model/uld';
 import { resolvePassengerLocale } from '../../model/passenger-name';
 import { CargoEndpoint } from './generate-flight-cargo-manifest.command';
+import { ListAllAirportsQuery } from '../../../airports/application/query/list-all-airports.query';
+import { GetAirportResponse } from '../../../airports/infra/http/request/airport.dto';
+import { ListAllOperatorsQuery } from '../../../operators/application/query/list-all-operators.query';
+import { Operator } from '../../../operators/model/operator.model';
+import { GetLatestMetarQuery } from '../../../airports/application/query/weather/get-latest-metar.query';
 import {
   CargoContentClass,
   CargoOffloadReason,
@@ -184,7 +189,9 @@ export class ReconcileFlightCargoManifestHandler implements ICommandHandler<Reco
       buildUpHours: BUILD_UP_HOURS,
       flightHours,
       ambientC: ambientFromMetar(
-        await this.cargoRepository.latestMetar(arrival.iataCode),
+        await this.queryBus.execute<GetLatestMetarQuery, string | null>(
+          new GetLatestMetarQuery(arrival.iataCode),
+        ),
       ),
     };
 
@@ -202,19 +209,38 @@ export class ReconcileFlightCargoManifestHandler implements ICommandHandler<Reco
     );
 
     const [networkAirports, carriers] = await Promise.all([
-      this.cargoRepository.networkAirports([
-        departure.iataCode,
-        arrival.iataCode,
-      ]),
-      this.cargoRepository.carrierCodes(operatorIata),
+      this.queryBus.execute<ListAllAirportsQuery, GetAirportResponse[]>(
+        new ListAllAirportsQuery({}),
+      ),
+      this.queryBus.execute<ListAllOperatorsQuery, Operator[]>(
+        new ListAllOperatorsQuery(),
+      ),
     ]);
+
+    const candidates: CargoAirport[] = networkAirports
+      .filter(
+        (airport) =>
+          airport.iataCode !== departure.iataCode &&
+          airport.iataCode !== arrival.iataCode,
+      )
+      .map((airport) => ({
+        iataCode: airport.iataCode,
+        continent: airport.continent,
+      }));
+    const carrierCodes = [
+      ...new Set(
+        carriers
+          .map((carrier) => carrier.iataCode)
+          .filter((code) => code !== operatorIata),
+      ),
+    ];
 
     const journey: JourneyContext = {
       leg: { departure: departure.iataCode, arrival: arrival.iataCode },
       departureContinent: departure.continent,
       arrivalContinent: arrival.continent,
-      candidates: networkAirports as CargoAirport[],
-      carriers,
+      candidates,
+      carriers: carrierCodes,
       random: Math.random,
     };
 
@@ -243,7 +269,7 @@ export class ReconcileFlightCargoManifestHandler implements ICommandHandler<Reco
         resolvePassengerLocale(departure.country, departure.continent),
         resolvePassengerLocale(arrival.country, arrival.continent),
       ),
-      carriers,
+      carriers: carrierCodes,
       random: Math.random,
     };
 
