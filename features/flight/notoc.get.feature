@@ -514,16 +514,16 @@ Feature: Get flight notification to captain
       """
     And I set database to initial state
 
-  Scenario: A flight that has not been released reports no notification
+  Scenario: A flight whose loadsheet has not been written reports no notification
     Given I am signed in as "operations"
-    When I send a "GET" request to "/api/v1/flight/1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64/notoc"
+    When I send a "GET" request to "/api/v1/flight/c0e83544-cefd-41c8-9c60-aadfaaf08590/notoc"
     Then the response status should be 404
     And the response body should contain:
       """json
       {
         "statusCode": 404,
         "error": "Not Found",
-        "message": "Flight has no notification to captain yet. It is issued when the flight is released to the pilot."
+        "message": "Flight has no notification to captain yet. It is issued from the preliminary loadsheet."
       }
       """
 

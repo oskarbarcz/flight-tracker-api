@@ -31,6 +31,7 @@ type ManifestFlightSpec = {
   passengers: number;
   passengersByCabin?: Record<string, number>;
   baggageTonnesPerPassenger?: number;
+  cargoTonnes?: number;
 };
 
 const FLIGHTS: ManifestFlightSpec[] = [
@@ -127,6 +128,7 @@ const FLIGHTS: ManifestFlightSpec[] = [
     destinationAirportId: KJFK,
     alternateAirportId: KPHL,
     passengers: 150,
+    cargoTonnes: 2.2,
   },
 ];
 
@@ -177,15 +179,15 @@ const DEFAULT_BAGGAGE_TONNES_PER_PASSENGER = 0.02;
 function loadsheetFor(spec: ManifestFlightSpec): Loadsheet {
   const baggagePerPassenger =
     spec.baggageTonnesPerPassenger ?? DEFAULT_BAGGAGE_TONNES_PER_PASSENGER;
+  const cargo = spec.cargoTonnes ?? CARGO_TONNES;
   const payload =
-    CARGO_TONNES +
-    spec.passengers * (STANDARD_PASSENGER_TONNES + baggagePerPassenger);
+    cargo + spec.passengers * (STANDARD_PASSENGER_TONNES + baggagePerPassenger);
 
   return {
     flightCrew: { pilots: 2, reliefPilots: 0, cabinCrew: 5 },
     passengers: spec.passengers,
     passengersByCabin: spec.passengersByCabin ?? null,
-    cargo: CARGO_TONNES,
+    cargo,
     payload: Math.round(payload * 1000) / 1000,
     zeroFuelWeight: Math.round((68.4 + payload) * 1000) / 1000,
     blockFuel: 21.4,

@@ -1,9 +1,4 @@
-import {
-  CommandBus,
-  CommandHandler,
-  ICommandHandler,
-  QueryBus,
-} from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { GetFlightQuery } from '../query/get-flight.query';
 import { FlightStatus } from '../../model/flight.model';
 import {
@@ -14,12 +9,6 @@ import { FlightWasReleasedEvent } from '../../../../core/domain/events/dto/fligh
 import { FlightEventScope } from '../../model/event.model';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
-import { GenerateFlightManifestCommand } from '../../../manifest/application/command/generate-flight-manifest.command';
-import { GenerateFlightCargoManifestCommand } from '../../../manifest/application/command/generate-flight-cargo-manifest.command';
-import { AirportType } from '../../../airports/model/airport.model';
-import { scheduledFlightHours } from '../../model/timesheet.model';
-import { IssueNotocCommand } from '../../../manifest/application/command/issue-notoc.command';
-import { NotocStageName } from '../../../manifest/model/notoc.model';
 
 export class MarkAsReadyCommand {
   constructor(
@@ -32,7 +21,6 @@ export class MarkAsReadyCommand {
 export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyCommand> {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus,
     private readonly flightsRepository: FlightsRepository,
     private readonly domainEvents: DomainEventEmitter,
   ) {}
@@ -49,57 +37,6 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
 
     if (!flight.loadsheets.preliminary) {
       throw new PreliminaryLoadsheetMissingError();
-    }
-
-    const generateManifest = new GenerateFlightManifestCommand(
-      flightId,
-      flight.aircraft.id,
-      flight.operator.id,
-      flight.loadsheets.preliminary.passengers,
-      flight.loadsheets.preliminary.passengersByCabin,
-    );
-    await this.commandBus.execute(generateManifest);
-
-    const departure = flight.airports.find(
-      (airport) => airport.type === AirportType.Departure,
-    );
-    const arrival = flight.airports.find(
-      (airport) => airport.type === AirportType.Destination,
-    );
-
-    if (departure && arrival) {
-      const generateCargoManifest = new GenerateFlightCargoManifestCommand(
-        flightId,
-        flight.aircraft.id,
-        flight.operator.iataCode,
-        flight.loadsheets.preliminary.cargo,
-        flight.loadsheets.preliminary.passengers,
-        {
-          iataCode: departure.iataCode,
-          country: departure.country,
-          continent: departure.continent,
-        },
-        {
-          iataCode: arrival.iataCode,
-          country: arrival.country,
-          continent: arrival.continent,
-        },
-        flight.timesheet.scheduled?.offBlockTime
-          ? new Date(flight.timesheet.scheduled.offBlockTime)
-          : new Date(),
-        scheduledFlightHours(flight.timesheet.scheduled),
-        flight.loadsheets.preliminary.payload,
-        flight.loadsheets.preliminary.passengersByCabin ?? null,
-      );
-      await this.commandBus.execute(generateCargoManifest);
-
-      const issueNotoc = new IssueNotocCommand(
-        flightId,
-        NotocStageName.Preliminary,
-        arrival.iataCode,
-        new Date(),
-      );
-      await this.commandBus.execute(issueNotoc);
     }
 
     await this.flightsRepository.updateStatus(flightId, FlightStatus.Ready);

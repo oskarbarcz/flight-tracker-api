@@ -219,7 +219,7 @@ Feature: Report takeoff
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
-        "hasNotoc": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": true,
         "actualFuelBurned": null,
         "source": "manual",

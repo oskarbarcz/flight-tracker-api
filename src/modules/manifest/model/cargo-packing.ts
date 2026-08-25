@@ -445,8 +445,9 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
 
     const used = usageOf(compartmentLoad, slot.compartment.number);
     const headroom = slot.compartment.maxWeightKg - used.weightKg - spec.tareKg;
+    const volumeLeft = round3(slot.compartment.volumeM3 - used.volumeM3);
 
-    if (headroom < MIN_UNIT_PAYLOAD_KG) {
+    if (headroom < MIN_UNIT_PAYLOAD_KG || volumeLeft <= 0) {
       continue;
     }
 
@@ -455,7 +456,7 @@ export function planCargoLoad(request: CargoLoadRequest): PlannedUnit[] {
     const shipments = fillUnit(
       commodity,
       Math.min(capacity.maxGrossKg, headroom),
-      capacity.volumeM3,
+      Math.min(capacity.volumeM3, volumeLeft),
       budget - spec.tareKg,
       admissible,
       random,
@@ -858,11 +859,13 @@ export function planBaggageUnits(
       slot.position.maxWeightKg - spec.tareKg,
       slot.compartment.maxWeightKg - used.weightKg - spec.tareKg,
     );
+    const volumeLeft = round3(slot.compartment.volumeM3 - used.volumeM3);
     const capacity = Math.max(
       0,
       Math.min(
         Math.floor(allowanceKg / plan.bagMassKg),
         Math.floor(spec.volumeM3 * BAGS_PER_CUBIC_METRE),
+        Math.floor(volumeLeft * BAGS_PER_CUBIC_METRE),
       ),
     );
 

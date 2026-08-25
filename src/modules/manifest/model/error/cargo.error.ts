@@ -43,7 +43,7 @@ export class HoldCannotPlaceLoadError extends UnprocessableError {
 export class CargoManifestNotGeneratedError extends NotFoundError {
   constructor() {
     super(
-      'Flight has no cargo manifest yet. It is generated when the flight is released to the pilot.',
+      'Flight has no cargo manifest yet. It is generated from the preliminary loadsheet.',
     );
   }
 }

@@ -21,7 +21,7 @@ export class CabinLayoutNotAssignedError extends NotFoundError {
 export class ManifestNotGeneratedError extends NotFoundError {
   constructor() {
     super(
-      'Flight has no manifest yet. It is generated when the flight is released to the pilot.',
+      'Flight has no manifest yet. It is generated from the preliminary loadsheet.',
     );
   }
 }

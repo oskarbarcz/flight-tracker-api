@@ -220,7 +220,7 @@ Feature: Report off-block
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
-        "hasNotoc": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": true,
         "actualFuelBurned": null,
         "source": "manual",

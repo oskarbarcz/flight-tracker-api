@@ -152,6 +152,35 @@ describe('compartment volume', () => {
     expect(offending).toEqual([]);
   });
 
+  it('keeps a containerised compartment within its volume when bags fill it', () => {
+    const variant = variantOf('A320', 'a320-cls');
+    const bags = {
+      source: BaggageSource.Reconciled,
+      weightKg: 4700,
+      bagCount: 313,
+      bagMassKg: 15,
+      priorityBagCount: 0,
+    };
+    const occupied = new Set<string>();
+    const compartmentLoad = new Map<number, CompartmentUsage>();
+
+    const placed = (): PlannedUnit[] => {
+      try {
+        return planBaggageUnits({
+          plan: bags,
+          slots: slotsOf(variant),
+          looseSlots: looseSlotsOf(variant),
+          occupied,
+          compartmentLoad,
+        });
+      } catch {
+        return [];
+      }
+    };
+
+    expect(volumeExceeded(placed(), variant)).toEqual([]);
+  });
+
   it('keeps a bulk-only narrowbody within every compartment volume', () => {
     const variant = variantOf('B738');
     const offending = Array.from(

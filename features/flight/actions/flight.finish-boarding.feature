@@ -723,8 +723,8 @@ Feature: Finish flight boarding
           "cabinCrew": 5
         },
         "passengers": 140,
-        "payload": 19.8,
-        "cargo": 4.2,
+        "payload": 16.76,
+        "cargo": 2.2,
         "zeroFuelWeight": 68.4,
         "blockFuel": 21.4
       }
