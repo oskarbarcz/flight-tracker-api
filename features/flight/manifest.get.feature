@@ -121,16 +121,16 @@ Feature: Read the seated passenger manifest of a flight
       }
       """
 
-  Scenario: As operations I read no manifest for a flight that has not been released
+  Scenario: As operations I read no manifest for a flight whose loadsheet has not been written
     Given I am signed in as "operations"
-    When I send a "GET" request to "/api/v1/flight/a5fffa17-7803-4e85-8291-d1dc9276bd46/manifest"
+    When I send a "GET" request to "/api/v1/flight/c0e83544-cefd-41c8-9c60-aadfaaf08590/manifest"
     Then the response status should be 404
     And the response body should contain:
       """json
       {
         "statusCode": 404,
         "error": "Not Found",
-        "message": "Flight has no manifest yet. It is generated when the flight is released to the pilot."
+        "message": "Flight has no manifest yet. It is generated from the preliminary loadsheet."
       }
       """
 

@@ -2,6 +2,22 @@ Feature: Read the cargo manifest of a flight
 
   Scenario: As operations I can read a generated cargo manifest
     Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "cabinCrew": 0,
+          "reliefPilots": 0
+        },
+        "passengers": 0,
+        "payload": 1.8,
+        "cargo": 1.8,
+        "zeroFuelWeight": 70.2,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
     When I send a "POST" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/mark-as-ready"
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/cargo-manifest"
@@ -74,6 +90,22 @@ Feature: Read the cargo manifest of a flight
 
   Scenario: As the captain of the flight I can read its cargo manifest
     Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "cabinCrew": 0,
+          "reliefPilots": 0
+        },
+        "passengers": 0,
+        "payload": 1.8,
+        "cargo": 1.8,
+        "zeroFuelWeight": 70.2,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
     When I send a "POST" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/mark-as-ready"
     Then the response status should be 204
     Given I am signed in as "cabin crew"
@@ -115,6 +147,22 @@ Feature: Read the cargo manifest of a flight
 
   Scenario: Filtering the manifest to loaded shipments returns them all
     Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "cabinCrew": 0,
+          "reliefPilots": 0
+        },
+        "passengers": 0,
+        "payload": 1.8,
+        "cargo": 1.8,
+        "zeroFuelWeight": 70.2,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
     When I send a "POST" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/mark-as-ready"
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/cargo-manifest?status=loaded"
@@ -145,6 +193,22 @@ Feature: Read the cargo manifest of a flight
 
   Scenario: Filtering the manifest to offloaded shipments returns none before boarding
     Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "cabinCrew": 0,
+          "reliefPilots": 0
+        },
+        "passengers": 0,
+        "payload": 1.8,
+        "cargo": 1.8,
+        "zeroFuelWeight": 70.2,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
     When I send a "POST" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/mark-as-ready"
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/cargo-manifest?status=offloaded"
@@ -676,6 +740,22 @@ Feature: Read the cargo manifest of a flight
 
   Scenario: A manifest the system generated reports no conflict
     Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "cabinCrew": 0,
+          "reliefPilots": 0
+        },
+        "passengers": 0,
+        "payload": 18,
+        "cargo": 18,
+        "zeroFuelWeight": 86.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
     When I send a "POST" request to "/api/v1/flight/1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64/mark-as-ready"
     Then the response status should be 204
     When I send a "GET" request to "/api/v1/flight/1b6f4c9a-2d78-4e51-9a03-7c8e5f1b2d64/cargo-manifest"
@@ -711,16 +791,16 @@ Feature: Read the cargo manifest of a flight
       }
       """
 
-  Scenario: A flight that has not been released reports no cargo manifest
+  Scenario: A flight whose loadsheet has not been written reports no cargo manifest
     Given I am signed in as "operations"
-    When I send a "GET" request to "/api/v1/flight/3d8b6e1c-4f90-4a73-9c25-7e0a1b3d4f86/cargo-manifest"
+    When I send a "GET" request to "/api/v1/flight/c0e83544-cefd-41c8-9c60-aadfaaf08590/cargo-manifest"
     Then the response status should be 404
     And the response body should contain:
       """json
       {
         "statusCode": 404,
         "error": "Not Found",
-        "message": "Flight has no cargo manifest yet. It is generated when the flight is released to the pilot."
+        "message": "Flight has no cargo manifest yet. It is generated from the preliminary loadsheet."
       }
       """
 

@@ -6,7 +6,7 @@ import {
 export class NotocNotIssuedError extends NotFoundError {
   constructor() {
     super(
-      'Flight has no notification to captain yet. It is issued when the flight is released to the pilot.',
+      'Flight has no notification to captain yet. It is issued from the preliminary loadsheet.',
     );
   }
 }

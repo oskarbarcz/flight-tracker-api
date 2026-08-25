@@ -225,7 +225,7 @@ Feature: Report arrival
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
-        "hasNotoc": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",

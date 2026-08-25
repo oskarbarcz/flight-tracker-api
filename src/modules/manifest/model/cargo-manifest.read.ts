@@ -1,0 +1,234 @@
+import { CargoUnitRow } from '../infra/database/repository/cargo.repository';
+import {
+  CargoContentClassName,
+  CargoShipmentStatusName,
+  CargoUnitEntry,
+  CompartmentLoad,
+  FlightCargoManifest,
+  SegregationAdvisory,
+} from './cargo-manifest.model';
+import { CargoDeck, HoldVariant } from './hold-layout.model';
+import { DangerousGoodsProfile, SpecialHandlingCode } from './commodity.model';
+import { conflictingPairsWithin, dryIceKgOf } from './segregation.policy';
+import { ColdChainAssessment, ColdChainRisk } from './cold-chain';
+import { LoadUnitKind } from './cargo-packing';
+import { formatUldCode, UldType } from './uld';
+import { CargoContentClass, CargoShipmentStatus } from 'prisma/client/client';
+import { BaggageSource } from './baggage';
+import { isTightConnection, TransferRole } from './shipment-journey';
+import { OffloadReason } from './cargo-reconciliation';
+
+export function composeFlightCargoManifest(
+  flightId: string,
+  rows: CargoUnitRow[],
+  variant: HoldVariant | null,
+): FlightCargoManifest {
+  const units = rows.map(toUnitEntry);
+
+  return {
+    flightId,
+    holdVariant: variant?.id ?? null,
+    cargoKg: rows
+      .filter((row) => row.contentClass === CargoContentClass.cargo)
+      .reduce((sum, row) => sum + row.tareKg + row.grossKg, 0),
+    baggageKg: rows
+      .filter((row) => row.contentClass === CargoContentClass.baggage)
+      .reduce((sum, row) => sum + row.tareKg + row.grossKg, 0),
+    bagCount: rows.reduce((sum, row) => sum + (row.bagCount ?? 0), 0),
+    baggageSource: baggageSourceOf(rows),
+    containerCount: rows.filter(
+      (row) =>
+        row.kind === LoadUnitKind.Uld &&
+        row.contentClass === CargoContentClass.cargo,
+    ).length,
+    bulkLotCount: rows.filter(
+      (row) =>
+        row.kind === LoadUnitKind.BulkLot &&
+        row.contentClass === CargoContentClass.cargo,
+    ).length,
+    shipmentCount: units.reduce((sum, unit) => sum + unit.shipments.length, 0),
+    worstColdChainRisk: worstRiskOf(units),
+    dangerousGoodsCount: units
+      .flatMap((unit) => unit.shipments)
+      .filter((shipment) => shipment.dangerousGoods !== null).length,
+    cargoAircraftOnlyCount: units
+      .flatMap((unit) => unit.shipments)
+      .filter((shipment) => shipment.dangerousGoods?.cargoAircraftOnly).length,
+    transferCount: units
+      .flatMap((unit) => unit.shipments)
+      .filter((shipment) => shipment.onwardCarrier !== null).length,
+    tightestConnectionMinutes: tightestConnectionOf(units),
+    compartmentLoad: compartmentLoadOf(rows),
+    segregationAdvisories: segregationAdvisoriesOf(rows),
+    units,
+  };
+}
+
+function toUnitEntry(row: CargoUnitRow): CargoUnitEntry {
+  return {
+    kind: row.kind as unknown as LoadUnitKind,
+    uldCode:
+      row.uldType && row.uldSerial && row.uldOwner
+        ? formatUldCode(row.uldType as UldType, row.uldSerial, row.uldOwner)
+        : null,
+    uldType: (row.uldType as UldType) ?? null,
+    positionDesignator: row.positionDesignator,
+    compartment: row.compartment,
+    deck: (row.deck as unknown as CargoDeck) ?? null,
+    tareKg: row.tareKg,
+    grossKg: row.grossKg,
+    volumeM3: Number(row.volumeM3),
+    contentClass: row.contentClass as unknown as CargoContentClassName,
+    beyondDestination: row.beyondDestination,
+    sealed: row.sealed,
+    bagCount: row.bagCount,
+    priority: row.priority,
+    shipments: row.shipments.map((shipment) => ({
+      awb: shipment.awb,
+      commodity: shipment.commodityId,
+      description: shipment.description,
+      pieces: shipment.pieces,
+      grossKg: shipment.grossKg,
+      volumeM3: Number(shipment.volumeM3),
+      shc: shipment.shc as SpecialHandlingCode[],
+      shipper: shipment.shipper,
+      consignee: shipment.consignee,
+      origin: shipment.origin,
+      destination: shipment.destination,
+      transferRole: shipment.transferRole as unknown as TransferRole,
+      onwardCarrier: shipment.onwardCarrier,
+      onwardFlightNumber: shipment.onwardFlightNumber,
+      connectionMinutes: shipment.connectionMinutes,
+      connectionAtRisk: isTightConnection(shipment.connectionMinutes),
+      dangerousGoods:
+        (shipment.dangerousGoods as DangerousGoodsProfile | null) ?? null,
+      coldChain:
+        (shipment.temperatureControl as ColdChainAssessment | null) ?? null,
+      status: shipment.status as unknown as CargoShipmentStatusName,
+      offloadReason:
+        (shipment.offloadReason as unknown as OffloadReason) ?? null,
+      offloadedFrom: shipment.offloadedFrom,
+    })),
+  };
+}
+
+function baggageSourceOf(rows: CargoUnitRow[]): BaggageSource | null {
+  return (
+    (rows.find((row) => row.baggageSource !== null)
+      ?.baggageSource as BaggageSource) ?? null
+  );
+}
+
+const RISK_ORDER = [
+  ColdChainRisk.Low,
+  ColdChainRisk.Elevated,
+  ColdChainRisk.High,
+];
+
+function worstRiskOf(units: CargoUnitEntry[]): ColdChainRisk | null {
+  const risks = units
+    .flatMap((unit) => unit.shipments)
+    .map((shipment) => shipment.coldChain?.risk)
+    .filter((risk): risk is ColdChainRisk => risk !== undefined);
+
+  return risks.length === 0
+    ? null
+    : risks.reduce((worst, risk) =>
+        RISK_ORDER.indexOf(risk) > RISK_ORDER.indexOf(worst) ? risk : worst,
+      );
+}
+
+function tightestConnectionOf(units: CargoUnitEntry[]): number | null {
+  const connections = units
+    .flatMap((unit) => unit.shipments)
+    .map((shipment) => shipment.connectionMinutes)
+    .filter((minutes): minutes is number => minutes !== null);
+
+  return connections.length === 0 ? null : Math.min(...connections);
+}
+
+function segregationAdvisoriesOf(rows: CargoUnitRow[]): SegregationAdvisory[] {
+  const byCompartment = new Map<
+    string,
+    { compartment: number; deck: CargoDeck; codes: SpecialHandlingCode[] }
+  >();
+
+  for (const row of rows) {
+    if (row.compartment === null || row.deck === null) {
+      continue;
+    }
+
+    const key = `${row.deck}/${row.compartment}`;
+    const carried = row.shipments
+      .filter((shipment) => shipment.status === CargoShipmentStatus.loaded)
+      .flatMap((shipment) => shipment.shc as SpecialHandlingCode[]);
+    const existing = byCompartment.get(key);
+
+    if (existing) {
+      existing.codes.push(...carried);
+      continue;
+    }
+
+    byCompartment.set(key, {
+      compartment: row.compartment,
+      deck: row.deck as unknown as CargoDeck,
+      codes: [...carried],
+    });
+  }
+
+  return [...byCompartment.values()]
+    .flatMap(({ compartment, deck, codes }) =>
+      conflictingPairsWithin(codes).map(
+        ([one, other]): SegregationAdvisory => ({
+          compartment,
+          deck,
+          one,
+          other,
+        }),
+      ),
+    )
+    .sort(
+      (left, right) =>
+        left.deck.localeCompare(right.deck) ||
+        left.compartment - right.compartment ||
+        left.one.localeCompare(right.one),
+    );
+}
+
+function compartmentLoadOf(rows: CargoUnitRow[]): CompartmentLoad[] {
+  const byCompartment = new Map<string, CompartmentLoad>();
+
+  for (const row of rows) {
+    if (row.compartment === null || row.deck === null) {
+      continue;
+    }
+
+    const key = `${row.deck}/${row.compartment}`;
+    const existing = byCompartment.get(key);
+    const weightKg = row.tareKg + row.grossKg;
+    const dryIceKg = row.shipments.reduce(
+      (sum, shipment) =>
+        sum +
+        dryIceKgOf(shipment.shc as SpecialHandlingCode[], shipment.grossKg),
+      0,
+    );
+
+    if (existing) {
+      existing.weightKg += weightKg;
+      existing.dryIceKg += dryIceKg;
+      continue;
+    }
+
+    byCompartment.set(key, {
+      compartment: row.compartment,
+      deck: row.deck as unknown as CargoDeck,
+      weightKg,
+      dryIceKg,
+    });
+  }
+
+  return [...byCompartment.values()].sort(
+    (one, other) =>
+      one.deck.localeCompare(other.deck) || one.compartment - other.compartment,
+  );
+}

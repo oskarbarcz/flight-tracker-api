@@ -219,7 +219,7 @@ Feature: Finish offboarding for flight that started onboarding
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
-        "hasNotoc": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",

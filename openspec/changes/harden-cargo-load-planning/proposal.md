@@ -29,6 +29,9 @@ hazardous freight should appear.
   weights are recalibrated and a per-flight ceiling caps how many consignments may be hazardous.
 - Temperature regimes stop being mixed within a compartment. A bay holds one climate, so a frozen
   and a cool consignment are separated unless each travels in a container that controls its own.
+- The manifests are generated from the preliminary loadsheet rather than at release, and
+  regenerated on every later write, so what the hold reports can never describe a loadsheet the
+  flight no longer has. Releasing becomes a state transition.
 
 ## Capabilities
 
@@ -49,6 +52,10 @@ None.
   bounded, and a flight carrying passengers carries few hazardous consignments.
 - `cargo-cold-chain`: a compartment carries one temperature regime unless the freight travels in
   containers that maintain their own.
+- `flight-manifest`: the passengers are seated when the preliminary loadsheet is written, and
+  reseated on every later write.
+- `dangerous-goods-notification`: the preliminary notification is issued from the preliminary
+  loadsheet and reissued unacknowledged whenever that loadsheet changes.
 
 ## Impact
 

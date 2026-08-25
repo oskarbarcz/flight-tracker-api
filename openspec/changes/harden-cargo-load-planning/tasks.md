@@ -67,3 +67,13 @@
 - [x] 9.2 Track the regimes a compartment carries alongside the handling codes in `planCargoLoad` and `bulkLots`, recording only freight that does not control its own temperature
 - [x] 9.3 Seed the regimes from the load already aboard in `reconcile-flight-cargo-manifest.command.ts`
 - [x] 9.4 Cover in `cargo-packing.spec.ts` a frozen and a cool consignment separated, a self-refrigerated container joining anyway, and regime-less freight staying neutral
+
+## 10. Generation follows the preliminary loadsheet
+
+- [x] 10.1 Move the passenger manifest, cargo manifest and preliminary notification generation from `mark-as-ready.command.ts` into `update-preliminary-loadsheet.command.ts`, generating before the loadsheet is stored so a refusal leaves the flight as it was
+- [x] 10.2 Leave `mark-as-ready` as a state transition over the guards it already applies
+- [x] 10.3 Reword the three "generated when the flight is released" not-found messages to name the preliminary loadsheet
+- [x] 10.4 Move every scenario that reads a generated manifest out of `flight.mark-as-ready.feature` into `flight.update-preliminary-loadsheet.feature`, writing the loadsheet instead of releasing
+- [x] 10.5 Keep the release step where a scenario needs the flight released for what follows, after the loadsheet write
+- [x] 10.6 Drop the release-time seat-capacity scenario, whose guard now runs at the loadsheet write and is covered there
+- [x] 10.7 Seed a manifest and a preliminary notification for every seeded flight that carries a preliminary loadsheet, so the seed satisfies the same invariant the API now holds

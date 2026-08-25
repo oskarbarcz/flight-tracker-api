@@ -212,7 +212,7 @@ Feature: Check in pilot for flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
-        "hasNotoc": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -669,7 +669,24 @@ Feature: Check in pilot for flight
     And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "METAR KBOS 081154Z 21009KT 10SM FEW040 24/16 A3000"
     And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "TAF KBOS 081120Z 0812/0918 21010KT P6SM FEW040"
     And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "[**MyPreflight app**](http://localhost:5173/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab)."
-    And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" not containing "Special load"
+    And I set database to initial state
+    And I clear Discord messages directory
+
+  Scenario: The briefing carries no special load section for a flight with nothing in the hold
+    Given I clear Discord messages directory
+    And I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d7b3e5a2-4c81-4f69-b0d5-8e2a1c4f7b93/check-in" with body:
+      """json
+      {
+        "offBlockTime": "2025-06-02T09:05:00.000Z",
+        "takeoffTime": "2025-06-02T09:25:00.000Z",
+        "arrivalTime": "2025-06-02T17:35:00.000Z",
+        "onBlockTime": "2025-06-02T17:45:00.000Z"
+      }
+      """
+    Then the response status should be 204
+    And I see Discord "briefing" message for flight "d7b3e5a2-4c81-4f69-b0d5-8e2a1c4f7b93" containing ":clipboard: **Flight CV 2022 briefing**"
+    And I see Discord "briefing" message for flight "d7b3e5a2-4c81-4f69-b0d5-8e2a1c4f7b93" not containing "Special load"
     And I set database to initial state
     And I clear Discord messages directory
 

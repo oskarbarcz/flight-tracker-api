@@ -1,0 +1,26 @@
+## MODIFIED Requirements
+
+### Requirement: A notification to captain is issued at each loadsheet stage
+
+The system SHALL issue a notification to captain when a flight's preliminary loadsheet is written
+and again when its final loadsheet is filled at the close of boarding, so that each stage of the
+load has a notification describing it. Writing the preliminary loadsheet again SHALL reissue the
+preliminary notification against the load it now describes, and SHALL clear any acknowledgement
+the superseded notification carried, because a pilot cannot be held to a document that has since
+changed. Releasing the flight to the pilot SHALL NOT issue anything.
+
+#### Scenario: Writing the preliminary loadsheet issues the preliminary notification
+
+- **WHEN** operations writes a flight's preliminary loadsheet
+- **THEN** a preliminary notification to captain is issued describing the load
+
+#### Scenario: Writing it again reissues the notification unacknowledged
+
+- **GIVEN** a flight whose preliminary notification the captain has acknowledged
+- **WHEN** operations writes the preliminary loadsheet again
+- **THEN** the preliminary notification is reissued and carries no acknowledgement
+
+#### Scenario: Finishing boarding issues the final notification
+
+- **WHEN** the final loadsheet is filled at the close of boarding
+- **THEN** a final notification to captain is issued

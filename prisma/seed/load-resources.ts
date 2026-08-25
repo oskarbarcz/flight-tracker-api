@@ -9,6 +9,7 @@ import { loadManifestFlights } from './resource/manifest-flights.seed';
 import { loadCargoFlights } from './resource/cargo-flights.seed';
 import { loadCargoManifests } from './resource/cargo-manifests.seed';
 import { loadFlightManifests } from './resource/flight-manifests.seed';
+import { loadGeneratedManifests } from './resource/generated-manifests.seed';
 import { loadUsers } from './resource/users.seed';
 import { loadSessions } from './resource/session.seed';
 import { loadUserTokens } from './resource/user-token.seed';
@@ -52,6 +53,7 @@ export async function loadResources() {
         await loadCargoFlights(tx);
         await loadCargoManifests(tx);
         await loadFlightManifests(tx);
+        await loadGeneratedManifests(tx);
         await loadFlightCrew(tx);
         await loadRotations(tx);
         await loadDelay(tx);
