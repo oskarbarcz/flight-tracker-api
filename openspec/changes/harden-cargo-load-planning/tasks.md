@@ -77,3 +77,17 @@
 - [x] 10.5 Keep the release step where a scenario needs the flight released for what follows, after the loadsheet write
 - [x] 10.6 Drop the release-time seat-capacity scenario, whose guard now runs at the loadsheet write and is covered there
 - [x] 10.7 Seed a manifest and a preliminary notification for every seeded flight that carries a preliminary loadsheet, so the seed satisfies the same invariant the API now holds
+
+## 11. Cabin counts are validated at the boundary
+
+- [x] 11.1 Add `IsCountRecord` in `src/core/validation/`, validating that every value of an open-keyed record is a whole number of zero or more
+- [x] 11.2 Apply it to `passengersByCabin` in place of `@IsObject()`, keeping the keys fluid so a layout may name its cabins as it likes
+- [x] 11.3 Drop the integer and sign check from `assertPassengerBreakdownConsistent` and delete `InvalidPassengerBreakdownError`, which nothing asserted
+- [x] 11.4 Cover the refused request in `flight.update-preliminary-loadsheet.feature`, asserting the full violations body
+
+## 12. The cargo repository stops reaching across modules
+
+- [x] 12.1 Add `GetLatestMetarQuery` to the airports module, backed by `findLatestMetarByIataCode` on its weather repository
+- [x] 12.2 Carry `greatCircleDistance` on `FlightManifestContext` so the manifest module reads the leg length from the flights module rather than the flight table
+- [x] 12.3 Dispatch `ListAllAirportsQuery` and `ListAllOperatorsQuery` for the journey's candidate airports and carrier codes, filtering in the command
+- [x] 12.4 Delete `networkAirports`, `flightDistanceKm`, `latestMetar` and `carrierCodes` from `cargo.repository.ts`, leaving it on the tables the manifest module owns

@@ -68,6 +68,7 @@ import { SayIntentionsModule } from '../../core/provider/sayintentions/say-inten
 import { AirportWeatherRepository } from './infra/database/airport-weather.repository';
 import { GetWeatherAction } from './infra/http/action/weather/get-weather.action';
 import { GetAirportWeatherHandler } from './application/query/weather/get-airport-weather.query';
+import { GetLatestMetarHandler } from './application/query/weather/get-latest-metar.query';
 import { RefreshWeatherHandler } from './application/command/weather/refresh-weather.command';
 import { StartMonitoringAirportsWeatherHandler } from './application/command/weather/start-monitoring-airports-weather.command';
 import { StopMonitoringAirportsWeatherHandler } from './application/command/weather/stop-monitoring-airports-weather.command';
@@ -163,6 +164,7 @@ import { PushAirportOsmDataHandler } from './application/command/osm/push-airpor
     AssertAirportExistsHandler,
     AirportWeatherRepository,
     GetAirportWeatherHandler,
+    GetLatestMetarHandler,
     RefreshWeatherHandler,
     StartMonitoringAirportsWeatherHandler,
     StopMonitoringAirportsWeatherHandler,
