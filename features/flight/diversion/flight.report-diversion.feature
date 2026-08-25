@@ -92,7 +92,7 @@ Feature: Report a flight diversion
         "loadsheets": {
           "final": {
             "cargo": 8.9,
-            "payload": 28.3,
+            "payload": 37.808,
             "blockFuel": 11.9,
             "fuel": {
               "block": 11.9,
@@ -114,7 +114,7 @@ Feature: Report a flight diversion
               "reliefPilots": 0
             },
             "passengers": 292,
-            "zeroFuelWeight": 202.9
+            "zeroFuelWeight": 212.408
           },
           "preliminary": {
             "cargo": 8.5,
@@ -447,7 +447,7 @@ Feature: Report a flight diversion
         "loadsheets": {
           "final": {
             "cargo": 8.9,
-            "payload": 28.3,
+            "payload": 37.808,
             "blockFuel": 11.9,
             "fuel": {
               "block": 11.9,
@@ -469,7 +469,7 @@ Feature: Report a flight diversion
               "reliefPilots": 0
             },
             "passengers": 292,
-            "zeroFuelWeight": 202.9
+            "zeroFuelWeight": 212.408
           },
           "preliminary": {
             "cargo": 8.5,

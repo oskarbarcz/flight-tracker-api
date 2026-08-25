@@ -112,6 +112,14 @@ export class InconsistentFuelBlockError extends UnprocessableError {
   }
 }
 
+export class PayloadBelowLoadError extends UnprocessableError {
+  constructor(payloadKg: number, requiredKg: number) {
+    super(
+      `Payload of ${payloadKg} kg cannot carry ${requiredKg} kg of cargo and passengers.`,
+    );
+  }
+}
+
 export class InvalidStatusToCloseFlightError extends UnprocessableError {
   constructor() {
     super('Cannot close flight that is not off boarded.');

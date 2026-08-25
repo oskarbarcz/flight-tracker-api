@@ -13,6 +13,7 @@ import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-
 import {
   assertFuelBreakdownConsistent,
   assertPassengerBreakdownConsistent,
+  assertPayloadAccountsForLoad,
 } from '../../model/loadsheet.policy';
 import { GetSeatCapacityQuery } from '../../../manifest/application/query/get-seat-capacity.query';
 import { SeatCapacityExceededError } from '../../../manifest/model/error/manifest.error';
@@ -50,6 +51,7 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
 
     assertFuelBreakdownConsistent(loadsheet);
     assertPassengerBreakdownConsistent(loadsheet);
+    assertPayloadAccountsForLoad(loadsheet);
 
     const capacityQuery = new GetSeatCapacityQuery(flight.aircraft.id);
     const capacity: CabinCapacity | null =

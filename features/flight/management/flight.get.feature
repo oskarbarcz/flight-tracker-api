@@ -249,9 +249,9 @@ Feature: Get flight
               "cabinCrew": 6
             },
             "passengers": 292,
-            "payload": 28.3,
+            "payload": 37.808,
             "cargo": 8.9,
-            "zeroFuelWeight": 202.9,
+            "zeroFuelWeight": 212.408,
             "blockFuel": 11.9,
             "fuel": {
               "block": 11.9,
@@ -462,7 +462,7 @@ Feature: Get flight
               "contingencyAmount": 0.5
             },
             "cargo": 8.9,
-            "payload": 28.3,
+            "payload": 37.808,
             "blockFuel": 11.9,
             "flightCrew": {
               "pilots": 2,
@@ -470,7 +470,7 @@ Feature: Get flight
               "reliefPilots": 0
             },
             "passengers": 292,
-            "zeroFuelWeight": 202.9
+            "zeroFuelWeight": 212.408
           },
           "preliminary": {
             "fuel": {

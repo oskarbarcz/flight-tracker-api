@@ -104,9 +104,9 @@ Feature: Report arrival
               "cabinCrew": 6
             },
             "passengers": 292,
-            "payload": 28.3,
+            "payload": 37.808,
             "cargo": 8.9,
-            "zeroFuelWeight": 202.9,
+            "zeroFuelWeight": 212.408,
             "blockFuel": 11.9,
             "fuel": {
               "block": 11.9,

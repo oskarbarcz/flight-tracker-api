@@ -190,16 +190,18 @@ describe('commodity selection', () => {
       'engine-fan-blades',
     );
     expect(specialityOf('CDG', 'France', Continent.Europe)).toContain(
-      'perfumery',
+      'cosmetics',
     );
   });
 
   it('draws a commodity deterministically from a roll', () => {
     const offered = offeredCommodities(reykjavik);
 
+    const total = offered.reduce((sum, offer) => sum + offer.weight, 0);
+    const last = offered[offered.length - 1];
+    const withinLast = 1 - last.weight / total / 2;
+
     expect(drawCommodity(offered, 0).id).toBe(offered[0].commodity.id);
-    expect(drawCommodity(offered, 0.999).id).toBe(
-      offered[offered.length - 1].commodity.id,
-    );
+    expect(drawCommodity(offered, withinLast).id).toBe(last.commodity.id);
   });
 });

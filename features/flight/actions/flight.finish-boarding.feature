@@ -41,9 +41,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9,
         "fuel": {
           "block": 11.9,
@@ -121,9 +121,9 @@ Feature: Finish flight boarding
               "cabinCrew": 6
             },
             "passengers": 292,
-            "payload": 28.3,
+            "payload": 37.808,
             "cargo": 8.9,
-            "zeroFuelWeight": 202.9,
+            "zeroFuelWeight": 212.408,
             "blockFuel": 11.9,
             "fuel": {
               "block": 11.9,
@@ -579,9 +579,9 @@ Feature: Finish flight boarding
           "cabinCrew": 5
         },
         "passengers": 221,
-        "payload": 19.8,
+        "payload": 23.206,
         "cargo": 4.2,
-        "zeroFuelWeight": 68.4,
+        "zeroFuelWeight": 91.606,
         "blockFuel": 21.4
       }
       """
@@ -1357,6 +1357,50 @@ Feature: Finish flight boarding
     Then the response status should be 204
     And I set database to initial state
 
+  Scenario: A final payload that cannot carry the load does not finish boarding
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 5.4,
+        "cargo": 5.5,
+        "zeroFuelWeight": 73.9,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Content",
+        "message": "Payload of 5400 kg cannot carry 5500 kg of cargo and passengers."
+      }
+      """
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 5.5,
+        "cargo": 5.5,
+        "zeroFuelWeight": 73.9,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    And I set database to initial state
+
   Scenario: A flight whose aircraft type has no hold data reconciles without positions
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/dc20c7ff-114e-42be-86cc-34fd90b71b35/finish-boarding" with body:
@@ -1599,9 +1643,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9,
         "fuel": {
           "block": 12.5,
@@ -1640,9 +1684,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9
       }
       """
@@ -1656,9 +1700,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9
       }
       """
@@ -1684,9 +1728,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9
       }
       """
@@ -1709,7 +1753,7 @@ Feature: Finish flight boarding
           "pilots": 2
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "blockFuel": 11.9
       }
       """
@@ -1741,9 +1785,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9
       }
       """
@@ -1768,9 +1812,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9
       }
       """
@@ -1794,9 +1838,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9
       }
       """
