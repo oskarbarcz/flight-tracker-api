@@ -31,3 +31,18 @@ regime SHALL neither be blocked nor block anything.
 - **GIVEN** a flight whose hold already carries a frozen consignment in a passive container
 - **WHEN** boarding finishes with a higher cargo tonnage and freight is added
 - **THEN** no compartment ends up carrying two different temperature regimes outside self-refrigerated containers
+
+## MODIFIED Requirements
+
+### Requirement: The cold chain assessment is advisory
+
+The system SHALL present the cold chain assessment as advice rather than as a constraint: it
+SHALL NOT prevent a shipment from being loaded, prevent a loadsheet from being written, prevent a
+flight from being released, or prevent boarding from being finished.
+
+#### Scenario: A high risk shipment is still carried
+
+- **GIVEN** a loadsheet whose load includes a shipment assessed as high risk
+- **WHEN** operations writes it
+- **THEN** the loadsheet is accepted and the shipment is loaded
+

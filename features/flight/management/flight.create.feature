@@ -612,7 +612,7 @@ Feature: Create a flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
-        "hasNotoc": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",

@@ -32,7 +32,7 @@ describe('ReportTakeoffHandler', () => {
     updateStatus: jest.Mock;
     updateTimesheet: jest.Mock;
   };
-  let domainEvents: { emit: jest.Mock };
+  let domainEvents: { emitAsync: jest.Mock };
   let handler: ReportTakeoffHandler;
 
   beforeEach(() => {
@@ -41,7 +41,7 @@ describe('ReportTakeoffHandler', () => {
       updateStatus: jest.fn(),
       updateTimesheet: jest.fn(),
     };
-    domainEvents = { emit: jest.fn() };
+    domainEvents = { emitAsync: jest.fn() };
     handler = new ReportTakeoffHandler(
       queryBus as never,
       flightsRepository as never,
@@ -58,7 +58,8 @@ describe('ReportTakeoffHandler', () => {
       FLIGHT_ID,
       FlightStatus.InCruise,
     );
-    const event = domainEvents.emit.mock.calls[0][0] as TakeoffWasReportedEvent;
+    const event = domainEvents.emitAsync.mock
+      .calls[0][0] as TakeoffWasReportedEvent;
     expect(event).toBeInstanceOf(TakeoffWasReportedEvent);
     expect(event.payload.scope).toBe(FlightEventScope.User);
     expect(event.payload.actorId).toBe('actor-1');
@@ -79,7 +80,8 @@ describe('ReportTakeoffHandler', () => {
     const timesheet = flightsRepository.updateTimesheet.mock.calls[0][1];
     expect(timesheet.actual.takeoffTime).toEqual(takeoffTime);
 
-    const event = domainEvents.emit.mock.calls[0][0] as TakeoffWasReportedEvent;
+    const event = domainEvents.emitAsync.mock
+      .calls[0][0] as TakeoffWasReportedEvent;
     expect(event.payload.scope).toBe(FlightEventScope.Operations);
     expect(event.payload.actorId).toBeNull();
     expect(event.payload.payload).toEqual({ automaticallyDetected: true });
@@ -94,6 +96,6 @@ describe('ReportTakeoffHandler', () => {
     await expect(
       handler.execute(new ReportTakeoffCommand(FLIGHT_ID, 'actor-1')),
     ).rejects.toBeInstanceOf(InvalidStatusToReportTakenOffError);
-    expect(domainEvents.emit).not.toHaveBeenCalled();
+    expect(domainEvents.emitAsync).not.toHaveBeenCalled();
   });
 });

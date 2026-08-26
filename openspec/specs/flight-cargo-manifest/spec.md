@@ -2,8 +2,9 @@
 
 ## Purpose
 
-Generate a cargo manifest when a flight is released to the pilot, from the cargo tonnage and
-passenger count its preliminary loadsheet already carries. Covers the manifest's weight
+Generate a cargo manifest from a flight's preliminary loadsheet, from the cargo tonnage and
+passenger count that loadsheet carries, and regenerate it whenever the loadsheet is written
+again. Covers the manifest's weight
 invariant against that loadsheet, the shipments and their air waybill numbers, the unit load
 devices and loose bulk lots carrying them, the hold positions and compartments they are placed
 in, the aircraft whose type has no curated hold data, and the endpoint the manifest is read

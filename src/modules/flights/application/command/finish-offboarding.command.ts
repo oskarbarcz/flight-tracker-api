@@ -43,7 +43,7 @@ export class FinishOffboardingHandler implements ICommandHandler<FinishOffboardi
       FlightStatus.OffboardingFinished,
     );
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new OffboardingWasFinishedEvent({
         flightId,
         scope: FlightEventScope.User,

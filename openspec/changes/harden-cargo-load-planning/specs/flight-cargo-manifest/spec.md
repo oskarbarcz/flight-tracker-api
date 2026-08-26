@@ -46,14 +46,22 @@ The system SHALL generate a cargo manifest when a flight's preliminary loadsheet
 SHALL regenerate it on every later write, using the cargo tonnage and passenger count that
 loadsheet carries, so that the manifest can never describe a loadsheet the flight no longer has.
 The manifest SHALL consist of load units — containers and loose bulk lots — and the shipments
-loaded in them. Releasing the flight to the pilot SHALL NOT generate anything: it is a state
-transition over a manifest that already exists.
+loaded in them. Creating a flight with a preliminary loadsheet — filled by hand or imported from a
+SimBrief plan — SHALL build its load at creation, because creating it writes that loadsheet.
+Releasing the flight to the pilot SHALL NOT generate anything: it is a state transition over a
+manifest that already exists.
 
 #### Scenario: Writing the loadsheet builds the load
 
 - **GIVEN** a flight whose preliminary loadsheet reports a cargo tonnage
 - **WHEN** operations writes that loadsheet
 - **THEN** a cargo manifest is generated holding shipments and the units carrying them
+
+#### Scenario: Creating a flight with a loadsheet builds its load
+
+- **GIVEN** operations creating a flight whose body carries a preliminary loadsheet reporting a cargo tonnage
+- **WHEN** the flight is created
+- **THEN** its cargo manifest is generated against that tonnage
 
 #### Scenario: Writing the loadsheet again rebuilds the load
 
@@ -118,7 +126,7 @@ The system SHALL reject as unprocessable an attempt to write a preliminary loads
 load the aircraft's resolved hold variant cannot carry by weight or by volume, counting the cargo
 tonnage together with the baggage that loadsheet implies, so that a tonnage leaving the bags
 nowhere to go is refused where operations can still correct it. The check SHALL apply only where
-the airframe type has curated hold data, and the loadsheet SHALL NOT be stored when it is
+the airframe type has curated hold data, and no cargo manifest SHALL be generated when it is
 refused.
 
 #### Scenario: An over-capacity tonnage blocks the loadsheet
@@ -139,3 +147,57 @@ refused.
 - **GIVEN** a flight whose aircraft's type has no curated hold data
 - **WHEN** operations writes a loadsheet reporting any cargo tonnage
 - **THEN** the loadsheet is accepted
+
+
+### Requirement: An aircraft whose type has no hold data still carries cargo
+
+The system SHALL generate a cargo manifest for an aircraft whose airframe type has no curated
+hold data, holding shipments and units without positions or compartments, rather than failing or
+generating nothing. Reading such a manifest SHALL report that the hold configuration is unknown
+rather than reporting an empty hold.
+
+#### Scenario: An uncurated type produces an unpositioned manifest
+
+- **GIVEN** a flight whose aircraft's type has no curated hold data
+- **WHEN** operations writes its preliminary loadsheet
+- **THEN** a cargo manifest is generated whose units carry no position and no compartment
+
+#### Scenario: Reading an unpositioned manifest
+
+- **WHEN** the cargo manifest of such a flight is read
+- **THEN** it reports that the aircraft's hold configuration is unknown
+
+### Requirement: The cargo manifest is read through its own endpoint
+
+The system SHALL expose a flight's cargo manifest through a dedicated endpoint rather than
+within the flight body, and SHALL permit reading it to operations and to the flight's captain.
+The manifest SHALL be filterable by shipment status, and SHALL report per compartment the weight
+it carries.
+
+#### Scenario: Operations reads a cargo manifest
+
+- **WHEN** operations reads the cargo manifest of a flight whose loadsheet has been written
+- **THEN** every load unit is returned with its position, compartment and contents
+
+#### Scenario: The captain reads their own flight's cargo manifest
+
+- **GIVEN** a released flight with a captain assigned
+- **WHEN** that captain reads the cargo manifest
+- **THEN** the manifest is returned
+
+#### Scenario: A pilot who does not command the flight is refused
+
+- **GIVEN** a released flight captained by another pilot
+- **WHEN** a pilot who is not its captain reads the cargo manifest
+- **THEN** the request is rejected as forbidden
+
+#### Scenario: Reading a cargo manifest requires authentication
+
+- **WHEN** an unauthenticated request reads a flight's cargo manifest
+- **THEN** the request is rejected as unauthorised
+
+#### Scenario: A flight whose loadsheet has not been written reports no manifest
+
+- **GIVEN** a flight whose preliminary loadsheet has never been written
+- **WHEN** its cargo manifest is read
+- **THEN** the request reports that no cargo manifest has been generated yet
