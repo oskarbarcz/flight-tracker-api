@@ -159,7 +159,10 @@ Feature: Check in pilot for flight
             "iataCode": "BOS",
             "city": "Boston",
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -176,7 +179,10 @@ Feature: Check in pilot for flight
             "iataCode": "PHL",
             "city": "Philadelphia",
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -193,7 +199,10 @@ Feature: Check in pilot for flight
             "iataCode": "JFK",
             "city": "New York",
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -464,7 +473,10 @@ Feature: Check in pilot for flight
           "iataCode": "JFK",
           "name": "New York JFK",
           "city": "New York",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
@@ -472,7 +484,10 @@ Feature: Check in pilot for flight
           "iataCode": "BOS",
           "name": "Boston Logan Intl",
           "city": "Boston",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",

@@ -187,7 +187,10 @@ Feature: Report on-block
           "iataCode": "JFK",
           "name": "New York JFK",
           "city": "New York",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
@@ -195,7 +198,10 @@ Feature: Report on-block
           "iataCode": "PHL",
           "name": "Philadelphia Intl",
           "city": "Philadelphia",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
@@ -349,7 +355,10 @@ Feature: Report on-block
             "iataCode": "BOS",
             "city": "Boston",
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -366,7 +375,10 @@ Feature: Report on-block
             "iataCode": "PHL",
             "city": "Philadelphia",
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -383,7 +395,10 @@ Feature: Report on-block
             "iataCode": "JFK",
             "city": "New York",
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -630,6 +645,36 @@ Feature: Report on-block
         "lastAirportUpdatedAt": "@date('within 1 minute from now')"
       }
       """
+    Given I am signed in as "cabin crew"
+    When I send a "GET" request to "/api/v1/user/me/stats/countries"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "countries": [
+          {
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
+            "flag": "🇺🇸",
+            "visits": 9,
+            "firstVisitAt": "2025-01-01T16:18:00.000Z",
+            "lastVisitAt": "@date('within 1 minute from now')"
+          },
+          {
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
+            "flag": "🇩🇪",
+            "visits": 1,
+            "firstVisitAt": "2025-01-03T11:45:00.000Z",
+            "lastVisitAt": "2025-01-03T11:45:00.000Z"
+          }
+        ]
+      }
+      """
     And I clear Discord messages directory
     And I set database to initial state
 
@@ -745,4 +790,43 @@ Feature: Report on-block
         }
       ]
       """
+    And I set database to initial state
+
+  Scenario: Reporting on-block for a diverted flight stamps where it landed
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d5e8f1a2-3b4c-4d5e-9f6a-7b8c9d0e1f2a/report-on-block"
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/user/me/stats/countries/DE"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "country": {
+          "code": "DE",
+          "name": "Germany"
+        },
+        "flag": "🇩🇪",
+        "stamps": [
+          {
+            "icaoCode": "EDDW",
+            "iataCode": "BRE",
+            "airportName": "Bremen",
+            "airportId": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
+            "flightId": "d5e8f1a2-3b4c-4d5e-9f6a-7b8c9d0e1f2a",
+            "visitedAt": "@date('within 1 minute from now')"
+          },
+          {
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "airportName": "Frankfurt Rhein/Main",
+            "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "flightId": "d4a25ef2-39cf-484c-af00-a548999e8699",
+            "visitedAt": "2025-01-03T11:45:00.000Z"
+          }
+        ]
+      }
+      """
+    When I send a "GET" request to "/api/v1/user/me/stats/countries/US"
+    Then the response status should be 200
+    And the response body list "stamps" should have distinct "flightId" values
     And I set database to initial state

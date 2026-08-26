@@ -13,6 +13,13 @@ import { GetMyStatsSummaryAction } from './infra/http/action/get-my-stats-summar
 import { GetMyAircraftTypeStatsAction } from './infra/http/action/get-my-aircraft-type-stats.action';
 import { GetMyPeriodStatsAction } from './infra/http/action/get-my-period-stats.action';
 import { GetMyActivityAction } from './infra/http/action/get-my-activity.action';
+import { GetMyCountriesAction } from './infra/http/action/get-my-countries.action';
+import { GetMyCountryStampsAction } from './infra/http/action/get-my-country-stamps.action';
+import { UserCountryVisitRepository } from './infra/database/user-country-visit.repository';
+import { StampCountryVisitHandler } from './application/command/stamp-country-visit.command';
+import { CountryVisitListener } from './application/event/external/country-visit.listener';
+import { GetMyCountriesHandler } from './application/query/get-my-countries.query';
+import { GetMyCountryStampsHandler } from './application/query/get-my-country-stamps.query';
 
 @Module({
   controllers: [
@@ -21,9 +28,12 @@ import { GetMyActivityAction } from './infra/http/action/get-my-activity.action'
     GetMyAircraftTypeStatsAction,
     GetMyPeriodStatsAction,
     GetMyActivityAction,
+    GetMyCountriesAction,
+    GetMyCountryStampsAction,
   ],
   providers: [
     StatisticsRepository,
+    UserCountryVisitRepository,
     RecomputeUserStatisticsHandler,
     FlightCompletionListener,
     GetUserLifetimeStatsHandler,
@@ -31,6 +41,10 @@ import { GetMyActivityAction } from './infra/http/action/get-my-activity.action'
     GetAircraftTypeStatsHandler,
     GetPeriodStatsHandler,
     GetActivityHandler,
+    StampCountryVisitHandler,
+    CountryVisitListener,
+    GetMyCountriesHandler,
+    GetMyCountryStampsHandler,
   ],
   imports: [PrismaModule],
 })

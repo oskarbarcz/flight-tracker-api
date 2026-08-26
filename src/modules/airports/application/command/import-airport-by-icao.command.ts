@@ -48,7 +48,7 @@ const SOUTH_AMERICAN_TIMEZONES = new Set([
 const CONTINENT_BY_TIMEZONE_AREA: Record<string, Continent> = {
   Africa: Continent.Africa,
   America: Continent.NorthAmerica,
-  Antarctica: Continent.Oceania,
+  Antarctica: Continent.Antarctica,
   Arctic: Continent.Europe,
   Asia: Continent.Asia,
   Atlantic: Continent.Europe,

@@ -62,12 +62,12 @@ export class GenerateManifestsListener {
       loadsheet.passengers,
       {
         iataCode: departure.iataCode,
-        country: departure.country,
+        country: departure.country.code,
         continent: departure.continent,
       },
       {
         iataCode: arrival.iataCode,
-        country: arrival.country,
+        country: arrival.country.code,
         continent: arrival.continent,
       },
       flight.timesheet.scheduled?.offBlockTime

@@ -25,6 +25,7 @@ import {
   DiversionNotFoundError,
   InvalidStatusToReportDiversionError,
 } from '../../../model/error/diversion.error';
+import { toCountryRef } from '../../../../countries/model/country.model';
 
 const diversionWithPayloadQuery = {
   id: true,
@@ -143,6 +144,7 @@ export class DiversionRepository {
       airport: {
         ...diversion.airport,
         location: diversion.airport.location as unknown as Coordinates,
+        country: toCountryRef(diversion.airport.country),
         continent: diversion.airport.continent as Continent,
         dataQuality: diversion.airport.dataQuality as DataQuality,
       },

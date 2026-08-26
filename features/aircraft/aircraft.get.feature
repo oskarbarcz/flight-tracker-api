@@ -29,7 +29,10 @@ Feature: Get aircraft
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -68,7 +71,10 @@ Feature: Get aircraft
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -107,7 +113,10 @@ Feature: Get aircraft
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -146,7 +155,10 @@ Feature: Get aircraft
           "iataCode": "BRE",
           "name": "Bremen",
           "city": "Bremen",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,

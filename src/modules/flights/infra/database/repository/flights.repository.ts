@@ -168,6 +168,7 @@ const repositionFlightFields = {
 
 const flightCompletionStatsFields = {
   captainId: true,
+  completedAt: true,
   greatCircleDistance: true,
   totalFuelBurned: true,
   timesheet: true,
@@ -189,6 +190,7 @@ export type RepositionFlightData = {
 
 export type FlightCompletionStats = {
   captainId: string | null;
+  completedAt: Date | null;
   greatCircleDistance: number;
   totalFuelBurned: number;
   timesheet: FilledTimesheet;
@@ -831,6 +833,7 @@ export class FlightsRepository {
 
     return {
       captainId: flight.captainId,
+      completedAt: flight.completedAt,
       greatCircleDistance: flight.greatCircleDistance,
       totalFuelBurned: flight.totalFuelBurned,
       timesheet: flight.timesheet as FilledTimesheet,

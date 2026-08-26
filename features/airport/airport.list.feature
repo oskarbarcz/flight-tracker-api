@@ -13,7 +13,10 @@ Feature: List airports
           "iataCode": "FRA",
           "city": "Frankfurt",
           "name": "Frankfurt Rhein/Main",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "timezone": "Europe/Berlin",
           "continent": "europe",
           "dataQuality": "low",
@@ -29,7 +32,10 @@ Feature: List airports
           "iataCode": "WAW",
           "city": "Warsaw",
           "name": "Warsaw Chopin",
-          "country": "Poland",
+          "country": {
+            "code": "PL",
+            "name": "Poland"
+          },
           "timezone": "Europe/Warsaw",
           "continent": "europe",
           "dataQuality": "low",
@@ -45,7 +51,10 @@ Feature: List airports
           "iataCode": "JFK",
           "city": "New York",
           "name": "New York JFK",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "timezone": "America/New_York",
           "continent": "north_america",
           "dataQuality": "low",
@@ -61,7 +70,10 @@ Feature: List airports
           "iataCode": "CDG",
           "city": "Paris",
           "name": "Paris Charles de Gaulle",
-          "country": "France",
+          "country": {
+            "code": "FR",
+            "name": "France"
+          },
           "timezone": "Europe/Paris",
           "continent": "europe",
           "dataQuality": "low",
@@ -77,7 +89,10 @@ Feature: List airports
           "iataCode": "YYR",
           "city": "Goose Bay",
           "name": "Goose Bay Intl",
-          "country": "Canada",
+          "country": {
+            "code": "CA",
+            "name": "Canada"
+          },
           "timezone": "America/Goose_Bay",
           "continent": "north_america",
           "dataQuality": "low",
@@ -93,7 +108,10 @@ Feature: List airports
           "iataCode": "KEF",
           "city": "Reykjavik",
           "name": "Reykjavik Keflavik",
-          "country": "Iceland",
+          "country": {
+            "code": "IS",
+            "name": "Iceland"
+          },
           "timezone": "Atlantic/Reykjavik",
           "continent": "europe",
           "dataQuality": "low",
@@ -109,7 +127,10 @@ Feature: List airports
           "iataCode": "YYT",
           "city": "St. Johns",
           "name": "St. Johns Intl",
-          "country": "Canada",
+          "country": {
+            "code": "CA",
+            "name": "Canada"
+          },
           "timezone": "America/St_Johns",
           "continent": "north_america",
           "dataQuality": "low",
@@ -125,7 +146,10 @@ Feature: List airports
           "iataCode": "PHL",
           "city": "Philadelphia",
           "name": "Philadelphia Intl",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "timezone": "America/New_York",
           "continent": "north_america",
           "dataQuality": "low",
@@ -141,7 +165,10 @@ Feature: List airports
           "iataCode": "BOS",
           "city": "Boston",
           "name": "Boston Logan Intl",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "timezone": "America/New_York",
           "continent": "north_america",
           "dataQuality": "low",
@@ -157,7 +184,10 @@ Feature: List airports
           "iataCode": "BRE",
           "city": "Bremen",
           "name": "Bremen",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "timezone": "Europe/Berlin",
           "continent": "europe",
           "dataQuality": "low",
@@ -193,7 +223,10 @@ Feature: List airports
           "iataCode": "FRA",
           "city": "Frankfurt",
           "name": "Frankfurt Rhein/Main",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "timezone": "Europe/Berlin",
           "continent": "europe",
           "dataQuality": "low",
@@ -209,7 +242,10 @@ Feature: List airports
           "iataCode": "WAW",
           "city": "Warsaw",
           "name": "Warsaw Chopin",
-          "country": "Poland",
+          "country": {
+            "code": "PL",
+            "name": "Poland"
+          },
           "timezone": "Europe/Warsaw",
           "continent": "europe",
           "dataQuality": "low",
@@ -225,7 +261,10 @@ Feature: List airports
           "iataCode": "CDG",
           "city": "Paris",
           "name": "Paris Charles de Gaulle",
-          "country": "France",
+          "country": {
+            "code": "FR",
+            "name": "France"
+          },
           "timezone": "Europe/Paris",
           "continent": "europe",
           "dataQuality": "low",
@@ -241,7 +280,10 @@ Feature: List airports
           "iataCode": "KEF",
           "city": "Reykjavik",
           "name": "Reykjavik Keflavik",
-          "country": "Iceland",
+          "country": {
+            "code": "IS",
+            "name": "Iceland"
+          },
           "timezone": "Atlantic/Reykjavik",
           "continent": "europe",
           "dataQuality": "low",
@@ -257,7 +299,10 @@ Feature: List airports
           "iataCode": "BRE",
           "city": "Bremen",
           "name": "Bremen",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "timezone": "Europe/Berlin",
           "continent": "europe",
           "dataQuality": "low",
@@ -282,7 +327,7 @@ Feature: List airports
         "error": "Bad Request",
         "violations": {
           "continent": [
-            "continent must be one of the following values: africa, asia, europe, north_america, oceania, south_america"
+            "continent must be one of the following values: africa, antarctica, asia, europe, north_america, oceania, south_america"
           ]
         }
       }
@@ -309,7 +354,10 @@ Feature: List airports
           "iataCode": "FRA",
           "city": "Frankfurt",
           "name": "Frankfurt Rhein/Main",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "timezone": "Europe/Berlin",
           "continent": "europe",
           "dataQuality": "flagship",

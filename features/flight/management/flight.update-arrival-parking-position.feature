@@ -109,7 +109,10 @@ Feature: Update flight arrival parking position
             "iataCode": "JFK",
             "city": "New York",
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "departure",
             "continent": "north_america",
@@ -123,7 +126,10 @@ Feature: Update flight arrival parking position
             "iataCode": "FRA",
             "city": "Frankfurt",
             "name": "Frankfurt Rhein/Main",
-            "country": "Germany",
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
             "timezone": "Europe/Berlin",
             "type": "destination",
             "continent": "europe",
@@ -137,7 +143,10 @@ Feature: Update flight arrival parking position
             "iataCode": "BRE",
             "city": "Bremen",
             "name": "Bremen",
-            "country": "Germany",
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
             "timezone": "Europe/Berlin",
             "type": "destination_alternate",
             "continent": "europe",
@@ -151,7 +160,10 @@ Feature: Update flight arrival parking position
             "iataCode": "KEF",
             "city": "Reykjavik",
             "name": "Reykjavik Keflavik",
-            "country": "Iceland",
+            "country": {
+              "code": "IS",
+              "name": "Iceland"
+            },
             "timezone": "Atlantic/Reykjavik",
             "type": "etops_entry",
             "continent": "europe",
@@ -165,7 +177,10 @@ Feature: Update flight arrival parking position
             "iataCode": "YYT",
             "city": "St. Johns",
             "name": "St. Johns Intl",
-            "country": "Canada",
+            "country": {
+              "code": "CA",
+              "name": "Canada"
+            },
             "timezone": "America/St_Johns",
             "type": "etops_exit",
             "continent": "north_america",

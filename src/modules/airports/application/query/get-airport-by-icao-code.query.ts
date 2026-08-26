@@ -1,5 +1,6 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { AirportsRepository } from '../../infra/database/airports.repository';
+import { toCountryRef } from '../../../countries/model/country.model';
 import { GetAirportResponse } from '../../infra/http/request/airport.dto';
 import { Continent, Coordinates, DataQuality } from '../../model/airport.model';
 import { AirportByIcaoCodeNotFoundError } from '../../model/error/airport.error';
@@ -26,6 +27,7 @@ export class GetAirportByIcaoCodeHandler implements IQueryHandler<GetAirportByIc
     return {
       ...airport,
       location: airport.location as unknown as Coordinates,
+      country: toCountryRef(airport.country),
       continent: airport.continent as Continent,
       dataQuality: airport.dataQuality as DataQuality,
       shape: airport.shape as unknown as Coordinates[] | null,

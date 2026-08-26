@@ -4,9 +4,13 @@ import { SkylinkAirportResponse } from '../type/skylink.types';
 import {
   MultipleSkylinkAirportsFoundError,
   SkylinkAirportNotFoundError,
+  SkylinkUnknownCountryError,
 } from './skylink.error';
 import { fetchWithRetry } from '../../http/fetch-with-retry';
-import { toCountryName } from '../../../utils/country-name';
+import {
+  isKnownCountryCode,
+  normalizeCountryCode,
+} from '../../../../modules/countries/model/country.model';
 
 @Injectable()
 export class SkyLinkClient {
@@ -60,7 +64,13 @@ export class SkyLinkClient {
       this.logger.log(`Using SkyLink to get airport ${code}`);
       const airport = body[0] as SkylinkAirportResponse;
 
-      return { ...airport, country: toCountryName(airport.country) };
+      const country = normalizeCountryCode(airport.country);
+
+      if (!isKnownCountryCode(country)) {
+        throw new SkylinkUnknownCountryError(code, airport.country);
+      }
+
+      return { ...airport, country };
     } catch (error) {
       this.logger.error(`Error using SkyLink to get airport ${code}`);
       throw error;

@@ -43,7 +43,10 @@ Feature: Assign a cargo hold variant to an aircraft
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
@@ -51,7 +54,10 @@ Feature: Assign a cargo hold variant to an aircraft
           "iataCode": "JFK",
           "name": "New York JFK",
           "city": "New York",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-02T18:00:00.000Z",
@@ -90,7 +96,10 @@ Feature: Assign a cargo hold variant to an aircraft
           "iataCode": "CDG",
           "name": "Paris Charles de Gaulle",
           "city": "Paris",
-          "country": "France",
+          "country": {
+            "code": "FR",
+            "name": "France"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -135,7 +144,10 @@ Feature: Assign a cargo hold variant to an aircraft
           "iataCode": "CDG",
           "name": "Paris Charles de Gaulle",
           "city": "Paris",
-          "country": "France",
+          "country": {
+            "code": "FR",
+            "name": "France"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,

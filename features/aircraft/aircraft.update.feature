@@ -52,7 +52,10 @@ Feature: Update aircraft
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -121,7 +124,10 @@ Feature: Update aircraft
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -166,7 +172,10 @@ Feature: Update aircraft
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -211,7 +220,10 @@ Feature: Update aircraft
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -256,7 +268,10 @@ Feature: Update aircraft
           "iataCode": "JFK",
           "name": "New York JFK",
           "city": "New York",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,

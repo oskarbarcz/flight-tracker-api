@@ -12,6 +12,10 @@ import { LegacyOperatorResponse } from '../../../../operators/infra/http/request
 import { Coordinates } from '../../../../airports/model/airport.model';
 import { AircraftCabinLayout } from '../../../model/cabin-layout.model';
 import { HOLD_VARIANT_IDS } from '../../../../manifest/data/hold-identifiers';
+import {
+  CountryRef,
+  toCountryRef,
+} from '../../../../countries/model/country.model';
 
 export class CreateAircraftRequest {
   @ApiProperty({
@@ -94,12 +98,38 @@ export class AircraftAirport {
 
   @ApiProperty({
     description: 'Country the airport is located in',
-    example: 'Germany',
+    type: CountryRef,
   })
-  country!: string;
+  country!: CountryRef;
 
   @ApiProperty({ description: 'Airport coordinates', type: Coordinates })
   location!: Coordinates;
+}
+
+export type AircraftAirportRow = {
+  id: string;
+  iataCode: string;
+  name: string;
+  city: string;
+  country: string;
+  location: unknown;
+};
+
+export function toAircraftAirport(
+  airport: AircraftAirportRow | null,
+): AircraftAirport | null {
+  if (!airport) {
+    return null;
+  }
+
+  return {
+    id: airport.id,
+    iataCode: airport.iataCode,
+    name: airport.name,
+    city: airport.city,
+    country: toCountryRef(airport.country),
+    location: airport.location as Coordinates,
+  };
 }
 
 export class AircraftParkingPosition {

@@ -65,7 +65,10 @@ Feature: Get flight
             "iataCode": "FRA",
             "city": "Frankfurt",
             "name": "Frankfurt Rhein/Main",
-            "country": "Germany",
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
             "timezone": "Europe/Berlin",
             "type": "departure",
             "continent": "europe",
@@ -82,7 +85,10 @@ Feature: Get flight
             "iataCode": "JFK",
             "city": "New York",
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -99,7 +105,10 @@ Feature: Get flight
             "iataCode": "PHL",
             "city": "Philadelphia",
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination_alternate",
             "continent": "north_america",
@@ -116,7 +125,10 @@ Feature: Get flight
             "iataCode": "BOS",
             "city": "Boston",
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination_alternate",
             "continent": "north_america",
@@ -133,7 +145,10 @@ Feature: Get flight
             "iataCode": "YYT",
             "city": "St. Johns",
             "name": "St. Johns Intl",
-            "country": "Canada",
+            "country": {
+              "code": "CA",
+              "name": "Canada"
+            },
             "timezone": "America/St_Johns",
             "continent": "north_america",
             "dataQuality": "low",
@@ -317,7 +332,10 @@ Feature: Get flight
             "iataCode": "BOS",
             "city": "Boston",
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -334,7 +352,10 @@ Feature: Get flight
             "iataCode": "PHL",
             "city": "Philadelphia",
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -351,7 +372,10 @@ Feature: Get flight
             "iataCode": "JFK",
             "city": "New York",
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -559,7 +583,10 @@ Feature: Get flight
             "iataCode": "BOS",
             "city": "Boston",
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -576,7 +603,10 @@ Feature: Get flight
             "iataCode": "PHL",
             "city": "Philadelphia",
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -593,7 +623,10 @@ Feature: Get flight
             "iataCode": "JFK",
             "city": "New York",
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",

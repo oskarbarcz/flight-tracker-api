@@ -35,7 +35,10 @@ Feature: Update airport
         "iataCode": "FRA",
         "city": "Frankfurt",
         "name": "Frankfurt am Main",
-        "country": "Germany",
+        "country": {
+          "code": "DE",
+          "name": "Germany"
+        },
         "timezone": "Europe/Berlin",
         "continent": "europe",
         "dataQuality": "low",
@@ -72,7 +75,7 @@ Feature: Update airport
       """json
       {
         "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
-        "country": "France",
+        "country": "FR",
         "unrecognized-field": "A339"
       }
       """
@@ -149,7 +152,10 @@ Feature: Update airport
         "iataCode": "FRA",
         "city": "Frankfurt",
         "name": "Frankfurt Rhein/Main",
-        "country": "Germany",
+        "country": {
+          "code": "DE",
+          "name": "Germany"
+        },
         "timezone": "Europe/Berlin",
         "continent": "europe",
         "dataQuality": "high",

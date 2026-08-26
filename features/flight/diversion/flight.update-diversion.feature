@@ -65,7 +65,10 @@ Feature: Update a flight diversion
           "iataCode": "FRA",
           "city": "Frankfurt",
           "name": "Frankfurt Rhein/Main",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "timezone": "Europe/Berlin",
           "continent": "europe",
           "dataQuality": "low",
@@ -221,7 +224,10 @@ Feature: Update a flight diversion
           "iataCode": "FRA",
           "city": "Frankfurt",
           "name": "Frankfurt Rhein/Main",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "timezone": "Europe/Berlin",
           "continent": "europe",
           "dataQuality": "low",
@@ -271,7 +277,10 @@ Feature: Update a flight diversion
           "iataCode": "JFK",
           "city": "New York",
           "name": "New York JFK",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "timezone": "America/New_York",
           "continent": "north_america",
           "dataQuality": "low",

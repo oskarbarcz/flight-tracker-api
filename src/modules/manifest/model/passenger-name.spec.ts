@@ -3,19 +3,14 @@ import { Continent } from '../../airports/model/airport.model';
 
 describe('passenger locale resolution', () => {
   it("follows the country of the operator's hub", () => {
-    expect(resolvePassengerLocale('Germany', Continent.Europe)).toBe('de');
-    expect(resolvePassengerLocale('Poland', Continent.Europe)).toBe('pl');
-    expect(
-      resolvePassengerLocale(
-        'United States of America',
-        Continent.NorthAmerica,
-      ),
-    ).toBe('en_US');
+    expect(resolvePassengerLocale('DE', Continent.Europe)).toBe('de');
+    expect(resolvePassengerLocale('PL', Continent.Europe)).toBe('pl');
+    expect(resolvePassengerLocale('US', Continent.NorthAmerica)).toBe('en_US');
   });
 
   it('falls back to the continent when the country has no locale', () => {
-    expect(resolvePassengerLocale('Iceland', Continent.Europe)).toBe('en_GB');
-    expect(resolvePassengerLocale('Kenya', Continent.Africa)).toBe('en_ZA');
+    expect(resolvePassengerLocale('IS', Continent.Europe)).toBe('en_GB');
+    expect(resolvePassengerLocale('KE', Continent.Africa)).toBe('en_ZA');
   });
 
   it('falls back to the continent when the hub is unknown', () => {
@@ -25,7 +20,7 @@ describe('passenger locale resolution', () => {
   });
 
   it('prefers the hub country over the continent', () => {
-    expect(resolvePassengerLocale('Japan', Continent.NorthAmerica)).toBe('ja');
+    expect(resolvePassengerLocale('JP', Continent.NorthAmerica)).toBe('ja');
   });
 });
 

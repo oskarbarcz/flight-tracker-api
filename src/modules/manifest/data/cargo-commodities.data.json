@@ -30,11 +30,11 @@
         "MDE"
       ],
       "countries": [
-        "Kenya",
-        "Colombia",
-        "Ecuador",
-        "Ethiopia",
-        "Netherlands"
+        "KE",
+        "CO",
+        "EC",
+        "ET",
+        "NL"
       ],
       "continents": [
         "africa",
@@ -96,7 +96,7 @@
         "AMS"
       ],
       "countries": [
-        "Netherlands"
+        "NL"
       ],
       "continents": [
         "europe"
@@ -161,8 +161,8 @@
         "KEF"
       ],
       "countries": [
-        "Norway",
-        "Iceland"
+        "NO",
+        "IS"
       ],
       "continents": [
         "europe"
@@ -230,7 +230,7 @@
         "KEF"
       ],
       "countries": [
-        "Iceland"
+        "IS"
       ],
       "continents": [
         "europe"
@@ -300,8 +300,8 @@
         "YYT"
       ],
       "countries": [
-        "United States of America",
-        "Canada"
+        "US",
+        "CA"
       ],
       "continents": [
         "north_america"
@@ -370,7 +370,7 @@
         "YHZ"
       ],
       "countries": [
-        "Canada"
+        "CA"
       ],
       "continents": [
         "north_america"
@@ -434,8 +434,8 @@
         "SIN"
       ],
       "countries": [
-        "Japan",
-        "Thailand"
+        "JP",
+        "TH"
       ],
       "continents": [
         "asia"
@@ -504,9 +504,9 @@
         "SYD"
       ],
       "countries": [
-        "Brazil",
-        "Argentina",
-        "Australia"
+        "BR",
+        "AR",
+        "AU"
       ],
       "continents": [
         "south_america",
@@ -575,7 +575,7 @@
         "CHC"
       ],
       "countries": [
-        "New Zealand"
+        "NZ"
       ],
       "continents": [
         "oceania"
@@ -637,8 +637,8 @@
         "MXP"
       ],
       "countries": [
-        "Chile",
-        "Italy"
+        "CL",
+        "IT"
       ],
       "continents": [
         "south_america",
@@ -699,8 +699,8 @@
         "MEX"
       ],
       "countries": [
-        "Peru",
-        "Colombia"
+        "PE",
+        "CO"
       ],
       "continents": [
         "south_america"
@@ -767,7 +767,7 @@
         "LIM"
       ],
       "countries": [
-        "Peru"
+        "PE"
       ],
       "continents": [
         "south_america"
@@ -827,8 +827,8 @@
         "BKK"
       ],
       "countries": [
-        "India",
-        "Thailand"
+        "IN",
+        "TH"
       ],
       "continents": [
         "asia"
@@ -892,8 +892,8 @@
         "ZRH"
       ],
       "countries": [
-        "France",
-        "Netherlands"
+        "FR",
+        "NL"
       ],
       "continents": [
         "europe"
@@ -964,9 +964,9 @@
         "SIN"
       ],
       "countries": [
-        "Belgium",
-        "Ireland",
-        "India"
+        "BE",
+        "IE",
+        "IN"
       ],
       "continents": [
         "europe",
@@ -1039,7 +1039,7 @@
         "BSL"
       ],
       "countries": [
-        "Denmark"
+        "DK"
       ],
       "continents": [
         "europe"
@@ -1108,8 +1108,8 @@
         "PHL"
       ],
       "countries": [
-        "Switzerland",
-        "United States of America"
+        "CH",
+        "US"
       ],
       "continents": [
         "europe",
@@ -1179,8 +1179,8 @@
         "VIE"
       ],
       "countries": [
-        "United States of America",
-        "Austria"
+        "US",
+        "AT"
       ],
       "continents": [
         "north_america",
@@ -1249,8 +1249,8 @@
         "FRA"
       ],
       "countries": [
-        "United States of America",
-        "Germany"
+        "US",
+        "DE"
       ],
       "continents": [
         "north_america",
@@ -1319,8 +1319,8 @@
         "FRA"
       ],
       "countries": [
-        "United States of America",
-        "Germany"
+        "US",
+        "DE"
       ],
       "continents": [
         "north_america",
@@ -1649,9 +1649,9 @@
         "LEX"
       ],
       "countries": [
-        "Belgium",
-        "Netherlands",
-        "United States of America"
+        "BE",
+        "NL",
+        "US"
       ],
       "continents": [
         "europe",
@@ -1712,8 +1712,8 @@
         "BRU"
       ],
       "countries": [
-        "Netherlands",
-        "Belgium"
+        "NL",
+        "BE"
       ],
       "continents": [
         "europe"
@@ -1775,9 +1775,9 @@
         "FRA"
       ],
       "countries": [
-        "Netherlands",
-        "Belgium",
-        "Germany"
+        "NL",
+        "BE",
+        "DE"
       ],
       "continents": [
         "europe"
@@ -1839,7 +1839,7 @@
         "SIN"
       ],
       "countries": [
-        "Thailand"
+        "TH"
       ],
       "continents": [
         "asia"
@@ -1908,9 +1908,9 @@
         "CDG"
       ],
       "countries": [
-        "Netherlands",
-        "Germany",
-        "France"
+        "NL",
+        "DE",
+        "FR"
       ],
       "continents": [
         "europe"
@@ -2031,8 +2031,8 @@
         "AMS"
       ],
       "countries": [
-        "Germany",
-        "Netherlands"
+        "DE",
+        "NL"
       ],
       "continents": [
         "europe"
@@ -2145,8 +2145,8 @@
         "PEN"
       ],
       "countries": [
-        "Taiwan",
-        "Singapore"
+        "TW",
+        "SG"
       ],
       "continents": [
         "asia"
@@ -2213,7 +2213,7 @@
         "ICN"
       ],
       "countries": [
-        "China"
+        "CN"
       ],
       "continents": [
         "asia"
@@ -2278,8 +2278,8 @@
         "FRA"
       ],
       "countries": [
-        "China",
-        "Germany"
+        "CN",
+        "DE"
       ],
       "continents": [
         "asia",
@@ -2341,8 +2341,8 @@
         "PVG"
       ],
       "countries": [
-        "Taiwan",
-        "China"
+        "TW",
+        "CN"
       ],
       "continents": [
         "asia"
@@ -2403,7 +2403,7 @@
         "TPE"
       ],
       "countries": [
-        "Taiwan"
+        "TW"
       ],
       "continents": [
         "asia"
@@ -2463,8 +2463,8 @@
         "FRA"
       ],
       "countries": [
-        "China",
-        "Germany"
+        "CN",
+        "DE"
       ],
       "continents": [
         "asia",
@@ -2527,8 +2527,8 @@
         "PHL"
       ],
       "countries": [
-        "Germany",
-        "United States of America"
+        "DE",
+        "US"
       ],
       "continents": [
         "europe",
@@ -3970,8 +3970,8 @@
         "STR"
       ],
       "countries": [
-        "Germany",
-        "Poland"
+        "DE",
+        "PL"
       ],
       "continents": [
         "europe"
@@ -4169,8 +4169,8 @@
         "WAW"
       ],
       "countries": [
-        "Germany",
-        "Poland"
+        "DE",
+        "PL"
       ],
       "continents": [
         "europe"
@@ -4231,7 +4231,7 @@
         "STR"
       ],
       "countries": [
-        "Germany"
+        "DE"
       ],
       "continents": [
         "europe"
@@ -4297,7 +4297,7 @@
         "BRE"
       ],
       "countries": [
-        "Germany"
+        "DE"
       ],
       "continents": [
         "europe"
@@ -4363,7 +4363,7 @@
         "BRE"
       ],
       "countries": [
-        "Germany"
+        "DE"
       ],
       "continents": [
         "europe"
@@ -4430,8 +4430,8 @@
         "WAW"
       ],
       "countries": [
-        "Germany",
-        "Poland"
+        "DE",
+        "PL"
       ],
       "continents": [
         "europe"
@@ -4498,8 +4498,8 @@
         "CDG"
       ],
       "countries": [
-        "Germany",
-        "France"
+        "DE",
+        "FR"
       ],
       "continents": [
         "europe",
@@ -4567,8 +4567,8 @@
         "CDG"
       ],
       "countries": [
-        "Germany",
-        "France"
+        "DE",
+        "FR"
       ],
       "continents": [
         "europe"
@@ -4701,8 +4701,8 @@
         "CDG"
       ],
       "countries": [
-        "Germany",
-        "France"
+        "DE",
+        "FR"
       ],
       "continents": [
         "europe"
@@ -4827,9 +4827,9 @@
         "IST"
       ],
       "countries": [
-        "Bangladesh",
-        "Vietnam",
-        "China"
+        "BD",
+        "VN",
+        "CN"
       ],
       "continents": [
         "asia"
@@ -4891,8 +4891,8 @@
         "HAN"
       ],
       "countries": [
-        "China",
-        "Vietnam"
+        "CN",
+        "VN"
       ],
       "continents": [
         "asia"
@@ -4954,7 +4954,7 @@
         "SZX"
       ],
       "countries": [
-        "China"
+        "CN"
       ],
       "continents": [
         "asia"
@@ -5017,8 +5017,8 @@
         "FRA"
       ],
       "countries": [
-        "France",
-        "Germany"
+        "FR",
+        "DE"
       ],
       "continents": [
         "europe"
@@ -5076,7 +5076,7 @@
         "SZX"
       ],
       "countries": [
-        "China"
+        "CN"
       ],
       "continents": [
         "asia"
@@ -5140,8 +5140,8 @@
         "PVG"
       ],
       "countries": [
-        "Poland",
-        "China"
+        "PL",
+        "CN"
       ],
       "continents": [
         "europe",
@@ -5202,8 +5202,8 @@
         "WAW"
       ],
       "countries": [
-        "Germany",
-        "Poland"
+        "DE",
+        "PL"
       ],
       "continents": [
         "europe"
@@ -5261,8 +5261,8 @@
         "WAW"
       ],
       "countries": [
-        "Germany",
-        "Poland"
+        "DE",
+        "PL"
       ],
       "continents": [
         "europe"
@@ -5323,9 +5323,9 @@
         "JFK"
       ],
       "countries": [
-        "Germany",
-        "France",
-        "United States of America"
+        "DE",
+        "FR",
+        "US"
       ],
       "continents": [
         "europe",
@@ -5387,8 +5387,8 @@
         "JFK"
       ],
       "countries": [
-        "Germany",
-        "United States of America"
+        "DE",
+        "US"
       ],
       "continents": [
         "europe",
@@ -5451,8 +5451,8 @@
         "JFK"
       ],
       "countries": [
-        "France",
-        "Germany"
+        "FR",
+        "DE"
       ],
       "continents": [
         "europe",
@@ -5517,8 +5517,8 @@
         "JFK"
       ],
       "countries": [
-        "France",
-        "Germany"
+        "FR",
+        "DE"
       ],
       "continents": [
         "europe",
@@ -5588,9 +5588,9 @@
         "WAW"
       ],
       "countries": [
-        "Germany",
-        "France",
-        "Poland"
+        "DE",
+        "FR",
+        "PL"
       ],
       "continents": [
         "europe"
@@ -5650,8 +5650,8 @@
         "CDG"
       ],
       "countries": [
-        "Germany",
-        "France"
+        "DE",
+        "FR"
       ],
       "continents": [
         "europe"
@@ -5771,8 +5771,8 @@
         "JFK"
       ],
       "countries": [
-        "Germany",
-        "United States of America"
+        "DE",
+        "US"
       ],
       "continents": [
         "europe",
@@ -6062,9 +6062,9 @@
         "WAW"
       ],
       "countries": [
-        "Germany",
-        "France",
-        "Poland"
+        "DE",
+        "FR",
+        "PL"
       ],
       "continents": [
         "europe"
@@ -6125,9 +6125,9 @@
         "ADD"
       ],
       "countries": [
-        "Colombia",
-        "Brazil",
-        "Ethiopia"
+        "CO",
+        "BR",
+        "ET"
       ],
       "continents": [
         "south_america",
@@ -6190,8 +6190,8 @@
         "ZRH"
       ],
       "countries": [
-        "Belgium",
-        "France"
+        "BE",
+        "FR"
       ],
       "continents": [
         "europe"
@@ -6326,8 +6326,8 @@
         "CDG"
       ],
       "countries": [
-        "Germany",
-        "France"
+        "DE",
+        "FR"
       ],
       "continents": [
         "europe",
@@ -6396,8 +6396,8 @@
         "JFK"
       ],
       "countries": [
-        "Germany",
-        "United States of America"
+        "DE",
+        "US"
       ],
       "continents": [
         "europe",
@@ -6466,8 +6466,8 @@
         "FRA"
       ],
       "countries": [
-        "France",
-        "Germany"
+        "FR",
+        "DE"
       ],
       "continents": [
         "europe",

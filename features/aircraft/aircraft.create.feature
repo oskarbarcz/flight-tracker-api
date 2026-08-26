@@ -60,7 +60,10 @@ Feature: Create aircraft for operator
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
@@ -68,7 +71,10 @@ Feature: Create aircraft for operator
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": null,
@@ -141,7 +147,10 @@ Feature: Create aircraft for operator
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
@@ -149,7 +158,10 @@ Feature: Create aircraft for operator
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": null,
@@ -196,7 +208,10 @@ Feature: Create aircraft for operator
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
@@ -204,7 +219,10 @@ Feature: Create aircraft for operator
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": null,
@@ -251,7 +269,10 @@ Feature: Create aircraft for operator
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
@@ -259,7 +280,10 @@ Feature: Create aircraft for operator
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
           "city": "Frankfurt",
-          "country": "Germany",
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": null,

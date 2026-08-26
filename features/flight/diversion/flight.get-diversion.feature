@@ -39,7 +39,10 @@ Feature: Get a flight diversion
           "iataCode": "JFK",
           "city": "New York",
           "name": "New York JFK",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "timezone": "America/New_York",
           "continent": "north_america",
           "dataQuality": "low",
@@ -77,7 +80,10 @@ Feature: Get a flight diversion
           "iataCode": "JFK",
           "city": "New York",
           "name": "New York JFK",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "timezone": "America/New_York",
           "location": {
             "latitude": 40.6413,

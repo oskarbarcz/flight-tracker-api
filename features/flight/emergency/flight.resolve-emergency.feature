@@ -140,7 +140,10 @@ Feature: Resolve a flight emergency
             "iataCode": "FRA",
             "city": "Frankfurt",
             "name": "Frankfurt Rhein/Main",
-            "country": "Germany",
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
             "timezone": "Europe/Berlin",
             "continent": "europe",
             "dataQuality": "low",
@@ -154,7 +157,10 @@ Feature: Resolve a flight emergency
             "iataCode": "CDG",
             "city": "Paris",
             "name": "Paris Charles de Gaulle",
-            "country": "France",
+            "country": {
+              "code": "FR",
+              "name": "France"
+            },
             "timezone": "Europe/Paris",
             "continent": "europe",
             "dataQuality": "low",
@@ -336,7 +342,10 @@ Feature: Resolve a flight emergency
             "iataCode": "FRA",
             "city": "Frankfurt",
             "name": "Frankfurt Rhein/Main",
-            "country": "Germany",
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
             "timezone": "Europe/Berlin",
             "continent": "europe",
             "dataQuality": "low",
@@ -350,7 +359,10 @@ Feature: Resolve a flight emergency
             "iataCode": "CDG",
             "city": "Paris",
             "name": "Paris Charles de Gaulle",
-            "country": "France",
+            "country": {
+              "code": "FR",
+              "name": "France"
+            },
             "timezone": "Europe/Paris",
             "continent": "europe",
             "dataQuality": "low",

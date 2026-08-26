@@ -10,7 +10,7 @@ export async function loadAirports(
     iataCode: 'FRA',
     city: 'Frankfurt',
     name: 'Frankfurt Rhein/Main',
-    country: 'Germany',
+    country: 'DE',
     timezone: 'Europe/Berlin',
     continent: Continent.Europe,
     location: {
@@ -74,7 +74,7 @@ export async function loadAirports(
     iataCode: 'WAW',
     city: 'Warsaw',
     name: 'Warsaw Chopin',
-    country: 'Poland',
+    country: 'PL',
     timezone: 'Europe/Warsaw',
     continent: Continent.Europe,
     monitorWeather: true,
@@ -129,7 +129,7 @@ export async function loadAirports(
     iataCode: 'JFK',
     city: 'New York',
     name: 'New York JFK',
-    country: 'United States of America',
+    country: 'US',
     timezone: 'America/New_York',
     continent: Continent.NorthAmerica,
     location: {
@@ -190,7 +190,7 @@ export async function loadAirports(
     iataCode: 'CDG',
     city: 'Paris',
     name: 'Paris Charles de Gaulle',
-    country: 'France',
+    country: 'FR',
     timezone: 'Europe/Paris',
     continent: Continent.Europe,
     location: {
@@ -261,7 +261,7 @@ export async function loadAirports(
     iataCode: 'YYR',
     city: 'Goose Bay',
     name: 'Goose Bay Intl',
-    country: 'Canada',
+    country: 'CA',
     timezone: 'America/Goose_Bay',
     continent: Continent.NorthAmerica,
     location: {
@@ -325,7 +325,7 @@ export async function loadAirports(
     iataCode: 'KEF',
     city: 'Reykjavik',
     name: 'Reykjavik Keflavik',
-    country: 'Iceland',
+    country: 'IS',
     timezone: 'Atlantic/Reykjavik',
     continent: Continent.Europe,
     location: {
@@ -391,7 +391,7 @@ export async function loadAirports(
     iataCode: 'YYT',
     city: 'St. Johns',
     name: 'St. Johns Intl',
-    country: 'Canada',
+    country: 'CA',
     timezone: 'America/St_Johns',
     continent: Continent.NorthAmerica,
     location: {
@@ -444,7 +444,7 @@ export async function loadAirports(
     iataCode: 'PHL',
     city: 'Philadelphia',
     name: 'Philadelphia Intl',
-    country: 'United States of America',
+    country: 'US',
     timezone: 'America/New_York',
     continent: Continent.NorthAmerica,
     location: {
@@ -508,7 +508,7 @@ export async function loadAirports(
     iataCode: 'BOS',
     city: 'Boston',
     name: 'Boston Logan Intl',
-    country: 'United States of America',
+    country: 'US',
     timezone: 'America/New_York',
     continent: Continent.NorthAmerica,
     location: {
@@ -571,7 +571,7 @@ export async function loadAirports(
     iataCode: 'BRE',
     city: 'Bremen',
     name: 'Bremen',
-    country: 'Germany',
+    country: 'DE',
     timezone: 'Europe/Berlin',
     continent: Continent.Europe,
     location: {
