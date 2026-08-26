@@ -24,3 +24,22 @@ changed. Releasing the flight to the pilot SHALL NOT issue anything.
 
 - **WHEN** the final loadsheet is filled at the close of boarding
 - **THEN** a final notification to captain is issued
+
+
+### Requirement: A notification is issued whether or not dangerous goods are carried
+
+The system SHALL issue a notification to captain for every flight whose preliminary loadsheet has
+been written, stating explicitly that no dangerous goods are loaded where none are, rather than
+issuing nothing.
+
+#### Scenario: A flight with no dangerous goods still has a notification
+
+- **GIVEN** a flight carrying no dangerous goods
+- **WHEN** its notification to captain is read
+- **THEN** it is returned, stating that no dangerous goods are loaded
+
+#### Scenario: A flight with no loadsheet has no notification
+
+- **GIVEN** a flight whose preliminary loadsheet has never been written
+- **WHEN** its notification to captain is read
+- **THEN** the request reports that no notification has been issued yet

@@ -139,3 +139,57 @@ refused.
 - **GIVEN** a flight whose aircraft's type has no curated hold data
 - **WHEN** operations writes a loadsheet reporting any cargo tonnage
 - **THEN** the loadsheet is accepted
+
+
+### Requirement: An aircraft whose type has no hold data still carries cargo
+
+The system SHALL generate a cargo manifest for an aircraft whose airframe type has no curated
+hold data, holding shipments and units without positions or compartments, rather than failing or
+generating nothing. Reading such a manifest SHALL report that the hold configuration is unknown
+rather than reporting an empty hold.
+
+#### Scenario: An uncurated type produces an unpositioned manifest
+
+- **GIVEN** a flight whose aircraft's type has no curated hold data
+- **WHEN** operations writes its preliminary loadsheet
+- **THEN** a cargo manifest is generated whose units carry no position and no compartment
+
+#### Scenario: Reading an unpositioned manifest
+
+- **WHEN** the cargo manifest of such a flight is read
+- **THEN** it reports that the aircraft's hold configuration is unknown
+
+### Requirement: The cargo manifest is read through its own endpoint
+
+The system SHALL expose a flight's cargo manifest through a dedicated endpoint rather than
+within the flight body, and SHALL permit reading it to operations and to the flight's captain.
+The manifest SHALL be filterable by shipment status, and SHALL report per compartment the weight
+it carries.
+
+#### Scenario: Operations reads a cargo manifest
+
+- **WHEN** operations reads the cargo manifest of a flight whose loadsheet has been written
+- **THEN** every load unit is returned with its position, compartment and contents
+
+#### Scenario: The captain reads their own flight's cargo manifest
+
+- **GIVEN** a released flight with a captain assigned
+- **WHEN** that captain reads the cargo manifest
+- **THEN** the manifest is returned
+
+#### Scenario: A pilot who does not command the flight is refused
+
+- **GIVEN** a released flight captained by another pilot
+- **WHEN** a pilot who is not its captain reads the cargo manifest
+- **THEN** the request is rejected as forbidden
+
+#### Scenario: Reading a cargo manifest requires authentication
+
+- **WHEN** an unauthenticated request reads a flight's cargo manifest
+- **THEN** the request is rejected as unauthorised
+
+#### Scenario: A flight whose loadsheet has not been written reports no manifest
+
+- **GIVEN** a flight whose preliminary loadsheet has never been written
+- **WHEN** its cargo manifest is read
+- **THEN** the request reports that no cargo manifest has been generated yet

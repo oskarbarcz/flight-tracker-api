@@ -2,7 +2,8 @@
 
 ## Purpose
 
-Issue an immutable notification to captain at each loadsheet stage — one at release and one when
+Issue a notification to captain at each loadsheet stage — one when the preliminary loadsheet is
+written and one when
 boarding finishes — reporting every dangerous goods shipment in full, the other notifiable
 special loads, the emergency drill for what is aboard, the cold chain assessment and the load
 summary. Covers acknowledgement through the requests the pilot already makes, the changes the

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Generate a seated passenger manifest when a flight is released to the pilot, against the
+Generate a seated passenger manifest when a flight's preliminary loadsheet is written, against the
 cabin layout revision pinned at that moment. Covers the proportional distribution across
 cabins, the seat capacity limit on the loadsheet, flights whose aircraft has no cabin, and
 the dedicated read at `GET /api/v1/flight/{id}/manifest`.

@@ -91,3 +91,11 @@
 - [x] 12.2 Carry `greatCircleDistance` on `FlightManifestContext` so the manifest module reads the leg length from the flights module rather than the flight table
 - [x] 12.3 Dispatch `ListAllAirportsQuery` and `ListAllOperatorsQuery` for the journey's candidate airports and carrier codes, filtering in the command
 - [x] 12.4 Delete `networkAirports`, `flightDistanceKm`, `latestMetar` and `carrierCodes` from `cargo.repository.ts`, leaving it on the tables the manifest module owns
+
+## 13. The specs stop claiming generation happens at release
+
+- [x] 13.1 Reword the purposes of `flight-cargo-manifest`, `flight-manifest` and `dangerous-goods-notification` in the main specs, since a delta's purpose is ignored for an existing capability
+- [x] 13.2 Add deltas for the requirements that still described release as the moment of generation: the layout revision pin, the seat capacity check, the no-layout aircraft, the uncurated hold, the read endpoints, the notification issued regardless of hazard, both reconciliation comparisons, the special services basis and the advisory cold chain
+- [x] 13.3 Correct the baggage delta, which had bags placed after the cargo when the planner places them first
+- [x] 13.4 Drop the negative-residual case from the baggage fallback, which the payload floor now refuses before it can be reached
+- [x] 13.5 Audit every main spec for a requirement still claiming release without a delta covering it
