@@ -51,7 +51,7 @@ export class ReportArrivalHandler implements ICommandHandler<ReportArrivalComman
     await this.flightsRepository.updateStatus(flightId, FlightStatus.TaxiingIn);
     await this.flightsRepository.updateTimesheet(flightId, timesheet);
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new ArrivalWasReportedEvent({
         flightId,
         scope,
