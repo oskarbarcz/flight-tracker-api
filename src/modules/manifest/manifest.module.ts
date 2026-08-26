@@ -22,6 +22,7 @@ import { GetFlightNotocHandler } from './application/query/get-flight-notoc.quer
 import { FlightsWithNotocHandler } from './application/query/has-flight-notoc.query';
 import { GetNotifiableLoadSummaryHandler } from './application/query/get-notifiable-load-summary.query';
 import { AssertHoldVariantOfferedHandler } from './application/assert/assert-hold-variant-offered.query';
+import { GenerateManifestsListener } from './application/event/external/generate-manifests.listener';
 import { PassengersRepository } from './infra/database/repository/passengers.repository';
 import { CargoRepository } from './infra/database/repository/cargo.repository';
 import { NotocRepository } from './infra/database/repository/notoc.repository';
@@ -56,6 +57,7 @@ import { NotocRepository } from './infra/database/repository/notoc.repository';
     FlightsWithNotocHandler,
     GetNotifiableLoadSummaryHandler,
     AssertHoldVariantOfferedHandler,
+    GenerateManifestsListener,
   ],
 })
 export class ManifestModule {}

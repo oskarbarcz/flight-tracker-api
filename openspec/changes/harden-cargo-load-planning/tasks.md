@@ -99,3 +99,13 @@
 - [x] 13.3 Correct the baggage delta, which had bags placed after the cargo when the planner places them first
 - [x] 13.4 Drop the negative-residual case from the baggage fallback, which the payload floor now refuses before it can be reached
 - [x] 13.5 Audit every main spec for a requirement still claiming release without a delta covering it
+
+## 14. Generation follows the loadsheet wherever it is written
+
+- [x] 14.1 Move the passenger manifest, cargo manifest and preliminary notification generation out of `update-preliminary-loadsheet.command.ts` into `GenerateManifestsListener` in the manifest module, listening to `PreliminaryLoadsheetWasUpdated` with `suppressErrors: false` so a refusal still answers 422
+- [x] 14.2 Emit `PreliminaryLoadsheetWasUpdatedEvent` from `create-flight-from-simbrief.command.ts`, whose import always writes a preliminary loadsheet operations need never touch
+- [x] 14.3 Emit it from `create-flight.command.ts` too, but only where the request body carries a preliminary loadsheet
+- [x] 14.4 Assert `hasNotoc` on the create responses in `flight.create.feature` and `flight.create-with-simbrief.feature`, the one side effect of generation the created flight's own body reports
+- [x] 14.5 Cover the listener in `generate-manifests.listener.spec.ts`: the three commands it dispatches, the flight with no loadsheet and the flight with no airports
+- [x] 14.6 Record that a refused loadsheet is now stored: generation runs after the write, so the hold-capacity requirement promises no manifest rather than no loadsheet
+- [x] 14.7 Issue the seeded preliminary notification for every placeable loadsheet-bearing flight, not only those that ended up with cargo units, mirroring the empty-load fallback in `issue-notoc.command.ts`; skip only the flights whose load could not be placed, which the API never documents either

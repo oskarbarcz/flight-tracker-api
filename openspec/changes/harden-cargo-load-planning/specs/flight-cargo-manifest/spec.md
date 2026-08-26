@@ -46,14 +46,22 @@ The system SHALL generate a cargo manifest when a flight's preliminary loadsheet
 SHALL regenerate it on every later write, using the cargo tonnage and passenger count that
 loadsheet carries, so that the manifest can never describe a loadsheet the flight no longer has.
 The manifest SHALL consist of load units — containers and loose bulk lots — and the shipments
-loaded in them. Releasing the flight to the pilot SHALL NOT generate anything: it is a state
-transition over a manifest that already exists.
+loaded in them. Creating a flight with a preliminary loadsheet — filled by hand or imported from a
+SimBrief plan — SHALL build its load at creation, because creating it writes that loadsheet.
+Releasing the flight to the pilot SHALL NOT generate anything: it is a state transition over a
+manifest that already exists.
 
 #### Scenario: Writing the loadsheet builds the load
 
 - **GIVEN** a flight whose preliminary loadsheet reports a cargo tonnage
 - **WHEN** operations writes that loadsheet
 - **THEN** a cargo manifest is generated holding shipments and the units carrying them
+
+#### Scenario: Creating a flight with a loadsheet builds its load
+
+- **GIVEN** operations creating a flight whose body carries a preliminary loadsheet reporting a cargo tonnage
+- **WHEN** the flight is created
+- **THEN** its cargo manifest is generated against that tonnage
 
 #### Scenario: Writing the loadsheet again rebuilds the load
 
@@ -118,7 +126,7 @@ The system SHALL reject as unprocessable an attempt to write a preliminary loads
 load the aircraft's resolved hold variant cannot carry by weight or by volume, counting the cargo
 tonnage together with the baggage that loadsheet implies, so that a tonnage leaving the bags
 nowhere to go is refused where operations can still correct it. The check SHALL apply only where
-the airframe type has curated hold data, and the loadsheet SHALL NOT be stored when it is
+the airframe type has curated hold data, and no cargo manifest SHALL be generated when it is
 refused.
 
 #### Scenario: An over-capacity tonnage blocks the loadsheet

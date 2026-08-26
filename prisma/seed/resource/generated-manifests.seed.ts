@@ -99,6 +99,7 @@ export async function loadGeneratedManifests(
     ]);
 
   const unplaceable: string[] = [];
+  const refused = new Set<string>();
   const loaded = new Set(alreadyLoaded.map((row) => row.flightId));
   const documented = new Set(notocIssued.map((row) => row.flightId));
 
@@ -133,6 +134,8 @@ export async function loadGeneratedManifests(
         operators.map((operator) => operator.iataCode),
       );
     } catch (error) {
+      refused.add(flight.id);
+
       if (!DELIBERATELY_UNPLACEABLE.includes(flight.flightNumber)) {
         unplaceable.push(
           `${flight.flightNumber} ${flight.aircraft.type} cargo=${preliminary.cargo}t pax=${preliminary.passengers} payload=${preliminary.payload}t :: ${(error as Error).message}`,
@@ -167,7 +170,12 @@ export async function loadGeneratedManifests(
       (entry) => entry.airportType === AirportType.Destination,
     )?.airport;
 
-    if (!preliminary || !arrival || documented.has(flight.id)) {
+    if (
+      !preliminary ||
+      !arrival ||
+      documented.has(flight.id) ||
+      refused.has(flight.id)
+    ) {
       continue;
     }
 
@@ -175,10 +183,6 @@ export async function loadGeneratedManifests(
       where: { flightId: flight.id },
       include: { shipments: true },
     });
-
-    if (rows.length === 0) {
-      continue;
-    }
 
     const variant = resolveHoldVariant(
       flight.aircraft.type,

@@ -5,7 +5,10 @@ import {
   OperatorForAircraftNotFoundError,
 } from '../../model/error/flight.error';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { FlightWasCreatedEvent } from '../../../../core/domain/events/dto/flight.events';
+import {
+  FlightWasCreatedEvent,
+  PreliminaryLoadsheetWasUpdatedEvent,
+} from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { CreateFlightRequest } from '../../infra/http/request/flight.dto';
@@ -59,5 +62,15 @@ export class CreateFlightHandler implements ICommandHandler<CreateFlightCommand>
         aircraftId: flightData.aircraftId,
       }),
     );
+
+    if (flightData.loadsheets.preliminary) {
+      await this.domainEvents.emitAsync(
+        new PreliminaryLoadsheetWasUpdatedEvent({
+          flightId,
+          scope: FlightEventScope.Operations,
+          actorId: initiatorId,
+        }),
+      );
+    }
   }
 }

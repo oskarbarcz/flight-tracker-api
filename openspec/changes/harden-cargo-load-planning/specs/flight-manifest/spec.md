@@ -6,8 +6,9 @@ The system SHALL generate a passenger manifest when a flight's preliminary loads
 and SHALL regenerate it on every later write, using the passenger count that loadsheet carries, so
 that the manifest can never describe a loadsheet the flight no longer has. Each generated
 passenger SHALL occupy exactly one seat of the pinned revision, and no seat SHALL be occupied
-twice. Releasing the flight to the pilot SHALL NOT seat anyone: it is a state transition over a
-manifest that already exists.
+twice. Creating a flight with a preliminary loadsheet — filled by hand or imported from a SimBrief
+plan — SHALL seat it at creation, because creating it writes that loadsheet. Releasing the flight
+to the pilot SHALL NOT seat anyone: it is a state transition over a manifest that already exists.
 
 #### Scenario: Writing the loadsheet seats its passengers
 
@@ -15,6 +16,18 @@ manifest that already exists.
 - **WHEN** operations writes that loadsheet
 - **THEN** the manifest holds exactly that many passengers
 - **AND** every passenger occupies a distinct seat of the pinned revision
+
+#### Scenario: Creating a flight with a loadsheet seats it straight away
+
+- **GIVEN** operations creating a flight whose body carries a preliminary loadsheet
+- **WHEN** the flight is created
+- **THEN** its manifest holds the passengers that loadsheet reports
+
+#### Scenario: Importing a SimBrief plan seats its passengers
+
+- **GIVEN** an operations user whose SimBrief plan reports a passenger count
+- **WHEN** they create the flight from that plan
+- **THEN** its manifest holds those passengers, without operations touching the loadsheet
 
 #### Scenario: Writing the loadsheet again reseats the cabin
 
