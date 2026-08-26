@@ -82,7 +82,7 @@ const samplePlan = {
 
 const frankfurt = {
   iataCode: 'FRA',
-  country: 'Germany',
+  country: 'DE',
   continent: Continent.Europe,
   month: 6,
 };
@@ -556,13 +556,13 @@ describe('cargo packing', () => {
   it('needs more containers for a light commodity than a heavy one', () => {
     const flowers = offeredCommodities({
       iataCode: 'NBO',
-      country: 'Kenya',
+      country: 'KE',
       continent: Continent.Africa,
       month: 2,
     }).filter((offer) => offer.commodity.id === 'flowers-roses');
     const moulds = offeredCommodities({
       iataCode: 'FRA',
-      country: 'Germany',
+      country: 'DE',
       continent: Continent.Europe,
       month: 6,
     }).filter((offer) => offer.commodity.id === 'injection-moulds');

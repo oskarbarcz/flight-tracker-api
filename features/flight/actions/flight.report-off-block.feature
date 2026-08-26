@@ -167,7 +167,10 @@ Feature: Report off-block
             "iataCode": "BOS",
             "city": "Boston",
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -184,7 +187,10 @@ Feature: Report off-block
             "iataCode": "PHL",
             "city": "Philadelphia",
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -201,7 +207,10 @@ Feature: Report off-block
             "iataCode": "JFK",
             "city": "New York",
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -370,7 +379,10 @@ Feature: Report off-block
           "iataCode": "JFK",
           "name": "New York JFK",
           "city": "New York",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
@@ -378,7 +390,10 @@ Feature: Report off-block
           "iataCode": "BOS",
           "name": "Boston Logan Intl",
           "city": "Boston",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T12:00:00.000Z",

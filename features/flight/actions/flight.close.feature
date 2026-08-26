@@ -171,7 +171,10 @@ Feature: Close flight
             "iataCode": "BOS",
             "city": "Boston",
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -188,7 +191,10 @@ Feature: Close flight
             "iataCode": "PHL",
             "city": "Philadelphia",
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -205,7 +211,10 @@ Feature: Close flight
             "iataCode": "JFK",
             "city": "New York",
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -449,7 +458,10 @@ Feature: Close flight
           "iataCode": "JFK",
           "name": "New York JFK",
           "city": "New York",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
@@ -457,7 +469,10 @@ Feature: Close flight
           "iataCode": "PHL",
           "name": "Philadelphia Intl",
           "city": "Philadelphia",
-          "country": "United States of America",
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T16:28:00.000Z",
@@ -683,7 +698,10 @@ Feature: Close flight
             "iataCode": "BOS",
             "city": "Boston",
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -697,7 +715,10 @@ Feature: Close flight
             "iataCode": "PHL",
             "city": "Philadelphia",
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -711,7 +732,10 @@ Feature: Close flight
             "iataCode": "JFK",
             "city": "New York",
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -901,7 +925,10 @@ Feature: Close flight
             "iataCode": "BOS",
             "city": "Boston",
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -915,7 +942,10 @@ Feature: Close flight
             "iataCode": "PHL",
             "city": "Philadelphia",
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -929,7 +959,10 @@ Feature: Close flight
             "iataCode": "JFK",
             "city": "New York",
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",

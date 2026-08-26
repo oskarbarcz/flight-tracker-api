@@ -22,6 +22,7 @@ import {
   FlightListFilters,
 } from '../../infra/http/request/flight.dto';
 import { FlightsWithNotocQuery } from '../../../manifest/application/query/has-flight-notoc.query';
+import { toCountryRef } from '../../../countries/model/country.model';
 
 type ListAllFlightsResult = {
   flights: GetFlightResponse[];
@@ -69,6 +70,7 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
               ...airportOnFlight.airport,
               location: airportOnFlight.airport
                 .location as unknown as Coordinates,
+              country: toCountryRef(airportOnFlight.airport.country),
               continent: airportOnFlight.airport.continent as Continent,
               dataQuality: airportOnFlight.airport.dataQuality as DataQuality,
               shape: airportOnFlight.airport.shape as unknown as

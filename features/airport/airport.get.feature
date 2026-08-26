@@ -12,7 +12,10 @@ Feature: Get airport
         "iataCode": "FRA",
         "city": "Frankfurt",
         "name": "Frankfurt Rhein/Main",
-        "country": "Germany",
+        "country": {
+          "code": "DE",
+          "name": "Germany"
+        },
         "timezone": "Europe/Berlin",
         "continent": "europe",
         "dataQuality": "low",
@@ -36,7 +39,10 @@ Feature: Get airport
         "iataCode": "FRA",
         "city": "Frankfurt",
         "name": "Frankfurt Rhein/Main",
-        "country": "Germany",
+        "country": {
+          "code": "DE",
+          "name": "Germany"
+        },
         "timezone": "Europe/Berlin",
         "continent": "europe",
         "dataQuality": "low",
@@ -60,7 +66,10 @@ Feature: Get airport
         "iataCode": "FRA",
         "city": "Frankfurt",
         "name": "Frankfurt Rhein/Main",
-        "country": "Germany",
+        "country": {
+          "code": "DE",
+          "name": "Germany"
+        },
         "timezone": "Europe/Berlin",
         "continent": "europe",
         "dataQuality": "low",

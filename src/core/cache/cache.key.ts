@@ -6,10 +6,12 @@ export const CACHE_KEYS = {
   STATS_TYPES: 'stats-aircraft-types',
   STATS_PERIODS: 'stats-periods',
   STATS_ACTIVITY: 'stats-activity',
+  STATS_COUNTRIES: 'stats-countries',
   USER_ME: 'user-me',
   OPERATORS_LIST: 'operators:list',
   OPERATORS_LIST_RECENT: 'operators:list:recent',
   AIRFRAMES_LIST: 'airframes:list',
+  COUNTRIES_LIST: 'countries:list',
   CARGO_HOLDS_LIST: 'cargo-holds:list',
   PILOT_CARD: 'pilot-card',
 };
@@ -28,6 +30,7 @@ export const CACHE_TTL_MS = {
   CREW: 300_000,
   OFP: 86_400_000,
   AIRFRAMES: 86_400_000,
+  COUNTRIES: 86_400_000,
   CARGO_HOLDS: 86_400_000,
   STATS_ACTIVITY: 60_000,
   OPERATORS_LIST_RECENT: 60_000,
@@ -47,6 +50,7 @@ export function userStatsCacheKeys(userId: string): string[] {
     cacheByUser(CACHE_KEYS.USER_STATS, userId),
     cacheByUser(CACHE_KEYS.STATS_SUMMARY, userId),
     cacheByUser(CACHE_KEYS.STATS_TYPES, userId),
+    cacheByUser(CACHE_KEYS.STATS_COUNTRIES, userId),
   ];
 }
 

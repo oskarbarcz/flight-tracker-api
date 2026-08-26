@@ -1,5 +1,6 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { AirportsRepository } from '../../infra/database/airports.repository';
+import { toCountryRef } from '../../../countries/model/country.model';
 import { Continent, Coordinates, DataQuality } from '../../model/airport.model';
 import {
   AirportListFilters,
@@ -22,6 +23,7 @@ export class ListAllAirportsHandler implements IQueryHandler<ListAllAirportsQuer
     return airports.map((airport) => ({
       ...airport,
       location: airport.location as unknown as Coordinates,
+      country: toCountryRef(airport.country),
       continent: airport.continent as Continent,
       dataQuality: airport.dataQuality as DataQuality,
       shape: airport.shape as unknown as Coordinates[] | null,

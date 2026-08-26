@@ -9,7 +9,7 @@ Feature: Create airport
         "iataCode": "MIA",
         "city": "Miami",
         "name": "Miami Intl",
-        "country": "United States of America",
+        "country": "US",
         "timezone": "America/New_York",
         "location": {
           "latitude": 25.7933,
@@ -37,7 +37,7 @@ Feature: Create airport
         "name": "Miami Intl",
         "iataCode": "MIA",
         "city": "Miami",
-        "country": "United States of America",
+        "country": "US",
         "timezone": "America/New_York",
         "location": {
           "latitude": 25.7933,
@@ -61,7 +61,10 @@ Feature: Create airport
         "iataCode": "MIA",
         "city": "Miami",
         "name": "Miami Intl",
-        "country": "United States of America",
+        "country": {
+          "code": "US",
+          "name": "United States of America"
+        },
         "timezone": "America/New_York",
         "location": {
           "latitude": 25.7933,
@@ -88,7 +91,7 @@ Feature: Create airport
         "name": "Miami Intl",
         "iataCode": "MIA",
         "city": "Miami",
-        "country": "United States of America",
+        "country": "US",
         "timezone": "America/New_York",
         "location": {
           "latitude": 25.7933,
@@ -123,7 +126,7 @@ Feature: Create airport
         "iataCode": "MIA",
         "city": "Miami",
         "name": "Miami Intl",
-        "country": "United States of America",
+        "country": "US",
         "timezone": "America/New_York",
         "location": {
           "latitude": 25.7933,
@@ -159,7 +162,9 @@ Feature: Create airport
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "country": ["country should not be empty", "country must be a string"],
+          "country": [
+            "country must be a known ISO 3166-1 alpha-2 country code"
+          ],
           "timezone": [
             "timezone should not be empty",
             "timezone must be a valid IANA time-zone",
@@ -173,7 +178,7 @@ Feature: Create airport
           "city": ["city should not be empty", "city must be a string"],
           "location": ["location should not be empty"],
           "continent": [
-            "continent must be one of the following values: africa, asia, europe, north_america, oceania, south_america",
+            "continent must be one of the following values: africa, antarctica, asia, europe, north_america, oceania, south_america",
             "continent should not be empty"
           ]
         }
@@ -196,3 +201,130 @@ Feature: Create airport
         "statusCode": 401
       }
       """
+
+  Scenario: As operations I cannot create airport with a country name
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "KMIA",
+        "iataCode": "MIA",
+        "city": "Miami",
+        "name": "Miami Intl",
+        "country": "Germany",
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "country": [
+            "country must be a known ISO 3166-1 alpha-2 country code"
+          ]
+        }
+      }
+      """
+
+  Scenario: As operations I cannot create airport with an unassigned country code
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "KMIA",
+        "iataCode": "MIA",
+        "city": "Miami",
+        "name": "Miami Intl",
+        "country": "QQ",
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "country": [
+            "country must be a known ISO 3166-1 alpha-2 country code"
+          ]
+        }
+      }
+      """
+
+  Scenario: As operations I cannot create airport with a user-assigned placeholder code
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "KMIA",
+        "iataCode": "MIA",
+        "city": "Miami",
+        "name": "Miami Intl",
+        "country": "ZZ",
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "country": [
+            "country must be a known ISO 3166-1 alpha-2 country code"
+          ]
+        }
+      }
+      """
+
+  Scenario: As operations the country code letter case does not matter
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "KMIA",
+        "iataCode": "MIA",
+        "city": "Miami",
+        "name": "Miami Intl",
+        "country": "us",
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america"
+      }
+      """
+    Then the response status should be 201
+    And the response body property "country" should contain:
+      """json
+      {
+        "code": "US",
+        "name": "United States of America"
+      }
+      """
+    And I set database to initial state

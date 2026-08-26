@@ -189,7 +189,10 @@ Feature: Finish flight boarding
             "iataCode": "BOS",
             "city": "Boston",
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -206,7 +209,10 @@ Feature: Finish flight boarding
             "iataCode": "PHL",
             "city": "Philadelphia",
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -223,7 +229,10 @@ Feature: Finish flight boarding
             "iataCode": "JFK",
             "city": "New York",
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",

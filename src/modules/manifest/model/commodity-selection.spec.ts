@@ -11,21 +11,21 @@ import { findCommodityById } from '../data/cargo-commodities';
 
 const reykjavik = {
   iataCode: 'KEF',
-  country: 'Iceland',
+  country: 'IS',
   continent: Continent.Europe,
   month: 6,
 };
 
 const boston = {
   iataCode: 'BOS',
-  country: 'United States of America',
+  country: 'US',
   continent: Continent.NorthAmerica,
   month: 6,
 };
 
 const nowhere = {
   iataCode: 'ZZZ',
-  country: 'Atlantis',
+  country: 'ZZ',
   continent: Continent.Oceania,
   month: 6,
 };
@@ -47,7 +47,7 @@ describe('commodity selection', () => {
     const beef = findCommodityById('beef-chilled')!;
     const saoPaulo = {
       iataCode: 'VCP',
-      country: 'Brazil',
+      country: 'BR',
       continent: Continent.SouthAmerica,
       month: 6,
     };
@@ -60,7 +60,7 @@ describe('commodity selection', () => {
     const tulips = findCommodityById('flowers-tulips')!;
     const munich = {
       iataCode: 'MUC',
-      country: 'Germany',
+      country: 'DE',
       continent: Continent.Europe,
       month: 3,
     };
@@ -118,7 +118,7 @@ describe('commodity selection', () => {
   it('weights a commodity more heavily in its peak month', () => {
     const nairobi = {
       iataCode: 'NBO',
-      country: 'Kenya',
+      country: 'KE',
       continent: Continent.Africa,
       month: 2,
     };
@@ -137,28 +137,28 @@ describe('commodity selection', () => {
 
   it('offers something at every seeded airport in every month', () => {
     const seeded = [
-      { iataCode: 'FRA', country: 'Germany', continent: Continent.Europe },
-      { iataCode: 'CDG', country: 'France', continent: Continent.Europe },
-      { iataCode: 'WAW', country: 'Poland', continent: Continent.Europe },
-      { iataCode: 'KEF', country: 'Iceland', continent: Continent.Europe },
-      { iataCode: 'BRE', country: 'Germany', continent: Continent.Europe },
+      { iataCode: 'FRA', country: 'DE', continent: Continent.Europe },
+      { iataCode: 'CDG', country: 'FR', continent: Continent.Europe },
+      { iataCode: 'WAW', country: 'PL', continent: Continent.Europe },
+      { iataCode: 'KEF', country: 'IS', continent: Continent.Europe },
+      { iataCode: 'BRE', country: 'DE', continent: Continent.Europe },
       {
         iataCode: 'JFK',
-        country: 'United States of America',
+        country: 'US',
         continent: Continent.NorthAmerica,
       },
       {
         iataCode: 'BOS',
-        country: 'United States of America',
+        country: 'US',
         continent: Continent.NorthAmerica,
       },
       {
         iataCode: 'PHL',
-        country: 'United States of America',
+        country: 'US',
         continent: Continent.NorthAmerica,
       },
-      { iataCode: 'YYR', country: 'Canada', continent: Continent.NorthAmerica },
-      { iataCode: 'YYT', country: 'Canada', continent: Continent.NorthAmerica },
+      { iataCode: 'YYR', country: 'CA', continent: Continent.NorthAmerica },
+      { iataCode: 'YYT', country: 'CA', continent: Continent.NorthAmerica },
     ];
 
     const barren = seeded.flatMap((airport) =>

@@ -44,7 +44,7 @@ model Airport {
   iataCode    String      @unique @db.VarChar(3)
   name        String
   city        String
-  country     String
+  country     String      @db.VarChar(2)
   timezone    String
   continent   Continent
   dataQuality DataQuality @default(low)
@@ -65,6 +65,7 @@ model Airport {
   lastForUsers              User[]               @relation("UserLastAirport")
   departureForTravels       UserTravel[]         @relation("UserTravelDepartureAirport")
   destinationForTravels     UserTravel[]         @relation("UserTravelDestinationAirport")
+  countryVisits             UserCountryVisit[]
   departureForRepositions   AircraftReposition[] @relation("AircraftRepositionDepartureAirport")
   destinationForRepositions AircraftReposition[] @relation("AircraftRepositionDestinationAirport")
   departureForLegs          RotationLeg[]        @relation("LegDeparture")
@@ -278,6 +279,7 @@ model Flight {
   userTravels              UserTravel[]           @relation("UserTravelFlight")
   aircraftRepositions      AircraftReposition[]   @relation("AircraftRepositionFlight")
   userAircraft             UserAircraft[]
+  countryVisits            UserCountryVisit[]
   crew                     CrewOnFlights[]
   rotationLeg              RotationLeg?
   passengers               FlightPassenger[]
@@ -431,6 +433,7 @@ model User {
   delayReportsDecided  DelayReport[]          @relation("DelayReportDecider")
   travels              UserTravel[]
   userAircraft         UserAircraft[]
+  countryVisits        UserCountryVisit[]
   rotations            Rotation[]             @relation("PilotRotations")
   createdRotations     Rotation[]             @relation("RotationCreatedBy")
   updatedRotations     Rotation[]             @relation("RotationUpdatedBy")
@@ -502,6 +505,23 @@ model UserTravel {
 
   @@index([userId])
   @@map("user_travel")
+}
+
+model UserCountryVisit {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  country   String   @db.VarChar(2)
+  flightId  String   @db.Uuid
+  airportId String   @db.Uuid
+  visitedAt DateTime
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  flight  Flight  @relation(fields: [flightId], references: [id])
+  airport Airport @relation(fields: [airportId], references: [id])
+
+  @@unique([userId, flightId])
+  @@index([userId, country])
+  @@map("user_country_visit")
 }
 
 model UserAircraft {
@@ -655,6 +675,7 @@ enum DelayReportStatus {
 
 enum Continent {
   africa
+  antarctica
   asia
   europe
   north_america
@@ -837,7 +858,7 @@ model UserStatsByAirport {
   userId       String    @db.Uuid
   airportId    String    @db.Uuid
   icaoCode     String    @db.VarChar(4)
-  country      String
+  country      String    @db.VarChar(2)
   continent    Continent
   visits       Int       @default(0)
   firstVisitAt DateTime?

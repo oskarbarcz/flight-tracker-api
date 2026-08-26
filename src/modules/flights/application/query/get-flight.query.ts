@@ -20,6 +20,7 @@ import {
 } from '../../../airports/model/airport.model';
 import { GetFlightResponse } from '../../infra/http/request/flight.dto';
 import { FlightsWithNotocQuery } from '../../../manifest/application/query/has-flight-notoc.query';
+import { toCountryRef } from '../../../countries/model/country.model';
 
 export class GetFlightQuery extends Query<GetFlightResponse> {
   constructor(public readonly flightId: string) {
@@ -56,6 +57,7 @@ export class GetFlightHandler implements IQueryHandler<GetFlightQuery> {
         (airportOnFlight): AirportWithType => ({
           ...airportOnFlight.airport,
           location: airportOnFlight.airport.location as unknown as Coordinates,
+          country: toCountryRef(airportOnFlight.airport.country),
           continent: airportOnFlight.airport.continent as Continent,
           dataQuality: airportOnFlight.airport.dataQuality as DataQuality,
           shape: airportOnFlight.airport.shape as unknown as

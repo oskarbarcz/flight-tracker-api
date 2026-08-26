@@ -10,17 +10,17 @@ Feature: Get calendar-period statistics
         "week": {
           "current": { "distanceNm": 0, "airborneMinutes": 0, "blockMinutes": 0, "flights": 0, "fuelBurned": 0 },
           "previous": { "distanceNm": 0, "airborneMinutes": 0, "blockMinutes": 0, "flights": 0, "fuelBurned": 0 },
-          "unlocked": { "airports": [], "aircraftTypes": [] }
+          "unlocked": { "airports": [], "countries": [], "aircraftTypes": [] }
         },
         "month": {
           "current": { "distanceNm": 0, "airborneMinutes": 0, "blockMinutes": 0, "flights": 0, "fuelBurned": 0 },
           "previous": { "distanceNm": 0, "airborneMinutes": 0, "blockMinutes": 0, "flights": 0, "fuelBurned": 0 },
-          "unlocked": { "airports": [], "aircraftTypes": [] }
+          "unlocked": { "airports": [], "countries": [], "aircraftTypes": [] }
         },
         "year": {
           "current": { "distanceNm": 0, "airborneMinutes": 0, "blockMinutes": 0, "flights": 0, "fuelBurned": 0 },
           "previous": { "distanceNm": 0, "airborneMinutes": 0, "blockMinutes": 0, "flights": 0, "fuelBurned": 0 },
-          "unlocked": { "airports": [], "aircraftTypes": [] }
+          "unlocked": { "airports": [], "countries": [], "aircraftTypes": [] }
         }
       }
       """
@@ -42,6 +42,16 @@ Feature: Get calendar-period statistics
           "previous": "@any",
           "unlocked": {
             "airports": [{ "icaoCode": "LFPG", "firstVisitAt": "@date('within 1 minute from now')" }],
+            "countries": [
+              {
+                "country": {
+                  "code": "FR",
+                  "name": "France"
+                },
+                "flag": "🇫🇷",
+                "firstVisitAt": "@date('within 1 minute from now')"
+              }
+            ],
             "aircraftTypes": "@any"
           }
         },

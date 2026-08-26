@@ -14,9 +14,11 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { CountryRef } from '../../countries/model/country.model';
 
 export enum Continent {
   Africa = 'africa',
+  Antarctica = 'antarctica',
   Asia = 'asia',
   Europe = 'europe',
   NorthAmerica = 'north_america',
@@ -93,11 +95,9 @@ export class Airport {
 
   @ApiProperty({
     description: 'Country where airport is located',
-    example: 'Germany',
+    type: CountryRef,
   })
-  @IsString()
-  @IsNotEmpty()
-  country!: string;
+  country!: CountryRef;
 
   @ApiProperty({
     description: 'IANA standard timezone',
