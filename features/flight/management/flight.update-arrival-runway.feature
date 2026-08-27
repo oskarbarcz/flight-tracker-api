@@ -106,7 +106,10 @@ Feature: Update flight arrival runway
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "icaoCode": "KJFK",
             "iataCode": "JFK",
-            "city": "New York",
+            "city": {
+              "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+              "name": "New York"
+            },
             "name": "New York JFK",
             "country": {
               "code": "US",
@@ -123,7 +126,10 @@ Feature: Update flight arrival runway
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "icaoCode": "EDDF",
             "iataCode": "FRA",
-            "city": "Frankfurt",
+            "city": {
+              "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+              "name": "Frankfurt"
+            },
             "name": "Frankfurt Rhein/Main",
             "country": {
               "code": "DE",
@@ -140,7 +146,10 @@ Feature: Update flight arrival runway
             "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
             "icaoCode": "EDDW",
             "iataCode": "BRE",
-            "city": "Bremen",
+            "city": {
+              "id": "11fe7e0d-ef97-4a1d-9a87-8ad9da64fd91",
+              "name": "Bremen"
+            },
             "name": "Bremen",
             "country": {
               "code": "DE",
@@ -157,7 +166,10 @@ Feature: Update flight arrival runway
             "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
             "icaoCode": "BIKF",
             "iataCode": "KEF",
-            "city": "Reykjavik",
+            "city": {
+              "id": "bb33c063-d0c3-4468-98ce-a048a78f409a",
+              "name": "Reykjavik"
+            },
             "name": "Reykjavik Keflavik",
             "country": {
               "code": "IS",
@@ -174,7 +186,10 @@ Feature: Update flight arrival runway
             "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
             "icaoCode": "CYYT",
             "iataCode": "YYT",
-            "city": "St. Johns",
+            "city": {
+              "id": "e5c4da3c-30af-4a50-be48-832cdb854cd7",
+              "name": "St. Johns"
+            },
             "name": "St. Johns Intl",
             "country": {
               "code": "CA",

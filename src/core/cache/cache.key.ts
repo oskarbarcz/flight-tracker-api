@@ -7,6 +7,7 @@ export const CACHE_KEYS = {
   STATS_PERIODS: 'stats-periods',
   STATS_ACTIVITY: 'stats-activity',
   STATS_COUNTRIES: 'stats-countries',
+  STATS_CITIES: 'stats-cities',
   USER_ME: 'user-me',
   OPERATORS_LIST: 'operators:list',
   OPERATORS_LIST_RECENT: 'operators:list:recent',
@@ -51,6 +52,7 @@ export function userStatsCacheKeys(userId: string): string[] {
     cacheByUser(CACHE_KEYS.STATS_SUMMARY, userId),
     cacheByUser(CACHE_KEYS.STATS_TYPES, userId),
     cacheByUser(CACHE_KEYS.STATS_COUNTRIES, userId),
+    cacheByUser(CACHE_KEYS.STATS_CITIES, userId),
   ];
 }
 
@@ -74,11 +76,6 @@ export const flightDelayCacheKeys = (flightId: string): string[] =>
 export const flightCrewCacheKeys = (flightId: string): string[] =>
   flightScopedCacheKeys(flightId, FLIGHT_CACHE_RESOURCE.crew);
 
-/**
- * Where an OpenStreetMap pull is retained between an operations user reviewing it
- * and pushing the parts they accepted. Overpass is a free public service, so the
- * review is served from this rather than re-queried on every reload.
- */
 export function airportOsmPullCacheKey(airportId: string): string {
   return `airport:${airportId}:osm-pull`;
 }

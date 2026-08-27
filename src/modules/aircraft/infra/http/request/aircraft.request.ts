@@ -10,6 +10,7 @@ import {
 } from 'class-validator';
 import { LegacyOperatorResponse } from '../../../../operators/infra/http/request/operator.request';
 import { Coordinates } from '../../../../airports/model/airport.model';
+import { CityRef } from '../../../../airports/model/city.model';
 import { AircraftCabinLayout } from '../../../model/cabin-layout.model';
 import { HOLD_VARIANT_IDS } from '../../../../manifest/data/hold-identifiers';
 import {
@@ -93,8 +94,8 @@ export class AircraftAirport {
   @ApiProperty({ description: 'Airport name', example: 'Frankfurt Rhein/Main' })
   name!: string;
 
-  @ApiProperty({ description: 'City the airport serves', example: 'Frankfurt' })
-  city!: string;
+  @ApiProperty({ description: 'City the airport serves', type: CityRef })
+  city!: CityRef;
 
   @ApiProperty({
     description: 'Country the airport is located in',
@@ -110,7 +111,7 @@ export type AircraftAirportRow = {
   id: string;
   iataCode: string;
   name: string;
-  city: string;
+  city: { id: string; name: string };
   country: string;
   location: unknown;
 };

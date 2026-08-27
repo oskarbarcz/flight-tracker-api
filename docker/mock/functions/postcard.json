@@ -1,0 +1,278 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/mypreflight-files/postcards/cefqddab1-b5dc-4764-bb7d-43bf1f606208.png"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["image/png"]
+      },
+      "body": {
+        "type": "BINARY",
+        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwBfYFIYwryH8OITBAtzm7PV1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFYzaX4SOB0fUAAAAASUVORK5CYII="
+      }
+    },
+    "priority": 25
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/mypreflight-files/postcards/a13b60a0-9253-4c77-a8fa-68bfb07c5971.png"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["image/png"]
+      },
+      "body": {
+        "type": "BINARY",
+        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PwQkAIBDAsBvSt1O4Pw7hIwiFDpDOPuvrhgsa0IIGtKABLWhACxrQgga0oAEtaEALGtCCBrSgAS1oQAsa0IIGtKABLWhACxrQgga0oAEtaEALGtCCBrSgAS1oQAsa0IIGtKABLWhACxrQgga0oAEtaEALGtCCBrSgAS1oQAsa0IIGtKABLWhACxrQgga04LEL/EWyaZEJK30AAAAASUVORK5CYII="
+      }
+    },
+    "priority": 25
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/mypreflight-files/postcards/f57fbaa1-4332-4dba-9d10-931cc053111f.png"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["image/png"]
+      },
+      "body": {
+        "type": "BINARY",
+        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwBfUAKYwuyH8OITBAtzm7PV1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFFjIMlgY42NkAAAAASUVORK5CYII="
+      }
+    },
+    "priority": 25
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/mypreflight-files/postcards/8d8fc159-e5b1-4a3d-ac4d-1f0d1aae8f1d.png"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["image/png"]
+      },
+      "body": {
+        "type": "BINARY",
+        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwJfPfMYxnCH8OITBAtzm7PV1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFpTdw/zeJgQ4AAAAASUVORK5CYII="
+      }
+    },
+    "priority": 25
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/mypreflight-files/postcards/63ed849d-2865-418c-8d4c-059aab2096bb.png"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["image/png"]
+      },
+      "body": {
+        "type": "BINARY",
+        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwBfXSEYwpiH8OITBAtxm7fN1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFvDaeDq85X98AAAAASUVORK5CYII="
+      }
+    },
+    "priority": 25
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/mypreflight-files/postcards/213b197b-b74a-4ae0-84ff-be37190c00d9.png"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["image/png"]
+      },
+      "body": {
+        "type": "BINARY",
+        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwJfSKAYwuSH8OITBAtxmnf11wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFSwoOpa+e+GUAAAAASUVORK5CYII="
+      }
+    },
+    "priority": 25
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/mypreflight-files/postcards/d7f1b070-69e5-46c5-8a9f-5c3fdd2b8a81.png"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["image/png"]
+      },
+      "body": {
+        "type": "BINARY",
+        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwJfaFIYxoiH8OITBAtxmr/N1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFi9h1HeZBRLsAAAAASUVORK5CYII="
+      }
+    },
+    "priority": 25
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/mypreflight-files/postcards/aa25fe19-3d1b-48c7-919d-a0eab5eba254.png"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["image/png"]
+      },
+      "body": {
+        "type": "BINARY",
+        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwBfPGIYysCH8OITBAtxm7fN1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgF+IOLh3dO/JwAAAAASUVORK5CYII="
+      }
+    },
+    "priority": 25
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/mypreflight-files/postcards/e1af9fef-d903-4f8d-8d23-b644b2b961c2.png"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["image/png"]
+      },
+      "body": {
+        "type": "BINARY",
+        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwBfOBCY1oiH8OITBAtzmrP11wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFtdlilgol1XMAAAAASUVORK5CYII="
+      }
+    },
+    "priority": 25
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/mypreflight-files/postcards/dd8cd3b6-38bd-49b7-87f4-e03d8ec05147.png"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["image/png"]
+      },
+      "body": {
+        "type": "BINARY",
+        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwJfNVCY0lyH8OITBAtzm7PV1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFXUNB4dQLNwkAAAAASUVORK5CYII="
+      }
+    },
+    "priority": 25
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/postcard-generator/postcard/city",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      },
+      "queryStringParameters": {
+        "city": ["北京"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 400,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "error": {
+          "code": "BAD_REQUEST",
+          "message": "Parameter city may only contain Latin letters, digits, spaces, apostrophes and dots.",
+          "status": 400
+        }
+      }
+    },
+    "priority": 15
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/postcard-generator/postcard/city",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      },
+      "queryStringParameters": {
+        "uuid": ["0b5f2f18-9c3a-4b7e-8d21-6a4f0c9e7b53"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 202,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "code": "9dc953214622ec06d8db424c91245cee",
+        "error": "Response not yet ready."
+      }
+    },
+    "priority": 15
+  },
+  {
+    "httpRequest": {
+      "method": "HEAD",
+      "path": "/mypreflight-files/postcards/0b5f2f18-9c3a-4b7e-8d21-6a4f0c9e7b53.jpg"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["image/jpeg"]
+      }
+    },
+    "priority": 15
+  },
+  {
+    "httpRequest": {
+      "method": "HEAD",
+      "path": "/mypreflight-files/postcards/.*"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["image/jpeg"]
+      }
+    },
+    "priority": 10
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/postcard-generator/postcard/city",
+      "headers": {
+        "X-Require-Whisk-Auth": ["very-secret-token"]
+      }
+    },
+    "priority": 10,
+    "httpResponseTemplate": {
+      "templateType": "MUSTACHE",
+      "template": "{'statusCode': 200,'headers': { 'Content-Type': [ 'application/json' ] },'body': {'city': '{{ request.queryStringParameters.city.0 }}','uuid': '{{ request.queryStringParameters.uuid.0 }}','model': 'gpt-image-2','size': '1152x1536','quality': 'high','format': 'jpeg','contentType': 'image/jpeg','bytes': 312044,'prompt': 'TARGET_CITY = \"{{ request.queryStringParameters.city.0 }}\"','key': 'postcards/{{ request.queryStringParameters.uuid.0 }}.jpg','url': 'http://functions-mock:1080/mypreflight-files/postcards/{{ request.queryStringParameters.uuid.0 }}.jpg'}}"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/postcard-generator/postcard/city"
+    },
+    "httpResponse": {
+      "statusCode": 401,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "code": "1cbe74760de2d9cfb5f9a46129004695",
+        "error": "Authentication is possible but has failed or not yet been provided."
+      }
+    },
+    "priority": -1
+  }
+]

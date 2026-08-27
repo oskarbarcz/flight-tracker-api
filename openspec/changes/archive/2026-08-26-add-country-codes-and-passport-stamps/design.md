@@ -43,16 +43,16 @@ See `proposal.md` — Why. What shapes the approach here is where country alread
 `isKnownCountryCode`, `findCountryByName`) and derives the flag emoji from the code by mapping each
 letter to its regional indicator symbol.
 
-*Why not a table:* countries do not change on a schedule anyone operates, nothing joins to them in
+_Why not a table:_ countries do not change on a schedule anyone operates, nothing joins to them in
 SQL (the code is the join), and a table would drag in a migration, a seed loader, a repository and a
 `GET` that can 404. The manifest module already holds its commodity catalogue this way.
 
-*Why not call `Intl.DisplayNames` at runtime:* ICU data moves between Node versions, so the name for
+_Why not call `Intl.DisplayNames` at runtime:_ ICU data moves between Node versions, so the name for
 a code could change under us — and because the stored value is the code, a drifting name is only a
 display bug rather than data loss. Freezing the names in a file also means the reverse mapping used
 by the migration is the same table that produced the names now in the database.
 
-*Generation:* the file is generated once by a throwaway script that walks every assigned alpha-2
+_Generation:_ the file is generated once by a throwaway script that walks every assigned alpha-2
 code through `Intl.DisplayNames`, applies the project override `US → United States of America`, and
 excludes the user-assigned ranges. It is generated, then checked in and owned by hand.
 
@@ -62,13 +62,13 @@ Every catalogue entry carries a continent, and `Continent` had six members with 
 `AQ` — an assigned code — had nowhere to sit. The enum gains `antarctica` and the catalogue carries
 all 249 assigned codes.
 
-*Alternative rejected:* omit `AQ` and document the omission. It was the smaller change, but it
+_Alternative rejected:_ omit `AQ` and document the omission. It was the smaller change, but it
 contradicted this change's own rule — that only unassigned and user-assigned codes are refused —
 and it left a dead end. An airport already recording the country name `Antarctica`, which the
 deleted `toCountryName` would have produced for a real aerodrome such as NZWD, SCRM or NZFX, would
 abort the migration with nothing to map to and no way forward.
 
-*Consequences.* The migration adds the value with `ALTER TYPE ... ADD VALUE ... BEFORE 'asia'`,
+_Consequences._ The migration adds the value with `ALTER TYPE ... ADD VALUE ... BEFORE 'asia'`,
 which Postgres permits inside a transaction only because nothing in the same transaction uses the
 new value. Rollback is the awkward half: Postgres cannot drop an enum value, so `down.sql` rebuilds
 the type — renaming the old one, creating it afresh without `antarctica`, moving the three columns
@@ -88,7 +88,7 @@ A single `CountryRef { code, name }` in `countries/model/` is reused by every DT
 country, so the shape is defined once and Swagger documents it once. Repositories keep selecting the
 bare `country` column; the mapping to `CountryRef` happens where the response is assembled.
 
-*Alternative rejected:* a `countryName` sibling field. Two fields that must agree forever, and every
+_Alternative rejected:_ a `countryName` sibling field. Two fields that must agree forever, and every
 consumer would have to be told which one is authoritative.
 
 ### The migration maps names to codes and aborts on anything it cannot map
@@ -116,7 +116,7 @@ dormant pilots indefinitely. It costs one more `UPDATE` to migrate it with the s
 The passport read is a `GROUP BY country` over that log producing count, `MIN(visitedAt)` and
 `MAX(visitedAt)`. Unlocked-in-period is the same `MIN` filtered to the period.
 
-*Alternative rejected:* also maintaining a `UserStatsByCountry` aggregate. It would be a second
+_Alternative rejected:_ also maintaining a `UserStatsByCountry` aggregate. It would be a second
 thing to keep in step with the log for a query that groups a handful of rows per pilot. If the
 passport ever gets slow, the aggregate is a cache to add later, not a shape to commit to now.
 
@@ -126,13 +126,13 @@ A `@OnEvent(FlightEventType.OnBlockWasReported)` listener in `statistics` dispat
 `StampCountryVisitCommand`, which resolves the landing airport's country through
 `GetAirportByIdQuery` on the bus and inserts the stamp, ignoring a conflict on `(userId, flightId)`.
 
-*Why not fold it into `RecomputeUserStatisticsCommand`:* the recompute derives from
+_Why not fold it into `RecomputeUserStatisticsCommand`:_ the recompute derives from
 `CaptainFlightFact`, which carries a flight's airports without their type and without any knowledge
 of diversions. Deriving the true landing airport there would mean widening the fact query and
 re-implementing the resolution `report-on-block.command.ts` has already done. The event hands us the
 answer.
 
-*Consequence:* stamps are append-only, so a flight deleted or re-flown after the fact leaves its
+_Consequence:_ stamps are append-only, so a flight deleted or re-flown after the fact leaves its
 stamp behind. That matches a passport, and the unique constraint keeps a replay from adding a second
 one.
 

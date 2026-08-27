@@ -29,7 +29,7 @@ hold, and the real type of every nullable field. A conflict aboard is visible on
 The hold diagram renders for every type the fleet actually operates.
 
 **Non-goals.** A cross-flight cargo query, an air waybill lookup, cargo socket events and cargo
-statistics were all considered and dropped. A segregation *dictionary* endpoint was considered
+statistics were all considered and dropped. A segregation _dictionary_ endpoint was considered
 and dropped in favour of per-flight advisories. No PDF rendering. No rotation-level aggregation.
 
 ## Decisions
@@ -40,7 +40,7 @@ and dropped in favour of per-flight advisories. No PDF rendering. No rotation-le
 an identifier list derived from the loaded catalogue at module evaluation, not a hand-written
 copy. Adding a commodity to the dataset therefore updates the published contract by itself.
 
-*Alternative considered*: a literal union transcribed into the DTO. Rejected — a second copy of
+_Alternative considered_: a literal union transcribed into the DTO. Rejected — a second copy of
 a hundred slugs that nothing keeps in step with the first.
 
 ### The advisory reports the pair, so the matrix computes pairs
@@ -53,7 +53,7 @@ Advisories are computed per compartment over **loaded** shipments only, from the
 carried on each shipment row. Offloaded freight is out of the hold and cannot clash with what
 remains.
 
-*Alternative considered*: recomputing from the commodity catalogue by identifier. Rejected — the
+_Alternative considered_: recomputing from the commodity catalogue by identifier. Rejected — the
 shipment already stores its codes, and a manifest must describe what was loaded even if the
 catalogue is edited afterwards.
 
@@ -72,7 +72,7 @@ The spec requirement is therefore fleet coverage, which is checkable, rather tha
 which is not. A dataset test asserts every type an aircraft is recorded as resolves to a layout,
 so the catalogue cannot silently fall behind the fleet again.
 
-*Alternative considered*: curating the twenty most common widebodies. Rejected as unfalsifiable —
+_Alternative considered_: curating the twenty most common widebodies. Rejected as unfalsifiable —
 there is no test that says when it is finished, and the degraded path exists precisely so that an
 unknown type is handled.
 
@@ -84,7 +84,7 @@ Grepping the source is unreliable, because what matters is what Nest emitted. Th
 therefore driven and verified by fetching the document and looking for properties that are
 `object` with neither `properties` nor `$ref`, and a scenario keeps the count at zero.
 
-*Alternative considered*: fixing only the 23 cargo properties. Rejected by the change's owner —
+_Alternative considered_: fixing only the 23 cargo properties. Rejected by the change's owner —
 the same defect blocks every other client surface, and the sweep is the same work either way.
 
 ## Risks / Trade-offs

@@ -148,7 +148,6 @@ refused.
 - **WHEN** operations writes a loadsheet reporting any cargo tonnage
 - **THEN** the loadsheet is accepted
 
-
 ### Requirement: An aircraft whose type has no hold data still carries cargo
 
 The system SHALL generate a cargo manifest for an aircraft whose airframe type has no curated

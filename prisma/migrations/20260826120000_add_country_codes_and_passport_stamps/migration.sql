@@ -19,6 +19,7 @@ INSERT INTO "_country_code_map" ("name", "code") VALUES
   ('Andorra', 'AD'),
   ('Angola', 'AO'),
   ('Anguilla', 'AI'),
+  ('Antarctica', 'AQ'),
   ('Antigua & Barbuda', 'AG'),
   ('Argentina', 'AR'),
   ('Armenia', 'AM'),

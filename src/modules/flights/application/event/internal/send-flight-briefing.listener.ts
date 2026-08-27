@@ -72,9 +72,9 @@ export class SendFlightBriefingListener {
 
       const content = formatFlightBriefing({
         flightNumber: flight.flightNumber,
-        departure: { city: departure.city, iataCode: departure.iataCode },
+        departure: { city: departure.city.name, iataCode: departure.iataCode },
         destination: {
-          city: destination.city,
+          city: destination.city.name,
           iataCode: destination.iataCode,
         },
         aircraft: {

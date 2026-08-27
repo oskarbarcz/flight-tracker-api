@@ -55,11 +55,23 @@ export async function loadStatistics(
   );
 
   const airports = await tx.airport.findMany({
-    select: { id: true, country: true },
+    select: { id: true, country: true, cityId: true },
   });
   const countryByAirport = new Map(
     airports.map((airport) => [airport.id, airport.country]),
   );
+  const cityByAirport = new Map(
+    airports.map((airport) => [airport.id, airport.cityId]),
+  );
+
+  const cityVisits: {
+    id: string;
+    userId: string;
+    cityId: string;
+    flightId: string;
+    airportId: string;
+    visitedAt: Date;
+  }[] = [];
 
   const stamps: {
     id: string;
@@ -121,6 +133,21 @@ export async function loadStatistics(
       });
     }
 
+    const landingCity = landingAirportId
+      ? cityByAirport.get(landingAirportId)
+      : undefined;
+
+    if (landingAirportId && landingCity) {
+      cityVisits.push({
+        id: v4(),
+        userId: captainId,
+        cityId: landingCity,
+        flightId: flight.id,
+        airportId: landingAirportId,
+        visitedAt: completedAt,
+      });
+    }
+
     const facts = factsByCaptain.get(captainId) ?? [];
     facts.push({
       flightId: flight.id,
@@ -143,6 +170,10 @@ export async function loadStatistics(
 
   if (stamps.length) {
     await tx.userCountryVisit.createMany({ data: stamps });
+  }
+
+  if (cityVisits.length) {
+    await tx.userCityVisit.createMany({ data: cityVisits });
   }
 
   for (const [userId, facts] of factsByCaptain) {

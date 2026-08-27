@@ -45,4 +45,3 @@ flight from being released, or prevent boarding from being finished.
 - **GIVEN** a loadsheet whose load includes a shipment assessed as high risk
 - **WHEN** operations writes it
 - **THEN** the loadsheet is accepted and the shipment is loaded
-

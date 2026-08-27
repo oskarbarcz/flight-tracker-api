@@ -28,7 +28,7 @@ const selectAirport = {
   id: true,
   icaoCode: true,
   iataCode: true,
-  city: true,
+  city: { select: { id: true, name: true } },
   name: true,
   country: true,
   timezone: true,
@@ -49,6 +49,7 @@ export class AirportsRepository {
   async create(
     airportId: string,
     data: CreateAirportRequest,
+    cityId: string,
   ): Promise<AirportView> {
     const airport = await this.findOneBy({ icaoCode: data.icaoCode });
 
@@ -59,7 +60,14 @@ export class AirportsRepository {
     return this.prisma.airport.create({
       data: {
         id: airportId,
-        ...data,
+        icaoCode: data.icaoCode,
+        iataCode: data.iataCode,
+        name: data.name,
+        cityId,
+        country: data.country,
+        timezone: data.timezone,
+        continent: data.continent,
+        dataQuality: data.dataQuality,
         location: data.location as unknown as Prisma.JsonObject,
         shape:
           data.shape == null
@@ -90,7 +98,11 @@ export class AirportsRepository {
     return airport;
   }
 
-  async update(id: string, data: UpdateAirportResponse): Promise<AirportView> {
+  async update(
+    id: string,
+    data: UpdateAirportResponse,
+    cityId?: string,
+  ): Promise<AirportView> {
     const airport = await this.findOneBy({ id });
 
     if (!airport) {
@@ -100,7 +112,14 @@ export class AirportsRepository {
     return this.prisma.airport.update({
       where: { id },
       data: {
-        ...data,
+        icaoCode: data.icaoCode,
+        iataCode: data.iataCode,
+        name: data.name,
+        cityId,
+        country: data.country,
+        timezone: data.timezone,
+        continent: data.continent,
+        dataQuality: data.dataQuality,
         location: data.location as unknown as Prisma.JsonObject,
         shape:
           data.shape === undefined

@@ -16,11 +16,15 @@ const schedule = {
 };
 
 const airports = [
-  { type: AirportType.Departure, city: 'Barcelona', iataCode: 'BCN' },
-  { type: AirportType.Destination, city: 'New York', iataCode: 'JFK' },
+  { type: AirportType.Departure, city: { name: 'Barcelona' }, iataCode: 'BCN' },
+  {
+    type: AirportType.Destination,
+    city: { name: 'New York' },
+    iataCode: 'JFK',
+  },
   {
     type: AirportType.DestinationAlternate,
-    city: 'Boston',
+    city: { name: 'Boston' },
     iataCode: 'BOS',
   },
 ];
@@ -127,7 +131,11 @@ describe('buildDiscordPresence', () => {
       buildDiscordPresence(
         flight({
           airports: [
-            { type: AirportType.Departure, city: 'Barcelona', iataCode: 'BCN' },
+            {
+              type: AirportType.Departure,
+              city: { name: 'Barcelona' },
+              iataCode: 'BCN',
+            },
           ],
         }),
       ),

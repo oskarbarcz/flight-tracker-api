@@ -78,7 +78,7 @@ and the existing `/api/v1/auth/sign-in` password flow is untouched.
   `sign-in-with-discord`) and their actions must thread the request's User-Agent and IP
   so web sessions are labelled too.
 - **`users` module:** `GET /api/v1/user/me/transponder`; `GET` and `DELETE
-  /api/v1/user/me/sessions[/:id]`.
+/api/v1/user/me/sessions[/:id]`.
 - **`core`:** `JwtUser` gains `scopes?: string[]`; new `@Scope()` decorator and
   `ScopesGuard` registered as an `APP_GUARD` beside `RolesGuard`. `JwtTokenGuard` is
   unchanged.

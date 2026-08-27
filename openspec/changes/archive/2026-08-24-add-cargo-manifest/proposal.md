@@ -14,7 +14,7 @@ itself.
 
 Unlike the cabin, there is no catalogue to mirror. AeroLOPA publishes 1601 real seat maps;
 nothing comparable exists for cargo holds, and no public source gives per-position designators
-for a given type. What *is* public is the vocabulary: IATA's ULD type codes, IATA's special
+for a given type. What _is_ public is the vocabulary: IATA's ULD type codes, IATA's special
 handling codes, the UN dangerous goods list, and the emergency response drill chart. So this
 change builds its reference data in the repository and takes its authenticity from using the
 industry's own vocabulary correctly rather than from mirroring a provider.
@@ -73,7 +73,7 @@ industry's own vocabulary correctly rather than from mirroring a provider.
   issued when operations releases the flight and acknowledged when the pilot checks in; a final
   one is issued and acknowledged by the request that finishes boarding. Both are immutable
   snapshots, and the final one reports what changed since the preliminary was accepted. No new
-  endpoint acknowledges anything: the existing transition *is* the acknowledgement.
+  endpoint acknowledges anything: the existing transition _is_ the acknowledgement.
 - **Derive the emergency response code rather than looking it up.** ICAO Doc 9481's code table
   is paywalled, but the drill chart that defines the codes is public: a drill number for the
   inherent risk and letters for additional risks. Every dangerous goods entry's code is

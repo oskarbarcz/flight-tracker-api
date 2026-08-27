@@ -63,7 +63,10 @@ Feature: Update a flight diversion
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "icaoCode": "EDDF",
           "iataCode": "FRA",
-          "city": "Frankfurt",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
           "name": "Frankfurt Rhein/Main",
           "country": {
             "code": "DE",
@@ -222,7 +225,10 @@ Feature: Update a flight diversion
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "icaoCode": "EDDF",
           "iataCode": "FRA",
-          "city": "Frankfurt",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
           "name": "Frankfurt Rhein/Main",
           "country": {
             "code": "DE",
@@ -275,7 +281,10 @@ Feature: Update a flight diversion
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "icaoCode": "KJFK",
           "iataCode": "JFK",
-          "city": "New York",
+          "city": {
+            "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+            "name": "New York"
+          },
           "name": "New York JFK",
           "country": {
             "code": "US",

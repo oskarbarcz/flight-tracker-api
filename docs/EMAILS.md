@@ -6,10 +6,10 @@ and your email address. Everything about your flights happens in the app or over
 Every message is plain text, and every link in one works **once** and then expires.
 
 | When                                  | Sent to               | Subject                                   |
-|---------------------------------------|-----------------------|-------------------------------------------|
-| You ask to reset a forgotten password | the address you typed | *Reset your password*                     |
-| You ask to change your email address  | the new address       | *Confirm your new email address*          |
-| You ask to change your email address  | your current address  | *Your email address change was requested* |
+| ------------------------------------- | --------------------- | ----------------------------------------- |
+| You ask to reset a forgotten password | the address you typed | _Reset your password_                     |
+| You ask to change your email address  | the new address       | _Confirm your new email address_          |
+| You ask to change your email address  | your current address  | _Your email address change was requested_ |
 
 ## Reset your password
 

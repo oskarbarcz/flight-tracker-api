@@ -59,7 +59,10 @@ Feature: Create airport
         "id": "@uuid",
         "icaoCode": "KMIA",
         "iataCode": "MIA",
-        "city": "Miami",
+        "city": {
+          "id": "@uuid",
+          "name": "Miami"
+        },
         "name": "Miami Intl",
         "country": {
           "code": "US",
@@ -162,9 +165,7 @@ Feature: Create airport
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "country": [
-            "country must be a known ISO 3166-1 alpha-2 country code"
-          ],
+          "country": ["country must be a known ISO 3166-1 alpha-2 country code"],
           "timezone": [
             "timezone should not be empty",
             "timezone must be a valid IANA time-zone",
@@ -228,9 +229,7 @@ Feature: Create airport
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "country": [
-            "country must be a known ISO 3166-1 alpha-2 country code"
-          ]
+          "country": ["country must be a known ISO 3166-1 alpha-2 country code"]
         }
       }
       """
@@ -261,9 +260,7 @@ Feature: Create airport
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "country": [
-            "country must be a known ISO 3166-1 alpha-2 country code"
-          ]
+          "country": ["country must be a known ISO 3166-1 alpha-2 country code"]
         }
       }
       """
@@ -294,9 +291,7 @@ Feature: Create airport
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "country": [
-            "country must be a known ISO 3166-1 alpha-2 country code"
-          ]
+          "country": ["country must be a known ISO 3166-1 alpha-2 country code"]
         }
       }
       """
@@ -325,6 +320,115 @@ Feature: Create airport
       {
         "code": "US",
         "name": "United States of America"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations an airport in a city that already exists joins that city
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "EDFH",
+        "iataCode": "HHN",
+        "city": "Frankfurt",
+        "name": "Frankfurt Hahn",
+        "country": "DE",
+        "timezone": "Europe/Berlin",
+        "location": {
+          "latitude": 49.9487,
+          "longitude": 7.2639
+        },
+        "continent": "europe"
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "icaoCode": "EDFH",
+        "iataCode": "HHN",
+        "city": {
+          "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+          "name": "Frankfurt"
+        },
+        "name": "Frankfurt Hahn",
+        "country": {
+          "code": "DE",
+          "name": "Germany"
+        },
+        "timezone": "Europe/Berlin",
+        "continent": "europe",
+        "dataQuality": "low",
+        "location": {
+          "latitude": 49.9487,
+          "longitude": 7.2639
+        },
+        "shape": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations a city of the same name in another country is a separate city
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "KFFT",
+        "iataCode": "FFT",
+        "city": "Frankfurt",
+        "name": "Frankfurt Capital City",
+        "country": "US",
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 38.1845,
+          "longitude": -84.9047
+        },
+        "continent": "north_america"
+      }
+      """
+    Then the response status should be 201
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "EDFE",
+        "iataCode": "QEF",
+        "city": "Frankfurt",
+        "name": "Frankfurt Egelsbach",
+        "country": "DE",
+        "timezone": "Europe/Berlin",
+        "location": {
+          "latitude": 49.9599,
+          "longitude": 8.6413
+        },
+        "continent": "europe"
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "icaoCode": "EDFE",
+        "iataCode": "QEF",
+        "city": {
+          "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+          "name": "Frankfurt"
+        },
+        "name": "Frankfurt Egelsbach",
+        "country": {
+          "code": "DE",
+          "name": "Germany"
+        },
+        "timezone": "Europe/Berlin",
+        "continent": "europe",
+        "dataQuality": "low",
+        "location": {
+          "latitude": 49.9599,
+          "longitude": 8.6413
+        },
+        "shape": null
       }
       """
     And I set database to initial state

@@ -213,7 +213,6 @@ Feature: Manage own Discord settings
       """
     And I set database to initial state
 
-
   Scenario: As a cabin crew changing one setting leaves the others alone
     Given I am signed in as "cabin crew"
     When I send a "PATCH" request to "/api/v1/user/me/discord-settings" with body:

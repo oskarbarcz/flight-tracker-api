@@ -35,11 +35,13 @@ here either adds a field or corrects what the contract claims about a field that
 ## Capabilities
 
 ### New Capabilities
+
 - `api-contract-documentation`: the rules the published OpenAPI document must satisfy — a value
   drawn from a closed set is documented as that set, and a nullable value is documented with its
   type rather than as an untyped object.
 
 ### Modified Capabilities
+
 - `flight-cargo-manifest`: the manifest additionally reports the segregation conflicts present
   in each compartment.
 - `aircraft-hold-layout`: the curated catalogue covers every airframe type in the operated

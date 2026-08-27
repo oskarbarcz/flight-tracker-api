@@ -7,10 +7,7 @@
       "Premium graded roses",
       "Mixed rose bouquets"
     ],
-    "shc": [
-      "PER",
-      "PEF"
-    ],
+    "shc": ["PER", "PEF"],
     "densityKgM3": 120,
     "piece": {
       "minKg": 18,
@@ -21,43 +18,13 @@
     "maxPieces": 420,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "NBO",
-        "BOG",
-        "UIO",
-        "JRO",
-        "AMS",
-        "MDE"
-      ],
-      "countries": [
-        "KE",
-        "CO",
-        "EC",
-        "ET",
-        "NL"
-      ],
-      "continents": [
-        "africa",
-        "south_america"
-      ]
+      "airports": ["NBO", "BOG", "UIO", "JRO", "AMS", "MDE"],
+      "countries": ["KE", "CO", "EC", "ET", "NL"],
+      "continents": ["africa", "south_america"]
     },
-    "demand": [
-      "europe",
-      "north_america",
-      "asia"
-    ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      11,
-      12
-    ],
-    "peakMonths": [
-      2
-    ],
+    "demand": ["europe", "north_america", "asia"],
+    "months": [1, 2, 3, 4, 5, 11, 12],
+    "peakMonths": [2],
     "frequency": 8,
     "compartment": {
       "requiresHeated": false,
@@ -74,14 +41,8 @@
   {
     "id": "flowers-tulips",
     "name": "Cut tulips",
-    "descriptions": [
-      "Cut tulips, boxed",
-      "Tulip bunches, graded"
-    ],
-    "shc": [
-      "PER",
-      "PEF"
-    ],
+    "descriptions": ["Cut tulips, boxed", "Tulip bunches, graded"],
+    "shc": ["PER", "PEF"],
     "densityKgM3": 130,
     "piece": {
       "minKg": 14,
@@ -92,15 +53,9 @@
     "maxPieces": 380,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "AMS"
-      ],
-      "countries": [
-        "NL"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["AMS"],
+      "countries": ["NL"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -110,15 +65,8 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      2,
-      3,
-      4,
-      5
-    ],
-    "peakMonths": [
-      3
-    ],
+    "months": [2, 3, 4, 5],
+    "peakMonths": [3],
     "frequency": 6,
     "compartment": {
       "requiresHeated": false,
@@ -135,15 +83,8 @@
   {
     "id": "salmon-fresh",
     "name": "Fresh salmon",
-    "descriptions": [
-      "Fresh Atlantic salmon, gutted",
-      "Salmon fillets, iced"
-    ],
-    "shc": [
-      "PER",
-      "PES",
-      "WET"
-    ],
+    "descriptions": ["Fresh Atlantic salmon, gutted", "Salmon fillets, iced"],
+    "shc": ["PER", "PES", "WET"],
     "densityKgM3": 380,
     "piece": {
       "minKg": 20,
@@ -154,19 +95,9 @@
     "maxPieces": 600,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "OSL",
-        "SVG",
-        "TRD",
-        "KEF"
-      ],
-      "countries": [
-        "NO",
-        "IS"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["OSL", "SVG", "TRD", "KEF"],
+      "countries": ["NO", "IS"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -176,20 +107,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 8,
     "compartment": {
@@ -207,15 +125,8 @@
   {
     "id": "cod-fresh",
     "name": "Fresh cod",
-    "descriptions": [
-      "Fresh cod, gutted and iced",
-      "Cod loins, iced"
-    ],
-    "shc": [
-      "PER",
-      "PES",
-      "WET"
-    ],
+    "descriptions": ["Fresh cod, gutted and iced", "Cod loins, iced"],
+    "shc": ["PER", "PES", "WET"],
     "densityKgM3": 400,
     "piece": {
       "minKg": 18,
@@ -226,15 +137,9 @@
     "maxPieces": 500,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "KEF"
-      ],
-      "countries": [
-        "IS"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["KEF"],
+      "countries": ["IS"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -244,20 +149,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 7,
     "compartment": {
@@ -275,15 +167,8 @@
   {
     "id": "live-lobster",
     "name": "Live lobster",
-    "descriptions": [
-      "Live lobster, packed in gel",
-      "Live lobster, graded"
-    ],
-    "shc": [
-      "PER",
-      "PES",
-      "WET"
-    ],
+    "descriptions": ["Live lobster, packed in gel", "Live lobster, graded"],
+    "shc": ["PER", "PES", "WET"],
     "densityKgM3": 450,
     "piece": {
       "minKg": 22,
@@ -294,41 +179,13 @@
     "maxPieces": 260,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "BOS",
-        "YHZ",
-        "YYT"
-      ],
-      "countries": [
-        "US",
-        "CA"
-      ],
-      "continents": [
-        "north_america"
-      ]
+      "airports": ["BOS", "YHZ", "YYT"],
+      "countries": ["US", "CA"],
+      "continents": ["north_america"]
     },
-    "demand": [
-      "europe",
-      "asia"
-    ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
-    "peakMonths": [
-      11,
-      12
-    ],
+    "demand": ["europe", "asia"],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "peakMonths": [11, 12],
     "frequency": 6,
     "compartment": {
       "requiresHeated": false,
@@ -345,15 +202,8 @@
   {
     "id": "snow-crab",
     "name": "Snow crab",
-    "descriptions": [
-      "Frozen snow crab sections",
-      "Snow crab clusters"
-    ],
-    "shc": [
-      "PER",
-      "PES",
-      "FRO"
-    ],
+    "descriptions": ["Frozen snow crab sections", "Snow crab clusters"],
+    "shc": ["PER", "PES", "FRO"],
     "densityKgM3": 500,
     "piece": {
       "minKg": 20,
@@ -364,17 +214,9 @@
     "maxPieces": 500,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "YYT",
-        "YYR",
-        "YHZ"
-      ],
-      "countries": [
-        "CA"
-      ],
-      "continents": [
-        "north_america"
-      ]
+      "airports": ["YYT", "YYR", "YHZ"],
+      "countries": ["CA"],
+      "continents": ["north_america"]
     },
     "demand": [
       "africa",
@@ -384,15 +226,8 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      4,
-      5,
-      6,
-      7
-    ],
-    "peakMonths": [
-      5
-    ],
+    "months": [4, 5, 6, 7],
+    "peakMonths": [5],
     "frequency": 5,
     "compartment": {
       "requiresHeated": false,
@@ -409,15 +244,8 @@
   {
     "id": "tuna-fresh",
     "name": "Fresh tuna",
-    "descriptions": [
-      "Fresh yellowfin tuna, whole",
-      "Tuna loins, iced"
-    ],
-    "shc": [
-      "PER",
-      "PES",
-      "WET"
-    ],
+    "descriptions": ["Fresh yellowfin tuna, whole", "Tuna loins, iced"],
+    "shc": ["PER", "PES", "WET"],
     "densityKgM3": 420,
     "piece": {
       "minKg": 25,
@@ -428,18 +256,9 @@
     "maxPieces": 120,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "NRT",
-        "BKK",
-        "SIN"
-      ],
-      "countries": [
-        "JP",
-        "TH"
-      ],
-      "continents": [
-        "asia"
-      ]
+      "airports": ["NRT", "BKK", "SIN"],
+      "countries": ["JP", "TH"],
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -449,20 +268,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 5,
     "compartment": {
@@ -484,10 +290,7 @@
       "Chilled beef primals, vacuum packed",
       "Beef striploin, chilled"
     ],
-    "shc": [
-      "PER",
-      "PEM"
-    ],
+    "shc": ["PER", "PEM"],
     "densityKgM3": 550,
     "piece": {
       "minKg": 22,
@@ -498,20 +301,9 @@
     "maxPieces": 700,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "GRU",
-        "EZE",
-        "SYD"
-      ],
-      "countries": [
-        "BR",
-        "AR",
-        "AU"
-      ],
-      "continents": [
-        "south_america",
-        "oceania"
-      ]
+      "airports": ["GRU", "EZE", "SYD"],
+      "countries": ["BR", "AR", "AU"],
+      "continents": ["south_america", "oceania"]
     },
     "demand": [
       "africa",
@@ -521,20 +313,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 6,
     "compartment": {
@@ -552,14 +331,8 @@
   {
     "id": "lamb-chilled",
     "name": "Chilled lamb",
-    "descriptions": [
-      "Chilled lamb racks, vacuum packed",
-      "Lamb legs, chilled"
-    ],
-    "shc": [
-      "PER",
-      "PEM"
-    ],
+    "descriptions": ["Chilled lamb racks, vacuum packed", "Lamb legs, chilled"],
+    "shc": ["PER", "PEM"],
     "densityKgM3": 520,
     "piece": {
       "minKg": 20,
@@ -570,16 +343,9 @@
     "maxPieces": 500,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "AKL",
-        "CHC"
-      ],
-      "countries": [
-        "NZ"
-      ],
-      "continents": [
-        "oceania"
-      ]
+      "airports": ["AKL", "CHC"],
+      "countries": ["NZ"],
+      "continents": ["oceania"]
     },
     "demand": [
       "africa",
@@ -589,14 +355,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6
-    ],
+    "months": [1, 2, 3, 4, 5, 6],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -614,14 +373,8 @@
   {
     "id": "cherries",
     "name": "Fresh cherries",
-    "descriptions": [
-      "Fresh cherries, punnets",
-      "Premium cherries, graded"
-    ],
-    "shc": [
-      "PER",
-      "PEP"
-    ],
+    "descriptions": ["Fresh cherries, punnets", "Premium cherries, graded"],
+    "shc": ["PER", "PEP"],
     "densityKgM3": 350,
     "piece": {
       "minKg": 5,
@@ -632,33 +385,13 @@
     "maxPieces": 900,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "SCL",
-        "MXP"
-      ],
-      "countries": [
-        "CL",
-        "IT"
-      ],
-      "continents": [
-        "south_america",
-        "europe"
-      ]
+      "airports": ["SCL", "MXP"],
+      "countries": ["CL", "IT"],
+      "continents": ["south_america", "europe"]
     },
-    "demand": [
-      "asia",
-      "north_america",
-      "europe"
-    ],
-    "months": [
-      12,
-      1,
-      6,
-      7
-    ],
-    "peakMonths": [
-      1
-    ],
+    "demand": ["asia", "north_america", "europe"],
+    "months": [12, 1, 6, 7],
+    "peakMonths": [1],
     "frequency": 5,
     "compartment": {
       "requiresHeated": false,
@@ -679,10 +412,7 @@
       "Fresh blueberries, punnets",
       "Mixed berries, ventilated cartons"
     ],
-    "shc": [
-      "PER",
-      "PEP"
-    ],
+    "shc": ["PER", "PEP"],
     "densityKgM3": 300,
     "piece": {
       "minKg": 4,
@@ -693,18 +423,9 @@
     "maxPieces": 900,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "LIM",
-        "BOG",
-        "MEX"
-      ],
-      "countries": [
-        "PE",
-        "CO"
-      ],
-      "continents": [
-        "south_america"
-      ]
+      "airports": ["LIM", "BOG", "MEX"],
+      "countries": ["PE", "CO"],
+      "continents": ["south_america"]
     },
     "demand": [
       "africa",
@@ -714,20 +435,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 5,
     "compartment": {
@@ -749,10 +457,7 @@
       "Fresh green asparagus, bunched",
       "Asparagus, iced cartons"
     ],
-    "shc": [
-      "PER",
-      "PEP"
-    ],
+    "shc": ["PER", "PEP"],
     "densityKgM3": 320,
     "piece": {
       "minKg": 5,
@@ -763,29 +468,12 @@
     "maxPieces": 700,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "LIM"
-      ],
-      "countries": [
-        "PE"
-      ],
-      "continents": [
-        "south_america"
-      ]
+      "airports": ["LIM"],
+      "countries": ["PE"],
+      "continents": ["south_america"]
     },
-    "demand": [
-      "europe",
-      "north_america"
-    ],
-    "months": [
-      9,
-      10,
-      11,
-      12,
-      1,
-      2,
-      3
-    ],
+    "demand": ["europe", "north_america"],
+    "months": [9, 10, 11, 12, 1, 2, 3],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -807,10 +495,7 @@
       "Fresh Alphonso mango, trays",
       "Mango, single layer cartons"
     ],
-    "shc": [
-      "PER",
-      "PEP"
-    ],
+    "shc": ["PER", "PEP"],
     "densityKgM3": 480,
     "piece": {
       "minKg": 4,
@@ -821,18 +506,9 @@
     "maxPieces": 900,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "BOM",
-        "MAA",
-        "BKK"
-      ],
-      "countries": [
-        "IN",
-        "TH"
-      ],
-      "continents": [
-        "asia"
-      ]
+      "airports": ["BOM", "MAA", "BKK"],
+      "countries": ["IN", "TH"],
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -842,15 +518,8 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      4,
-      5,
-      6,
-      7
-    ],
-    "peakMonths": [
-      5
-    ],
+    "months": [4, 5, 6, 7],
+    "peakMonths": [5],
     "frequency": 4,
     "compartment": {
       "requiresHeated": false,
@@ -867,15 +536,8 @@
   {
     "id": "cheese",
     "name": "Speciality cheese",
-    "descriptions": [
-      "Speciality cheese, wheels",
-      "Soft cheese, chilled"
-    ],
-    "shc": [
-      "PER",
-      "EAT",
-      "COL"
-    ],
+    "descriptions": ["Speciality cheese, wheels", "Soft cheese, chilled"],
+    "shc": ["PER", "EAT", "COL"],
     "densityKgM3": 600,
     "piece": {
       "minKg": 10,
@@ -886,18 +548,9 @@
     "maxPieces": 400,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "CDG",
-        "AMS",
-        "ZRH"
-      ],
-      "countries": [
-        "FR",
-        "NL"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["CDG", "AMS", "ZRH"],
+      "countries": ["FR", "NL"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -907,20 +560,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -938,15 +578,8 @@
   {
     "id": "vaccines",
     "name": "Vaccines",
-    "descriptions": [
-      "Vaccine doses, 2-8C",
-      "Vaccine vials, validated shipper"
-    ],
-    "shc": [
-      "PIL",
-      "COL",
-      "ACT"
-    ],
+    "descriptions": ["Vaccine doses, 2-8C", "Vaccine vials, validated shipper"],
+    "shc": ["PIL", "COL", "ACT"],
     "densityKgM3": 180,
     "piece": {
       "minKg": 8,
@@ -957,21 +590,9 @@
     "maxPieces": 120,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "BRU",
-        "DUB",
-        "HYD",
-        "SIN"
-      ],
-      "countries": [
-        "BE",
-        "IE",
-        "IN"
-      ],
-      "continents": [
-        "europe",
-        "asia"
-      ]
+      "airports": ["BRU", "DUB", "HYD", "SIN"],
+      "countries": ["BE", "IE", "IN"],
+      "continents": ["europe", "asia"]
     },
     "demand": [
       "africa",
@@ -981,25 +602,8 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
-    "peakMonths": [
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "peakMonths": [10, 11, 12],
     "frequency": 6,
     "compartment": {
       "requiresHeated": false,
@@ -1020,10 +624,7 @@
       "Insulin cartridges, 2-8C",
       "Insulin pens, validated shipper"
     ],
-    "shc": [
-      "PIL",
-      "COL"
-    ],
+    "shc": ["PIL", "COL"],
     "densityKgM3": 200,
     "piece": {
       "minKg": 6,
@@ -1034,16 +635,9 @@
     "maxPieces": 90,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "CPH",
-        "BSL"
-      ],
-      "countries": [
-        "DK"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["CPH", "BSL"],
+      "countries": ["DK"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -1053,20 +647,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -1088,10 +669,7 @@
       "Clinical trial kits, CRT",
       "Investigational product kits"
     ],
-    "shc": [
-      "PIL",
-      "CRT"
-    ],
+    "shc": ["PIL", "CRT"],
     "densityKgM3": 150,
     "piece": {
       "minKg": 5,
@@ -1102,19 +680,9 @@
     "maxPieces": 80,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "BSL",
-        "BOS",
-        "PHL"
-      ],
-      "countries": [
-        "CH",
-        "US"
-      ],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "airports": ["BSL", "BOS", "PHL"],
+      "countries": ["CH", "US"],
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -1124,20 +692,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -1155,15 +710,8 @@
   {
     "id": "blood-plasma",
     "name": "Blood plasma",
-    "descriptions": [
-      "Frozen blood plasma units",
-      "Plasma for fractionation"
-    ],
-    "shc": [
-      "PIL",
-      "COL",
-      "ACT"
-    ],
+    "descriptions": ["Frozen blood plasma units", "Plasma for fractionation"],
+    "shc": ["PIL", "COL", "ACT"],
     "densityKgM3": 1010,
     "piece": {
       "minKg": 10,
@@ -1174,18 +722,9 @@
     "maxPieces": 60,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "BOS",
-        "VIE"
-      ],
-      "countries": [
-        "US",
-        "AT"
-      ],
-      "continents": [
-        "north_america",
-        "europe"
-      ]
+      "airports": ["BOS", "VIE"],
+      "countries": ["US", "AT"],
+      "continents": ["north_america", "europe"]
     },
     "demand": [
       "africa",
@@ -1195,20 +734,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 3,
     "compartment": {
@@ -1230,10 +756,7 @@
       "Diagnostic reagent kits, 2-8C",
       "Assay reagents, chilled"
     ],
-    "shc": [
-      "PIL",
-      "COL"
-    ],
+    "shc": ["PIL", "COL"],
     "densityKgM3": 250,
     "piece": {
       "minKg": 6,
@@ -1244,18 +767,9 @@
     "maxPieces": 100,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "BOS",
-        "FRA"
-      ],
-      "countries": [
-        "US",
-        "DE"
-      ],
-      "continents": [
-        "north_america",
-        "europe"
-      ]
+      "airports": ["BOS", "FRA"],
+      "countries": ["US", "DE"],
+      "continents": ["north_america", "europe"]
     },
     "demand": [
       "africa",
@@ -1265,20 +779,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -1296,13 +797,8 @@
   {
     "id": "medical-devices",
     "name": "Medical devices",
-    "descriptions": [
-      "Sterile medical devices",
-      "Surgical instrument sets"
-    ],
-    "shc": [
-      "PIL"
-    ],
+    "descriptions": ["Sterile medical devices", "Surgical instrument sets"],
+    "shc": ["PIL"],
     "densityKgM3": 220,
     "piece": {
       "minKg": 8,
@@ -1313,19 +809,9 @@
     "maxPieces": 160,
     "offloadPriority": 3,
     "sources": {
-      "airports": [
-        "BOS",
-        "PHL",
-        "FRA"
-      ],
-      "countries": [
-        "US",
-        "DE"
-      ],
-      "continents": [
-        "north_america",
-        "europe"
-      ]
+      "airports": ["BOS", "PHL", "FRA"],
+      "countries": ["US", "DE"],
+      "continents": ["north_america", "europe"]
     },
     "demand": [
       "africa",
@@ -1335,20 +821,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 5,
     "compartment": {
@@ -1363,10 +836,7 @@
       "Living human organ for transplant",
       "Organ transport container"
     ],
-    "shc": [
-      "LHO",
-      "COL"
-    ],
+    "shc": ["LHO", "COL"],
     "densityKgM3": 900,
     "piece": {
       "minKg": 18,
@@ -1389,20 +859,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 1,
     "compartment": {
@@ -1424,11 +881,7 @@
       "Diagnostic specimens, Category B",
       "Patient samples, UN3373"
     ],
-    "shc": [
-      "PIL",
-      "RIS",
-      "COL"
-    ],
+    "shc": ["PIL", "RIS", "COL"],
     "densityKgM3": 200,
     "piece": {
       "minKg": 2,
@@ -1441,10 +894,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "north_america",
-        "europe"
-      ]
+      "continents": ["north_america", "europe"]
     },
     "demand": [
       "africa",
@@ -1454,20 +904,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.45,
     "compartment": {
@@ -1499,9 +936,7 @@
       "Infectious substance affecting humans",
       "Category A pathogen, UN2814"
     ],
-    "shc": [
-      "RIS"
-    ],
+    "shc": ["RIS"],
     "densityKgM3": 200,
     "piece": {
       "minKg": 2,
@@ -1524,20 +959,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.15,
     "compartment": {
@@ -1562,10 +984,7 @@
       "Radiopharmaceutical doses, Type A package",
       "Medical isotopes, shielded"
     ],
-    "shc": [
-      "PIL",
-      "RRY"
-    ],
+    "shc": ["PIL", "RRY"],
     "densityKgM3": 1200,
     "piece": {
       "minKg": 12,
@@ -1578,9 +997,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -1590,20 +1007,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.3,
     "compartment": {
@@ -1628,10 +1032,7 @@
       "Live horses in air stalls",
       "Competition horses, groomed in transit"
     ],
-    "shc": [
-      "AVI",
-      "HEA"
-    ],
+    "shc": ["AVI", "HEA"],
     "densityKgM3": 250,
     "piece": {
       "minKg": 450,
@@ -1642,21 +1043,9 @@
     "maxPieces": 6,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "LGG",
-        "AMS",
-        "MIA",
-        "LEX"
-      ],
-      "countries": [
-        "BE",
-        "NL",
-        "US"
-      ],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "airports": ["LGG", "AMS", "MIA", "LEX"],
+      "countries": ["BE", "NL", "US"],
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -1666,13 +1055,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      2,
-      3,
-      4,
-      9,
-      10
-    ],
+    "months": [2, 3, 4, 9, 10],
     "peakMonths": [],
     "frequency": 2,
     "compartment": {
@@ -1693,10 +1076,7 @@
       "Day-old chicks, ventilated boxes",
       "Broiler chicks, layered boxes"
     ],
-    "shc": [
-      "AVI",
-      "HEG"
-    ],
+    "shc": ["AVI", "HEG"],
     "densityKgM3": 90,
     "piece": {
       "minKg": 8,
@@ -1707,17 +1087,9 @@
     "maxPieces": 240,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "AMS",
-        "BRU"
-      ],
-      "countries": [
-        "NL",
-        "BE"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["AMS", "BRU"],
+      "countries": ["NL", "BE"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -1727,20 +1099,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -1755,10 +1114,7 @@
       "Hatching eggs, trayed",
       "Fertile eggs, ventilated cartons"
     ],
-    "shc": [
-      "AVI",
-      "HEG"
-    ],
+    "shc": ["AVI", "HEG"],
     "densityKgM3": 400,
     "piece": {
       "minKg": 12,
@@ -1769,19 +1125,9 @@
     "maxPieces": 400,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "AMS",
-        "BRU",
-        "FRA"
-      ],
-      "countries": [
-        "NL",
-        "BE",
-        "DE"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["AMS", "BRU", "FRA"],
+      "countries": ["NL", "BE", "DE"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -1791,20 +1137,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -1819,11 +1152,7 @@
       "Ornamental tropical fish in bags",
       "Live aquarium fish, oxygenated"
     ],
-    "shc": [
-      "AVI",
-      "PER",
-      "WET"
-    ],
+    "shc": ["AVI", "PER", "WET"],
     "densityKgM3": 400,
     "piece": {
       "minKg": 10,
@@ -1834,16 +1163,9 @@
     "maxPieces": 200,
     "offloadPriority": 4,
     "sources": {
-      "airports": [
-        "BKK",
-        "SIN"
-      ],
-      "countries": [
-        "TH"
-      ],
-      "continents": [
-        "asia"
-      ]
+      "airports": ["BKK", "SIN"],
+      "countries": ["TH"],
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -1853,20 +1175,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 3,
     "compartment": {
@@ -1888,10 +1197,7 @@
       "Breeding heifers in air stalls",
       "Pedigree cattle, stalled"
     ],
-    "shc": [
-      "AVI",
-      "HEA"
-    ],
+    "shc": ["AVI", "HEA"],
     "densityKgM3": 300,
     "piece": {
       "minKg": 400,
@@ -1902,19 +1208,9 @@
     "maxPieces": 12,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "AMS",
-        "FRA",
-        "CDG"
-      ],
-      "countries": [
-        "NL",
-        "DE",
-        "FR"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["AMS", "FRA", "CDG"],
+      "countries": ["NL", "DE", "FR"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -1924,20 +1220,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 2,
     "compartment": {
@@ -1958,9 +1241,7 @@
       "Domestic pet in IATA kennel",
       "Family pet, hold carriage"
     ],
-    "shc": [
-      "AVIH"
-    ],
+    "shc": ["AVIH"],
     "densityKgM3": 150,
     "piece": {
       "minKg": 10,
@@ -1983,20 +1264,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 3,
     "compartment": {
@@ -2011,11 +1279,7 @@
       "Zoo animal in bespoke crate",
       "Conservation transfer, crated"
     ],
-    "shc": [
-      "AVI",
-      "HEA",
-      "BIG"
-    ],
+    "shc": ["AVI", "HEA", "BIG"],
     "densityKgM3": 200,
     "piece": {
       "minKg": 120,
@@ -2026,17 +1290,9 @@
     "maxPieces": 3,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "FRA",
-        "AMS"
-      ],
-      "countries": [
-        "DE",
-        "NL"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "AMS"],
+      "countries": ["DE", "NL"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -2046,20 +1302,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 1,
     "compartment": {
@@ -2076,13 +1319,8 @@
   {
     "id": "honey-bees",
     "name": "Live honey bees",
-    "descriptions": [
-      "Queen bees with attendants",
-      "Bee packages, ventilated"
-    ],
-    "shc": [
-      "AVI"
-    ],
+    "descriptions": ["Queen bees with attendants", "Bee packages, ventilated"],
+    "shc": ["AVI"],
     "densityKgM3": 200,
     "piece": {
       "minKg": 2,
@@ -2105,12 +1343,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      3,
-      4,
-      5,
-      6
-    ],
+    "months": [3, 4, 5, 6],
     "peakMonths": [],
     "frequency": 2,
     "compartment": {
@@ -2125,9 +1358,7 @@
       "Silicon wafers in FOUP carriers",
       "Processed wafers, antistatic"
     ],
-    "shc": [
-      "VUN"
-    ],
+    "shc": ["VUN"],
     "densityKgM3": 250,
     "piece": {
       "minKg": 12,
@@ -2138,19 +1369,9 @@
     "maxPieces": 120,
     "offloadPriority": 3,
     "sources": {
-      "airports": [
-        "TPE",
-        "ICN",
-        "SIN",
-        "PEN"
-      ],
-      "countries": [
-        "TW",
-        "SG"
-      ],
-      "continents": [
-        "asia"
-      ]
+      "airports": ["TPE", "ICN", "SIN", "PEN"],
+      "countries": ["TW", "SG"],
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -2160,26 +1381,8 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
-    "peakMonths": [
-      8,
-      9,
-      10,
-      11
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "peakMonths": [8, 9, 10, 11],
     "frequency": 6,
     "compartment": {
       "requiresHeated": false,
@@ -2189,14 +1392,8 @@
   {
     "id": "smartphones",
     "name": "Smartphones",
-    "descriptions": [
-      "Smartphones, retail packed",
-      "Handsets, palletised"
-    ],
-    "shc": [
-      "VUN",
-      "XPS"
-    ],
+    "descriptions": ["Smartphones, retail packed", "Handsets, palletised"],
+    "shc": ["VUN", "XPS"],
     "densityKgM3": 300,
     "piece": {
       "minKg": 10,
@@ -2207,17 +1404,9 @@
     "maxPieces": 500,
     "offloadPriority": 3,
     "sources": {
-      "airports": [
-        "PVG",
-        "SZX",
-        "ICN"
-      ],
-      "countries": [
-        "CN"
-      ],
-      "continents": [
-        "asia"
-      ]
+      "airports": ["PVG", "SZX", "ICN"],
+      "countries": ["CN"],
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -2227,25 +1416,8 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
-    "peakMonths": [
-      9,
-      10,
-      11
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "peakMonths": [9, 10, 11],
     "frequency": 7,
     "compartment": {
       "requiresHeated": false,
@@ -2255,13 +1427,8 @@
   {
     "id": "servers",
     "name": "Server hardware",
-    "descriptions": [
-      "Rack servers, palletised",
-      "Data centre nodes, crated"
-    ],
-    "shc": [
-      "HEA"
-    ],
+    "descriptions": ["Rack servers, palletised", "Data centre nodes, crated"],
+    "shc": ["HEA"],
     "densityKgM3": 350,
     "piece": {
       "minKg": 30,
@@ -2272,19 +1439,9 @@
     "maxPieces": 60,
     "offloadPriority": 3,
     "sources": {
-      "airports": [
-        "PVG",
-        "TPE",
-        "FRA"
-      ],
-      "countries": [
-        "CN",
-        "DE"
-      ],
-      "continents": [
-        "asia",
-        "europe"
-      ]
+      "airports": ["PVG", "TPE", "FRA"],
+      "countries": ["CN", "DE"],
+      "continents": ["asia", "europe"]
     },
     "demand": [
       "africa",
@@ -2294,20 +1451,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 5,
     "compartment": {
@@ -2322,10 +1466,7 @@
       "GPU accelerator boards, antistatic",
       "Accelerator modules, crated"
     ],
-    "shc": [
-      "VUN",
-      "HEA"
-    ],
+    "shc": ["VUN", "HEA"],
     "densityKgM3": 400,
     "piece": {
       "minKg": 18,
@@ -2336,17 +1477,9 @@
     "maxPieces": 80,
     "offloadPriority": 3,
     "sources": {
-      "airports": [
-        "TPE",
-        "PVG"
-      ],
-      "countries": [
-        "TW",
-        "CN"
-      ],
-      "continents": [
-        "asia"
-      ]
+      "airports": ["TPE", "PVG"],
+      "countries": ["TW", "CN"],
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -2356,20 +1489,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 5,
     "compartment": {
@@ -2380,14 +1500,8 @@
   {
     "id": "display-panels",
     "name": "Display panels",
-    "descriptions": [
-      "LCD panels, edge protected",
-      "OLED panels, crated"
-    ],
-    "shc": [
-      "VUN",
-      "BIG"
-    ],
+    "descriptions": ["LCD panels, edge protected", "OLED panels, crated"],
+    "shc": ["VUN", "BIG"],
     "densityKgM3": 200,
     "piece": {
       "minKg": 25,
@@ -2398,16 +1512,9 @@
     "maxPieces": 50,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "ICN",
-        "TPE"
-      ],
-      "countries": [
-        "TW"
-      ],
-      "continents": [
-        "asia"
-      ]
+      "airports": ["ICN", "TPE"],
+      "countries": ["TW"],
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -2417,20 +1524,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -2441,13 +1535,8 @@
   {
     "id": "network-equipment",
     "name": "Network equipment",
-    "descriptions": [
-      "Switching hardware, boxed",
-      "Optical transport modules"
-    ],
-    "shc": [
-      "VUN"
-    ],
+    "descriptions": ["Switching hardware, boxed", "Optical transport modules"],
+    "shc": ["VUN"],
     "densityKgM3": 280,
     "piece": {
       "minKg": 14,
@@ -2458,18 +1547,9 @@
     "maxPieces": 120,
     "offloadPriority": 3,
     "sources": {
-      "airports": [
-        "PVG",
-        "FRA"
-      ],
-      "countries": [
-        "CN",
-        "DE"
-      ],
-      "continents": [
-        "asia",
-        "europe"
-      ]
+      "airports": ["PVG", "FRA"],
+      "countries": ["CN", "DE"],
+      "continents": ["asia", "europe"]
     },
     "demand": [
       "africa",
@@ -2479,20 +1559,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 5,
     "compartment": {
@@ -2503,14 +1570,8 @@
   {
     "id": "medical-imaging",
     "name": "Medical imaging equipment",
-    "descriptions": [
-      "CT gantry sections, crated",
-      "MRI components, cased"
-    ],
-    "shc": [
-      "HEA",
-      "BIG"
-    ],
+    "descriptions": ["CT gantry sections, crated", "MRI components, cased"],
+    "shc": ["HEA", "BIG"],
     "densityKgM3": 500,
     "piece": {
       "minKg": 200,
@@ -2521,19 +1582,9 @@
     "maxPieces": 6,
     "offloadPriority": 3,
     "sources": {
-      "airports": [
-        "FRA",
-        "BRE",
-        "PHL"
-      ],
-      "countries": [
-        "DE",
-        "US"
-      ],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "airports": ["FRA", "BRE", "PHL"],
+      "countries": ["DE", "US"],
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -2543,20 +1594,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 2,
     "compartment": {
@@ -2577,10 +1615,7 @@
       "Broadcast cameras with batteries installed",
       "Cinema camera kits, cased"
     ],
-    "shc": [
-      "VUN",
-      "ELI"
-    ],
+    "shc": ["VUN", "ELI"],
     "densityKgM3": 300,
     "piece": {
       "minKg": 15,
@@ -2593,10 +1628,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "asia",
-        "europe"
-      ]
+      "continents": ["asia", "europe"]
     },
     "demand": [
       "africa",
@@ -2606,20 +1638,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.45,
     "compartment": {
@@ -2644,10 +1663,7 @@
       "Lithium ion cells, standalone",
       "Battery packs, state of charge 30%"
     ],
-    "shc": [
-      "RLI",
-      "CAO"
-    ],
+    "shc": ["RLI", "CAO"],
     "densityKgM3": 900,
     "piece": {
       "minKg": 8,
@@ -2660,9 +1676,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "asia"
-      ]
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -2672,20 +1686,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.75,
     "compartment": {
@@ -2710,9 +1711,7 @@
       "Powered devices with cells installed",
       "Equipment containing lithium ion cells"
     ],
-    "shc": [
-      "ELI"
-    ],
+    "shc": ["ELI"],
     "densityKgM3": 700,
     "piece": {
       "minKg": 10,
@@ -2725,9 +1724,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "asia"
-      ]
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -2737,20 +1734,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.75,
     "compartment": {
@@ -2775,10 +1759,7 @@
       "Lithium metal cells, standalone",
       "Primary lithium cells, boxed"
     ],
-    "shc": [
-      "RLM",
-      "CAO"
-    ],
+    "shc": ["RLM", "CAO"],
     "densityKgM3": 850,
     "piece": {
       "minKg": 6,
@@ -2791,9 +1772,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "asia"
-      ]
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -2803,20 +1782,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.45,
     "compartment": {
@@ -2841,9 +1807,7 @@
       "Carbon dioxide, solid, as refrigerant",
       "Dry ice blocks for cold chain"
     ],
-    "shc": [
-      "ICE"
-    ],
+    "shc": ["ICE"],
     "densityKgM3": 700,
     "piece": {
       "minKg": 15,
@@ -2866,20 +1830,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.6,
     "compartment": {
@@ -2905,9 +1856,7 @@
       "Permanent magnet assemblies",
       "Magnetised components, shielded"
     ],
-    "shc": [
-      "MAG"
-    ],
+    "shc": ["MAG"],
     "densityKgM3": 1200,
     "piece": {
       "minKg": 20,
@@ -2920,10 +1869,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe",
-        "asia"
-      ]
+      "continents": ["europe", "asia"]
     },
     "demand": [
       "africa",
@@ -2933,20 +1879,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.45,
     "compartment": {
@@ -2971,9 +1904,7 @@
       "Environmentally hazardous liquid",
       "Marine pollutant, packaged"
     ],
-    "shc": [
-      "RMD"
-    ],
+    "shc": ["RMD"],
     "densityKgM3": 950,
     "piece": {
       "minKg": 15,
@@ -2986,9 +1917,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -2998,20 +1927,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.3,
     "compartment": {
@@ -3032,13 +1948,8 @@
   {
     "id": "paint",
     "name": "Paint",
-    "descriptions": [
-      "Paint, flammable",
-      "Industrial coatings, tinned"
-    ],
-    "shc": [
-      "RFL"
-    ],
+    "descriptions": ["Paint, flammable", "Industrial coatings, tinned"],
+    "shc": ["RFL"],
     "densityKgM3": 900,
     "piece": {
       "minKg": 10,
@@ -3051,9 +1962,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3063,20 +1972,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.6,
     "compartment": {
@@ -3097,13 +1993,8 @@
   {
     "id": "aerosols",
     "name": "Aerosols",
-    "descriptions": [
-      "Aerosols, flammable",
-      "Pressurised spray cans, boxed"
-    ],
-    "shc": [
-      "RFG"
-    ],
+    "descriptions": ["Aerosols, flammable", "Pressurised spray cans, boxed"],
+    "shc": ["RFG"],
     "densityKgM3": 400,
     "piece": {
       "minKg": 8,
@@ -3116,9 +2007,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3128,20 +2017,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.6,
     "compartment": {
@@ -3166,10 +2042,7 @@
       "Oxygen, compressed, cylinders",
       "Medical oxygen cylinders"
     ],
-    "shc": [
-      "RNG",
-      "ROX"
-    ],
+    "shc": ["RNG", "ROX"],
     "densityKgM3": 1400,
     "piece": {
       "minKg": 25,
@@ -3182,9 +2055,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3194,20 +2065,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.3,
     "compartment": {
@@ -3232,9 +2090,7 @@
       "Argon, compressed, cylinders",
       "Industrial argon cylinders"
     ],
-    "shc": [
-      "RNG"
-    ],
+    "shc": ["RNG"],
     "densityKgM3": 1300,
     "piece": {
       "minKg": 25,
@@ -3247,9 +2103,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3259,20 +2113,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.3,
     "compartment": {
@@ -3297,9 +2138,7 @@
       "Fire extinguishers, charged",
       "Portable extinguishers, boxed"
     ],
-    "shc": [
-      "RNG"
-    ],
+    "shc": ["RNG"],
     "densityKgM3": 800,
     "piece": {
       "minKg": 10,
@@ -3312,9 +2151,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3324,20 +2161,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.45,
     "compartment": {
@@ -3362,9 +2186,7 @@
       "Isopropanol, flammable liquid",
       "Isopropyl alcohol, drummed"
     ],
-    "shc": [
-      "RFL"
-    ],
+    "shc": ["RFL"],
     "densityKgM3": 800,
     "piece": {
       "minKg": 15,
@@ -3377,9 +2199,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3389,20 +2209,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.45,
     "compartment": {
@@ -3427,9 +2234,7 @@
       "Perfumery products, flammable",
       "Fragrance concentrates, boxed"
     ],
-    "shc": [
-      "RFL"
-    ],
+    "shc": ["RFL"],
     "densityKgM3": 700,
     "piece": {
       "minKg": 8,
@@ -3442,9 +2247,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3454,20 +2257,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.6,
     "compartment": {
@@ -3488,13 +2278,8 @@
   {
     "id": "safety-matches",
     "name": "Safety matches",
-    "descriptions": [
-      "Safety matches, boxed",
-      "Match cartons, palletised"
-    ],
-    "shc": [
-      "RFS"
-    ],
+    "descriptions": ["Safety matches, boxed", "Match cartons, palletised"],
+    "shc": ["RFS"],
     "densityKgM3": 500,
     "piece": {
       "minKg": 10,
@@ -3507,9 +2292,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3519,20 +2302,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.3,
     "compartment": {
@@ -3557,9 +2327,7 @@
       "Calcium carbide, dangerous when wet",
       "Carbide drums, sealed"
     ],
-    "shc": [
-      "RFW"
-    ],
+    "shc": ["RFW"],
     "densityKgM3": 1200,
     "piece": {
       "minKg": 20,
@@ -3572,9 +2340,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3584,20 +2350,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.15,
     "compartment": {
@@ -3622,10 +2375,7 @@
       "Hydrogen peroxide, aqueous solution",
       "Peroxide solution, drummed"
     ],
-    "shc": [
-      "ROX",
-      "RCM"
-    ],
+    "shc": ["ROX", "RCM"],
     "densityKgM3": 1200,
     "piece": {
       "minKg": 18,
@@ -3638,9 +2388,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3650,20 +2398,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.3,
     "compartment": {
@@ -3684,13 +2419,8 @@
   {
     "id": "sodium-hypochlorite",
     "name": "Sodium hypochlorite",
-    "descriptions": [
-      "Sodium hypochlorite solution",
-      "Hypochlorite, drummed"
-    ],
-    "shc": [
-      "RCM"
-    ],
+    "descriptions": ["Sodium hypochlorite solution", "Hypochlorite, drummed"],
+    "shc": ["RCM"],
     "densityKgM3": 1150,
     "piece": {
       "minKg": 18,
@@ -3703,9 +2433,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3715,20 +2443,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.3,
     "compartment": {
@@ -3753,9 +2468,7 @@
       "Sulphuric acid, battery filling",
       "Battery acid, drummed"
     ],
-    "shc": [
-      "RCM"
-    ],
+    "shc": ["RCM"],
     "densityKgM3": 1300,
     "piece": {
       "minKg": 20,
@@ -3768,9 +2481,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3780,20 +2491,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.3,
     "compartment": {
@@ -3818,10 +2516,7 @@
       "Cartridges for weapons, sporting",
       "Sporting ammunition, boxed"
     ],
-    "shc": [
-      "RXS",
-      "SWP"
-    ],
+    "shc": ["RXS", "SWP"],
     "densityKgM3": 1500,
     "piece": {
       "minKg": 12,
@@ -3834,10 +2529,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -3847,20 +2539,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.3,
     "compartment": {
@@ -3882,13 +2561,8 @@
   {
     "id": "pesticide",
     "name": "Pesticide",
-    "descriptions": [
-      "Pesticide, liquid, toxic",
-      "Crop protection concentrate"
-    ],
-    "shc": [
-      "RPB"
-    ],
+    "descriptions": ["Pesticide, liquid, toxic", "Crop protection concentrate"],
+    "shc": ["RPB"],
     "densityKgM3": 1000,
     "piece": {
       "minKg": 15,
@@ -3901,9 +2575,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3913,20 +2585,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.3,
     "compartment": {
@@ -3951,9 +2610,7 @@
       "Automotive spare parts, boxed",
       "Assembly line components"
     ],
-    "shc": [
-      "HEA"
-    ],
+    "shc": ["HEA"],
     "densityKgM3": 400,
     "piece": {
       "minKg": 20,
@@ -3964,18 +2621,9 @@
     "maxPieces": 80,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA",
-        "WAW",
-        "STR"
-      ],
-      "countries": [
-        "DE",
-        "PL"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "WAW", "STR"],
+      "countries": ["DE", "PL"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -3985,20 +2633,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 8,
     "compartment": {
@@ -4013,10 +2648,7 @@
       "Engines, internal combustion",
       "Engine assemblies, drained"
     ],
-    "shc": [
-      "HEA",
-      "RMD"
-    ],
+    "shc": ["HEA", "RMD"],
     "densityKgM3": 800,
     "piece": {
       "minKg": 120,
@@ -4029,9 +2661,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -4041,20 +2671,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.45,
     "compartment": {
@@ -4081,13 +2698,8 @@
   {
     "id": "airbag-inflators",
     "name": "Airbag inflators",
-    "descriptions": [
-      "Airbag inflators, boxed",
-      "Safety device modules"
-    ],
-    "shc": [
-      "RXG"
-    ],
+    "descriptions": ["Airbag inflators, boxed", "Safety device modules"],
+    "shc": ["RXG"],
     "densityKgM3": 900,
     "piece": {
       "minKg": 10,
@@ -4100,9 +2712,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -4112,20 +2722,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.45,
     "compartment": {
@@ -4147,13 +2744,8 @@
   {
     "id": "tyres",
     "name": "Vehicle tyres",
-    "descriptions": [
-      "Passenger vehicle tyres",
-      "Commercial tyres, banded"
-    ],
-    "shc": [
-      "BIG"
-    ],
+    "descriptions": ["Passenger vehicle tyres", "Commercial tyres, banded"],
+    "shc": ["BIG"],
     "densityKgM3": 350,
     "piece": {
       "minKg": 10,
@@ -4164,17 +2756,9 @@
     "maxPieces": 120,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA",
-        "WAW"
-      ],
-      "countries": [
-        "DE",
-        "PL"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "WAW"],
+      "countries": ["DE", "PL"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -4184,20 +2768,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -4212,9 +2783,7 @@
       "CNC machine tool assemblies",
       "Precision tooling, crated"
     ],
-    "shc": [
-      "HEA"
-    ],
+    "shc": ["HEA"],
     "densityKgM3": 600,
     "piece": {
       "minKg": 150,
@@ -4225,17 +2794,9 @@
     "maxPieces": 8,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA",
-        "BRE",
-        "STR"
-      ],
-      "countries": [
-        "DE"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "BRE", "STR"],
+      "countries": ["DE"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -4245,20 +2806,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -4275,13 +2823,8 @@
   {
     "id": "hydraulic-components",
     "name": "Hydraulic components",
-    "descriptions": [
-      "Hydraulic cylinders, crated",
-      "Valve blocks, palletised"
-    ],
-    "shc": [
-      "HEA"
-    ],
+    "descriptions": ["Hydraulic cylinders, crated", "Valve blocks, palletised"],
+    "shc": ["HEA"],
     "densityKgM3": 700,
     "piece": {
       "minKg": 40,
@@ -4292,16 +2835,9 @@
     "maxPieces": 30,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA",
-        "BRE"
-      ],
-      "countries": [
-        "DE"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "BRE"],
+      "countries": ["DE"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -4311,20 +2847,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -4341,13 +2864,8 @@
   {
     "id": "industrial-pumps",
     "name": "Industrial pumps",
-    "descriptions": [
-      "Process pumps, crated",
-      "Pump assemblies, skidded"
-    ],
-    "shc": [
-      "HEA"
-    ],
+    "descriptions": ["Process pumps, crated", "Pump assemblies, skidded"],
+    "shc": ["HEA"],
     "densityKgM3": 650,
     "piece": {
       "minKg": 80,
@@ -4358,16 +2876,9 @@
     "maxPieces": 16,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA",
-        "BRE"
-      ],
-      "countries": [
-        "DE"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "BRE"],
+      "countries": ["DE"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -4377,20 +2888,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 3,
     "compartment": {
@@ -4407,14 +2905,8 @@
   {
     "id": "injection-moulds",
     "name": "Injection moulds",
-    "descriptions": [
-      "Steel injection moulds",
-      "Tooling moulds, crated"
-    ],
-    "shc": [
-      "HEA",
-      "BIG"
-    ],
+    "descriptions": ["Steel injection moulds", "Tooling moulds, crated"],
+    "shc": ["HEA", "BIG"],
     "densityKgM3": 1100,
     "piece": {
       "minKg": 300,
@@ -4425,17 +2917,9 @@
     "maxPieces": 4,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA",
-        "WAW"
-      ],
-      "countries": [
-        "DE",
-        "PL"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "WAW"],
+      "countries": ["DE", "PL"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -4445,20 +2929,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 2,
     "compartment": {
@@ -4475,13 +2946,8 @@
   {
     "id": "engine-fan-blades",
     "name": "Engine fan blades",
-    "descriptions": [
-      "Turbofan blade set, AOG",
-      "Fan blades, cradled"
-    ],
-    "shc": [
-      "HEA"
-    ],
+    "descriptions": ["Turbofan blade set, AOG", "Fan blades, cradled"],
+    "shc": ["HEA"],
     "densityKgM3": 600,
     "piece": {
       "minKg": 150,
@@ -4492,19 +2958,9 @@
     "maxPieces": 4,
     "offloadPriority": 6,
     "sources": {
-      "airports": [
-        "BRE",
-        "FRA",
-        "CDG"
-      ],
-      "countries": [
-        "DE",
-        "FR"
-      ],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "airports": ["BRE", "FRA", "CDG"],
+      "countries": ["DE", "FR"],
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -4514,20 +2970,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 2,
     "compartment": {
@@ -4544,14 +2987,8 @@
   {
     "id": "landing-gear",
     "name": "Landing gear assembly",
-    "descriptions": [
-      "Main landing gear leg, AOG",
-      "Gear assembly, cradled"
-    ],
-    "shc": [
-      "HEA",
-      "BIG"
-    ],
+    "descriptions": ["Main landing gear leg, AOG", "Gear assembly, cradled"],
+    "shc": ["HEA", "BIG"],
     "densityKgM3": 700,
     "piece": {
       "minKg": 400,
@@ -4562,17 +2999,9 @@
     "maxPieces": 2,
     "offloadPriority": 6,
     "sources": {
-      "airports": [
-        "BRE",
-        "CDG"
-      ],
-      "countries": [
-        "DE",
-        "FR"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["BRE", "CDG"],
+      "countries": ["DE", "FR"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -4582,20 +3011,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 1,
     "compartment": {
@@ -4616,10 +3032,7 @@
       "Line replaceable avionics units",
       "Flight computers, AOG"
     ],
-    "shc": [
-      "VUN",
-      "ELM"
-    ],
+    "shc": ["VUN", "ELM"],
     "densityKgM3": 250,
     "piece": {
       "minKg": 8,
@@ -4632,10 +3045,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -4645,20 +3055,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.6,
     "compartment": {
@@ -4679,13 +3076,8 @@
   {
     "id": "aircraft-tyres",
     "name": "Aircraft tyres",
-    "descriptions": [
-      "Main wheel tyres, AOG",
-      "Aircraft tyres, banded"
-    ],
-    "shc": [
-      "HEA"
-    ],
+    "descriptions": ["Main wheel tyres, AOG", "Aircraft tyres, banded"],
+    "shc": ["HEA"],
     "densityKgM3": 400,
     "piece": {
       "minKg": 40,
@@ -4696,17 +3088,9 @@
     "maxPieces": 16,
     "offloadPriority": 3,
     "sources": {
-      "airports": [
-        "FRA",
-        "CDG"
-      ],
-      "countries": [
-        "DE",
-        "FR"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "CDG"],
+      "countries": ["DE", "FR"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -4716,20 +3100,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 3,
     "compartment": {
@@ -4744,9 +3115,7 @@
       "Chemical oxygen generators, cabin",
       "Oxygen generators, boxed"
     ],
-    "shc": [
-      "ROX"
-    ],
+    "shc": ["ROX"],
     "densityKgM3": 800,
     "piece": {
       "minKg": 10,
@@ -4759,9 +3128,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -4771,20 +3138,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.15,
     "compartment": {
@@ -4805,10 +3159,7 @@
   {
     "id": "fast-fashion",
     "name": "Fast fashion apparel",
-    "descriptions": [
-      "Apparel, hanging garments",
-      "Seasonal apparel, cartoned"
-    ],
+    "descriptions": ["Apparel, hanging garments", "Seasonal apparel, cartoned"],
     "shc": [],
     "densityKgM3": 160,
     "piece": {
@@ -4820,20 +3171,9 @@
     "maxPieces": 500,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "DAC",
-        "HAN",
-        "CAN",
-        "IST"
-      ],
-      "countries": [
-        "BD",
-        "VN",
-        "CN"
-      ],
-      "continents": [
-        "asia"
-      ]
+      "airports": ["DAC", "HAN", "CAN", "IST"],
+      "countries": ["BD", "VN", "CN"],
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -4843,25 +3183,8 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
-    "peakMonths": [
-      9,
-      10,
-      11
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "peakMonths": [9, 10, 11],
     "frequency": 8,
     "compartment": {
       "requiresHeated": false,
@@ -4871,10 +3194,7 @@
   {
     "id": "footwear",
     "name": "Footwear",
-    "descriptions": [
-      "Footwear, retail packed",
-      "Trainers, cartoned"
-    ],
+    "descriptions": ["Footwear, retail packed", "Trainers, cartoned"],
     "shc": [],
     "densityKgM3": 180,
     "piece": {
@@ -4886,17 +3206,9 @@
     "maxPieces": 400,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "CAN",
-        "HAN"
-      ],
-      "countries": [
-        "CN",
-        "VN"
-      ],
-      "continents": [
-        "asia"
-      ]
+      "airports": ["CAN", "HAN"],
+      "countries": ["CN", "VN"],
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -4906,20 +3218,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 6,
     "compartment": {
@@ -4934,9 +3233,7 @@
       "Consolidated e-commerce parcels",
       "Direct-to-consumer parcels"
     ],
-    "shc": [
-      "XPS"
-    ],
+    "shc": ["XPS"],
     "densityKgM3": 160,
     "piece": {
       "minKg": 1,
@@ -4947,18 +3244,9 @@
     "maxPieces": 1800,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "HKG",
-        "PVG",
-        "CAN",
-        "SZX"
-      ],
-      "countries": [
-        "CN"
-      ],
-      "continents": [
-        "asia"
-      ]
+      "airports": ["HKG", "PVG", "CAN", "SZX"],
+      "countries": ["CN"],
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -4968,26 +3256,8 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
-    "peakMonths": [
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "peakMonths": [9, 10, 11, 12],
     "frequency": 10,
     "compartment": {
       "requiresHeated": false,
@@ -4997,10 +3267,7 @@
   {
     "id": "cosmetics",
     "name": "Cosmetics",
-    "descriptions": [
-      "Cosmetics, retail packed",
-      "Skincare products, cartoned"
-    ],
+    "descriptions": ["Cosmetics, retail packed", "Skincare products, cartoned"],
     "shc": [],
     "densityKgM3": 400,
     "piece": {
@@ -5012,17 +3279,9 @@
     "maxPieces": 200,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "CDG",
-        "FRA"
-      ],
-      "countries": [
-        "FR",
-        "DE"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["CDG", "FRA"],
+      "countries": ["FR", "DE"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -5032,20 +3291,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 5,
     "compartment": {
@@ -5056,10 +3302,7 @@
   {
     "id": "toys",
     "name": "Toys",
-    "descriptions": [
-      "Toys, retail packed",
-      "Plastic toys, cartoned"
-    ],
+    "descriptions": ["Toys, retail packed", "Plastic toys, cartoned"],
     "shc": [],
     "densityKgM3": 140,
     "piece": {
@@ -5071,16 +3314,9 @@
     "maxPieces": 500,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "CAN",
-        "SZX"
-      ],
-      "countries": [
-        "CN"
-      ],
-      "continents": [
-        "asia"
-      ]
+      "airports": ["CAN", "SZX"],
+      "countries": ["CN"],
+      "continents": ["asia"]
     },
     "demand": [
       "africa",
@@ -5090,25 +3326,8 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
-    "peakMonths": [
-      9,
-      10,
-      11
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "peakMonths": [9, 10, 11],
     "frequency": 5,
     "compartment": {
       "requiresHeated": false,
@@ -5122,9 +3341,7 @@
       "Flat-pack furniture panels",
       "Furniture components, banded"
     ],
-    "shc": [
-      "BIG"
-    ],
+    "shc": ["BIG"],
     "densityKgM3": 130,
     "piece": {
       "minKg": 20,
@@ -5135,18 +3352,9 @@
     "maxPieces": 120,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "WAW",
-        "PVG"
-      ],
-      "countries": [
-        "PL",
-        "CN"
-      ],
-      "continents": [
-        "europe",
-        "asia"
-      ]
+      "airports": ["WAW", "PVG"],
+      "countries": ["PL", "CN"],
+      "continents": ["europe", "asia"]
     },
     "demand": [
       "africa",
@@ -5156,20 +3364,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -5180,13 +3375,8 @@
   {
     "id": "sporting-goods",
     "name": "Sporting goods",
-    "descriptions": [
-      "Sporting equipment, boxed",
-      "Bicycles, boxed"
-    ],
-    "shc": [
-      "BIG"
-    ],
+    "descriptions": ["Sporting equipment, boxed", "Bicycles, boxed"],
+    "shc": ["BIG"],
     "densityKgM3": 170,
     "piece": {
       "minKg": 12,
@@ -5197,17 +3387,9 @@
     "maxPieces": 140,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA",
-        "WAW"
-      ],
-      "countries": [
-        "DE",
-        "PL"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "WAW"],
+      "countries": ["DE", "PL"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -5217,20 +3399,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -5241,10 +3410,7 @@
   {
     "id": "printed-matter",
     "name": "Printed matter",
-    "descriptions": [
-      "Books, palletised",
-      "Catalogues, banded"
-    ],
+    "descriptions": ["Books, palletised", "Catalogues, banded"],
     "shc": [],
     "densityKgM3": 700,
     "piece": {
@@ -5256,17 +3422,9 @@
     "maxPieces": 200,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA",
-        "WAW"
-      ],
-      "countries": [
-        "DE",
-        "PL"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "WAW"],
+      "countries": ["DE", "PL"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -5276,20 +3434,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -5300,13 +3445,8 @@
   {
     "id": "bank-notes",
     "name": "Bank notes",
-    "descriptions": [
-      "Bank notes, sealed",
-      "Currency shipment, escorted"
-    ],
-    "shc": [
-      "VAL"
-    ],
+    "descriptions": ["Bank notes, sealed", "Currency shipment, escorted"],
+    "shc": ["VAL"],
     "densityKgM3": 800,
     "piece": {
       "minKg": 20,
@@ -5317,20 +3457,9 @@
     "maxPieces": 20,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "FRA",
-        "CDG",
-        "JFK"
-      ],
-      "countries": [
-        "DE",
-        "FR",
-        "US"
-      ],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "airports": ["FRA", "CDG", "JFK"],
+      "countries": ["DE", "FR", "US"],
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -5340,20 +3469,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 2,
     "compartment": {
@@ -5364,14 +3480,8 @@
   {
     "id": "gold-bullion",
     "name": "Gold bullion",
-    "descriptions": [
-      "Gold bars, sealed",
-      "Bullion shipment, escorted"
-    ],
-    "shc": [
-      "VAL",
-      "HEA"
-    ],
+    "descriptions": ["Gold bars, sealed", "Bullion shipment, escorted"],
+    "shc": ["VAL", "HEA"],
     "densityKgM3": 1900,
     "piece": {
       "minKg": 25,
@@ -5382,18 +3492,9 @@
     "maxPieces": 16,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "FRA",
-        "JFK"
-      ],
-      "countries": [
-        "DE",
-        "US"
-      ],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "airports": ["FRA", "JFK"],
+      "countries": ["DE", "US"],
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -5403,20 +3504,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 1,
     "compartment": {
@@ -5427,14 +3515,8 @@
   {
     "id": "jewellery",
     "name": "Jewellery",
-    "descriptions": [
-      "Jewellery, sealed cases",
-      "Precious stones, escorted"
-    ],
-    "shc": [
-      "VAL",
-      "VUN"
-    ],
+    "descriptions": ["Jewellery, sealed cases", "Precious stones, escorted"],
+    "shc": ["VAL", "VUN"],
     "densityKgM3": 600,
     "piece": {
       "minKg": 5,
@@ -5445,19 +3527,9 @@
     "maxPieces": 20,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "CDG",
-        "FRA",
-        "JFK"
-      ],
-      "countries": [
-        "FR",
-        "DE"
-      ],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "airports": ["CDG", "FRA", "JFK"],
+      "countries": ["FR", "DE"],
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -5467,20 +3539,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 2,
     "compartment": {
@@ -5491,16 +3550,8 @@
   {
     "id": "artwork",
     "name": "Fine art",
-    "descriptions": [
-      "Fine art in climate cases",
-      "Paintings, crated"
-    ],
-    "shc": [
-      "VAL",
-      "VUN",
-      "BIG",
-      "CRT"
-    ],
+    "descriptions": ["Fine art in climate cases", "Paintings, crated"],
+    "shc": ["VAL", "VUN", "BIG", "CRT"],
     "densityKgM3": 200,
     "piece": {
       "minKg": 30,
@@ -5511,19 +3562,9 @@
     "maxPieces": 12,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "CDG",
-        "FRA",
-        "JFK"
-      ],
-      "countries": [
-        "FR",
-        "DE"
-      ],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "airports": ["CDG", "FRA", "JFK"],
+      "countries": ["FR", "DE"],
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -5533,20 +3574,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 2,
     "compartment": {
@@ -5564,14 +3592,8 @@
   {
     "id": "diplomatic-mail",
     "name": "Diplomatic mail",
-    "descriptions": [
-      "Diplomatic bag, sealed",
-      "Government despatch, sealed"
-    ],
-    "shc": [
-      "DIP",
-      "VAL"
-    ],
+    "descriptions": ["Diplomatic bag, sealed", "Government despatch, sealed"],
+    "shc": ["DIP", "VAL"],
     "densityKgM3": 500,
     "piece": {
       "minKg": 10,
@@ -5582,19 +3604,9 @@
     "maxPieces": 12,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "FRA",
-        "CDG",
-        "WAW"
-      ],
-      "countries": [
-        "DE",
-        "FR",
-        "PL"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "CDG", "WAW"],
+      "countries": ["DE", "FR", "PL"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -5604,20 +3616,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 2,
     "compartment": {
@@ -5632,9 +3631,7 @@
       "Undeveloped photographic film",
       "Motion picture negative"
     ],
-    "shc": [
-      "FIL"
-    ],
+    "shc": ["FIL"],
     "densityKgM3": 400,
     "piece": {
       "minKg": 5,
@@ -5645,17 +3642,9 @@
     "maxPieces": 20,
     "offloadPriority": 3,
     "sources": {
-      "airports": [
-        "FRA",
-        "CDG"
-      ],
-      "countries": [
-        "DE",
-        "FR"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "CDG"],
+      "countries": ["DE", "FR"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -5665,20 +3654,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 1,
     "compartment": {
@@ -5689,14 +3665,8 @@
   {
     "id": "human-remains",
     "name": "Human remains",
-    "descriptions": [
-      "Human remains in coffin",
-      "Repatriation, sealed coffin"
-    ],
-    "shc": [
-      "HUM",
-      "HEA"
-    ],
+    "descriptions": ["Human remains in coffin", "Repatriation, sealed coffin"],
+    "shc": ["HUM", "HEA"],
     "densityKgM3": 200,
     "piece": {
       "minKg": 120,
@@ -5719,20 +3689,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 2,
     "compartment": {
@@ -5753,9 +3710,7 @@
       "Sporting rifles, cased",
       "Competition firearms, locked case"
     ],
-    "shc": [
-      "SWP"
-    ],
+    "shc": ["SWP"],
     "densityKgM3": 500,
     "piece": {
       "minKg": 10,
@@ -5766,18 +3721,9 @@
     "maxPieces": 12,
     "offloadPriority": 3,
     "sources": {
-      "airports": [
-        "FRA",
-        "JFK"
-      ],
-      "countries": [
-        "DE",
-        "US"
-      ],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "airports": ["FRA", "JFK"],
+      "countries": ["DE", "US"],
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -5787,20 +3733,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 1,
     "compartment": {
@@ -5811,15 +3744,8 @@
   {
     "id": "munitions-of-war",
     "name": "Munitions of war",
-    "descriptions": [
-      "Munitions of war, crated",
-      "Defence materiel, sealed"
-    ],
-    "shc": [
-      "MUW",
-      "CAO",
-      "RXS"
-    ],
+    "descriptions": ["Munitions of war, crated", "Defence materiel, sealed"],
+    "shc": ["MUW", "CAO", "RXS"],
     "densityKgM3": 1400,
     "piece": {
       "minKg": 25,
@@ -5832,10 +3758,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -5845,20 +3768,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.15,
     "compartment": {
@@ -5880,13 +3790,8 @@
   {
     "id": "postal-mail",
     "name": "Postal mail",
-    "descriptions": [
-      "Postal mail bags",
-      "Letter post, bagged"
-    ],
-    "shc": [
-      "MAL"
-    ],
+    "descriptions": ["Postal mail bags", "Letter post, bagged"],
+    "shc": ["MAL"],
     "densityKgM3": 300,
     "piece": {
       "minKg": 10,
@@ -5909,20 +3814,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 8,
     "compartment": {
@@ -5933,13 +3825,8 @@
   {
     "id": "company-mail",
     "name": "Company mail",
-    "descriptions": [
-      "Company mail, bagged",
-      "Internal despatch, sealed"
-    ],
-    "shc": [
-      "COM"
-    ],
+    "descriptions": ["Company mail, bagged", "Internal despatch, sealed"],
+    "shc": ["COM"],
     "densityKgM3": 250,
     "piece": {
       "minKg": 5,
@@ -5962,20 +3849,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 3,
     "compartment": {
@@ -5986,13 +3860,8 @@
   {
     "id": "express-documents",
     "name": "Express documents",
-    "descriptions": [
-      "Time-critical documents",
-      "Express envelopes, bagged"
-    ],
-    "shc": [
-      "XPS"
-    ],
+    "descriptions": ["Time-critical documents", "Express envelopes, bagged"],
+    "shc": ["XPS"],
     "densityKgM3": 350,
     "piece": {
       "minKg": 1,
@@ -6015,20 +3884,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 7,
     "compartment": {
@@ -6039,13 +3895,8 @@
   {
     "id": "newspapers",
     "name": "Newspapers",
-    "descriptions": [
-      "Newspapers, banded",
-      "Periodicals, palletised"
-    ],
-    "shc": [
-      "NWP"
-    ],
+    "descriptions": ["Newspapers, banded", "Periodicals, palletised"],
+    "shc": ["NWP"],
     "densityKgM3": 600,
     "piece": {
       "minKg": 12,
@@ -6056,19 +3907,9 @@
     "maxPieces": 200,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "FRA",
-        "CDG",
-        "WAW"
-      ],
-      "countries": [
-        "DE",
-        "FR",
-        "PL"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["FRA", "CDG", "WAW"],
+      "countries": ["DE", "FR", "PL"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -6078,20 +3919,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 3,
     "compartment": {
@@ -6106,9 +3934,7 @@
       "Speciality green coffee, bagged",
       "Microlot coffee, sacked"
     ],
-    "shc": [
-      "EAT"
-    ],
+    "shc": ["EAT"],
     "densityKgM3": 550,
     "piece": {
       "minKg": 25,
@@ -6119,20 +3945,9 @@
     "maxPieces": 200,
     "offloadPriority": 1,
     "sources": {
-      "airports": [
-        "BOG",
-        "GRU",
-        "ADD"
-      ],
-      "countries": [
-        "CO",
-        "BR",
-        "ET"
-      ],
-      "continents": [
-        "south_america",
-        "africa"
-      ]
+      "airports": ["BOG", "GRU", "ADD"],
+      "countries": ["CO", "BR", "ET"],
+      "continents": ["south_america", "africa"]
     },
     "demand": [
       "africa",
@@ -6142,20 +3957,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 4,
     "compartment": {
@@ -6170,10 +3972,7 @@
       "Chocolate, temperature controlled",
       "Couverture chocolate, cartoned"
     ],
-    "shc": [
-      "EAT",
-      "COL"
-    ],
+    "shc": ["EAT", "COL"],
     "densityKgM3": 700,
     "piece": {
       "minKg": 10,
@@ -6184,18 +3983,9 @@
     "maxPieces": 200,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "BRU",
-        "CDG",
-        "ZRH"
-      ],
-      "countries": [
-        "BE",
-        "FR"
-      ],
-      "continents": [
-        "europe"
-      ]
+      "airports": ["BRU", "CDG", "ZRH"],
+      "countries": ["BE", "FR"],
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -6205,20 +3995,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 3,
     "compartment": {
@@ -6236,14 +4013,8 @@
   {
     "id": "spirits",
     "name": "Spirits",
-    "descriptions": [
-      "Spirits, alcoholic beverages",
-      "Premium spirits, cased"
-    ],
-    "shc": [
-      "EAT",
-      "RFL"
-    ],
+    "descriptions": ["Spirits, alcoholic beverages", "Premium spirits, cased"],
+    "shc": ["EAT", "RFL"],
     "densityKgM3": 900,
     "piece": {
       "minKg": 12,
@@ -6256,9 +4027,7 @@
     "sources": {
       "airports": [],
       "countries": [],
-      "continents": [
-        "europe"
-      ]
+      "continents": ["europe"]
     },
     "demand": [
       "africa",
@@ -6268,20 +4037,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 0.45,
     "compartment": {
@@ -6306,11 +4062,7 @@
       "Racing car on transport frame",
       "Formula car, drained and framed"
     ],
-    "shc": [
-      "HEA",
-      "BIG",
-      "VUN"
-    ],
+    "shc": ["HEA", "BIG", "VUN"],
     "densityKgM3": 300,
     "piece": {
       "minKg": 600,
@@ -6321,19 +4073,9 @@
     "maxPieces": 3,
     "offloadPriority": 5,
     "sources": {
-      "airports": [
-        "FRA",
-        "CDG"
-      ],
-      "countries": [
-        "DE",
-        "FR"
-      ],
-      "continents": [
-        "europe",
-        "north_america",
-        "asia"
-      ]
+      "airports": ["FRA", "CDG"],
+      "countries": ["DE", "FR"],
+      "continents": ["europe", "north_america", "asia"]
     },
     "demand": [
       "africa",
@@ -6343,20 +4085,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 1,
     "compartment": {
@@ -6373,14 +4102,8 @@
   {
     "id": "concert-rig",
     "name": "Concert production rig",
-    "descriptions": [
-      "Stage lighting and rigging",
-      "Touring production cases"
-    ],
-    "shc": [
-      "HEA",
-      "BIG"
-    ],
+    "descriptions": ["Stage lighting and rigging", "Touring production cases"],
+    "shc": ["HEA", "BIG"],
     "densityKgM3": 250,
     "piece": {
       "minKg": 60,
@@ -6391,18 +4114,9 @@
     "maxPieces": 80,
     "offloadPriority": 2,
     "sources": {
-      "airports": [
-        "FRA",
-        "JFK"
-      ],
-      "countries": [
-        "DE",
-        "US"
-      ],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "airports": ["FRA", "JFK"],
+      "countries": ["DE", "US"],
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -6412,20 +4126,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 2,
     "compartment": {
@@ -6446,11 +4147,7 @@
       "Satellite bus components, cleanroom packed",
       "Spacecraft assemblies, crated"
     ],
-    "shc": [
-      "VUN",
-      "BIG",
-      "HEA"
-    ],
+    "shc": ["VUN", "BIG", "HEA"],
     "densityKgM3": 200,
     "piece": {
       "minKg": 200,
@@ -6461,18 +4158,9 @@
     "maxPieces": 4,
     "offloadPriority": 6,
     "sources": {
-      "airports": [
-        "CDG",
-        "FRA"
-      ],
-      "countries": [
-        "FR",
-        "DE"
-      ],
-      "continents": [
-        "europe",
-        "north_america"
-      ]
+      "airports": ["CDG", "FRA"],
+      "countries": ["FR", "DE"],
+      "continents": ["europe", "north_america"]
     },
     "demand": [
       "africa",
@@ -6482,20 +4170,7 @@
       "south_america",
       "oceania"
     ],
-    "months": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12
-    ],
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     "peakMonths": [],
     "frequency": 1,
     "compartment": {

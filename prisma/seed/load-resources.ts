@@ -3,6 +3,9 @@ import { loadAircraft } from './resource/aircrafts.seed';
 import { loadOperators } from './resource/operators.seed';
 import { loadCabinLayouts } from './resource/cabin-layouts.seed';
 import { loadCabinLayoutVersions } from './resource/cabin-layout-versions.seed';
+import { loadCities } from './resource/cities.seed';
+import { loadPostcards } from './resource/postcards.seed';
+import { loadPostcardAwards } from './resource/postcard-awards.seed';
 import { loadAirports } from './resource/airports.seed';
 import { loadFlights } from './resource/flights.seed';
 import { loadManifestFlights } from './resource/manifest-flights.seed';
@@ -33,6 +36,8 @@ export async function loadResources() {
   try {
     await prisma.$transaction(
       async (tx) => {
+        await loadCities(tx);
+        await loadPostcards(tx);
         await loadAirports(tx);
         await loadWeather(tx);
         await loadNotams(tx);
@@ -61,6 +66,7 @@ export async function loadResources() {
         await loadUserAircraft(tx);
         await loadAircraftReposition(tx);
         await loadStatistics(tx);
+        await loadPostcardAwards(tx);
       },
       { maxWait: 15_000, timeout: 120_000 },
     );

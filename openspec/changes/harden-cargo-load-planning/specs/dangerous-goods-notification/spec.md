@@ -33,7 +33,6 @@ that loadsheet. Releasing the flight to the pilot SHALL NOT issue anything.
 - **WHEN** the final loadsheet is filled at the close of boarding
 - **THEN** a final notification to captain is issued
 
-
 ### Requirement: A notification is issued whether or not dangerous goods are carried
 
 The system SHALL issue a notification to captain for every flight whose preliminary loadsheet has

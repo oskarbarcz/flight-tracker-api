@@ -5,6 +5,9 @@ import { SkyLinkClient } from '../../../../core/provider/skylink/client/skylink.
 import { SkylinkAirportResponse } from '../../../../core/provider/skylink/type/skylink.types';
 import { CreateAirportRequest } from '../../infra/http/request/airport.dto';
 import { Continent, Coordinates } from '../../model/airport.model';
+import { CitiesRepository } from '../../infra/database/cities.repository';
+import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
+import { CityWasCreatedEvent } from '../../../../core/domain/events/dto/city.event';
 
 export class ImportAirportByIcaoCommand {
   constructor(public readonly icaoCode: string) {}
@@ -77,7 +80,9 @@ export class ImportAirportByIcaoHandler implements ICommandHandler<
 > {
   constructor(
     private readonly repository: AirportsRepository,
+    private readonly cities: CitiesRepository,
     private readonly skyLink: SkyLinkClient,
+    private readonly eventEmitter: DomainEventEmitter,
   ) {}
 
   async execute(command: ImportAirportByIcaoCommand): Promise<string> {
@@ -89,7 +94,19 @@ export class ImportAirportByIcaoHandler implements ICommandHandler<
     }
 
     const airport = await this.skyLink.getAirportByIcaoCode(icaoCode);
-    const created = await this.repository.create(v4(), this.toRequest(airport));
+    const request = this.toRequest(airport);
+
+    const city = await this.cities.findOrCreate(request.city, request.country);
+    const created = await this.repository.create(v4(), request, city.id);
+
+    if (city.created) {
+      const event = new CityWasCreatedEvent({
+        cityId: city.id,
+        name: request.city,
+        country: request.country,
+      });
+      this.eventEmitter.emit(event);
+    }
 
     return created.id;
   }

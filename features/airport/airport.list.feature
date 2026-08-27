@@ -11,7 +11,10 @@ Feature: List airports
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "icaoCode": "EDDF",
           "iataCode": "FRA",
-          "city": "Frankfurt",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
           "name": "Frankfurt Rhein/Main",
           "country": {
             "code": "DE",
@@ -30,7 +33,10 @@ Feature: List airports
           "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
           "icaoCode": "EPWA",
           "iataCode": "WAW",
-          "city": "Warsaw",
+          "city": {
+            "id": "ec2d2121-804b-4f8f-a9d7-991ebd8465e8",
+            "name": "Warsaw"
+          },
           "name": "Warsaw Chopin",
           "country": {
             "code": "PL",
@@ -49,7 +55,10 @@ Feature: List airports
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "icaoCode": "KJFK",
           "iataCode": "JFK",
-          "city": "New York",
+          "city": {
+            "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+            "name": "New York"
+          },
           "name": "New York JFK",
           "country": {
             "code": "US",
@@ -68,7 +77,10 @@ Feature: List airports
           "id": "79b8f884-f67d-4585-b540-36b0be7f551e",
           "icaoCode": "LFPG",
           "iataCode": "CDG",
-          "city": "Paris",
+          "city": {
+            "id": "17c8f21f-b5a3-41f5-a1e3-16f4100c2342",
+            "name": "Paris"
+          },
           "name": "Paris Charles de Gaulle",
           "country": {
             "code": "FR",
@@ -87,7 +99,10 @@ Feature: List airports
           "id": "fa8ee2e9-fb94-4416-9ed0-4811efd488ae",
           "icaoCode": "CYYR",
           "iataCode": "YYR",
-          "city": "Goose Bay",
+          "city": {
+            "id": "4670768b-9029-4de4-a078-19284031b8c5",
+            "name": "Goose Bay"
+          },
           "name": "Goose Bay Intl",
           "country": {
             "code": "CA",
@@ -106,7 +121,10 @@ Feature: List airports
           "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
           "icaoCode": "BIKF",
           "iataCode": "KEF",
-          "city": "Reykjavik",
+          "city": {
+            "id": "bb33c063-d0c3-4468-98ce-a048a78f409a",
+            "name": "Reykjavik"
+          },
           "name": "Reykjavik Keflavik",
           "country": {
             "code": "IS",
@@ -125,7 +143,10 @@ Feature: List airports
           "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
           "icaoCode": "CYYT",
           "iataCode": "YYT",
-          "city": "St. Johns",
+          "city": {
+            "id": "e5c4da3c-30af-4a50-be48-832cdb854cd7",
+            "name": "St. Johns"
+          },
           "name": "St. Johns Intl",
           "country": {
             "code": "CA",
@@ -144,7 +165,10 @@ Feature: List airports
           "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
           "icaoCode": "KPHL",
           "iataCode": "PHL",
-          "city": "Philadelphia",
+          "city": {
+            "id": "e30d5e72-29ca-4f01-8e75-fdc55e3b296a",
+            "name": "Philadelphia"
+          },
           "name": "Philadelphia Intl",
           "country": {
             "code": "US",
@@ -163,7 +187,10 @@ Feature: List airports
           "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
           "icaoCode": "KBOS",
           "iataCode": "BOS",
-          "city": "Boston",
+          "city": {
+            "id": "19364a7d-3982-43e5-9630-9ce7c3a44e98",
+            "name": "Boston"
+          },
           "name": "Boston Logan Intl",
           "country": {
             "code": "US",
@@ -182,7 +209,10 @@ Feature: List airports
           "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
           "icaoCode": "EDDW",
           "iataCode": "BRE",
-          "city": "Bremen",
+          "city": {
+            "id": "11fe7e0d-ef97-4a1d-9a87-8ad9da64fd91",
+            "name": "Bremen"
+          },
           "name": "Bremen",
           "country": {
             "code": "DE",
@@ -196,6 +226,28 @@ Feature: List airports
             "latitude": 53.0475
           },
           "shape": "@coordinates"
+        },
+        {
+          "id": "93a9db1c-5047-489c-a018-178c3abd8a02",
+          "icaoCode": "LFPO",
+          "iataCode": "ORY",
+          "city": {
+            "id": "17c8f21f-b5a3-41f5-a1e3-16f4100c2342",
+            "name": "Paris"
+          },
+          "name": "Paris Orly",
+          "country": {
+            "code": "FR",
+            "name": "France"
+          },
+          "timezone": "Europe/Paris",
+          "continent": "europe",
+          "dataQuality": "low",
+          "location": {
+            "longitude": 2.35944,
+            "latitude": 48.7233
+          },
+          "shape": null
         }
       ]
       """
@@ -221,7 +273,10 @@ Feature: List airports
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "icaoCode": "EDDF",
           "iataCode": "FRA",
-          "city": "Frankfurt",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
           "name": "Frankfurt Rhein/Main",
           "country": {
             "code": "DE",
@@ -240,7 +295,10 @@ Feature: List airports
           "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
           "icaoCode": "EPWA",
           "iataCode": "WAW",
-          "city": "Warsaw",
+          "city": {
+            "id": "ec2d2121-804b-4f8f-a9d7-991ebd8465e8",
+            "name": "Warsaw"
+          },
           "name": "Warsaw Chopin",
           "country": {
             "code": "PL",
@@ -259,7 +317,10 @@ Feature: List airports
           "id": "79b8f884-f67d-4585-b540-36b0be7f551e",
           "icaoCode": "LFPG",
           "iataCode": "CDG",
-          "city": "Paris",
+          "city": {
+            "id": "17c8f21f-b5a3-41f5-a1e3-16f4100c2342",
+            "name": "Paris"
+          },
           "name": "Paris Charles de Gaulle",
           "country": {
             "code": "FR",
@@ -278,7 +339,10 @@ Feature: List airports
           "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
           "icaoCode": "BIKF",
           "iataCode": "KEF",
-          "city": "Reykjavik",
+          "city": {
+            "id": "bb33c063-d0c3-4468-98ce-a048a78f409a",
+            "name": "Reykjavik"
+          },
           "name": "Reykjavik Keflavik",
           "country": {
             "code": "IS",
@@ -297,7 +361,10 @@ Feature: List airports
           "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
           "icaoCode": "EDDW",
           "iataCode": "BRE",
-          "city": "Bremen",
+          "city": {
+            "id": "11fe7e0d-ef97-4a1d-9a87-8ad9da64fd91",
+            "name": "Bremen"
+          },
           "name": "Bremen",
           "country": {
             "code": "DE",
@@ -311,6 +378,28 @@ Feature: List airports
             "latitude": 53.0475
           },
           "shape": "@coordinates"
+        },
+        {
+          "id": "93a9db1c-5047-489c-a018-178c3abd8a02",
+          "icaoCode": "LFPO",
+          "iataCode": "ORY",
+          "city": {
+            "id": "17c8f21f-b5a3-41f5-a1e3-16f4100c2342",
+            "name": "Paris"
+          },
+          "name": "Paris Orly",
+          "country": {
+            "code": "FR",
+            "name": "France"
+          },
+          "timezone": "Europe/Paris",
+          "continent": "europe",
+          "dataQuality": "low",
+          "location": {
+            "longitude": 2.35944,
+            "latitude": 48.7233
+          },
+          "shape": null
         }
       ]
       """
@@ -352,7 +441,10 @@ Feature: List airports
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "icaoCode": "EDDF",
           "iataCode": "FRA",
-          "city": "Frankfurt",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
           "name": "Frankfurt Rhein/Main",
           "country": {
             "code": "DE",

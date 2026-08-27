@@ -73,7 +73,7 @@ emergent — three containers per tonne of flowers, one per tonne of batteries �
 ### Container capability belongs to the airframe, not the type
 
 The lower-deck cargo loading system is a fitted option. Some A320s take `AKH` containers, some
-are bulk only, and no 737 takes a ULD at all. Hold *geometry* comes from the type; whether the
+are bulk only, and no 737 takes a ULD at all. Hold _geometry_ comes from the type; whether the
 positions exist comes from the individual aircraft. Every aircraft, widebodies included, keeps
 a loose-loaded bulk compartment.
 
@@ -119,7 +119,7 @@ ships in the repository, and a manifest row stores its position as a plain strin
 `cargo-holds.json` therefore cannot move an already-generated manifest, so none of the
 versioning machinery has a counterpart here.
 
-*Alternative considered*: a `hold_layout` table synchronised like the layout catalogue.
+_Alternative considered_: a `hold_layout` table synchronised like the layout catalogue.
 Rejected — there is no upstream to synchronise with, and it would invent a revision-pinning
 problem that does not exist.
 
@@ -135,7 +135,7 @@ B77W  →  b77w-ld3 (default) | b77w-mixed   pallets forward, containers aft
 B74F  →  b74f-nose | b74f-side             main deck loading door
 ```
 
-*Alternative considered*: a boolean `containerCapable` on the aircraft. Rejected — it cannot
+_Alternative considered_: a boolean `containerCapable` on the aircraft. Rejected — it cannot
 express the 767's LD2/LD3 choice or a freighter's door options, and it puts a capability flag
 where a configuration name belongs.
 
@@ -146,7 +146,7 @@ point of view: a container of shipments at a location with a weight. `flight_car
 carries `kind` (`uld` or `bulk_lot`); a bulk lot has a compartment but no position designator
 and no ULD type, serial or tare.
 
-*Alternative considered*: separate tables for containerised and bulk load. Rejected — every
+_Alternative considered_: separate tables for containerised and bulk load. Rejected — every
 read, every weight roll-up and every NOTOC section would have to union them.
 
 ### The cargo tonnage includes ULD tare, and the packer closes the gap
@@ -163,7 +163,7 @@ count and net cargo are mutually dependent and the loop is single-pass rather th
 select-then-containerise. The last unit is left partly filled and the final shipment's piece
 count is trimmed to close the gap exactly — which is also what real freight looks like.
 
-*Alternative considered*: cargo as net weight with tare tracked separately. Cleaner arithmetic,
+_Alternative considered_: cargo as net weight with tare tracked separately. Cleaner arithmetic,
 but it puts a number on the manifest that no real loadsheet carries.
 
 ### Baggage is the payload residual
@@ -176,7 +176,7 @@ bags      = baggageKg / bagMass(distance)           15 / 16 / 18 kg by sector le
 A negative or implausible residual means the loadsheet does not add up, and is reported as such
 rather than clamped. This is a consistency check the loadsheet did not previously have.
 
-*Alternative considered*: generating a bag count from the passenger count and ignoring the
+_Alternative considered_: generating a bag count from the passenger count and ignoring the
 payload. Rejected — it would let the manifest contradict the loadsheet, and the residual is
 free.
 
@@ -190,7 +190,7 @@ freighter, and correctly forbids CAO cargo on a freighter carrying paying passen
 This does not break `flight-service-type`'s promise that the classification influences no other
 behaviour: the passenger count drives the gate, not the service type.
 
-*Alternative considered*: keying on `serviceType === cargo`, or on `AirframeServiceType`. Both
+_Alternative considered_: keying on `serviceType === cargo`, or on `AirframeServiceType`. Both
 are wrong in the belly-freighter case, and the airframe one is also wrong for a freighter with
 passengers aboard.
 
@@ -201,7 +201,7 @@ finished would produce a document the pilot never saw. `flight_notoc` stores one
 per `(flightId, stage)` holding the rendered document as JSON plus who acknowledged it and
 when. The delta on the final NOTOC is computed between the two stored snapshots.
 
-*Alternative considered*: derive both on read from the manifest. Rejected — it makes the
+_Alternative considered_: derive both on read from the manifest. Rejected — it makes the
 preliminary document unrecoverable and the acknowledgement unprovable.
 
 ### Dangerous goods and temperature control are JSON blocks on a shipment
@@ -210,7 +210,7 @@ Both are read as whole blocks, both are absent on most shipments, and both carry
 fields. Flat columns would add twenty mostly-null columns to a hot table, and the project
 already stores `loadsheets`, `timesheet` and `positionReports` as JSON.
 
-*Alternative considered*: separate one-to-zero-or-one tables. Rejected — the join bought
+_Alternative considered_: separate one-to-zero-or-one tables. Rejected — the join bought
 nothing, since nothing queries across shipments by UN number.
 
 ### Hold weights and volumes are curated approximations, and say so
@@ -224,7 +224,7 @@ times ULD volume, compartment weight agrees with positions times ULD weight — 
 ballpark against published totals, but it is curated data rather than manufacturer data and is
 described as such wherever it is exposed.
 
-*Alternative considered*: reading each type's airport-planning document before writing the
+_Alternative considered_: reading each type's airport-planning document before writing the
 data. It would improve the totals for the types that publish them, but several publish no
 per-compartment weights at all, so the derivation would remain either way.
 
@@ -236,7 +236,7 @@ departure airport IATA → country → continent → generic
   × its relative frequency weight
 ```
 
-The faker locale for shipper and consignee names resolves from the *departure airport's*
+The faker locale for shipper and consignee names resolves from the _departure airport's_
 country, where passenger names resolve from the operator's hub — the cargo was tendered where
 the flight departs, not where the airline is based.
 
@@ -267,7 +267,7 @@ rather than something a test has to catch. Irregular positions — the aft taper
 reduced contour only — are expressed as overrides on the template rather than as a second
 mechanism for the regular case. A loosely loaded compartment simply declares no template.
 
-*Alternative considered*: enumerating every position. Rejected for the volume of literal data
+_Alternative considered_: enumerating every position. Rejected for the volume of literal data
 and because a mistyped designator would be invisible until a manifest collided on it.
 
 ### `cargo-commodities.json` — reference data, 100 entries

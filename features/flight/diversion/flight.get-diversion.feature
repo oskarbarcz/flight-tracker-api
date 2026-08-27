@@ -37,7 +37,10 @@ Feature: Get a flight diversion
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "icaoCode": "KJFK",
           "iataCode": "JFK",
-          "city": "New York",
+          "city": {
+            "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+            "name": "New York"
+          },
           "name": "New York JFK",
           "country": {
             "code": "US",
@@ -78,7 +81,10 @@ Feature: Get a flight diversion
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "icaoCode": "KJFK",
           "iataCode": "JFK",
-          "city": "New York",
+          "city": {
+            "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+            "name": "New York"
+          },
           "name": "New York JFK",
           "country": {
             "code": "US",

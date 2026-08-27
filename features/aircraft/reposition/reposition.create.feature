@@ -148,7 +148,10 @@ Feature: Reposition an aircraft
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
-          "city": "Frankfurt",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
           "country": {
             "code": "DE",
             "name": "Germany"
@@ -159,7 +162,10 @@ Feature: Reposition an aircraft
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
-          "city": "Frankfurt",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
           "country": {
             "code": "DE",
             "name": "Germany"

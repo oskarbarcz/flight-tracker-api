@@ -1,14 +1,15 @@
 import { Prisma } from '../../client/client';
 import { Continent } from '../../../src/modules/airports/model/airport.model';
+import { CITY_IDS } from './cities.seed';
 
 export async function loadAirports(
   tx: Prisma.TransactionClient,
 ): Promise<void> {
-  const frankfurt: Prisma.AirportCreateInput = {
+  const frankfurt: Prisma.AirportCreateManyInput = {
     id: 'f35c094a-bec5-4803-be32-bd80a14b441a',
     icaoCode: 'EDDF',
     iataCode: 'FRA',
-    city: 'Frankfurt',
+    cityId: CITY_IDS.frankfurt,
     name: 'Frankfurt Rhein/Main',
     country: 'DE',
     timezone: 'Europe/Berlin',
@@ -68,11 +69,11 @@ export async function loadAirports(
     ],
   };
 
-  const warsaw: Prisma.AirportCreateInput = {
+  const warsaw: Prisma.AirportCreateManyInput = {
     id: '616cbdd7-ccfc-4687-8cf6-1e7236435046',
     icaoCode: 'EPWA',
     iataCode: 'WAW',
-    city: 'Warsaw',
+    cityId: CITY_IDS.warsaw,
     name: 'Warsaw Chopin',
     country: 'PL',
     timezone: 'Europe/Warsaw',
@@ -123,11 +124,11 @@ export async function loadAirports(
     ],
   };
 
-  const newYork: Prisma.AirportCreateInput = {
+  const newYork: Prisma.AirportCreateManyInput = {
     id: '3c721cc6-c653-4fad-be43-dc9d6a149383',
     icaoCode: 'KJFK',
     iataCode: 'JFK',
-    city: 'New York',
+    cityId: CITY_IDS.newYork,
     name: 'New York JFK',
     country: 'US',
     timezone: 'America/New_York',
@@ -184,11 +185,11 @@ export async function loadAirports(
     ],
   };
 
-  const paris: Prisma.AirportCreateInput = {
+  const paris: Prisma.AirportCreateManyInput = {
     id: '79b8f884-f67d-4585-b540-36b0be7f551e',
     icaoCode: 'LFPG',
     iataCode: 'CDG',
-    city: 'Paris',
+    cityId: CITY_IDS.paris,
     name: 'Paris Charles de Gaulle',
     country: 'FR',
     timezone: 'Europe/Paris',
@@ -255,11 +256,11 @@ export async function loadAirports(
     ],
   };
 
-  const gooseBay: Prisma.AirportCreateInput = {
+  const gooseBay: Prisma.AirportCreateManyInput = {
     id: 'fa8ee2e9-fb94-4416-9ed0-4811efd488ae',
     icaoCode: 'CYYR',
     iataCode: 'YYR',
-    city: 'Goose Bay',
+    cityId: CITY_IDS.gooseBay,
     name: 'Goose Bay Intl',
     country: 'CA',
     timezone: 'America/Goose_Bay',
@@ -319,11 +320,11 @@ export async function loadAirports(
     ],
   };
 
-  const reykjavik: Prisma.AirportCreateInput = {
+  const reykjavik: Prisma.AirportCreateManyInput = {
     id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a',
     icaoCode: 'BIKF',
     iataCode: 'KEF',
-    city: 'Reykjavik',
+    cityId: CITY_IDS.reykjavik,
     name: 'Reykjavik Keflavik',
     country: 'IS',
     timezone: 'Atlantic/Reykjavik',
@@ -385,11 +386,11 @@ export async function loadAirports(
     ],
   };
 
-  const stJohns: Prisma.AirportCreateInput = {
+  const stJohns: Prisma.AirportCreateManyInput = {
     id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97',
     icaoCode: 'CYYT',
     iataCode: 'YYT',
-    city: 'St. Johns',
+    cityId: CITY_IDS.stJohns,
     name: 'St. Johns Intl',
     country: 'CA',
     timezone: 'America/St_Johns',
@@ -438,11 +439,11 @@ export async function loadAirports(
     ],
   };
 
-  const philadelphia: Prisma.AirportCreateInput = {
+  const philadelphia: Prisma.AirportCreateManyInput = {
     id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
     icaoCode: 'KPHL',
     iataCode: 'PHL',
-    city: 'Philadelphia',
+    cityId: CITY_IDS.philadelphia,
     name: 'Philadelphia Intl',
     country: 'US',
     timezone: 'America/New_York',
@@ -502,11 +503,11 @@ export async function loadAirports(
     ],
   };
 
-  const boston: Prisma.AirportCreateInput = {
+  const boston: Prisma.AirportCreateManyInput = {
     id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
     icaoCode: 'KBOS',
     iataCode: 'BOS',
-    city: 'Boston',
+    cityId: CITY_IDS.boston,
     name: 'Boston Logan Intl',
     country: 'US',
     timezone: 'America/New_York',
@@ -565,11 +566,11 @@ export async function loadAirports(
     ],
   };
 
-  const bremen: Prisma.AirportCreateInput = {
+  const bremen: Prisma.AirportCreateManyInput = {
     id: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf',
     icaoCode: 'EDDW',
     iataCode: 'BRE',
-    city: 'Bremen',
+    cityId: CITY_IDS.bremen,
     name: 'Bremen',
     country: 'DE',
     timezone: 'Europe/Berlin',
@@ -625,6 +626,21 @@ export async function loadAirports(
     ],
   };
 
+  const orly: Prisma.AirportCreateManyInput = {
+    id: '93a9db1c-5047-489c-a018-178c3abd8a02',
+    icaoCode: 'LFPO',
+    iataCode: 'ORY',
+    cityId: CITY_IDS.paris,
+    name: 'Paris Orly',
+    country: 'FR',
+    timezone: 'Europe/Paris',
+    continent: Continent.Europe,
+    location: {
+      longitude: 2.35944,
+      latitude: 48.7233,
+    },
+  };
+
   await tx.airport.createMany({
     data: [
       frankfurt,
@@ -637,6 +653,7 @@ export async function loadAirports(
       philadelphia,
       boston,
       bremen,
+      orly,
     ],
   });
 }

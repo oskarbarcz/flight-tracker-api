@@ -21,18 +21,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 6,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -48,18 +39,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 6,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -75,18 +57,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 5,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -102,32 +75,19 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 5,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 },
                 "positionOverrides": [
                   {
                     "designator": "45L",
-                    "acceptedContours": [
-                      "H"
-                    ]
+                    "acceptedContours": ["H"]
                   },
                   {
                     "designator": "45R",
-                    "acceptedContours": [
-                      "H"
-                    ]
+                    "acceptedContours": ["H"]
                   }
                 ]
               },
@@ -164,18 +124,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 4,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "A",
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "G",
-                    "C",
-                    "P"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["A", "M"],
+                  "acceptedContours": ["G", "C", "P"],
                   "maxWeightKg": 6800
                 }
               },
@@ -191,18 +142,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 4,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "A",
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "G",
-                    "C",
-                    "P"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["A", "M"],
+                  "acceptedContours": ["G", "C", "P"],
                   "maxWeightKg": 6800
                 }
               },
@@ -218,18 +160,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 5,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -245,18 +178,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 5,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -298,18 +222,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 4,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -325,18 +240,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 4,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -352,18 +258,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 3,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -379,18 +276,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 3,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -432,18 +320,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 5,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -459,18 +338,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 4,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -486,18 +356,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 5,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -513,18 +374,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 4,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -729,15 +581,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 3,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "H"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["H"],
                   "maxWeightKg": 1134
                 }
               },
@@ -753,15 +599,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 4,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "H"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["H"],
                   "maxWeightKg": 1134
                 }
               },
@@ -864,15 +704,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 4,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "H"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["H"],
                   "maxWeightKg": 1134
                 }
               },
@@ -888,15 +722,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 6,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "H"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["H"],
                   "maxWeightKg": 1134
                 }
               },
@@ -999,15 +827,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 2,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "H"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["H"],
                   "maxWeightKg": 1134
                 }
               },
@@ -1023,15 +845,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 3,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "H"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["H"],
                   "maxWeightKg": 1134
                 }
               },
@@ -1083,17 +899,9 @@
                 "positionTemplate": {
                   "ordinals": "alpha",
                   "rows": 13,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "A",
-                    "C"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["M"],
+                  "acceptedContours": ["A", "C"],
                   "maxWeightKg": 6804
                 }
               },
@@ -1109,15 +917,9 @@
                 "positionTemplate": {
                   "ordinals": "alpha",
                   "rows": 1,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "C"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["M"],
+                  "acceptedContours": ["C"],
                   "maxWeightKg": 6804
                 }
               }
@@ -1138,18 +940,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 5,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "A",
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "G",
-                    "C",
-                    "P"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["A", "M"],
+                  "acceptedContours": ["G", "C", "P"],
                   "maxWeightKg": 6800
                 }
               },
@@ -1165,18 +958,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 5,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "A",
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "G",
-                    "C",
-                    "P"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["A", "M"],
+                  "acceptedContours": ["G", "C", "P"],
                   "maxWeightKg": 6800
                 }
               },
@@ -1218,31 +1002,19 @@
                 "positionTemplate": {
                   "ordinals": "alpha",
                   "rows": 15,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "A",
-                    "C"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["M"],
+                  "acceptedContours": ["A", "C"],
                   "maxWeightKg": 6804
                 },
                 "positionOverrides": [
                   {
                     "designator": "OL",
-                    "acceptedContours": [
-                      "C"
-                    ]
+                    "acceptedContours": ["C"]
                   },
                   {
                     "designator": "OR",
-                    "acceptedContours": [
-                      "C"
-                    ]
+                    "acceptedContours": ["C"]
                   }
                 ]
               }
@@ -1263,18 +1035,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 8,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -1290,18 +1053,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 8,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -1338,17 +1092,9 @@
                 "positionTemplate": {
                   "ordinals": "alpha",
                   "rows": 15,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "A",
-                    "C"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["M"],
+                  "acceptedContours": ["A", "C"],
                   "maxWeightKg": 6804
                 }
               }
@@ -1369,18 +1115,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 8,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -1396,18 +1133,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 8,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -1449,17 +1177,9 @@
                 "positionTemplate": {
                   "ordinals": "alpha",
                   "rows": 17,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "A",
-                    "C"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["M"],
+                  "acceptedContours": ["A", "C"],
                   "maxWeightKg": 6804
                 }
               }
@@ -1480,18 +1200,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 9,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -1507,18 +1218,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 9,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "K"
-                  ],
-                  "acceptedContours": [
-                    "E",
-                    "H",
-                    "N"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["K"],
+                  "acceptedContours": ["E", "H", "N"],
                   "maxWeightKg": 1588
                 }
               },
@@ -1560,17 +1262,9 @@
                 "positionTemplate": {
                   "ordinals": "alpha",
                   "rows": 12,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "A",
-                    "C"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["M"],
+                  "acceptedContours": ["A", "C"],
                   "maxWeightKg": 6804
                 }
               }
@@ -1637,18 +1331,9 @@
                 "positionTemplate": {
                   "ordinals": "alpha",
                   "rows": 15,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "A",
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "G",
-                    "C",
-                    "P"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["A", "M"],
+                  "acceptedContours": ["G", "C", "P"],
                   "maxWeightKg": 6800
                 }
               }
@@ -1705,17 +1390,9 @@
                 "positionTemplate": {
                   "ordinals": "alpha",
                   "rows": 13,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "A",
-                    "C"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["M"],
+                  "acceptedContours": ["A", "C"],
                   "maxWeightKg": 6804
                 }
               }
@@ -1736,18 +1413,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 5,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "A",
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "G",
-                    "C",
-                    "P"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["A", "M"],
+                  "acceptedContours": ["G", "C", "P"],
                   "maxWeightKg": 6800
                 }
               },
@@ -1763,18 +1431,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 4,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "A",
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "G",
-                    "C",
-                    "P"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["A", "M"],
+                  "acceptedContours": ["G", "C", "P"],
                   "maxWeightKg": 6800
                 }
               },
@@ -1816,17 +1475,9 @@
                 "positionTemplate": {
                   "ordinals": "alpha",
                   "rows": 10,
-                  "sides": [
-                    "L",
-                    "R"
-                  ],
-                  "acceptedBases": [
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "A",
-                    "C"
-                  ],
+                  "sides": ["L", "R"],
+                  "acceptedBases": ["M"],
+                  "acceptedContours": ["A", "C"],
                   "maxWeightKg": 6804
                 }
               },
@@ -1842,15 +1493,9 @@
                 "positionTemplate": {
                   "ordinals": "alpha",
                   "rows": 1,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "C"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["M"],
+                  "acceptedContours": ["C"],
                   "maxWeightKg": 6804
                 }
               }
@@ -1871,18 +1516,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 4,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "A",
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "G",
-                    "C",
-                    "P"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["A", "M"],
+                  "acceptedContours": ["G", "C", "P"],
                   "maxWeightKg": 6800
                 }
               },
@@ -1898,18 +1534,9 @@
                 "positionTemplate": {
                   "ordinals": "numeric",
                   "rows": 3,
-                  "sides": [
-                    "full"
-                  ],
-                  "acceptedBases": [
-                    "A",
-                    "M"
-                  ],
-                  "acceptedContours": [
-                    "G",
-                    "C",
-                    "P"
-                  ],
+                  "sides": ["full"],
+                  "acceptedBases": ["A", "M"],
+                  "acceptedContours": ["G", "C", "P"],
                   "maxWeightKg": 6800
                 }
               },

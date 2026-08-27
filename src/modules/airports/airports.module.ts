@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AirportsRepository } from './infra/database/airports.repository';
+import { CitiesRepository } from './infra/database/cities.repository';
 import { CreateAirportAction } from './infra/http/action/airport/create-airport.action';
 import { ListAirportsAction } from './infra/http/action/airport/list-airports.action';
 import { GetAirportAction } from './infra/http/action/airport/get-airport.action';
@@ -126,6 +127,7 @@ import { PushAirportOsmDataHandler } from './application/command/osm/push-airpor
   ],
   providers: [
     AirportsRepository,
+    CitiesRepository,
     TerminalsRepository,
     GatesRepository,
     ParkingPositionsRepository,

@@ -1,0 +1,159 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Postcard generator",
+    "version": "1.0.0",
+    "description": "Draws a collectible postcard for a city and stores it in object storage. The caller names the object, so the stored location is known before the response arrives."
+  },
+  "paths": {
+    "/city": {
+      "get": {
+        "summary": "Draw a postcard for a city and store it",
+        "description": "Generation at the default size and quality outlives the platform's synchronous response window, so a successful call commonly answers 202 with no payload. The caller derives the stored location from the uuid and format it sent, and confirms the object separately.",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "required": true,
+            "description": "The place to draw. Latin letters, digits, spaces, apostrophes and dots only; at most 64 characters and at most 5 words. Accented Latin letters are accepted; ampersands and parentheses are not.",
+            "schema": { "type": "string", "maxLength": 64 }
+          },
+          {
+            "name": "uuid",
+            "in": "query",
+            "required": true,
+            "description": "Names the stored object. Lowercased, strictly a uuid.",
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "description": "WxH. Both sides divisible by 16, each between 256 and 3840, aspect ratio within 1:3 to 3:1.",
+            "schema": { "type": "string", "default": "1152x1536" }
+          },
+          {
+            "name": "quality",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["auto", "low", "medium", "high"],
+              "default": "high"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "description": "jpeg stores .jpg, png stores .png.",
+            "schema": {
+              "type": "string",
+              "enum": ["jpeg", "png"],
+              "default": "jpeg"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Drawn and stored",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PostcardGenerated" }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted, but the result was not ready within the synchronous window. The art is most likely stored; confirm the object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PlatformError" }
+              }
+            }
+          },
+          "400": {
+            "description": "A parameter the generator will not accept. Permanent: retrying the same request cannot succeed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/FunctionError" }
+              }
+            }
+          },
+          "401": {
+            "description": "The shared secret was rejected by the platform before the function ran.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PlatformError" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "whiskAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Require-Whisk-Auth"
+      }
+    },
+    "schemas": {
+      "PostcardGenerated": {
+        "type": "object",
+        "required": [
+          "city",
+          "uuid",
+          "model",
+          "size",
+          "quality",
+          "format",
+          "contentType",
+          "bytes",
+          "prompt",
+          "key",
+          "url"
+        ],
+        "properties": {
+          "city": { "type": "string" },
+          "uuid": { "type": "string", "format": "uuid" },
+          "model": { "type": "string" },
+          "size": { "type": "string" },
+          "quality": {
+            "type": "string",
+            "enum": ["auto", "low", "medium", "high"]
+          },
+          "format": { "type": "string", "enum": ["jpeg", "png"] },
+          "contentType": { "type": "string" },
+          "bytes": { "type": "integer" },
+          "prompt": { "type": "string" },
+          "key": { "type": "string" },
+          "url": { "type": "string", "format": "uri" }
+        }
+      },
+      "FunctionError": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": ["code", "message", "status"],
+            "properties": {
+              "code": { "type": "string", "enum": ["BAD_REQUEST"] },
+              "message": { "type": "string" },
+              "status": { "type": "integer" }
+            }
+          }
+        }
+      },
+      "PlatformError": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string" },
+          "error": { "type": "string" }
+        }
+      }
+    }
+  }
+}

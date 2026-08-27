@@ -32,7 +32,7 @@ const AWAITING_TAKEOFF: ReadonlySet<FlightStatus> = new Set([
 
 export type PresenceAirport = {
   type: AirportType;
-  city: string;
+  city: { name: string };
   iataCode: string;
 };
 
@@ -119,7 +119,7 @@ function findAirport(
 }
 
 function formatAirport(airport: PresenceAirport): string {
-  return `${airport.city} (${airport.iataCode})`;
+  return `${airport.city.name} (${airport.iataCode})`;
 }
 
 function resolveSchedule(
