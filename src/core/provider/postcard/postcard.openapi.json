@@ -9,7 +9,7 @@
     "/city": {
       "get": {
         "summary": "Draw a postcard for a city and store it",
-        "description": "The generator validates the request, hands the render to a background activation and answers 202 at once, so 202 is the normal answer and 200 only arrives when the hand-off failed and the render happened inline. Either answer names the stored location, which the caller can also derive from the uuid and format it sent. A 202 carrying a code and no key comes from the platform rather than the generator and means the same thing. Neither answer means the art exists yet, so the caller confirms the object separately.",
+        "description": "These four parameters are the whole surface: the size, the quality, the format and the prompt are the generator's own configuration, so nothing this client sends decides what is drawn or what it costs. The generator validates the request, hands the render to a background activation and answers 202 at once, so 202 is the normal answer and 200 only arrives when the hand-off failed and the render happened inline. Either answer names the stored location, which the caller can also derive from the uuid it sent. A 202 carrying a code and no key comes from the platform rather than the generator and means the same thing. Neither answer means the art exists yet, so the caller confirms the object separately.",
         "parameters": [
           {
             "name": "city",
@@ -49,34 +49,6 @@
             "required": true,
             "description": "Names the stored object. Lowercased, strictly a uuid.",
             "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "description": "WxH. Both sides divisible by 16, each between 256 and 3840, aspect ratio within 1:3 to 3:1.",
-            "schema": { "type": "string", "default": "1152x1536" }
-          },
-          {
-            "name": "quality",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": ["auto", "low", "medium", "high"],
-              "default": "high"
-            }
-          },
-          {
-            "name": "format",
-            "in": "query",
-            "required": false,
-            "description": "jpeg stores .jpg, png stores .png.",
-            "schema": {
-              "type": "string",
-              "enum": ["jpeg", "png"],
-              "default": "jpeg"
-            }
           }
         ],
         "responses": {

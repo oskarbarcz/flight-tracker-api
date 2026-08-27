@@ -1,13 +1,11 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable, Logger } from '@nestjs/common';
 import {
-  POSTCARD_DEFAULTS,
-  POSTCARD_FILE_EXTENSION,
+  POSTCARD_ART_EXTENSION,
   POSTCARD_KEY_PREFIX,
   PostcardAcceptedBody,
   PostcardArt,
   PostcardErrorBody,
-  PostcardFormat,
   PostcardGeneratedBody,
   PostcardHandoff,
   PostcardLocation,
@@ -26,6 +24,19 @@ const FETCH_OPTIONS = { timeoutMs: 30000, retries: 0, backoffMs: 0 };
 const CONFIRM_OPTIONS = { timeoutMs: 10000, retries: 1, backoffMs: 500 };
 
 const ACCEPTED_WITHOUT_RESULT = 202;
+
+function drawnAt(size: string | undefined): {
+  width: number | null;
+  height: number | null;
+} {
+  const [width, height] = (size ?? '').split('x').map(Number);
+
+  if (!Number.isInteger(width) || !Number.isInteger(height)) {
+    return { width: null, height: null };
+  }
+
+  return { width, height };
+}
 
 function describeHandoff(handoff: PostcardHandoff | undefined): string {
   if (!handoff) {
@@ -61,9 +72,6 @@ export class PostcardClient {
       country: request.country,
       continent: request.continent,
       uuid: request.uuid,
-      size: POSTCARD_DEFAULTS.size,
-      quality: POSTCARD_DEFAULTS.quality,
-      format: POSTCARD_DEFAULTS.format,
     }).toString();
 
     let response: Response;
@@ -105,7 +113,7 @@ export class PostcardClient {
           `and is drawing it; the art will appear at ${expected.key}`,
       );
 
-      return { ...expected, drawn: false };
+      return { ...expected, drawn: false, ...drawnAt(accepted.size) };
     }
 
     if (!response.ok) {
@@ -126,7 +134,13 @@ export class PostcardClient {
       );
     }
 
-    return { ...expected, drawn: true };
+    return { ...expected, drawn: true, ...drawnAt(body.size) };
+  }
+
+  locate(uuid: string): PostcardLocation {
+    const key = `${POSTCARD_KEY_PREFIX}/${uuid}.${POSTCARD_ART_EXTENSION}`;
+
+    return { key, url: `${this.artBaseUrl}/${key}` };
   }
 
   async confirm(url: string): Promise<boolean> {
@@ -145,15 +159,6 @@ export class PostcardClient {
 
       return false;
     }
-  }
-
-  locate(
-    uuid: string,
-    format: PostcardFormat = POSTCARD_DEFAULTS.format,
-  ): PostcardLocation {
-    const key = `${POSTCARD_KEY_PREFIX}/${uuid}.${POSTCARD_FILE_EXTENSION[format]}`;
-
-    return { key, url: `${this.artBaseUrl}/${key}` };
   }
 
   private async asDomainError(response: Response): Promise<Error> {
