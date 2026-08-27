@@ -27,7 +27,9 @@ jobs:
       - name: 'Copy environment variables'
         run: 'cp .env.dist .env'
       - name: 'Run docker compose environment'
-        run: docker compose up -d --build --wait
+        id: 'environment'
+        timeout-minutes: 2
+        run: docker compose up -d --build --wait --wait-timeout 100
       - name: 'Run code formatting check'
         run: docker compose exec app npm run format
       - name: 'Run static code analysis'

@@ -115,13 +115,6 @@ export class CataloguePostcard {
 export class GetPostcardCatalogueResponse {
   @ApiProperty({ type: [CataloguePostcard] })
   postcards!: CataloguePostcard[];
-
-  @ApiProperty({
-    description:
-      'Cities holding no postcard at all, so they are named nowhere above. Drawing the missing art gives each of them one',
-    type: [CityRef],
-  })
-  citiesWithoutPostcard!: CityRef[];
 }
 
 export class DrawMissingPostcardsResponse {
