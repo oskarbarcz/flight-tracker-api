@@ -1,6 +1,7 @@
 import { PostcardClient } from './postcard.client';
 import { PostcardGeneratedBody } from '../type/postcard.types';
 import {
+  PostcardGeneratorTimedOutError,
   PostcardGeneratorUnavailableError,
   PostcardRejectedError,
 } from '../error/postcard.error';
@@ -137,6 +138,18 @@ describe('PostcardClient', () => {
 
     await expect(client.generate(munich)).rejects.toBeInstanceOf(
       PostcardGeneratorUnavailableError,
+    );
+  });
+
+  it('tells a render that outlived the call apart from a generator that is not there', async () => {
+    fetchMock = jest
+      .spyOn(global, 'fetch')
+      .mockRejectedValue(
+        new DOMException('This operation was aborted', 'AbortError'),
+      );
+
+    await expect(client.generate(munich)).rejects.toBeInstanceOf(
+      PostcardGeneratorTimedOutError,
     );
   });
 

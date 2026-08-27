@@ -12,6 +12,7 @@ import {
   PostcardRequest,
 } from '../type/postcard.types';
 import {
+  PostcardGeneratorTimedOutError,
   PostcardGeneratorUnavailableError,
   PostcardRejectedError,
 } from '../error/postcard.error';
@@ -23,6 +24,14 @@ const FETCH_OPTIONS = { timeoutMs: 30000, retries: 0, backoffMs: 0 };
 const CONFIRM_OPTIONS = { timeoutMs: 10000, retries: 1, backoffMs: 500 };
 
 const ACCEPTED_WITHOUT_RESULT = 202;
+
+function wasCutOff(error: unknown): boolean {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    (error as { name?: unknown }).name === 'AbortError'
+  );
+}
 
 @Injectable()
 export class PostcardClient {
@@ -61,6 +70,15 @@ export class PostcardClient {
         FETCH_OPTIONS,
       );
     } catch (error) {
+      if (wasCutOff(error)) {
+        this.logger.error(
+          `Postcard generator did not answer for ${request.city} within ${FETCH_OPTIONS.timeoutMs}ms, ` +
+            `so the render may still be running and the art may still appear at ${expected.key}`,
+        );
+
+        throw new PostcardGeneratorTimedOutError();
+      }
+
       this.logger.error(
         `Error calling postcard generator: ${getErrorMessage(error)}`,
       );
