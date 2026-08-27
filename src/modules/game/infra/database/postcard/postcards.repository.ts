@@ -35,6 +35,13 @@ export type ClaimedPostcard = {
 
 export type CataloguePostcardRecord = PostcardRecord & { heldBy: number };
 
+export type PostcardAwaitingArt = {
+  id: string;
+  artUuid: string;
+  startedAt: Date;
+  city: { name: string; country: string };
+};
+
 type PostcardRow = Omit<PostcardRecord, 'status'> & { status: string };
 
 function toRecord(row: PostcardRow): PostcardRecord {
@@ -136,12 +143,33 @@ export class PostcardsRepository {
     });
   }
 
-  async listCitiesWithoutPostcard(): Promise<{ id: string; name: string }[]> {
-    return this.prisma.city.findMany({
-      where: { postcard: { is: null } },
-      select: { id: true, name: true },
-      orderBy: { name: 'asc' },
+  async listCityIdsWithPostcard(): Promise<string[]> {
+    const postcards = await this.prisma.postcard.findMany({
+      select: { cityId: true },
     });
+
+    return postcards.map((postcard) => postcard.cityId);
+  }
+
+  async listAwaitingArt(): Promise<PostcardAwaitingArt[]> {
+    const postcards = await this.prisma.postcard.findMany({
+      where: { status: PostcardStatus.Pending, artUuid: { not: null } },
+      select: {
+        id: true,
+        artUuid: true,
+        createdAt: true,
+        updatedAt: true,
+        city: { select: { name: true, country: true } },
+      },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    return postcards.map((postcard) => ({
+      id: postcard.id,
+      artUuid: postcard.artUuid as string,
+      startedAt: postcard.updatedAt ?? postcard.createdAt,
+      city: postcard.city,
+    }));
   }
 
   async count(): Promise<number> {

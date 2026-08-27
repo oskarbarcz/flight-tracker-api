@@ -8,6 +8,7 @@ import {
   PostcardErrorBody,
   PostcardFormat,
   PostcardGeneratedBody,
+  PostcardLocation,
   PostcardRequest,
 } from '../type/postcard.types';
 import {
@@ -17,7 +18,7 @@ import {
 import { getErrorMessage } from '../../../utils/error-message';
 import { fetchWithRetry } from '../../http/fetch-with-retry';
 
-const FETCH_OPTIONS = { timeoutMs: 120000, retries: 0, backoffMs: 0 };
+const FETCH_OPTIONS = { timeoutMs: 30000, retries: 0, backoffMs: 0 };
 
 const CONFIRM_OPTIONS = { timeoutMs: 10000, retries: 1, backoffMs: 500 };
 
@@ -68,10 +69,10 @@ export class PostcardClient {
 
     if (response.status === ACCEPTED_WITHOUT_RESULT) {
       this.logger.log(
-        `Postcard generation for ${request.city}, ${request.country} outlived the synchronous window; confirming ${expected.key}`,
+        `Postcard generator took ${request.city}, ${request.country} and is drawing it; the art will appear at ${expected.key}`,
       );
 
-      return { ...expected, confirmed: await this.confirm(expected.url) };
+      return { ...expected, drawn: false };
     }
 
     if (!response.ok) {
@@ -80,7 +81,13 @@ export class PostcardClient {
 
     const body = (await response.json()) as PostcardGeneratedBody;
 
-    return { key: body.key, url: body.url, confirmed: true };
+    if (body.key !== expected.key) {
+      this.logger.warn(
+        `Postcard generator stored ${request.city} at ${body.key} rather than the expected ${expected.key}`,
+      );
+    }
+
+    return { ...expected, drawn: true };
   }
 
   async confirm(url: string): Promise<boolean> {
@@ -104,7 +111,7 @@ export class PostcardClient {
   locate(
     uuid: string,
     format: PostcardFormat = POSTCARD_DEFAULTS.format,
-  ): Omit<PostcardArt, 'confirmed'> {
+  ): PostcardLocation {
     const key = `${POSTCARD_KEY_PREFIX}/${uuid}.${POSTCARD_FILE_EXTENSION[format]}`;
 
     return { key, url: `${this.artBaseUrl}/${key}` };

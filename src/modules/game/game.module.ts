@@ -7,11 +7,15 @@ import { GeneratePostcardHandler } from './application/command/postcard/generate
 import { AwardPostcardHandler } from './application/command/postcard/award-postcard.command';
 import { AcknowledgePostcardHandler } from './application/command/postcard/acknowledge-postcard.command';
 import { RedrawPostcardHandler } from './application/command/postcard/redraw-postcard.command';
+import { ConfirmDrawnPostcardsHandler } from './application/command/postcard/confirm-drawn-postcards.command';
 import { DrawMissingPostcardsHandler } from './application/command/postcard/draw-missing-postcards.command';
 import { GetMyPostcardsHandler } from './application/query/postcard/get-my-postcards.query';
 import { GetMyPostcardHandler } from './application/query/postcard/get-my-postcard.query';
 import { GetPostcardCatalogueHandler } from './application/query/postcard/get-postcard-catalogue.query';
+import { GetCityIdsWithPostcardHandler } from './application/query/postcard/get-city-ids-with-postcard.query';
 import { CityCreatedListener } from './application/event/city-created.listener';
+import { CityRenamedListener } from './application/event/city-renamed.listener';
+import { PostcardConfirmationService } from './infra/service/postcard-confirmation.service';
 import { GetMyPostcardsAction } from './infra/http/action/postcard/get-my-postcards.action';
 import { GetMyPostcardAction } from './infra/http/action/postcard/get-my-postcard.action';
 import { AcknowledgePostcardAction } from './infra/http/action/postcard/acknowledge-postcard.action';
@@ -37,10 +41,14 @@ import { DrawMissingPostcardsAction } from './infra/http/action/postcard/draw-mi
     AcknowledgePostcardHandler,
     RedrawPostcardHandler,
     DrawMissingPostcardsHandler,
+    ConfirmDrawnPostcardsHandler,
     GetMyPostcardsHandler,
     GetMyPostcardHandler,
     GetPostcardCatalogueHandler,
+    GetCityIdsWithPostcardHandler,
     CityCreatedListener,
+    CityRenamedListener,
+    PostcardConfirmationService,
   ],
 })
 export class GameModule {}
