@@ -188,7 +188,8 @@ Feature: Get every postcard and its art
             "failureReason": null,
             "heldBy": 0
           }
-        ]
+        ],
+        "citiesWithoutPostcard": []
       }
       """
 

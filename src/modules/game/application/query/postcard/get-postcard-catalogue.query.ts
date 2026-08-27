@@ -10,7 +10,10 @@ export class GetPostcardCatalogueHandler implements IQueryHandler<GetPostcardCat
   constructor(private readonly repository: PostcardsRepository) {}
 
   async execute(): Promise<GetPostcardCatalogueResponse> {
-    const postcards = await this.repository.listCatalogue();
+    const [postcards, citiesWithoutPostcard] = await Promise.all([
+      this.repository.listCatalogue(),
+      this.repository.listCitiesWithoutPostcard(),
+    ]);
 
     return {
       postcards: postcards.map((postcard) => ({
@@ -25,6 +28,7 @@ export class GetPostcardCatalogueHandler implements IQueryHandler<GetPostcardCat
         failureReason: postcard.failureReason,
         heldBy: postcard.heldBy,
       })),
+      citiesWithoutPostcard,
     };
   }
 }
