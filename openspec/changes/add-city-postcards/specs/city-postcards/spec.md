@@ -32,13 +32,15 @@ per pilot. A city SHALL be able to exist with no postcard.
 
 ### Requirement: A postcard's art is produced and stored outside this system
 
-The system SHALL obtain a postcard's art from the external generator, naming the city to
-draw, that city's country so that a city is not confused with a same-named city elsewhere,
-and the name to store the art under, and SHALL record only the location the art was stored
-at. Where naming the country would make the request one the generator will not accept, the
-system SHALL name the city alone, so that a postcard is never left without art merely
-because its country cannot be expressed. The system SHALL NOT hold storage credentials and SHALL NOT store the image
-itself. The system SHALL treat art as produced only once the stored image is confirmed to
+The system SHALL obtain a postcard's art from the external generator, telling it the city to
+draw, the country that city is in, the continent that country is on, and the name to store
+the art under, and SHALL record where the art was stored rather than the art itself, together
+with, where it could not be produced, why. The city, the country and the continent SHALL be
+given as three separate facts rather than as one name, so that a city is not confused with a
+same-named city elsewhere and so that no city has to be renamed to be drawn. The proportions,
+fidelity and file format of the art SHALL be fixed by the system and SHALL NOT be settable by
+any caller, so that every postcard is drawn alike. The system SHALL NOT hold storage
+credentials and SHALL NOT store the image itself. The system SHALL treat art as produced only once the stored image is confirmed to
 exist, so that a generator that accepts the work without reporting its result does not leave
 the system claiming art it cannot serve. Where the generator cannot be reached, is refused,
 or fails, the system SHALL leave the postcard without art rather than record a location it
@@ -71,16 +73,27 @@ cannot serve.
 - **WHEN** the generator refuses the request
 - **THEN** the postcard is left without art and the failure is reported
 
-#### Scenario: A city is drawn with its country
+#### Scenario: A city is drawn with the place it is in
 
 - **WHEN** art is produced for a city
-- **THEN** the generator is told both the city and the country it is in
+- **THEN** the generator is told the city, the country it is in and the continent that country is on, each as its own fact
 
-#### Scenario: A country that cannot be expressed is omitted
+#### Scenario: Two cities sharing a name are drawn as different places
 
-- **GIVEN** a city whose country cannot be named in a way the generator accepts
-- **WHEN** art is produced for it
-- **THEN** the generator is told the city alone and art is produced
+- **GIVEN** two cities of the same name in different countries
+- **WHEN** art is produced for each
+- **THEN** each is drawn as the place it actually is rather than as the other
+
+#### Scenario: The country and the continent are never drawn as writing
+
+- **WHEN** art is produced for a city
+- **THEN** the city name is the only writing in the art
+- **AND** the country and the continent appear neither as text nor as a flag, an emblem or a country code
+
+#### Scenario: How the art is rendered is not open to the caller
+
+- **WHEN** art is produced for a city
+- **THEN** the proportions, fidelity and file format are the system's own and no caller can vary them
 
 #### Scenario: A rejected city name is not retried
 
@@ -274,9 +287,12 @@ SHALL NOT be able to acknowledge a postcard they do not hold.
 
 The system SHALL let an operations user read every postcard and its art regardless of who
 holds it, because art cannot be judged unsuitable without being looked at. The system SHALL
-report for each postcard the city it depicts, its art, whether it is awaiting art, and how
-many pilots hold it. Callers who are not operations users SHALL be refused, and an
-unauthenticated caller SHALL be rejected as unauthorized.
+report for each postcard the city it depicts, its art, whether it is awaiting art, how many
+pilots hold it, when its art last changed state, and, where the art could not be produced,
+why. The system SHALL also name every city holding no postcard at
+all, because such a city is named nowhere among the postcards and would otherwise be
+invisible to the user who has to give it art. Callers who are not operations users SHALL be
+refused, and an unauthenticated caller SHALL be rejected as unauthorized.
 
 #### Scenario: An operations user sees all postcards
 
@@ -288,6 +304,30 @@ unauthenticated caller SHALL be rejected as unauthorized.
 - **GIVEN** a postcard no pilot has earned
 - **WHEN** an operations user reads the postcards
 - **THEN** that postcard is reported
+
+#### Scenario: A failed postcard reports why its art could not be produced
+
+- **GIVEN** a postcard whose art could not be produced
+- **WHEN** an operations user reads the postcards
+- **THEN** it reports why, so a refused name can be told from a generator that could not be reached
+
+#### Scenario: A postcard awaiting art reports when it began
+
+- **GIVEN** a postcard whose art is being produced
+- **WHEN** an operations user reads the postcards
+- **THEN** it reports when its art last changed state, so one waiting a moment can be told from one that is stuck
+
+#### Scenario: A city with no postcard is named
+
+- **GIVEN** a city that holds no postcard
+- **WHEN** an operations user reads the postcards
+- **THEN** that city is named as holding none, though no postcard for it is reported
+
+#### Scenario: Every city holding a postcard leaves none to name
+
+- **GIVEN** every city holds a postcard
+- **WHEN** an operations user reads the postcards
+- **THEN** no city is named as holding none
 
 #### Scenario: Cabin crew cannot inspect all postcards
 
@@ -357,32 +397,3 @@ rejected as unauthorized.
 
 - **WHEN** a request to replace a postcard's art carries no access token
 - **THEN** the request is rejected as unauthorized
-
-### Requirement: Operations can override what is drawn when art is replaced
-
-The system SHALL let an operations user replacing a postcard's art override the name that is
-drawn, so that a city the generator will not accept can still be given art, and SHALL let
-them override the art's proportions and fidelity. Where no override is given, the postcard's
-own city and the system's defaults SHALL be used. An override SHALL apply to that production
-only and SHALL NOT rename the city.
-
-#### Scenario: A rejected city is given art under an accepted name
-
-- **GIVEN** a city whose name the generator will not accept, whose postcard has no art
-- **WHEN** an operations user replaces its art overriding the name to draw
-- **THEN** art is produced and the postcard reports it
-
-#### Scenario: An override does not rename the city
-
-- **WHEN** an operations user replaces a postcard's art overriding the name to draw
-- **THEN** the city's own name is unchanged
-
-#### Scenario: Omitted overrides fall back to the city and the defaults
-
-- **WHEN** an operations user replaces a postcard's art without overrides
-- **THEN** the postcard's own city is drawn at the system's default proportions and fidelity
-
-#### Scenario: An unusable override is rejected
-
-- **WHEN** an operations user replaces a postcard's art with proportions the generator will not accept
-- **THEN** the request is rejected as a validation error and the existing art is unchanged

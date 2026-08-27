@@ -22,6 +22,8 @@ Feature: Get every postcard and its art
             "width": 1152,
             "height": 1536,
             "status": "ready",
+            "statusChangedAt": null,
+            "failureReason": null,
             "heldBy": 0
           },
           {
@@ -38,6 +40,8 @@ Feature: Get every postcard and its art
             "width": 1152,
             "height": 1536,
             "status": "ready",
+            "statusChangedAt": null,
+            "failureReason": null,
             "heldBy": 0
           },
           {
@@ -54,6 +58,8 @@ Feature: Get every postcard and its art
             "width": 1152,
             "height": 1536,
             "status": "ready",
+            "statusChangedAt": null,
+            "failureReason": null,
             "heldBy": 1
           },
           {
@@ -70,6 +76,8 @@ Feature: Get every postcard and its art
             "width": 1152,
             "height": 1536,
             "status": "ready",
+            "statusChangedAt": null,
+            "failureReason": null,
             "heldBy": 0
           },
           {
@@ -86,6 +94,8 @@ Feature: Get every postcard and its art
             "width": 1152,
             "height": 1536,
             "status": "ready",
+            "statusChangedAt": null,
+            "failureReason": null,
             "heldBy": 1
           },
           {
@@ -102,6 +112,8 @@ Feature: Get every postcard and its art
             "width": 1152,
             "height": 1536,
             "status": "ready",
+            "statusChangedAt": null,
+            "failureReason": null,
             "heldBy": 0
           },
           {
@@ -118,6 +130,8 @@ Feature: Get every postcard and its art
             "width": 1152,
             "height": 1536,
             "status": "ready",
+            "statusChangedAt": null,
+            "failureReason": null,
             "heldBy": 1
           },
           {
@@ -134,6 +148,8 @@ Feature: Get every postcard and its art
             "width": 1152,
             "height": 1536,
             "status": "ready",
+            "statusChangedAt": null,
+            "failureReason": null,
             "heldBy": 0
           },
           {
@@ -150,6 +166,8 @@ Feature: Get every postcard and its art
             "width": 1152,
             "height": 1536,
             "status": "ready",
+            "statusChangedAt": null,
+            "failureReason": null,
             "heldBy": 0
           },
           {
@@ -166,9 +184,12 @@ Feature: Get every postcard and its art
             "width": null,
             "height": null,
             "status": "pending",
+            "statusChangedAt": null,
+            "failureReason": null,
             "heldBy": 0
           }
-        ]
+        ],
+        "citiesWithoutPostcard": []
       }
       """
 

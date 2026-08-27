@@ -185,12 +185,10 @@ is **not** reset, because the pilot already had their moment and repairing art m
 manufacture a second celebration. A postcard already producing art cannot be asked to
 produce it again.
 
-Regeneration also accepts optional overrides — the name to draw, and the size, quality and
-format. Without them the endpoint can only re-roll the same inputs, which cannot fix the one
-failure that is guaranteed to happen: the function accepts only Latin letters, digits,
-spaces, apostrophes and dots, at most 64 characters and at most 5 words, so a legitimate
-city whose name is written in another script has no art and no way to ever get any. An
-override is the repair path for it.
+Regeneration takes no parameters at all. The city, its country and its continent are facts
+the system already holds, and the proportions, fidelity and format are fixed so that every
+postcard is drawn alike — none of them is a caller's to choose. Replacing art is therefore
+one decision rather than a form.
 
 ### 9. Cities are in `airports`; visits are in `statistics`; postcards are in `game`
 
@@ -246,18 +244,12 @@ how long to wait for a _confirmation_, not for the image.
 **Regenerated art is orphaned.** The contract has no delete, so every repair leaves an
 unreferenced object behind. Cheap per occurrence, unbounded over time.
 
-**A city the function will not draw has no art and no automatic repair.** The `city`
-parameter accepts only Latin letters, digits, spaces, apostrophes and dots, at most 64
-characters and 5 words. A city imported with a name in another script fails validation
-permanently — retrying cannot help. The override on regeneration is the only path to art for
-it, and nothing surfaces that such a city exists beyond its postcard sitting without art.
-
-**Some cities are drawn without their country.** The country is appended after a space to
-disambiguate same-named cities, but a handful of catalogue country names cannot be sent at all
-— `&` and parentheses are refused and the string is capped at five words — so those cities are
-drawn from their name alone and may get art belonging to a better-known namesake. The
-alternative was sending the two-letter code, which always fits but tells an image model far
-less. Where this produces bad art, the operations override is the repair.
+**A city the function will not draw has no art and no repair.** The `city` parameter accepts
+only Latin letters, digits, spaces, apostrophes and dots, at most 64 characters and 5 words.
+A city imported with a name in another script fails validation permanently — retrying cannot
+help, and with regeneration taking no parameters there is no way to draw it under another
+name. Such a city keeps a postcard without art; what it does now carry is the reason, which
+operations can read rather than guess at.
 
 **Metro fan-in is inherited, not curated.** With `unique(name, country)`, grouping is
 decided by whatever the upstream calls each airport's city. The London fields all say

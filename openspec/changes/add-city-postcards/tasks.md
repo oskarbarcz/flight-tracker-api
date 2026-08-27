@@ -86,12 +86,12 @@ which is why the country is normalised and dropped rather than sent blindly.
 
 - [x] 6.1 Add a list-postcards query for operations, reporting every postcard with its city, its art, whether it awaits art, and how many pilots hold it
 - [x] 6.2 Add a regenerate command: refuse a postcard already generating, mint a new art uuid so the replacement lands at a new location no cache holds, and leave every holder's seen moment untouched
-- [x] 6.3 Accept optional overrides for the name to draw and the size, quality and format, falling back to the postcard's city and the defaults; an override applies to that production only and never renames the city
+- [x] 6.3 Take no parameters on regeneration: the city, its country and its continent are already held, and the proportions, fidelity and format are fixed by the system
 - [x] 6.4 Add the two actions gated with `@Role(UserRole.Operations)`, importing `UserRole` from the domain enum
 - [x] 6.5 Register the handlers and actions in `GameModule`
 - [x] 6.6 Add one feature file per endpoint covering operations succeeding, admin and cabin crew forbidden, and unauthenticated unauthorized
 - [x] 6.7 Cover that replacing art reaches every holder, does not re-reveal a seen postcard, and lands at a new location
-- [x] 6.8 Cover repairing a city the generator will not draw by overriding the name, and that the override does not rename the city
+- [x] 6.8 Cover that the city, its country and its continent reach the generator as three separate facts, and that neither the country nor the continent is ever drawn as writing
 
 ## 6b. Drawing the art a migration cannot ask for (needs 4)
 

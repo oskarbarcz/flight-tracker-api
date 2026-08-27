@@ -6,22 +6,10 @@ import {
 } from '../../../model/postcard/error/postcard.error';
 import { PostcardStatus } from '../../../model/postcard/postcard.model';
 import { GeneratePostcardCommand } from './generate-postcard.command';
-import {
-  PostcardFormat,
-  PostcardQuality,
-} from '../../../../../core/provider/postcard/type/postcard.types';
 import { CommandBus } from '@nestjs/cqrs';
 
 export class RedrawPostcardCommand {
-  constructor(
-    public readonly postcardId: string,
-    public readonly overrides: {
-      drawnName?: string;
-      size?: string;
-      quality?: PostcardQuality;
-      format?: PostcardFormat;
-    } = {},
-  ) {}
+  constructor(public readonly postcardId: string) {}
 }
 
 @CommandHandler(RedrawPostcardCommand)
@@ -32,7 +20,7 @@ export class RedrawPostcardHandler implements ICommandHandler<RedrawPostcardComm
   ) {}
 
   async execute(command: RedrawPostcardCommand): Promise<void> {
-    const { postcardId, overrides } = command;
+    const { postcardId } = command;
 
     const postcard = await this.repository.findById(postcardId);
 
@@ -48,7 +36,6 @@ export class RedrawPostcardHandler implements ICommandHandler<RedrawPostcardComm
       postcard.cityId,
       postcard.city.name,
       postcard.city.country,
-      overrides,
     );
     await this.commandBus.execute(generate);
   }

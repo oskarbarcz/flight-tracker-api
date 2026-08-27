@@ -4,14 +4,21 @@ export type PostcardQuality = 'auto' | 'low' | 'medium' | 'high';
 
 export type PostcardRequest = {
   city: string;
+  country: string;
+  continent: string;
   uuid: string;
-  size?: string;
-  quality?: PostcardQuality;
-  format?: PostcardFormat;
+};
+
+export type PostcardRenderSettings = {
+  size: string;
+  quality: PostcardQuality;
+  format: PostcardFormat;
 };
 
 export type PostcardGeneratedBody = {
   city: string;
+  country: string;
+  continent: string;
   uuid: string;
   model: string;
   size: string;
@@ -44,7 +51,7 @@ export const POSTCARD_DEFAULTS = {
   size: '1152x1536',
   quality: 'high',
   format: 'jpeg',
-} as const satisfies Required<Omit<PostcardRequest, 'city' | 'uuid'>>;
+} as const satisfies PostcardRenderSettings;
 
 export const POSTCARD_FILE_EXTENSION: Record<PostcardFormat, string> = {
   jpeg: 'jpg',

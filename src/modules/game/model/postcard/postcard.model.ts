@@ -88,6 +88,24 @@ export class CataloguePostcard {
   status!: PostcardStatus;
 
   @ApiProperty({
+    description:
+      'When the art last changed state, whether drawing began, finished or failed. Absent until it is first drawn',
+    type: String,
+    nullable: true,
+    example: '2026-08-26T18:30:00.000Z',
+  })
+  statusChangedAt!: Date | null;
+
+  @ApiProperty({
+    description:
+      'Why the art could not be drawn, absent unless the art failed. The only account of a failure the system keeps',
+    type: String,
+    nullable: true,
+    example: 'The generator will not draw "Beijing China"',
+  })
+  failureReason!: string | null;
+
+  @ApiProperty({
     description: 'How many pilots hold this postcard',
     example: 12,
   })
@@ -97,6 +115,13 @@ export class CataloguePostcard {
 export class GetPostcardCatalogueResponse {
   @ApiProperty({ type: [CataloguePostcard] })
   postcards!: CataloguePostcard[];
+
+  @ApiProperty({
+    description:
+      'Cities holding no postcard at all, so they are named nowhere above. Drawing the missing art gives each of them one',
+    type: [CityRef],
+  })
+  citiesWithoutPostcard!: CityRef[];
 }
 
 export class DrawMissingPostcardsResponse {
