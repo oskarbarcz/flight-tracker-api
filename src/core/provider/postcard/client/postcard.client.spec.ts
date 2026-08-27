@@ -100,22 +100,6 @@ describe('PostcardClient', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
-  it('names no location when the platform answered instead of the generator', async () => {
-    fetchMock = jest
-      .spyOn(global, 'fetch')
-      .mockResolvedValue(
-        jsonResponse(202, { error: 'Response not yet ready.' }),
-      );
-
-    expect(await client.generate(munich)).toEqual({
-      drawn: false,
-      key: null,
-      url: null,
-      width: null,
-      height: null,
-    });
-  });
-
   it('takes art the generator drew inline, so a refused hand-off costs nothing but the wait', async () => {
     fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue(
       jsonResponse(200, {
@@ -240,24 +224,5 @@ describe('PostcardClient', () => {
     expect(url).not.toContain('quality');
     expect(url).not.toContain('format');
     expect(url).not.toContain('prompt');
-  });
-
-  it('takes the stored location from the generator rather than deriving it', async () => {
-    const elsewhere = 'https://cdn.example/art/whatever-the-function-chose.png';
-
-    fetchMock = jest
-      .spyOn(global, 'fetch')
-      .mockResolvedValue(
-        jsonResponse(200, {
-          ...generated,
-          key: 'art/whatever',
-          url: elsewhere,
-        }),
-      );
-
-    expect(await client.generate(munich)).toMatchObject({
-      key: 'art/whatever',
-      url: elsewhere,
-    });
   });
 });

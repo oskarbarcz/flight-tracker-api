@@ -30,10 +30,15 @@ function fakeRepository(
     claimForCity: jest
       .fn()
       .mockResolvedValue({ id: POSTCARD_ID, created: false }),
-    startDrawing: jest
-      .fn()
-      .mockResolvedValue({ artUuid: ART_UUID, reused: false, ...started }),
+    startDrawing: jest.fn().mockResolvedValue({
+      artUuid: ART_UUID,
+      reused: false,
+      width: null,
+      height: null,
+      ...started,
+    }),
     recordArt: jest.fn().mockResolvedValue(undefined),
+    recordArtSize: jest.fn().mockResolvedValue(undefined),
     recordFailure: jest.fn().mockResolvedValue(undefined),
   } as unknown as jest.Mocked<PostcardsRepository>;
 }
@@ -51,6 +56,8 @@ function fakeClient(
       key: `postcards/${ART_UUID}.jpg`,
       url: ART_URL,
       drawn: true,
+      width: 1152,
+      height: 1536,
     }),
     ...overrides,
   } as unknown as jest.Mocked<PostcardClient>;
@@ -87,6 +94,8 @@ describe('GeneratePostcardHandler', () => {
         key: `postcards/${ART_UUID}.jpg`,
         url: ART_URL,
         drawn: false,
+        width: 1152,
+        height: 1536,
       }),
     });
 
@@ -95,6 +104,11 @@ describe('GeneratePostcardHandler', () => {
 
     expect(repository.recordArt).not.toHaveBeenCalled();
     expect(repository.recordFailure).not.toHaveBeenCalled();
+    expect(repository.recordArtSize).toHaveBeenCalledWith(
+      POSTCARD_ID,
+      1152,
+      1536,
+    );
   });
 
   it('leaves the postcard pending when the render outlived the call, because the art may still appear', async () => {
@@ -147,7 +161,11 @@ describe('GeneratePostcardHandler', () => {
   });
 
   it('adopts art an earlier attempt already stored rather than paying for it twice', async () => {
-    const repository = fakeRepository({ reused: true });
+    const repository = fakeRepository({
+      reused: true,
+      width: 1152,
+      height: 1536,
+    });
     const client = fakeClient({ confirm: jest.fn().mockResolvedValue(true) });
 
     const handler = new GeneratePostcardHandler(repository, client);

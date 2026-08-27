@@ -17,6 +17,8 @@ function awaiting(
   return {
     id: '0f3d6a2e-9c14-4f0b-8a7d-2b5e1c8f4a63',
     artUuid: ART_UUID,
+    width: 1152,
+    height: 1536,
     startedAt: new Date(NOW.getTime() - 60 * 1000),
     city: { name: 'Munich', country: 'DE' },
     ...overrides,
