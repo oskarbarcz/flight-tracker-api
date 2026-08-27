@@ -4,10 +4,12 @@ import {
   POSTCARD_DEFAULTS,
   POSTCARD_FILE_EXTENSION,
   POSTCARD_KEY_PREFIX,
+  PostcardAcceptedBody,
   PostcardArt,
   PostcardErrorBody,
   PostcardFormat,
   PostcardGeneratedBody,
+  PostcardHandoff,
   PostcardLocation,
   PostcardRequest,
 } from '../type/postcard.types';
@@ -24,6 +26,14 @@ const FETCH_OPTIONS = { timeoutMs: 30000, retries: 0, backoffMs: 0 };
 const CONFIRM_OPTIONS = { timeoutMs: 10000, retries: 1, backoffMs: 500 };
 
 const ACCEPTED_WITHOUT_RESULT = 202;
+
+function describeHandoff(handoff: PostcardHandoff | undefined): string {
+  if (!handoff) {
+    return 'a route it did not name';
+  }
+
+  return handoff.reason ? `${handoff.mode}: ${handoff.reason}` : handoff.mode;
+}
 
 function wasCutOff(error: unknown): boolean {
   return (
@@ -86,8 +96,13 @@ export class PostcardClient {
     }
 
     if (response.status === ACCEPTED_WITHOUT_RESULT) {
+      const accepted = (await response
+        .json()
+        .catch(() => ({}))) as Partial<PostcardAcceptedBody>;
+
       this.logger.log(
-        `Postcard generator took ${request.city}, ${request.country} and is drawing it; the art will appear at ${expected.key}`,
+        `Postcard generator took ${request.city}, ${request.country} over ${describeHandoff(accepted.handoff)} ` +
+          `and is drawing it; the art will appear at ${expected.key}`,
       );
 
       return { ...expected, drawn: false };
@@ -98,6 +113,12 @@ export class PostcardClient {
     }
 
     const body = (await response.json()) as PostcardGeneratedBody;
+
+    if (body.handoff?.mode === 'inline') {
+      this.logger.warn(
+        `Postcard generator drew ${request.city} while this call waited, because no hand-off route took it: ${body.handoff.reason ?? 'no reason given'}`,
+      );
+    }
 
     if (body.key !== expected.key) {
       this.logger.warn(

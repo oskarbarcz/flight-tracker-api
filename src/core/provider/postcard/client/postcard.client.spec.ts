@@ -93,6 +93,38 @@ describe('PostcardClient', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
+  it('accepts art handed to a background render whatever route it went out on', async () => {
+    fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue(
+      jsonResponse(202, {
+        status: 'accepted',
+        key: `postcards/${UUID}.jpg`,
+        url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
+        handoff: { mode: 'web' },
+      }),
+    );
+
+    expect(await client.generate(munich)).toEqual({
+      key: `postcards/${UUID}.jpg`,
+      url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
+      drawn: false,
+    });
+  });
+
+  it('takes art the generator drew inline, so a refused hand-off costs nothing but the wait', async () => {
+    fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue(
+      jsonResponse(200, {
+        ...generated,
+        handoff: { mode: 'inline', reason: 'no public endpoint configured' },
+      }),
+    );
+
+    expect(await client.generate(munich)).toEqual({
+      key: `postcards/${UUID}.jpg`,
+      url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
+      drawn: true,
+    });
+  });
+
   it('rejects a request the generator will not accept without retrying', async () => {
     fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue(
       jsonResponse(400, {

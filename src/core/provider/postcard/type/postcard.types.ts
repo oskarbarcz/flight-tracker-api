@@ -15,6 +15,13 @@ export type PostcardRenderSettings = {
   format: PostcardFormat;
 };
 
+export type PostcardHandoffMode = 'activation' | 'web' | 'inline';
+
+export type PostcardHandoff = {
+  mode: PostcardHandoffMode;
+  reason?: string;
+};
+
 export type PostcardAcceptedBody = {
   status: 'accepted';
   city: string;
@@ -26,6 +33,7 @@ export type PostcardAcceptedBody = {
   format: PostcardFormat;
   key: string;
   url: string;
+  handoff?: PostcardHandoff;
 };
 
 export type PostcardGeneratedBody = {
@@ -42,6 +50,7 @@ export type PostcardGeneratedBody = {
   prompt: string;
   key: string;
   url: string;
+  handoff?: PostcardHandoff;
 };
 
 export type PostcardErrorCode = 'BAD_REQUEST';

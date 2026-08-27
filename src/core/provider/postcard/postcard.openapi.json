@@ -81,7 +81,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Drawn and stored inline, because the render could not be handed to a background activation",
+            "description": "Drawn and stored inline, because every hand-off route refused the render. `handoff.reason` says why, and is the only account of it: the generator's own logs are not retrievable.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/PostcardGenerated" }
@@ -89,7 +89,7 @@
             }
           },
           "202": {
-            "description": "Accepted; the render is running in the background and the art does not exist yet. The normal answer. A body carrying a code and no key is the platform saying the same thing.",
+            "description": "Accepted; the render is running in the background and the art does not exist yet. The normal answer. `handoff.mode` names the route it went out on. A body carrying a code and no key is the platform saying the same thing.",
             "content": {
               "application/json": {
                 "schema": {
@@ -163,7 +163,16 @@
           "bytes": { "type": "integer" },
           "prompt": { "type": "string" },
           "key": { "type": "string" },
-          "url": { "type": "string", "format": "uri" }
+          "url": { "type": "string", "format": "uri" },
+          "handoff": { "$ref": "#/components/schemas/Handoff" }
+        }
+      },
+      "Handoff": {
+        "type": "object",
+        "required": ["mode"],
+        "properties": {
+          "mode": { "type": "string", "enum": ["activation", "web", "inline"] },
+          "reason": { "type": "string" }
         }
       },
       "PostcardAccepted": {
@@ -193,7 +202,8 @@
           },
           "format": { "type": "string", "enum": ["jpeg", "png"] },
           "key": { "type": "string" },
-          "url": { "type": "string", "format": "uri" }
+          "url": { "type": "string", "format": "uri" },
+          "handoff": { "$ref": "#/components/schemas/Handoff" }
         }
       },
       "FunctionError": {
