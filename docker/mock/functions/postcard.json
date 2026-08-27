@@ -255,7 +255,7 @@
     "priority": 10,
     "httpResponseTemplate": {
       "templateType": "MUSTACHE",
-      "template": "{'statusCode': 200,'headers': { 'Content-Type': [ 'application/json' ] },'body': {'city': '{{ request.queryStringParameters.city.0 }}','uuid': '{{ request.queryStringParameters.uuid.0 }}','model': 'gpt-image-2','size': '1152x1536','quality': 'high','format': 'jpeg','contentType': 'image/jpeg','bytes': 312044,'prompt': 'TARGET_CITY = \"{{ request.queryStringParameters.city.0 }}\"','key': 'postcards/{{ request.queryStringParameters.uuid.0 }}.jpg','url': 'http://functions-mock:1080/mypreflight-files/postcards/{{ request.queryStringParameters.uuid.0 }}.jpg'}}"
+      "template": "{'statusCode': 200,'headers': { 'Content-Type': [ 'application/json' ] },'body': {'city': '{{ request.queryStringParameters.city.0 }}','country': '{{ request.queryStringParameters.country.0 }}','continent': '{{ request.queryStringParameters.continent.0 }}','uuid': '{{ request.queryStringParameters.uuid.0 }}','model': 'gpt-image-2','size': '1152x1536','quality': 'high','format': 'jpeg','contentType': 'image/jpeg','bytes': 312044,'prompt': 'TARGET_CITY = \"{{ request.queryStringParameters.city.0 }}\"','key': 'postcards/{{ request.queryStringParameters.uuid.0 }}.jpg','url': 'http://functions-mock:1080/mypreflight-files/postcards/{{ request.queryStringParameters.uuid.0 }}.jpg'}}"
     }
   },
   {

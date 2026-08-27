@@ -34,15 +34,16 @@ export class PostcardClient {
   ) {}
 
   async generate(request: PostcardRequest): Promise<PostcardArt> {
-    const format = request.format ?? POSTCARD_DEFAULTS.format;
-    const expected = this.locate(request.uuid, format);
+    const expected = this.locate(request.uuid);
 
     const query = new URLSearchParams({
       city: request.city,
+      country: request.country,
+      continent: request.continent,
       uuid: request.uuid,
-      size: request.size ?? POSTCARD_DEFAULTS.size,
-      quality: request.quality ?? POSTCARD_DEFAULTS.quality,
-      format,
+      size: POSTCARD_DEFAULTS.size,
+      quality: POSTCARD_DEFAULTS.quality,
+      format: POSTCARD_DEFAULTS.format,
     }).toString();
 
     let response: Response;
@@ -67,7 +68,7 @@ export class PostcardClient {
 
     if (response.status === ACCEPTED_WITHOUT_RESULT) {
       this.logger.log(
-        `Postcard generation for ${request.city} outlived the synchronous window; confirming ${expected.key}`,
+        `Postcard generation for ${request.city}, ${request.country} outlived the synchronous window; confirming ${expected.key}`,
       );
 
       return { ...expected, confirmed: await this.confirm(expected.url) };

@@ -10,6 +10,8 @@ const selectPostcard = {
   imageUrl: true,
   width: true,
   height: true,
+  failureReason: true,
+  updatedAt: true,
   city: { select: { id: true, name: true, country: true } },
 } as const;
 
@@ -21,6 +23,8 @@ export type PostcardRecord = {
   imageUrl: string | null;
   width: number | null;
   height: number | null;
+  failureReason: string | null;
+  updatedAt: Date | null;
   city: { id: string; name: string; country: string };
 };
 
@@ -99,15 +103,20 @@ export class PostcardsRepository {
         imageUrl,
         width,
         height,
+        failureReason: null,
         updatedAt: new Date(),
       },
     });
   }
 
-  async recordFailure(id: string): Promise<void> {
+  async recordFailure(id: string, reason: string): Promise<void> {
     await this.prisma.postcard.update({
       where: { id },
-      data: { status: PostcardStatus.Failed, updatedAt: new Date() },
+      data: {
+        status: PostcardStatus.Failed,
+        failureReason: reason,
+        updatedAt: new Date(),
+      },
     });
   }
 
@@ -123,6 +132,14 @@ export class PostcardsRepository {
         ],
       },
       select: { id: true, name: true, country: true },
+      orderBy: { name: 'asc' },
+    });
+  }
+
+  async listCitiesWithoutPostcard(): Promise<{ id: string; name: string }[]> {
+    return this.prisma.city.findMany({
+      where: { postcard: { is: null } },
+      select: { id: true, name: true },
       orderBy: { name: 'asc' },
     });
   }

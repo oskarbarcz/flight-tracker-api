@@ -544,15 +544,16 @@ model UserCountryVisit {
 }
 
 model Postcard {
-  id        String         @id @default(uuid()) @db.Uuid
-  cityId    String         @unique @db.Uuid
-  status    PostcardStatus @default(pending)
-  artUuid   String?        @db.Uuid
-  imageUrl  String?
-  width     Int?
-  height    Int?
-  createdAt DateTime       @default(now())
-  updatedAt DateTime?
+  id            String         @id @default(uuid()) @db.Uuid
+  cityId        String         @unique @db.Uuid
+  status        PostcardStatus @default(pending)
+  artUuid       String?        @db.Uuid
+  imageUrl      String?
+  width         Int?
+  height        Int?
+  failureReason String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime?
 
   city    City           @relation(fields: [cityId], references: [id])
   holders UserPostcard[]

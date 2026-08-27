@@ -30,6 +30,8 @@ function headResponse(status: number): Response {
 
 const generated: PostcardGeneratedBody = {
   city: 'Munich',
+  country: 'Germany',
+  continent: 'Europe',
   uuid: UUID,
   model: 'gpt-image-2',
   size: '1152x1536',
@@ -56,7 +58,14 @@ describe('PostcardClient', () => {
       .spyOn(global, 'fetch')
       .mockResolvedValue(jsonResponse(200, generated));
 
-    expect(await client.generate({ city: 'Munich', uuid: UUID })).toEqual({
+    expect(
+      await client.generate({
+        city: 'Munich',
+        country: 'Germany',
+        continent: 'Europe',
+        uuid: UUID,
+      }),
+    ).toEqual({
       key: `postcards/${UUID}.jpg`,
       url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
       confirmed: true,
@@ -64,7 +73,8 @@ describe('PostcardClient', () => {
 
     const [url, init] = fetchMock.mock.calls[0];
     expect(url).toBe(
-      `${BASE_URL}/city?city=Munich&uuid=${UUID}&size=1152x1536&quality=high&format=jpeg`,
+      `${BASE_URL}/city?city=Munich&country=Germany&continent=Europe&uuid=${UUID}` +
+        `&size=1152x1536&quality=high&format=jpeg`,
     );
     expect(init.headers['X-Require-Whisk-Auth']).toBe(SECRET);
   });
@@ -77,7 +87,14 @@ describe('PostcardClient', () => {
       )
       .mockResolvedValueOnce(headResponse(200));
 
-    expect(await client.generate({ city: 'Munich', uuid: UUID })).toEqual({
+    expect(
+      await client.generate({
+        city: 'Munich',
+        country: 'Germany',
+        continent: 'Europe',
+        uuid: UUID,
+      }),
+    ).toEqual({
       key: `postcards/${UUID}.jpg`,
       url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
       confirmed: true,
@@ -96,7 +113,14 @@ describe('PostcardClient', () => {
       )
       .mockResolvedValue(headResponse(404));
 
-    expect(await client.generate({ city: 'Munich', uuid: UUID })).toEqual({
+    expect(
+      await client.generate({
+        city: 'Munich',
+        country: 'Germany',
+        continent: 'Europe',
+        uuid: UUID,
+      }),
+    ).toEqual({
       key: `postcards/${UUID}.jpg`,
       url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
       confirmed: false,
@@ -116,7 +140,12 @@ describe('PostcardClient', () => {
     );
 
     await expect(
-      client.generate({ city: '北京', uuid: UUID }),
+      client.generate({
+        city: '北京',
+        country: 'China',
+        continent: 'Asia',
+        uuid: UUID,
+      }),
     ).rejects.toBeInstanceOf(PostcardRejectedError);
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -132,7 +161,12 @@ describe('PostcardClient', () => {
     );
 
     await expect(
-      client.generate({ city: 'Munich', uuid: UUID }),
+      client.generate({
+        city: 'Munich',
+        country: 'Germany',
+        continent: 'Europe',
+        uuid: UUID,
+      }),
     ).rejects.toBeInstanceOf(PostcardGeneratorUnavailableError);
   });
 
@@ -142,7 +176,12 @@ describe('PostcardClient', () => {
       .mockRejectedValue(new Error('connect ECONNREFUSED'));
 
     await expect(
-      client.generate({ city: 'Munich', uuid: UUID }),
+      client.generate({
+        city: 'Munich',
+        country: 'Germany',
+        continent: 'Europe',
+        uuid: UUID,
+      }),
     ).rejects.toBeInstanceOf(PostcardGeneratorUnavailableError);
   });
 

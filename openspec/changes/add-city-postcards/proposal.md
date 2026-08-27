@@ -43,10 +43,10 @@ than something operational. Postcards are its first inhabitant and will not be i
   the flight lifecycle.
 - **Operations can inspect and repair the art.** Generated images will sometimes be
   wrong, ugly or embarrassing. Operations users can view every postcard regardless of who
-  has earned it, and can order any one of them regenerated — optionally overriding the name
-  to draw, which is the only repair for a city whose name the generator will not accept.
-  Regeneration replaces the art for everyone holding that postcard, at a new location so no
-  cache serves the old image, and without re-triggering anyone's reveal.
+  has earned it, along with why any failed art could not be drawn, and can order any one of
+  them regenerated in a single decision that takes no parameters. Regeneration replaces the
+  art for everyone holding that postcard, at a new location so no cache serves the old image,
+  and without re-triggering anyone's reveal.
 - **A pilot's first sight of a new postcard is marked.** Each award records whether it has
   been seen, so the client can play its reveal exactly once even if the pilot was not
   looking at the application when the flight landed.

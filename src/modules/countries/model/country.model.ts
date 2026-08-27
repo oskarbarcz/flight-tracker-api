@@ -60,6 +60,20 @@ export class GetCountriesResponse {
   countries!: Country[];
 }
 
+const CONTINENT_NAMES: Record<Continent, string> = {
+  [Continent.africa]: 'Africa',
+  [Continent.antarctica]: 'Antarctica',
+  [Continent.asia]: 'Asia',
+  [Continent.europe]: 'Europe',
+  [Continent.north_america]: 'North America',
+  [Continent.oceania]: 'Oceania',
+  [Continent.south_america]: 'South America',
+};
+
+export function continentName(continent: Continent): string {
+  return CONTINENT_NAMES[continent];
+}
+
 export function normalizeCountryCode(value: string): string {
   return value.trim().toUpperCase();
 }

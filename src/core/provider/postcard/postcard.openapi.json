@@ -19,6 +19,31 @@
             "schema": { "type": "string", "maxLength": 64 }
           },
           {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "description": "The country the city is in, in English. Latin letters, digits, spaces, apostrophes, dots, commas, ampersands and parentheses only; at most 64 characters and at most 8 words. Settles which city is meant where the name is shared with cities elsewhere, and grounds the regional architecture and landscape. Never drawn as text, a flag, an emblem or a country code.",
+            "schema": { "type": "string", "maxLength": 64 }
+          },
+          {
+            "name": "continent",
+            "in": "query",
+            "required": true,
+            "description": "The continent the city is on, in English, read case-insensitively. Grounds the terrain, vegetation, climate and quality of light. Like the country, never drawn as text or as a symbol.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Africa",
+                "Antarctica",
+                "Asia",
+                "Europe",
+                "North America",
+                "Oceania",
+                "South America"
+              ]
+            }
+          },
+          {
             "name": "uuid",
             "in": "query",
             "required": true,
@@ -104,6 +129,8 @@
         "type": "object",
         "required": [
           "city",
+          "country",
+          "continent",
           "uuid",
           "model",
           "size",
@@ -117,6 +144,8 @@
         ],
         "properties": {
           "city": { "type": "string" },
+          "country": { "type": "string" },
+          "continent": { "type": "string" },
           "uuid": { "type": "string", "format": "uuid" },
           "model": { "type": "string" },
           "size": { "type": "string" },

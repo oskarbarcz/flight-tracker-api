@@ -1,7 +1,6 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Controller, HttpCode, Post } from '@nestjs/common';
 import {
   ApiBearerAuth,
-  ApiBody,
   ApiConflictResponse,
   ApiForbiddenResponse,
   ApiNoContentResponse,
@@ -13,7 +12,6 @@ import {
 } from '@nestjs/swagger';
 import { CommandBus } from '@nestjs/cqrs';
 import { RedrawPostcardCommand } from '../../../../application/command/postcard/redraw-postcard.command';
-import { RedrawPostcardRequest } from '../../request/postcard.dto';
 import { UnauthorizedResponse } from '../../../../../../core/http/response/unauthorized.response';
 import { ForbiddenResponse } from '../../../../../../core/http/response/forbidden.response';
 import { GenericNotFoundResponse } from '../../../../../../core/http/response/not-found.response';
@@ -34,7 +32,6 @@ export class RedrawPostcardAction {
   })
   @ApiBearerAuth('jwt')
   @ApiParam({ name: 'postcardId', description: 'Postcard unique identifier' })
-  @ApiBody({ type: RedrawPostcardRequest, required: false })
   @ApiNoContentResponse()
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })
@@ -45,11 +42,8 @@ export class RedrawPostcardAction {
   @Post()
   @HttpCode(204)
   @Role(UserRole.Operations)
-  async run(
-    @UuidParam('postcardId') postcardId: string,
-    @Body() body: RedrawPostcardRequest,
-  ): Promise<void> {
-    const command = new RedrawPostcardCommand(postcardId, body);
+  async run(@UuidParam('postcardId') postcardId: string): Promise<void> {
+    const command = new RedrawPostcardCommand(postcardId);
     await this.commandBus.execute(command);
   }
 }
