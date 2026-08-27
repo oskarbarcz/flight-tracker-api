@@ -43,7 +43,7 @@ const diversionWithPayloadQuery = {
       id: true,
       icaoCode: true,
       iataCode: true,
-      city: true,
+      city: { select: { id: true, name: true } },
       name: true,
       country: true,
       timezone: true,

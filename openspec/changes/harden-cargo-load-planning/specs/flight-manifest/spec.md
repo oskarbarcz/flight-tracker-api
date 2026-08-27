@@ -53,7 +53,6 @@ that a client is never told the aircraft is uncatalogued when the flight merely 
 - **WHEN** its manifest is read
 - **THEN** the request reports that no manifest has been generated yet
 
-
 ### Requirement: A flight pins the layout revision it was seated against
 
 The system SHALL record on a flight, at the moment its preliminary loadsheet is written, the cabin
@@ -92,7 +91,6 @@ an assigned layout, and the loadsheet SHALL NOT be stored when it is refused.
 
 - **WHEN** a loadsheet reports exactly as many passengers as the layout has seats
 - **THEN** the loadsheet is accepted
-
 
 ### Requirement: An aircraft with no cabin layout produces no manifest
 

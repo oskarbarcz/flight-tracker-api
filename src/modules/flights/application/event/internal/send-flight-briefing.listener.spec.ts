@@ -38,13 +38,13 @@ function flight() {
       {
         id: DEPARTURE_ID,
         type: AirportType.Departure,
-        city: 'Frankfurt',
+        city: { id: 'e8e8d77d-4b22-42cb-b163-13d54eec3597', name: 'Frankfurt' },
         iataCode: 'FRA',
       },
       {
         id: 'd3fbb1cb-0f26-4a41-9e5f-2ab6a2d80a2d',
         type: AirportType.Destination,
-        city: 'New York',
+        city: { id: '6ef8953e-7c45-417a-b850-7e3c53de54cd', name: 'New York' },
         iataCode: 'JFK',
       },
     ],

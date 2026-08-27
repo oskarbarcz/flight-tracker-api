@@ -38,12 +38,25 @@ model Aircraft {
   @@map("aircraft")
 }
 
+model City {
+  id      String @id @default(uuid()) @db.Uuid
+  name    String
+  country String @db.VarChar(2)
+
+  airports Airport[]
+  visits   UserCityVisit[]
+  postcard Postcard?
+
+  @@unique([name, country])
+  @@map("city")
+}
+
 model Airport {
   id          String      @id @default(uuid()) @db.Uuid
   icaoCode    String      @unique @db.VarChar(4)
   iataCode    String      @unique @db.VarChar(3)
   name        String
-  city        String
+  cityId      String      @db.Uuid
   country     String      @db.VarChar(2)
   timezone    String
   continent   Continent
@@ -53,6 +66,7 @@ model Airport {
 
   monitorWeather Boolean @default(false)
 
+  city                      City                 @relation(fields: [cityId], references: [id])
   airportsOnFlights         AirportsOnFlights[]
   weather                   AirportWeather[]
   notams                    AirportNotam[]
@@ -66,11 +80,13 @@ model Airport {
   departureForTravels       UserTravel[]         @relation("UserTravelDepartureAirport")
   destinationForTravels     UserTravel[]         @relation("UserTravelDestinationAirport")
   countryVisits             UserCountryVisit[]
+  cityVisits                UserCityVisit[]
   departureForRepositions   AircraftReposition[] @relation("AircraftRepositionDepartureAirport")
   destinationForRepositions AircraftReposition[] @relation("AircraftRepositionDestinationAirport")
   departureForLegs          RotationLeg[]        @relation("LegDeparture")
   arrivalForLegs            RotationLeg[]        @relation("LegArrival")
 
+  @@index([cityId])
   @@map("airport")
 }
 
@@ -280,6 +296,7 @@ model Flight {
   aircraftRepositions      AircraftReposition[]   @relation("AircraftRepositionFlight")
   userAircraft             UserAircraft[]
   countryVisits            UserCountryVisit[]
+  cityVisits               UserCityVisit[]
   crew                     CrewOnFlights[]
   rotationLeg              RotationLeg?
   passengers               FlightPassenger[]
@@ -434,6 +451,8 @@ model User {
   travels              UserTravel[]
   userAircraft         UserAircraft[]
   countryVisits        UserCountryVisit[]
+  cityVisits           UserCityVisit[]
+  postcards            UserPostcard[]
   rotations            Rotation[]             @relation("PilotRotations")
   createdRotations     Rotation[]             @relation("RotationCreatedBy")
   updatedRotations     Rotation[]             @relation("RotationUpdatedBy")
@@ -522,6 +541,56 @@ model UserCountryVisit {
   @@unique([userId, flightId])
   @@index([userId, country])
   @@map("user_country_visit")
+}
+
+model Postcard {
+  id        String         @id @default(uuid()) @db.Uuid
+  cityId    String         @unique @db.Uuid
+  status    PostcardStatus @default(pending)
+  artUuid   String?        @db.Uuid
+  imageUrl  String?
+  width     Int?
+  height    Int?
+  createdAt DateTime       @default(now())
+  updatedAt DateTime?
+
+  city    City           @relation(fields: [cityId], references: [id])
+  holders UserPostcard[]
+
+  @@map("postcard")
+}
+
+model UserPostcard {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String    @db.Uuid
+  postcardId String    @db.Uuid
+  awardedAt  DateTime  @default(now())
+  seenAt     DateTime?
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postcard Postcard @relation(fields: [postcardId], references: [id])
+
+  @@unique([userId, postcardId])
+  @@index([userId])
+  @@map("user_postcard")
+}
+
+model UserCityVisit {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  cityId    String   @db.Uuid
+  flightId  String   @db.Uuid
+  airportId String   @db.Uuid
+  visitedAt DateTime
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  city    City    @relation(fields: [cityId], references: [id])
+  flight  Flight  @relation(fields: [flightId], references: [id])
+  airport Airport @relation(fields: [airportId], references: [id])
+
+  @@unique([userId, flightId])
+  @@index([userId, cityId])
+  @@map("user_city_visit")
 }
 
 model UserAircraft {
@@ -681,6 +750,12 @@ enum Continent {
   north_america
   south_america
   oceania
+}
+
+enum PostcardStatus {
+  pending
+  ready
+  failed
 }
 
 enum DataQuality {

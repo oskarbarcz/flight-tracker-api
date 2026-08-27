@@ -11,6 +11,7 @@ import { FlightsModule } from './modules/flights/flights.module';
 import { AutomationsModule } from './modules/automations/automations.module';
 import { UsersModule } from './modules/users/users.module';
 import { StatisticsModule } from './modules/statistics/statistics.module';
+import { GameModule } from './modules/game/game.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { EventEmitterModule } from '@nestjs/event-emitter';
@@ -43,6 +44,7 @@ const schedulerEnabled = process.env.SCHEDULER_ENABLED !== 'false';
     AutomationsModule,
     UsersModule,
     StatisticsModule,
+    GameModule,
     AuthModule,
     JwtModule,
     SkyLinkModule,

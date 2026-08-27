@@ -19588,25 +19588,17 @@
       "method": "GET",
       "path": "/aerolopa-provider/aerolopa/seatmap",
       "headers": {
-        "X-Require-Whisk-Auth": [
-          "very-secret-token"
-        ]
+        "X-Require-Whisk-Auth": ["very-secret-token"]
       },
       "queryStringParameters": {
-        "op": [
-          "seatmap"
-        ],
-        "slug": [
-          "kl-77w"
-        ]
+        "op": ["seatmap"],
+        "slug": ["kl-77w"]
       }
     },
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": [
-          "application/json"
-        ]
+        "Content-Type": ["application/json"]
       },
       "body": {
         "seatMap": {

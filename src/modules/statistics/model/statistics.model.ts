@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { CountryRef } from '../../countries/model/country.model';
+import { CityRef } from '../../airports/model/city.model';
 
 export class LifetimeTotalsLegacy {
   @ApiProperty({ example: 3760, deprecated: true })
@@ -272,6 +273,28 @@ export class VisitedCountry {
 export class GetMyCountriesResponse {
   @ApiProperty({ type: [VisitedCountry] })
   countries!: VisitedCountry[];
+}
+
+export class VisitedCity {
+  @ApiProperty({ type: CityRef })
+  city!: CityRef;
+
+  @ApiProperty({ type: CountryRef })
+  country!: CountryRef;
+
+  @ApiProperty({ example: 27 })
+  visits!: number;
+
+  @ApiProperty({ type: String, example: '2024-01-05T12:00:00.000Z' })
+  firstVisitAt!: Date;
+
+  @ApiProperty({ type: String, example: '2026-07-20T18:30:00.000Z' })
+  lastVisitAt!: Date;
+}
+
+export class GetMyCitiesResponse {
+  @ApiProperty({ type: [VisitedCity] })
+  cities!: VisitedCity[];
 }
 
 export class CountryStamp {

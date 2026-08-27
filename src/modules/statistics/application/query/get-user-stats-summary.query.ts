@@ -98,7 +98,7 @@ export class GetUserStatsSummaryHandler implements IQueryHandler<GetUserStatsSum
       airportId: top.airportId,
       icaoCode: airport.icaoCode,
       name: airport.name,
-      city: airport.city,
+      city: airport.city.name,
       country: airport.country,
       visits: top.visits,
     };

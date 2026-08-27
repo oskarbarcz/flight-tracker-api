@@ -41,9 +41,9 @@ export class FlightArrivalNotificationListener {
 
       const content = formatArrivalAnnouncement({
         flightNumber: flight.flightNumber,
-        departure: { city: departure.city, iataCode: departure.iataCode },
+        departure: { city: departure.city.name, iataCode: departure.iataCode },
         destination: {
-          city: destination.city,
+          city: destination.city.name,
           iataCode: destination.iataCode,
         },
         blockTime: calculateBlockTime(

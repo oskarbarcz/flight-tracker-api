@@ -1,11 +1,23 @@
 import { ApiProperty, OmitType, PartialType } from '@nestjs/swagger';
-import { IsEnum, IsOptional } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { Airport, Continent, DataQuality } from '../../../model/airport.model';
 import { IsCountryCode } from '../../../../countries/model/is-country-code.validator';
 import { normalizeCountryCode } from '../../../../countries/model/country.model';
 
-export class CreateAirportRequest extends OmitType(Airport, ['id', 'country']) {
+export class CreateAirportRequest extends OmitType(Airport, [
+  'id',
+  'country',
+  'city',
+]) {
+  @ApiProperty({
+    description: 'Name of the city the airport is in',
+    example: 'Frankfurt',
+  })
+  @IsString()
+  @IsNotEmpty()
+  city!: string;
+
   @ApiProperty({
     description: 'ISO 3166-1 alpha-2 code of the country the airport is in',
     example: 'DE',

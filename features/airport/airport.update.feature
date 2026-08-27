@@ -33,7 +33,10 @@ Feature: Update airport
         "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "icaoCode": "EDDF",
         "iataCode": "FRA",
-        "city": "Frankfurt",
+        "city": {
+          "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+          "name": "Frankfurt"
+        },
         "name": "Frankfurt am Main",
         "country": {
           "code": "DE",
@@ -150,7 +153,10 @@ Feature: Update airport
         "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
         "icaoCode": "EDDF",
         "iataCode": "FRA",
-        "city": "Frankfurt",
+        "city": {
+          "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+          "name": "Frankfurt"
+        },
         "name": "Frankfurt Rhein/Main",
         "country": {
           "code": "DE",
