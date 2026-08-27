@@ -1,9 +1,12 @@
 import { Logger } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { v4 } from 'uuid';
-import { PostcardsRepository } from '../../../infra/database/postcard/postcards.repository';
+import {
+  PostcardsRepository,
+  StartedDrawing,
+} from '../../../infra/database/postcard/postcards.repository';
 import { PostcardClient } from '../../../../../core/provider/postcard/client/postcard.client';
-import { POSTCARD_DIMENSIONS } from '../../../../../core/provider/postcard/type/postcard.types';
+import { PostcardArt } from '../../../../../core/provider/postcard/type/postcard.types';
 import {
   PostcardGeneratorTimedOutError,
   PostcardRejectedError,
@@ -39,9 +42,8 @@ export class GeneratePostcardHandler implements ICommandHandler<GeneratePostcard
 
     const claimed = await this.repository.claimForCity(v4(), cityId);
     const drawing = await this.repository.startDrawing(claimed.id, v4());
-    const artUuid = drawing.artUuid;
 
-    if (drawing.reused && (await this.adopt(claimed.id, artUuid, where))) {
+    if (await this.adopt(claimed.id, drawing, where)) {
       return claimed.id;
     }
 
@@ -50,27 +52,12 @@ export class GeneratePostcardHandler implements ICommandHandler<GeneratePostcard
         city: cityName,
         country: place.name,
         continent: continentName(place.continent),
-        uuid: artUuid,
+        uuid: drawing.artUuid,
       });
 
-      if (!art.drawn) {
-        this.logger.log(
-          `Postcard art for ${where} is being drawn in the background; it stays pending until ${art.key} appears`,
-        );
-
-        return claimed.id;
-      }
-
-      const { width, height } = POSTCARD_DIMENSIONS;
-      await this.repository.recordArt(
-        claimed.id,
-        artUuid,
-        art.url,
-        width,
-        height,
-      );
+      await this.record(claimed.id, drawing.artUuid, art, where);
     } catch (error) {
-      await this.settle(claimed.id, artUuid, where, error);
+      await this.settle(claimed.id, drawing.artUuid, where, error);
     }
 
     return claimed.id;
@@ -78,23 +65,57 @@ export class GeneratePostcardHandler implements ICommandHandler<GeneratePostcard
 
   private async adopt(
     id: string,
-    artUuid: string,
+    drawing: StartedDrawing,
     where: string,
   ): Promise<boolean> {
-    const art = this.client.locate(artUuid);
+    if (!drawing.reused) {
+      return false;
+    }
+
+    const art = this.client.locate(drawing.artUuid);
 
     if (!(await this.client.confirm(art.url))) {
       return false;
     }
 
-    const { width, height } = POSTCARD_DIMENSIONS;
-    await this.repository.recordArt(id, artUuid, art.url, width, height);
+    await this.repository.recordArt(
+      id,
+      drawing.artUuid,
+      art.url,
+      drawing.width,
+      drawing.height,
+    );
 
     this.logger.log(
       `Postcard art for ${where} is already stored at ${art.key}, so it will not be drawn again`,
     );
 
     return true;
+  }
+
+  private async record(
+    id: string,
+    artUuid: string,
+    art: PostcardArt,
+    where: string,
+  ): Promise<void> {
+    if (!art.drawn) {
+      await this.repository.recordArtSize(id, art.width, art.height);
+
+      this.logger.log(
+        `Postcard art for ${where} is being drawn in the background; it stays pending until ${art.key} appears`,
+      );
+
+      return;
+    }
+
+    await this.repository.recordArt(
+      id,
+      artUuid,
+      art.url,
+      art.width,
+      art.height,
+    );
   }
 
   private async settle(

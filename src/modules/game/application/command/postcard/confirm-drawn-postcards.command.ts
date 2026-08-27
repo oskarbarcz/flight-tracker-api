@@ -5,7 +5,6 @@ import {
   PostcardsRepository,
 } from '../../../infra/database/postcard/postcards.repository';
 import { PostcardClient } from '../../../../../core/provider/postcard/client/postcard.client';
-import { POSTCARD_DIMENSIONS } from '../../../../../core/provider/postcard/type/postcard.types';
 
 const ART_DEADLINE_MS = 15 * 60 * 1000;
 
@@ -33,14 +32,12 @@ export class ConfirmDrawnPostcardsHandler implements ICommandHandler<ConfirmDraw
     const art = this.client.locate(postcard.artUuid);
 
     if (await this.client.confirm(art.url)) {
-      const { width, height } = POSTCARD_DIMENSIONS;
-
       await this.repository.recordArt(
         postcard.id,
         postcard.artUuid,
         art.url,
-        width,
-        height,
+        postcard.width,
+        postcard.height,
       );
 
       this.logger.log(`Postcard art for ${where} arrived at ${art.key}`);

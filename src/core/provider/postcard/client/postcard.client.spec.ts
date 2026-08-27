@@ -64,33 +64,57 @@ describe('PostcardClient', () => {
       .mockResolvedValue(jsonResponse(200, generated));
 
     expect(await client.generate(munich)).toEqual({
+      drawn: true,
       key: `postcards/${UUID}.jpg`,
       url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
-      drawn: true,
+      width: 1152,
+      height: 1536,
     });
 
     const [url, init] = fetchMock.mock.calls[0];
     expect(url).toBe(
-      `${BASE_URL}/city?city=Munich&country=Germany&continent=Europe&uuid=${UUID}` +
-        `&size=1152x1536&quality=high&format=jpeg`,
+      `${BASE_URL}/city?city=Munich&country=Germany&continent=Europe&uuid=${UUID}`,
     );
     expect(init.headers['X-Require-Whisk-Auth']).toBe(SECRET);
   });
 
-  it('derives where art it did not wait for will appear, without claiming it is drawn', async () => {
-    fetchMock = jest
-      .spyOn(global, 'fetch')
-      .mockResolvedValue(
-        jsonResponse(202, { error: 'Response not yet ready.' }),
-      );
+  it('reports art it did not wait for as not drawn yet', async () => {
+    fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue(
+      jsonResponse(202, {
+        status: 'accepted',
+        size: '1152x1536',
+        key: `postcards/${UUID}.jpg`,
+        url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
+        handoff: { mode: 'activation' },
+      }),
+    );
 
     expect(await client.generate(munich)).toEqual({
+      drawn: false,
       key: `postcards/${UUID}.jpg`,
       url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
-      drawn: false,
+      width: 1152,
+      height: 1536,
     });
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('takes art the generator drew inline, so a refused hand-off costs nothing but the wait', async () => {
+    fetchMock = jest.spyOn(global, 'fetch').mockResolvedValue(
+      jsonResponse(200, {
+        ...generated,
+        handoff: { mode: 'inline', reason: 'no public endpoint configured' },
+      }),
+    );
+
+    expect(await client.generate(munich)).toEqual({
+      drawn: true,
+      key: `postcards/${UUID}.jpg`,
+      url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
+      width: 1152,
+      height: 1536,
+    });
   });
 
   it('rejects a request the generator will not accept without retrying', async () => {
@@ -187,15 +211,18 @@ describe('PostcardClient', () => {
     );
   });
 
-  it('names the stored object from the uuid and the format', () => {
-    expect(client.locate(UUID)).toEqual({
-      key: `postcards/${UUID}.jpg`,
-      url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
-    });
+  it('asks for nothing about the render, so the generator alone decides what it costs', async () => {
+    fetchMock = jest
+      .spyOn(global, 'fetch')
+      .mockResolvedValue(jsonResponse(200, generated));
 
-    expect(client.locate(UUID, 'png')).toEqual({
-      key: `postcards/${UUID}.png`,
-      url: `${ART_BASE_URL}/postcards/${UUID}.png`,
-    });
+    await client.generate(munich);
+
+    const [url] = fetchMock.mock.calls[0];
+
+    expect(url).not.toContain('size');
+    expect(url).not.toContain('quality');
+    expect(url).not.toContain('format');
+    expect(url).not.toContain('prompt');
   });
 });

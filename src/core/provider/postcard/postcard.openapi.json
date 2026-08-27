@@ -9,7 +9,7 @@
     "/city": {
       "get": {
         "summary": "Draw a postcard for a city and store it",
-        "description": "The generator validates the request, hands the render to a background activation and answers 202 at once, so 202 is the normal answer and 200 only arrives when the hand-off failed and the render happened inline. Either answer names the stored location, which the caller can also derive from the uuid and format it sent. A 202 carrying a code and no key comes from the platform rather than the generator and means the same thing. Neither answer means the art exists yet, so the caller confirms the object separately.",
+        "description": "These four parameters are the whole surface: the size, the quality, the format and the prompt are the generator's own configuration, so nothing this client sends decides what is drawn or what it costs. The generator validates the request, hands the render to a background activation and answers 202 at once, so 202 is the normal answer and 200 only arrives when the hand-off failed and the render happened inline. Either answer names the stored location, which the caller can also derive from the uuid it sent. A 202 carrying a code and no key comes from the platform rather than the generator and means the same thing. Neither answer means the art exists yet, so the caller confirms the object separately.",
         "parameters": [
           {
             "name": "city",
@@ -49,39 +49,11 @@
             "required": true,
             "description": "Names the stored object. Lowercased, strictly a uuid.",
             "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "description": "WxH. Both sides divisible by 16, each between 256 and 3840, aspect ratio within 1:3 to 3:1.",
-            "schema": { "type": "string", "default": "1152x1536" }
-          },
-          {
-            "name": "quality",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": ["auto", "low", "medium", "high"],
-              "default": "high"
-            }
-          },
-          {
-            "name": "format",
-            "in": "query",
-            "required": false,
-            "description": "jpeg stores .jpg, png stores .png.",
-            "schema": {
-              "type": "string",
-              "enum": ["jpeg", "png"],
-              "default": "jpeg"
-            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Drawn and stored inline, because the render could not be handed to a background activation",
+            "description": "Drawn and stored inline, because every hand-off route refused the render. `handoff.reason` says why, and is the only account of it: the generator's own logs are not retrievable.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/PostcardGenerated" }
@@ -89,7 +61,7 @@
             }
           },
           "202": {
-            "description": "Accepted; the render is running in the background and the art does not exist yet. The normal answer. A body carrying a code and no key is the platform saying the same thing.",
+            "description": "Accepted; the render is running in the background and the art does not exist yet. The normal answer. `handoff.mode` names the route it went out on. A body carrying a code and no key is the platform saying the same thing.",
             "content": {
               "application/json": {
                 "schema": {
@@ -163,7 +135,16 @@
           "bytes": { "type": "integer" },
           "prompt": { "type": "string" },
           "key": { "type": "string" },
-          "url": { "type": "string", "format": "uri" }
+          "url": { "type": "string", "format": "uri" },
+          "handoff": { "$ref": "#/components/schemas/Handoff" }
+        }
+      },
+      "Handoff": {
+        "type": "object",
+        "required": ["mode"],
+        "properties": {
+          "mode": { "type": "string", "enum": ["activation", "web", "inline"] },
+          "reason": { "type": "string" }
         }
       },
       "PostcardAccepted": {
@@ -193,7 +174,8 @@
           },
           "format": { "type": "string", "enum": ["jpeg", "png"] },
           "key": { "type": "string" },
-          "url": { "type": "string", "format": "uri" }
+          "url": { "type": "string", "format": "uri" },
+          "handoff": { "$ref": "#/components/schemas/Handoff" }
         }
       },
       "FunctionError": {

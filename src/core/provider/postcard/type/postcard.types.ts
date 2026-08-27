@@ -9,10 +9,11 @@ export type PostcardRequest = {
   uuid: string;
 };
 
-export type PostcardRenderSettings = {
-  size: string;
-  quality: PostcardQuality;
-  format: PostcardFormat;
+export type PostcardHandoffMode = 'activation' | 'web' | 'inline';
+
+export type PostcardHandoff = {
+  mode: PostcardHandoffMode;
+  reason?: string;
 };
 
 export type PostcardAcceptedBody = {
@@ -26,6 +27,7 @@ export type PostcardAcceptedBody = {
   format: PostcardFormat;
   key: string;
   url: string;
+  handoff?: PostcardHandoff;
 };
 
 export type PostcardGeneratedBody = {
@@ -42,6 +44,7 @@ export type PostcardGeneratedBody = {
   prompt: string;
   key: string;
   url: string;
+  handoff?: PostcardHandoff;
 };
 
 export type PostcardErrorCode = 'BAD_REQUEST';
@@ -61,21 +64,10 @@ export type PostcardLocation = {
 
 export type PostcardArt = PostcardLocation & {
   drawn: boolean;
-};
-
-export const POSTCARD_DEFAULTS = {
-  size: '1152x1536',
-  quality: 'high',
-  format: 'jpeg',
-} as const satisfies PostcardRenderSettings;
-
-export const POSTCARD_FILE_EXTENSION: Record<PostcardFormat, string> = {
-  jpeg: 'jpg',
-  png: 'png',
+  width: number | null;
+  height: number | null;
 };
 
 export const POSTCARD_KEY_PREFIX = 'postcards';
 
-const [width, height] = POSTCARD_DEFAULTS.size.split('x').map(Number);
-
-export const POSTCARD_DIMENSIONS = { width, height } as const;
+export const POSTCARD_ART_EXTENSION = 'jpg';

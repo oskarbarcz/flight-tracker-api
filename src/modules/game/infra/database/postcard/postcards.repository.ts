@@ -36,6 +36,8 @@ export type ClaimedPostcard = {
 export type StartedDrawing = {
   artUuid: string;
   reused: boolean;
+  width: number | null;
+  height: number | null;
 };
 
 export type CataloguePostcardRecord = PostcardRecord & { heldBy: number };
@@ -43,6 +45,8 @@ export type CataloguePostcardRecord = PostcardRecord & { heldBy: number };
 export type PostcardAwaitingArt = {
   id: string;
   artUuid: string;
+  width: number | null;
+  height: number | null;
   startedAt: Date;
   city: { name: string; country: string };
 };
@@ -92,13 +96,21 @@ export class PostcardsRepository {
   async startDrawing(id: string, artUuid: string): Promise<StartedDrawing> {
     const postcard = await this.prisma.postcard.findUniqueOrThrow({
       where: { id },
-      select: { artUuid: true, imageUrl: true },
+      select: {
+        artUuid: true,
+        imageUrl: true,
+        width: true,
+        height: true,
+      },
     });
 
     const unclaimed = postcard.imageUrl ? null : postcard.artUuid;
+    const reused = unclaimed !== null;
     const started = {
       artUuid: unclaimed ?? artUuid,
-      reused: unclaimed !== null,
+      reused,
+      width: reused ? postcard.width : null,
+      height: reused ? postcard.height : null,
     };
 
     await this.prisma.postcard.update({
@@ -113,12 +125,23 @@ export class PostcardsRepository {
     return started;
   }
 
+  async recordArtSize(
+    id: string,
+    width: number | null,
+    height: number | null,
+  ): Promise<void> {
+    await this.prisma.postcard.update({
+      where: { id },
+      data: { width, height, updatedAt: new Date() },
+    });
+  }
+
   async recordArt(
     id: string,
     artUuid: string,
     imageUrl: string,
-    width: number,
-    height: number,
+    width: number | null,
+    height: number | null,
   ): Promise<void> {
     await this.prisma.postcard.update({
       where: { id },
@@ -175,6 +198,8 @@ export class PostcardsRepository {
       select: {
         id: true,
         artUuid: true,
+        width: true,
+        height: true,
         createdAt: true,
         updatedAt: true,
         city: { select: { name: true, country: true } },
@@ -185,6 +210,8 @@ export class PostcardsRepository {
     return postcards.map((postcard) => ({
       id: postcard.id,
       artUuid: postcard.artUuid as string,
+      width: postcard.width,
+      height: postcard.height,
       startedAt: postcard.updatedAt ?? postcard.createdAt,
       city: postcard.city,
     }));

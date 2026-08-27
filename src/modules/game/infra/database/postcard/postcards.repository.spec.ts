@@ -27,11 +27,15 @@ describe('PostcardsRepository.startDrawing', () => {
     prisma.postcard.findUniqueOrThrow.mockResolvedValue({
       artUuid: null,
       imageUrl: null,
+      width: null,
+      height: null,
     });
 
     expect(await repository.startDrawing(POSTCARD_ID, FRESH_ART)).toEqual({
       artUuid: FRESH_ART,
       reused: false,
+      width: null,
+      height: null,
     });
 
     expect(prisma.postcard.update).toHaveBeenCalledWith({
@@ -48,11 +52,15 @@ describe('PostcardsRepository.startDrawing', () => {
     prisma.postcard.findUniqueOrThrow.mockResolvedValue({
       artUuid: NAMED_ART,
       imageUrl: null,
+      width: 1152,
+      height: 1536,
     });
 
     expect(await repository.startDrawing(POSTCARD_ID, FRESH_ART)).toEqual({
       artUuid: NAMED_ART,
       reused: true,
+      width: 1152,
+      height: 1536,
     });
 
     expect(prisma.postcard.update).toHaveBeenCalledWith({
@@ -69,11 +77,15 @@ describe('PostcardsRepository.startDrawing', () => {
     prisma.postcard.findUniqueOrThrow.mockResolvedValue({
       artUuid: NAMED_ART,
       imageUrl: `https://postcards.example/postcards/${NAMED_ART}.jpg`,
+      width: 1152,
+      height: 1536,
     });
 
     expect(await repository.startDrawing(POSTCARD_ID, FRESH_ART)).toEqual({
       artUuid: FRESH_ART,
       reused: false,
+      width: null,
+      height: null,
     });
   });
 });
