@@ -33,6 +33,11 @@ export type ClaimedPostcard = {
   created: boolean;
 };
 
+export type StartedDrawing = {
+  artUuid: string;
+  reused: boolean;
+};
+
 export type CataloguePostcardRecord = PostcardRecord & { heldBy: number };
 
 export type PostcardAwaitingArt = {
@@ -84,15 +89,28 @@ export class PostcardsRepository {
     return postcard ? toRecord(postcard) : null;
   }
 
-  async startDrawing(id: string, artUuid: string): Promise<void> {
+  async startDrawing(id: string, artUuid: string): Promise<StartedDrawing> {
+    const postcard = await this.prisma.postcard.findUniqueOrThrow({
+      where: { id },
+      select: { artUuid: true, imageUrl: true },
+    });
+
+    const unclaimed = postcard.imageUrl ? null : postcard.artUuid;
+    const started = {
+      artUuid: unclaimed ?? artUuid,
+      reused: unclaimed !== null,
+    };
+
     await this.prisma.postcard.update({
       where: { id },
       data: {
         status: PostcardStatus.Pending,
-        artUuid,
+        artUuid: started.artUuid,
         updatedAt: new Date(),
       },
     });
+
+    return started;
   }
 
   async recordArt(

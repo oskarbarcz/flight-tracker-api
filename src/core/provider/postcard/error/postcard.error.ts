@@ -14,3 +14,9 @@ export class PostcardGeneratorUnavailableError extends BadGatewayError {
     super('Postcard generator is unavailable.');
   }
 }
+
+export class PostcardGeneratorTimedOutError extends BadGatewayError {
+  constructor() {
+    super('Postcard generator did not answer in time.');
+  }
+}

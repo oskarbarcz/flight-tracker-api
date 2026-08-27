@@ -65,7 +65,7 @@ export class UpdateAirportHandler implements ICommandHandler<UpdateAirportComman
         previousName: city.renamedFrom.name,
         previousCountry: city.renamedFrom.country,
       });
-      await this.eventEmitter.emitAsync(event);
+      this.eventEmitter.emit(event);
     }
   }
 

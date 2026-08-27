@@ -4,7 +4,10 @@ import { v4 } from 'uuid';
 import { PostcardsRepository } from '../../../infra/database/postcard/postcards.repository';
 import { PostcardClient } from '../../../../../core/provider/postcard/client/postcard.client';
 import { POSTCARD_DIMENSIONS } from '../../../../../core/provider/postcard/type/postcard.types';
-import { PostcardRejectedError } from '../../../../../core/provider/postcard/error/postcard.error';
+import {
+  PostcardGeneratorTimedOutError,
+  PostcardRejectedError,
+} from '../../../../../core/provider/postcard/error/postcard.error';
 import {
   continentName,
   findCountryOrThrow,
@@ -31,12 +34,16 @@ export class GeneratePostcardHandler implements ICommandHandler<GeneratePostcard
   async execute(command: GeneratePostcardCommand): Promise<string> {
     const { cityId, cityName, country } = command;
 
-    const claimed = await this.repository.claimForCity(v4(), cityId);
-    const artUuid = v4();
     const place = findCountryOrThrow(country);
     const where = `${cityName}, ${place.name}`;
 
-    await this.repository.startDrawing(claimed.id, artUuid);
+    const claimed = await this.repository.claimForCity(v4(), cityId);
+    const drawing = await this.repository.startDrawing(claimed.id, v4());
+    const artUuid = drawing.artUuid;
+
+    if (drawing.reused && (await this.adopt(claimed.id, artUuid, where))) {
+      return claimed.id;
+    }
 
     try {
       const art = await this.client.generate({
@@ -63,21 +70,61 @@ export class GeneratePostcardHandler implements ICommandHandler<GeneratePostcard
         height,
       );
     } catch (error) {
-      let reason: string;
-
-      if (error instanceof PostcardRejectedError) {
-        reason = `The generator will not draw "${where}": ${error.message}`;
-        this.logger.error(
-          `Postcard generator will not draw ${where}, so it will not be retried: ${error.message}`,
-        );
-      } else {
-        reason = getErrorMessage(error);
-        this.logger.error(`Could not draw postcard for ${where}: ${reason}`);
-      }
-
-      await this.repository.recordFailure(claimed.id, reason);
+      await this.settle(claimed.id, artUuid, where, error);
     }
 
     return claimed.id;
+  }
+
+  private async adopt(
+    id: string,
+    artUuid: string,
+    where: string,
+  ): Promise<boolean> {
+    const art = this.client.locate(artUuid);
+
+    if (!(await this.client.confirm(art.url))) {
+      return false;
+    }
+
+    const { width, height } = POSTCARD_DIMENSIONS;
+    await this.repository.recordArt(id, artUuid, art.url, width, height);
+
+    this.logger.log(
+      `Postcard art for ${where} is already stored at ${art.key}, so it will not be drawn again`,
+    );
+
+    return true;
+  }
+
+  private async settle(
+    id: string,
+    artUuid: string,
+    where: string,
+    error: unknown,
+  ): Promise<void> {
+    if (error instanceof PostcardGeneratorTimedOutError) {
+      const art = this.client.locate(artUuid);
+
+      this.logger.warn(
+        `The generator was still drawing ${where} when it was cut off, so the postcard stays pending until ${art.key} appears`,
+      );
+
+      return;
+    }
+
+    let reason: string;
+
+    if (error instanceof PostcardRejectedError) {
+      reason = `The generator will not draw "${where}": ${error.message}`;
+      this.logger.error(
+        `Postcard generator will not draw ${where}, so it will not be retried: ${error.message}`,
+      );
+    } else {
+      reason = getErrorMessage(error);
+      this.logger.error(`Could not draw postcard for ${where}: ${reason}`);
+    }
+
+    await this.repository.recordFailure(id, reason);
   }
 }
