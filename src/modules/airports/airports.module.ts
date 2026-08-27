@@ -14,6 +14,8 @@ import { UpdateAirportHandler } from './application/command/update-airport.comma
 import { RemoveAirportHandler } from './application/command/remove-airport.command';
 import { GetAirportByIdHandler } from './application/query/get-airport-by-id.query';
 import { ListAllAirportsHandler } from './application/query/list-all-airports.query';
+import { ListCitiesHandler } from './application/query/city/list-cities.query';
+import { ListCitiesAction } from './infra/http/action/city/list-cities.action';
 import { GetAirportByIcaoCodeHandler } from './application/query/get-airport-by-icao-code.query';
 import { GetAirportCountryByIataCodeHandler } from './application/query/get-airport-country-by-iata-code.query';
 import { TerminalsRepository } from './infra/database/terminals.repository';
@@ -95,6 +97,7 @@ import { PushAirportOsmDataHandler } from './application/command/osm/push-airpor
     OsmModule,
   ],
   controllers: [
+    ListCitiesAction,
     CreateAirportAction,
     ListAirportsAction,
     GetAirportAction,
@@ -140,6 +143,7 @@ import { PushAirportOsmDataHandler } from './application/command/osm/push-airpor
     GetAirportByIcaoCodeHandler,
     GetAirportCountryByIataCodeHandler,
     ListAllAirportsHandler,
+    ListCitiesHandler,
     CreateTerminalHandler,
     UpdateTerminalHandler,
     RemoveTerminalHandler,

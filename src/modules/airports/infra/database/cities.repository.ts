@@ -6,6 +6,12 @@ export type ResolvedCity = {
   created: boolean;
 };
 
+export type CityRecord = {
+  id: string;
+  name: string;
+  country: string;
+};
+
 @Injectable()
 export class CitiesRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -22,5 +28,37 @@ export class CitiesRepository {
     });
 
     return { id: city.id, created: count === 1 };
+  }
+
+  async findById(id: string): Promise<CityRecord | null> {
+    return this.prisma.city.findUnique({
+      where: { id },
+      select: { id: true, name: true, country: true },
+    });
+  }
+
+  async findOneBy(criteria: {
+    name: string;
+    country: string;
+  }): Promise<CityRecord | null> {
+    return this.prisma.city.findUnique({
+      where: { name_country: criteria },
+      select: { id: true, name: true, country: true },
+    });
+  }
+
+  async findAll(): Promise<CityRecord[]> {
+    return this.prisma.city.findMany({
+      select: { id: true, name: true, country: true },
+      orderBy: { name: 'asc' },
+    });
+  }
+
+  async countAirports(cityId: string): Promise<number> {
+    return this.prisma.airport.count({ where: { cityId } });
+  }
+
+  async rename(id: string, name: string, country: string): Promise<void> {
+    await this.prisma.city.update({ where: { id }, data: { name, country } });
   }
 }

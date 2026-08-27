@@ -3,7 +3,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { v4 } from 'uuid';
 import { PostcardsRepository } from '../../../infra/database/postcard/postcards.repository';
 import { PostcardClient } from '../../../../../core/provider/postcard/client/postcard.client';
-import { POSTCARD_DEFAULTS } from '../../../../../core/provider/postcard/type/postcard.types';
+import { POSTCARD_DIMENSIONS } from '../../../../../core/provider/postcard/type/postcard.types';
 import { PostcardRejectedError } from '../../../../../core/provider/postcard/error/postcard.error';
 import {
   continentName,
@@ -46,15 +46,15 @@ export class GeneratePostcardHandler implements ICommandHandler<GeneratePostcard
         uuid: artUuid,
       });
 
-      if (!art.confirmed) {
-        const reason = `The art was accepted but could not be confirmed at ${art.key}`;
-        this.logger.warn(`Postcard art for ${where}: ${reason}`);
-        await this.repository.recordFailure(claimed.id, reason);
+      if (!art.drawn) {
+        this.logger.log(
+          `Postcard art for ${where} is being drawn in the background; it stays pending until ${art.key} appears`,
+        );
 
         return claimed.id;
       }
 
-      const [width, height] = this.dimensions();
+      const { width, height } = POSTCARD_DIMENSIONS;
       await this.repository.recordArt(
         claimed.id,
         artUuid,
@@ -79,11 +79,5 @@ export class GeneratePostcardHandler implements ICommandHandler<GeneratePostcard
     }
 
     return claimed.id;
-  }
-
-  private dimensions(): [number, number] {
-    const [width, height] = POSTCARD_DEFAULTS.size.split('x').map(Number);
-
-    return [width, height];
   }
 }

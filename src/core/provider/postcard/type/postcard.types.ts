@@ -15,6 +15,19 @@ export type PostcardRenderSettings = {
   format: PostcardFormat;
 };
 
+export type PostcardAcceptedBody = {
+  status: 'accepted';
+  city: string;
+  country: string;
+  continent: string;
+  uuid: string;
+  size: string;
+  quality: PostcardQuality;
+  format: PostcardFormat;
+  key: string;
+  url: string;
+};
+
 export type PostcardGeneratedBody = {
   city: string;
   country: string;
@@ -41,10 +54,13 @@ export type PostcardErrorBody = {
   };
 };
 
-export type PostcardArt = {
+export type PostcardLocation = {
   key: string;
   url: string;
-  confirmed: boolean;
+};
+
+export type PostcardArt = PostcardLocation & {
+  drawn: boolean;
 };
 
 export const POSTCARD_DEFAULTS = {
@@ -59,3 +75,7 @@ export const POSTCARD_FILE_EXTENSION: Record<PostcardFormat, string> = {
 };
 
 export const POSTCARD_KEY_PREFIX = 'postcards';
+
+const [width, height] = POSTCARD_DEFAULTS.size.split('x').map(Number);
+
+export const POSTCARD_DIMENSIONS = { width, height } as const;

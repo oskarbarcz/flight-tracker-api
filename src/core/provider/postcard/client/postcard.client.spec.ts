@@ -28,11 +28,15 @@ function headResponse(status: number): Response {
   } as Response;
 }
 
-const generated: PostcardGeneratedBody = {
+const munich = {
   city: 'Munich',
   country: 'Germany',
   continent: 'Europe',
   uuid: UUID,
+};
+
+const generated: PostcardGeneratedBody = {
+  ...munich,
   model: 'gpt-image-2',
   size: '1152x1536',
   quality: 'high',
@@ -58,17 +62,10 @@ describe('PostcardClient', () => {
       .spyOn(global, 'fetch')
       .mockResolvedValue(jsonResponse(200, generated));
 
-    expect(
-      await client.generate({
-        city: 'Munich',
-        country: 'Germany',
-        continent: 'Europe',
-        uuid: UUID,
-      }),
-    ).toEqual({
+    expect(await client.generate(munich)).toEqual({
       key: `postcards/${UUID}.jpg`,
       url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
-      confirmed: true,
+      drawn: true,
     });
 
     const [url, init] = fetchMock.mock.calls[0];
@@ -79,52 +76,20 @@ describe('PostcardClient', () => {
     expect(init.headers['X-Require-Whisk-Auth']).toBe(SECRET);
   });
 
-  it('derives the stored location and confirms it when the work outlives the window', async () => {
+  it('derives where art it did not wait for will appear, without claiming it is drawn', async () => {
     fetchMock = jest
       .spyOn(global, 'fetch')
-      .mockResolvedValueOnce(
+      .mockResolvedValue(
         jsonResponse(202, { error: 'Response not yet ready.' }),
-      )
-      .mockResolvedValueOnce(headResponse(200));
+      );
 
-    expect(
-      await client.generate({
-        city: 'Munich',
-        country: 'Germany',
-        continent: 'Europe',
-        uuid: UUID,
-      }),
-    ).toEqual({
+    expect(await client.generate(munich)).toEqual({
       key: `postcards/${UUID}.jpg`,
       url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
-      confirmed: true,
+      drawn: false,
     });
 
-    const [confirmUrl, confirmInit] = fetchMock.mock.calls[1];
-    expect(confirmUrl).toBe(`${ART_BASE_URL}/postcards/${UUID}.jpg`);
-    expect(confirmInit.method).toBe('HEAD');
-  });
-
-  it('reports art unconfirmed when the stored object cannot be found', async () => {
-    fetchMock = jest
-      .spyOn(global, 'fetch')
-      .mockResolvedValueOnce(
-        jsonResponse(202, { error: 'Response not yet ready.' }),
-      )
-      .mockResolvedValue(headResponse(404));
-
-    expect(
-      await client.generate({
-        city: 'Munich',
-        country: 'Germany',
-        continent: 'Europe',
-        uuid: UUID,
-      }),
-    ).toEqual({
-      key: `postcards/${UUID}.jpg`,
-      url: `${ART_BASE_URL}/postcards/${UUID}.jpg`,
-      confirmed: false,
-    });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
   it('rejects a request the generator will not accept without retrying', async () => {
@@ -160,14 +125,9 @@ describe('PostcardClient', () => {
       }),
     );
 
-    await expect(
-      client.generate({
-        city: 'Munich',
-        country: 'Germany',
-        continent: 'Europe',
-        uuid: UUID,
-      }),
-    ).rejects.toBeInstanceOf(PostcardGeneratorUnavailableError);
+    await expect(client.generate(munich)).rejects.toBeInstanceOf(
+      PostcardGeneratorUnavailableError,
+    );
   });
 
   it('treats an unreachable generator as unavailable', async () => {
@@ -175,14 +135,43 @@ describe('PostcardClient', () => {
       .spyOn(global, 'fetch')
       .mockRejectedValue(new Error('connect ECONNREFUSED'));
 
-    await expect(
-      client.generate({
-        city: 'Munich',
-        country: 'Germany',
-        continent: 'Europe',
-        uuid: UUID,
-      }),
-    ).rejects.toBeInstanceOf(PostcardGeneratorUnavailableError);
+    await expect(client.generate(munich)).rejects.toBeInstanceOf(
+      PostcardGeneratorUnavailableError,
+    );
+  });
+
+  it('confirms stored art by asking the bucket for it', async () => {
+    fetchMock = jest
+      .spyOn(global, 'fetch')
+      .mockResolvedValue(headResponse(200));
+
+    expect(await client.confirm(`${ART_BASE_URL}/postcards/${UUID}.jpg`)).toBe(
+      true,
+    );
+
+    const [url, init] = fetchMock.mock.calls[0];
+    expect(url).toBe(`${ART_BASE_URL}/postcards/${UUID}.jpg`);
+    expect(init.method).toBe('HEAD');
+  });
+
+  it('does not confirm art the bucket does not hold yet', async () => {
+    fetchMock = jest
+      .spyOn(global, 'fetch')
+      .mockResolvedValue(headResponse(404));
+
+    expect(await client.confirm(`${ART_BASE_URL}/postcards/${UUID}.jpg`)).toBe(
+      false,
+    );
+  });
+
+  it('does not confirm art it cannot reach the bucket to ask about', async () => {
+    fetchMock = jest
+      .spyOn(global, 'fetch')
+      .mockRejectedValue(new Error('connect ECONNREFUSED'));
+
+    expect(await client.confirm(`${ART_BASE_URL}/postcards/${UUID}.jpg`)).toBe(
+      false,
+    );
   });
 
   it('names the stored object from the uuid and the format', () => {

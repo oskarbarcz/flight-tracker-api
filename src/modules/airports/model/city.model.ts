@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { CountryRef } from '../../countries/model/country.model';
 
 export class CityRef {
   @ApiProperty({
@@ -12,4 +13,21 @@ export class CityRef {
     example: 'Frankfurt',
   })
   name!: string;
+}
+
+export class City extends CityRef {
+  @ApiProperty({ type: CountryRef })
+  country!: CountryRef;
+
+  @ApiProperty({
+    description:
+      'Whether a postcard exists for this city, drawn or not. A city without one is nowhere in the postcard catalogue',
+    example: true,
+  })
+  hasPostcard!: boolean;
+}
+
+export class ListCitiesResponse {
+  @ApiProperty({ type: [City] })
+  cities!: City[];
 }

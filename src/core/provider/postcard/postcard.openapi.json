@@ -3,13 +3,13 @@
   "info": {
     "title": "Postcard generator",
     "version": "1.0.0",
-    "description": "Draws a collectible postcard for a city and stores it in object storage. The caller names the object, so the stored location is known before the response arrives."
+    "description": "Draws a collectible postcard for a city and stores it in object storage. The caller names the object, so the stored location is known before the response arrives. A render outlives any request, so the generator answers 202 and draws in the background; the caller polls the stored location."
   },
   "paths": {
     "/city": {
       "get": {
         "summary": "Draw a postcard for a city and store it",
-        "description": "Generation at the default size and quality outlives the platform's synchronous response window, so a successful call commonly answers 202 with no payload. The caller derives the stored location from the uuid and format it sent, and confirms the object separately.",
+        "description": "The generator validates the request, hands the render to a background activation and answers 202 at once, so 202 is the normal answer and 200 only arrives when the hand-off failed and the render happened inline. Either answer names the stored location, which the caller can also derive from the uuid and format it sent. A 202 carrying a code and no key comes from the platform rather than the generator and means the same thing. Neither answer means the art exists yet, so the caller confirms the object separately.",
         "parameters": [
           {
             "name": "city",
@@ -81,7 +81,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Drawn and stored",
+            "description": "Drawn and stored inline, because the render could not be handed to a background activation",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/PostcardGenerated" }
@@ -89,10 +89,15 @@
             }
           },
           "202": {
-            "description": "Accepted, but the result was not ready within the synchronous window. The art is most likely stored; confirm the object.",
+            "description": "Accepted; the render is running in the background and the art does not exist yet. The normal answer. A body carrying a code and no key is the platform saying the same thing.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PlatformError" }
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/PostcardAccepted" },
+                    { "$ref": "#/components/schemas/PlatformError" }
+                  ]
+                }
               }
             }
           },
@@ -157,6 +162,36 @@
           "contentType": { "type": "string" },
           "bytes": { "type": "integer" },
           "prompt": { "type": "string" },
+          "key": { "type": "string" },
+          "url": { "type": "string", "format": "uri" }
+        }
+      },
+      "PostcardAccepted": {
+        "type": "object",
+        "required": [
+          "status",
+          "city",
+          "country",
+          "continent",
+          "uuid",
+          "size",
+          "quality",
+          "format",
+          "key",
+          "url"
+        ],
+        "properties": {
+          "status": { "type": "string", "enum": ["accepted"] },
+          "city": { "type": "string" },
+          "country": { "type": "string" },
+          "continent": { "type": "string" },
+          "uuid": { "type": "string", "format": "uuid" },
+          "size": { "type": "string" },
+          "quality": {
+            "type": "string",
+            "enum": ["auto", "low", "medium", "high"]
+          },
+          "format": { "type": "string", "enum": ["jpeg", "png"] },
           "key": { "type": "string" },
           "url": { "type": "string", "format": "uri" }
         }
