@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AirportsRepository } from './infra/database/airports.repository';
+import { CitiesRepository } from './infra/database/cities.repository';
 import { CreateAirportAction } from './infra/http/action/airport/create-airport.action';
 import { ListAirportsAction } from './infra/http/action/airport/list-airports.action';
 import { GetAirportAction } from './infra/http/action/airport/get-airport.action';
@@ -13,6 +14,8 @@ import { UpdateAirportHandler } from './application/command/update-airport.comma
 import { RemoveAirportHandler } from './application/command/remove-airport.command';
 import { GetAirportByIdHandler } from './application/query/get-airport-by-id.query';
 import { ListAllAirportsHandler } from './application/query/list-all-airports.query';
+import { ListCitiesHandler } from './application/query/city/list-cities.query';
+import { ListCitiesAction } from './infra/http/action/city/list-cities.action';
 import { GetAirportByIcaoCodeHandler } from './application/query/get-airport-by-icao-code.query';
 import { GetAirportCountryByIataCodeHandler } from './application/query/get-airport-country-by-iata-code.query';
 import { TerminalsRepository } from './infra/database/terminals.repository';
@@ -68,6 +71,7 @@ import { SayIntentionsModule } from '../../core/provider/sayintentions/say-inten
 import { AirportWeatherRepository } from './infra/database/airport-weather.repository';
 import { GetWeatherAction } from './infra/http/action/weather/get-weather.action';
 import { GetAirportWeatherHandler } from './application/query/weather/get-airport-weather.query';
+import { GetLatestMetarHandler } from './application/query/weather/get-latest-metar.query';
 import { RefreshWeatherHandler } from './application/command/weather/refresh-weather.command';
 import { StartMonitoringAirportsWeatherHandler } from './application/command/weather/start-monitoring-airports-weather.command';
 import { StopMonitoringAirportsWeatherHandler } from './application/command/weather/stop-monitoring-airports-weather.command';
@@ -93,6 +97,7 @@ import { PushAirportOsmDataHandler } from './application/command/osm/push-airpor
     OsmModule,
   ],
   controllers: [
+    ListCitiesAction,
     CreateAirportAction,
     ListAirportsAction,
     GetAirportAction,
@@ -125,6 +130,7 @@ import { PushAirportOsmDataHandler } from './application/command/osm/push-airpor
   ],
   providers: [
     AirportsRepository,
+    CitiesRepository,
     TerminalsRepository,
     GatesRepository,
     ParkingPositionsRepository,
@@ -137,6 +143,7 @@ import { PushAirportOsmDataHandler } from './application/command/osm/push-airpor
     GetAirportByIcaoCodeHandler,
     GetAirportCountryByIataCodeHandler,
     ListAllAirportsHandler,
+    ListCitiesHandler,
     CreateTerminalHandler,
     UpdateTerminalHandler,
     RemoveTerminalHandler,
@@ -163,6 +170,7 @@ import { PushAirportOsmDataHandler } from './application/command/osm/push-airpor
     AssertAirportExistsHandler,
     AirportWeatherRepository,
     GetAirportWeatherHandler,
+    GetLatestMetarHandler,
     RefreshWeatherHandler,
     StartMonitoringAirportsWeatherHandler,
     StopMonitoringAirportsWeatherHandler,

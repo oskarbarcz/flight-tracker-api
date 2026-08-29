@@ -9,7 +9,7 @@ Feature: Create airport
         "iataCode": "MIA",
         "city": "Miami",
         "name": "Miami Intl",
-        "country": "United States of America",
+        "country": "US",
         "timezone": "America/New_York",
         "location": {
           "latitude": 25.7933,
@@ -37,7 +37,7 @@ Feature: Create airport
         "name": "Miami Intl",
         "iataCode": "MIA",
         "city": "Miami",
-        "country": "United States of America",
+        "country": "US",
         "timezone": "America/New_York",
         "location": {
           "latitude": 25.7933,
@@ -59,9 +59,15 @@ Feature: Create airport
         "id": "@uuid",
         "icaoCode": "KMIA",
         "iataCode": "MIA",
-        "city": "Miami",
+        "city": {
+          "id": "@uuid",
+          "name": "Miami"
+        },
         "name": "Miami Intl",
-        "country": "United States of America",
+        "country": {
+          "code": "US",
+          "name": "United States of America"
+        },
         "timezone": "America/New_York",
         "location": {
           "latitude": 25.7933,
@@ -88,7 +94,7 @@ Feature: Create airport
         "name": "Miami Intl",
         "iataCode": "MIA",
         "city": "Miami",
-        "country": "United States of America",
+        "country": "US",
         "timezone": "America/New_York",
         "location": {
           "latitude": 25.7933,
@@ -123,7 +129,7 @@ Feature: Create airport
         "iataCode": "MIA",
         "city": "Miami",
         "name": "Miami Intl",
-        "country": "United States of America",
+        "country": "US",
         "timezone": "America/New_York",
         "location": {
           "latitude": 25.7933,
@@ -159,7 +165,7 @@ Feature: Create airport
         "error": "Bad Request",
         "statusCode": 400,
         "violations": {
-          "country": ["country should not be empty", "country must be a string"],
+          "country": ["country must be a known ISO 3166-1 alpha-2 country code"],
           "timezone": [
             "timezone should not be empty",
             "timezone must be a valid IANA time-zone",
@@ -173,7 +179,7 @@ Feature: Create airport
           "city": ["city should not be empty", "city must be a string"],
           "location": ["location should not be empty"],
           "continent": [
-            "continent must be one of the following values: africa, asia, europe, north_america, oceania, south_america",
+            "continent must be one of the following values: africa, antarctica, asia, europe, north_america, oceania, south_america",
             "continent should not be empty"
           ]
         }
@@ -196,3 +202,233 @@ Feature: Create airport
         "statusCode": 401
       }
       """
+
+  Scenario: As operations I cannot create airport with a country name
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "KMIA",
+        "iataCode": "MIA",
+        "city": "Miami",
+        "name": "Miami Intl",
+        "country": "Germany",
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "country": ["country must be a known ISO 3166-1 alpha-2 country code"]
+        }
+      }
+      """
+
+  Scenario: As operations I cannot create airport with an unassigned country code
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "KMIA",
+        "iataCode": "MIA",
+        "city": "Miami",
+        "name": "Miami Intl",
+        "country": "QQ",
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "country": ["country must be a known ISO 3166-1 alpha-2 country code"]
+        }
+      }
+      """
+
+  Scenario: As operations I cannot create airport with a user-assigned placeholder code
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "KMIA",
+        "iataCode": "MIA",
+        "city": "Miami",
+        "name": "Miami Intl",
+        "country": "ZZ",
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "country": ["country must be a known ISO 3166-1 alpha-2 country code"]
+        }
+      }
+      """
+
+  Scenario: As operations the country code letter case does not matter
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "KMIA",
+        "iataCode": "MIA",
+        "city": "Miami",
+        "name": "Miami Intl",
+        "country": "us",
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 25.7933,
+          "longitude": -80.2906
+        },
+        "continent": "north_america"
+      }
+      """
+    Then the response status should be 201
+    And the response body property "country" should contain:
+      """json
+      {
+        "code": "US",
+        "name": "United States of America"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations an airport in a city that already exists joins that city
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "EDFH",
+        "iataCode": "HHN",
+        "city": "Frankfurt",
+        "name": "Frankfurt Hahn",
+        "country": "DE",
+        "timezone": "Europe/Berlin",
+        "location": {
+          "latitude": 49.9487,
+          "longitude": 7.2639
+        },
+        "continent": "europe"
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "icaoCode": "EDFH",
+        "iataCode": "HHN",
+        "city": {
+          "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+          "name": "Frankfurt"
+        },
+        "name": "Frankfurt Hahn",
+        "country": {
+          "code": "DE",
+          "name": "Germany"
+        },
+        "timezone": "Europe/Berlin",
+        "continent": "europe",
+        "dataQuality": "low",
+        "location": {
+          "latitude": 49.9487,
+          "longitude": 7.2639
+        },
+        "shape": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations a city of the same name in another country is a separate city
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "KFFT",
+        "iataCode": "FFT",
+        "city": "Frankfurt",
+        "name": "Frankfurt Capital City",
+        "country": "US",
+        "timezone": "America/New_York",
+        "location": {
+          "latitude": 38.1845,
+          "longitude": -84.9047
+        },
+        "continent": "north_america"
+      }
+      """
+    Then the response status should be 201
+    When I send a "POST" request to "/api/v1/airport" with body:
+      """json
+      {
+        "icaoCode": "EDFE",
+        "iataCode": "QEF",
+        "city": "Frankfurt",
+        "name": "Frankfurt Egelsbach",
+        "country": "DE",
+        "timezone": "Europe/Berlin",
+        "location": {
+          "latitude": 49.9599,
+          "longitude": 8.6413
+        },
+        "continent": "europe"
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "icaoCode": "EDFE",
+        "iataCode": "QEF",
+        "city": {
+          "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+          "name": "Frankfurt"
+        },
+        "name": "Frankfurt Egelsbach",
+        "country": {
+          "code": "DE",
+          "name": "Germany"
+        },
+        "timezone": "Europe/Berlin",
+        "continent": "europe",
+        "dataQuality": "low",
+        "location": {
+          "latitude": 49.9599,
+          "longitude": 8.6413
+        },
+        "shape": null
+      }
+      """
+    And I set database to initial state

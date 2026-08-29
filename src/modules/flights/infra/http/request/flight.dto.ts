@@ -52,6 +52,7 @@ export class CreateFlightRequest extends OmitType(Flight, [
   'isEmergencyDeclared',
   'hasFlightPath',
   'isOffBlockDelayed',
+  'hasNotoc',
   'createdAt',
   'departureParkingPositionId',
   'departureRunwayId',
@@ -133,6 +134,7 @@ export class CloseFlightRequest {
     required: false,
     nullable: true,
     default: null,
+    type: Number,
   })
   @IsOptional()
   @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 3 })

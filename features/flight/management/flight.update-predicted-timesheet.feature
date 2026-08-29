@@ -145,9 +145,15 @@ Feature: Update flight predicted timesheet
             "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
             "icaoCode": "KBOS",
             "iataCode": "BOS",
-            "city": "Boston",
+            "city": {
+              "id": "19364a7d-3982-43e5-9630-9ce7c3a44e98",
+              "name": "Boston"
+            },
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -162,9 +168,15 @@ Feature: Update flight predicted timesheet
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
             "icaoCode": "KPHL",
             "iataCode": "PHL",
-            "city": "Philadelphia",
+            "city": {
+              "id": "e30d5e72-29ca-4f01-8e75-fdc55e3b296a",
+              "name": "Philadelphia"
+            },
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -179,9 +191,15 @@ Feature: Update flight predicted timesheet
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "icaoCode": "KJFK",
             "iataCode": "JFK",
-            "city": "New York",
+            "city": {
+              "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+              "name": "New York"
+            },
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -200,6 +218,7 @@ Feature: Update flight predicted timesheet
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -353,9 +372,15 @@ Feature: Update flight predicted timesheet
             "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
             "icaoCode": "KBOS",
             "iataCode": "BOS",
-            "city": "Boston",
+            "city": {
+              "id": "19364a7d-3982-43e5-9630-9ce7c3a44e98",
+              "name": "Boston"
+            },
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -370,9 +395,15 @@ Feature: Update flight predicted timesheet
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
             "icaoCode": "KPHL",
             "iataCode": "PHL",
-            "city": "Philadelphia",
+            "city": {
+              "id": "e30d5e72-29ca-4f01-8e75-fdc55e3b296a",
+              "name": "Philadelphia"
+            },
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -387,9 +418,15 @@ Feature: Update flight predicted timesheet
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "icaoCode": "KJFK",
             "iataCode": "JFK",
-            "city": "New York",
+            "city": {
+              "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+              "name": "New York"
+            },
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -408,6 +445,7 @@ Feature: Update flight predicted timesheet
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -572,9 +610,15 @@ Feature: Update flight predicted timesheet
             "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
             "icaoCode": "KBOS",
             "iataCode": "BOS",
-            "city": "Boston",
+            "city": {
+              "id": "19364a7d-3982-43e5-9630-9ce7c3a44e98",
+              "name": "Boston"
+            },
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -589,9 +633,15 @@ Feature: Update flight predicted timesheet
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
             "icaoCode": "KPHL",
             "iataCode": "PHL",
-            "city": "Philadelphia",
+            "city": {
+              "id": "e30d5e72-29ca-4f01-8e75-fdc55e3b296a",
+              "name": "Philadelphia"
+            },
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -606,9 +656,15 @@ Feature: Update flight predicted timesheet
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "icaoCode": "KJFK",
             "iataCode": "JFK",
-            "city": "New York",
+            "city": {
+              "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+              "name": "New York"
+            },
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -627,6 +683,7 @@ Feature: Update flight predicted timesheet
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",

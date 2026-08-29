@@ -10,12 +10,14 @@ export class GenericNotFoundResponse {
   @ApiProperty({
     description: 'HTTP status message',
     example: 'Not Found',
+    type: String,
   })
   error = 'Not Found';
 
   @ApiProperty({
     description: 'HTTP status code',
     example: 404,
+    type: Number,
   })
   statusCode = 404;
 }

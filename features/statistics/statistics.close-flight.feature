@@ -48,7 +48,10 @@ Feature: Closing a flight keeps statistics consistent
             "icaoCode": "KJFK",
             "name": "New York JFK",
             "city": "New York",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "visits": 9
           }
         }

@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { AircraftRepository } from '../../infra/database/repository/aircraft.repository';
 import { AssertOperatorExistsQuery } from '../../../operators/application/assert/assert-operator-exists.query';
 import { AircraftNotFoundError } from '../../model/error/aircraft.error';
-import { AssertHoldVariantOfferedQuery } from '../../../cargo/application/assert/assert-hold-variant-offered.query';
+import { AssertHoldVariantOfferedQuery } from '../../../manifest/application/assert/assert-hold-variant-offered.query';
 
 export class AssignHoldVariantCommand {
   constructor(

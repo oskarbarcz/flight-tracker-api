@@ -83,9 +83,15 @@ Feature: Update flight departure parking position
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "icaoCode": "EDDF",
             "iataCode": "FRA",
-            "city": "Frankfurt",
+            "city": {
+              "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+              "name": "Frankfurt"
+            },
             "name": "Frankfurt Rhein/Main",
-            "country": "Germany",
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
             "timezone": "Europe/Berlin",
             "type": "departure",
             "continent": "europe",
@@ -97,9 +103,15 @@ Feature: Update flight departure parking position
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "icaoCode": "KJFK",
             "iataCode": "JFK",
-            "city": "New York",
+            "city": {
+              "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+              "name": "New York"
+            },
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -111,9 +123,15 @@ Feature: Update flight departure parking position
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
             "icaoCode": "KPHL",
             "iataCode": "PHL",
-            "city": "Philadelphia",
+            "city": {
+              "id": "e30d5e72-29ca-4f01-8e75-fdc55e3b296a",
+              "name": "Philadelphia"
+            },
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination_alternate",
             "continent": "north_america",
@@ -125,9 +143,15 @@ Feature: Update flight departure parking position
             "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
             "icaoCode": "KBOS",
             "iataCode": "BOS",
-            "city": "Boston",
+            "city": {
+              "id": "19364a7d-3982-43e5-9630-9ce7c3a44e98",
+              "name": "Boston"
+            },
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination_alternate",
             "continent": "north_america",
@@ -139,9 +163,15 @@ Feature: Update flight departure parking position
             "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
             "icaoCode": "CYYT",
             "iataCode": "YYT",
-            "city": "St. Johns",
+            "city": {
+              "id": "e5c4da3c-30af-4a50-be48-832cdb854cd7",
+              "name": "St. Johns"
+            },
             "name": "St. Johns Intl",
-            "country": "Canada",
+            "country": {
+              "code": "CA",
+              "name": "Canada"
+            },
             "timezone": "America/St_Johns",
             "continent": "north_america",
             "dataQuality": "low",
@@ -157,6 +187,7 @@ Feature: Update flight departure parking position
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "hasNotoc": false,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",

@@ -34,9 +34,7 @@
             "schema": {
               "type": "string",
               "pattern": "^[A-Za-z]{4}$",
-              "examples": [
-                "EDDF"
-              ]
+              "examples": ["EDDF"]
             }
           },
           {
@@ -57,12 +55,7 @@
                   "gates"
                 ]
               },
-              "examples": [
-                [
-                  "runways",
-                  "terminals"
-                ]
-              ]
+              "examples": [["runways", "terminals"]]
             }
           }
         ],
@@ -152,16 +145,12 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "icao"
-                ],
+                "required": ["icao"],
                 "properties": {
                   "icao": {
                     "type": "string",
                     "pattern": "^[A-Za-z]{4}$",
-                    "examples": [
-                      "EDDF"
-                    ]
+                    "examples": ["EDDF"]
                   },
                   "include": {
                     "type": "array",
@@ -211,17 +200,11 @@
     "schemas": {
       "Error": {
         "type": "object",
-        "required": [
-          "error"
-        ],
+        "required": ["error"],
         "properties": {
           "error": {
             "type": "object",
-            "required": [
-              "code",
-              "message",
-              "status"
-            ],
+            "required": ["code", "message", "status"],
             "properties": {
               "code": {
                 "type": "string",
@@ -246,10 +229,7 @@
       },
       "Coordinates": {
         "type": "object",
-        "required": [
-          "longitude",
-          "latitude"
-        ],
+        "required": ["longitude", "latitude"],
         "properties": {
           "longitude": {
             "type": "number"
@@ -275,9 +255,7 @@
         "properties": {
           "designator": {
             "type": "string",
-            "examples": [
-              "07C"
-            ]
+            "examples": ["07C"]
           },
           "length": {
             "type": "integer",
@@ -301,23 +279,11 @@
           },
           "surfaceType": {
             "type": "string",
-            "enum": [
-              "asphalt",
-              "concrete",
-              "grass",
-              "gravel",
-              "unknown"
-            ]
+            "enum": ["asphalt", "concrete", "grass", "gravel", "unknown"]
           },
           "lightingType": {
             "type": "string",
-            "enum": [
-              "HIRL",
-              "MIRL",
-              "LIRL",
-              "ALS",
-              "unknown"
-            ],
+            "enum": ["HIRL", "MIRL", "LIRL", "ALS", "unknown"],
             "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `unknown` on a pull."
           },
           "coordinates": {
@@ -342,15 +308,11 @@
           "shortName": {
             "type": "string",
             "description": "From the OSM `ref`, else initials of the name. At most 8 characters, unique within the airport.",
-            "examples": [
-              "T1"
-            ]
+            "examples": ["T1"]
           },
           "fullName": {
             "type": "string",
-            "examples": [
-              "Terminal One"
-            ]
+            "examples": ["Terminal One"]
           },
           "averageTaxiTime": {
             "type": "integer",
@@ -399,9 +361,7 @@
           "name": {
             "type": "string",
             "description": "The OSM `ref`. Absent it, the stand is not importable.",
-            "examples": [
-              "A12"
-            ]
+            "examples": ["A12"]
           },
           "terminal": {
             "type": "string",
@@ -409,10 +369,7 @@
           },
           "bridge": {
             "type": "string",
-            "enum": [
-              "yes",
-              "no"
-            ],
+            "enum": ["yes", "no"],
             "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `no` on a pull."
           },
           "stairs": {
@@ -427,32 +384,17 @@
           },
           "deicing": {
             "type": "string",
-            "enum": [
-              "no",
-              "possible",
-              "recommended",
-              "mandatory"
-            ],
+            "enum": ["no", "possible", "recommended", "mandatory"],
             "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `no` on a pull."
           },
           "gpu": {
             "type": "string",
-            "enum": [
-              "no",
-              "bridge",
-              "standalone",
-              "both"
-            ],
+            "enum": ["no", "bridge", "standalone", "both"],
             "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `no` on a pull."
           },
           "pca": {
             "type": "string",
-            "enum": [
-              "no",
-              "bridge",
-              "standalone",
-              "both"
-            ],
+            "enum": ["no", "bridge", "standalone", "both"],
             "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `no` on a pull."
           },
           "type": {
@@ -467,46 +409,27 @@
           },
           "spotType": {
             "type": "string",
-            "enum": [
-              "passenger",
-              "cargo",
-              "other"
-            ],
+            "enum": ["passenger", "cargo", "other"],
             "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `other` on a pull."
           },
           "assistance": {
             "type": "string",
-            "enum": [
-              "none",
-              "vdgs",
-              "marshaller",
-              "vdgs-or-marshaller"
-            ],
+            "enum": ["none", "vdgs", "marshaller", "vdgs-or-marshaller"],
             "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `none` on a pull."
           },
           "location": {
             "type": "string",
-            "enum": [
-              "remote",
-              "gate"
-            ],
+            "enum": ["remote", "gate"],
             "description": "`gate` once a gate links to this stand, otherwise `remote`."
           },
           "noiseSensitivity": {
             "type": "string",
-            "enum": [
-              "yes",
-              "no"
-            ],
+            "enum": ["yes", "no"],
             "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `no` on a pull."
           },
           "fuelingOptions": {
             "type": "string",
-            "enum": [
-              "none",
-              "truck",
-              "hydrant"
-            ],
+            "enum": ["none", "truck", "hydrant"],
             "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `none` on a pull."
           },
           "coordinates": {
@@ -533,18 +456,11 @@
           "name": {
             "type": "string",
             "description": "The OSM `ref`.",
-            "examples": [
-              "A12"
-            ]
+            "examples": ["A12"]
           },
           "category": {
             "type": "string",
-            "enum": [
-              "schengen",
-              "non-schengen",
-              "domestic",
-              "international"
-            ],
+            "enum": ["schengen", "non-schengen", "domestic", "international"],
             "description": "OpenStreetMap holds nothing for this. Always the neutral baseline `international` on a pull."
           },
           "terminal": {
@@ -552,10 +468,7 @@
             "description": "References a `Terminal.shortName`."
           },
           "parkingPosition": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "References a `ParkingPosition.name`: the same-named stand when one sits within 100 m, else the nearest within 100 m, else null. Several gates may share one stand."
           },
           "coordinates": {
@@ -582,23 +495,16 @@
         "properties": {
           "icaoCode": {
             "type": "string",
-            "examples": [
-              "EDDF"
-            ]
+            "examples": ["EDDF"]
           },
           "name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "As OpenStreetMap names the aerodrome; null when it carries no usable name."
           },
           "source": {
             "type": "string",
             "description": "Provenance of every value in this payload.",
-            "examples": [
-              "OpenStreetMap via Overpass"
-            ]
+            "examples": ["OpenStreetMap via Overpass"]
           },
           "location": {
             "allOf": [
@@ -644,9 +550,7 @@
       },
       "AirportResponse": {
         "type": "object",
-        "required": [
-          "airport"
-        ],
+        "required": ["airport"],
         "properties": {
           "airport": {
             "allOf": [

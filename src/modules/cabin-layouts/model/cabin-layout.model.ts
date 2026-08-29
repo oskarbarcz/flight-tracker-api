@@ -18,6 +18,7 @@ export class CabinLayout {
       'Discriminator separating several layouts of one airline and aircraft type; null when the pair has only one',
     example: '2',
     nullable: true,
+    type: String,
   })
   variant!: string | null;
 
@@ -37,6 +38,7 @@ export class CabinLayout {
     description: 'When AeroLOPA stopped publishing this layout',
     example: null,
     nullable: true,
+    type: 'string',
   })
   retiredAt!: Date | null;
 }

@@ -51,8 +51,14 @@ Feature: Update aircraft
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
-          "city": "Frankfurt",
-          "country": "Germany",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -120,8 +126,14 @@ Feature: Update aircraft
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
-          "city": "Frankfurt",
-          "country": "Germany",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -165,8 +177,14 @@ Feature: Update aircraft
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
-          "city": "Frankfurt",
-          "country": "Germany",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -210,8 +228,14 @@ Feature: Update aircraft
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
-          "city": "Frankfurt",
-          "country": "Germany",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -255,8 +279,14 @@ Feature: Update aircraft
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
           "name": "New York JFK",
-          "city": "New York",
-          "country": "United States of America",
+          "city": {
+            "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+            "name": "New York"
+          },
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,

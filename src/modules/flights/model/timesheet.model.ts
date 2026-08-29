@@ -6,6 +6,7 @@ export class Schedule {
   @ApiProperty({
     description: 'Time when the aircraft lands',
     example: '2021-07-01T12:00:00Z',
+    type: 'string',
   })
   @IsNotEmpty()
   @Type(() => Date)

@@ -4,22 +4,16 @@
       "method": "GET",
       "path": "/osm-provider/airport/pull",
       "queryStringParameters": {
-        "icao": [
-          "EDDW"
-        ]
+        "icao": ["EDDW"]
       },
       "headers": {
-        "X-Require-Whisk-Auth": [
-          "very-secret-token"
-        ]
+        "X-Require-Whisk-Auth": ["very-secret-token"]
       }
     },
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": [
-          "application/json"
-        ]
+        "Content-Type": ["application/json"]
       },
       "body": {
         "airport": {
@@ -234,22 +228,16 @@
       "method": "GET",
       "path": "/osm-provider/airport/pull",
       "queryStringParameters": {
-        "icao": [
-          "CYYT"
-        ]
+        "icao": ["CYYT"]
       },
       "headers": {
-        "X-Require-Whisk-Auth": [
-          "very-secret-token"
-        ]
+        "X-Require-Whisk-Auth": ["very-secret-token"]
       }
     },
     "httpResponse": {
       "statusCode": 404,
       "headers": {
-        "Content-Type": [
-          "application/json"
-        ]
+        "Content-Type": ["application/json"]
       },
       "body": {
         "error": {
@@ -265,22 +253,16 @@
       "method": "GET",
       "path": "/osm-provider/airport/pull",
       "queryStringParameters": {
-        "icao": [
-          "EDDF"
-        ]
+        "icao": ["EDDF"]
       },
       "headers": {
-        "X-Require-Whisk-Auth": [
-          "very-secret-token"
-        ]
+        "X-Require-Whisk-Auth": ["very-secret-token"]
       }
     },
     "httpResponse": {
       "statusCode": 502,
       "headers": {
-        "Content-Type": [
-          "application/json"
-        ]
+        "Content-Type": ["application/json"]
       },
       "body": {
         "error": {
@@ -299,9 +281,7 @@
     "httpResponse": {
       "statusCode": 401,
       "headers": {
-        "Content-Type": [
-          "application/json"
-        ]
+        "Content-Type": ["application/json"]
       },
       "body": {
         "error": "Authentication is possible but has failed or not yet been provided."

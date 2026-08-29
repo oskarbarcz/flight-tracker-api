@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import { Prisma } from '../../client/client';
 import { computeProjections } from '../../../src/modules/statistics/model/compute-projections';
 import { minutesBetween } from '../../../src/modules/flights/infra/helper/dates';
@@ -28,9 +29,11 @@ export async function loadStatistics(
       totalFuelBurned: true,
       operatorId: true,
       timesheet: true,
+      isDiversionDeclared: true,
       aircraft: { select: { type: true } },
       airports: {
         select: {
+          airportType: true,
           airport: {
             select: {
               id: true,
@@ -43,6 +46,41 @@ export async function loadStatistics(
       },
     },
   });
+
+  const diversions = await tx.diversion.findMany({
+    select: { flightId: true, airportId: true },
+  });
+  const diversionAirportByFlight = new Map(
+    diversions.map((entry) => [entry.flightId, entry.airportId]),
+  );
+
+  const airports = await tx.airport.findMany({
+    select: { id: true, country: true, cityId: true },
+  });
+  const countryByAirport = new Map(
+    airports.map((airport) => [airport.id, airport.country]),
+  );
+  const cityByAirport = new Map(
+    airports.map((airport) => [airport.id, airport.cityId]),
+  );
+
+  const cityVisits: {
+    id: string;
+    userId: string;
+    cityId: string;
+    flightId: string;
+    airportId: string;
+    visitedAt: Date;
+  }[] = [];
+
+  const stamps: {
+    id: string;
+    userId: string;
+    country: string;
+    flightId: string;
+    airportId: string;
+    visitedAt: Date;
+  }[] = [];
 
   const factsByCaptain = new Map<string, CaptainFlightFact[]>();
 
@@ -74,6 +112,42 @@ export async function loadStatistics(
     });
 
     const captainId = flight.captainId as string;
+
+    const landingAirportId = flight.isDiversionDeclared
+      ? diversionAirportByFlight.get(flight.id)
+      : flight.airports.find((entry) => entry.airportType === 'destination')
+          ?.airport.id;
+
+    const landingCountry = landingAirportId
+      ? countryByAirport.get(landingAirportId)
+      : undefined;
+
+    if (landingAirportId && landingCountry) {
+      stamps.push({
+        id: v4(),
+        userId: captainId,
+        country: landingCountry,
+        flightId: flight.id,
+        airportId: landingAirportId,
+        visitedAt: completedAt,
+      });
+    }
+
+    const landingCity = landingAirportId
+      ? cityByAirport.get(landingAirportId)
+      : undefined;
+
+    if (landingAirportId && landingCity) {
+      cityVisits.push({
+        id: v4(),
+        userId: captainId,
+        cityId: landingCity,
+        flightId: flight.id,
+        airportId: landingAirportId,
+        visitedAt: completedAt,
+      });
+    }
+
     const facts = factsByCaptain.get(captainId) ?? [];
     facts.push({
       flightId: flight.id,
@@ -92,6 +166,14 @@ export async function loadStatistics(
       })),
     });
     factsByCaptain.set(captainId, facts);
+  }
+
+  if (stamps.length) {
+    await tx.userCountryVisit.createMany({ data: stamps });
+  }
+
+  if (cityVisits.length) {
+    await tx.userCityVisit.createMany({ data: cityVisits });
   }
 
   for (const [userId, facts] of factsByCaptain) {

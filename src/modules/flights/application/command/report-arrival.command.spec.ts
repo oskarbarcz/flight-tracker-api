@@ -32,7 +32,7 @@ describe('ReportArrivalHandler', () => {
     updateStatus: jest.Mock;
     updateTimesheet: jest.Mock;
   };
-  let domainEvents: { emit: jest.Mock };
+  let domainEvents: { emitAsync: jest.Mock };
   let handler: ReportArrivalHandler;
 
   beforeEach(() => {
@@ -43,7 +43,7 @@ describe('ReportArrivalHandler', () => {
       updateStatus: jest.fn(),
       updateTimesheet: jest.fn(),
     };
-    domainEvents = { emit: jest.fn() };
+    domainEvents = { emitAsync: jest.fn() };
     handler = new ReportArrivalHandler(
       queryBus as never,
       flightsRepository as never,
@@ -66,7 +66,8 @@ describe('ReportArrivalHandler', () => {
       before,
     );
 
-    const event = domainEvents.emit.mock.calls[0][0] as ArrivalWasReportedEvent;
+    const event = domainEvents.emitAsync.mock
+      .calls[0][0] as ArrivalWasReportedEvent;
     expect(event).toBeInstanceOf(ArrivalWasReportedEvent);
     expect(event.payload.scope).toBe(FlightEventScope.User);
     expect(event.payload.actorId).toBe('actor-1');
@@ -87,7 +88,8 @@ describe('ReportArrivalHandler', () => {
     const timesheet = flightsRepository.updateTimesheet.mock.calls[0][1];
     expect(timesheet.actual.arrivalTime).toEqual(arrivalTime);
 
-    const event = domainEvents.emit.mock.calls[0][0] as ArrivalWasReportedEvent;
+    const event = domainEvents.emitAsync.mock
+      .calls[0][0] as ArrivalWasReportedEvent;
     expect(event.payload.scope).toBe(FlightEventScope.Operations);
     expect(event.payload.actorId).toBeNull();
     expect(event.payload.payload).toEqual({ automaticallyDetected: true });
@@ -102,6 +104,6 @@ describe('ReportArrivalHandler', () => {
     await expect(
       handler.execute(new ReportArrivalCommand(FLIGHT_ID, 'actor-1')),
     ).rejects.toBeInstanceOf(InvalidStatusToReportArrivedError);
-    expect(domainEvents.emit).not.toHaveBeenCalled();
+    expect(domainEvents.emitAsync).not.toHaveBeenCalled();
   });
 });

@@ -1,7 +1,7 @@
 import { Query, QueryHandler, IQueryHandler, QueryBus } from '@nestjs/cqrs';
 import { AssertOperatorExistsQuery } from '../../../operators/application/assert/assert-operator-exists.query';
 import {
-  AircraftAirport,
+  toAircraftAirport,
   AircraftParkingPosition,
   GetAircraftResponse,
 } from '../../infra/http/request/aircraft.request';
@@ -57,8 +57,8 @@ export class ListAllAircraftHandler implements IQueryHandler<ListAllAircraftQuer
             operator?.iataCode ?? null,
             airframe.iataType,
           ),
-          baseAirport: baseAirport as AircraftAirport | null,
-          lastAirport: lastAirport as AircraftAirport | null,
+          baseAirport: toAircraftAirport(baseAirport),
+          lastAirport: toAircraftAirport(lastAirport),
           lastParkingPosition:
             lastParkingPosition as AircraftParkingPosition | null,
         };

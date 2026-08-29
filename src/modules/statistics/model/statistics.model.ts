@@ -1,4 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { CountryRef } from '../../countries/model/country.model';
+import { CityRef } from '../../airports/model/city.model';
 
 export class LifetimeTotalsLegacy {
   @ApiProperty({ example: 3760, deprecated: true })
@@ -97,8 +99,8 @@ export class MostVisitedAirport {
   @ApiProperty({ example: 'Frankfurt' })
   city!: string;
 
-  @ApiProperty({ example: 'Germany' })
-  country!: string;
+  @ApiProperty({ type: CountryRef })
+  country!: CountryRef;
 
   @ApiProperty({ example: 27 })
   visits!: number;
@@ -188,9 +190,23 @@ export class UnlockedAirport {
   firstVisitAt!: Date;
 }
 
+export class UnlockedCountry {
+  @ApiProperty({ type: CountryRef })
+  country!: CountryRef;
+
+  @ApiProperty({ example: '🇫🇷' })
+  flag!: string;
+
+  @ApiProperty({ example: '2026-08-17T09:40:00.000Z' })
+  firstVisitAt!: Date;
+}
+
 export class PeriodUnlocked {
   @ApiProperty({ type: [UnlockedAirport] })
   airports!: UnlockedAirport[];
+
+  @ApiProperty({ type: [UnlockedCountry] })
+  countries!: UnlockedCountry[];
 
   @ApiProperty({ type: [String], example: ['B738'] })
   aircraftTypes!: string[];
@@ -235,4 +251,79 @@ export class ActivityDay {
 export class GetActivityResponse {
   @ApiProperty({ type: [ActivityDay] })
   days!: ActivityDay[];
+}
+
+export class VisitedCountry {
+  @ApiProperty({ type: CountryRef })
+  country!: CountryRef;
+
+  @ApiProperty({ example: '🇩🇪' })
+  flag!: string;
+
+  @ApiProperty({ example: 27 })
+  visits!: number;
+
+  @ApiProperty({ type: String, example: '2024-01-05T12:00:00.000Z' })
+  firstVisitAt!: Date;
+
+  @ApiProperty({ type: String, example: '2026-07-20T18:30:00.000Z' })
+  lastVisitAt!: Date;
+}
+
+export class GetMyCountriesResponse {
+  @ApiProperty({ type: [VisitedCountry] })
+  countries!: VisitedCountry[];
+}
+
+export class VisitedCity {
+  @ApiProperty({ type: CityRef })
+  city!: CityRef;
+
+  @ApiProperty({ type: CountryRef })
+  country!: CountryRef;
+
+  @ApiProperty({ example: 27 })
+  visits!: number;
+
+  @ApiProperty({ type: String, example: '2024-01-05T12:00:00.000Z' })
+  firstVisitAt!: Date;
+
+  @ApiProperty({ type: String, example: '2026-07-20T18:30:00.000Z' })
+  lastVisitAt!: Date;
+}
+
+export class GetMyCitiesResponse {
+  @ApiProperty({ type: [VisitedCity] })
+  cities!: VisitedCity[];
+}
+
+export class CountryStamp {
+  @ApiProperty({ example: 'EDDF' })
+  icaoCode!: string;
+
+  @ApiProperty({ example: 'FRA' })
+  iataCode!: string;
+
+  @ApiProperty({ example: 'Frankfurt Airport' })
+  airportName!: string;
+
+  @ApiProperty()
+  airportId!: string;
+
+  @ApiProperty()
+  flightId!: string;
+
+  @ApiProperty({ type: String, example: '2026-07-20T18:30:00.000Z' })
+  visitedAt!: Date;
+}
+
+export class GetCountryStampsResponse {
+  @ApiProperty({ type: CountryRef })
+  country!: CountryRef;
+
+  @ApiProperty({ example: '🇩🇪' })
+  flag!: string;
+
+  @ApiProperty({ type: [CountryStamp] })
+  stamps!: CountryStamp[];
 }

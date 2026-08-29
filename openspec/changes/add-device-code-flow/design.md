@@ -220,15 +220,15 @@ user-aware TTL is the answer, not a long one.
 
 ### 11. Concrete parameters
 
-| Parameter | Value | Rationale |
-|---|---|---|
-| User code | 8 chars, `XXXX-XXXX` | ~34 bits, well above RFC 8628's 20-bit floor |
-| User code alphabet | 19 consonants, no `L` | no vowels means no code spells a word; `L`/`I`/`1` and `O`/`0` excluded as confusable |
-| Device code | 32 bytes, base64url | stored as SHA-256 |
-| Authorization lifetime | 10 minutes | bounds the window for a code obtained by deception |
-| Poll interval | 5s, `slow_down` adds 5s | the only polling limit available without a throttler |
-| Device refresh lifetime | 60 days | a pilot flying fortnightly must not be signed out between flights |
-| Web refresh lifetime | 7 days | unchanged |
+| Parameter               | Value                   | Rationale                                                                             |
+| ----------------------- | ----------------------- | ------------------------------------------------------------------------------------- |
+| User code               | 8 chars, `XXXX-XXXX`    | ~34 bits, well above RFC 8628's 20-bit floor                                          |
+| User code alphabet      | 19 consonants, no `L`   | no vowels means no code spells a word; `L`/`I`/`1` and `O`/`0` excluded as confusable |
+| Device code             | 32 bytes, base64url     | stored as SHA-256                                                                     |
+| Authorization lifetime  | 10 minutes              | bounds the window for a code obtained by deception                                    |
+| Poll interval           | 5s, `slow_down` adds 5s | the only polling limit available without a throttler                                  |
+| Device refresh lifetime | 60 days                 | a pilot flying fortnightly must not be signed out between flights                     |
+| Web refresh lifetime    | 7 days                  | unchanged                                                                             |
 
 ## Risks / Trade-offs
 
@@ -237,7 +237,7 @@ Microsoft 365 through 2024–25: an attacker starts the flow on their own machin
 persuades the victim to approve the code. Nothing in the protocol distinguishes that
 from a legitimate approval, because the victim really did approve. Mitigated by, in
 order of value: an out-of-band notification on every link, carrying a revoke link; a
-consent screen that leads with *"only continue if you just started this yourself"* and
+consent screen that leads with _"only continue if you just started this yourself"_ and
 shows client, device label and originating IP; a 10-minute window; and the fact that
 legitimate users arrive by pre-filled URL, so a hand-typed code is already faintly
 unusual. Accepted as residual — it is the cost of the flow.
@@ -251,7 +251,7 @@ scenario for exactly this.
 `set-password` already dispatch `SignOutOtherSessionsCommand`; password reset and email
 change dispatch `SignOutEverywhereCommand`. That behaviour is correct and unchanged, but
 it now silently bricks a 60-day device session. The API side is fine; the companion app
-must treat a `401` on refresh as *"re-link this device"* and drop into the device flow,
+must treat a `401` on refresh as _"re-link this device"_ and drop into the device flow,
 not as an error. Recorded here because it is a cross-repo obligation, not an API task.
 
 **A 60-day refresh token on a personal machine** → Longer-lived than anything the system

@@ -41,9 +41,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9,
         "fuel": {
           "block": 11.9,
@@ -121,9 +121,9 @@ Feature: Finish flight boarding
               "cabinCrew": 6
             },
             "passengers": 292,
-            "payload": 28.3,
+            "payload": 37.808,
             "cargo": 8.9,
-            "zeroFuelWeight": 202.9,
+            "zeroFuelWeight": 212.408,
             "blockFuel": 11.9,
             "fuel": {
               "block": 11.9,
@@ -187,9 +187,15 @@ Feature: Finish flight boarding
             "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
             "icaoCode": "KBOS",
             "iataCode": "BOS",
-            "city": "Boston",
+            "city": {
+              "id": "19364a7d-3982-43e5-9630-9ce7c3a44e98",
+              "name": "Boston"
+            },
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -204,9 +210,15 @@ Feature: Finish flight boarding
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
             "icaoCode": "KPHL",
             "iataCode": "PHL",
-            "city": "Philadelphia",
+            "city": {
+              "id": "e30d5e72-29ca-4f01-8e75-fdc55e3b296a",
+              "name": "Philadelphia"
+            },
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -221,9 +233,15 @@ Feature: Finish flight boarding
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "icaoCode": "KJFK",
             "iataCode": "JFK",
-            "city": "New York",
+            "city": {
+              "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+              "name": "New York"
+            },
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -242,6 +260,7 @@ Feature: Finish flight boarding
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -578,9 +597,9 @@ Feature: Finish flight boarding
           "cabinCrew": 5
         },
         "passengers": 221,
-        "payload": 19.8,
+        "payload": 23.206,
         "cargo": 4.2,
-        "zeroFuelWeight": 68.4,
+        "zeroFuelWeight": 91.606,
         "blockFuel": 21.4
       }
       """
@@ -722,8 +741,8 @@ Feature: Finish flight boarding
           "cabinCrew": 5
         },
         "passengers": 140,
-        "payload": 19.8,
-        "cargo": 4.2,
+        "payload": 16.76,
+        "cargo": 2.2,
         "zeroFuelWeight": 68.4,
         "blockFuel": 21.4
       }
@@ -742,6 +761,895 @@ Feature: Finish flight boarding
       """
     And I set database to initial state
 
+  Scenario: A lower final cargo tonnage offloads the least sensitive freight
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 4,
+        "cargo": 4,
+        "zeroFuelWeight": 72.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "d2601432-e8cb-4018-8cee-f24aaaa29ca5",
+        "holdVariant": "b77w-ld3",
+        "cargoKg": 4000,
+        "baggageKg": 0,
+        "bagCount": 0,
+        "baggageSource": null,
+        "containerCount": 4,
+        "bulkLotCount": 0,
+        "shipmentCount": 4,
+        "worstColdChainRisk": null,
+        "dangerousGoodsCount": 0,
+        "cargoAircraftOnlyCount": 0,
+        "transferCount": 0,
+        "tightestConnectionMinutes": null,
+        "compartmentLoad": [
+          {
+            "compartment": 1,
+            "deck": "lower",
+            "weightKg": 4000,
+            "dryIceKg": 0
+          }
+        ],
+        "segregationAdvisories": [],
+        "units": [
+          {
+            "kind": "uld",
+            "uldCode": "AKE48201AA",
+            "uldType": "AKE",
+            "positionDesignator": null,
+            "compartment": 1,
+            "deck": "lower",
+            "tareKg": 0,
+            "grossKg": 0,
+            "volumeM3": 0,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-48203713",
+                "commodity": "printed-matter",
+                "description": "Books, palletised",
+                "pieces": 64,
+                "grossKg": 1418,
+                "volumeM3": 2.026,
+                "shc": [],
+                "shipper": "Bauer Verlag GmbH",
+                "consignee": "Whitaker Distribution LLC",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "offloaded",
+                "offloadReason": "payload_restriction",
+                "offloadedFrom": "11L"
+              }
+            ]
+          },
+          {
+            "kind": "uld",
+            "uldCode": "AKE48202AA",
+            "uldType": "AKE",
+            "positionDesignator": "11R",
+            "compartment": 1,
+            "deck": "lower",
+            "tareKg": 82,
+            "grossKg": 1400,
+            "volumeM3": 2.545,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-48203724",
+                "commodity": "coffee-beans",
+                "description": "Speciality green coffee, bagged",
+                "pieces": 35,
+                "grossKg": 1400,
+                "volumeM3": 2.545,
+                "shc": ["EAT"],
+                "shipper": "Rheinhafen Rohkaffee GmbH",
+                "consignee": "Hudson Roasting Co.",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "loaded",
+                "offloadReason": null,
+                "offloadedFrom": null
+              }
+            ]
+          },
+          {
+            "kind": "uld",
+            "uldCode": "AKE48203AA",
+            "uldType": "AKE",
+            "positionDesignator": "12L",
+            "compartment": 1,
+            "deck": "lower",
+            "tareKg": 82,
+            "grossKg": 900,
+            "volumeM3": 4.091,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-48203735",
+                "commodity": "medical-devices",
+                "description": "Sterile medical devices",
+                "pieces": 56,
+                "grossKg": 900,
+                "volumeM3": 4.091,
+                "shc": ["PIL"],
+                "shipper": "Kirchner Medizintechnik GmbH",
+                "consignee": "Bayside Hospital Supply Inc.",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "loaded",
+                "offloadReason": null,
+                "offloadedFrom": null
+              }
+            ]
+          },
+          {
+            "kind": "uld",
+            "uldCode": "AKE48204AA",
+            "uldType": "AKE",
+            "positionDesignator": "12R",
+            "compartment": 1,
+            "deck": "lower",
+            "tareKg": 82,
+            "grossKg": 1454,
+            "volumeM3": 2.423,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-48203746",
+                "commodity": "engine-fan-blades",
+                "description": "Turbofan blade set, AOG",
+                "pieces": 4,
+                "grossKg": 1454,
+                "volumeM3": 2.423,
+                "shc": ["HEA"],
+                "shipper": "Rhein-Main Aero Services GmbH",
+                "consignee": "Kennedy Line Maintenance Inc.",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "loaded",
+                "offloadReason": null,
+                "offloadedFrom": null
+              }
+            ]
+          }
+        ]
+      }
+      """
+    And I set database to initial state
+
+  Scenario: A higher final cargo tonnage accepts more freight without disturbing what is aboard
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 7.5,
+        "cargo": 7.5,
+        "zeroFuelWeight": 75.9,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/cargo-manifest?status=offloaded"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "d2601432-e8cb-4018-8cee-f24aaaa29ca5",
+        "holdVariant": "b77w-ld3",
+        "cargoKg": 7500,
+        "baggageKg": 0,
+        "bagCount": 0,
+        "baggageSource": null,
+        "containerCount": "@any",
+        "bulkLotCount": "@any",
+        "shipmentCount": 0,
+        "worstColdChainRisk": null,
+        "dangerousGoodsCount": 0,
+        "cargoAircraftOnlyCount": 0,
+        "transferCount": 0,
+        "tightestConnectionMinutes": null,
+        "compartmentLoad": "@any",
+        "segregationAdvisories": [],
+        "units": "@any"
+      }
+      """
+    When I send a "GET" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/cargo-manifest"
+    Then the response status should be 200
+    And the only entry of the response body list "units" with "uldCode" set to "AKE48203AA" should contain:
+      """json
+      {
+        "kind": "uld",
+        "uldCode": "AKE48203AA",
+        "uldType": "AKE",
+        "positionDesignator": "12L",
+        "compartment": 1,
+        "deck": "lower",
+        "tareKg": 82,
+        "grossKg": 900,
+        "volumeM3": 4.091,
+        "contentClass": "cargo",
+        "beyondDestination": null,
+        "sealed": false,
+        "bagCount": null,
+        "priority": false,
+        "shipments": [
+          {
+            "awb": "001-48203735",
+            "commodity": "medical-devices",
+            "description": "Sterile medical devices",
+            "pieces": 56,
+            "grossKg": 900,
+            "volumeM3": 4.091,
+            "shc": ["PIL"],
+            "shipper": "Kirchner Medizintechnik GmbH",
+            "consignee": "Bayside Hospital Supply Inc.",
+            "origin": "FRA",
+            "destination": "JFK",
+            "transferRole": "local",
+            "onwardCarrier": null,
+            "onwardFlightNumber": null,
+            "connectionMinutes": null,
+            "connectionAtRisk": false,
+            "dangerousGoods": null,
+            "coldChain": null,
+            "status": "loaded",
+            "offloadReason": null,
+            "offloadedFrom": null
+          }
+        ]
+      }
+      """
+    And the response body list "units" should have distinct "positionDesignator" values
+    And I set database to initial state
+
+  Scenario: An unchanged final cargo tonnage leaves every shipment exactly as it was
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 5.5,
+        "cargo": 5.5,
+        "zeroFuelWeight": 73.9,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "d2601432-e8cb-4018-8cee-f24aaaa29ca5",
+        "holdVariant": "b77w-ld3",
+        "cargoKg": 5500,
+        "baggageKg": 0,
+        "bagCount": 0,
+        "baggageSource": null,
+        "containerCount": 4,
+        "bulkLotCount": 0,
+        "shipmentCount": 4,
+        "worstColdChainRisk": null,
+        "dangerousGoodsCount": 0,
+        "cargoAircraftOnlyCount": 0,
+        "transferCount": 0,
+        "tightestConnectionMinutes": null,
+        "compartmentLoad": [
+          {
+            "compartment": 1,
+            "deck": "lower",
+            "weightKg": 5500,
+            "dryIceKg": 0
+          }
+        ],
+        "segregationAdvisories": [],
+        "units": [
+          {
+            "kind": "uld",
+            "uldCode": "AKE48201AA",
+            "uldType": "AKE",
+            "positionDesignator": "11L",
+            "compartment": 1,
+            "deck": "lower",
+            "tareKg": 82,
+            "grossKg": 1418,
+            "volumeM3": 2.026,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-48203713",
+                "commodity": "printed-matter",
+                "description": "Books, palletised",
+                "pieces": 64,
+                "grossKg": 1418,
+                "volumeM3": 2.026,
+                "shc": [],
+                "shipper": "Bauer Verlag GmbH",
+                "consignee": "Whitaker Distribution LLC",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "loaded",
+                "offloadReason": null,
+                "offloadedFrom": null
+              }
+            ]
+          },
+          {
+            "kind": "uld",
+            "uldCode": "AKE48202AA",
+            "uldType": "AKE",
+            "positionDesignator": "11R",
+            "compartment": 1,
+            "deck": "lower",
+            "tareKg": 82,
+            "grossKg": 1400,
+            "volumeM3": 2.545,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-48203724",
+                "commodity": "coffee-beans",
+                "description": "Speciality green coffee, bagged",
+                "pieces": 35,
+                "grossKg": 1400,
+                "volumeM3": 2.545,
+                "shc": ["EAT"],
+                "shipper": "Rheinhafen Rohkaffee GmbH",
+                "consignee": "Hudson Roasting Co.",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "loaded",
+                "offloadReason": null,
+                "offloadedFrom": null
+              }
+            ]
+          },
+          {
+            "kind": "uld",
+            "uldCode": "AKE48203AA",
+            "uldType": "AKE",
+            "positionDesignator": "12L",
+            "compartment": 1,
+            "deck": "lower",
+            "tareKg": 82,
+            "grossKg": 900,
+            "volumeM3": 4.091,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-48203735",
+                "commodity": "medical-devices",
+                "description": "Sterile medical devices",
+                "pieces": 56,
+                "grossKg": 900,
+                "volumeM3": 4.091,
+                "shc": ["PIL"],
+                "shipper": "Kirchner Medizintechnik GmbH",
+                "consignee": "Bayside Hospital Supply Inc.",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "loaded",
+                "offloadReason": null,
+                "offloadedFrom": null
+              }
+            ]
+          },
+          {
+            "kind": "uld",
+            "uldCode": "AKE48204AA",
+            "uldType": "AKE",
+            "positionDesignator": "12R",
+            "compartment": 1,
+            "deck": "lower",
+            "tareKg": 82,
+            "grossKg": 1454,
+            "volumeM3": 2.423,
+            "contentClass": "cargo",
+            "beyondDestination": null,
+            "sealed": false,
+            "bagCount": null,
+            "priority": false,
+            "shipments": [
+              {
+                "awb": "001-48203746",
+                "commodity": "engine-fan-blades",
+                "description": "Turbofan blade set, AOG",
+                "pieces": 4,
+                "grossKg": 1454,
+                "volumeM3": 2.423,
+                "shc": ["HEA"],
+                "shipper": "Rhein-Main Aero Services GmbH",
+                "consignee": "Kennedy Line Maintenance Inc.",
+                "origin": "FRA",
+                "destination": "JFK",
+                "transferRole": "local",
+                "onwardCarrier": null,
+                "onwardFlightNumber": null,
+                "connectionMinutes": null,
+                "connectionAtRisk": false,
+                "dangerousGoods": null,
+                "coldChain": null,
+                "status": "loaded",
+                "offloadReason": null,
+                "offloadedFrom": null
+              }
+            ]
+          }
+        ]
+      }
+      """
+    And I set database to initial state
+
+  Scenario: A final cargo tonnage below the freight that may not be offloaded does not finish boarding
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 1,
+        "cargo": 1,
+        "zeroFuelWeight": 69.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Content",
+        "message": "Cannot reduce the load to 1000 kg while 1536 kg aboard may not be offloaded."
+      }
+      """
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 5.5,
+        "cargo": 5.5,
+        "zeroFuelWeight": 73.9,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    And I set database to initial state
+
+  Scenario: A final cargo tonnage the hold cannot take does not finish boarding
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 80,
+        "cargo": 80,
+        "zeroFuelWeight": 148.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Content",
+        "message": "Cannot load 80000 kg of cargo into a hold that carries 72042 kg."
+      }
+      """
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 5.5,
+        "cargo": 5.5,
+        "zeroFuelWeight": 73.9,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    And I set database to initial state
+
+  Scenario: A final payload that cannot carry the load does not finish boarding
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 5.4,
+        "cargo": 5.5,
+        "zeroFuelWeight": 73.9,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "error": "Unprocessable Content",
+        "message": "Payload of 5400 kg cannot carry 5500 kg of cargo and passengers."
+      }
+      """
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 5.5,
+        "cargo": 5.5,
+        "zeroFuelWeight": 73.9,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    And I set database to initial state
+
+  Scenario: A flight whose aircraft type has no hold data reconciles without positions
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/dc20c7ff-114e-42be-86cc-34fd90b71b35/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 40,
+        "cargo": 40,
+        "zeroFuelWeight": 108.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/dc20c7ff-114e-42be-86cc-34fd90b71b35/cargo-manifest"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "dc20c7ff-114e-42be-86cc-34fd90b71b35",
+        "holdVariant": null,
+        "cargoKg": 40000,
+        "baggageKg": 0,
+        "bagCount": 0,
+        "baggageSource": null,
+        "containerCount": 0,
+        "bulkLotCount": "@any",
+        "shipmentCount": "@any",
+        "worstColdChainRisk": "@any",
+        "dangerousGoodsCount": "@any",
+        "cargoAircraftOnlyCount": "@any",
+        "transferCount": "@any",
+        "tightestConnectionMinutes": "@any",
+        "compartmentLoad": [],
+        "segregationAdvisories": [],
+        "units": "@any"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: Finishing boarding issues the final notification, acknowledges it and reports what changed
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 4,
+        "cargo": 4,
+        "zeroFuelWeight": 72.4,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/notoc"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "d2601432-e8cb-4018-8cee-f24aaaa29ca5",
+        "stage": "final",
+        "issuedAt": "@date('within 1 minute from now')",
+        "acknowledgedById": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+        "acknowledgedAt": "@date('within 1 minute from now')",
+        "document": {
+          "summary": {
+            "cargoKg": 4000,
+            "baggageKg": 0,
+            "deadloadKg": 4000,
+            "beyondCount": 0,
+            "palletCount": 0,
+            "compartments": [
+              {
+                "deck": "lower",
+                "dryIceKg": 0,
+                "weightKg": 4000,
+                "compartment": 1
+              }
+            ],
+            "looseLotCount": 0,
+            "containerCount": 3,
+            "tightestConnectionMinutes": null
+          },
+          "coldChain": [],
+          "statement": "No dangerous goods loaded.",
+          "specialLoads": [
+            {
+              "awb": "001-48203735",
+              "shc": ["PIL"],
+              "grossKg": 900,
+              "position": "12L",
+              "compartment": 1,
+              "description": "Sterile medical devices",
+              "heaviestPiece": null,
+              "unloadingAirport": "JFK"
+            },
+            {
+              "awb": "001-48203746",
+              "shc": ["HEA"],
+              "grossKg": 1454,
+              "position": "12R",
+              "compartment": 1,
+              "description": "Turbofan blade set, AOG",
+              "heaviestPiece": {
+                "kg": 900,
+                "widthCm": 110,
+                "heightCm": 95,
+                "lengthCm": 240
+              },
+              "unloadingAirport": "JFK"
+            }
+          ],
+          "dangerousGoods": []
+        },
+        "changes": {
+          "changed": true,
+          "dangerousGoodsAdded": [],
+          "dangerousGoodsRemoved": [],
+          "specialLoadsAdded": [],
+          "specialLoadsRemoved": [],
+          "repositioned": [],
+          "cargoChangeKg": -1500,
+          "deadloadChangeKg": -1500
+        }
+      }
+      """
+    And I set database to initial state
+
+  Scenario: A reconciliation that changed nothing reports no changes
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 0
+        },
+        "passengers": 0,
+        "payload": 5.5,
+        "cargo": 5.5,
+        "zeroFuelWeight": 73.9,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/d2601432-e8cb-4018-8cee-f24aaaa29ca5/notoc"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "d2601432-e8cb-4018-8cee-f24aaaa29ca5",
+        "stage": "final",
+        "issuedAt": "@date('within 1 minute from now')",
+        "acknowledgedById": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+        "acknowledgedAt": "@date('within 1 minute from now')",
+        "document": {
+          "summary": {
+            "cargoKg": 5500,
+            "baggageKg": 0,
+            "deadloadKg": 5500,
+            "beyondCount": 0,
+            "palletCount": 0,
+            "compartments": [
+              {
+                "deck": "lower",
+                "dryIceKg": 0,
+                "weightKg": 5500,
+                "compartment": 1
+              }
+            ],
+            "looseLotCount": 0,
+            "containerCount": 4,
+            "tightestConnectionMinutes": null
+          },
+          "coldChain": [],
+          "statement": "No dangerous goods loaded.",
+          "specialLoads": [
+            {
+              "awb": "001-48203735",
+              "shc": ["PIL"],
+              "grossKg": 900,
+              "position": "12L",
+              "compartment": 1,
+              "description": "Sterile medical devices",
+              "heaviestPiece": null,
+              "unloadingAirport": "JFK"
+            },
+            {
+              "awb": "001-48203746",
+              "shc": ["HEA"],
+              "grossKg": 1454,
+              "position": "12R",
+              "compartment": 1,
+              "description": "Turbofan blade set, AOG",
+              "heaviestPiece": {
+                "kg": 900,
+                "widthCm": 110,
+                "heightCm": 95,
+                "lengthCm": 240
+              },
+              "unloadingAirport": "JFK"
+            }
+          ],
+          "dangerousGoods": []
+        },
+        "changes": {
+          "changed": false,
+          "dangerousGoodsAdded": [],
+          "dangerousGoodsRemoved": [],
+          "specialLoadsAdded": [],
+          "specialLoadsRemoved": [],
+          "repositioned": [],
+          "cargoChangeKg": 0,
+          "deadloadChangeKg": 0
+        }
+      }
+      """
+    And I set database to initial state
+
   Scenario: As a cabin crew I cannot finish boarding with a final fuel breakdown whose block differs from the block fuel
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/05986dd3-ff01-4112-ad35-ecd85db05c77/finish-boarding" with body:
@@ -753,9 +1661,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9,
         "fuel": {
           "block": 12.5,
@@ -794,9 +1702,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9
       }
       """
@@ -810,9 +1718,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9
       }
       """
@@ -838,9 +1746,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9
       }
       """
@@ -863,7 +1771,7 @@ Feature: Finish flight boarding
           "pilots": 2
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "blockFuel": 11.9
       }
       """
@@ -895,9 +1803,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9
       }
       """
@@ -922,9 +1830,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9
       }
       """
@@ -948,9 +1856,9 @@ Feature: Finish flight boarding
           "cabinCrew": 6
         },
         "passengers": 292,
-        "payload": 28.3,
+        "payload": 37.808,
         "cargo": 8.9,
-        "zeroFuelWeight": 202.9,
+        "zeroFuelWeight": 212.408,
         "blockFuel": 11.9
       }
       """

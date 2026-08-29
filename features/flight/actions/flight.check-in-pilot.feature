@@ -157,9 +157,15 @@ Feature: Check in pilot for flight
             "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
             "icaoCode": "KBOS",
             "iataCode": "BOS",
-            "city": "Boston",
+            "city": {
+              "id": "19364a7d-3982-43e5-9630-9ce7c3a44e98",
+              "name": "Boston"
+            },
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -174,9 +180,15 @@ Feature: Check in pilot for flight
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
             "icaoCode": "KPHL",
             "iataCode": "PHL",
-            "city": "Philadelphia",
+            "city": {
+              "id": "e30d5e72-29ca-4f01-8e75-fdc55e3b296a",
+              "name": "Philadelphia"
+            },
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -191,9 +203,15 @@ Feature: Check in pilot for flight
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "icaoCode": "KJFK",
             "iataCode": "JFK",
-            "city": "New York",
+            "city": {
+              "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+              "name": "New York"
+            },
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -212,6 +230,7 @@ Feature: Check in pilot for flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -462,16 +481,28 @@ Feature: Check in pilot for flight
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
           "name": "New York JFK",
-          "city": "New York",
-          "country": "United States of America",
+          "city": {
+            "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+            "name": "New York"
+          },
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
           "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
           "iataCode": "BOS",
           "name": "Boston Logan Intl",
-          "city": "Boston",
-          "country": "United States of America",
+          "city": {
+            "id": "19364a7d-3982-43e5-9630-9ce7c3a44e98",
+            "name": "Boston"
+          },
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "@date('within 1 minute from now')",
@@ -671,6 +702,67 @@ Feature: Check in pilot for flight
     And I set database to initial state
     And I clear Discord messages directory
 
+  Scenario: The briefing carries no special load section for a flight with nothing in the hold
+    Given I clear Discord messages directory
+    And I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/d7b3e5a2-4c81-4f69-b0d5-8e2a1c4f7b93/check-in" with body:
+      """json
+      {
+        "offBlockTime": "2025-06-02T09:05:00.000Z",
+        "takeoffTime": "2025-06-02T09:25:00.000Z",
+        "arrivalTime": "2025-06-02T17:35:00.000Z",
+        "onBlockTime": "2025-06-02T17:45:00.000Z"
+      }
+      """
+    Then the response status should be 204
+    And I see Discord "briefing" message for flight "d7b3e5a2-4c81-4f69-b0d5-8e2a1c4f7b93" containing ":clipboard: **Flight CV 2022 briefing**"
+    And I see Discord "briefing" message for flight "d7b3e5a2-4c81-4f69-b0d5-8e2a1c4f7b93" not containing "Special load"
+    And I set database to initial state
+    And I clear Discord messages directory
+
+  Scenario: The briefing tells the pilot what notifiable load the flight carries
+    Given I clear Discord messages directory
+    And I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380/check-in" with body:
+      """json
+      {
+        "offBlockTime": "2025-06-02T09:05:00.000Z",
+        "takeoffTime": "2025-06-02T09:25:00.000Z",
+        "arrivalTime": "2025-06-02T17:35:00.000Z",
+        "onBlockTime": "2025-06-02T17:45:00.000Z"
+      }
+      """
+    Then the response status should be 204
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" containing ":warning: **Special load**"
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" containing "Dangerous goods: **3** (cargo aircraft only: **1**)"
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" containing "Other special loads: **4**"
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" containing "Highest cold chain risk: **low**"
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" containing "See the notification to captain on the flight page."
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" not containing "172-62001133"
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" not containing "Lithium ion batteries"
+    And I see Discord "briefing" message for flight "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380" not containing "Live horses in air stalls"
+    And I set database to initial state
+    And I clear Discord messages directory
+
+  Scenario: The briefing says so when the flight carries nothing notifiable
+    Given I clear Discord messages directory
+    And I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/b4bad5cf-c049-488b-b979-8ef8fc85cdb4/check-in" with body:
+      """json
+      {
+        "offBlockTime": "2025-06-02T09:05:00.000Z",
+        "takeoffTime": "2025-06-02T09:25:00.000Z",
+        "arrivalTime": "2025-06-02T17:35:00.000Z",
+        "onBlockTime": "2025-06-02T17:45:00.000Z"
+      }
+      """
+    Then the response status should be 204
+    And I see Discord "briefing" message for flight "b4bad5cf-c049-488b-b979-8ef8fc85cdb4" containing ":warning: **Special load**"
+    And I see Discord "briefing" message for flight "b4bad5cf-c049-488b-b979-8ef8fc85cdb4" containing "No dangerous goods loaded."
+    And I see Discord "briefing" message for flight "b4bad5cf-c049-488b-b979-8ef8fc85cdb4" not containing "Other special loads"
+    And I set database to initial state
+    And I clear Discord messages directory
+
   Scenario: Checking in a pilot sends the operational flight plan with the briefing
     Given I clear Discord messages directory
     And I am signed in as "Michael Doe"
@@ -795,6 +887,200 @@ Feature: Check in pilot for flight
         "statusCode": 422
       }
       """
+
+  Scenario: Checking in acknowledges the notification to captain, leaving the document itself alone
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380/check-in" with body:
+      """json
+      {
+        "offBlockTime": "2025-06-02T09:05:00.000Z",
+        "takeoffTime": "2025-06-02T09:25:00.000Z",
+        "arrivalTime": "2025-06-02T17:35:00.000Z",
+        "onBlockTime": "2025-06-02T17:45:00.000Z"
+      }
+      """
+    Then the response status should be 204
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/flight/2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380/notoc"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "flightId": "2fbd8bb1-6d47-4e35-9f0a-5c2e17a4d380",
+        "stage": "preliminary",
+        "issuedAt": "2025-06-02T07:40:00.000Z",
+        "acknowledgedById": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+        "acknowledgedAt": "@date('within 1 minute from now')",
+        "document": {
+          "summary": {
+            "cargoKg": 14900,
+            "baggageKg": 0,
+            "deadloadKg": 14900,
+            "beyondCount": 0,
+            "palletCount": 3,
+            "compartments": [
+              {
+                "deck": "lower",
+                "dryIceKg": 900,
+                "weightKg": 3946,
+                "compartment": 1
+              },
+              {
+                "deck": "lower",
+                "dryIceKg": 0,
+                "weightKg": 782,
+                "compartment": 3
+              },
+              {
+                "deck": "main",
+                "dryIceKg": 0,
+                "weightKg": 10172,
+                "compartment": 6
+              }
+            ],
+            "looseLotCount": 0,
+            "containerCount": 4,
+            "tightestConnectionMinutes": null
+          },
+          "coldChain": [
+            {
+              "awb": "172-62001166",
+              "risk": "low",
+              "regime": "COL",
+              "advisory": true,
+              "description": "Vaccine doses, 2-8C",
+              "explanation": "An active container with 88.5 h margin on a 100 h endurance.",
+              "marginHours": 88.5
+            }
+          ],
+          "statement": "Dangerous goods loaded as listed below.",
+          "specialLoads": [
+            {
+              "awb": "172-62001100",
+              "shc": ["AVI", "HEA"],
+              "grossKg": 4000,
+              "position": "6AL",
+              "compartment": 6,
+              "description": "Live horses in air stalls",
+              "heaviestPiece": {
+                "kg": 620,
+                "widthCm": 110,
+                "heightCm": 230,
+                "lengthCm": 300
+              },
+              "unloadingAirport": "JFK"
+            },
+            {
+              "awb": "172-62001111",
+              "shc": ["HEA", "BIG"],
+              "grossKg": 4200,
+              "position": "6BL",
+              "compartment": 6,
+              "description": "Main landing gear leg, AOG",
+              "heaviestPiece": {
+                "kg": 1600,
+                "widthCm": 130,
+                "heightCm": 150,
+                "lengthCm": 340
+              },
+              "unloadingAirport": "JFK"
+            },
+            {
+              "awb": "172-62001122",
+              "shc": ["HUM", "HEA"],
+              "grossKg": 1072,
+              "position": "6CL",
+              "compartment": 6,
+              "description": "Human remains in coffin",
+              "heaviestPiece": {
+                "kg": 260,
+                "widthCm": 70,
+                "heightCm": 60,
+                "lengthCm": 220
+              },
+              "unloadingAirport": "JFK"
+            },
+            {
+              "awb": "172-62001166",
+              "shc": ["PIL"],
+              "grossKg": 700,
+              "position": "31L",
+              "compartment": 3,
+              "description": "Vaccine doses, 2-8C",
+              "heaviestPiece": null,
+              "unloadingAirport": "JFK"
+            }
+          ],
+          "dangerousGoods": [
+            {
+              "awb": "172-62001133",
+              "drill": {
+                "ercCode": "3L",
+                "inherentRisk": "Flammable liquid or solid; vapours may form an explosive mixture.",
+                "additionalRisks": ["No significant risk beyond the drill itself."],
+                "spillAndFireProcedure": "Contain the spill and keep every ignition source away. Fight the fire with water spray, foam, dry chemical or carbon dioxide.",
+                "riskToAircraftAndOccupants": "Rapid fire spread and dense smoke; heat may weaken structure and burn anyone in reach."
+              },
+              "packages": 78,
+              "position": "11L",
+              "unNumber": "1263",
+              "compartment": 1,
+              "hazardClass": "3",
+              "packingGroup": "II",
+              "netPerPackage": "5 L",
+              "subsidiaryRisk": null,
+              "unloadingAirport": "JFK",
+              "cargoAircraftOnly": false,
+              "properShippingName": "Paint"
+            },
+            {
+              "awb": "172-62001144",
+              "drill": {
+                "ercCode": "9F",
+                "inherentRisk": "A hazard that no other class covers, such as heat, an anaesthetic vapour, a magnetic field or harm to the environment.",
+                "additionalRisks": ["Flammable."],
+                "spillAndFireProcedure": "Ventilate and keep clear of the spill. Fight the fire with the agent suited to the surrounding material.",
+                "riskToAircraftAndOccupants": "Depends on the substance; may affect instruments, air quality or the health of anyone exposed."
+              },
+              "packages": 140,
+              "position": "11R",
+              "unNumber": "3480",
+              "compartment": 1,
+              "hazardClass": "9",
+              "packingGroup": "II",
+              "netPerPackage": "10 kg",
+              "subsidiaryRisk": null,
+              "unloadingAirport": "JFK",
+              "cargoAircraftOnly": true,
+              "properShippingName": "Lithium ion batteries"
+            },
+            {
+              "awb": "172-62001155",
+              "drill": {
+                "ercCode": "9A",
+                "inherentRisk": "A hazard that no other class covers, such as heat, an anaesthetic vapour, a magnetic field or harm to the environment.",
+                "additionalRisks": ["Anaesthetic or narcotic vapour."],
+                "spillAndFireProcedure": "Ventilate and keep clear of the spill. Fight the fire with the agent suited to the surrounding material.",
+                "riskToAircraftAndOccupants": "Depends on the substance; may affect instruments, air quality or the health of anyone exposed."
+              },
+              "packages": 41,
+              "position": "12L",
+              "unNumber": "1845",
+              "compartment": 1,
+              "hazardClass": "9",
+              "packingGroup": null,
+              "netPerPackage": "22 kg",
+              "subsidiaryRisk": null,
+              "unloadingAirport": "JFK",
+              "cargoAircraftOnly": false,
+              "properShippingName": "Carbon dioxide, solid"
+            }
+          ]
+        },
+        "changes": null
+      }
+      """
+    And I set database to initial state
 
   Scenario: As a cabin crew I cannot check in pilot for flight with incorrect schedule payload
     Given I am signed in as "cabin crew"

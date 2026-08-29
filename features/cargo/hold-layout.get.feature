@@ -136,9 +136,39 @@ Feature: Get aircraft hold layout by type
                       }
                     ]
                   },
-                  { "number": 3, "name": "aft", "loading": "uld", "maxWeightKg": 4536, "volumeM3": 12.0, "heated": true, "ventilated": true, "doorSide": "right", "positions": "@any" },
-                  { "number": 4, "name": "aft", "loading": "loose", "maxWeightKg": 1400, "volumeM3": 8.0, "heated": true, "ventilated": true, "doorSide": "right", "positions": [] },
-                  { "number": 5, "name": "bulk", "loading": "loose", "maxWeightKg": 717, "volumeM3": 4.1, "heated": true, "ventilated": true, "doorSide": "right", "positions": [] }
+                  {
+                    "number": 3,
+                    "name": "aft",
+                    "loading": "uld",
+                    "maxWeightKg": 4536,
+                    "volumeM3": 12.0,
+                    "heated": true,
+                    "ventilated": true,
+                    "doorSide": "right",
+                    "positions": "@any"
+                  },
+                  {
+                    "number": 4,
+                    "name": "aft",
+                    "loading": "loose",
+                    "maxWeightKg": 1400,
+                    "volumeM3": 8.0,
+                    "heated": true,
+                    "ventilated": true,
+                    "doorSide": "right",
+                    "positions": []
+                  },
+                  {
+                    "number": 5,
+                    "name": "bulk",
+                    "loading": "loose",
+                    "maxWeightKg": 717,
+                    "volumeM3": 4.1,
+                    "heated": true,
+                    "ventilated": true,
+                    "doorSide": "right",
+                    "positions": []
+                  }
                 ]
               }
             ]

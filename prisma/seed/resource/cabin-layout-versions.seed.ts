@@ -15,6 +15,10 @@ const SEEDED_LAYOUTS: Record<string, string[]> = {
 
 const assembled = new Map<string, AssembledVersion>();
 
+export function isSeededLayout(layoutId: string): boolean {
+  return SEEDED_LAYOUTS[layoutId] !== undefined;
+}
+
 export function assembledLayout(layoutId: string): AssembledVersion {
   const cached = assembled.get(layoutId);
 

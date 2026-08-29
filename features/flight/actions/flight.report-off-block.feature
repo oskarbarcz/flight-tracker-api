@@ -99,9 +99,9 @@ Feature: Report off-block
               "cabinCrew": 6
             },
             "passengers": 292,
-            "payload": 28.3,
+            "payload": 37.808,
             "cargo": 8.9,
-            "zeroFuelWeight": 202.9,
+            "zeroFuelWeight": 212.408,
             "blockFuel": 11.9,
             "fuel": {
               "block": 11.9,
@@ -165,9 +165,15 @@ Feature: Report off-block
             "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
             "icaoCode": "KBOS",
             "iataCode": "BOS",
-            "city": "Boston",
+            "city": {
+              "id": "19364a7d-3982-43e5-9630-9ce7c3a44e98",
+              "name": "Boston"
+            },
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -182,9 +188,15 @@ Feature: Report off-block
             "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
             "icaoCode": "KPHL",
             "iataCode": "PHL",
-            "city": "Philadelphia",
+            "city": {
+              "id": "e30d5e72-29ca-4f01-8e75-fdc55e3b296a",
+              "name": "Philadelphia"
+            },
             "name": "Philadelphia Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "type": "destination",
             "continent": "north_america",
@@ -199,9 +211,15 @@ Feature: Report off-block
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "icaoCode": "KJFK",
             "iataCode": "JFK",
-            "city": "New York",
+            "city": {
+              "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+              "name": "New York"
+            },
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -220,6 +238,7 @@ Feature: Report off-block
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": true,
+        "hasNotoc": true,
         "isOffBlockDelayed": true,
         "actualFuelBurned": null,
         "source": "manual",
@@ -368,16 +387,28 @@ Feature: Report off-block
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
           "name": "New York JFK",
-          "city": "New York",
-          "country": "United States of America",
+          "city": {
+            "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+            "name": "New York"
+          },
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
           "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
           "iataCode": "BOS",
           "name": "Boston Logan Intl",
-          "city": "Boston",
-          "country": "United States of America",
+          "city": {
+            "id": "19364a7d-3982-43e5-9630-9ce7c3a44e98",
+            "name": "Boston"
+          },
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T12:00:00.000Z",

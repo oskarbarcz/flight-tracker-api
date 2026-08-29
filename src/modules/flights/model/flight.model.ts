@@ -81,6 +81,7 @@ export class Flight {
     required: false,
     nullable: true,
     default: null,
+    type: String,
   })
   @IsOptional()
   @IsNotEmpty()
@@ -187,6 +188,7 @@ export class Flight {
     required: false,
     nullable: true,
     default: null,
+    type: String,
   })
   departureParkingPositionId!: string | null;
 
@@ -196,6 +198,7 @@ export class Flight {
     required: false,
     nullable: true,
     default: null,
+    type: String,
   })
   departureRunwayId!: string | null;
 
@@ -205,6 +208,7 @@ export class Flight {
     required: false,
     nullable: true,
     default: null,
+    type: String,
   })
   arrivalParkingPositionId!: string | null;
 
@@ -214,6 +218,7 @@ export class Flight {
     required: false,
     nullable: true,
     default: null,
+    type: String,
   })
   arrivalRunwayId!: string | null;
 
@@ -243,6 +248,13 @@ export class Flight {
     example: false,
   })
   isOffBlockDelayed!: boolean;
+
+  @ApiProperty({
+    description:
+      'Flag if a notification to captain has been issued for this flight and can be retrieved from the flight notoc endpoint',
+    example: false,
+  })
+  hasNotoc!: boolean;
 
   @ApiProperty({
     description: 'Timestamp when the flight record was created',

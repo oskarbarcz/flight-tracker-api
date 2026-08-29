@@ -34,6 +34,7 @@ export class Aircraft {
     description: 'Aircraft SELCAL code',
     example: 'KR-QL',
     nullable: true,
+    type: String,
   })
   @IsOptional()
   @IsString()

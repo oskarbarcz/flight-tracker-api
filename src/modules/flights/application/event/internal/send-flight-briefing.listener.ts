@@ -25,9 +25,12 @@ import { FlightOfpDetails } from '../../../model/flight.model';
 import { FlightOfpNotFoundError } from '../../../model/error/flight.error';
 import { resolveFlightRoute } from '../../../model/flight-route';
 import {
+  BriefingSpecialLoad,
   BriefingWeather,
   formatFlightBriefing,
 } from '../../../model/discord-message.formatter';
+import { GetNotifiableLoadSummaryQuery } from '../../../../manifest/application/query/get-notifiable-load-summary.query';
+import { NotifiableLoadSummary } from '../../../../manifest/model/notoc';
 
 @Injectable()
 export class SendFlightBriefingListener {
@@ -69,9 +72,9 @@ export class SendFlightBriefingListener {
 
       const content = formatFlightBriefing({
         flightNumber: flight.flightNumber,
-        departure: { city: departure.city, iataCode: departure.iataCode },
+        departure: { city: departure.city.name, iataCode: departure.iataCode },
         destination: {
-          city: destination.city,
+          city: destination.city.name,
           iataCode: destination.iataCode,
         },
         aircraft: {
@@ -80,6 +83,7 @@ export class SendFlightBriefingListener {
         },
         schedule: flight.timesheet.estimated,
         weather: await this.resolveDepartureWeather(departure.id, actorId),
+        specialLoad: await this.resolveSpecialLoad(flightId),
         flightUrl: `${this.frontendBaseUrl}/flight/${flight.id}`,
       });
 
@@ -94,6 +98,16 @@ export class SendFlightBriefingListener {
         `Could not send briefing to Discord for flight ${flightId}: ${getErrorMessage(error)}`,
       );
     }
+  }
+
+  private async resolveSpecialLoad(
+    flightId: string,
+  ): Promise<BriefingSpecialLoad | null> {
+    const query = new GetNotifiableLoadSummaryQuery(flightId);
+    const summary: NotifiableLoadSummary | null =
+      await this.queryBus.execute(query);
+
+    return summary;
   }
 
   private async resolveDepartureWeather(

@@ -51,7 +51,7 @@ export class ReportTakeoffHandler implements ICommandHandler<ReportTakeoffComman
     await this.flightsRepository.updateStatus(flightId, FlightStatus.InCruise);
     await this.flightsRepository.updateTimesheet(flightId, timesheet);
 
-    this.domainEvents.emit(
+    await this.domainEvents.emitAsync(
       new TakeoffWasReportedEvent({
         flightId,
         scope,

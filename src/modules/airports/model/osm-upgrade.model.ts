@@ -35,12 +35,24 @@ export class ProposedFieldChange {
       'Value the airport model holds today. Null for a record that does not exist yet.',
     example: 2037,
     nullable: true,
+    oneOf: [
+      { type: 'string' },
+      { type: 'number' },
+      { type: 'boolean' },
+      { type: 'array', items: { type: 'object' } },
+    ],
   })
   current!: unknown;
 
   @ApiProperty({
     description: 'Value OpenStreetMap reports',
     example: 2100,
+    oneOf: [
+      { type: 'string' },
+      { type: 'number' },
+      { type: 'boolean' },
+      { type: 'array', items: { type: 'object' } },
+    ],
   })
   proposed!: unknown;
 }
@@ -137,6 +149,7 @@ export class AirportOsmProposal {
       'Name OpenStreetMap gives the aerodrome. Reported for orientation only — the airport name is never overwritten from OpenStreetMap.',
     example: 'Bremen Airport',
     nullable: true,
+    type: String,
   })
   providerName!: string | null;
 
@@ -184,6 +197,7 @@ export class PushedChange {
     example: 'Requires terminal HT, which does not exist and was not selected.',
     required: false,
     nullable: true,
+    type: String,
   })
   reason?: string | null;
 }

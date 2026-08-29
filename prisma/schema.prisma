@@ -38,13 +38,26 @@ model Aircraft {
   @@map("aircraft")
 }
 
+model City {
+  id      String @id @default(uuid()) @db.Uuid
+  name    String
+  country String @db.VarChar(2)
+
+  airports Airport[]
+  visits   UserCityVisit[]
+  postcard Postcard?
+
+  @@unique([name, country])
+  @@map("city")
+}
+
 model Airport {
   id          String      @id @default(uuid()) @db.Uuid
   icaoCode    String      @unique @db.VarChar(4)
   iataCode    String      @unique @db.VarChar(3)
   name        String
-  city        String
-  country     String
+  cityId      String      @db.Uuid
+  country     String      @db.VarChar(2)
   timezone    String
   continent   Continent
   dataQuality DataQuality @default(low)
@@ -53,6 +66,7 @@ model Airport {
 
   monitorWeather Boolean @default(false)
 
+  city                      City                 @relation(fields: [cityId], references: [id])
   airportsOnFlights         AirportsOnFlights[]
   weather                   AirportWeather[]
   notams                    AirportNotam[]
@@ -65,11 +79,14 @@ model Airport {
   lastForUsers              User[]               @relation("UserLastAirport")
   departureForTravels       UserTravel[]         @relation("UserTravelDepartureAirport")
   destinationForTravels     UserTravel[]         @relation("UserTravelDestinationAirport")
+  countryVisits             UserCountryVisit[]
+  cityVisits                UserCityVisit[]
   departureForRepositions   AircraftReposition[] @relation("AircraftRepositionDepartureAirport")
   destinationForRepositions AircraftReposition[] @relation("AircraftRepositionDestinationAirport")
   departureForLegs          RotationLeg[]        @relation("LegDeparture")
   arrivalForLegs            RotationLeg[]        @relation("LegArrival")
 
+  @@index([cityId])
   @@map("airport")
 }
 
@@ -278,11 +295,14 @@ model Flight {
   userTravels              UserTravel[]           @relation("UserTravelFlight")
   aircraftRepositions      AircraftReposition[]   @relation("AircraftRepositionFlight")
   userAircraft             UserAircraft[]
+  countryVisits            UserCountryVisit[]
+  cityVisits               UserCityVisit[]
   crew                     CrewOnFlights[]
   rotationLeg              RotationLeg?
   passengers               FlightPassenger[]
   cargoUnits               FlightCargoUnit[]
   cargoShipments           FlightCargoShipment[]
+  notocs                   FlightNotoc[]
   pinnedCabinVersion       CabinLayoutVersion?    @relation(fields: [cabinLayout, cabinLayoutRevision], references: [layoutId, revision])
 
   @@index([captainId, completedAt])
@@ -425,10 +445,14 @@ model User {
   emergenciesResolved  EmergencyDeclaration[] @relation("EmergencyResolver")
   allFlights           Flight[]               @relation("FlightCaptain")
   createdFlights       Flight[]               @relation("FlightCreatedBy")
+  notocsAcknowledged   FlightNotoc[]          @relation("NotocAcknowledger")
   delayReportsReported DelayReport[]          @relation("DelayReportReporter")
   delayReportsDecided  DelayReport[]          @relation("DelayReportDecider")
   travels              UserTravel[]
   userAircraft         UserAircraft[]
+  countryVisits        UserCountryVisit[]
+  cityVisits           UserCityVisit[]
+  postcards            UserPostcard[]
   rotations            Rotation[]             @relation("PilotRotations")
   createdRotations     Rotation[]             @relation("RotationCreatedBy")
   updatedRotations     Rotation[]             @relation("RotationUpdatedBy")
@@ -500,6 +524,74 @@ model UserTravel {
 
   @@index([userId])
   @@map("user_travel")
+}
+
+model UserCountryVisit {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  country   String   @db.VarChar(2)
+  flightId  String   @db.Uuid
+  airportId String   @db.Uuid
+  visitedAt DateTime
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  flight  Flight  @relation(fields: [flightId], references: [id])
+  airport Airport @relation(fields: [airportId], references: [id])
+
+  @@unique([userId, flightId])
+  @@index([userId, country])
+  @@map("user_country_visit")
+}
+
+model Postcard {
+  id            String         @id @default(uuid()) @db.Uuid
+  cityId        String         @unique @db.Uuid
+  status        PostcardStatus @default(pending)
+  artUuid       String?        @db.Uuid
+  imageUrl      String?
+  width         Int?
+  height        Int?
+  failureReason String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime?
+
+  city    City           @relation(fields: [cityId], references: [id])
+  holders UserPostcard[]
+
+  @@map("postcard")
+}
+
+model UserPostcard {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String    @db.Uuid
+  postcardId String    @db.Uuid
+  awardedAt  DateTime  @default(now())
+  seenAt     DateTime?
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postcard Postcard @relation(fields: [postcardId], references: [id])
+
+  @@unique([userId, postcardId])
+  @@index([userId])
+  @@map("user_postcard")
+}
+
+model UserCityVisit {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  cityId    String   @db.Uuid
+  flightId  String   @db.Uuid
+  airportId String   @db.Uuid
+  visitedAt DateTime
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  city    City    @relation(fields: [cityId], references: [id])
+  flight  Flight  @relation(fields: [flightId], references: [id])
+  airport Airport @relation(fields: [airportId], references: [id])
+
+  @@unique([userId, flightId])
+  @@index([userId, cityId])
+  @@map("user_city_visit")
 }
 
 model UserAircraft {
@@ -653,11 +745,18 @@ enum DelayReportStatus {
 
 enum Continent {
   africa
+  antarctica
   asia
   europe
   north_america
   south_america
   oceania
+}
+
+enum PostcardStatus {
+  pending
+  ready
+  failed
 }
 
 enum DataQuality {
@@ -835,7 +934,7 @@ model UserStatsByAirport {
   userId       String    @db.Uuid
   airportId    String    @db.Uuid
   icaoCode     String    @db.VarChar(4)
-  country      String
+  country      String    @db.VarChar(2)
   continent    Continent
   visits       Int       @default(0)
   firstVisitAt DateTime?
@@ -1003,6 +1102,16 @@ enum CargoShipmentStatus {
   offloaded
 }
 
+enum NotocStage {
+  preliminary
+  final
+}
+
+enum CargoOffloadReason {
+  payload_restriction
+  space_restriction
+}
+
 enum CargoTransferRole {
   local
   outbound_transfer
@@ -1026,6 +1135,9 @@ model FlightCargoUnit {
   contentClass       CargoContentClass @default(cargo)
   beyondDestination  String?           @db.VarChar(3)
   sealed             Boolean           @default(false)
+  bagCount           Int?
+  priority           Boolean           @default(false)
+  baggageSource      String?           @db.VarChar(16)
 
   flight    Flight                @relation(fields: [flightId], references: [id], onDelete: Cascade)
   shipments FlightCargoShipment[]
@@ -1057,6 +1169,8 @@ model FlightCargoShipment {
   dangerousGoods     Json?
   temperatureControl Json?
   status             CargoShipmentStatus @default(loaded)
+  offloadReason      CargoOffloadReason?
+  offloadedFrom      String?             @db.VarChar(8)
 
   flight Flight           @relation(fields: [flightId], references: [id], onDelete: Cascade)
   unit   FlightCargoUnit? @relation(fields: [unitId], references: [id], onDelete: Cascade)
@@ -1066,4 +1180,21 @@ model FlightCargoShipment {
   @@index([flightId, transferRole])
   @@index([unitId])
   @@map("flight_cargo_shipment")
+}
+
+model FlightNotoc {
+  id               String     @id @default(uuid()) @db.Uuid
+  flightId         String     @db.Uuid
+  stage            NotocStage
+  issuedAt         DateTime
+  document         Json
+  acknowledgedById String?    @db.Uuid
+  acknowledgedAt   DateTime?
+
+  flight         Flight @relation(fields: [flightId], references: [id], onDelete: Cascade)
+  acknowledgedBy User?  @relation("NotocAcknowledger", fields: [acknowledgedById], references: [id], onDelete: SetNull)
+
+  @@unique([flightId, stage])
+  @@index([flightId])
+  @@map("flight_notoc")
 }

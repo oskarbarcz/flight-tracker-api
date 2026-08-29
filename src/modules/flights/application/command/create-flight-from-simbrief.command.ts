@@ -6,7 +6,10 @@ import {
 } from '@nestjs/cqrs';
 import { SimbriefIdNotConnectedError } from '../../model/error/flight.error';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { FlightWasCreatedEvent } from '../../../../core/domain/events/dto/flight.events';
+import {
+  FlightWasCreatedEvent,
+  PreliminaryLoadsheetWasUpdatedEvent,
+} from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { GetUserSimbriefIdQuery } from '../../../users/application/query/get-user-simbrief-id.query';
@@ -182,6 +185,14 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
         scope: FlightEventScope.Operations,
         actorId: initiatorId,
         aircraftId: flightData.aircraftId,
+      }),
+    );
+
+    await this.domainEvents.emitAsync(
+      new PreliminaryLoadsheetWasUpdatedEvent({
+        flightId,
+        scope: FlightEventScope.Operations,
+        actorId: initiatorId,
       }),
     );
   }

@@ -81,6 +81,7 @@ export class Runway {
     required: false,
     nullable: true,
     default: null,
+    type: Number,
   })
   @IsOptional()
   @IsInt()
@@ -93,6 +94,7 @@ export class Runway {
     required: false,
     nullable: true,
     default: null,
+    type: Number,
   })
   @IsOptional()
   @IsInt()
@@ -115,6 +117,7 @@ export class Runway {
     required: false,
     nullable: true,
     default: null,
+    type: Number,
   })
   @IsOptional()
   @IsInt()

@@ -127,9 +127,15 @@ Feature: Create a flight
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "icaoCode": "EDDF",
             "iataCode": "FRA",
-            "city": "Frankfurt",
+            "city": {
+              "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+              "name": "Frankfurt"
+            },
             "name": "Frankfurt Rhein/Main",
-            "country": "Germany",
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
             "timezone": "Europe/Berlin",
             "continent": "europe",
             "dataQuality": "low",
@@ -144,9 +150,15 @@ Feature: Create a flight
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "icaoCode": "KJFK",
             "iataCode": "JFK",
-            "city": "New York",
+            "city": {
+              "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+              "name": "New York"
+            },
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -165,6 +177,7 @@ Feature: Create a flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "hasNotoc": false,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -208,16 +221,28 @@ Feature: Create a flight
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
           "name": "New York JFK",
-          "city": "New York",
-          "country": "United States of America",
+          "city": {
+            "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+            "name": "New York"
+          },
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
           "name": "New York JFK",
-          "city": "New York",
-          "country": "United States of America",
+          "city": {
+            "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+            "name": "New York"
+          },
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
@@ -321,9 +346,15 @@ Feature: Create a flight
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "icaoCode": "EDDF",
             "iataCode": "FRA",
-            "city": "Frankfurt",
+            "city": {
+              "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+              "name": "Frankfurt"
+            },
             "name": "Frankfurt Rhein/Main",
-            "country": "Germany",
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
             "timezone": "Europe/Berlin",
             "continent": "europe",
             "dataQuality": "low",
@@ -338,9 +369,15 @@ Feature: Create a flight
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "icaoCode": "KJFK",
             "iataCode": "JFK",
-            "city": "New York",
+            "city": {
+              "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+              "name": "New York"
+            },
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -359,6 +396,7 @@ Feature: Create a flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "hasNotoc": false,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -402,16 +440,28 @@ Feature: Create a flight
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
           "name": "New York JFK",
-          "city": "New York",
-          "country": "United States of America",
+          "city": {
+            "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+            "name": "New York"
+          },
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirport": {
           "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
           "iataCode": "JFK",
           "name": "New York JFK",
-          "city": "New York",
-          "country": "United States of America",
+          "city": {
+            "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+            "name": "New York"
+          },
+          "country": {
+            "code": "US",
+            "name": "United States of America"
+          },
           "location": "@coordinates"
         },
         "lastAirportUpdatedAt": "2025-01-01T08:00:00.000Z",
@@ -572,9 +622,15 @@ Feature: Create a flight
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "icaoCode": "EDDF",
             "iataCode": "FRA",
-            "city": "Frankfurt",
+            "city": {
+              "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+              "name": "Frankfurt"
+            },
             "name": "Frankfurt Rhein/Main",
-            "country": "Germany",
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
             "timezone": "Europe/Berlin",
             "continent": "europe",
             "dataQuality": "low",
@@ -589,9 +645,15 @@ Feature: Create a flight
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "icaoCode": "KJFK",
             "iataCode": "JFK",
-            "city": "New York",
+            "city": {
+              "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+              "name": "New York"
+            },
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -610,6 +672,7 @@ Feature: Create a flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",
@@ -724,9 +787,15 @@ Feature: Create a flight
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "icaoCode": "EDDF",
             "iataCode": "FRA",
-            "city": "Frankfurt",
+            "city": {
+              "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+              "name": "Frankfurt"
+            },
             "name": "Frankfurt Rhein/Main",
-            "country": "Germany",
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
             "timezone": "Europe/Berlin",
             "continent": "europe",
             "dataQuality": "low",
@@ -741,9 +810,15 @@ Feature: Create a flight
             "id": "3c721cc6-c653-4fad-be43-dc9d6a149383",
             "icaoCode": "KJFK",
             "iataCode": "JFK",
-            "city": "New York",
+            "city": {
+              "id": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+              "name": "New York"
+            },
             "name": "New York JFK",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -758,9 +833,15 @@ Feature: Create a flight
             "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
             "icaoCode": "KBOS",
             "iataCode": "BOS",
-            "city": "Boston",
+            "city": {
+              "id": "19364a7d-3982-43e5-9630-9ce7c3a44e98",
+              "name": "Boston"
+            },
             "name": "Boston Logan Intl",
-            "country": "United States of America",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
             "timezone": "America/New_York",
             "continent": "north_america",
             "dataQuality": "low",
@@ -775,9 +856,15 @@ Feature: Create a flight
             "id": "523b2d2f-9b60-405a-bd5a-90eed1b58e9a",
             "icaoCode": "BIKF",
             "iataCode": "KEF",
-            "city": "Reykjavik",
+            "city": {
+              "id": "bb33c063-d0c3-4468-98ce-a048a78f409a",
+              "name": "Reykjavik"
+            },
             "name": "Reykjavik Keflavik",
-            "country": "Iceland",
+            "country": {
+              "code": "IS",
+              "name": "Iceland"
+            },
             "timezone": "Atlantic/Reykjavik",
             "continent": "europe",
             "dataQuality": "low",
@@ -796,6 +883,7 @@ Feature: Create a flight
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "hasNotoc": false,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "source": "manual",

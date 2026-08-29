@@ -1,12 +1,15 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsNumber,
-  IsObject,
   IsOptional,
   IsString,
   ValidateNested,
 } from 'class-validator';
+import {
+  CountRecord,
+  IsCountRecord,
+} from '../../../core/validation/is-count-record.validator';
 import { Type } from 'class-transformer';
 
 const tons = { allowNaN: false, allowInfinity: false, maxDecimalPlaces: 3 };
@@ -42,6 +45,7 @@ export class FuelBreakdown {
       'Rule used to compute contingency fuel, or null when unspecified',
     example: '5% of trip',
     nullable: true,
+    type: String,
   })
   @IsOptional()
   @IsString()
@@ -150,7 +154,11 @@ export class FlightCrew {
     example: 2,
   })
   @IsNotEmpty()
-  @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 0 })
+  @IsNumber({
+    allowNaN: false,
+    allowInfinity: false,
+    maxDecimalPlaces: 0,
+  })
   pilots!: number;
 
   @ApiProperty({
@@ -170,6 +178,8 @@ export class FlightCrew {
   cabinCrew!: number;
 }
 
+export type PassengerCounts = CountRecord;
+
 export class Loadsheet {
   @ApiProperty({
     description: 'Time when the aircraft lands',
@@ -187,17 +197,17 @@ export class Loadsheet {
   @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 0 })
   passengers!: number;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     description:
       'Planned passengers per commercial cabin, keyed as the cabin layout names them; must sum to `passengers`. Omit to let the system spread passengers across the cabins in proportion to their size.',
     example: { business: 20, economy: 130 },
-    type: Object,
-    required: false,
+    type: 'object',
+    additionalProperties: { type: 'number' },
     nullable: true,
   })
   @IsOptional()
-  @IsObject()
-  passengersByCabin?: Record<string, number> | null;
+  @IsCountRecord()
+  passengersByCabin?: PassengerCounts | null;
 
   @ApiProperty({
     description: 'Cargo in tons',

@@ -3,11 +3,16 @@ import { loadAircraft } from './resource/aircrafts.seed';
 import { loadOperators } from './resource/operators.seed';
 import { loadCabinLayouts } from './resource/cabin-layouts.seed';
 import { loadCabinLayoutVersions } from './resource/cabin-layout-versions.seed';
+import { loadCities } from './resource/cities.seed';
+import { loadPostcards } from './resource/postcards.seed';
+import { loadPostcardAwards } from './resource/postcard-awards.seed';
 import { loadAirports } from './resource/airports.seed';
 import { loadFlights } from './resource/flights.seed';
 import { loadManifestFlights } from './resource/manifest-flights.seed';
 import { loadCargoFlights } from './resource/cargo-flights.seed';
+import { loadCargoManifests } from './resource/cargo-manifests.seed';
 import { loadFlightManifests } from './resource/flight-manifests.seed';
+import { loadGeneratedManifests } from './resource/generated-manifests.seed';
 import { loadUsers } from './resource/users.seed';
 import { loadSessions } from './resource/session.seed';
 import { loadUserTokens } from './resource/user-token.seed';
@@ -31,6 +36,8 @@ export async function loadResources() {
   try {
     await prisma.$transaction(
       async (tx) => {
+        await loadCities(tx);
+        await loadPostcards(tx);
         await loadAirports(tx);
         await loadWeather(tx);
         await loadNotams(tx);
@@ -49,7 +56,9 @@ export async function loadResources() {
         await loadFlights(tx);
         await loadManifestFlights(tx);
         await loadCargoFlights(tx);
+        await loadCargoManifests(tx);
         await loadFlightManifests(tx);
+        await loadGeneratedManifests(tx);
         await loadFlightCrew(tx);
         await loadRotations(tx);
         await loadDelay(tx);
@@ -57,6 +66,7 @@ export async function loadResources() {
         await loadUserAircraft(tx);
         await loadAircraftReposition(tx);
         await loadStatistics(tx);
+        await loadPostcardAwards(tx);
       },
       { maxWait: 15_000, timeout: 120_000 },
     );

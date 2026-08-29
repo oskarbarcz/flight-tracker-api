@@ -28,8 +28,14 @@ Feature: Get aircraft
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
-          "city": "Frankfurt",
-          "country": "Germany",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -67,8 +73,14 @@ Feature: Get aircraft
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
-          "city": "Frankfurt",
-          "country": "Germany",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -106,8 +118,14 @@ Feature: Get aircraft
           "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
           "iataCode": "FRA",
           "name": "Frankfurt Rhein/Main",
-          "city": "Frankfurt",
-          "country": "Germany",
+          "city": {
+            "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+            "name": "Frankfurt"
+          },
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,
@@ -145,8 +163,14 @@ Feature: Get aircraft
           "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
           "iataCode": "BRE",
           "name": "Bremen",
-          "city": "Bremen",
-          "country": "Germany",
+          "city": {
+            "id": "11fe7e0d-ef97-4a1d-9a87-8ad9da64fd91",
+            "name": "Bremen"
+          },
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
           "location": "@coordinates"
         },
         "lastAirport": null,

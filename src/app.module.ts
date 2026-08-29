@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AirportsModule } from './modules/airports/airports.module';
 import { AirframesModule } from './modules/airframes/airframes.module';
+import { CountriesModule } from './modules/countries/countries.module';
+import { ManifestModule } from './modules/manifest/manifest.module';
 import { AircraftModule } from './modules/aircraft/aircraft.module';
 import { OperatorsModule } from './modules/operators/operators.module';
 import { CrewModule } from './modules/crew/crew.module';
@@ -9,6 +11,7 @@ import { FlightsModule } from './modules/flights/flights.module';
 import { AutomationsModule } from './modules/automations/automations.module';
 import { UsersModule } from './modules/users/users.module';
 import { StatisticsModule } from './modules/statistics/statistics.module';
+import { GameModule } from './modules/game/game.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { EventEmitterModule } from '@nestjs/event-emitter';
@@ -16,8 +19,6 @@ import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { SkyLinkModule } from './modules/skylink/skylink.module';
 import { CabinLayoutsModule } from './modules/cabin-layouts/cabin-layouts.module';
-import { PassengersModule } from './modules/passengers/passengers.module';
-import { CargoModule } from './modules/cargo/cargo.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { DiscordModule } from './core/provider/discord/discord.module';
 import { CqrsModule } from '@nestjs/cqrs';
@@ -33,7 +34,9 @@ const schedulerEnabled = process.env.SCHEDULER_ENABLED !== 'false';
   imports: [
     AirportsModule,
     AirframesModule,
+    CountriesModule,
     AircraftModule,
+    ManifestModule,
     OperatorsModule,
     CrewModule,
     RotationsModule,
@@ -41,12 +44,11 @@ const schedulerEnabled = process.env.SCHEDULER_ENABLED !== 'false';
     AutomationsModule,
     UsersModule,
     StatisticsModule,
+    GameModule,
     AuthModule,
     JwtModule,
     SkyLinkModule,
     CabinLayoutsModule,
-    PassengersModule,
-    CargoModule,
     DiscordModule,
     EventEmitterModule.forRoot({ maxListeners: 20, verboseMemoryLeak: true }),
     DomainEventsModule,

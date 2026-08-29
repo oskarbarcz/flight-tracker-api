@@ -10,6 +10,7 @@ export class GenericBadRequestResponse<RequestObj> {
   @ApiProperty({
     description: 'HTTP status message',
     example: 'Bad Request',
+    type: String,
   })
   error = 'Bad Request';
 
@@ -19,13 +20,15 @@ export class GenericBadRequestResponse<RequestObj> {
     example: {
       registration: ['Registration must be unique'],
     },
-    required: false,
+    type: 'object',
+    additionalProperties: { type: 'array', items: { type: 'string' } },
   })
   violations!: Record<keyof RequestObj, string[]>;
 
   @ApiProperty({
     description: 'HTTP status code',
     example: 400,
+    type: Number,
   })
   statusCode = 400;
 }

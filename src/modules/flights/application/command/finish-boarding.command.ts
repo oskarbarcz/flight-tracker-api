@@ -18,8 +18,15 @@ import { Loadsheet } from '../../model/loadsheet.model';
 import {
   assertFuelBreakdownConsistent,
   assertPassengerBreakdownConsistent,
+  assertPayloadAccountsForLoad,
 } from '../../model/loadsheet.policy';
-import { ReconcileFlightManifestCommand } from '../../../passengers/application/command/reconcile-flight-manifest.command';
+import { ReconcileFlightManifestCommand } from '../../../manifest/application/command/reconcile-flight-manifest.command';
+import { ReconcileFlightCargoManifestCommand } from '../../../manifest/application/command/reconcile-flight-cargo-manifest.command';
+import { AirportType } from '../../../airports/model/airport.model';
+import { scheduledFlightHours } from '../../model/timesheet.model';
+import { IssueNotocCommand } from '../../../manifest/application/command/issue-notoc.command';
+import { AcknowledgeNotocCommand } from '../../../manifest/application/command/acknowledge-notoc.command';
+import { NotocStageName } from '../../../manifest/model/notoc.model';
 
 export class FinishBoardingCommand {
   constructor(
@@ -53,6 +60,7 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
 
     assertFuelBreakdownConsistent(finalLoadsheet);
     assertPassengerBreakdownConsistent(finalLoadsheet);
+    assertPayloadAccountsForLoad(finalLoadsheet);
 
     const reconcileManifest = new ReconcileFlightManifestCommand(
       flightId,
@@ -60,6 +68,55 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
       finalLoadsheet.passengersByCabin,
     );
     await this.commandBus.execute(reconcileManifest);
+
+    const departure = flight.airports.find(
+      (airport) => airport.type === AirportType.Departure,
+    );
+    const arrival = flight.airports.find(
+      (airport) => airport.type === AirportType.Destination,
+    );
+
+    if (departure && arrival) {
+      const reconcileCargoManifest = new ReconcileFlightCargoManifestCommand(
+        flightId,
+        flight.aircraft.id,
+        flight.operator.iataCode,
+        finalLoadsheet.cargo,
+        finalLoadsheet.passengers,
+        {
+          iataCode: departure.iataCode,
+          country: departure.country.code,
+          continent: departure.continent,
+        },
+        {
+          iataCode: arrival.iataCode,
+          country: arrival.country.code,
+          continent: arrival.continent,
+        },
+        flight.timesheet.scheduled?.offBlockTime
+          ? new Date(flight.timesheet.scheduled.offBlockTime)
+          : new Date(),
+        scheduledFlightHours(flight.timesheet.scheduled),
+      );
+      await this.commandBus.execute(reconcileCargoManifest);
+
+      const issuedAt = new Date();
+      const issueNotoc = new IssueNotocCommand(
+        flightId,
+        NotocStageName.Final,
+        arrival.iataCode,
+        issuedAt,
+      );
+      await this.commandBus.execute(issueNotoc);
+
+      const acknowledgeNotoc = new AcknowledgeNotocCommand(
+        flightId,
+        NotocStageName.Final,
+        initiatorId,
+        issuedAt,
+      );
+      await this.commandBus.execute(acknowledgeNotoc);
+    }
 
     await Promise.all([
       await this.flightsRepository.updateLoadsheets(flightId, {

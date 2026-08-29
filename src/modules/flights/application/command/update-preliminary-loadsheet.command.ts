@@ -13,10 +13,11 @@ import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-
 import {
   assertFuelBreakdownConsistent,
   assertPassengerBreakdownConsistent,
+  assertPayloadAccountsForLoad,
 } from '../../model/loadsheet.policy';
-import { GetSeatCapacityQuery } from '../../../passengers/application/query/get-seat-capacity.query';
-import { SeatCapacityExceededError } from '../../../passengers/model/error/manifest.error';
-import { assertBreakdownFitsCabins } from '../../../passengers/model/manifest-generation';
+import { GetSeatCapacityQuery } from '../../../manifest/application/query/get-seat-capacity.query';
+import { SeatCapacityExceededError } from '../../../manifest/model/error/manifest.error';
+import { assertBreakdownFitsCabins } from '../../../manifest/model/manifest-generation';
 import { CabinCapacity } from '../../../cabin-layouts/model/cabin-capacity.model';
 
 export class UpdatePreliminaryLoadsheetCommand {
@@ -50,6 +51,7 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
 
     assertFuelBreakdownConsistent(loadsheet);
     assertPassengerBreakdownConsistent(loadsheet);
+    assertPayloadAccountsForLoad(loadsheet);
 
     const capacityQuery = new GetSeatCapacityQuery(flight.aircraft.id);
     const capacity: CabinCapacity | null =

@@ -1,6 +1,6 @@
 import { Query, QueryHandler, IQueryHandler, QueryBus } from '@nestjs/cqrs';
 import {
-  AircraftAirport,
+  toAircraftAirport,
   AircraftParkingPosition,
   GetAircraftResponse,
 } from '../../infra/http/request/aircraft.request';
@@ -61,8 +61,8 @@ export class GetAircraftByIdHandler implements IQueryHandler<GetAircraftByIdQuer
         airframe.iataType,
       ),
       holdVariant: aircraft.holdVariant,
-      baseAirport: aircraft.baseAirport as AircraftAirport | null,
-      lastAirport: aircraft.lastAirport as AircraftAirport | null,
+      baseAirport: toAircraftAirport(aircraft.baseAirport),
+      lastAirport: toAircraftAirport(aircraft.lastAirport),
       lastAirportUpdatedAt: aircraft.lastAirportUpdatedAt,
       lastParkingPosition:
         aircraft.lastParkingPosition as AircraftParkingPosition | null,

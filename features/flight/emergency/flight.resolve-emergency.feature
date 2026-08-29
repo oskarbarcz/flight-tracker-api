@@ -138,9 +138,15 @@ Feature: Resolve a flight emergency
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "icaoCode": "EDDF",
             "iataCode": "FRA",
-            "city": "Frankfurt",
+            "city": {
+              "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+              "name": "Frankfurt"
+            },
             "name": "Frankfurt Rhein/Main",
-            "country": "Germany",
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
             "timezone": "Europe/Berlin",
             "continent": "europe",
             "dataQuality": "low",
@@ -152,9 +158,15 @@ Feature: Resolve a flight emergency
             "id": "79b8f884-f67d-4585-b540-36b0be7f551e",
             "icaoCode": "LFPG",
             "iataCode": "CDG",
-            "city": "Paris",
+            "city": {
+              "id": "17c8f21f-b5a3-41f5-a1e3-16f4100c2342",
+              "name": "Paris"
+            },
             "name": "Paris Charles de Gaulle",
-            "country": "France",
+            "country": {
+              "code": "FR",
+              "name": "France"
+            },
             "timezone": "Europe/Paris",
             "continent": "europe",
             "dataQuality": "low",
@@ -173,6 +185,7 @@ Feature: Resolve a flight emergency
         "isFlightDiverted": false,
         "isEmergencyDeclared": true,
         "hasFlightPath": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "createdAt": "2025-01-01T06:00:00.000Z",
@@ -333,9 +346,15 @@ Feature: Resolve a flight emergency
             "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
             "icaoCode": "EDDF",
             "iataCode": "FRA",
-            "city": "Frankfurt",
+            "city": {
+              "id": "e8e8d77d-4b22-42cb-b163-13d54eec3597",
+              "name": "Frankfurt"
+            },
             "name": "Frankfurt Rhein/Main",
-            "country": "Germany",
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
             "timezone": "Europe/Berlin",
             "continent": "europe",
             "dataQuality": "low",
@@ -347,9 +366,15 @@ Feature: Resolve a flight emergency
             "id": "79b8f884-f67d-4585-b540-36b0be7f551e",
             "icaoCode": "LFPG",
             "iataCode": "CDG",
-            "city": "Paris",
+            "city": {
+              "id": "17c8f21f-b5a3-41f5-a1e3-16f4100c2342",
+              "name": "Paris"
+            },
             "name": "Paris Charles de Gaulle",
-            "country": "France",
+            "country": {
+              "code": "FR",
+              "name": "France"
+            },
             "timezone": "Europe/Paris",
             "continent": "europe",
             "dataQuality": "low",
@@ -368,6 +393,7 @@ Feature: Resolve a flight emergency
         "isFlightDiverted": false,
         "isEmergencyDeclared": false,
         "hasFlightPath": false,
+        "hasNotoc": true,
         "isOffBlockDelayed": false,
         "actualFuelBurned": null,
         "createdAt": "2025-01-01T06:00:00.000Z",

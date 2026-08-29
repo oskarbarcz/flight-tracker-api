@@ -18,7 +18,7 @@ Nothing you do controls these — they are about the flight, not about you.
 Five messages can arrive in your Discord inbox:
 
 | When                                       | What you get              |
-|--------------------------------------------|---------------------------|
+| ------------------------------------------ | ------------------------- |
 | You check in for a flight                  | the flight briefing       |
 | Boarding starts                            | the preliminary loadsheet |
 | Boarding finishes                          | the final loadsheet       |

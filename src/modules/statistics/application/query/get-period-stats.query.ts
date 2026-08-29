@@ -5,6 +5,8 @@ import {
   PeriodTotals,
 } from '../../model/statistics.model';
 import { StatisticsRepository } from '../../infra/database/statistics.repository';
+import { UserCountryVisitRepository } from '../../infra/database/user-country-visit.repository';
+import { findCountryOrThrow } from '../../../countries/model/country.model';
 import {
   UserStatsByAirport,
   UserStatsByType,
@@ -32,12 +34,15 @@ export class GetPeriodStatsQuery extends Query<GetPeriodStatsResponse> {
 
 @QueryHandler(GetPeriodStatsQuery)
 export class GetPeriodStatsHandler implements IQueryHandler<GetPeriodStatsQuery> {
-  constructor(private readonly repository: StatisticsRepository) {}
+  constructor(
+    private readonly repository: StatisticsRepository,
+    private readonly countryVisits: UserCountryVisitRepository,
+  ) {}
 
   async execute(query: GetPeriodStatsQuery): Promise<GetPeriodStatsResponse> {
     const { userId, now } = query;
 
-    const [daily, byType, byAirport] = await Promise.all([
+    const [daily, byType, byAirport, firstVisits] = await Promise.all([
       this.repository.listDailyBetween(
         userId,
         previousYear(now).start,
@@ -45,6 +50,7 @@ export class GetPeriodStatsHandler implements IQueryHandler<GetPeriodStatsQuery>
       ),
       this.repository.listByType(userId),
       this.repository.listByAirport(userId),
+      this.countryVisits.listFirstVisits(userId),
     ]);
 
     return {
@@ -52,6 +58,7 @@ export class GetPeriodStatsHandler implements IQueryHandler<GetPeriodStatsQuery>
         daily,
         byType,
         byAirport,
+        firstVisits,
         currentWeek(now),
         previousWeek(now),
       ),
@@ -59,6 +66,7 @@ export class GetPeriodStatsHandler implements IQueryHandler<GetPeriodStatsQuery>
         daily,
         byType,
         byAirport,
+        firstVisits,
         currentMonth(now),
         previousMonth(now),
       ),
@@ -66,6 +74,7 @@ export class GetPeriodStatsHandler implements IQueryHandler<GetPeriodStatsQuery>
         daily,
         byType,
         byAirport,
+        firstVisits,
         currentYear(now),
         previousYear(now),
       ),
@@ -76,6 +85,7 @@ export class GetPeriodStatsHandler implements IQueryHandler<GetPeriodStatsQuery>
     daily: UserStatsDaily[],
     byType: UserStatsByType[],
     byAirport: UserStatsByAirport[],
+    firstVisits: { country: string; firstVisitAt: Date }[],
     current: Period,
     previous: Period,
   ): PeriodComparison {
@@ -94,6 +104,18 @@ export class GetPeriodStatsHandler implements IQueryHandler<GetPeriodStatsQuery>
             icaoCode: entry.icaoCode,
             firstVisitAt: entry.firstVisitAt as Date,
           })),
+        countries: firstVisits
+          .filter((entry) => isWithin(entry.firstVisitAt, current))
+          .sort((a, b) => a.firstVisitAt.getTime() - b.firstVisitAt.getTime())
+          .map((entry) => {
+            const country = findCountryOrThrow(entry.country);
+
+            return {
+              country: { code: country.code, name: country.name },
+              flag: country.flag,
+              firstVisitAt: entry.firstVisitAt,
+            };
+          }),
         aircraftTypes: byType
           .filter((entry) => isWithin(entry.firstFlownAt as Date, current))
           .map((entry) => entry.type),

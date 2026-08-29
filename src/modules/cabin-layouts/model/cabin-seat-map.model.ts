@@ -51,6 +51,7 @@ export class CabinSeat {
     description: "AeroLOPA's verdict on the seat; null when it has none",
     example: 'red',
     nullable: true,
+    type: String,
   })
   rating!: string | null;
 
@@ -70,10 +71,11 @@ export class CabinSeat {
     description: 'Window alignment; null when the seat has no window position',
     example: 'great',
     nullable: true,
+    type: String,
   })
   windowStatus!: string | null;
 
-  @ApiProperty({ example: null, nullable: true })
+  @ApiProperty({ example: null, nullable: true, type: String })
   seatProduct!: string | null;
 
   @ApiProperty({ isArray: true, type: Object })
@@ -102,7 +104,11 @@ export class CabinSeatMapDeck {
   @ApiProperty({ example: '2025-03-31' })
   lastUpdated!: string;
 
-  @ApiProperty({ type: Object })
+  @ApiProperty({
+    description: 'Seat map images the provider published for this deck',
+    type: 'object',
+    additionalProperties: { type: 'string' },
+  })
   assets!: AerolopaAssets;
 
   @ApiProperty({ isArray: true, type: Object })
@@ -149,7 +155,12 @@ export class CabinSeatMap {
   })
   totalSeats!: number;
 
-  @ApiProperty({ type: Object })
+  @ApiProperty({
+    description: 'Seats per cabin, keyed as the layout names them',
+    type: 'object',
+    additionalProperties: { type: 'number' },
+    example: { business: 30, economy: 334 },
+  })
   seatCounts!: Record<string, number>;
 
   @ApiProperty({

@@ -10,7 +10,13 @@ import {
 } from 'class-validator';
 import { LegacyOperatorResponse } from '../../../../operators/infra/http/request/operator.request';
 import { Coordinates } from '../../../../airports/model/airport.model';
+import { CityRef } from '../../../../airports/model/city.model';
 import { AircraftCabinLayout } from '../../../model/cabin-layout.model';
+import { HOLD_VARIANT_IDS } from '../../../../manifest/data/hold-identifiers';
+import {
+  CountryRef,
+  toCountryRef,
+} from '../../../../countries/model/country.model';
 
 export class CreateAircraftRequest {
   @ApiProperty({
@@ -36,6 +42,7 @@ export class CreateAircraftRequest {
     example: 'KR-QL',
     nullable: true,
     required: false,
+    type: String,
   })
   @IsOptional()
   @IsString()
@@ -87,17 +94,43 @@ export class AircraftAirport {
   @ApiProperty({ description: 'Airport name', example: 'Frankfurt Rhein/Main' })
   name!: string;
 
-  @ApiProperty({ description: 'City the airport serves', example: 'Frankfurt' })
-  city!: string;
+  @ApiProperty({ description: 'City the airport serves', type: CityRef })
+  city!: CityRef;
 
   @ApiProperty({
     description: 'Country the airport is located in',
-    example: 'Germany',
+    type: CountryRef,
   })
-  country!: string;
+  country!: CountryRef;
 
   @ApiProperty({ description: 'Airport coordinates', type: Coordinates })
   location!: Coordinates;
+}
+
+export type AircraftAirportRow = {
+  id: string;
+  iataCode: string;
+  name: string;
+  city: { id: string; name: string };
+  country: string;
+  location: unknown;
+};
+
+export function toAircraftAirport(
+  airport: AircraftAirportRow | null,
+): AircraftAirport | null {
+  if (!airport) {
+    return null;
+  }
+
+  return {
+    id: airport.id,
+    iataCode: airport.iataCode,
+    name: airport.name,
+    city: airport.city,
+    country: toCountryRef(airport.country),
+    location: airport.location as Coordinates,
+  };
 }
 
 export class AircraftParkingPosition {
@@ -146,6 +179,7 @@ export class GetAircraftResponse extends Aircraft {
     example: '2025-01-01T00:00:00.000Z',
     nullable: true,
     default: null,
+    type: 'string',
   })
   lastAirportUpdatedAt!: Date | null;
 
@@ -176,6 +210,7 @@ export class GetAircraftResponse extends Aircraft {
   @ApiProperty({
     description:
       'Cargo hold variant assigned to the aircraft; null when none is assigned, meaning the aircraft uses its airframe type default rather than having no hold',
+    enum: HOLD_VARIANT_IDS,
     example: 'a320-cls',
     nullable: true,
   })

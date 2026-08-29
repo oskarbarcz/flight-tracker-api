@@ -120,6 +120,69 @@ describe('formatFlightBriefing', () => {
     );
   });
 
+  it('reports the notifiable load without any per-shipment detail', () => {
+    const content = formatFlightBriefing(
+      briefing({
+        specialLoad: {
+          dangerousGoodsCount: 3,
+          cargoAircraftOnlyCount: 1,
+          specialLoadCount: 4,
+          worstColdChainRisk: 'high',
+        },
+      }),
+    );
+
+    expect(content).toContain(':warning: **Special load**');
+    expect(content).toContain(
+      'Dangerous goods: **3** (cargo aircraft only: **1**)',
+    );
+    expect(content).toContain('Other special loads: **4**');
+    expect(content).toContain('Highest cold chain risk: **high**');
+    expect(content).toContain(
+      'See the notification to captain on the flight page.',
+    );
+  });
+
+  it('states that no dangerous goods are loaded rather than omitting the block', () => {
+    const content = formatFlightBriefing(
+      briefing({
+        specialLoad: {
+          dangerousGoodsCount: 0,
+          cargoAircraftOnlyCount: 0,
+          specialLoadCount: 0,
+          worstColdChainRisk: null,
+        },
+      }),
+    );
+
+    expect(content).toContain(':warning: **Special load**');
+    expect(content).toContain('No dangerous goods loaded.');
+    expect(content).not.toContain('Other special loads');
+  });
+
+  it('leaves the cold chain line out when nothing aboard is temperature controlled', () => {
+    const content = formatFlightBriefing(
+      briefing({
+        specialLoad: {
+          dangerousGoodsCount: 1,
+          cargoAircraftOnlyCount: 0,
+          specialLoadCount: 0,
+          worstColdChainRisk: null,
+        },
+      }),
+    );
+
+    expect(content).toContain('Dangerous goods: **1**');
+    expect(content).not.toContain('Highest cold chain risk');
+  });
+
+  it('omits the special load block for a flight with no cargo manifest', () => {
+    expect(formatFlightBriefing(briefing({ specialLoad: null }))).not.toContain(
+      'Special load',
+    );
+    expect(formatFlightBriefing(briefing())).not.toContain('Special load');
+  });
+
   it('omits the ATIS section when no ATIS is published', () => {
     const content = formatFlightBriefing(
       briefing({ weather: { metar: 'METAR EDDF 121150Z', taf: 'TAF EDDF' } }),

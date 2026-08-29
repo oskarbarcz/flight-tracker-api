@@ -50,7 +50,10 @@ export class FlightEvent<EventPayload = object> {
   type!: FlightEventType;
 
   @ApiProperty({
-    description: 'Event payload',
+    description:
+      'Event payload, whose shape follows the event type. Absent for events carrying no detail.',
+    type: 'object',
+    additionalProperties: true,
     example: {},
   })
   payload?: EventPayload & (InputJsonValue | undefined);
@@ -65,6 +68,7 @@ export class FlightEvent<EventPayload = object> {
     description: 'User caused event generation',
     example: '123e4567-e89b-12d3-a456-426614174001',
     nullable: true,
+    type: String,
   })
   actorId!: string | null;
 

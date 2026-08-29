@@ -1,0 +1,205 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Postcard generator",
+    "version": "1.0.0",
+    "description": "Draws a collectible postcard for a city and stores it in object storage. The caller names the object, so the stored location is known before the response arrives. A render outlives any request, so the generator answers 202 and draws in the background; the caller polls the stored location."
+  },
+  "paths": {
+    "/city": {
+      "get": {
+        "summary": "Draw a postcard for a city and store it",
+        "description": "These four parameters are the whole surface: the size, the quality, the format and the prompt are the generator's own configuration, so nothing this client sends decides what is drawn or what it costs. The generator validates the request, hands the render to a background activation and answers 202 at once, so 202 is the normal answer and 200 only arrives when the hand-off failed and the render happened inline. Either answer names the stored location, which the caller can also derive from the uuid it sent. A 202 carrying a code and no key comes from the platform rather than the generator and means the same thing. Neither answer means the art exists yet, so the caller confirms the object separately.",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "required": true,
+            "description": "The place to draw. Latin letters, digits, spaces, apostrophes and dots only; at most 64 characters and at most 5 words. Accented Latin letters are accepted; ampersands and parentheses are not.",
+            "schema": { "type": "string", "maxLength": 64 }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "description": "The country the city is in, in English. Latin letters, digits, spaces, apostrophes, dots, commas, ampersands and parentheses only; at most 64 characters and at most 8 words. Settles which city is meant where the name is shared with cities elsewhere, and grounds the regional architecture and landscape. Never drawn as text, a flag, an emblem or a country code.",
+            "schema": { "type": "string", "maxLength": 64 }
+          },
+          {
+            "name": "continent",
+            "in": "query",
+            "required": true,
+            "description": "The continent the city is on, in English, read case-insensitively. Grounds the terrain, vegetation, climate and quality of light. Like the country, never drawn as text or as a symbol.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Africa",
+                "Antarctica",
+                "Asia",
+                "Europe",
+                "North America",
+                "Oceania",
+                "South America"
+              ]
+            }
+          },
+          {
+            "name": "uuid",
+            "in": "query",
+            "required": true,
+            "description": "Names the stored object. Lowercased, strictly a uuid.",
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Drawn and stored inline, because every hand-off route refused the render. `handoff.reason` says why, and is the only account of it: the generator's own logs are not retrievable.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PostcardGenerated" }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted; the render is running in the background and the art does not exist yet. The normal answer. `handoff.mode` names the route it went out on. A body carrying a code and no key is the platform saying the same thing.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/PostcardAccepted" },
+                    { "$ref": "#/components/schemas/PlatformError" }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "A parameter the generator will not accept. Permanent: retrying the same request cannot succeed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/FunctionError" }
+              }
+            }
+          },
+          "401": {
+            "description": "The shared secret was rejected by the platform before the function ran.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PlatformError" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "whiskAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Require-Whisk-Auth"
+      }
+    },
+    "schemas": {
+      "PostcardGenerated": {
+        "type": "object",
+        "required": [
+          "city",
+          "country",
+          "continent",
+          "uuid",
+          "model",
+          "size",
+          "quality",
+          "format",
+          "contentType",
+          "bytes",
+          "prompt",
+          "key",
+          "url"
+        ],
+        "properties": {
+          "city": { "type": "string" },
+          "country": { "type": "string" },
+          "continent": { "type": "string" },
+          "uuid": { "type": "string", "format": "uuid" },
+          "model": { "type": "string" },
+          "size": { "type": "string" },
+          "quality": {
+            "type": "string",
+            "enum": ["auto", "low", "medium", "high"]
+          },
+          "format": { "type": "string", "enum": ["jpeg", "png"] },
+          "contentType": { "type": "string" },
+          "bytes": { "type": "integer" },
+          "prompt": { "type": "string" },
+          "key": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "handoff": { "$ref": "#/components/schemas/Handoff" }
+        }
+      },
+      "Handoff": {
+        "type": "object",
+        "required": ["mode"],
+        "properties": {
+          "mode": { "type": "string", "enum": ["activation", "web", "inline"] },
+          "reason": { "type": "string" }
+        }
+      },
+      "PostcardAccepted": {
+        "type": "object",
+        "required": [
+          "status",
+          "city",
+          "country",
+          "continent",
+          "uuid",
+          "size",
+          "quality",
+          "format",
+          "key",
+          "url"
+        ],
+        "properties": {
+          "status": { "type": "string", "enum": ["accepted"] },
+          "city": { "type": "string" },
+          "country": { "type": "string" },
+          "continent": { "type": "string" },
+          "uuid": { "type": "string", "format": "uuid" },
+          "size": { "type": "string" },
+          "quality": {
+            "type": "string",
+            "enum": ["auto", "low", "medium", "high"]
+          },
+          "format": { "type": "string", "enum": ["jpeg", "png"] },
+          "key": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "handoff": { "$ref": "#/components/schemas/Handoff" }
+        }
+      },
+      "FunctionError": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": ["code", "message", "status"],
+            "properties": {
+              "code": { "type": "string", "enum": ["BAD_REQUEST"] },
+              "message": { "type": "string" },
+              "status": { "type": "integer" }
+            }
+          }
+        }
+      },
+      "PlatformError": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string" },
+          "error": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -13,6 +13,18 @@ import { GetMyStatsSummaryAction } from './infra/http/action/get-my-stats-summar
 import { GetMyAircraftTypeStatsAction } from './infra/http/action/get-my-aircraft-type-stats.action';
 import { GetMyPeriodStatsAction } from './infra/http/action/get-my-period-stats.action';
 import { GetMyActivityAction } from './infra/http/action/get-my-activity.action';
+import { GetMyCountriesAction } from './infra/http/action/get-my-countries.action';
+import { GetMyCitiesAction } from './infra/http/action/get-my-cities.action';
+import { GetMyCountryStampsAction } from './infra/http/action/get-my-country-stamps.action';
+import { UserCountryVisitRepository } from './infra/database/user-country-visit.repository';
+import { UserCityVisitRepository } from './infra/database/user-city-visit.repository';
+import { StampCountryVisitHandler } from './application/command/stamp-country-visit.command';
+import { RecordCityVisitHandler } from './application/command/record-city-visit.command';
+import { CountryVisitListener } from './application/event/external/country-visit.listener';
+import { CityVisitListener } from './application/event/external/city-visit.listener';
+import { GetMyCountriesHandler } from './application/query/get-my-countries.query';
+import { GetMyCitiesHandler } from './application/query/get-my-cities.query';
+import { GetMyCountryStampsHandler } from './application/query/get-my-country-stamps.query';
 
 @Module({
   controllers: [
@@ -21,9 +33,14 @@ import { GetMyActivityAction } from './infra/http/action/get-my-activity.action'
     GetMyAircraftTypeStatsAction,
     GetMyPeriodStatsAction,
     GetMyActivityAction,
+    GetMyCountriesAction,
+    GetMyCitiesAction,
+    GetMyCountryStampsAction,
   ],
   providers: [
     StatisticsRepository,
+    UserCountryVisitRepository,
+    UserCityVisitRepository,
     RecomputeUserStatisticsHandler,
     FlightCompletionListener,
     GetUserLifetimeStatsHandler,
@@ -31,6 +48,13 @@ import { GetMyActivityAction } from './infra/http/action/get-my-activity.action'
     GetAircraftTypeStatsHandler,
     GetPeriodStatsHandler,
     GetActivityHandler,
+    StampCountryVisitHandler,
+    RecordCityVisitHandler,
+    CountryVisitListener,
+    CityVisitListener,
+    GetMyCountriesHandler,
+    GetMyCitiesHandler,
+    GetMyCountryStampsHandler,
   ],
   imports: [PrismaModule],
 })

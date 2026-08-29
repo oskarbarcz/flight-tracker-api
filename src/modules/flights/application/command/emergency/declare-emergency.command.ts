@@ -16,6 +16,14 @@ import { EmergencyRepository } from '../../../infra/database/repository/emergenc
 import { JwtUser } from '../../../../auth/infra/http/request/jwt-user.dto';
 import { EmergencyWasDeclaredEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../../model/event.model';
+import { resolveDangerousGoodsOnBoard } from '../../../model/emergency-dangerous-goods';
+import { GetFlightCargoLoadQuery } from '../../../../manifest/application/query/get-flight-cargo-load.query';
+import { CargoManifestNotGeneratedError } from '../../../../manifest/model/error/cargo.error';
+import {
+  CargoShipmentStatusName,
+  FlightCargoManifest,
+} from '../../../../manifest/model/cargo-manifest.model';
+import { HazardClass } from '../../../../manifest/model/commodity.model';
 
 const allowedStatuses: ReadonlySet<FlightStatus> = new Set([
   FlightStatus.TaxiingOut,
@@ -70,6 +78,10 @@ export class DeclareEmergencyHandler implements ICommandHandler<
 
     const created = await this.emergencyRepository.create(flightId, {
       ...payload,
+      dangerousGoodsOnBoard: resolveDangerousGoodsOnBoard(
+        payload.dangerousGoodsOnBoard,
+        await this.hazardClassesAboard(flightId),
+      ),
       soulsOnBoard,
       reportedBy: actor.sub,
     });
@@ -83,5 +95,29 @@ export class DeclareEmergencyHandler implements ICommandHandler<
     );
 
     return created;
+  }
+
+  private async hazardClassesAboard(flightId: string): Promise<HazardClass[]> {
+    const query = new GetFlightCargoLoadQuery(
+      flightId,
+      CargoShipmentStatusName.Loaded,
+    );
+
+    try {
+      const manifest: FlightCargoManifest = await this.queryBus.execute(query);
+
+      return manifest.units
+        .flatMap((unit) => unit.shipments)
+        .map((shipment) => shipment.dangerousGoods?.hazardClass)
+        .filter((hazardClass): hazardClass is HazardClass =>
+          Boolean(hazardClass),
+        );
+    } catch (error) {
+      if (error instanceof CargoManifestNotGeneratedError) {
+        return [];
+      }
+
+      throw error;
+    }
   }
 }

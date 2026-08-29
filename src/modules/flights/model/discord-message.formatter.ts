@@ -18,6 +18,13 @@ export type BriefingWeather = {
   taf?: string;
 };
 
+export type BriefingSpecialLoad = {
+  dangerousGoodsCount: number;
+  cargoAircraftOnlyCount: number;
+  specialLoadCount: number;
+  worstColdChainRisk: string | null;
+};
+
 export type BriefingInput = {
   flightNumber: string;
   departure: MessageAirport;
@@ -25,6 +32,7 @@ export type BriefingInput = {
   aircraft: MessageAircraft;
   schedule?: Partial<Schedule>;
   weather: BriefingWeather;
+  specialLoad?: BriefingSpecialLoad | null;
   flightUrl: string;
 };
 
@@ -101,9 +109,42 @@ export function formatFlightBriefing(input: BriefingInput): string {
     sections.push(`TAF:\n${codeBlock(taf)}`);
   }
 
+  const specialLoad = formatSpecialLoad(input.specialLoad);
+  if (specialLoad !== null) {
+    sections.push(specialLoad);
+  }
+
   sections.push(manageLine(input.flightUrl));
 
   return sections.join('\n\n');
+}
+
+function formatSpecialLoad(
+  summary: BriefingSpecialLoad | null | undefined,
+): string | null {
+  if (!summary) {
+    return null;
+  }
+
+  const heading = ':warning: **Special load**';
+
+  if (summary.dangerousGoodsCount === 0 && summary.specialLoadCount === 0) {
+    return `${heading}\nNo dangerous goods loaded.`;
+  }
+
+  const lines = [
+    `Dangerous goods: **${summary.dangerousGoodsCount}**` +
+      ` (cargo aircraft only: **${summary.cargoAircraftOnlyCount}**)`,
+    `Other special loads: **${summary.specialLoadCount}**`,
+  ];
+
+  if (summary.worstColdChainRisk !== null) {
+    lines.push(`Highest cold chain risk: **${summary.worstColdChainRisk}**`);
+  }
+
+  lines.push('See the notification to captain on the flight page.');
+
+  return `${heading}\n${lines.join('\n')}`;
 }
 
 export function formatBoardingAnnouncement(

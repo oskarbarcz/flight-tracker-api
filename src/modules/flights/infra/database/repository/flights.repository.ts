@@ -113,7 +113,7 @@ export const flightWithAircraftAndAirportsFields = {
           id: true,
           icaoCode: true,
           iataCode: true,
-          city: true,
+          city: { select: { id: true, name: true } },
           name: true,
           country: true,
           timezone: true,
@@ -168,6 +168,7 @@ const repositionFlightFields = {
 
 const flightCompletionStatsFields = {
   captainId: true,
+  completedAt: true,
   greatCircleDistance: true,
   totalFuelBurned: true,
   timesheet: true,
@@ -189,6 +190,7 @@ export type RepositionFlightData = {
 
 export type FlightCompletionStats = {
   captainId: string | null;
+  completedAt: Date | null;
   greatCircleDistance: number;
   totalFuelBurned: number;
   timesheet: FilledTimesheet;
@@ -232,6 +234,7 @@ export type ManifestPin = {
   cabinLayout: string | null;
   cabinLayoutRevision: number | null;
   captainId: string | null;
+  greatCircleDistance: number;
 };
 
 export type FlightIdAndCallsign = Prisma.FlightGetPayload<{
@@ -602,6 +605,7 @@ export class FlightsRepository {
         cabinLayout: true,
         cabinLayoutRevision: true,
         captainId: true,
+        greatCircleDistance: true,
       },
     });
   }
@@ -829,6 +833,7 @@ export class FlightsRepository {
 
     return {
       captainId: flight.captainId,
+      completedAt: flight.completedAt,
       greatCircleDistance: flight.greatCircleDistance,
       totalFuelBurned: flight.totalFuelBurned,
       timesheet: flight.timesheet as FilledTimesheet,

@@ -14,6 +14,7 @@ figures, checklists, procedures and data to perform your flight like a real pilo
 experience, integrate with SimBrief and other tools. Check out our homepage at [mypreflight.io][homepage].
 
 **This module** is the part running on our servers. It owns everything the clients only display:
+
 - keeps the flight lifecycle — planning, check-in, boarding, off-block, airborne, on-block and closing,
 - computes timesheets and loadsheets, and issues the briefing with the ATIS, METAR and TAF held for the departure,
 - imports flight plans from SimBrief and airport, terminal and gate data curated from OpenStreetMap,
@@ -71,7 +72,7 @@ This app uses docker-based virtualization to run. To set up the project, follow 
    The seeded API users (all share the password `P@$$w0rd`) are:
 
    | Name        | Role       | Username                | Notes                                                                      |
-   |-------------|------------|-------------------------|----------------------------------------------------------------------------|
+   | ----------- | ---------- | ----------------------- | -------------------------------------------------------------------------- |
    | John Doe    | Admin      | admin@example.com       |                                                                            |
    | Alice Doe   | Operations | operations@example.com  |                                                                            |
    | Abby Doe    | Operations | abby.doe@example.com    | SimBrief connected (valid flight plan)                                     |
@@ -138,7 +139,6 @@ not be used for real-world aviation operations.
 [github-url]: https://github.com/oskarbarcz
 [web-badge]: https://img.shields.io/badge/barcz.me-4A5568?style=for-the-badge&logo=googlechrome&logoColor=white
 [web-url]: https://barcz.me
-
 [banner]: .github/image/background.png
 [homepage]: https://mypreflight.io
 [repo-app]: https://github.com/oskarbarcz/flight-tracker-app
