@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AirportsModule } from './modules/airports/airports.module';
 import { AirframesModule } from './modules/airframes/airframes.module';
 import { CountriesModule } from './modules/countries/countries.module';
+import { WaypointsModule } from './modules/waypoints/waypoints.module';
 import { ManifestModule } from './modules/manifest/manifest.module';
 import { AircraftModule } from './modules/aircraft/aircraft.module';
 import { OperatorsModule } from './modules/operators/operators.module';
@@ -35,6 +36,7 @@ const schedulerEnabled = process.env.SCHEDULER_ENABLED !== 'false';
     AirportsModule,
     AirframesModule,
     CountriesModule,
+    WaypointsModule,
     AircraftModule,
     ManifestModule,
     OperatorsModule,

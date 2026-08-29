@@ -403,6 +403,26 @@ model DelayReport {
   @@map("delay_report")
 }
 
+model Waypoint {
+  id         String       @id @default(uuid()) @db.Uuid
+  ident      String       @db.VarChar(16)
+  icaoRegion String?      @db.VarChar(2)
+  kind       WaypointKind
+  posLat     Decimal      @db.Decimal(9, 6)
+  posLong    Decimal      @db.Decimal(9, 6)
+  frequency  Decimal?     @db.Decimal(6, 2)
+  lastSeenAt DateTime     @default(now())
+
+  @@unique([ident, icaoRegion])
+  @@index([ident])
+  @@map("waypoint")
+}
+
+enum WaypointKind {
+  waypoint
+  navaid
+}
+
 model FlightEtopsPoint {
   id                String         @id @default(uuid()) @db.Uuid
   flightId          String         @db.Uuid

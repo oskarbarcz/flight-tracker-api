@@ -31,7 +31,7 @@ function fakeRepository(
   return {
     listAwaitingArt: jest.fn().mockResolvedValue(postcards),
     recordArt: jest.fn().mockResolvedValue(undefined),
-    recordFailure: jest.fn().mockResolvedValue(undefined),
+    recordFailure: jest.fn().mockResolvedValue(true),
   } as unknown as jest.Mocked<PostcardsRepository>;
 }
 
@@ -98,6 +98,7 @@ describe('ConfirmDrawnPostcardsHandler', () => {
     expect(repository.recordArt).not.toHaveBeenCalled();
     expect(repository.recordFailure).toHaveBeenCalledWith(
       '0f3d6a2e-9c14-4f0b-8a7d-2b5e1c8f4a63',
+      ART_UUID,
       `The generator took the art but never delivered it to postcards/${ART_UUID}.jpg`,
     );
   });

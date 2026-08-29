@@ -1,4 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Coordinates } from '../../airports/model/airport.model';
 
 export enum EtopsPointKind {
   Entry = 'entry',
@@ -93,14 +94,15 @@ export class EtopsPointResponse {
       'Adequate airport defining the threshold at this point. An equal-time point has none.',
     example: '6cf1fcd8-d072-46b5-8132-bd885b43dd97',
     nullable: true,
+    type: String,
   })
   adequateAirportId!: string | null;
 
   @ApiProperty({
     description: 'Position of the point itself, not of any airport near it',
-    example: { latitude: 52.095985, longitude: -33.466877 },
+    type: Coordinates,
   })
-  position!: EtopsPointPosition;
+  position!: Coordinates;
 
   @ApiProperty({
     description: 'Seconds from departure at which the point is reached',
@@ -113,6 +115,7 @@ export class EtopsPointResponse {
       'Condition the plan assumes for the diversion, as published. The provider does not document its code set.',
     example: 'DC',
     nullable: true,
+    type: String,
   })
   condition!: string | null;
 
@@ -148,6 +151,7 @@ export class EtopsAirportResponse {
     description: 'Runway the plan assumes for a diversion here',
     example: '21',
     nullable: true,
+    type: String,
   })
   plannedRunway!: string | null;
 
@@ -155,6 +159,7 @@ export class EtopsAirportResponse {
     description: 'Ceiling forecast for the suitability window, in feet',
     example: 900,
     nullable: true,
+    type: Number,
   })
   forecastCeiling!: number | null;
 
@@ -162,6 +167,7 @@ export class EtopsAirportResponse {
     description: 'Visibility forecast for the suitability window, in metres',
     example: 8050,
     nullable: true,
+    type: Number,
   })
   forecastVisibility!: number | null;
 
@@ -169,6 +175,7 @@ export class EtopsAirportResponse {
     description: 'Transition altitude in feet',
     example: 18000,
     nullable: true,
+    type: Number,
   })
   transitionAltitude!: number | null;
 
@@ -176,6 +183,7 @@ export class EtopsAirportResponse {
     description: 'Transition level in feet',
     example: 18000,
     nullable: true,
+    type: Number,
   })
   transitionLevel!: number | null;
 }

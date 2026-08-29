@@ -106,29 +106,6 @@ Feature: Get flight
             "shape": "@coordinates"
           },
           {
-            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
-            "icaoCode": "KPHL",
-            "iataCode": "PHL",
-            "city": {
-              "id": "e30d5e72-29ca-4f01-8e75-fdc55e3b296a",
-              "name": "Philadelphia"
-            },
-            "name": "Philadelphia Intl",
-            "country": {
-              "code": "US",
-              "name": "United States of America"
-            },
-            "timezone": "America/New_York",
-            "type": "destination_alternate",
-            "continent": "north_america",
-            "dataQuality": "low",
-            "location": {
-              "longitude": -75.24349,
-              "latitude": 39.87113
-            },
-            "shape": "@coordinates"
-          },
-          {
             "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
             "icaoCode": "KBOS",
             "iataCode": "BOS",
@@ -148,6 +125,29 @@ Feature: Get flight
             "location": {
               "longitude": -71.01663,
               "latitude": 42.36454
+            },
+            "shape": "@coordinates"
+          },
+          {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "icaoCode": "KPHL",
+            "iataCode": "PHL",
+            "city": {
+              "id": "e30d5e72-29ca-4f01-8e75-fdc55e3b296a",
+              "name": "Philadelphia"
+            },
+            "name": "Philadelphia Intl",
+            "country": {
+              "code": "US",
+              "name": "United States of America"
+            },
+            "timezone": "America/New_York",
+            "type": "destination_alternate",
+            "continent": "north_america",
+            "dataQuality": "low",
+            "location": {
+              "longitude": -75.24349,
+              "latitude": 39.87113
             },
             "shape": "@coordinates"
           },

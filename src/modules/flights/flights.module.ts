@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { WaypointsModule } from '../waypoints/waypoints.module';
 import { PrismaModule } from '../../core/provider/prisma/prisma.module';
 import { AdsbModule } from '../../core/provider/adsb/adsb.module';
 import { DiscordModule } from '../../core/provider/discord/discord.module';
@@ -116,7 +117,13 @@ import { AcceptDelayReportAction } from './infra/http/action/delay/accept-delay-
 import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-report.action';
 
 @Module({
-  imports: [PrismaModule, DiscordModule, AdsbModule, SimbriefModule],
+  imports: [
+    WaypointsModule,
+    PrismaModule,
+    DiscordModule,
+    AdsbModule,
+    SimbriefModule,
+  ],
   controllers: [
     CreateFlightAction,
     CreateFlightFromSimbriefAction,

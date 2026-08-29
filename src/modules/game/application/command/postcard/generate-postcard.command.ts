@@ -100,11 +100,13 @@ export class GeneratePostcardHandler implements ICommandHandler<GeneratePostcard
     where: string,
   ): Promise<void> {
     if (!art.drawn) {
-      await this.repository.recordArtSize(id, art.width, art.height);
-
-      this.logger.log(
-        `Postcard art for ${where} is being drawn in the background; it stays pending until ${art.key} appears`,
-      );
+      if (
+        await this.repository.recordArtSize(id, artUuid, art.width, art.height)
+      ) {
+        this.logger.log(
+          `Postcard art for ${where} is being drawn in the background; it stays pending until ${art.key} appears`,
+        );
+      }
 
       return;
     }
@@ -146,6 +148,6 @@ export class GeneratePostcardHandler implements ICommandHandler<GeneratePostcard
       this.logger.error(`Could not draw postcard for ${where}: ${reason}`);
     }
 
-    await this.repository.recordFailure(id, reason);
+    await this.repository.recordFailure(id, artUuid, reason);
   }
 }

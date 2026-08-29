@@ -47,6 +47,8 @@ import {
   mapEtopsPoints,
   mapEtopsRings,
 } from '../../model/etops-snapshot.mapper';
+import { harvestWaypoints } from '../../model/waypoint-harvester';
+import { WaypointsRepository } from '../../../waypoints/infra/database/waypoints.repository';
 
 export type AlternateAirportCandidate = {
   icaoCode: string;
@@ -77,6 +79,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     private readonly simbriefClient: SimbriefClient,
     private readonly flightsRepository: FlightsRepository,
     private readonly domainEvents: DomainEventEmitter,
+    private readonly waypointsRepository: WaypointsRepository,
   ) {}
 
   async execute(command: CreateFlightFromSimbriefCommand): Promise<void> {
@@ -179,6 +182,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     );
 
     await this.storeEtopsSnapshot(flightId, ofp, alternateAirports);
+    await this.waypointsRepository.record(harvestWaypoints(ofp));
 
     const crewMembers = this.collectCrewMembers(ofp);
     const assignCrewCommand = new AssignCrewToFlightCommand(

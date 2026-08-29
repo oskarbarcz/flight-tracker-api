@@ -6,6 +6,8 @@ const prisma = new PrismaService();
 
 const RESET_TIMEOUT_MS = 30_000;
 const SNAPSHOT_SCHEMA = 'seed_snapshot';
+const RESET_ATTEMPTS = 5;
+const RESET_RETRY_DELAY_MS = 100;
 
 let seededTables: string[] | null = null;
 
@@ -60,6 +62,7 @@ const restoreSnapshot = async (): Promise<void> => {
       targets text;
     BEGIN
       PERFORM set_config('session_replication_role', 'replica', true);
+      PERFORM set_config('lock_timeout', '5s', true);
 
       SELECT string_agg(format('public.%I', tablename), ', ')
         INTO targets
@@ -81,12 +84,32 @@ const restoreSnapshot = async (): Promise<void> => {
   `);
 };
 
+const isDeadlock = (error: unknown): boolean =>
+  JSON.stringify(error instanceof Error ? error.message : error).includes(
+    'deadlock detected',
+  );
+
+const wait = (ms: number): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
+// The application is running while the suite resets the database, so its own transactions can
+// hold locks on tables the restore is truncating. Postgres resolves the resulting deadlock by
+// killing one side, and it is the restore that loses often enough to matter. Retrying is enough:
+// the request that caused the contention has finished by the time the restore comes round again.
 const resetDatabase = async (): Promise<void> => {
-  try {
-    await restoreSnapshot();
-  } catch (error) {
-    console.error(error);
-    throw error;
+  for (let attempt = 1; attempt <= RESET_ATTEMPTS; attempt++) {
+    try {
+      await restoreSnapshot();
+
+      return;
+    } catch (error) {
+      if (!isDeadlock(error) || attempt === RESET_ATTEMPTS) {
+        console.error(error);
+        throw error;
+      }
+
+      await wait(RESET_RETRY_DELAY_MS * attempt);
+    }
   }
 };
 

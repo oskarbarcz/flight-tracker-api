@@ -51,7 +51,10 @@ export class ConfirmDrawnPostcardsHandler implements ICommandHandler<ConfirmDraw
 
     const reason = `The generator took the art but never delivered it to ${art.key}`;
 
-    this.logger.warn(`Giving up on the postcard art for ${where}: ${reason}`);
-    await this.repository.recordFailure(postcard.id, reason);
+    if (
+      await this.repository.recordFailure(postcard.id, postcard.artUuid, reason)
+    ) {
+      this.logger.warn(`Giving up on the postcard art for ${where}: ${reason}`);
+    }
   }
 }

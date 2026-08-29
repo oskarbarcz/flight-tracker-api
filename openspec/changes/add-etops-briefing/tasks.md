@@ -17,7 +17,7 @@ separate issue.
 - [x] 1.6 Every added field tolerates `EmptyElement` where SimBrief renders an absent value as `{}`, following the existing convention in the file
 - [x] 1.7 `SimbriefClient.getRouteMapData(url)`: fetch the companion map file the payload links to in `map_data` and read `etopsruledist`, `etopsthreshold`, `etopsrule` and `natsdir` from it with targeted expressions — the file is parsed, never evaluated
 - [x] 1.8 The companion fetch degrades: missing, unreachable, non-200 or unparseable yields no ring figures and never fails the import; failures are logged, not raised
-- [ ] 1.9 New mock fixture: a full ETOPS North Atlantic payload (the existing mock gained `div_airport` on entry/exit and a SkyLink expectation for CYQX in group 2; the full payload is still outstanding) (three points, two suitable airports, a 26-fix navlog, sixteen tracks across two TMIs). The existing non-ETOPS fixture stays as the negative case
+- [x] 1.9 New mock fixture: a full ETOPS North Atlantic payload (the existing mock gained `div_airport` on entry/exit and a SkyLink expectation for CYQX in group 2; the full payload is still outstanding) (three points, two suitable airports, a 26-fix navlog, sixteen tracks across two TMIs). The existing non-ETOPS fixture stays as the negative case
 - [x] 1.10 `simbrief.client.spec.ts`: the ETOPS fixture parses, including the array-versus-single shapes of `div_airport`, `equal_time_point` and `suitable_airport`, plus the companion map file parsing and each of its degradation paths
 
 ## 2. Correct the adequate/suitable airport roles (needs 1)
@@ -53,25 +53,32 @@ separate issue.
 
 ## 5. Waypoint catalogue (needs 1)
 
-- [ ] 5.1 Migration: `waypoint`, unique on identifier + ICAO region, with kind, position, optional frequency and last-seen timestamp
-- [ ] 5.2 `WaypointKind` domain enum (`Waypoint`, `Navaid`), PascalCase keys, mapped from the plan's `wpt` and `vor`
-- [ ] 5.3 `model/waypoint-harvester.ts`: collect named waypoints with coordinates from the route, the alternate routes and the oceanic tracks, excluding `ltlg` and `apt`
-- [ ] 5.4 Unit spec for the harvester: a VOR keeps its frequency; a plain waypoint has none; top of climb, top of descent and coordinate-named points are excluded; airports are excluded; track fixes are collected without a region
-- [ ] 5.5 Upsert on identifier + region — a waypoint seen again updates its position and last-seen rather than duplicating
-- [ ] 5.6 Unit spec: re-importing the same plan leaves the catalogue size unchanged; two identical identifiers in different regions are held separately
-- [ ] 5.7 `GET /api/v1/waypoint/:ident` for any authenticated role, 404 for an identifier never seen
-- [ ] 5.8 Feature: importing a plan catalogues its waypoints; reading a known one reports position, kind and region; reading an unknown one 404s
+- [x] 5.1 Migration: `waypoint`, unique on identifier + ICAO region, with kind, position, optional frequency and last-seen timestamp
+- [x] 5.2 `WaypointKind` domain enum (`Waypoint`, `Navaid`), PascalCase keys, mapped from the plan's `wpt` and `vor`
+- [x] 5.3 `model/waypoint-harvester.ts`: collect named waypoints with coordinates from the route, the alternate routes and the oceanic tracks, excluding `ltlg` and `apt`
+- [x] 5.4 Unit spec for the harvester: a VOR keeps its frequency; a plain waypoint has none; top of climb, top of descent and coordinate-named points are excluded; airports are excluded; track fixes are collected without a region
+- [x] 5.5 Upsert on identifier + region — a waypoint seen again updates its position and last-seen rather than duplicating
+- [x] 5.6 Unit spec: re-importing the same plan leaves the catalogue size unchanged; two identical identifiers in different regions are held separately
+- [x] 5.7 `GET /api/v1/waypoint/:ident` for any authenticated role, 404 for an identifier never seen
+- [x] 5.8 Feature: importing a plan catalogues its waypoints; reading a known one reports position, kind and region; reading an unknown one 404s
 
 ## 6. Planned route (needs 1)
 
+<!-- Scope added after the group was written: the route is exposed on its own endpoint,
+     carries the leg distance and track angles SimBrief publishes per fix, and the plan's
+     route string is stored alongside it. -->
+
 - [ ] 6.1 Migration: `flight_route_fix`, cascade-deleted with the flight
-- [ ] 6.2 Map `navlog.fix[]` in order — ident, position, altitude, elapsed time, airway, stage — leaving the per-fix wind, temperature, Mach, ground speed and fuel figures unmapped
+- [ ] 6.2 Map `navlog.fix[]` in order — ident, position, altitude, elapsed time, airway, stage — plus the leg `distance` and the `track_true`/`track_mag` angles the plan publishes per fix, leaving wind, temperature, Mach, ground speed and fuel unmapped
 - [ ] 6.3 Keep the `TOC` and `TOD` pseudo-fixes — they carry real positions and mark where the planned altitude changes character
 - [ ] 6.4 Write the departure airport as the route's first fix — the airport's own position, field elevation, zero elapsed time — since the navlog omits the origin but includes the destination
 - [ ] 6.5 Unit spec: order is preserved, every fix has a position, the first fix is the departure airport at zero elapsed time and the last is the destination, and the route is independent of `positionReports`
 - [ ] 6.6 Feature: a flight reports its planned route before departure, every fix positioned, running airport to airport with no gap before the first plan fix
 - [ ] 6.7 Feature: the planned altitude of every fix is reported, so the vertical profile is drawable from the same rows
-- [ ] 6.8 Feature: a flight created without a plan reports no planned route
+- [ ] 6.8 Store the plan's route string on `flight.route`, which the import has never populated
+- [ ] 6.9 `GET /api/v1/flight/:flightId/route` returning the route as ordered positioned points with their distances and angles, plus the route string
+- [ ] 6.10 Feature: the route endpoint reports every point positioned, airport to airport, with leg distances and track angles
+- [ ] 6.11 Feature: a flight created without a plan reports no planned route
 
 ## 7. Oceanic tracks (needs 1; 6 for the segment marker)
 
