@@ -172,35 +172,99 @@
           ]
         },
         "etops": {
+          "rule": "370",
           "entry": {
-            "icao_code": "BIKF"
+            "icao_code": "BIKF",
+            "div_airport": {
+              "icao_code": "CYQX",
+              "track_true": "252",
+              "track_mag": "270",
+              "distance": "457"
+            },
+            "pos_lat_fix": "58.000000",
+            "pos_long_fix": "-30.000000",
+            "pos_lat_apt": "63.985000",
+            "pos_long_apt": "-22.605600",
+            "elapsed_time": "9735",
+            "etops_condition": "DC"
           },
           "exit": {
-            "icao_code": "CYYT"
+            "icao_code": "CYYT",
+            "div_airport": {
+              "icao_code": "CYYT",
+              "track_true": "87",
+              "track_mag": "96",
+              "distance": "435"
+            },
+            "pos_lat_fix": "50.000000",
+            "pos_long_fix": "-50.000000",
+            "pos_lat_apt": "47.618610",
+            "pos_long_apt": "-52.751945",
+            "elapsed_time": "15372",
+            "etops_condition": "DC"
           },
-          "suitable_airport": {
-            "icao_code": "CYYR",
-            "notam": [
+          "suitable_airport": [
+            {
+              "icao_code": "CYYR",
+              "notam": [
+                {
+                  "source_id": "I",
+                  "notam_id": "A4001/26",
+                  "location_id": "CYYR",
+                  "location_icao": "CYYR",
+                  "location_type": "Airport",
+                  "date_created": "2026-08-04T06:30:00Z",
+                  "date_effective": "2026-08-04T07:00:00Z",
+                  "date_expire": "2099-12-31T23:59:00Z",
+                  "date_modified": "2026-08-04T06:30:00Z",
+                  "notam_html": "<b>APRON</b> I NORTH SIDE <b>CLSD</b>.",
+                  "notam_text": "APRON I NORTH SIDE CLSD.",
+                  "notam_raw": "A4001/26 NOTAMN\n Q) CZQX/QMNLC/IV/BO /A /000/999/5319N06018W005\n A) CYYR B) 2608040700 C) 9912312359\n E) APRON I NORTH SIDE CLSD.",
+                  "notam_nrc": "NOTAMN",
+                  "notam_qcode": "QMNLC",
+                  "notam_qcode_category": "Airport",
+                  "notam_qcode_subject": "Apron",
+                  "notam_qcode_status": "Closed"
+                }
+              ],
+              "suitability_start": "2026-01-05T12:00:00Z",
+              "suitability_end": "2026-01-05T18:00:00Z",
+              "plan_rwy": "11",
+              "fcst_cig": "900",
+              "fcst_vis": "8050",
+              "trans_alt": "18000",
+              "trans_level": "18000"
+            },
+            {
+              "icao_code": "CYQX",
+              "suitability_start": "2026-01-05T13:30:00Z",
+              "suitability_end": "2026-01-05T18:00:00Z",
+              "plan_rwy": "21",
+              "fcst_cig": "1500",
+              "fcst_vis": "9999",
+              "trans_alt": "18000",
+              "trans_level": "18000"
+            }
+          ],
+          "equal_time_point": {
+            "pos_lat": "55.500000",
+            "pos_long": "-40.000000",
+            "elapsed_time": "12186",
+            "etops_condition": "DC",
+            "div_airport": [
               {
-                "source_id": "I",
-                "notam_id": "A4001/26",
-                "location_id": "CYYR",
-                "location_icao": "CYYR",
-                "location_type": "Airport",
-                "date_created": "2026-08-04T06:30:00Z",
-                "date_effective": "2026-08-04T07:00:00Z",
-                "date_expire": "2099-12-31T23:59:00Z",
-                "date_modified": "2026-08-04T06:30:00Z",
-                "notam_html": "<b>APRON</b> I NORTH SIDE <b>CLSD</b>.",
-                "notam_text": "APRON I NORTH SIDE CLSD.",
-                "notam_raw": "A4001/26 NOTAMN\n Q) CZQX/QMNLC/IV/BO /A /000/999/5319N06018W005\n A) CYYR B) 2608040700 C) 9912312359\n E) APRON I NORTH SIDE CLSD.",
-                "notam_nrc": "NOTAMN",
-                "notam_qcode": "QMNLC",
-                "notam_qcode_category": "Airport",
-                "notam_qcode_subject": "Apron",
-                "notam_qcode_status": "Closed"
+                "icao_code": "CYQX"
+              },
+              {
+                "icao_code": "BIKF"
               }
             ]
+          },
+          "critical_point": {
+            "fix_type": "ETP",
+            "pos_lat": "55.500000",
+            "pos_long": "-40.000000",
+            "elapsed_time": "12186"
           }
         },
         "fuel": {
@@ -281,7 +345,8 @@
           "pdf": {
             "link": "EDDFKJFK_PDF_1769431274.pdf"
           }
-        }
+        },
+        "map_data": "http://simbrief-mock:1080/ofp/flightplans/MOCK_MJS_1.js"
       }
     }
   },
@@ -908,6 +973,19 @@
           "time": "0.0002"
         }
       }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/ofp/flightplans/MOCK_MJS_1.js"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/javascript; charset=utf-8"]
+      },
+      "body": "//SimBrief route definition\nvar natsdir = \"E\";\nvar etopsdata = true;\nvar etopsrule = 370;\nvar etopsruledist = 2694.8333333333;\nvar etopsthreshold = 60;\n"
     }
   }
 ]

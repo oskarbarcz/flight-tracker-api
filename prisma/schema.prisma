@@ -66,25 +66,28 @@ model Airport {
 
   monitorWeather Boolean @default(false)
 
-  city                      City                 @relation(fields: [cityId], references: [id])
+  city                      City                          @relation(fields: [cityId], references: [id])
   airportsOnFlights         AirportsOnFlights[]
+  etopsPointsAsAdequate     FlightEtopsPoint[]            @relation("EtopsPointAdequateAirport")
+  etopsDiversions           FlightEtopsDiversionAirport[] @relation("EtopsDiversionAirport")
+  etopsSuitableForFlights   FlightEtopsAirport[]          @relation("EtopsSuitableAirport")
   weather                   AirportWeather[]
   notams                    AirportNotam[]
   diversion                 Diversion[]
   terminals                 Terminal[]
   runways                   Runway[]
-  baseForAircraft           Aircraft[]           @relation("AircraftBaseAirport")
-  lastForAircraft           Aircraft[]           @relation("AircraftLastAirport")
-  homeForUsers              User[]               @relation("UserHomeAirport")
-  lastForUsers              User[]               @relation("UserLastAirport")
-  departureForTravels       UserTravel[]         @relation("UserTravelDepartureAirport")
-  destinationForTravels     UserTravel[]         @relation("UserTravelDestinationAirport")
+  baseForAircraft           Aircraft[]                    @relation("AircraftBaseAirport")
+  lastForAircraft           Aircraft[]                    @relation("AircraftLastAirport")
+  homeForUsers              User[]                        @relation("UserHomeAirport")
+  lastForUsers              User[]                        @relation("UserLastAirport")
+  departureForTravels       UserTravel[]                  @relation("UserTravelDepartureAirport")
+  destinationForTravels     UserTravel[]                  @relation("UserTravelDestinationAirport")
   countryVisits             UserCountryVisit[]
   cityVisits                UserCityVisit[]
-  departureForRepositions   AircraftReposition[] @relation("AircraftRepositionDepartureAirport")
-  destinationForRepositions AircraftReposition[] @relation("AircraftRepositionDestinationAirport")
-  departureForLegs          RotationLeg[]        @relation("LegDeparture")
-  arrivalForLegs            RotationLeg[]        @relation("LegArrival")
+  departureForRepositions   AircraftReposition[]          @relation("AircraftRepositionDepartureAirport")
+  destinationForRepositions AircraftReposition[]          @relation("AircraftRepositionDestinationAirport")
+  departureForLegs          RotationLeg[]                 @relation("LegDeparture")
+  arrivalForLegs            RotationLeg[]                 @relation("LegArrival")
 
   @@index([cityId])
   @@map("airport")
@@ -261,6 +264,9 @@ model Flight {
   simbriefRequestId          Int?
   simbriefSequenceId         String?
   isEtops                    Boolean           @default(false)
+  etopsRuleMinutes           Int?
+  etopsRuleDistanceNm        Decimal?          @db.Decimal(8, 2)
+  etopsThresholdMinutes      Int?
   greatCircleDistance        Int               @default(1)
   totalFuelBurned            Int               @default(1)
   actualFuelBurned           Decimal?          @db.Decimal(7, 3)
@@ -283,6 +289,8 @@ model Flight {
   createdBy                User?                  @relation("FlightCreatedBy", fields: [createdById], references: [id])
   aircraft                 Aircraft               @relation(fields: [aircraftId], references: [id])
   airports                 AirportsOnFlights[]
+  etopsPoints              FlightEtopsPoint[]
+  etopsAirports            FlightEtopsAirport[]
   flightEvent              FlightEvent[]
   diversion                Diversion[]
   emergency                EmergencyDeclaration[]
@@ -393,6 +401,65 @@ model DelayReport {
   @@index([requestId])
   @@index([status])
   @@map("delay_report")
+}
+
+model FlightEtopsPoint {
+  id                String         @id @default(uuid()) @db.Uuid
+  flightId          String         @db.Uuid
+  kind              EtopsPointKind
+  ordinal           Int            @default(1)
+  isCritical        Boolean        @default(false)
+  adequateAirportId String?        @db.Uuid
+  posLat            Decimal        @db.Decimal(9, 6)
+  posLong           Decimal        @db.Decimal(9, 6)
+  elapsedSeconds    Int
+  condition         String?
+
+  flight            Flight                        @relation(fields: [flightId], references: [id], onDelete: Cascade)
+  adequateAirport   Airport?                      @relation("EtopsPointAdequateAirport", fields: [adequateAirportId], references: [id], onDelete: SetNull)
+  diversionAirports FlightEtopsDiversionAirport[]
+
+  @@unique([flightId, kind, ordinal])
+  @@map("flight_etops_point")
+}
+
+model FlightEtopsDiversionAirport {
+  id        String @id @default(uuid()) @db.Uuid
+  pointId   String @db.Uuid
+  airportId String @db.Uuid
+  ordinal   Int
+
+  point   FlightEtopsPoint @relation(fields: [pointId], references: [id], onDelete: Cascade)
+  airport Airport          @relation("EtopsDiversionAirport", fields: [airportId], references: [id], onDelete: Cascade)
+
+  @@unique([pointId, ordinal])
+  @@map("flight_etops_diversion_airport")
+}
+
+model FlightEtopsAirport {
+  id                 String   @id @default(uuid()) @db.Uuid
+  flightId           String   @db.Uuid
+  airportId          String   @db.Uuid
+  suitabilityStart   DateTime
+  suitabilityEnd     DateTime
+  plannedRunway      String?
+  forecastCeiling    Int?
+  forecastVisibility Int?
+  transitionAltitude Int?
+  transitionLevel    Int?
+
+  flight  Flight  @relation(fields: [flightId], references: [id], onDelete: Cascade)
+  airport Airport @relation("EtopsSuitableAirport", fields: [airportId], references: [id], onDelete: Cascade)
+
+  @@unique([flightId, airportId])
+  @@map("flight_etops_airport")
+}
+
+enum EtopsPointKind {
+  entry
+  exit
+  equal_time
+  critical
 }
 
 model AirportsOnFlights {

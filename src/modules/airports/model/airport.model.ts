@@ -157,6 +157,7 @@ export enum AirportType {
   DestinationAlternate = 'destination_alternate',
   EtopsEntry = 'etops_entry',
   EtopsExit = 'etops_exit',
+  EtopsSuitable = 'etops_suitable',
   EnrouteAlternate = 'enroute_alternate',
 }
 

@@ -91,34 +91,6 @@ observed ceiling or visibility, no flight category. Current conditions are `airp
 job and it already does it properly, with refresh and provider handling this change has no
 reason to duplicate. See the decision below.
 
-### The fuel penalty is derivable, and deriving it is the point
-
-`fuel.etops` is `0` on the reference plan. Stored alone that is indistinguishable from "not
-computed", and it tells a pilot nothing. The arithmetic behind it was verified end to end:
-
-```
-                       critical_fuel    est_fob     margin
-ENTRY                       8 809       23 090     +14 281
-ETP1                       14 566       19 344      +4 778   ← governing
-EXIT                        7 618       14 481      +6 863
-
-penalty = max(0, max(critical_fuel − est_fob)) = max(0, −4 778) = 0
-```
-
-Two further identities were confirmed and are worth knowing because they make the numbers
-explicable rather than magic:
-
-```
-est_fob − min_fob = 1 035 at all three points  = the contingency fuel exactly
-min_fob           = fuel-to-destination + FINRES + ALTN
-                    16 685 + 5 370 = 22 055 at the entry point ✓
-```
-
-So `min_fob` is the fuel needed to finish the flight normally, and the gap above it is
-contingency. The ETOPS requirement (`critical_fuel`) is a separate and, here, much smaller
-number. The briefing should say which point governs and by what margin, because that is the
-question the figure `0` is silently answering.
-
 ### Planned along a track ≠ cleared on a track
 
 The plan tags six navlog fixes `via_airway: "NATW"`, which reads like "this flight is on
@@ -196,8 +168,7 @@ send-flight-briefing.listener ................. extend
 ## Goals / Non-goals
 
 **Goals.** Store what the plan says about ETOPS as queryable structure, per flight, frozen at
-import. Name the diversion airports correctly. Report the fuel penalty with the reasoning that
-produces it. Describe the flight's relationship to the oceanic track structure without
+import. Name the diversion airports correctly. Describe the flight's relationship to the oceanic track structure without
 overstating it. Serve it all from one read.
 
 **Non-goals.** Computing ETOPS. Nothing here recalculates a point, a diversion or a fuel
@@ -238,6 +209,37 @@ now the only way a crew sees conditions at a diversion airport, which is why it 
 What stays on the ETOPS airport row is planning data the plan computed and nothing republishes:
 the suitability window, the planned runway, the forecast ceiling and visibility for that window,
 and the transition altitude and level.
+
+### The flight's airport list holds one role per airport, and that is enough
+
+Discovered while implementing: `AirportsOnFlights` is keyed `@@id([airportId, flightId])`, so an
+airport can hold exactly one role per flight, and `flights.repository` already leans on it —
+rows are written with `skipDuplicates: true` and departure and destination listed first, so the
+first-listed role wins a collision.
+
+This matters because ETOPS airports collide routinely. On the reference plan EINN is the exit
+threshold airport *and* its own diversion target, and CYQX is both a diversion target and a
+published suitable airport. In the mock fixture CYYR is both the enroute alternate and a
+suitable airport.
+
+Rather than widen the key, candidates are ordered so the more specific role wins:
+
+```
+destination alternate → enroute alternate → ETOPS entry → ETOPS exit → ETOPS suitable
+                                                                       ▲ last, so it never
+                                                                         displaces a role
+                                                                         already assigned
+```
+
+EINN therefore stays `etops_exit` and CYYR stays `enroute_alternate` — no stored row changes
+meaning, which is what this change promised. Candidates are also deduplicated by ICAO before
+import, so an airport named three times is imported once rather than three times.
+
+Widening the key to `[airportId, flightId, airportType]` was rejected: the flat list answers
+"which airports matter to this flight", and the precise adequate-versus-suitable relationship is
+carried by `flight_etops_point.adequateAirportId` and `flight_etops_diversion.airportId`, where
+one airport in both roles is represented exactly. Two places would then express the same fact,
+and they could disagree.
 
 ### Adequate and suitable airports get distinct types
 
@@ -299,16 +301,6 @@ longer oceanic crossing with three suitable airports would have one. The payload
 table must not assume a single equal-time row. This costs nothing now and prevents a crash on
 the first Pacific crossing.
 
-### Diversion legs are a child table, because the ETP has two
-
-Entry and exit carry one `div_airport`; the equal-time point carries an array of two, one
-toward each side. Flattening onto the point would mean nullable second-leg columns and a
-read that has to know which fields pair with which. A child table keyed by point makes "one
-leg or two" a row count, and the ETP's two legs sort naturally by direction.
-
-Note that both ETP legs report the same `est_fob` of 6,773 kg — that is the definition of an
-equal-time point, not a data error, and the model should not treat the pair as redundant.
-
 ### Routing status is an enum on the flight, resolved at import
 
 `OceanicRouting` with `Track`, `TrackGeometry` and `Random`, plus a nullable track identifier
@@ -340,6 +332,34 @@ price worth paying for a briefing that stays true.
 Both directions are stored because both are in the message and discarding half at write time
 makes the stored plan an edited version of what the dispatcher saw. The read reports
 `direction`, and filtering is the caller's decision.
+
+### No fuel figures are stored, at any level
+
+The plan attaches fuel to every ETOPS point — `min_fob`, `est_fob`, `critical_fuel` — and to
+every diversion leg — `div_burn`, `est_fob` on arrival. None of it is stored.
+
+The aircraft's flight management system computes fuel on board, fuel to a diversion and the
+margin between them continuously, from the actual aircraft state. A briefing snapshot taken at
+plan time is both coarser and staler than what the crew already has in front of them, and
+showing a second, older set of fuel numbers beside the authoritative one invites the crew to
+reconcile two answers instead of trusting one.
+
+This also removes the derived ETOPS fuel penalty an earlier draft specified. The plan reports
+`fuel.etops` and the briefing does not reinterpret it.
+
+What survives is what the flight computer does *not* give: where the ETOPS points are, when
+they are reached, which airports each turns toward, when those airports are usable, and how the
+whole thing sits on a map.
+
+### The diversion airports are kept, the legs are not
+
+Dropping the legs would leave an equal-time point that names no airports, which makes it
+undrawable and strips the one fact that defines it — that two airports are equidistant in time.
+So the association survives as a child table: which airports, in what order, and nothing else.
+No track, no distance, no wind, no fuel.
+
+A child table rather than columns because the ETP has two and entry and exit have one, so
+"one or two" is a row count rather than nullable second-airport columns.
 
 ### The range rings come from a companion file, because the payload cannot produce them
 
@@ -388,6 +408,45 @@ than inferring it from the flight's geography.
 Two things in that file are deliberately ignored: `altnroutes`, redundant with the JSON's
 `alternate_navlog` which already carries coordinates, and the per-airport weather blobs, for
 the reason given above.
+
+### The waypoint catalogue is a by-product worth keeping
+
+Every plan hands over named waypoints with coordinates and throws them away at the end of the
+import. Measured on a real plan — a short SBGR–SAEZ pairing, not even an oceanic one:
+
+```
+navlog fixes ................ 23
+alternate-route fixes ....... 31
+oceanic track fixes ......... 112 on a North Atlantic crossing (7 per track x 16)
+```
+
+Each carries what a navigation database would: identifier, position, kind, ICAO region, and a
+frequency where it is a navaid.
+
+```
+AMVUL   wpt   reg=SB   freq={}       −23.399589 / −46.362233
+CGO     vor   reg=SB   freq=116.90   −23.627464 / −46.654636
+TOC     ltlg  reg={}   freq={}       −24.169537 / −47.085553   ← not a waypoint
+```
+
+Accumulating them turns a per-flight import into a growing navigation dataset the system owns.
+That matters beyond this change: the FAA's authoritative NAT track feed publishes tracks as raw
+message text whose gateway fixes are *named* — `SUNOT`, `JANJO`, `PIKIL` — with no coordinates.
+Resolving those needs exactly this catalogue. Building it now from SimBrief is what makes an
+authoritative track source usable later.
+
+**What is excluded, and why.** `ltlg` points carry no region and are computed per flight: a top
+of climb is wherever *this* aircraft levelled off, and `51N050W` is derivable from its own name.
+Neither helps a later flight. Airports are already airports. So the rule is: catalogue `wpt` and
+`vor`, skip `ltlg` and `apt`.
+
+**Keying.** Identifier alone is not unique worldwide, and the plan supplies `icao_region` per
+fix (`SB` Brazil, `SU` Uruguay) — so the key is identifier plus region. Track fixes arrive with
+ident and coordinates only, no region, and are catalogued without one rather than being assigned
+a guessed one.
+
+**Freshness.** A waypoint seen again is updated, not duplicated. Positions do move when a state
+amends its AIP, and the most recent plan is the better source.
 
 ### The planned route is stored too, because the points need something to sit on
 
@@ -482,21 +541,13 @@ flight_etops_point                      3 rows on the reference plan
   adequateAirportId     String?         → airport   CYYT   (null on the ETP)
   posLat, posLong       Decimal         the fix itself, not the airport
   elapsedSeconds        Int             9735
-  minFob, estFob        Int             22055 / 23090   kg
-  criticalFuel          Int             8809
   condition             EtopsCondition  DC
-  divAltitude           Int             10000
-  divTimeSeconds        Int             5366
-  divBurn               Int             6689
+                                        no fuel figures — see Decisions
 
-flight_etops_diversion                  1 row per leg; 2 for the ETP
+flight_etops_diversion_airport          1 row per side; 2 for the ETP
   pointId               → flight_etops_point
   airportId             → airport        CYQX
-  trackTrue, trackMag   Int              265 / 279
-  distance              Int              824
-  avgWindComponent      Int              −22
-  avgTempDeviation      Int              9
-  estFob                Int              6773
+  ordinal               Int              side, for a stable read order
 
 flight_etops_airport                    2 rows on the reference plan
   flightId              → flight
@@ -520,6 +571,15 @@ flight_oceanic_track                    16 rows on the reference plan
   validFrom, validTo    DateTime
   fixes                 Json             [{ident, lat, long}]
 
+waypoint                                the accumulated catalogue
+  ident                 String           "MALOT"
+  icaoRegion            String?          "SB" — absent on track fixes
+  kind                  WaypointKind     waypoint | navaid
+  posLat, posLong       Decimal
+  frequency             Decimal?         116.90 on a VOR
+  lastSeenAt            DateTime
+  @@unique([ident, icaoRegion])
+
 flight_route_fix                        26 rows on the reference plan
   flightId              → flight
   ordinal               Int              order along the route
@@ -530,19 +590,6 @@ flight_route_fix                        26 rows on the reference plan
   viaAirway             String?          "NATW" — the track segment marker
   stage                 String           CLB | CRZ | DSC
 
-flight_enroute_hazard                   5 SIGMETs on the reference plan
-  flightId              → flight
-  identifier            String           "93E"
-  hazardType            HazardType       convective
-  fir                   String
-  validFrom, validTo    DateTime
-  text                  String
-
-flight_briefing_chart                   10 on the reference plan
-  flightId              → flight
-  name                  String           "SigWx 1 of 4"
-  url                   String           directory + link, resolved at import
-  ordinal               Int
 ```
 
 Every child table cascade-deletes with the flight, as `flight_cargo_*` does.
@@ -556,9 +603,24 @@ confusion to compile. The points get their own types — an ETOPS point has coor
 a condition and is not an airport — and `suitable_airport` keeps `Airport` widened with the
 suitability and weather fields it genuinely carries.
 
-`tracks`, `sigmets`, `images` and `atc.fir_etops` are added. The `EmptyElement` pattern already
+`tracks` and `atc.fir_etops` are added. The `EmptyElement` pattern already
 in the file covers SimBrief's habit of rendering absent values as `{}`, which appears in this
 payload on `faa_code`, `notam_schedule` and `selcal` — the ETOPS block relies on it too.
+
+### Hazards and charts are out, on their own evidence
+
+SIGMETs carry no geometry. `loc` is a bulletin code (`US31`); the affected area exists only as
+free text — `FROM 20SSE HTO-70SE HTO-110ESE CYN-60SE CYN-20SSE HTO` — a polygon in bearing and
+distance from navaids. Plotting it needs a navaid database and a parser for that grammar, and
+the result would be approximate. A hazard that cannot be drawn and cannot be trusted to the
+mile does not belong in an operational briefing.
+
+The chart images are static GIFs at a fixed projection and resolution, frozen at plan time.
+They are a reasonable illustration and not a source of operational truth, and the geometry this
+change does store — points, rings, route, tracks — covers the same ground precisely.
+
+Both are dropped rather than deferred-with-a-placeholder: no tables, no provider types, no
+fields. If a real SIGMET source with polygons appears later, it is its own change.
 
 ## Risks / Trade-offs
 

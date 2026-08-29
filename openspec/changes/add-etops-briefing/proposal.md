@@ -34,8 +34,14 @@ to survive into the briefing or the briefing lies.
   adequate airport, so no stored data changes meaning; the suitable airports are new.
 - **Snapshot the ETOPS plan per flight.** The rule time in minutes, and every point the plan
   computes — entry, exit, the equal-time point and the critical point — each stored with its
-  own position, elapsed time, fuel required and expected on board, the condition driving the
-  calculation, and its diversion legs.
+  own position, the elapsed time at which it is reached, the condition driving the calculation,
+  and the airports it would turn toward.
+- **Store no fuel figures.** The plan attaches fuel to every point and every diversion, and
+  none of it is kept. The flight management system computes fuel on board and fuel to a
+  diversion continuously from the actual aircraft state; a snapshot taken at plan time is
+  coarser and staler than what the crew already has, and a second set of numbers beside the
+  authoritative one invites reconciling two answers instead of trusting one. This also drops
+  the derived ETOPS fuel penalty an earlier draft specified.
 - **Store every point so it can be drawn.** Each point carries the position the plan publishes
   for it, because an equal-time point is a place and a briefing that cannot put it on a map has
   lost its meaning. The critical point is resolved against the points already stored: where it
@@ -43,6 +49,14 @@ to survive into the briefing or the briefing lies.
   coordinates, elapsed time and fuel exactly — that point is marked critical rather than
   duplicated; where it names a position of its own, it is stored as a point in its own right.
   Nothing the plan publishes goes unstored, and no point is drawn twice.
+- **Keep every waypoint the plan gives us, for good.** Each import contributes the named
+  waypoints it publishes with coordinates — route fixes, alternate-route fixes and oceanic track
+  fixes — to a catalogue keyed by identifier and ICAO region, so the system accumulates its own
+  navigation data as it is used rather than depending on a navigation database it does not have.
+  Roughly fifty waypoints per plan, more on an oceanic crossing. Computed points are excluded:
+  the top of climb, the top of descent and positions named after their own coordinates describe
+  one flight rather than the world, and airports are already held as airports. Navaids keep the
+  frequency the plan reports.
 - **Store the planned route the points lie on.** The system currently holds the route only as a
   string of identifiers with no coordinates, and the flown positions, which are empty until the
   aircraft moves. Neither can draw a planned route. The plan's route fixes are stored in order
@@ -50,15 +64,7 @@ to survive into the briefing or the briefing lies.
   draw the route, place the ETOPS points along it, and shade the segment flown on a track. The
   per-fix wind, temperature, Mach, ground speed and fuel figures are left out: they belong to a
   flight log, not to this briefing.
-- **Record each diversion leg against its point.** True and magnetic track, distance, average
-  wind component and temperature deviation, diversion time, burn and altitude, and fuel on
-  arrival. The equal-time point carries two legs, one per direction; entry and exit carry one.
-- **Derive the ETOPS fuel penalty rather than restating it.** The plan reports
-  `fuel.etops` as a single figure — `0` on the reference plan — without saying why. The penalty
-  is `max(0, max over points of (critical fuel − fuel on board))`, so the briefing reports the
-  governing point and its margin. On the reference plan the worst case is the equal-time point
-  at 14,566 kg against 19,344 kg on board, a 4,778 kg surplus, which is precisely why the
-  penalty is nil.
+
 - **Snapshot the ETOPS suitable airports with their suitability window.** Start and end of the
   period each airport must be usable, the planned runway, forecast ceiling and visibility, and
   transition altitude and level. The windows differ per airport and are the substance of the
@@ -74,8 +80,8 @@ to survive into the briefing or the briefing lies.
   threshold ring that fixes where ETOPS begins — the defining geometry of an ETOPS chart, and
   the thing that makes the points mean something rather than float. The radius is not in the
   plan's JSON and cannot be derived from it, because no one-engine-inoperative speed appears
-  anywhere in the payload; the diversion legs are flown at 10,000 ft and give the wrong speed
-  entirely. It is published in the companion map file the plan links to, as
+  anywhere in the payload, and the plan's own diversion figures are flown at 10,000 ft and imply
+  the wrong speed entirely. It is published in the companion map file the plan links to, as
   `etopsruledist = 2694.8333` nm against a 370 minute rule, from which both rings follow. The
   track direction that applies to the flight is taken from the same file. Where the file cannot
   be read the rings are simply absent and the import still succeeds.
@@ -92,24 +98,13 @@ to survive into the briefing or the briefing lies.
   planned along Track W, filed as individual waypoints, because the aircraft reaches 30 W at
   23:27 Z and Track W is not active until 01:00 Z. Reporting that flight as "on Track W" would
   be wrong about its clearance.
-- **Snapshot the enroute hazards.** The SIGMETs the plan carries, each with its identifier,
-  hazard type, issuing FIR, validity window and text, and the flight information regions the
-  plan marks as ETOPS-relevant.
-- **Snapshot the briefing charts.** The plan's ten chart images — route, four significant
-  weather, four upper wind, and vertical profile — as named links. The route chart is not a
-  bare route: SimBrief renders the entry and exit points, the equal-time point, the threshold
-  and rule rings, the suitable airports, the destination alternates and the oceanic track
-  structure onto one image. It is the whole ETOPS picture for the cost of displaying a link,
-  and it is the fastest thing in this change to ship. The stored geometry exists so the same
-  picture can be drawn interactively — zoomable, layer-toggled, and overlaid with the live
-  aircraft position, none of which a fixed image can do.
+
 - **Serve the whole thing as one briefing.** `GET /flight/:id/etops-briefing`, readable by any
   role that can already read the OFP, returning a single document: the ETOPS plan and its
-  points, the diversion legs, the suitable airports with their windows and weather, the planned
-  route, the oceanic tracks and the flight's routing against them, the enroute hazards and the
-  charts. One read, everything assembled, nothing the caller has to stitch together — and
+  points, the airports each turns toward, the suitable airports with their windows, the planned
+  route, the oceanic tracks and the flight's routing against them, and the flight's routing against them. One read, everything assembled, nothing the caller has to stitch together — and
   enough geometry in it to draw the whole picture on a map. A flight planned without ETOPS
-  reports the route, tracks, hazards and charts it has and no ETOPS section; a flight not
+  reports the route and tracks it has and no ETOPS section; a flight not
   imported from SimBrief reports that no briefing exists.
 No existing endpoint changes shape. `GET /flight/:id/ofp` keeps serving the rendered plan
 unchanged, because a crew that wants the original document should still get it.
@@ -118,17 +113,16 @@ unchanged, because a crew that wants the original document should still get it.
 
 ### New Capabilities
 
-- `flight-etops-plan`: the rule time, the entry, exit and equal-time points, their diversion
-  legs, the critical point, and the derived fuel penalty with its governing point.
+- `flight-etops-plan`: the rule time, the entry, exit and equal-time points, the airports each
+  turns toward, the critical point, and the range rings.
 - `etops-suitable-airports`: the diversion airports of an ETOPS flight — their suitability
   windows, planned runway and the conditions forecast for those windows.
 - `flight-planned-route`: the plan's route fixes in order with their positions, so the briefing
   and its points can be drawn.
+- `navigation-waypoints`: a catalogue of waypoints and navaids with their positions, accumulated
+  from every plan imported and readable on its own.
 - `flight-oceanic-tracks`: the per-flight track message snapshot, and the three-state routing
   status describing how the flight relates to it.
-- `flight-enroute-hazards`: the SIGMETs and ETOPS-relevant flight information regions the plan
-  carries.
-- `flight-briefing-charts`: the plan's chart images as named links.
 
 ### Modified Capabilities
 
@@ -148,12 +142,13 @@ rather than assumed.
 - **API**: one new read, `GET /api/v1/flight/:flightId/etops-briefing`, with the role set that
   already governs `GET /flight/:flightId/ofp`. 404 when the flight has no imported plan,
   matching the OFP endpoint's existing behaviour and message.
-- **Schema**: `flight_etops_point` (one row per published point, carrying its position, times,
-  fuel and condition), `flight_etops_diversion` (one row per leg, two for the equal-time point),
+- **Schema**: `flight_etops_point` (one row per published point, carrying its position, elapsed
+  time and condition), `flight_etops_diversion` (one row per leg, two for the equal-time point),
   `flight_etops_airport` (a suitable airport's window, planned runway and forecast conditions),
-  `flight_route_fix` (the planned route in order, 26 rows on the reference plan),
+  `flight_route_fix` (the planned route in order, 26 rows on the reference plan), `waypoint`
+  (the accumulated catalogue, keyed by identifier and region),
   `flight_oceanic_track` (one row per published track, with its fixes as JSON since they are
-  read only as a whole), `flight_enroute_hazard`, and `flight_briefing_chart`.
+  read only as a whole).
   `flight.etopsRuleMinutes`, `flight.etopsRuleDistance`, `flight.etopsThresholdMinutes`,
   `flight.oceanicRouting` and `flight.oceanicTrackDirection` on the flight itself, the three
   ring-related fields nullable so an unavailable companion file leaves the plan intact. Every table is
@@ -165,9 +160,9 @@ rather than assumed.
 - **Provider types**: `simbrief.types.ts` gains the full `etops` block — currently typed as
   `{ entry, exit, suitable_airport }` and missing `rule`, `critical_point`,
   `equal_time_point`, and every fuel and diversion field on the points — plus `tracks`,
-  `sigmets`, `images` and `atc.fir_etops`. The existing `Airport` type is not widened; the
+  and `atc.fir_etops`. The existing `Airport` type is not widened; the
   ETOPS point shape is distinct from an airport and gets its own type.
-- **Domain enums**: `EtopsCondition`, `OceanicRouting`, `TrackDirection`, `HazardType` — all
+- **Domain enums**: `EtopsCondition`, `OceanicRouting`, `TrackDirection` — all
   PascalCase keys, separate from any Prisma enum, cast at the boundary.
 - **Errors**: none new. The briefing reuses the OFP endpoint's existing not-found error.
 - **Tests**: unit specs for the fuel-penalty derivation including the nil case, the

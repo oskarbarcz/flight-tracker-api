@@ -17,6 +17,35 @@ SHALL be stored once.
 - **WHEN** an imported plan names the same airport in its suitable airport list and in a diversion leg
 - **THEN** that airport is reported once
 
+### Requirement: An airport holds one role in the flight's airport list
+
+The flight's airport list SHALL record each airport once, under a single role. Where an airport
+holds several roles on one flight — an exit threshold airport that is also its own diversion
+target, or an enroute alternate that is also an ETOPS suitable airport — the list SHALL keep the
+more specific role and SHALL NOT record the airport twice.
+
+The precise relationship between an ETOPS point and its adequate and suitable airports is
+carried by the ETOPS point and its diversion legs, not by this list, which records only that an
+airport is relevant to the flight.
+
+#### Scenario: An airport that is both the exit airport and its own diversion target
+
+- **GIVEN** an exit point whose adequate airport and whose diversion leg both name the same airport
+- **WHEN** the flight's airport list is read
+- **THEN** that airport appears once, as the ETOPS exit airport
+
+#### Scenario: An airport that is both an enroute alternate and an ETOPS suitable airport
+
+- **GIVEN** a plan naming one airport as its enroute alternate and among its ETOPS suitable airports
+- **WHEN** the flight's airport list is read
+- **THEN** that airport appears once, as the enroute alternate
+
+#### Scenario: The point still names both of its airports
+
+- **GIVEN** an exit point whose adequate airport and diversion target are the same airport
+- **WHEN** that ETOPS point and its diversion leg are read
+- **THEN** both name that airport, independently of how the flight's airport list records it
+
 ### Requirement: Each ETOPS airport records the period it must be usable
 
 The system SHALL store the suitability window each ETOPS airport is assessed over — its start

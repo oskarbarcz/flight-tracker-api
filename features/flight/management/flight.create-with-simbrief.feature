@@ -263,6 +263,29 @@ Feature: Create a flight with Simbrief
             },
             "type": "etops_exit",
             "shape": "@coordinates"
+          },
+          {
+            "id": "@uuid",
+            "icaoCode": "CYQX",
+            "iataCode": "YQX",
+            "city": {
+              "id": "@uuid",
+              "name": "Gander"
+            },
+            "name": "Gander International Airport",
+            "country": {
+              "code": "CA",
+              "name": "Canada"
+            },
+            "timezone": "America/St_Johns",
+            "continent": "north_america",
+            "dataQuality": "low",
+            "location": {
+              "latitude": 48.936901,
+              "longitude": -54.5681
+            },
+            "type": "etops_suitable",
+            "shape": null
           }
         ],
         "departureParkingPositionId": null,

@@ -1,4 +1,8 @@
-import { CreateFlightFromSimbriefHandler } from './create-flight-from-simbrief.command';
+import {
+  AlternateAirportCandidate,
+  CreateFlightFromSimbriefHandler,
+} from './create-flight-from-simbrief.command';
+import { AirportType } from '../../../airports/model/airport.model';
 import { FlightServiceType } from '../../model/flight.model';
 import {
   Crew,
@@ -141,5 +145,82 @@ describe('CreateFlightFromSimbriefHandler crew collection', () => {
     expect(countCabinCrew({ pu: { '0': '   ' }, fa: ['ann poe', {}] })).toBe(1);
     expect(countCabinCrew({ pu: 'john roe', fa: 'ann poe' })).toBe(2);
     expect(countCabinCrew(undefined)).toBe(0);
+  });
+});
+
+describe('CreateFlightFromSimbriefHandler ETOPS airport roles', () => {
+  let handler: CreateFlightFromSimbriefHandler;
+
+  function collect(
+    etops: OperationalFlightPlan['etops'],
+  ): AlternateAirportCandidate[] {
+    return (
+      handler as unknown as {
+        collectAlternateCandidates: (
+          ofp: OperationalFlightPlan,
+        ) => AlternateAirportCandidate[];
+      }
+    ).collectAlternateCandidates({ etops } as OperationalFlightPlan);
+  }
+
+  function typeOf(
+    candidates: AlternateAirportCandidate[],
+    icaoCode: string,
+  ): AirportType | undefined {
+    return candidates.find((candidate) => candidate.icaoCode === icaoCode)
+      ?.type;
+  }
+
+  beforeEach(() => {
+    handler = buildHandler();
+  });
+
+  it('maps the entry point to its adequate airport and its diversion airport apart', () => {
+    const candidates = collect({
+      entry: { icao_code: 'CYYT', div_airport: { icao_code: 'CYQX' } },
+      exit: { icao_code: 'EINN', div_airport: { icao_code: 'EINN' } },
+    });
+
+    expect(typeOf(candidates, 'CYYT')).toBe(AirportType.EtopsEntry);
+    expect(typeOf(candidates, 'CYQX')).toBe(AirportType.EtopsSuitable);
+  });
+
+  it('keeps the adequate role when one airport is both the exit and its own diversion airport', () => {
+    const candidates = collect({
+      entry: { icao_code: 'CYYT', div_airport: { icao_code: 'CYQX' } },
+      exit: { icao_code: 'EINN', div_airport: { icao_code: 'EINN' } },
+    });
+
+    expect(
+      candidates.filter((candidate) => candidate.icaoCode === 'EINN'),
+    ).toHaveLength(1);
+    expect(typeOf(candidates, 'EINN')).toBe(AirportType.EtopsExit);
+  });
+
+  it('imports the suitable airports the plan publishes', () => {
+    const candidates = collect({
+      entry: { icao_code: 'CYYT' },
+      exit: { icao_code: 'EINN' },
+      suitable_airport: [{ icao_code: 'CYQX' }, { icao_code: 'BIKF' }],
+    });
+
+    expect(typeOf(candidates, 'CYQX')).toBe(AirportType.EtopsSuitable);
+    expect(typeOf(candidates, 'BIKF')).toBe(AirportType.EtopsSuitable);
+  });
+
+  it('imports an airport once when it is named as both a diversion target and a suitable airport', () => {
+    const candidates = collect({
+      entry: { icao_code: 'CYYT', div_airport: { icao_code: 'CYQX' } },
+      exit: { icao_code: 'EINN' },
+      suitable_airport: { icao_code: 'CYQX' },
+    });
+
+    expect(
+      candidates.filter((candidate) => candidate.icaoCode === 'CYQX'),
+    ).toHaveLength(1);
+  });
+
+  it('collects nothing from a plan without an ETOPS section', () => {
+    expect(collect(undefined)).toEqual([]);
   });
 });

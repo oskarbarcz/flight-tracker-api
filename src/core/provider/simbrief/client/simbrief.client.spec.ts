@@ -106,3 +106,73 @@ describe('SimbriefClient', () => {
     );
   });
 });
+
+describe('SimbriefClient route map data', () => {
+  const originalFetch = global.fetch;
+  const client = new SimbriefClient('http://simbrief.test');
+  const url = 'http://simbrief.test/ofp/flightplans/PLAN_MJS_1.js';
+
+  const MAP_BODY = [
+    '//SimBrief route definition',
+    'var natsdir = "E";',
+    'var etopsdata = true;',
+    'var etopsrule = 370;',
+    'var etopsruledist = 2694.8333333333;',
+    'var etopsthreshold = 60;',
+  ].join('\n');
+
+  function textResponse(body: string, status: number): Response {
+    return new Response(body, {
+      status,
+      headers: { 'Content-Type': 'application/javascript' },
+    });
+  }
+
+  afterEach(() => {
+    global.fetch = originalFetch;
+  });
+
+  it('reads the ETOPS figures the companion file publishes', async () => {
+    global.fetch = jest.fn().mockResolvedValue(textResponse(MAP_BODY, 200));
+
+    await expect(client.findRouteMapData(url)).resolves.toEqual({
+      etopsRule: 370,
+      etopsRuleDistance: 2694.8333333333,
+      etopsThresholdMinutes: 60,
+      tracksDirection: 'E',
+    });
+  });
+
+  it('reports nothing when the companion file is unreachable', async () => {
+    global.fetch = jest.fn().mockRejectedValue(new Error('network down'));
+
+    await expect(client.findRouteMapData(url)).resolves.toBeNull();
+  });
+
+  it('reports nothing when the companion file is missing', async () => {
+    global.fetch = jest.fn().mockResolvedValue(textResponse('', 404));
+
+    await expect(client.findRouteMapData(url)).resolves.toBeNull();
+  });
+
+  it('reports nothing when the companion file carries no ETOPS figures', async () => {
+    global.fetch = jest
+      .fn()
+      .mockResolvedValue(textResponse('var routing = [];', 200));
+
+    await expect(client.findRouteMapData(url)).resolves.toBeNull();
+  });
+
+  it('reports the figures it can read when the file is partial', async () => {
+    global.fetch = jest
+      .fn()
+      .mockResolvedValue(textResponse('var etopsruledist = 1800;', 200));
+
+    await expect(client.findRouteMapData(url)).resolves.toEqual({
+      etopsRule: undefined,
+      etopsRuleDistance: 1800,
+      etopsThresholdMinutes: undefined,
+      tracksDirection: undefined,
+    });
+  });
+});
