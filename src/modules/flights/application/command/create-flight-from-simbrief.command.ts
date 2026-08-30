@@ -148,6 +148,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
             cabinCrew: this.countCabinCrew(ofp.crew),
           },
           passengers: Number(ofp.weights.pax_count),
+          passengerMass: this.plannedPassengerMass(ofp),
           cargo: this.ofpWeightToTons(ofp.weights.cargo),
           blockFuel: this.ofpWeightToTons(ofp.fuel.plan_ramp),
           payload: this.ofpWeightToTons(ofp.weights.payload),
@@ -583,7 +584,26 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
   }
 
   private ofpWeightToTons(input: string): number {
-    return Math.round((Number(input) / 1000) * 10) / 10;
+    return Math.round(Number(input)) / 1000;
+  }
+
+  private plannedPassengerMass(ofp: OperationalFlightPlan): number | null {
+    const passengers = Number(ofp.weights.pax_count);
+
+    if (!Number.isFinite(passengers) || passengers <= 0) {
+      return null;
+    }
+
+    const allowanceKg =
+      (this.ofpWeightToTons(ofp.weights.payload) -
+        this.ofpWeightToTons(ofp.weights.cargo)) *
+      1000;
+
+    if (!Number.isFinite(allowanceKg) || allowanceKg <= 0) {
+      return null;
+    }
+
+    return Math.floor((allowanceKg / passengers) * 10) / 10;
   }
 
   private ofpTimeToDate(input: string): Date {

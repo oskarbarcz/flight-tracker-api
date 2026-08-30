@@ -60,4 +60,42 @@ describe('assertPayloadAccountsForLoad', () => {
       'Payload of 4000 kg cannot carry 15400 kg of cargo and passengers.',
     );
   });
+
+  it('accepts a payload planned at a lighter passenger', () => {
+    const sheet = loadsheet({
+      payload: 22.6,
+      cargo: 1.2,
+      passengers: 267,
+      passengerMass: 80,
+    });
+
+    expect(() => assertPayloadAccountsForLoad(sheet)).not.toThrow();
+  });
+
+  it('rejects that same payload once no mass is recorded', () => {
+    const sheet = loadsheet({ payload: 22.6, cargo: 1.2, passengers: 267 });
+
+    expect(() => assertPayloadAccountsForLoad(sheet)).toThrow(
+      'Payload of 22600 kg cannot carry 23628 kg of cargo and passengers.',
+    );
+  });
+
+  it('rejects a payload short of the mass it was planned with', () => {
+    const sheet = loadsheet({
+      payload: 22.5,
+      cargo: 1.2,
+      passengers: 267,
+      passengerMass: 80,
+    });
+
+    expect(() => assertPayloadAccountsForLoad(sheet)).toThrow(
+      PayloadBelowLoadError,
+    );
+  });
+
+  it('rests on the cargo alone when no passengers are carried', () => {
+    const sheet = loadsheet({ payload: 7, cargo: 7, passengers: 0 });
+
+    expect(() => assertPayloadAccountsForLoad(sheet)).not.toThrow();
+  });
 });

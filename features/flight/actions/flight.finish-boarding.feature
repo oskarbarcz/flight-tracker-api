@@ -1870,3 +1870,41 @@ Feature: Finish flight boarding
         "statusCode": 401
       }
       """
+
+  Scenario: Boarding finishes on the weights an imported plan supplied
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/7e2b8d5c-a6f3-4049-98b1-d4f9a2e35b67/finish-boarding" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "cabinCrew": 12,
+          "reliefPilots": 1
+        },
+        "passengers": 348,
+        "payload": 35.844,
+        "cargo": 8.004,
+        "zeroFuelWeight": 204.435,
+        "blockFuel": 71.636
+      }
+      """
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/7e2b8d5c-a6f3-4049-98b1-d4f9a2e35b67"
+    Then the response status should be 200
+    And the response body property "loadsheets.final" should contain:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "cabinCrew": 12,
+          "reliefPilots": 1
+        },
+        "passengers": 348,
+        "passengerMass": 80,
+        "payload": 35.844,
+        "cargo": 8.004,
+        "zeroFuelWeight": 204.435,
+        "blockFuel": 71.636
+      }
+      """
+    And I set database to initial state

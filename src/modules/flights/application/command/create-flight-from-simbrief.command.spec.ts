@@ -225,3 +225,64 @@ describe('CreateFlightFromSimbriefHandler ETOPS airport roles', () => {
     expect(collect(undefined)).toEqual([]);
   });
 });
+
+function ofpWithWeights(
+  payload: string,
+  cargo: string,
+  paxCount: string,
+): OperationalFlightPlan {
+  return {
+    weights: { payload, cargo, pax_count: paxCount },
+  } as OperationalFlightPlan;
+}
+
+describe('CreateFlightFromSimbriefHandler weight import', () => {
+  let handler: CreateFlightFromSimbriefHandler;
+
+  function toTons(input: string): number {
+    return (
+      handler as unknown as { ofpWeightToTons: (input: string) => number }
+    ).ofpWeightToTons(input);
+  }
+
+  function massOf(ofp: OperationalFlightPlan): number | null {
+    return (
+      handler as unknown as {
+        plannedPassengerMass: (ofp: OperationalFlightPlan) => number | null;
+      }
+    ).plannedPassengerMass(ofp);
+  }
+
+  beforeEach(() => {
+    handler = buildHandler();
+  });
+
+  it('keeps the kilograms the plan reports', () => {
+    expect(toTons('22649')).toBe(22.649);
+    expect(toTons('1151')).toBe(1.151);
+    expect(toTons('206523')).toBe(206.523);
+  });
+
+  it('derives the mass a plan sized its payload against', () => {
+    expect(massOf(ofpWithWeights('37932', '8004', '348'))).toBe(86);
+  });
+
+  it('derives a mass lighter than the standard adult', () => {
+    expect(massOf(ofpWithWeights('22600', '1200', '267'))).toBe(80.1);
+  });
+
+  it('rounds the derived mass down so the plan clears its own floor', () => {
+    const mass = massOf(ofpWithWeights('22649', '1151', '267')) as number;
+
+    expect(mass).toBe(80.5);
+    expect(1151 + 267 * mass).toBeLessThanOrEqual(22649);
+  });
+
+  it('derives no mass when the plan carries no passengers', () => {
+    expect(massOf(ofpWithWeights('8004', '8004', '0'))).toBeNull();
+  });
+
+  it('derives no mass when the payload does not exceed the cargo', () => {
+    expect(massOf(ofpWithWeights('8004', '8004', '120'))).toBeNull();
+  });
+});

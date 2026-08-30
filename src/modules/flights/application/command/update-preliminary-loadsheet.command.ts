@@ -14,6 +14,7 @@ import {
   assertFuelBreakdownConsistent,
   assertPassengerBreakdownConsistent,
   assertPayloadAccountsForLoad,
+  withPlannedPassengerMass,
 } from '../../model/loadsheet.policy';
 import { GetSeatCapacityQuery } from '../../../manifest/application/query/get-seat-capacity.query';
 import { SeatCapacityExceededError } from '../../../manifest/model/error/manifest.error';
@@ -49,32 +50,37 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
       throw new InvalidStatusToUpdateLoadsheetError();
     }
 
-    assertFuelBreakdownConsistent(loadsheet);
-    assertPassengerBreakdownConsistent(loadsheet);
-    assertPayloadAccountsForLoad(loadsheet);
+    const planned = withPlannedPassengerMass(
+      loadsheet,
+      flight.loadsheets.preliminary?.passengerMass,
+    );
+
+    assertFuelBreakdownConsistent(planned);
+    assertPassengerBreakdownConsistent(planned);
+    assertPayloadAccountsForLoad(planned);
 
     const capacityQuery = new GetSeatCapacityQuery(flight.aircraft.id);
     const capacity: CabinCapacity | null =
       await this.queryBus.execute(capacityQuery);
 
     if (capacity) {
-      if (loadsheet.passengers > capacity.totalSeats) {
+      if (planned.passengers > capacity.totalSeats) {
         throw new SeatCapacityExceededError(
-          loadsheet.passengers,
+          planned.passengers,
           capacity.totalSeats,
         );
       }
 
-      if (loadsheet.passengersByCabin) {
+      if (planned.passengersByCabin) {
         assertBreakdownFitsCabins(
           capacity.cabinSizes,
-          loadsheet.passengersByCabin,
+          planned.passengersByCabin,
         );
       }
     }
 
     const loadsheets: Loadsheets = {
-      preliminary: loadsheet,
+      preliminary: planned,
       final: flight.loadsheets.final,
     };
     await this.flightsRepository.updateLoadsheets(flightId, loadsheets);

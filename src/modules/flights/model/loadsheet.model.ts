@@ -209,12 +209,24 @@ export class Loadsheet {
   @IsCountRecord()
   passengersByCabin?: PassengerCounts | null;
 
+  @ApiPropertyOptional({
+    description:
+      'Mass per passenger in kilograms the loadsheet was planned with, used as the floor its payload is measured against. Derived from the imported flight plan and ignored on write; absent when no plan stated one, in which case the standard adult mass applies.',
+    example: 80,
+    nullable: true,
+    type: Number,
+    readOnly: true,
+  })
+  @IsOptional()
+  @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 1 })
+  passengerMass?: number | null;
+
   @ApiProperty({
     description: 'Cargo in tons',
     example: 3.5,
   })
   @IsNotEmpty()
-  @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 2 })
+  @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 3 })
   cargo!: number;
 
   @ApiProperty({

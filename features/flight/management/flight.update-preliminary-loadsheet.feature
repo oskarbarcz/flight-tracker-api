@@ -1812,3 +1812,107 @@ Feature: Update flight preliminary loadsheet
       }
       """
     And I set database to initial state
+
+  Scenario: As operations I can resubmit an imported loadsheet planned at a lighter passenger
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/6d1a7c4b-95e2-4f38-b7a0-c3e8f1d24a56/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "cabinCrew": 12,
+          "reliefPilots": 1
+        },
+        "passengers": 348,
+        "payload": 35.844,
+        "cargo": 8.004,
+        "zeroFuelWeight": 204.435,
+        "blockFuel": 71.636
+      }
+      """
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/6d1a7c4b-95e2-4f38-b7a0-c3e8f1d24a56"
+    Then the response status should be 200
+    And the response body property "loadsheets.preliminary" should contain:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "cabinCrew": 12,
+          "reliefPilots": 1
+        },
+        "passengers": 348,
+        "passengerMass": 80,
+        "payload": 35.844,
+        "cargo": 8.004,
+        "zeroFuelWeight": 204.435,
+        "blockFuel": 71.636
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot cut the payload below the mass the plan was built with
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/6d1a7c4b-95e2-4f38-b7a0-c3e8f1d24a56/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "cabinCrew": 12,
+          "reliefPilots": 1
+        },
+        "passengers": 348,
+        "payload": 35.8,
+        "cargo": 8.004,
+        "zeroFuelWeight": 204.4,
+        "blockFuel": 71.636
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 422,
+        "message": "Payload of 35800 kg cannot carry 35844 kg of cargo and passengers.",
+        "error": "Unprocessable Content"
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations I cannot name the passenger mass my payload is measured against
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/6d1a7c4b-95e2-4f38-b7a0-c3e8f1d24a56/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "cabinCrew": 12,
+          "reliefPilots": 1
+        },
+        "passengers": 348,
+        "passengerMass": 10,
+        "payload": 35.844,
+        "cargo": 8.004,
+        "zeroFuelWeight": 204.435,
+        "blockFuel": 71.636
+      }
+      """
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/6d1a7c4b-95e2-4f38-b7a0-c3e8f1d24a56"
+    Then the response body property "loadsheets.preliminary" should contain:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "cabinCrew": 12,
+          "reliefPilots": 1
+        },
+        "passengers": 348,
+        "passengerMass": 80,
+        "payload": 35.844,
+        "cargo": 8.004,
+        "zeroFuelWeight": 204.435,
+        "blockFuel": 71.636
+      }
+      """
+    And I set database to initial state

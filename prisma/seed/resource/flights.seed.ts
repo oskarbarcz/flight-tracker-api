@@ -5213,6 +5213,178 @@ async function loadDLH81(tx: Prisma.TransactionClient): Promise<void> {
 }
 
 /**
+ * DLH82 | 6d1a7c4b-95e2-4f38-b7a0-c3e8f1d24a56
+ * Frankfurt Rhein/Main (EDDF) -> New York JFK (KJFK)
+ * status: Created — imported from a plan built at 80 kg per passenger, lighter than
+ * the standard adult mass, so its payload only accounts for its load at the mass it
+ * was planned with.
+ */
+async function loadDLH82(tx: Prisma.TransactionClient): Promise<void> {
+  const data = {
+    id: '6d1a7c4b-95e2-4f38-b7a0-c3e8f1d24a56',
+    departureParkingPositionId: 'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9',
+    departureRunwayId: '32121288-2550-4b81-a558-9a7193ef6c97',
+    arrivalParkingPositionId: null,
+    arrivalRunwayId: null,
+    flightNumber: 'LH82',
+    callsign: 'DLH82',
+    atcCallsign: null,
+    isEtops: true,
+    captainId: null,
+    status: FlightStatus.Created,
+    aircraftId: '785bdfda-291a-4c11-a5d9-b57b5c0b8e5e', // D-AIMK A339
+    operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
+    source: FlightSource.Simbrief,
+    timesheet: {
+      scheduled: {
+        arrivalTime: '2025-01-06T17:10:00.000Z',
+        onBlockTime: '2025-01-06T17:25:00.000Z',
+        takeoffTime: '2025-01-06T09:20:00.000Z',
+        offBlockTime: '2025-01-06T09:00:00.000Z',
+      },
+    } as Prisma.InputJsonValue,
+    loadsheets: {
+      final: null,
+      preliminary: {
+        cargo: 8.004,
+        payload: 35.844,
+        blockFuel: 71.636,
+        passengerMass: 80,
+        fuel: {
+          block: 71.636,
+          taxi: 0.8,
+          trip: 60.7,
+          alternate: 4.2,
+          reserve: 2.9,
+          contingencyType: '5%',
+          contingencyAmount: 3,
+          mel: 0,
+          atc: 0,
+          wxx: 0,
+          extra: 0,
+          tankering: 0,
+        },
+        flightCrew: { pilots: 2, cabinCrew: 12, reliefPilots: 1 },
+        passengers: 348,
+        zeroFuelWeight: 204.435,
+      },
+    } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
+    greatCircleDistance: 3350,
+    totalFuelBurned: 156000,
+    simbriefRequestId: 162595444,
+    simbriefSequenceId: '816599746ea6',
+    route: 'EDDF DCT KOBRA DCT NAPOL DCT PELLA DCT BAKUR DCT KJFK',
+  };
+
+  await createFrankfurtToJfkFlight(tx, data);
+}
+
+/**
+ * DLH83 | 7e2b8d5c-a6f3-4049-98b1-d4f9a2e35b67
+ * Frankfurt Rhein/Main (EDDF) -> New York JFK (KJFK)
+ * status: Boarding started — the boarding counterpart of DLH82, so a final loadsheet
+ * can be submitted on the weights its plan supplied.
+ */
+async function loadDLH83(tx: Prisma.TransactionClient): Promise<void> {
+  const data = {
+    id: '7e2b8d5c-a6f3-4049-98b1-d4f9a2e35b67',
+    departureParkingPositionId: 'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9',
+    departureRunwayId: '32121288-2550-4b81-a558-9a7193ef6c97',
+    arrivalParkingPositionId: null,
+    arrivalRunwayId: null,
+    flightNumber: 'LH83',
+    callsign: 'DLH83',
+    atcCallsign: null,
+    isEtops: true,
+    captainId: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+    status: FlightStatus.BoardingStarted,
+    aircraftId: '785bdfda-291a-4c11-a5d9-b57b5c0b8e5e', // D-AIMK A339
+    operatorId: '40b1b34e-aea1-4cec-acbe-f2bf97c06d7d', // Lufthansa,
+    source: FlightSource.Simbrief,
+    timesheet: {
+      scheduled: {
+        arrivalTime: '2025-01-07T17:10:00.000Z',
+        onBlockTime: '2025-01-07T17:25:00.000Z',
+        takeoffTime: '2025-01-07T09:20:00.000Z',
+        offBlockTime: '2025-01-07T09:00:00.000Z',
+      },
+      estimated: {
+        arrivalTime: '2025-01-07T17:10:00.000Z',
+        onBlockTime: '2025-01-07T17:25:00.000Z',
+        takeoffTime: '2025-01-07T09:20:00.000Z',
+        offBlockTime: '2025-01-07T09:00:00.000Z',
+      },
+    } as Prisma.InputJsonValue,
+    loadsheets: {
+      final: null,
+      preliminary: {
+        cargo: 8.004,
+        payload: 35.844,
+        blockFuel: 71.636,
+        passengerMass: 80,
+        fuel: {
+          block: 71.636,
+          taxi: 0.8,
+          trip: 60.7,
+          alternate: 4.2,
+          reserve: 2.9,
+          contingencyType: '5%',
+          contingencyAmount: 3,
+          mel: 0,
+          atc: 0,
+          wxx: 0,
+          extra: 0,
+          tankering: 0,
+        },
+        flightCrew: { pilots: 2, cabinCrew: 12, reliefPilots: 1 },
+        passengers: 348,
+        zeroFuelWeight: 204.435,
+      },
+    } as Prisma.InputJsonValue & Loadsheets,
+    createdAt: new Date('2025-01-01 00:00'),
+    greatCircleDistance: 3350,
+    totalFuelBurned: 156000,
+    simbriefRequestId: 162595445,
+    simbriefSequenceId: '816599746ea7',
+    route: 'EDDF DCT KOBRA DCT NAPOL DCT PELLA DCT BAKUR DCT KJFK',
+  };
+
+  await createFrankfurtToJfkFlight(tx, data);
+}
+
+async function createFrankfurtToJfkFlight(
+  tx: Prisma.TransactionClient,
+  data: Parameters<Prisma.TransactionClient['flight']['create']>[0]['data'],
+): Promise<void> {
+  const departureAirport = await tx.airport.findFirstOrThrow({
+    where: { id: 'f35c094a-bec5-4803-be32-bd80a14b441a' }, // Frankfurt
+  });
+
+  const arrivalAirport = await tx.airport.findFirstOrThrow({
+    where: { id: '3c721cc6-c653-4fad-be43-dc9d6a149383' }, // New York JFK
+  });
+
+  const flight = await tx.flight.create({ data });
+
+  await tx.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: departureAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Departure,
+    },
+  });
+
+  await tx.airportsOnFlights.create({
+    data: {
+      airport: { connect: { id: arrivalAirport.id } },
+      flight: { connect: { id: flight.id } },
+      airportType: AirportType.Destination,
+    },
+  });
+}
+
+/**
  * DLH880 | b88f1c0d-3a55-4ce0-9f7b-1c2d3e4f5a6b
  * Frankfurt (EDDF) -> Paris CDG (LFPG)
  * status: In cruise — active emergency declared (electrical generator failure)
@@ -5893,6 +6065,8 @@ export async function loadFlights(tx: Prisma.TransactionClient): Promise<void> {
   await loadDLH103(tx);
   await loadDLH500(tx);
   await loadDLH81(tx);
+  await loadDLH82(tx);
+  await loadDLH83(tx);
   await loadDLH880(tx);
   await loadRecentCarrierFlights(tx);
   await backfillFlightCreators(tx);

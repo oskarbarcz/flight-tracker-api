@@ -37,18 +37,19 @@ Feature: Create a flight with Simbrief
         "loadsheets": {
           "final": null,
           "preliminary": {
-            "cargo": 8,
-            "payload": 37.9,
-            "blockFuel": 71.6,
+            "cargo": 8.004,
+            "payload": 37.932,
+            "blockFuel": 71.636,
             "flightCrew": {
               "pilots": 2,
               "cabinCrew": 5,
               "reliefPilots": 0
             },
             "passengers": 348,
-            "zeroFuelWeight": 206.5,
+            "passengerMass": 86,
+            "zeroFuelWeight": 206.523,
             "fuel": {
-              "block": 71.6,
+              "block": 71.636,
               "taxi": 0.8,
               "trip": 58,
               "alternate": 4.2,
@@ -61,9 +62,9 @@ Feature: Create a flight with Simbrief
               "extra": 0.6,
               "tankering": 0,
               "etops": 0,
-              "minTakeoff": 70.8,
-              "planTakeoff": 70.8,
-              "planLanding": 12.8,
+              "minTakeoff": 70.836,
+              "planTakeoff": 70.836,
+              "planLanding": 12.836,
               "averageFuelFlow": 5.8,
               "maxTanks": 111
             }
@@ -386,18 +387,19 @@ Feature: Create a flight with Simbrief
         "loadsheets": {
           "final": null,
           "preliminary": {
-            "cargo": 8,
-            "payload": 37.9,
-            "blockFuel": 71.6,
+            "cargo": 8.004,
+            "payload": 37.932,
+            "blockFuel": 71.636,
             "flightCrew": {
               "pilots": 2,
               "cabinCrew": 5,
               "reliefPilots": 0
             },
             "passengers": 348,
-            "zeroFuelWeight": 206.5,
+            "passengerMass": 86,
+            "zeroFuelWeight": 206.523,
             "fuel": {
-              "block": 71.6,
+              "block": 71.636,
               "taxi": 0.8,
               "trip": 58,
               "alternate": 4.2,
@@ -410,9 +412,9 @@ Feature: Create a flight with Simbrief
               "extra": 0.6,
               "tankering": 0,
               "etops": 0,
-              "minTakeoff": 70.8,
-              "planTakeoff": 70.8,
-              "planLanding": 12.8,
+              "minTakeoff": 70.836,
+              "planTakeoff": 70.836,
+              "planLanding": 12.836,
               "averageFuelFlow": 5.8,
               "maxTanks": 111
             }
@@ -637,18 +639,19 @@ Feature: Create a flight with Simbrief
         "loadsheets": {
           "final": null,
           "preliminary": {
-            "cargo": 8,
-            "payload": 37.9,
-            "blockFuel": 71.6,
+            "cargo": 8.004,
+            "payload": 35.844,
+            "blockFuel": 71.636,
             "flightCrew": {
               "pilots": 2,
               "cabinCrew": 5,
               "reliefPilots": 0
             },
             "passengers": 348,
-            "zeroFuelWeight": 206.5,
+            "passengerMass": 80,
+            "zeroFuelWeight": 204.435,
             "fuel": {
-              "block": 71.6,
+              "block": 71.636,
               "taxi": 0.8,
               "trip": 58,
               "alternate": 4.2,
@@ -661,9 +664,9 @@ Feature: Create a flight with Simbrief
               "extra": 0.6,
               "tankering": 0,
               "etops": 0,
-              "minTakeoff": 70.8,
-              "planTakeoff": 70.8,
-              "planLanding": 12.8,
+              "minTakeoff": 70.836,
+              "planTakeoff": 70.836,
+              "planLanding": 12.836,
               "averageFuelFlow": 5.8,
               "maxTanks": 111
             }
