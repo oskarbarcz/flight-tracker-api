@@ -1,6 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable, Logger } from '@nestjs/common';
-import { OperationalFlightPlan } from '../type/simbrief.types';
+import { OperationalFlightPlan, RouteMapData } from '../type/simbrief.types';
 import { getErrorMessage } from '../../../utils/error-message';
 import { fetchWithRetry } from '../../http/fetch-with-retry';
 import {
@@ -66,6 +66,77 @@ export class SimbriefClient {
     this.logger.log(`Simbrief OFP downloaded for user ${userId}`);
 
     return payload;
+  }
+
+  async findRouteMapData(url: string): Promise<RouteMapData | null> {
+    let body: string;
+
+    try {
+      const response = await fetchWithRetry(url, {
+        headers: { Accept: 'text/plain' },
+      });
+
+      if (!response.ok) {
+        this.logger.warn(
+          `Simbrief answered ${response.status.toString()} for route map data, continuing without ETOPS range rings`,
+        );
+
+        return null;
+      }
+
+      body = await response.text();
+    } catch (error) {
+      this.logger.warn(
+        `Could not fetch Simbrief route map data, continuing without ETOPS range rings: ${getErrorMessage(error)}`,
+      );
+
+      return null;
+    }
+
+    return this.readRouteMapData(body);
+  }
+
+  private readRouteMapData(body: string): RouteMapData | null {
+    const mapData: RouteMapData = {
+      etopsRule: this.readMapNumber(body, 'etopsrule'),
+      etopsRuleDistance: this.readMapNumber(body, 'etopsruledist'),
+      etopsThresholdMinutes: this.readMapNumber(body, 'etopsthreshold'),
+      tracksDirection: this.readMapString(body, 'natsdir'),
+    };
+
+    const hasAnyValue = Object.values(mapData).some(
+      (value) => value !== undefined,
+    );
+
+    if (!hasAnyValue) {
+      this.logger.warn(
+        'Simbrief route map data carried no ETOPS figures, continuing without range rings',
+      );
+
+      return null;
+    }
+
+    return mapData;
+  }
+
+  private readMapNumber(body: string, name: string): number | undefined {
+    const match = new RegExp(
+      `var\\s+${name}\\s*=\\s*(-?\\d+(?:\\.\\d+)?)`,
+    ).exec(body);
+
+    if (match === null) {
+      return undefined;
+    }
+
+    const value = Number(match[1]);
+
+    return Number.isFinite(value) ? value : undefined;
+  }
+
+  private readMapString(body: string, name: string): string | undefined {
+    const match = new RegExp(`var\\s+${name}\\s*=\\s*"([^"]*)"`).exec(body);
+
+    return match === null || match[1].length === 0 ? undefined : match[1];
   }
 
   private async readPayload(

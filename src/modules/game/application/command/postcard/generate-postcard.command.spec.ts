@@ -37,9 +37,9 @@ function fakeRepository(
       height: null,
       ...started,
     }),
-    recordArt: jest.fn().mockResolvedValue(undefined),
-    recordArtSize: jest.fn().mockResolvedValue(undefined),
-    recordFailure: jest.fn().mockResolvedValue(undefined),
+    recordArt: jest.fn().mockResolvedValue(true),
+    recordArtSize: jest.fn().mockResolvedValue(true),
+    recordFailure: jest.fn().mockResolvedValue(true),
   } as unknown as jest.Mocked<PostcardsRepository>;
 }
 
@@ -106,6 +106,7 @@ describe('GeneratePostcardHandler', () => {
     expect(repository.recordFailure).not.toHaveBeenCalled();
     expect(repository.recordArtSize).toHaveBeenCalledWith(
       POSTCARD_ID,
+      expect.any(String),
       1152,
       1536,
     );
@@ -139,6 +140,7 @@ describe('GeneratePostcardHandler', () => {
 
     expect(repository.recordFailure).toHaveBeenCalledWith(
       POSTCARD_ID,
+      expect.any(String),
       'Postcard generator is unavailable.',
     );
   });
@@ -156,6 +158,7 @@ describe('GeneratePostcardHandler', () => {
 
     expect(repository.recordFailure).toHaveBeenCalledWith(
       POSTCARD_ID,
+      expect.any(String),
       'The generator will not draw "Cologne, Germany": Postcard generator rejected the request: city is not a place',
     );
   });

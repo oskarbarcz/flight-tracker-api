@@ -127,27 +127,32 @@ export class PostcardsRepository {
 
   async recordArtSize(
     id: string,
+    artUuid: string,
     width: number | null,
     height: number | null,
-  ): Promise<void> {
-    await this.prisma.postcard.update({
-      where: { id },
+  ): Promise<boolean> {
+    const { count } = await this.prisma.postcard.updateMany({
+      where: { id, artUuid },
       data: { width, height, updatedAt: new Date() },
     });
+
+    return count > 0;
   }
 
+  // Drawing happens in the background, so a result can arrive after the postcard has moved on —
+  // redrawn under a new art uuid, or reset. The write is therefore conditional on the postcard
+  // still being on the drawing the result belongs to; a stale result updates nothing.
   async recordArt(
     id: string,
     artUuid: string,
     imageUrl: string,
     width: number | null,
     height: number | null,
-  ): Promise<void> {
-    await this.prisma.postcard.update({
-      where: { id },
+  ): Promise<boolean> {
+    const { count } = await this.prisma.postcard.updateMany({
+      where: { id, artUuid },
       data: {
         status: PostcardStatus.Ready,
-        artUuid,
         imageUrl,
         width,
         height,
@@ -155,17 +160,25 @@ export class PostcardsRepository {
         updatedAt: new Date(),
       },
     });
+
+    return count > 0;
   }
 
-  async recordFailure(id: string, reason: string): Promise<void> {
-    await this.prisma.postcard.update({
-      where: { id },
+  async recordFailure(
+    id: string,
+    artUuid: string,
+    reason: string,
+  ): Promise<boolean> {
+    const { count } = await this.prisma.postcard.updateMany({
+      where: { id, artUuid },
       data: {
         status: PostcardStatus.Failed,
         failureReason: reason,
         updatedAt: new Date(),
       },
     });
+
+    return count > 0;
   }
 
   async listCitiesWithoutArt(): Promise<

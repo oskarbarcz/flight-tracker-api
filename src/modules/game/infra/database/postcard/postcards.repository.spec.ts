@@ -89,3 +89,70 @@ describe('PostcardsRepository.startDrawing', () => {
     });
   });
 });
+
+describe('PostcardsRepository writes a drawing result only while it is still current', () => {
+  const POSTCARD_ID = '0f3d6a2e-9c14-4f0b-8a7d-2b5e1c8f4a63';
+  const ART_UUID = 'e1af9fef-d903-4f8d-8d23-b644b2b961c2';
+
+  let prisma: { postcard: { updateMany: jest.Mock } };
+  let repository: PostcardsRepository;
+
+  beforeEach(() => {
+    prisma = { postcard: { updateMany: jest.fn() } };
+    repository = new PostcardsRepository(prisma as never);
+  });
+
+  it('keys the art on the drawing it belongs to', async () => {
+    prisma.postcard.updateMany.mockResolvedValue({ count: 1 });
+
+    await expect(
+      repository.recordArt(
+        POSTCARD_ID,
+        ART_UUID,
+        'http://art/1.png',
+        1152,
+        1536,
+      ),
+    ).resolves.toBe(true);
+    expect(prisma.postcard.updateMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: POSTCARD_ID, artUuid: ART_UUID },
+      }),
+    );
+  });
+
+  it('reports that art belonging to a superseded drawing was not stored', async () => {
+    prisma.postcard.updateMany.mockResolvedValue({ count: 0 });
+
+    await expect(
+      repository.recordArt(
+        POSTCARD_ID,
+        ART_UUID,
+        'http://art/1.png',
+        1152,
+        1536,
+      ),
+    ).resolves.toBe(false);
+  });
+
+  it('keys a failure on the drawing it belongs to', async () => {
+    prisma.postcard.updateMany.mockResolvedValue({ count: 1 });
+
+    await expect(
+      repository.recordFailure(POSTCARD_ID, ART_UUID, 'never delivered'),
+    ).resolves.toBe(true);
+    expect(prisma.postcard.updateMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: POSTCARD_ID, artUuid: ART_UUID },
+      }),
+    );
+  });
+
+  it('reports that a failure from a superseded drawing was not stored', async () => {
+    prisma.postcard.updateMany.mockResolvedValue({ count: 0 });
+
+    await expect(
+      repository.recordFailure(POSTCARD_ID, ART_UUID, 'never delivered'),
+    ).resolves.toBe(false);
+  });
+});

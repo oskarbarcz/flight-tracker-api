@@ -32,6 +32,7 @@ import {
   Crew,
   EmptyElement,
   OperationalFlightPlan,
+  RouteMapData,
   SimbriefNotam,
 } from '../../../../core/provider/simbrief/type/simbrief.types';
 import { GetRunwayByDesignatorQuery } from '../../../airports/application/query/runway/get-runway-by-designator.query';
@@ -41,10 +42,21 @@ import {
   CrewMember,
 } from '../../../crew/application/command/assign-crew-to-flight.command';
 import { CrewRole } from '../../../crew/model/crew.model';
+import {
+  mapEtopsAirports,
+  mapEtopsPoints,
+  mapEtopsRings,
+} from '../../model/etops-snapshot.mapper';
+import { harvestWaypoints } from '../../model/waypoint-harvester';
+import { WaypointsRepository } from '../../../waypoints/infra/database/waypoints.repository';
 
-type AlternateAirportCandidate = {
+export type AlternateAirportCandidate = {
   icaoCode: string;
   type: AirportType;
+};
+
+type ResolvedAlternateAirport = AlternateAirportCandidate & {
+  airportId: string;
 };
 
 type NotamSection = {
@@ -67,6 +79,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     private readonly simbriefClient: SimbriefClient,
     private readonly flightsRepository: FlightsRepository,
     private readonly domainEvents: DomainEventEmitter,
+    private readonly waypointsRepository: WaypointsRepository,
   ) {}
 
   async execute(command: CreateFlightFromSimbriefCommand): Promise<void> {
@@ -142,7 +155,9 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
           fuel: this.mapFuelBreakdown(ofp),
         },
       },
-      alternateAirports,
+      alternateAirports: alternateAirports.map(
+        ({ airportId, type }): AlternateAirportRequest => ({ airportId, type }),
+      ),
     } as CreateFlightRequest;
 
     await this.flightsRepository.create(flightId, flightData, initiatorId);
@@ -165,6 +180,9 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       destinationAirportId,
       ofp,
     );
+
+    await this.storeEtopsSnapshot(flightId, ofp, alternateAirports);
+    await this.waypointsRepository.record(harvestWaypoints(ofp));
 
     const crewMembers = this.collectCrewMembers(ofp);
     const assignCrewCommand = new AssignCrewToFlightCommand(
@@ -436,12 +454,88 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       });
     }
 
-    return candidates;
+    for (const icaoCode of this.collectEtopsSuitableIcaoCodes(ofp)) {
+      candidates.push({ icaoCode, type: AirportType.EtopsSuitable });
+    }
+
+    return this.dedupeByIcaoCode(candidates);
+  }
+
+  private collectEtopsSuitableIcaoCodes(ofp: OperationalFlightPlan): string[] {
+    const etops = ofp.etops;
+
+    if (!etops) {
+      return [];
+    }
+
+    const diversionAirports = [
+      ...this.toOfpArray(etops.entry?.div_airport),
+      ...this.toOfpArray(etops.exit?.div_airport),
+    ];
+
+    return [
+      ...diversionAirports.map((airport) => airport.icao_code),
+      ...this.toOfpArray(etops.suitable_airport).map(
+        (airport) => airport.icao_code,
+      ),
+    ].filter((icaoCode): icaoCode is string => Boolean(icaoCode));
+  }
+
+  private dedupeByIcaoCode(
+    candidates: AlternateAirportCandidate[],
+  ): AlternateAirportCandidate[] {
+    const seen = new Set<string>();
+
+    return candidates.filter((candidate) => {
+      if (seen.has(candidate.icaoCode)) {
+        return false;
+      }
+
+      seen.add(candidate.icaoCode);
+
+      return true;
+    });
+  }
+
+  private async storeEtopsSnapshot(
+    flightId: string,
+    ofp: OperationalFlightPlan,
+    alternateAirports: ResolvedAlternateAirport[],
+  ): Promise<void> {
+    if (!ofp.etops) {
+      return;
+    }
+
+    const airportIdByIcaoCode = new Map(
+      alternateAirports.map((airport) => [airport.icaoCode, airport.airportId]),
+    );
+    const resolveAirportId = (icaoCode: string): string | undefined =>
+      airportIdByIcaoCode.get(icaoCode);
+
+    const mapData = await this.resolveRouteMapData(ofp);
+
+    await this.flightsRepository.replaceEtopsSnapshot(flightId, {
+      rings: mapEtopsRings(ofp.etops, mapData),
+      points: mapEtopsPoints(ofp.etops, resolveAirportId),
+      airports: mapEtopsAirports(ofp.etops, resolveAirportId),
+    });
+  }
+
+  private async resolveRouteMapData(
+    ofp: OperationalFlightPlan,
+  ): Promise<RouteMapData | null> {
+    const url = this.readOfpText(ofp.map_data);
+
+    if (url.length === 0) {
+      return null;
+    }
+
+    return this.simbriefClient.findRouteMapData(url);
   }
 
   private async resolveAlternateAirports(
     candidates: AlternateAirportCandidate[],
-  ): Promise<AlternateAirportRequest[]> {
+  ): Promise<ResolvedAlternateAirport[]> {
     // Alternates are resolved the same way as origin/destination: any ICAO not
     // already stored is imported from SkyLink, so an unknown airport no longer
     // aborts the import.
@@ -450,7 +544,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
         const command = new ImportAirportByIcaoCommand(candidate.icaoCode);
         const airportId = await this.commandBus.execute(command);
 
-        return { airportId, type: candidate.type };
+        return { ...candidate, airportId };
       }),
     );
   }

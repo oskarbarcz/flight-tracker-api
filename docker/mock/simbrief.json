@@ -24,7 +24,9 @@
           "is_etops": "1",
           "gc_distance": "3350",
           "total_burn": "156000",
-          "cont_rule": "3%"
+          "cont_rule": "3%",
+          "route": "TOBAK1C TOBAK UZ29 SPI UL607 LAMSO UN57 DIGBY UN546 LAPEX NATA JANJO DCT HOIST DCT YYT DCT KANNI DCT BOSOX DCT CCC ROBER1",
+          "route_ifps": "TOBAK1C TOBAK UZ29 SPI UL607 LAMSO UN57 DIGBY UN546 LAPEX NATA JANJO DCT HOIST DCT YYT DCT KANNI DCT BOSOX DCT CCC ROBER1"
         },
         "origin": {
           "icao_code": "EDDF",
@@ -172,35 +174,99 @@
           ]
         },
         "etops": {
+          "rule": "370",
           "entry": {
-            "icao_code": "BIKF"
+            "icao_code": "BIKF",
+            "div_airport": {
+              "icao_code": "CYQX",
+              "track_true": "252",
+              "track_mag": "270",
+              "distance": "457"
+            },
+            "pos_lat_fix": "58.000000",
+            "pos_long_fix": "-30.000000",
+            "pos_lat_apt": "63.985000",
+            "pos_long_apt": "-22.605600",
+            "elapsed_time": "9735",
+            "etops_condition": "DC"
           },
           "exit": {
-            "icao_code": "CYYT"
+            "icao_code": "CYYT",
+            "div_airport": {
+              "icao_code": "CYYT",
+              "track_true": "87",
+              "track_mag": "96",
+              "distance": "435"
+            },
+            "pos_lat_fix": "50.000000",
+            "pos_long_fix": "-50.000000",
+            "pos_lat_apt": "47.618610",
+            "pos_long_apt": "-52.751945",
+            "elapsed_time": "15372",
+            "etops_condition": "DC"
           },
-          "suitable_airport": {
-            "icao_code": "CYYR",
-            "notam": [
+          "suitable_airport": [
+            {
+              "icao_code": "CYYR",
+              "notam": [
+                {
+                  "source_id": "I",
+                  "notam_id": "A4001/26",
+                  "location_id": "CYYR",
+                  "location_icao": "CYYR",
+                  "location_type": "Airport",
+                  "date_created": "2026-08-04T06:30:00Z",
+                  "date_effective": "2026-08-04T07:00:00Z",
+                  "date_expire": "2099-12-31T23:59:00Z",
+                  "date_modified": "2026-08-04T06:30:00Z",
+                  "notam_html": "<b>APRON</b> I NORTH SIDE <b>CLSD</b>.",
+                  "notam_text": "APRON I NORTH SIDE CLSD.",
+                  "notam_raw": "A4001/26 NOTAMN\n Q) CZQX/QMNLC/IV/BO /A /000/999/5319N06018W005\n A) CYYR B) 2608040700 C) 9912312359\n E) APRON I NORTH SIDE CLSD.",
+                  "notam_nrc": "NOTAMN",
+                  "notam_qcode": "QMNLC",
+                  "notam_qcode_category": "Airport",
+                  "notam_qcode_subject": "Apron",
+                  "notam_qcode_status": "Closed"
+                }
+              ],
+              "suitability_start": "2026-01-05T12:00:00Z",
+              "suitability_end": "2026-01-05T18:00:00Z",
+              "plan_rwy": "11",
+              "fcst_cig": "900",
+              "fcst_vis": "8050",
+              "trans_alt": "18000",
+              "trans_level": "18000"
+            },
+            {
+              "icao_code": "CYQX",
+              "suitability_start": "2026-01-05T13:30:00Z",
+              "suitability_end": "2026-01-05T18:00:00Z",
+              "plan_rwy": "21",
+              "fcst_cig": "1500",
+              "fcst_vis": "9999",
+              "trans_alt": "18000",
+              "trans_level": "18000"
+            }
+          ],
+          "equal_time_point": {
+            "pos_lat": "55.500000",
+            "pos_long": "-40.000000",
+            "elapsed_time": "12186",
+            "etops_condition": "DC",
+            "div_airport": [
               {
-                "source_id": "I",
-                "notam_id": "A4001/26",
-                "location_id": "CYYR",
-                "location_icao": "CYYR",
-                "location_type": "Airport",
-                "date_created": "2026-08-04T06:30:00Z",
-                "date_effective": "2026-08-04T07:00:00Z",
-                "date_expire": "2099-12-31T23:59:00Z",
-                "date_modified": "2026-08-04T06:30:00Z",
-                "notam_html": "<b>APRON</b> I NORTH SIDE <b>CLSD</b>.",
-                "notam_text": "APRON I NORTH SIDE CLSD.",
-                "notam_raw": "A4001/26 NOTAMN\n Q) CZQX/QMNLC/IV/BO /A /000/999/5319N06018W005\n A) CYYR B) 2608040700 C) 9912312359\n E) APRON I NORTH SIDE CLSD.",
-                "notam_nrc": "NOTAMN",
-                "notam_qcode": "QMNLC",
-                "notam_qcode_category": "Airport",
-                "notam_qcode_subject": "Apron",
-                "notam_qcode_status": "Closed"
+                "icao_code": "CYQX"
+              },
+              {
+                "icao_code": "BIKF"
               }
             ]
+          },
+          "critical_point": {
+            "fix_type": "ETP",
+            "pos_lat": "55.500000",
+            "pos_long": "-40.000000",
+            "elapsed_time": "12186"
           }
         },
         "fuel": {
@@ -281,6 +347,417 @@
           "pdf": {
             "link": "EDDFKJFK_PDF_1769431274.pdf"
           }
+        },
+        "map_data": "http://simbrief-mock:1080/ofp/flightplans/MOCK_MJS_1.js",
+        "navlog": {
+          "fix": [
+            {
+              "ident": "EDDF",
+              "type": "apt",
+              "icao_region": "ED",
+              "frequency": {},
+              "pos_lat": "50.046930",
+              "pos_long": "8.573970",
+              "altitude_feet": "364",
+              "distance": "0",
+              "track_true": "0",
+              "track_mag": "0",
+              "time_total": "0",
+              "via_airway": "DCT",
+              "stage": "CLB"
+            },
+            {
+              "ident": "TOBAK",
+              "type": "wpt",
+              "icao_region": "ED",
+              "frequency": {},
+              "pos_lat": "50.106944",
+              "pos_long": "8.283333",
+              "altitude_feet": "12000",
+              "distance": "21",
+              "track_true": "283",
+              "track_mag": "285",
+              "time_total": "900",
+              "via_airway": "TOBAK1C",
+              "stage": "CLB"
+            },
+            {
+              "ident": "TOC",
+              "type": "ltlg",
+              "icao_region": {},
+              "frequency": {},
+              "pos_lat": "50.633333",
+              "pos_long": "6.500000",
+              "altitude_feet": "35000",
+              "distance": "88",
+              "track_true": "289",
+              "track_mag": "291",
+              "time_total": "1800",
+              "via_airway": "DCT",
+              "stage": "CLB"
+            },
+            {
+              "ident": "SPI",
+              "type": "vor",
+              "icao_region": "EB",
+              "frequency": "113.10",
+              "pos_lat": "50.514444",
+              "pos_long": "4.646667",
+              "altitude_feet": "35000",
+              "distance": "73",
+              "track_true": "285",
+              "track_mag": "287",
+              "time_total": "2700",
+              "via_airway": "UZ29",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "KOK",
+              "type": "vor",
+              "icao_region": "EB",
+              "frequency": "114.50",
+              "pos_lat": "51.096389",
+              "pos_long": "2.656944",
+              "altitude_feet": "35000",
+              "distance": "90",
+              "track_true": "315",
+              "track_mag": "317",
+              "time_total": "3600",
+              "via_airway": "UL607",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "LAMSO",
+              "type": "wpt",
+              "icao_region": "EH",
+              "frequency": {},
+              "pos_lat": "51.583333",
+              "pos_long": "1.833333",
+              "altitude_feet": "36000",
+              "distance": "44",
+              "track_true": "325",
+              "track_mag": "327",
+              "time_total": "4500",
+              "via_airway": "UL607",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "LESTA",
+              "type": "vor",
+              "icao_region": "EG",
+              "frequency": "116.20",
+              "pos_lat": "52.616667",
+              "pos_long": "-1.033333",
+              "altitude_feet": "36000",
+              "distance": "120",
+              "track_true": "296",
+              "track_mag": "299",
+              "time_total": "5400",
+              "via_airway": "UN57",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "DIGBY",
+              "type": "wpt",
+              "icao_region": "EG",
+              "frequency": {},
+              "pos_lat": "53.316667",
+              "pos_long": "-4.000000",
+              "altitude_feet": "37000",
+              "distance": "113",
+              "track_true": "290",
+              "track_mag": "294",
+              "time_total": "6300",
+              "via_airway": "UN57",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "RUBEX",
+              "type": "wpt",
+              "icao_region": "EI",
+              "frequency": {},
+              "pos_lat": "53.900000",
+              "pos_long": "-8.500000",
+              "altitude_feet": "37000",
+              "distance": "164",
+              "track_true": "286",
+              "track_mag": "291",
+              "time_total": "7200",
+              "via_airway": "UN546",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "LAPEX",
+              "type": "wpt",
+              "icao_region": "EI",
+              "frequency": {},
+              "pos_lat": "54.083333",
+              "pos_long": "-10.500000",
+              "altitude_feet": "37000",
+              "distance": "71",
+              "track_true": "282",
+              "track_mag": "288",
+              "time_total": "8100",
+              "via_airway": "UN546",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "MALOT",
+              "type": "wpt",
+              "icao_region": "EI",
+              "frequency": {},
+              "pos_lat": "54.000000",
+              "pos_long": "-15.000000",
+              "altitude_feet": "37000",
+              "distance": "159",
+              "track_true": "268",
+              "track_mag": "275",
+              "time_total": "9000",
+              "via_airway": "NATA",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "5620N",
+              "type": "ltlg",
+              "icao_region": {},
+              "frequency": {},
+              "pos_lat": "56.000000",
+              "pos_long": "-20.000000",
+              "altitude_feet": "37000",
+              "distance": "181",
+              "track_true": "283",
+              "track_mag": "291",
+              "time_total": "9900",
+              "via_airway": "NATA",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "5730N",
+              "type": "ltlg",
+              "icao_region": {},
+              "frequency": {},
+              "pos_lat": "57.500000",
+              "pos_long": "-30.000000",
+              "altitude_feet": "38000",
+              "distance": "334",
+              "track_true": "289",
+              "track_mag": "300",
+              "time_total": "10800",
+              "via_airway": "NATA",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "5740N",
+              "type": "ltlg",
+              "icao_region": {},
+              "frequency": {},
+              "pos_lat": "57.000000",
+              "pos_long": "-40.000000",
+              "altitude_feet": "38000",
+              "distance": "331",
+              "track_true": "268",
+              "track_mag": "281",
+              "time_total": "11700",
+              "via_airway": "NATA",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "5650N",
+              "type": "ltlg",
+              "icao_region": {},
+              "frequency": {},
+              "pos_lat": "56.000000",
+              "pos_long": "-50.000000",
+              "altitude_feet": "39000",
+              "distance": "346",
+              "track_true": "263",
+              "track_mag": "278",
+              "time_total": "12600",
+              "via_airway": "NATA",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "JANJO",
+              "type": "wpt",
+              "icao_region": "CY",
+              "frequency": {},
+              "pos_lat": "55.500000",
+              "pos_long": "-53.000000",
+              "altitude_feet": "39000",
+              "distance": "103",
+              "track_true": "258",
+              "track_mag": "274",
+              "time_total": "13500",
+              "via_airway": "NATA",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "HOIST",
+              "type": "wpt",
+              "icao_region": "CY",
+              "frequency": {},
+              "pos_lat": "53.500000",
+              "pos_long": "-57.000000",
+              "altitude_feet": "39000",
+              "distance": "175",
+              "track_true": "239",
+              "track_mag": "255",
+              "time_total": "14400",
+              "via_airway": "DCT",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "YYT",
+              "type": "vor",
+              "icao_region": "CY",
+              "frequency": "113.50",
+              "pos_lat": "47.618610",
+              "pos_long": "-52.751945",
+              "altitude_feet": "39000",
+              "distance": "410",
+              "track_true": "148",
+              "track_mag": "168",
+              "time_total": "15300",
+              "via_airway": "DCT",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "TOD",
+              "type": "ltlg",
+              "icao_region": {},
+              "frequency": {},
+              "pos_lat": "44.000000",
+              "pos_long": "-62.000000",
+              "altitude_feet": "39000",
+              "distance": "449",
+              "track_true": "235",
+              "track_mag": "254",
+              "time_total": "16200",
+              "via_airway": "DCT",
+              "stage": "CRZ"
+            },
+            {
+              "ident": "KANNI",
+              "type": "wpt",
+              "icao_region": "CY",
+              "frequency": {},
+              "pos_lat": "43.000000",
+              "pos_long": "-65.000000",
+              "altitude_feet": "24000",
+              "distance": "145",
+              "track_true": "240",
+              "track_mag": "258",
+              "time_total": "17100",
+              "via_airway": "DCT",
+              "stage": "DSC"
+            },
+            {
+              "ident": "BOSOX",
+              "type": "wpt",
+              "icao_region": "KZ",
+              "frequency": {},
+              "pos_lat": "42.000000",
+              "pos_long": "-69.500000",
+              "altitude_feet": "18000",
+              "distance": "208",
+              "track_true": "248",
+              "track_mag": "262",
+              "time_total": "18000",
+              "via_airway": "DCT",
+              "stage": "DSC"
+            },
+            {
+              "ident": "CCC",
+              "type": "vor",
+              "icao_region": "KZ",
+              "frequency": "117.20",
+              "pos_lat": "40.919444",
+              "pos_long": "-72.798611",
+              "altitude_feet": "10000",
+              "distance": "163",
+              "track_true": "241",
+              "track_mag": "254",
+              "time_total": "18900",
+              "via_airway": "DCT",
+              "stage": "DSC"
+            },
+            {
+              "ident": "KJFK",
+              "type": "apt",
+              "icao_region": "KZ",
+              "frequency": {},
+              "pos_lat": "40.641300",
+              "pos_long": "-73.778100",
+              "altitude_feet": "13",
+              "distance": "49",
+              "track_true": "262",
+              "track_mag": "275",
+              "time_total": "19800",
+              "via_airway": "ROBER1",
+              "stage": "DSC"
+            }
+          ]
+        },
+        "tracks": {
+          "nat": [
+            {
+              "id": "A",
+              "group": "West",
+              "tmi": "241",
+              "addr": "EGGX",
+              "route": "MALOT 5620N 5730N 5740N 5650N JANJO",
+              "levels": "340 350 360 370 380 390 400",
+              "start": "1736074800",
+              "end": "1736101800",
+              "fixes": {
+                "fix": [
+                  {
+                    "ident": "MALOT",
+                    "pos_lat": "54.000000",
+                    "pos_long": "-15.000000"
+                  },
+                  {
+                    "ident": "5620N",
+                    "pos_lat": "56.000000",
+                    "pos_long": "-20.000000"
+                  },
+                  {
+                    "ident": "JANJO",
+                    "pos_lat": "55.500000",
+                    "pos_long": "-53.000000"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "B",
+              "group": "West",
+              "tmi": "241",
+              "addr": "EGGX",
+              "route": "DOGAL 5530N 5640N 5550N NEEKO",
+              "levels": "340 350 360 370 380 390 400",
+              "start": "1736074800",
+              "end": "1736101800",
+              "fixes": {
+                "fix": [
+                  {
+                    "ident": "DOGAL",
+                    "pos_lat": "55.000000",
+                    "pos_long": "-15.000000"
+                  },
+                  {
+                    "ident": "NEEKO",
+                    "pos_lat": "54.000000",
+                    "pos_long": "-50.000000"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "atc": {
+          "route": "TOBAK1C TOBAK UZ29 SPI UL607 LAMSO UN57 DIGBY UN546 LAPEX NATA JANJO DCT HOIST",
+          "fir_etops": ["EGGX", "CZQX"]
         }
       }
     }
@@ -908,6 +1385,19 @@
           "time": "0.0002"
         }
       }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/ofp/flightplans/MOCK_MJS_1.js"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/javascript; charset=utf-8"]
+      },
+      "body": "//SimBrief route definition\nvar natsdir = \"E\";\nvar etopsdata = true;\nvar etopsrule = 370;\nvar etopsruledist = 2694.8333333333;\nvar etopsthreshold = 60;\n"
     }
   }
 ]

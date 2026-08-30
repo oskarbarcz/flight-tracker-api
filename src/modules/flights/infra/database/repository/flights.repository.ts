@@ -37,6 +37,7 @@ import { Airframe } from '../../../../airframes/model/airframe.model';
 import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
 import { AirportType } from '../../../../airports/model/airport.model';
+import { EtopsSnapshot } from '../../../model/etops.model';
 
 export const flightWithAircraftAndAirportsFields = {
   id: true,
@@ -105,7 +106,7 @@ export const flightWithAircraftAndAirportsFields = {
     },
   },
   airports: {
-    orderBy: { airportType: 'asc' },
+    orderBy: [{ airportType: 'asc' }, { airport: { icaoCode: 'asc' } }],
     select: {
       airportType: true,
       airport: {
@@ -669,6 +670,53 @@ export class FlightsRepository {
         greatCircleDistance,
         totalFuelBurned,
       },
+    });
+  }
+
+  async replaceEtopsSnapshot(
+    id: string,
+    snapshot: EtopsSnapshot,
+  ): Promise<void> {
+    await this.prisma.$transaction(async (tx) => {
+      await tx.flightEtopsPoint.deleteMany({ where: { flightId: id } });
+      await tx.flightEtopsAirport.deleteMany({ where: { flightId: id } });
+
+      await tx.flight.update({
+        where: { id },
+        data: {
+          etopsRuleMinutes: snapshot.rings.ruleMinutes,
+          etopsRuleDistanceNm: snapshot.rings.ruleDistanceNm,
+          etopsThresholdMinutes: snapshot.rings.thresholdMinutes,
+        },
+      });
+
+      for (const point of snapshot.points) {
+        await tx.flightEtopsPoint.create({
+          data: {
+            flightId: id,
+            kind: point.kind,
+            ordinal: point.ordinal,
+            isCritical: point.isCritical,
+            adequateAirportId: point.adequateAirportId,
+            posLat: point.position.latitude,
+            posLong: point.position.longitude,
+            elapsedSeconds: point.elapsedSeconds,
+            condition: point.condition,
+            diversionAirports: {
+              create: point.diversionAirports.map((airport) => ({
+                airportId: airport.airportId,
+                ordinal: airport.ordinal,
+              })),
+            },
+          },
+        });
+      }
+
+      for (const airport of snapshot.airports) {
+        await tx.flightEtopsAirport.create({
+          data: { flightId: id, ...airport },
+        });
+      }
     });
   }
 

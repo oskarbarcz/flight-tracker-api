@@ -46,6 +46,132 @@ type Airport = {
   notam?: SimbriefNotam[] | SimbriefNotam;
 };
 
+export type EtopsSuitableAirport = Airport & {
+  pos_lat?: string;
+  pos_long?: string;
+  elevation?: string;
+  trans_alt?: string;
+  trans_level?: string;
+  fcst_cig?: string;
+  fcst_vis?: string;
+  suitability_start?: string;
+  suitability_end?: string;
+};
+
+export type EtopsDiversionAirport = {
+  icao_code: string;
+  track_true?: string;
+  track_mag?: string;
+  distance?: string;
+  avg_wind_comp?: string;
+  avg_temp_dev?: string;
+  est_fob?: string;
+};
+
+type EtopsPointFuel = {
+  elapsed_time?: string;
+  min_fob?: string;
+  est_fob?: string;
+  etops_condition?: string;
+  div_time?: string;
+  div_burn?: string;
+  critical_fuel?: string;
+  div_altitude?: string;
+};
+
+export type EtopsThresholdPoint = EtopsPointFuel & {
+  icao_code: string;
+  iata_code?: string | EmptyElement;
+  icao_region?: string | EmptyElement;
+  notam?: SimbriefNotam[] | SimbriefNotam;
+  pos_lat_fix?: string;
+  pos_long_fix?: string;
+  pos_lat_apt?: string;
+  pos_long_apt?: string;
+  div_airport?: EtopsDiversionAirport;
+};
+
+export type EtopsEqualTimePoint = EtopsPointFuel & {
+  pos_lat?: string;
+  pos_long?: string;
+  div_airport?: EtopsDiversionAirport[] | EtopsDiversionAirport;
+};
+
+export type EtopsCriticalPoint = {
+  fix_type?: string;
+  pos_lat?: string;
+  pos_long?: string;
+  elapsed_time?: string;
+  est_fob?: string;
+  critical_fuel?: string;
+};
+
+export type Etops = {
+  rule?: string;
+  entry: EtopsThresholdPoint;
+  exit: EtopsThresholdPoint;
+  equal_time_point?: EtopsEqualTimePoint[] | EtopsEqualTimePoint;
+  critical_point?: EtopsCriticalPoint;
+  suitable_airport?: EtopsSuitableAirport[] | EtopsSuitableAirport;
+};
+
+export type NavlogFix = {
+  ident: string;
+  type?: string | EmptyElement;
+  icao_region?: string | EmptyElement;
+  frequency?: string | EmptyElement;
+  pos_lat?: string;
+  pos_long?: string;
+  altitude_feet?: string;
+  time_total?: string;
+  via_airway?: string | EmptyElement;
+  stage?: string | EmptyElement;
+};
+
+export type Navlog = {
+  fix?: NavlogFix[] | NavlogFix;
+};
+
+export type AlternateNavlog = {
+  icao_code?: string | EmptyElement;
+  fix?: NavlogFix[] | NavlogFix;
+};
+
+export type OceanicTrackFix = {
+  ident: string;
+  pos_lat?: string;
+  pos_long?: string;
+};
+
+export type OceanicTrack = {
+  id: string;
+  group?: string | EmptyElement;
+  tmi?: string | EmptyElement;
+  addr?: string | EmptyElement;
+  route?: string | EmptyElement;
+  levels?: string | EmptyElement;
+  start?: string;
+  end?: string;
+  fixes?: { fix?: OceanicTrackFix[] | OceanicTrackFix } | EmptyElement;
+};
+
+export type Tracks = {
+  nat?: OceanicTrack[] | OceanicTrack;
+  nat_notams?: Record<string, string> | EmptyElement;
+};
+
+export type Atc = {
+  fir_etops?: string[] | string | EmptyElement;
+  route?: string | EmptyElement;
+};
+
+export type RouteMapData = {
+  etopsRule?: number;
+  etopsRuleDistance?: number;
+  etopsThresholdMinutes?: number;
+  tracksDirection?: string;
+};
+
 type Aircraft = {
   reg: string;
   icaocode?: string | EmptyElement;
@@ -122,11 +248,12 @@ export type OperationalFlightPlan = {
   takeoff_altn?: Airport | Airport[];
   enroute_altn?: Airport;
   enroute_station?: Airport[];
-  etops?: {
-    entry: Airport;
-    exit: Airport;
-    suitable_airport?: Airport | Airport[];
-  };
+  etops?: Etops;
+  navlog?: Navlog;
+  alternate_navlog?: AlternateNavlog[] | AlternateNavlog;
+  tracks?: Tracks;
+  atc?: Atc;
+  map_data?: string | EmptyElement;
   fuel: Fuel;
   fuel_extra: FuelExtra;
   aircraft: Aircraft;
