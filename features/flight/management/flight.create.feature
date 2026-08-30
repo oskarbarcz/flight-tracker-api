@@ -19,9 +19,7 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": null
-        }
+        "loadsheet": null
       }
       """
     Then the response status should be 403
@@ -54,9 +52,7 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": null
-        }
+        "loadsheet": null
       }
       """
     Then the response status should be 201
@@ -76,10 +72,6 @@ Feature: Create a flight
             "takeoffTime": "2025-01-01T12:15:00.000Z",
             "offBlockTime": "2025-01-01T12:00:00.000Z"
           }
-        },
-        "loadsheets": {
-          "preliminary": null,
-          "final": null
         },
         "aircraft": {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
@@ -273,9 +265,7 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": null
-        }
+        "loadsheet": null
       }
       """
     Then the response status should be 201
@@ -295,10 +285,6 @@ Feature: Create a flight
             "takeoffTime": "2025-01-01T12:15:00.000Z",
             "offBlockTime": "2025-01-01T12:00:00.000Z"
           }
-        },
-        "loadsheets": {
-          "preliminary": null,
-          "final": null
         },
         "aircraft": {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
@@ -492,9 +478,7 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": null
-        }
+        "loadsheet": null
       }
       """
     Then the response status should be 403
@@ -527,19 +511,17 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 6
-            },
-            "passengers": 296,
-            "payload": 40.3,
-            "cargo": 8.5,
-            "zeroFuelWeight": 208.9,
-            "blockFuel": 12.7
-          }
+        "loadsheet": {
+          "flightCrew": {
+            "pilots": 2,
+            "reliefPilots": 0,
+            "cabinCrew": 6
+          },
+          "passengers": 296,
+          "payload": 40.3,
+          "cargo": 8.5,
+          "zeroFuelWeight": 208.9,
+          "blockFuel": 12.7
         }
       }
       """
@@ -560,21 +542,6 @@ Feature: Create a flight
             "takeoffTime": "2025-01-01T12:15:00.000Z",
             "offBlockTime": "2025-01-01T12:00:00.000Z"
           }
-        },
-        "loadsheets": {
-          "preliminary": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 6
-            },
-            "passengers": 296,
-            "payload": 40.3,
-            "cargo": 8.5,
-            "zeroFuelWeight": 208.9,
-            "blockFuel": 12.7
-          },
-          "final": null
         },
         "aircraft": {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
@@ -714,9 +681,7 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": null
-        }
+        "loadsheet": null
       }
       """
     Then the response status should be 201
@@ -736,10 +701,6 @@ Feature: Create a flight
             "takeoffTime": "2025-01-01T12:15:00.000Z",
             "offBlockTime": "2025-01-01T12:00:00.000Z"
           }
-        },
-        "loadsheets": {
-          "preliminary": null,
-          "final": null
         },
         "aircraft": {
           "id": "a10c21e3-3ac1-4265-9d12-da9baefa2d98",
@@ -914,9 +875,7 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": null
-        }
+        "loadsheet": null
       }
       """
     Then the response status should be 404
@@ -948,9 +907,7 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": null
-        }
+        "loadsheet": null
       }
       """
     Then the response status should be 404
@@ -982,9 +939,7 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": null
-        }
+        "loadsheet": null
       }
       """
     Then the response status should be 404
@@ -1022,9 +977,7 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": null
-        }
+        "loadsheet": null
       }
       """
     Then the response status should be 404
@@ -1056,9 +1009,7 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": null
-        }
+        "loadsheet": null
       }
       """
     Then the response status should be 400
@@ -1090,9 +1041,7 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": null
-        }
+        "loadsheet": null
       }
       """
     Then the response status should be 404
@@ -1135,8 +1084,7 @@ Feature: Create a flight
           "departureAirportId": ["departureAirportId must be a string", "departureAirportId must be a UUID"],
           "destinationAirportId": ["destinationAirportId must be a string", "destinationAirportId must be a UUID"],
           "status": ["property status should not exist"],
-          "operatorId": ["operatorId must be a UUID", "operatorId should not be empty", "operatorId must be a string"],
-          "loadsheets": ["loadsheets should not be empty"]
+          "operatorId": ["operatorId must be a UUID", "operatorId should not be empty", "operatorId must be a string"]
         }
       }
       """
@@ -1159,9 +1107,7 @@ Feature: Create a flight
             "onBlockTime": "2025-01-01 21:10"
           }
         },
-        "loadsheets": {
-          "preliminary": null
-        }
+        "loadsheet": null
       }
       """
     Then the response status should be 401

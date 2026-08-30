@@ -10,7 +10,6 @@ import { FlightDoesNotExistError } from '../../model/error/flight.error';
 import { GetPilotQuery } from '../../../users/application/query/get-pilot.query';
 import { FlightPilotDto } from '../../../users/infra/http/request/get-user.dto';
 import { FullTimesheet, Schedule } from '../../model/timesheet.model';
-import { Loadsheets } from '../../model/loadsheet.model';
 import {
   AirportType,
   AirportWithType,
@@ -50,7 +49,6 @@ export class GetFlightHandler implements IQueryHandler<GetFlightQuery> {
       ...rest,
       status: flight.status as FlightStatus,
       timesheet: this.convertTimesheetDates(flight.timesheet as FullTimesheet),
-      loadsheets: flight.loadsheets as unknown as Loadsheets,
       actualFuelBurned:
         actualFuelBurned === null ? null : actualFuelBurned.toNumber(),
       airports: flight.airports.map(

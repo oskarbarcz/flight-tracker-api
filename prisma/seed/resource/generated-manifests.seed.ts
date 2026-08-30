@@ -5,9 +5,10 @@ import {
 } from '../../client/client';
 import {
   Loadsheet,
-  Loadsheets,
+  LoadsheetKind,
 } from '../../../src/modules/flights/model/loadsheet.model';
 import { Continent } from '../../../src/modules/airports/model/airport.model';
+import { currentLoadsheet } from './loadsheet.seed';
 import { AirportType } from '../../../src/modules/airports/model/airport.model';
 import { offeredCommodities } from '../../../src/modules/manifest/model/commodity-selection';
 import { offeredCommoditiesFor } from '../../../src/modules/manifest/model/cargo-aircraft-only.policy';
@@ -90,6 +91,7 @@ export async function loadGeneratedManifests(
           aircraft: true,
           operator: true,
           airports: { include: { airport: true } },
+          loadsheets: true,
         },
       }),
       tx.flightCargoUnit.findMany({ select: { flightId: true } }),
@@ -104,8 +106,10 @@ export async function loadGeneratedManifests(
   const documented = new Set(notocIssued.map((row) => row.flightId));
 
   for (const flight of flights) {
-    const preliminary = (flight.loadsheets as unknown as Loadsheets)
-      ?.preliminary;
+    const preliminary = currentLoadsheet(
+      flight.loadsheets,
+      LoadsheetKind.Preliminary,
+    );
 
     if (!preliminary || loaded.has(flight.id)) {
       continue;
@@ -164,8 +168,10 @@ export async function loadGeneratedManifests(
   }
 
   for (const flight of flights) {
-    const preliminary = (flight.loadsheets as unknown as Loadsheets)
-      ?.preliminary;
+    const preliminary = currentLoadsheet(
+      flight.loadsheets,
+      LoadsheetKind.Preliminary,
+    );
     const arrival = flight.airports.find(
       (entry) => entry.airportType === AirportType.Destination,
     )?.airport;

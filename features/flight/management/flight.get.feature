@@ -21,10 +21,6 @@ Feature: Get flight
             "offBlockTime": "2025-01-01T12:00:00.000Z"
           }
         },
-        "loadsheets": {
-          "preliminary": null,
-          "final": null
-        },
         "aircraft": {
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
           "airframe": {
@@ -245,60 +241,6 @@ Feature: Get flight
             "offBlockTime": null
           }
         },
-        "loadsheets": {
-          "preliminary": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 6
-            },
-            "passengers": 296,
-            "payload": 40.3,
-            "cargo": 8.5,
-            "zeroFuelWeight": 208.9,
-            "blockFuel": 12.7,
-            "fuel": {
-              "block": 12.7,
-              "taxi": 0.3,
-              "trip": 10.4,
-              "alternate": 0.9,
-              "reserve": 0.6,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
-          },
-          "final": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 6
-            },
-            "passengers": 292,
-            "payload": 37.808,
-            "cargo": 8.9,
-            "zeroFuelWeight": 212.408,
-            "blockFuel": 11.9,
-            "fuel": {
-              "block": 11.9,
-              "taxi": 0.3,
-              "trip": 9.6,
-              "alternate": 0.9,
-              "reserve": 0.6,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
-          }
-        },
         "aircraft": {
           "id": "8694eb6d-83e4-4f24-8a72-b67523b4d6bf",
           "airframe": {
@@ -491,60 +433,6 @@ Feature: Get flight
             "takeoffTime": "2025-01-01T13:25:00.000Z",
             "arrivalTime": "2025-01-01T16:10:00.000Z",
             "onBlockTime": "2025-01-01T16:28:00.000Z"
-          }
-        },
-        "loadsheets": {
-          "final": {
-            "fuel": {
-              "atc": 0,
-              "mel": 0,
-              "wxx": 0,
-              "taxi": 0.3,
-              "trip": 9.6,
-              "block": 11.9,
-              "extra": 0,
-              "reserve": 0.6,
-              "alternate": 0.9,
-              "tankering": 0,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5
-            },
-            "cargo": 8.9,
-            "payload": 37.808,
-            "blockFuel": 11.9,
-            "flightCrew": {
-              "pilots": 2,
-              "cabinCrew": 6,
-              "reliefPilots": 0
-            },
-            "passengers": 292,
-            "zeroFuelWeight": 212.408
-          },
-          "preliminary": {
-            "fuel": {
-              "atc": 0,
-              "mel": 0,
-              "wxx": 0,
-              "taxi": 0.3,
-              "trip": 10.4,
-              "block": 12.7,
-              "extra": 0,
-              "reserve": 0.6,
-              "alternate": 0.9,
-              "tankering": 0,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5
-            },
-            "cargo": 8.5,
-            "payload": 40.3,
-            "blockFuel": 12.7,
-            "flightCrew": {
-              "pilots": 2,
-              "cabinCrew": 6,
-              "reliefPilots": 0
-            },
-            "passengers": 296,
-            "zeroFuelWeight": 208.9
           }
         },
         "source": "manual",

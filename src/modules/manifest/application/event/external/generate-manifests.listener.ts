@@ -6,6 +6,8 @@ import {
   PreliminaryLoadsheetWasUpdatedEvent,
 } from '../../../../../core/domain/events/dto/flight.events';
 import { GetFlightQuery } from '../../../../flights/application/query/get-flight.query';
+import { GetCurrentLoadsheetQuery } from '../../../../flights/application/query/get-current-loadsheet.query';
+import { LoadsheetKind } from '../../../../flights/model/loadsheet.model';
 import { AirportType } from '../../../../airports/model/airport.model';
 import { scheduledFlightHours } from '../../../../flights/model/timesheet.model';
 import { GenerateFlightManifestCommand } from '../../command/generate-flight-manifest.command';
@@ -28,7 +30,11 @@ export class GenerateManifestsListener {
   ): Promise<void> {
     const flightQuery = new GetFlightQuery(event.payload.flightId);
     const flight = await this.queryBus.execute(flightQuery);
-    const loadsheet = flight.loadsheets.preliminary;
+    const loadsheetQuery = new GetCurrentLoadsheetQuery(
+      event.payload.flightId,
+      LoadsheetKind.Preliminary,
+    );
+    const loadsheet = await this.queryBus.execute(loadsheetQuery);
 
     if (!loadsheet) {
       return;

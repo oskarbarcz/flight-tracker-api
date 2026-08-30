@@ -69,60 +69,6 @@ Feature: Close flight
             "offBlockTime": "2025-01-01T13:10:00.000Z"
           }
         },
-        "loadsheets": {
-          "preliminary": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 6
-            },
-            "passengers": 296,
-            "payload": 40.3,
-            "cargo": 8.5,
-            "zeroFuelWeight": 208.9,
-            "blockFuel": 12.7,
-            "fuel": {
-              "block": 12.7,
-              "taxi": 0.3,
-              "trip": 10.4,
-              "alternate": 0.9,
-              "reserve": 0.6,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
-          },
-          "final": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 6
-            },
-            "passengers": 292,
-            "payload": 37.808,
-            "cargo": 8.9,
-            "zeroFuelWeight": 212.408,
-            "blockFuel": 11.9,
-            "fuel": {
-              "block": 11.9,
-              "taxi": 0.3,
-              "trip": 9.8,
-              "alternate": 0.9,
-              "reserve": 0.6,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
-          }
-        },
         "aircraft": {
           "id": "69811511-fa34-4837-ab5d-dd480aeab8b6",
           "airframe": {
@@ -619,52 +565,6 @@ Feature: Close flight
             "offBlockTime": "2025-01-01T13:10:00.000Z"
           }
         },
-        "loadsheets": {
-          "preliminary": {
-            "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
-            "passengers": 287,
-            "payload": 39.7,
-            "cargo": 8.2,
-            "zeroFuelWeight": 208.1,
-            "blockFuel": 12.5,
-            "fuel": {
-              "block": 12.5,
-              "taxi": 0.3,
-              "trip": 10.2,
-              "alternate": 0.9,
-              "reserve": 0.6,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
-          },
-          "final": {
-            "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
-            "passengers": 283,
-            "payload": 36.617,
-            "cargo": 8.6,
-            "zeroFuelWeight": 210.917,
-            "blockFuel": 11.7,
-            "fuel": {
-              "block": 11.7,
-              "taxi": 0.3,
-              "trip": 9.4,
-              "alternate": 0.9,
-              "reserve": 0.6,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
-          }
-        },
         "aircraft": {
           "id": "7e059d96-260c-44e3-a08c-a216cb76398b",
           "airframe": {
@@ -853,52 +753,6 @@ Feature: Close flight
             "onBlockTime": "2025-01-01T16:28:00.000Z",
             "takeoffTime": "2025-01-01T13:25:00.000Z",
             "offBlockTime": "2025-01-01T13:10:00.000Z"
-          }
-        },
-        "loadsheets": {
-          "preliminary": {
-            "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
-            "passengers": 273,
-            "payload": 38.6,
-            "cargo": 7.9,
-            "zeroFuelWeight": 207.0,
-            "blockFuel": 12.4,
-            "fuel": {
-              "block": 12.4,
-              "taxi": 0.3,
-              "trip": 10.1,
-              "alternate": 0.9,
-              "reserve": 0.6,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
-          },
-          "final": {
-            "flightCrew": { "pilots": 2, "reliefPilots": 0, "cabinCrew": 6 },
-            "passengers": 271,
-            "payload": 35.029,
-            "cargo": 8.2,
-            "zeroFuelWeight": 209.029,
-            "blockFuel": 11.6,
-            "fuel": {
-              "block": 11.6,
-              "taxi": 0.3,
-              "trip": 9.3,
-              "alternate": 0.9,
-              "reserve": 0.6,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
           }
         },
         "aircraft": {

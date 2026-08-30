@@ -9,7 +9,6 @@ import { FlightsRepository } from '../../infra/database/repository/flights.repos
 import { GetPilotQuery } from '../../../users/application/query/get-pilot.query';
 import { FlightPilotDto } from '../../../users/infra/http/request/get-user.dto';
 import { FullTimesheet } from '../../model/timesheet.model';
-import { Loadsheets } from '../../model/loadsheet.model';
 import {
   AirportType,
   AirportWithType,
@@ -62,7 +61,6 @@ export class ListAllFlightsHandler implements IQueryHandler<ListAllFlightsQuery>
           ...flight,
           status: flight.status as FlightStatus,
           timesheet: flight.timesheet as FullTimesheet,
-          loadsheets: flight.loadsheets as unknown as Loadsheets,
           actualFuelBurned:
             actualFuelBurned === null ? null : actualFuelBurned.toNumber(),
           airports: flight.airports.map(

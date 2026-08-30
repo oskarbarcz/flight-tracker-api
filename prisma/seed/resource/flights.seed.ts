@@ -6,7 +6,7 @@ import {
 } from '../../../src/modules/flights/model/flight.model';
 import { FlightEventScope, Prisma } from '../../client/client';
 import { AirportType } from '../../../src/modules/airports/model/airport.model';
-import { Loadsheets } from '../../../src/modules/flights/model/loadsheet.model';
+import { seedLoadsheets } from './loadsheet.seed';
 import { FlightEventType } from '../../../src/core/domain/events/dto/flight.events';
 import {
   DiversionReason,
@@ -48,10 +48,10 @@ async function loadDLH450(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 21:10'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: null,
       final: null,
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
@@ -197,7 +197,7 @@ async function loadAAL4905(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:18'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -250,7 +250,7 @@ async function loadAAL4905(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     isPathAvailable: true,
     positionReports: [
@@ -519,7 +519,7 @@ async function loadAAL4906(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:18'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -547,7 +547,7 @@ async function loadAAL4906(tx: Prisma.TransactionClient): Promise<void> {
         },
       },
       final: null,
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
@@ -655,7 +655,7 @@ async function loadAAL4907(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:18'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -694,7 +694,7 @@ async function loadAAL4907(tx: Prisma.TransactionClient): Promise<void> {
         zeroFuelWeight: 207.7,
         blockFuel: 12.5,
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
@@ -791,7 +791,7 @@ async function loadAAL4908(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:08'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -819,7 +819,7 @@ async function loadAAL4908(tx: Prisma.TransactionClient): Promise<void> {
         },
       },
       final: null,
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     isPathAvailable: true,
     positionReports: [
@@ -974,7 +974,7 @@ async function loadAAL4909(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:08'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -1002,7 +1002,7 @@ async function loadAAL4909(tx: Prisma.TransactionClient): Promise<void> {
         },
       },
       final: null,
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     isPathAvailable: true,
     positionReports: [
@@ -1161,7 +1161,7 @@ async function loadAAL4910(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:08'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -1214,7 +1214,7 @@ async function loadAAL4910(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     isPathAvailable: true,
     positionReports: [
@@ -1388,7 +1388,7 @@ async function loadAAL4911(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: null,
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -1441,7 +1441,7 @@ async function loadAAL4911(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
@@ -1602,7 +1602,7 @@ async function loadAAL4912(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:12'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -1655,7 +1655,7 @@ async function loadAAL4912(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     isPathAvailable: true,
     positionReports: [
@@ -1892,7 +1892,7 @@ async function loadAAL4913(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: null,
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -1945,7 +1945,7 @@ async function loadAAL4913(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     isPathAvailable: true,
     positionReports: [
@@ -2191,7 +2191,7 @@ async function loadAAL4914(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -2244,7 +2244,7 @@ async function loadAAL4914(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     isPathAvailable: true,
     positionReports: [
       {
@@ -2499,7 +2499,7 @@ async function loadAAL4915(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -2552,7 +2552,7 @@ async function loadAAL4915(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     isPathAvailable: true,
     positionReports: [
       {
@@ -2816,7 +2816,7 @@ async function loadAAL4916(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -2869,7 +2869,7 @@ async function loadAAL4916(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     isPathAvailable: true,
     positionReports: [
       {
@@ -3144,7 +3144,7 @@ async function loadAAL4917(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -3197,7 +3197,7 @@ async function loadAAL4917(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     isPathAvailable: true,
     positionReports: [
       {
@@ -3480,7 +3480,7 @@ async function loadAAL4918(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -3533,7 +3533,7 @@ async function loadAAL4918(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
@@ -3751,7 +3751,7 @@ async function loadAAL4919(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-01 16:28'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -3804,7 +3804,7 @@ async function loadAAL4919(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 230,
     totalFuelBurned: 2800,
@@ -4023,7 +4023,7 @@ async function loadDLH40(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-02 02:45'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -4076,7 +4076,7 @@ async function loadDLH40(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     isPathAvailable: true,
     positionReports: [
       {
@@ -4249,7 +4249,7 @@ async function loadDLH41(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-02 11:45'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -4277,7 +4277,7 @@ async function loadDLH41(tx: Prisma.TransactionClient): Promise<void> {
         },
       },
       final: null,
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
@@ -4374,7 +4374,7 @@ async function loadDLH42(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-03 02:15'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -4401,7 +4401,7 @@ async function loadDLH42(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
@@ -4555,7 +4555,7 @@ async function loadDLH43(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: new Date('2025-01-03 11:45'),
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -4583,7 +4583,7 @@ async function loadDLH43(tx: Prisma.TransactionClient): Promise<void> {
         },
       },
       final: null,
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     isEtops: true,
     greatCircleDistance: 3350,
@@ -4815,7 +4815,7 @@ async function loadDLH102(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: null,
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -4868,7 +4868,7 @@ async function loadDLH102(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     isPathAvailable: true,
     positionReports: [
@@ -5148,7 +5148,7 @@ async function loadDLH81(tx: Prisma.TransactionClient): Promise<void> {
         offBlockTime: '2025-01-05T09:00:00.000Z',
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       final: null,
       preliminary: {
         cargo: 8,
@@ -5172,7 +5172,7 @@ async function loadDLH81(tx: Prisma.TransactionClient): Promise<void> {
         passengers: 348,
         zeroFuelWeight: 206.5,
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
@@ -5217,7 +5217,8 @@ async function loadDLH81(tx: Prisma.TransactionClient): Promise<void> {
  * Frankfurt Rhein/Main (EDDF) -> New York JFK (KJFK)
  * status: Created — imported from a plan built at 80 kg per passenger, lighter than
  * the standard adult mass, so its payload only accounts for its load at the mass it
- * was planned with.
+ * was planned with. Carries two preliminary revisions, the plan as imported and the
+ * load as it firmed up, so the revision history is reachable.
  */
 async function loadDLH82(tx: Prisma.TransactionClient): Promise<void> {
   const data = {
@@ -5243,32 +5244,57 @@ async function loadDLH82(tx: Prisma.TransactionClient): Promise<void> {
         offBlockTime: '2025-01-06T09:00:00.000Z',
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       final: null,
-      preliminary: {
-        cargo: 8.004,
-        payload: 35.844,
-        blockFuel: 71.636,
-        passengerMass: 80,
-        fuel: {
-          block: 71.636,
-          taxi: 0.8,
-          trip: 60.7,
-          alternate: 4.2,
-          reserve: 2.9,
-          contingencyType: '5%',
-          contingencyAmount: 3,
-          mel: 0,
-          atc: 0,
-          wxx: 0,
-          extra: 0,
-          tankering: 0,
+      preliminary: [
+        {
+          cargo: 6.5,
+          payload: 32.9,
+          blockFuel: 71.636,
+          passengerMass: 80,
+          fuel: {
+            block: 71.636,
+            taxi: 0.8,
+            trip: 60.7,
+            alternate: 4.2,
+            reserve: 2.9,
+            contingencyType: '5%',
+            contingencyAmount: 3,
+            mel: 0,
+            atc: 0,
+            wxx: 0,
+            extra: 0,
+            tankering: 0,
+          },
+          flightCrew: { pilots: 2, cabinCrew: 12, reliefPilots: 1 },
+          passengers: 330,
+          zeroFuelWeight: 201.491,
         },
-        flightCrew: { pilots: 2, cabinCrew: 12, reliefPilots: 1 },
-        passengers: 348,
-        zeroFuelWeight: 204.435,
-      },
-    } as Prisma.InputJsonValue & Loadsheets,
+        {
+          cargo: 8.004,
+          payload: 35.844,
+          blockFuel: 71.636,
+          passengerMass: 80,
+          fuel: {
+            block: 71.636,
+            taxi: 0.8,
+            trip: 60.7,
+            alternate: 4.2,
+            reserve: 2.9,
+            contingencyType: '5%',
+            contingencyAmount: 3,
+            mel: 0,
+            atc: 0,
+            wxx: 0,
+            extra: 0,
+            tankering: 0,
+          },
+          flightCrew: { pilots: 2, cabinCrew: 12, reliefPilots: 1 },
+          passengers: 348,
+          zeroFuelWeight: 204.435,
+        },
+      ],
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
@@ -5316,7 +5342,7 @@ async function loadDLH83(tx: Prisma.TransactionClient): Promise<void> {
         offBlockTime: '2025-01-07T09:00:00.000Z',
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       final: null,
       preliminary: {
         cargo: 8.004,
@@ -5341,7 +5367,7 @@ async function loadDLH83(tx: Prisma.TransactionClient): Promise<void> {
         passengers: 348,
         zeroFuelWeight: 204.435,
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
@@ -5426,7 +5452,7 @@ async function loadDLH880(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: null,
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -5479,7 +5505,7 @@ async function loadDLH880(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     source: FlightSource.Manual,
     createdAt: new Date('2025-01-01 06:00'),
     greatCircleDistance: 480,
@@ -5652,7 +5678,7 @@ async function loadDLH103(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: null,
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -5705,7 +5731,7 @@ async function loadDLH103(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 3350,
     totalFuelBurned: 156000,
@@ -5805,7 +5831,7 @@ async function loadDLH500(tx: Prisma.TransactionClient): Promise<void> {
         onBlockTime: null,
       },
     } as Prisma.InputJsonValue,
-    loadsheets: {
+    loadsheets: seedLoadsheets({
       preliminary: {
         flightCrew: {
           pilots: 2,
@@ -5858,7 +5884,7 @@ async function loadDLH500(tx: Prisma.TransactionClient): Promise<void> {
           tankering: 0,
         },
       },
-    } as Prisma.InputJsonValue & Loadsheets,
+    }),
     createdAt: new Date('2025-01-01 00:00'),
     greatCircleDistance: 480,
     totalFuelBurned: 12000,
@@ -5979,7 +6005,7 @@ async function loadRecentCarrierFlights(
             onBlockTime: entry.onBlockTime,
           },
         } as Prisma.InputJsonValue,
-        loadsheets: {
+        loadsheets: seedLoadsheets({
           preliminary: entry.passengers
             ? {
                 flightCrew: { pilots: 2, reliefPilots: 0, cabinCrew: 4 },
@@ -5991,7 +6017,7 @@ async function loadRecentCarrierFlights(
               }
             : null,
           final: null,
-        } as Prisma.InputJsonValue & Loadsheets,
+        }),
       },
     });
 

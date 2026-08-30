@@ -1,5 +1,11 @@
 import { ScheduledTimesheet } from '../../../model/timesheet.model';
-import { ApiProperty, OmitType, PartialType, PickType } from '@nestjs/swagger';
+import {
+  ApiProperty,
+  ApiPropertyOptional,
+  OmitType,
+  PartialType,
+  PickType,
+} from '@nestjs/swagger';
 import {
   IsArray,
   IsDate,
@@ -14,13 +20,11 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
-import { Loadsheets } from '../../../model/loadsheet.model';
+import { Loadsheet } from '../../../model/loadsheet.model';
 import { Type } from 'class-transformer';
 import { Flight, FlightPhase } from '../../../model/flight.model';
 import { AirportType } from '../../../../airports/model/airport.model';
 import { FlightPilotDto } from '../../../../users/infra/http/request/get-user.dto';
-
-class PreliminaryLoadsheetOnly extends OmitType(Loadsheets, ['final']) {}
 
 export class AlternateAirportRequest {
   @ApiProperty({
@@ -45,7 +49,6 @@ export class CreateFlightRequest extends OmitType(Flight, [
   'aircraft',
   'airports',
   'timesheet',
-  'loadsheets',
   'operator',
   'source',
   'isFlightDiverted',
@@ -84,13 +87,17 @@ export class CreateFlightRequest extends OmitType(Flight, [
   @IsNotEmpty()
   timesheet!: ScheduledTimesheet;
 
-  @ApiProperty({
-    description: 'Initial loadsheet filled by operations team for pilots',
-    type: PreliminaryLoadsheetOnly,
+  @ApiPropertyOptional({
+    description:
+      'Initial preliminary loadsheet filled by the operations team. Omit it to create the ' +
+      'flight without one; it must be issued before the flight can be marked as ready.',
+    type: Loadsheet,
+    nullable: true,
   })
-  @Type(() => PreliminaryLoadsheetOnly)
-  @IsNotEmpty()
-  loadsheets!: PreliminaryLoadsheetOnly;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => Loadsheet)
+  loadsheet?: Loadsheet | null;
 
   @ApiProperty({
     description: 'Destination, ETOPS and enroute alternate airports',

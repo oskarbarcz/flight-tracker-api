@@ -5,6 +5,7 @@ import { AdsbModule } from '../../core/provider/adsb/adsb.module';
 import { DiscordModule } from '../../core/provider/discord/discord.module';
 import { SimbriefModule } from '../../core/provider/simbrief/simbrief.module';
 import { FlightsRepository } from './infra/database/repository/flights.repository';
+import { FlightLoadsheetsRepository } from './infra/database/repository/flight-loadsheets.repository';
 import { EventsRepository } from './infra/database/repository/events.repository';
 import { DiversionRepository } from './infra/database/repository/diversion.repository';
 import { EmergencyRepository } from './infra/database/repository/emergency.repository';
@@ -22,6 +23,7 @@ import { ListFlightsAction } from './infra/http/action/flight/list-flights.actio
 import { GetFlightAction } from './infra/http/action/flight/get-flight.action';
 import { RemoveFlightAction } from './infra/http/action/flight/remove-flight.action';
 import { UpdatePreliminaryLoadsheetAction } from './infra/http/action/loadsheet/update-preliminary-loadsheet.action';
+import { ListFlightLoadsheetsAction } from './infra/http/action/loadsheet/list-flight-loadsheets.action';
 import { UpdateScheduledTimesheetAction } from './infra/http/action/timesheet/update-scheduled-timesheet.action';
 import { UpdatePredictedTimesheetAction } from './infra/http/action/timesheet/update-predicted-timesheet.action';
 import { ChangeFlightVisibilityAction } from './infra/http/action/tracking/change-flight-visibility.action';
@@ -78,6 +80,8 @@ import { UpdatePredictedTimesheetHandler } from './application/command/update-pr
 import { CreateFlightHandler } from './application/command/create-flight.command';
 import { CreateFlightFromSimbriefHandler } from './application/command/create-flight-from-simbrief.command';
 import { GetOfpHandler } from './application/query/get-ofp.query';
+import { ListFlightLoadsheetsHandler } from './application/query/list-flight-loadsheets.query';
+import { GetCurrentLoadsheetHandler } from './application/query/get-current-loadsheet.query';
 import { GetPathHandler } from './application/query/path/get-path.query';
 import { GetFlightTrackingHandler } from './application/query/get-flight-tracking.query';
 import { ChangeFlightVisibilityHandler } from './application/command/change-flight-visibility.command';
@@ -133,6 +137,7 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     UpdateFlightAction,
     RemoveFlightAction,
     UpdatePreliminaryLoadsheetAction,
+    ListFlightLoadsheetsAction,
     UpdateScheduledTimesheetAction,
     UpdatePredictedTimesheetAction,
     ChangeFlightVisibilityAction,
@@ -177,6 +182,7 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     SendDelayAllocationRequestListener,
     SendDelayApprovalListener,
     FlightsRepository,
+    FlightLoadsheetsRepository,
     EventsRepository,
     DiversionRepository,
     EmergencyRepository,
@@ -207,6 +213,8 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     CreateFlightHandler,
     CreateFlightFromSimbriefHandler,
     GetOfpHandler,
+    ListFlightLoadsheetsHandler,
+    GetCurrentLoadsheetHandler,
     GetPathHandler,
     GetFlightTrackingHandler,
     ChangeFlightVisibilityHandler,

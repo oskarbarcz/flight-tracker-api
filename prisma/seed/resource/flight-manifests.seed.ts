@@ -1,5 +1,6 @@
 import { FlightPassengerStatus, Prisma } from '../../client/client';
-import { Loadsheets } from '../../../src/modules/flights/model/loadsheet.model';
+import { LoadsheetKind } from '../../../src/modules/flights/model/loadsheet.model';
+import { currentLoadsheet } from './loadsheet.seed';
 import {
   AllocatableSeat,
   allocateSeats,
@@ -42,7 +43,11 @@ export async function loadFlightManifests(
 
   for (const flight of flights) {
     const layoutId = flight.aircraft.cabinLayout;
-    const { preliminary, final } = flight.loadsheets as unknown as Loadsheets;
+    const preliminary = currentLoadsheet(
+      flight.loadsheets,
+      LoadsheetKind.Preliminary,
+    );
+    const final = currentLoadsheet(flight.loadsheets, LoadsheetKind.Final);
 
     if (!layoutId || !preliminary) {
       continue;

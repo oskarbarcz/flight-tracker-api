@@ -249,7 +249,6 @@ model Flight {
   status                     String
   aircraftId                 String            @db.Uuid
   timesheet                  Json
-  loadsheets                 Json              @default("{\"final\": null, \"preliminary\": null}")
   operatorId                 String            @db.Uuid
   captainId                  String?           @db.Uuid
   createdById                String?           @db.Uuid
@@ -311,6 +310,7 @@ model Flight {
   cargoUnits               FlightCargoUnit[]
   cargoShipments           FlightCargoShipment[]
   notocs                   FlightNotoc[]
+  loadsheets               FlightLoadsheet[]
   pinnedCabinVersion       CabinLayoutVersion?    @relation(fields: [cabinLayout, cabinLayoutRevision], references: [layoutId, revision])
 
   @@index([captainId, completedAt])
@@ -482,6 +482,58 @@ enum EtopsPointKind {
   critical
 }
 
+enum LoadsheetKind {
+  preliminary
+  final
+}
+
+model FlightLoadsheet {
+  id                       String        @id @default(uuid()) @db.Uuid
+  flightId                 String        @db.Uuid
+  kind                     LoadsheetKind
+  revision                 Int
+  pilots                   Int
+  reliefPilots             Int
+  cabinCrew                Int
+  passengers               Int
+  firstPassengers          Int?
+  businessPassengers       Int?
+  premiumEconomyPassengers Int?
+  economyPassengers        Int?
+  passengerMass            Decimal?      @db.Decimal(4, 1)
+  cargo                    Decimal       @db.Decimal(7, 3)
+  payload                  Decimal       @db.Decimal(7, 3)
+  zeroFuelWeight           Decimal       @db.Decimal(7, 3)
+  blockFuel                Decimal       @db.Decimal(7, 3)
+  fuelBlock                Decimal?      @db.Decimal(7, 3)
+  fuelTaxi                 Decimal?      @db.Decimal(7, 3)
+  fuelTrip                 Decimal?      @db.Decimal(7, 3)
+  fuelAlternate            Decimal?      @db.Decimal(7, 3)
+  fuelReserve              Decimal?      @db.Decimal(7, 3)
+  fuelContingencyType      String?       @db.VarChar(64)
+  fuelContingencyAmount    Decimal?      @db.Decimal(7, 3)
+  fuelMel                  Decimal?      @db.Decimal(7, 3)
+  fuelAtc                  Decimal?      @db.Decimal(7, 3)
+  fuelWxx                  Decimal?      @db.Decimal(7, 3)
+  fuelExtra                Decimal?      @db.Decimal(7, 3)
+  fuelTankering            Decimal?      @db.Decimal(7, 3)
+  fuelEtops                Decimal?      @db.Decimal(7, 3)
+  fuelMinTakeoff           Decimal?      @db.Decimal(7, 3)
+  fuelPlanTakeoff          Decimal?      @db.Decimal(7, 3)
+  fuelPlanLanding          Decimal?      @db.Decimal(7, 3)
+  fuelAverageFlow          Decimal?      @db.Decimal(7, 3)
+  fuelMaxTanks             Decimal?      @db.Decimal(7, 3)
+  issuedById               String?       @db.Uuid
+  issuedAt                 DateTime
+
+  flight   Flight @relation(fields: [flightId], references: [id], onDelete: Cascade)
+  issuedBy User?  @relation("LoadsheetIssuer", fields: [issuedById], references: [id], onDelete: SetNull)
+
+  @@unique([flightId, kind, revision])
+  @@index([flightId])
+  @@map("flight_loadsheet")
+}
+
 model AirportsOnFlights {
   airportId   String @db.Uuid
   flightId    String @db.Uuid
@@ -533,6 +585,7 @@ model User {
   allFlights           Flight[]               @relation("FlightCaptain")
   createdFlights       Flight[]               @relation("FlightCreatedBy")
   notocsAcknowledged   FlightNotoc[]          @relation("NotocAcknowledger")
+  loadsheetsIssued     FlightLoadsheet[]      @relation("LoadsheetIssuer")
   delayReportsReported DelayReport[]          @relation("DelayReportReporter")
   delayReportsDecided  DelayReport[]          @relation("DelayReportDecider")
   travels              UserTravel[]

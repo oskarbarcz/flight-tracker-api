@@ -12,6 +12,11 @@ import {
 } from '../../../core/validation/is-count-record.validator';
 import { Type } from 'class-transformer';
 
+export enum LoadsheetKind {
+  Preliminary = 'preliminary',
+  Final = 'final',
+}
+
 const tons = { allowNaN: false, allowInfinity: false, maxDecimalPlaces: 3 };
 
 export class FuelBreakdown {
@@ -266,20 +271,43 @@ export class Loadsheet {
   fuel?: FuelBreakdown | null;
 }
 
-export class Loadsheets {
+export class FlightLoadsheet extends Loadsheet {
   @ApiProperty({
-    description: 'Loadsheet filled by operations team for pilots',
-    type: Loadsheet,
-    nullable: true,
+    description: 'Loadsheet unique system identifier',
+    example: 'bd8f2d64-a647-42da-be63-c6589915e6c9',
   })
-  @Type(() => Loadsheet)
-  preliminary!: Loadsheet | null;
+  id!: string;
 
   @ApiProperty({
-    description: 'Loadsheet filled by pilots when finished boarding',
-    type: Loadsheet,
-    nullable: true,
+    description:
+      'Kind of loadsheet <br />' +
+      '**preliminary**: planned by the operations team; a flight keeps every revision it was issued.<br />' +
+      '**final**: settled by the crew when boarding finished; a flight has at most one.',
+    enum: LoadsheetKind,
+    example: LoadsheetKind.Preliminary,
   })
-  @Type(() => Loadsheet)
-  final!: Loadsheet | null;
+  kind!: LoadsheetKind;
+
+  @ApiProperty({
+    description:
+      'Revision of the loadsheet within its kind, counting from 1. A final loadsheet is always revision 1.',
+    example: 2,
+  })
+  revision!: number;
+
+  @ApiProperty({
+    description:
+      'Identifier of the user who issued the loadsheet, or null where the issuer is no longer known',
+    example: 'fe75ec7d-afbe-4514-a935-40c54f475278',
+    nullable: true,
+    type: String,
+  })
+  issuedById!: string | null;
+
+  @ApiProperty({
+    description: 'Time when the loadsheet was issued',
+    example: '2025-01-01T00:00:00.000Z',
+    type: 'string',
+  })
+  issuedAt!: Date;
 }

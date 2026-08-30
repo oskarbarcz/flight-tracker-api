@@ -70,60 +70,6 @@ Feature: Report arrival
             "offBlockTime": null
           }
         },
-        "loadsheets": {
-          "preliminary": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 6
-            },
-            "passengers": 296,
-            "payload": 40.3,
-            "cargo": 8.5,
-            "zeroFuelWeight": 208.9,
-            "blockFuel": 12.7,
-            "fuel": {
-              "block": 12.7,
-              "taxi": 0.3,
-              "trip": 10.4,
-              "alternate": 0.9,
-              "reserve": 0.6,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
-          },
-          "final": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 6
-            },
-            "passengers": 292,
-            "payload": 37.808,
-            "cargo": 8.9,
-            "zeroFuelWeight": 212.408,
-            "blockFuel": 11.9,
-            "fuel": {
-              "block": 11.9,
-              "taxi": 0.3,
-              "trip": 9.6,
-              "alternate": 0.9,
-              "reserve": 0.6,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
-          }
-        },
         "aircraft": {
           "id": "8694eb6d-83e4-4f24-8a72-b67523b4d6bf",
           "airframe": {

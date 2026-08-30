@@ -34,42 +34,6 @@ Feature: Create a flight with Simbrief
             "onBlockTime": "2025-01-05T17:25:00.000Z"
           }
         },
-        "loadsheets": {
-          "final": null,
-          "preliminary": {
-            "cargo": 8.004,
-            "payload": 37.932,
-            "blockFuel": 71.636,
-            "flightCrew": {
-              "pilots": 2,
-              "cabinCrew": 5,
-              "reliefPilots": 0
-            },
-            "passengers": 348,
-            "passengerMass": 86,
-            "zeroFuelWeight": 206.523,
-            "fuel": {
-              "block": 71.636,
-              "taxi": 0.8,
-              "trip": 58,
-              "alternate": 4.2,
-              "reserve": 2.9,
-              "contingencyType": "3%",
-              "contingencyAmount": 1.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0.3,
-              "extra": 0.6,
-              "tankering": 0,
-              "etops": 0,
-              "minTakeoff": 70.836,
-              "planTakeoff": 70.836,
-              "planLanding": 12.836,
-              "averageFuelFlow": 5.8,
-              "maxTanks": 111
-            }
-          }
-        },
         "aircraft": {
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
           "airframe": {
@@ -384,42 +348,6 @@ Feature: Create a flight with Simbrief
             "onBlockTime": "2025-01-05T17:25:00.000Z"
           }
         },
-        "loadsheets": {
-          "final": null,
-          "preliminary": {
-            "cargo": 8.004,
-            "payload": 37.932,
-            "blockFuel": 71.636,
-            "flightCrew": {
-              "pilots": 2,
-              "cabinCrew": 5,
-              "reliefPilots": 0
-            },
-            "passengers": 348,
-            "passengerMass": 86,
-            "zeroFuelWeight": 206.523,
-            "fuel": {
-              "block": 71.636,
-              "taxi": 0.8,
-              "trip": 58,
-              "alternate": 4.2,
-              "reserve": 2.9,
-              "contingencyType": "3%",
-              "contingencyAmount": 1.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0.3,
-              "extra": 0.6,
-              "tankering": 0,
-              "etops": 0,
-              "minTakeoff": 70.836,
-              "planTakeoff": 70.836,
-              "planLanding": 12.836,
-              "averageFuelFlow": 5.8,
-              "maxTanks": 111
-            }
-          }
-        },
         "aircraft": {
           "id": "9f5da1a4-f09e-4961-8299-82d688337d1f",
           "airframe": {
@@ -634,42 +562,6 @@ Feature: Create a flight with Simbrief
             "takeoffTime": "2025-01-05T09:20:00.000Z",
             "arrivalTime": "2025-01-05T17:10:00.000Z",
             "onBlockTime": "2025-01-05T17:25:00.000Z"
-          }
-        },
-        "loadsheets": {
-          "final": null,
-          "preliminary": {
-            "cargo": 8.004,
-            "payload": 35.844,
-            "blockFuel": 71.636,
-            "flightCrew": {
-              "pilots": 2,
-              "cabinCrew": 5,
-              "reliefPilots": 0
-            },
-            "passengers": 348,
-            "passengerMass": 80,
-            "zeroFuelWeight": 204.435,
-            "fuel": {
-              "block": 71.636,
-              "taxi": 0.8,
-              "trip": 58,
-              "alternate": 4.2,
-              "reserve": 2.9,
-              "contingencyType": "3%",
-              "contingencyAmount": 1.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0.3,
-              "extra": 0.6,
-              "tankering": 0,
-              "etops": 0,
-              "minTakeoff": 70.836,
-              "planTakeoff": 70.836,
-              "planLanding": 12.836,
-              "averageFuelFlow": 5.8,
-              "maxTanks": 111
-            }
           }
         },
         "aircraft": {

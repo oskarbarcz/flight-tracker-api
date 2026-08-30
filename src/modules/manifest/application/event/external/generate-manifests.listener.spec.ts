@@ -1,5 +1,6 @@
 import { GenerateManifestsListener } from './generate-manifests.listener';
 import { GetFlightQuery } from '../../../../flights/application/query/get-flight.query';
+import { GetCurrentLoadsheetQuery } from '../../../../flights/application/query/get-current-loadsheet.query';
 import { PreliminaryLoadsheetWasUpdatedEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../../../flights/model/event.model';
 import {
@@ -63,6 +64,10 @@ describe('GenerateManifestsListener', () => {
     commandBus = { execute: jest.fn().mockResolvedValue(undefined) };
     queryBus = {
       execute: jest.fn().mockImplementation((query: unknown) => {
+        if (query instanceof GetCurrentLoadsheetQuery) {
+          return Promise.resolve(preliminary);
+        }
+
         if (query instanceof GetFlightQuery) {
           return Promise.resolve({
             id: FLIGHT_ID,
@@ -75,7 +80,6 @@ describe('GenerateManifestsListener', () => {
                 onBlockTime: '2025-01-01T13:30:00.000Z',
               },
             },
-            loadsheets: { preliminary, final: null },
           });
         }
 

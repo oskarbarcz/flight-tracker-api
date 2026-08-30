@@ -5,8 +5,8 @@ import {
   FlightDoesNotExistError,
   InvalidStatusToUpdateLoadsheetError,
 } from '../../model/error/flight.error';
-import { FlightsRepository } from '../../infra/database/repository/flights.repository';
-import { Loadsheet, Loadsheets } from '../../model/loadsheet.model';
+import { FlightLoadsheetsRepository } from '../../infra/database/repository/flight-loadsheets.repository';
+import { Loadsheet, LoadsheetKind } from '../../model/loadsheet.model';
 import { PreliminaryLoadsheetWasUpdatedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
@@ -20,6 +20,7 @@ import { GetSeatCapacityQuery } from '../../../manifest/application/query/get-se
 import { SeatCapacityExceededError } from '../../../manifest/model/error/manifest.error';
 import { assertBreakdownFitsCabins } from '../../../manifest/model/manifest-generation';
 import { CabinCapacity } from '../../../cabin-layouts/model/cabin-capacity.model';
+import { GetCurrentLoadsheetQuery } from '../query/get-current-loadsheet.query';
 
 export class UpdatePreliminaryLoadsheetCommand {
   constructor(
@@ -33,7 +34,7 @@ export class UpdatePreliminaryLoadsheetCommand {
 export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<UpdatePreliminaryLoadsheetCommand> {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly flightsRepository: FlightsRepository,
+    private readonly loadsheetsRepository: FlightLoadsheetsRepository,
     private readonly domainEvents: DomainEventEmitter,
   ) {}
 
@@ -50,10 +51,13 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
       throw new InvalidStatusToUpdateLoadsheetError();
     }
 
-    const planned = withPlannedPassengerMass(
-      loadsheet,
-      flight.loadsheets.preliminary?.passengerMass,
+    const currentQuery = new GetCurrentLoadsheetQuery(
+      flightId,
+      LoadsheetKind.Preliminary,
     );
+    const current = await this.queryBus.execute(currentQuery);
+
+    const planned = withPlannedPassengerMass(loadsheet, current?.passengerMass);
 
     assertFuelBreakdownConsistent(planned);
     assertPassengerBreakdownConsistent(planned);
@@ -79,11 +83,11 @@ export class UpdatePreliminaryLoadsheetHandler implements ICommandHandler<Update
       }
     }
 
-    const loadsheets: Loadsheets = {
-      preliminary: planned,
-      final: flight.loadsheets.final,
-    };
-    await this.flightsRepository.updateLoadsheets(flightId, loadsheets);
+    await this.loadsheetsRepository.issuePreliminary(
+      flightId,
+      planned,
+      initiatorId,
+    );
     await this.domainEvents.emitAsync(
       new PreliminaryLoadsheetWasUpdatedEvent({
         flightId,

@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { AirportWithType } from '../../airports/model/airport.model';
 import { FullTimesheet } from './timesheet.model';
 import { Operator } from '../../operators/model/operator.model';
-import { Loadsheets } from './loadsheet.model';
 import {
   IsBoolean,
   IsEnum,
@@ -127,12 +126,6 @@ export class Flight {
     description: 'Timesheet',
   })
   timesheet!: FullTimesheet;
-
-  @ApiProperty({
-    description: 'Loadsheets',
-    type: Loadsheets,
-  })
-  loadsheets!: Loadsheets;
 
   @ApiProperty({
     description: 'Operator system unique identifier',

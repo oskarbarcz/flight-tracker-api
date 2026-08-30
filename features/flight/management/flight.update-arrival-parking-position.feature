@@ -44,31 +44,6 @@ Feature: Update flight arrival parking position
             "offBlockTime": "2025-01-02T04:00:00.000Z"
           }
         },
-        "loadsheets": {
-          "preliminary": {
-            "flightCrew": { "pilots": 2, "reliefPilots": 1, "cabinCrew": 12 },
-            "passengers": 335,
-            "payload": 41.565,
-            "cargo": 8.4,
-            "zeroFuelWeight": 168.965,
-            "blockFuel": 47.9,
-            "fuel": {
-              "block": 47.9,
-              "taxi": 0.8,
-              "trip": 39.8,
-              "alternate": 2.9,
-              "reserve": 2.4,
-              "contingencyType": "5%",
-              "contingencyAmount": 2,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
-          },
-          "final": null
-        },
         "aircraft": {
           "id": "becc1596-dfa0-452b-81ec-3f1f2fa0dce2",
           "airframe": {
