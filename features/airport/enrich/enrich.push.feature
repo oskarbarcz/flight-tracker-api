@@ -21,6 +21,33 @@ Feature: Push reviewed OpenStreetMap data into an airport
         ]
       }
       """
+    When I send a "GET" request to "/api/v1/airport/5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
+        "icaoCode": "EDDW",
+        "iataCode": "BRE",
+        "city": {
+          "id": "11fe7e0d-ef97-4a1d-9a87-8ad9da64fd91",
+          "name": "Bremen"
+        },
+        "name": "Bremen",
+        "country": {
+          "code": "DE",
+          "name": "Germany"
+        },
+        "timezone": "Europe/Berlin",
+        "continent": "europe",
+        "dataQuality": "flagship",
+        "location": {
+          "longitude": 8.786667,
+          "latitude": 53.0475
+        },
+        "shape": "@coordinates"
+      }
+      """
     And I set database to initial state
 
   Scenario: Anything I did not select is left alone
@@ -113,6 +140,33 @@ Feature: Push reviewed OpenStreetMap data into an airport
             "reason": "OpenStreetMap agrees with the airport model; nothing to write."
           }
         ]
+      }
+      """
+    When I send a "GET" request to "/api/v1/airport/5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf",
+        "icaoCode": "EDDW",
+        "iataCode": "BRE",
+        "city": {
+          "id": "11fe7e0d-ef97-4a1d-9a87-8ad9da64fd91",
+          "name": "Bremen"
+        },
+        "name": "Bremen",
+        "country": {
+          "code": "DE",
+          "name": "Germany"
+        },
+        "timezone": "Europe/Berlin",
+        "continent": "europe",
+        "dataQuality": "low",
+        "location": {
+          "longitude": 8.786667,
+          "latitude": 53.0475
+        },
+        "shape": "@coordinates"
       }
       """
 

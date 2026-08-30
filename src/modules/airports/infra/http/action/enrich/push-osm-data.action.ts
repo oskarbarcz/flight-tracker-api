@@ -42,6 +42,9 @@ export class PushOsmDataAction {
       'change failing does not abort the others — every key is answered for in the response.\n\n' +
       'Stands need their terminal and gates need both; push a dependency alongside the change that needs it, or ' +
       'that change is reported as failed. The proposal names them in `requires`.\n\n' +
+      'A push that applies at least one change grades the airport `flagship`, whatever grade it held before: it ' +
+      'has been reconciled against OpenStreetMap. A push that writes nothing — every selected change skipped or ' +
+      'failed — leaves the grade as it was, and the grade can still be changed by hand afterwards.\n\n' +
       '**NOTE:** This endpoint is only available for users with `operations` role.',
   })
   @ApiBearerAuth('jwt')

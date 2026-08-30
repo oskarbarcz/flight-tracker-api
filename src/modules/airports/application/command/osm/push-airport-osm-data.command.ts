@@ -23,7 +23,7 @@ import {
   AirportSnapshot,
   OsmAirportDataService,
 } from '../../../infra/service/osm-airport-data.service';
-import { Coordinates } from '../../../model/airport.model';
+import { Coordinates, DataQuality } from '../../../model/airport.model';
 import {
   AirportOsmPullRequiredError,
   UnknownProposedChangesError,
@@ -144,10 +144,18 @@ export class PushAirportOsmDataHandler implements ICommandHandler<
       applied.push(await this.applyOne(change, context));
     }
 
+    const totals = this.tally(applied);
+
+    if (totals.added + totals.updated + totals.removed > 0) {
+      await this.airportsRepository.update(airportId, {
+        dataQuality: DataQuality.Flagship,
+      });
+    }
+
     return {
       airportId,
       icaoCode: airport.icaoCode,
-      totals: this.tally(applied),
+      totals,
       changes: applied,
     };
   }
