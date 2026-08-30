@@ -17,7 +17,7 @@ import {
   JwtTokenType,
   JwtUser,
 } from '../../../auth/infra/http/request/jwt-user.dto';
-import { FlightBroadcastEvent } from '../http/request/event.dto';
+import { FlightEventResponse } from '../http/request/event.dto';
 import { ListEventsQuery } from '../../application/query/events/list-events.query';
 import { FlightSubscriptionDto } from './request/flight-subscription.dto';
 
@@ -25,7 +25,7 @@ export type AuthedSocket = Socket & {
   data: {
     user: JwtUser;
     buffering?: boolean;
-    buffer?: FlightBroadcastEvent[];
+    buffer?: FlightEventResponse[];
   };
 };
 
@@ -125,8 +125,11 @@ export class FlightEventsGateway implements OnGatewayConnection {
     await socket.leave(flightRoom(body.flightId));
   }
 
-  async publishToFlight(event: FlightBroadcastEvent): Promise<void> {
-    const room = flightRoom(event.flightId);
+  async publishToFlight(
+    flightId: string,
+    event: FlightEventResponse,
+  ): Promise<void> {
+    const room = flightRoom(flightId);
     const sockets = (await this.server
       .in(room)
       .fetchSockets()) as unknown as AuthedSocket[];

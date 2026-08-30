@@ -134,6 +134,14 @@ Then(
 );
 
 Then(
+  'the received live flight events should contain:',
+  function (docString: string) {
+    const expected = JSON.parse(docString);
+    deepCompare(received.events, expected);
+  },
+);
+
+Then(
   'I should not receive any live flight event within {int}ms',
   async (timeoutMs: number) => {
     await new Promise((r) => setTimeout(r, timeoutMs));

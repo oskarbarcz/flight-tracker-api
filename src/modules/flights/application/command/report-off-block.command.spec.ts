@@ -71,7 +71,7 @@ describe('ReportOffBlockHandler', () => {
     expect(event.payload.payload).toEqual({ automaticallyDetected: false });
   });
 
-  it('reports an automatic off-block as an operations-scoped event with no actor and the backdated time', async () => {
+  it('reports an automatic off-block as a user-scoped event with no actor and the backdated time', async () => {
     const offBlockTime = new Date('2025-01-01T13:02:00.000Z');
     const command = new ReportOffBlockCommand(
       FLIGHT_ID,
@@ -87,7 +87,7 @@ describe('ReportOffBlockHandler', () => {
 
     const event = domainEvents.emit.mock
       .calls[0][0] as OffBlockWasReportedEvent;
-    expect(event.payload.scope).toBe(FlightEventScope.Operations);
+    expect(event.payload.scope).toBe(FlightEventScope.User);
     expect(event.payload.actorId).toBeNull();
     expect(event.payload.payload).toEqual({ automaticallyDetected: true });
   });

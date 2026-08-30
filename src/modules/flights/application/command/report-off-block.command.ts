@@ -30,9 +30,6 @@ export class ReportOffBlockHandler implements ICommandHandler<ReportOffBlockComm
   async execute(command: ReportOffBlockCommand): Promise<void> {
     const { flightId, initiatorId, offBlockTime, automaticallyDetected } =
       command;
-    const scope = automaticallyDetected
-      ? FlightEventScope.Operations
-      : FlightEventScope.User;
     const query = new GetFlightQuery(flightId);
     const flight = await this.queryBus.execute(query);
 
@@ -61,7 +58,7 @@ export class ReportOffBlockHandler implements ICommandHandler<ReportOffBlockComm
     this.domainEvents.emit(
       new OffBlockWasReportedEvent({
         flightId,
-        scope,
+        scope: FlightEventScope.User,
         actorId: initiatorId,
         aircraftId: flight.aircraft.id,
         payload: { automaticallyDetected },

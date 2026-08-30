@@ -31,9 +31,6 @@ export class ReportArrivalHandler implements ICommandHandler<ReportArrivalComman
   async execute(command: ReportArrivalCommand): Promise<void> {
     const { flightId, initiatorId, arrivalTime, automaticallyDetected } =
       command;
-    const scope = automaticallyDetected
-      ? FlightEventScope.Operations
-      : FlightEventScope.User;
     const query = new GetFlightQuery(flightId);
     const flight = await this.queryBus.execute(query);
 
@@ -54,7 +51,7 @@ export class ReportArrivalHandler implements ICommandHandler<ReportArrivalComman
     await this.domainEvents.emitAsync(
       new ArrivalWasReportedEvent({
         flightId,
-        scope,
+        scope: FlightEventScope.User,
         actorId: initiatorId,
         payload: { automaticallyDetected },
       }),

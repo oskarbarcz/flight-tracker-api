@@ -74,7 +74,7 @@ describe('ReportArrivalHandler', () => {
     expect(event.payload.payload).toEqual({ automaticallyDetected: false });
   });
 
-  it('reports an automatic arrival as an operations-scoped event with no actor and the backdated time', async () => {
+  it('reports an automatic arrival as a user-scoped event with no actor and the backdated time', async () => {
     const arrivalTime = new Date('2025-01-01T15:50:00.000Z');
     const command = new ReportArrivalCommand(
       FLIGHT_ID,
@@ -90,7 +90,7 @@ describe('ReportArrivalHandler', () => {
 
     const event = domainEvents.emitAsync.mock
       .calls[0][0] as ArrivalWasReportedEvent;
-    expect(event.payload.scope).toBe(FlightEventScope.Operations);
+    expect(event.payload.scope).toBe(FlightEventScope.User);
     expect(event.payload.actorId).toBeNull();
     expect(event.payload.payload).toEqual({ automaticallyDetected: true });
   });
