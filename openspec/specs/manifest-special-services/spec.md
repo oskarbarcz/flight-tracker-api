@@ -74,11 +74,11 @@ the same basis as at generation.
 
 #### Scenario: A remaining passenger keeps their code
 
-- **GIVEN** a released flight whose manifest contains passengers carrying special service codes
+- **GIVEN** a flight whose manifest contains passengers carrying special service codes
 - **WHEN** boarding is finished with a different passenger count
 - **THEN** every passenger who remains keeps the code they had
 
 #### Scenario: Added passengers may carry codes
 
 - **WHEN** reconciliation generates additional passengers
-- **THEN** those passengers carry codes on the same basis as passengers generated at release
+- **THEN** those passengers carry codes on the same basis as passengers seated from the preliminary loadsheet

@@ -9,33 +9,53 @@ invariant against that loadsheet, the shipments and their air waybill numbers, t
 devices and loose bulk lots carrying them, the hold positions and compartments they are placed
 in, the aircraft whose type has no curated hold data, and the endpoint the manifest is read
 through.
-
 ## Requirements
-
 ### Requirement: Releasing a flight generates a cargo manifest
 
-The system SHALL generate a cargo manifest when a flight is released to the pilot, using the
-cargo tonnage and passenger count from the flight's preliminary loadsheet, which are already
-required before release. The manifest SHALL consist of load units — containers and loose bulk
-lots — and the shipments loaded in them.
+The system SHALL generate a cargo manifest when a flight's preliminary loadsheet is written, and
+SHALL regenerate it on every later write, using the cargo tonnage and passenger count that
+loadsheet carries, so that the manifest can never describe a loadsheet the flight no longer has.
+The manifest SHALL consist of load units — containers and loose bulk lots — and the shipments
+loaded in them. Creating a flight with a preliminary loadsheet — filled by hand or imported from a
+SimBrief plan — SHALL build its load at creation, because creating it writes that loadsheet.
+Releasing the flight to the pilot SHALL NOT generate anything: it is a state transition over a
+manifest that already exists.
 
-#### Scenario: Release builds the load
+#### Scenario: Writing the loadsheet builds the load
 
 - **GIVEN** a flight whose preliminary loadsheet reports a cargo tonnage
-- **WHEN** operations releases the flight to the pilot
+- **WHEN** operations writes that loadsheet
 - **THEN** a cargo manifest is generated holding shipments and the units carrying them
+
+#### Scenario: Creating a flight with a loadsheet builds its load
+
+- **GIVEN** operations creating a flight whose body carries a preliminary loadsheet reporting a cargo tonnage
+- **WHEN** the flight is created
+- **THEN** its cargo manifest is generated against that tonnage
+
+#### Scenario: Writing the loadsheet again rebuilds the load
+
+- **GIVEN** a flight whose cargo manifest was generated from an earlier loadsheet
+- **WHEN** operations writes the loadsheet again with a different cargo tonnage
+- **THEN** the manifest is regenerated against the new tonnage and the old units are gone
 
 #### Scenario: A flight carrying neither cargo nor passengers has no manifest
 
 - **GIVEN** a flight whose preliminary loadsheet reports no cargo and no passengers
-- **WHEN** operations releases the flight to the pilot
-- **THEN** no cargo manifest is generated and the release succeeds
+- **WHEN** operations writes that loadsheet
+- **THEN** no cargo manifest is generated and the loadsheet is accepted
 
 #### Scenario: A flight carrying passengers but no cargo still has a manifest
 
 - **GIVEN** a flight whose preliminary loadsheet reports passengers and no cargo
-- **WHEN** operations releases the flight to the pilot
+- **WHEN** operations writes that loadsheet
 - **THEN** a cargo manifest is generated holding the baggage units and no cargo shipments
+
+#### Scenario: A flight with no loadsheet reports no manifest
+
+- **GIVEN** a flight whose preliminary loadsheet has never been written
+- **WHEN** its cargo manifest is read
+- **THEN** the request reports that no cargo manifest has been generated yet
 
 ### Requirement: The manifest's weights sum to the loadsheet's cargo tonnage exactly
 
@@ -80,8 +100,8 @@ weight. A device SHALL NOT exceed its type's maximum gross weight nor its type's
 
 The system SHALL place each containerised load unit in a ULD position of the aircraft's resolved
 hold variant, SHALL NOT place two units in the same position, and SHALL NOT place a unit in a
-position that does not accept its base size and contour. The weight in a compartment SHALL NOT
-exceed that compartment's maximum.
+position that does not accept its base size and contour. Neither the weight nor the volume in a
+compartment SHALL exceed that compartment's maximum.
 
 #### Scenario: Each unit occupies a distinct position
 
@@ -97,6 +117,17 @@ exceed that compartment's maximum.
 
 - **WHEN** a cargo manifest is generated
 - **THEN** the total weight in each compartment is within that compartment's maximum
+
+#### Scenario: Compartment volume limits are respected
+
+- **WHEN** a cargo manifest is generated
+- **THEN** the total volume in each compartment is within that compartment's maximum
+
+#### Scenario: A loose lot is limited by the volume left in its compartment
+
+- **GIVEN** a compartment already carrying a low-density load
+- **WHEN** a further loose lot is placed
+- **THEN** that lot is sized to the volume the compartment has left, and the remainder is placed elsewhere
 
 ### Requirement: Bulk-loaded aircraft carry loose lots rather than containers
 
@@ -133,7 +164,7 @@ rather than reporting an empty hold.
 #### Scenario: An uncurated type produces an unpositioned manifest
 
 - **GIVEN** a flight whose aircraft's type has no curated hold data
-- **WHEN** operations releases the flight to the pilot
+- **WHEN** operations writes its preliminary loadsheet
 - **THEN** a cargo manifest is generated whose units carry no position and no compartment
 
 #### Scenario: Reading an unpositioned manifest
@@ -197,22 +228,31 @@ SHALL report none.
 
 ### Requirement: A cargo tonnage the hold cannot take is rejected
 
-The system SHALL reject as unprocessable an attempt to release a flight whose preliminary
-loadsheet reports more cargo than the aircraft's resolved hold variant can carry by weight or by
-volume. The check SHALL apply only where the airframe type has curated hold data.
+The system SHALL reject as unprocessable an attempt to write a preliminary loadsheet reporting a
+load the aircraft's resolved hold variant cannot carry by weight or by volume, counting the cargo
+tonnage together with the baggage that loadsheet implies, so that a tonnage leaving the bags
+nowhere to go is refused where operations can still correct it. The check SHALL apply only where
+the airframe type has curated hold data, and no cargo manifest SHALL be generated when it is
+refused.
 
-#### Scenario: An over-capacity tonnage blocks release
+#### Scenario: An over-capacity tonnage blocks the loadsheet
 
-- **GIVEN** a flight whose loadsheet reports more cargo than its aircraft's hold can carry
-- **WHEN** operations releases the flight to the pilot
+- **GIVEN** a loadsheet reporting more cargo than the aircraft's hold can carry
+- **WHEN** operations writes it
 - **THEN** the request is rejected as unprocessable
-- **AND** the flight is not released
+- **AND** no cargo manifest is generated
+
+#### Scenario: Cargo that leaves no room for the baggage blocks the loadsheet
+
+- **GIVEN** a loadsheet whose cargo alone fits the aircraft's hold but whose cargo and baggage together do not
+- **WHEN** operations writes it
+- **THEN** the request is rejected as unprocessable
 
 #### Scenario: A flight whose type has no hold data skips the check
 
 - **GIVEN** a flight whose aircraft's type has no curated hold data
-- **WHEN** operations releases the flight with any cargo tonnage
-- **THEN** the release succeeds
+- **WHEN** operations writes a loadsheet reporting any cargo tonnage
+- **THEN** the loadsheet is accepted
 
 ### Requirement: The cargo manifest is read through its own endpoint
 
@@ -223,7 +263,7 @@ it carries.
 
 #### Scenario: Operations reads a cargo manifest
 
-- **WHEN** operations reads the cargo manifest of a released flight
+- **WHEN** operations reads the cargo manifest of a flight whose loadsheet has been written
 - **THEN** every load unit is returned with its position, compartment and contents
 
 #### Scenario: The captain reads their own flight's cargo manifest
@@ -243,8 +283,47 @@ it carries.
 - **WHEN** an unauthenticated request reads a flight's cargo manifest
 - **THEN** the request is rejected as unauthorised
 
-#### Scenario: An unreleased flight reports no manifest
+#### Scenario: A flight whose loadsheet has not been written reports no manifest
 
-- **GIVEN** a flight that has not been released
+- **GIVEN** a flight whose preliminary loadsheet has never been written
 - **WHEN** its cargo manifest is read
 - **THEN** the request reports that no cargo manifest has been generated yet
+
+### Requirement: A curated aircraft places every unit it carries
+
+The system SHALL place every load unit of a flight whose airframe type has curated hold data in
+a compartment of the resolved hold variant, so that a unit carrying no compartment means one
+thing only — that the type is uncurated. Where the load cannot be placed in full, the release
+SHALL be refused rather than answered with a manifest holding an unplaced unit.
+
+#### Scenario: Every unit of a curated aircraft is placed
+
+- **GIVEN** a released flight whose aircraft's airframe type has curated hold data
+- **WHEN** its cargo manifest is read
+- **THEN** every load unit reports a deck and a compartment
+
+#### Scenario: A load that cannot be placed refuses the loadsheet
+
+- **GIVEN** a loadsheet whose cargo and baggage together cannot be placed in the aircraft's hold
+- **WHEN** operations writes it
+- **THEN** the request is rejected as unprocessable
+- **AND** no cargo manifest is generated
+
+### Requirement: The manifest's reported weights account for every unit's tare
+
+The system SHALL report the cargo weight and the baggage weight of a manifest such that the two
+together equal the weight of every unit aboard, tare included, so that no kilogram of the load
+falls between the two figures. A baggage container's tare SHALL be reported in the baggage
+weight.
+
+#### Scenario: The reported weights account for the whole load
+
+- **WHEN** a cargo manifest is read
+- **THEN** its reported cargo weight and baggage weight together equal the sum of every unit's tare and gross weight
+
+#### Scenario: A containerised baggage load reports its tare
+
+- **GIVEN** a flight whose baggage is carried in containers
+- **WHEN** its cargo manifest is read
+- **THEN** the reported baggage weight includes those containers' tare weights
+
