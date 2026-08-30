@@ -1,5 +1,6 @@
 import {
   BadRequestError,
+  ConflictError,
   NotFoundError,
   UnprocessableError,
 } from '../../../../core/errors/domain-error';
@@ -177,6 +178,18 @@ export class InvalidStatusToMarkAsReadyError extends UnprocessableError {
 export class PreliminaryLoadsheetMissingError extends UnprocessableError {
   constructor() {
     super('Cannot mark flight as ready. Preliminary loadsheet is mandatory.');
+  }
+}
+
+export class LoadsheetMissingError extends UnprocessableError {
+  constructor() {
+    super('Flight has no loadsheet.');
+  }
+}
+
+export class LoadsheetRevisionConflictError extends ConflictError {
+  constructor() {
+    super('Loadsheet was revised concurrently. Retry with the current one.');
   }
 }
 

@@ -11,10 +11,11 @@ import {
   InvalidStatusToFinishBoardingError,
 } from '../../model/error/flight.error';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
+import { FlightLoadsheetsRepository } from '../../infra/database/repository/flight-loadsheets.repository';
 import { BoardingWasFinishedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
-import { Loadsheet } from '../../model/loadsheet.model';
+import { Loadsheet, LoadsheetKind } from '../../model/loadsheet.model';
 import {
   assertFuelBreakdownConsistent,
   assertPassengerBreakdownConsistent,
@@ -28,6 +29,7 @@ import { scheduledFlightHours } from '../../model/timesheet.model';
 import { IssueNotocCommand } from '../../../manifest/application/command/issue-notoc.command';
 import { AcknowledgeNotocCommand } from '../../../manifest/application/command/acknowledge-notoc.command';
 import { NotocStageName } from '../../../manifest/model/notoc.model';
+import { GetCurrentLoadsheetQuery } from '../query/get-current-loadsheet.query';
 
 export class FinishBoardingCommand {
   constructor(
@@ -43,6 +45,7 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus,
     private readonly flightsRepository: FlightsRepository,
+    private readonly loadsheetsRepository: FlightLoadsheetsRepository,
     private readonly domainEvents: DomainEventEmitter,
   ) {}
 
@@ -59,9 +62,15 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
       throw new InvalidStatusToFinishBoardingError();
     }
 
+    const currentQuery = new GetCurrentLoadsheetQuery(
+      flightId,
+      LoadsheetKind.Preliminary,
+    );
+    const preliminary = await this.queryBus.execute(currentQuery);
+
     const planned = withPlannedPassengerMass(
       finalLoadsheet,
-      flight.loadsheets.preliminary?.passengerMass,
+      preliminary?.passengerMass,
     );
 
     assertFuelBreakdownConsistent(planned);
@@ -124,16 +133,11 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
       await this.commandBus.execute(acknowledgeNotoc);
     }
 
-    await Promise.all([
-      await this.flightsRepository.updateLoadsheets(flightId, {
-        preliminary: flight.loadsheets.preliminary,
-        final: planned,
-      }),
-      await this.flightsRepository.updateStatus(
-        flightId,
-        FlightStatus.BoardingFinished,
-      ),
-    ]);
+    await this.loadsheetsRepository.issueFinal(flightId, planned, initiatorId);
+    await this.flightsRepository.updateStatus(
+      flightId,
+      FlightStatus.BoardingFinished,
+    );
 
     this.domainEvents.emit(
       new BoardingWasFinishedEvent({

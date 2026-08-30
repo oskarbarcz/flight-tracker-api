@@ -14,6 +14,7 @@ import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-
 import { CreateFlightRequest } from '../../infra/http/request/flight.dto';
 import { CheckAircraftExistsQuery } from '../../../aircraft/application/query/check-aircraft-exists.query';
 import { CheckOperatorExistsQuery } from '../../../operators/application/query/check-operator-exists.query';
+import { FlightLoadsheetsRepository } from '../../infra/database/repository/flight-loadsheets.repository';
 
 export class CreateFlightCommand {
   constructor(
@@ -28,6 +29,7 @@ export class CreateFlightHandler implements ICommandHandler<CreateFlightCommand>
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
+    private readonly loadsheetsRepository: FlightLoadsheetsRepository,
     private readonly domainEvents: DomainEventEmitter,
   ) {}
 
@@ -63,7 +65,12 @@ export class CreateFlightHandler implements ICommandHandler<CreateFlightCommand>
       }),
     );
 
-    if (flightData.loadsheets.preliminary) {
+    if (flightData.loadsheet) {
+      await this.loadsheetsRepository.issuePreliminary(
+        flightId,
+        flightData.loadsheet,
+        initiatorId,
+      );
       await this.domainEvents.emitAsync(
         new PreliminaryLoadsheetWasUpdatedEvent({
           flightId,

@@ -67,32 +67,6 @@ Feature: Update flight preliminary loadsheet
             "offBlockTime": "2025-01-01T13:00:00.000Z"
           }
         },
-        "loadsheets": {
-          "preliminary": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 5
-            },
-            "passengers": 360,
-            "payload": 38.5,
-            "cargo": 7.5,
-            "zeroFuelWeight": 197.9,
-            "blockFuel": 12.7
-          },
-          "final": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 6
-            },
-            "passengers": 294,
-            "payload": 39.1,
-            "cargo": 8.2,
-            "zeroFuelWeight": 207.7,
-            "blockFuel": 12.5
-          }
-        },
         "aircraft": {
           "id": "ed247c36-58f0-43ff-81fd-ffae548a73e2",
           "airframe": {
@@ -301,52 +275,6 @@ Feature: Update flight preliminary loadsheet
             "onBlockTime": "2025-01-01T16:18:00.000Z",
             "takeoffTime": "2025-01-01T13:15:00.000Z",
             "offBlockTime": "2025-01-01T13:00:00.000Z"
-          }
-        },
-        "loadsheets": {
-          "preliminary": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 5
-            },
-            "passengers": 360,
-            "payload": 38.5,
-            "cargo": 7.5,
-            "zeroFuelWeight": 197.9,
-            "blockFuel": 12.7,
-            "fuel": {
-              "block": 12.7,
-              "taxi": 0.4,
-              "trip": 9.9,
-              "alternate": 1,
-              "reserve": 0.7,
-              "contingencyType": "5% of trip",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0.2,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0,
-              "etops": 0,
-              "minTakeoff": 12.4,
-              "planTakeoff": 12.4,
-              "planLanding": 2.3,
-              "averageFuelFlow": 5.9,
-              "maxTanks": 145
-            }
-          },
-          "final": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 6
-            },
-            "passengers": 294,
-            "payload": 39.1,
-            "cargo": 8.2,
-            "zeroFuelWeight": 207.7,
-            "blockFuel": 12.5
           }
         },
         "aircraft": {
@@ -1831,22 +1759,29 @@ Feature: Update flight preliminary loadsheet
       }
       """
     Then the response status should be 204
-    When I send a "GET" request to "/api/v1/flight/6d1a7c4b-95e2-4f38-b7a0-c3e8f1d24a56"
+    When I send a "GET" request to "/api/v1/flight/6d1a7c4b-95e2-4f38-b7a0-c3e8f1d24a56/loadsheet?type=preliminary"
     Then the response status should be 200
-    And the response body property "loadsheets.preliminary" should contain:
+    And the response body property "2" should contain:
       """json
       {
+        "id": "@uuid",
+        "kind": "preliminary",
+        "revision": 3,
+        "issuedById": "721ab705-8608-4386-86b4-2f391a3655a7",
+        "issuedAt": "@date('within 1 minute from now')",
         "flightCrew": {
           "pilots": 2,
           "cabinCrew": 12,
           "reliefPilots": 1
         },
         "passengers": 348,
+        "passengersByCabin": null,
         "passengerMass": 80,
         "payload": 35.844,
         "cargo": 8.004,
         "zeroFuelWeight": 204.435,
-        "blockFuel": 71.636
+        "blockFuel": 71.636,
+        "fuel": null
       }
       """
     And I set database to initial state
@@ -1898,21 +1833,106 @@ Feature: Update flight preliminary loadsheet
       }
       """
     Then the response status should be 204
-    When I send a "GET" request to "/api/v1/flight/6d1a7c4b-95e2-4f38-b7a0-c3e8f1d24a56"
-    Then the response body property "loadsheets.preliminary" should contain:
+    When I send a "GET" request to "/api/v1/flight/6d1a7c4b-95e2-4f38-b7a0-c3e8f1d24a56/loadsheet?type=preliminary"
+    Then the response body property "2" should contain:
       """json
       {
+        "id": "@uuid",
+        "kind": "preliminary",
+        "revision": 3,
+        "issuedById": "721ab705-8608-4386-86b4-2f391a3655a7",
+        "issuedAt": "@date('within 1 minute from now')",
         "flightCrew": {
           "pilots": 2,
           "cabinCrew": 12,
           "reliefPilots": 1
         },
         "passengers": 348,
+        "passengersByCabin": null,
         "passengerMass": 80,
         "payload": 35.844,
         "cargo": 8.004,
         "zeroFuelWeight": 204.435,
-        "blockFuel": 71.636
+        "blockFuel": 71.636,
+        "fuel": null
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As operations each update I make is kept as a new revision
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/8e5f9f40-34f3-4813-99db-b732ba2b815e/loadsheet/preliminary" with body:
+      """json
+      {
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 5
+        },
+        "passengers": 140,
+        "passengersByCabin": {
+          "business": 28,
+          "economy": 112
+        },
+        "cargo": 4.2,
+        "payload": 19.8,
+        "zeroFuelWeight": 88.2,
+        "blockFuel": 21.4
+      }
+      """
+    Then the response status should be 204
+    When I send a "GET" request to "/api/v1/flight/8e5f9f40-34f3-4813-99db-b732ba2b815e/loadsheet?type=preliminary"
+    Then the response status should be 200
+    And the response body property "0" should contain:
+      """json
+      {
+        "id": "@uuid",
+        "kind": "preliminary",
+        "revision": 1,
+        "issuedById": null,
+        "issuedAt": "2025-01-01T00:00:00.000Z",
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 5
+        },
+        "passengers": 150,
+        "passengersByCabin": {
+          "business": 30,
+          "economy": 120
+        },
+        "passengerMass": null,
+        "cargo": 4.2,
+        "payload": 19.8,
+        "zeroFuelWeight": 88.2,
+        "blockFuel": 21.4,
+        "fuel": null
+      }
+      """
+    And the response body property "1" should contain:
+      """json
+      {
+        "id": "@uuid",
+        "kind": "preliminary",
+        "revision": 2,
+        "issuedById": "721ab705-8608-4386-86b4-2f391a3655a7",
+        "issuedAt": "@date('within 1 minute from now')",
+        "flightCrew": {
+          "pilots": 2,
+          "reliefPilots": 0,
+          "cabinCrew": 5
+        },
+        "passengers": 140,
+        "passengersByCabin": {
+          "business": 28,
+          "economy": 112
+        },
+        "passengerMass": null,
+        "cargo": 4.2,
+        "payload": 19.8,
+        "zeroFuelWeight": 88.2,
+        "blockFuel": 21.4,
+        "fuel": null
       }
       """
     And I set database to initial state

@@ -9,6 +9,8 @@ import {
 import { DiscordClient } from '../../../../../core/provider/discord/client/discord.client';
 import { getErrorMessage } from '../../../../../core/utils/error-message';
 import { GetFlightQuery } from '../../query/get-flight.query';
+import { GetCurrentLoadsheetQuery } from '../../query/get-current-loadsheet.query';
+import { LoadsheetKind } from '../../../model/loadsheet.model';
 import { resolveFlightRoute } from '../../../model/flight-route';
 import {
   calculateBlockTime,
@@ -39,6 +41,11 @@ export class PassengersBoardingNotificationListener {
     try {
       const query = new GetFlightQuery(flightId);
       const flight = await this.queryBus.execute(query);
+      const loadsheetQuery = new GetCurrentLoadsheetQuery(
+        flightId,
+        LoadsheetKind.Preliminary,
+      );
+      const loadsheet = await this.queryBus.execute(loadsheetQuery);
       const { departure, destination } = resolveFlightRoute(flight.airports);
 
       const content = formatBoardingAnnouncement({
@@ -52,7 +59,7 @@ export class PassengersBoardingNotificationListener {
           flight.timesheet.estimated?.offBlockTime as Date,
           flight.timesheet.estimated?.onBlockTime as Date,
         ),
-        passengers: flight.loadsheets.preliminary?.passengers,
+        passengers: loadsheet?.passengers,
         flightUrl: `${this.frontendBaseUrl}/map/${flight.id}`,
       });
 

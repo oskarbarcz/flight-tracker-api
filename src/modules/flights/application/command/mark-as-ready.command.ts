@@ -8,6 +8,8 @@ import {
 import { FlightWasReleasedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
 import { FlightsRepository } from '../../infra/database/repository/flights.repository';
+import { FlightLoadsheetsRepository } from '../../infra/database/repository/flight-loadsheets.repository';
+import { LoadsheetKind } from '../../model/loadsheet.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 
 export class MarkAsReadyCommand {
@@ -22,6 +24,7 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
   constructor(
     private readonly queryBus: QueryBus,
     private readonly flightsRepository: FlightsRepository,
+    private readonly loadsheetsRepository: FlightLoadsheetsRepository,
     private readonly domainEvents: DomainEventEmitter,
   ) {}
 
@@ -35,7 +38,12 @@ export class MarkFlightAsReadyHandler implements ICommandHandler<MarkAsReadyComm
       throw new InvalidStatusToMarkAsReadyError();
     }
 
-    if (!flight.loadsheets.preliminary) {
+    const hasPreliminary = await this.loadsheetsRepository.hasAny(
+      flightId,
+      LoadsheetKind.Preliminary,
+    );
+
+    if (!hasPreliminary) {
       throw new PreliminaryLoadsheetMissingError();
     }
 

@@ -3,7 +3,12 @@ import { DomainEventEmitter } from '../../../../../core/domain/events/domain-eve
 
 import { GetFlightQuery } from '../../query/get-flight.query';
 import { FlightStatus } from '../../../model/flight.model';
-import { FlightDoesNotExistError } from '../../../model/error/flight.error';
+import {
+  FlightDoesNotExistError,
+  LoadsheetMissingError,
+} from '../../../model/error/flight.error';
+import { GetCurrentLoadsheetQuery } from '../../query/get-current-loadsheet.query';
+import { LoadsheetKind } from '../../../model/loadsheet.model';
 import {
   ActiveEmergencyAlreadyExistsError,
   InvalidStatusToDeclareEmergencyError,
@@ -69,7 +74,21 @@ export class DeclareEmergencyHandler implements ICommandHandler<
       throw new ActiveEmergencyAlreadyExistsError();
     }
 
-    const sheet = flight.loadsheets.final ?? flight.loadsheets.preliminary!;
+    const [finalLoadsheet, preliminaryLoadsheet] = await Promise.all([
+      this.queryBus.execute(
+        new GetCurrentLoadsheetQuery(flightId, LoadsheetKind.Final),
+      ),
+      this.queryBus.execute(
+        new GetCurrentLoadsheetQuery(flightId, LoadsheetKind.Preliminary),
+      ),
+    ]);
+
+    const sheet = finalLoadsheet ?? preliminaryLoadsheet;
+
+    if (!sheet) {
+      throw new LoadsheetMissingError();
+    }
+
     const soulsOnBoard =
       sheet.passengers +
       sheet.flightCrew.pilots +

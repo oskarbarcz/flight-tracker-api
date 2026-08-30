@@ -4,6 +4,7 @@ import {
   FlightStatus,
   FlightTracking,
 } from '../../../src/modules/flights/model/flight.model';
+import { seedLoadsheets } from './loadsheet.seed';
 import { AirportType } from '../../../src/modules/airports/model/airport.model';
 import { AircraftState } from '../../../src/modules/aircraft/model/aircraft.model';
 import { Loadsheet } from '../../../src/modules/flights/model/loadsheet.model';
@@ -334,10 +335,7 @@ export async function loadCargoFlights(
         totalFuelBurned: 21400,
         createdAt: new Date('2025-01-01 00:00'),
         timesheet: timesheetFor(spec.status) as Prisma.InputJsonValue,
-        loadsheets: {
-          preliminary: loadsheetFor(spec),
-          final: null,
-        } as unknown as Prisma.InputJsonValue,
+        loadsheets: seedLoadsheets({ preliminary: loadsheetFor(spec) }),
       },
     });
 

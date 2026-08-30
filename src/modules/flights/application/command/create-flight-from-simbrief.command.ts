@@ -36,7 +36,8 @@ import {
   SimbriefNotam,
 } from '../../../../core/provider/simbrief/type/simbrief.types';
 import { GetRunwayByDesignatorQuery } from '../../../airports/application/query/runway/get-runway-by-designator.query';
-import { FuelBreakdown } from '../../model/loadsheet.model';
+import { FuelBreakdown, Loadsheet } from '../../model/loadsheet.model';
+import { FlightLoadsheetsRepository } from '../../infra/database/repository/flight-loadsheets.repository';
 import {
   AssignCrewToFlightCommand,
   CrewMember,
@@ -78,6 +79,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     private readonly commandBus: CommandBus,
     private readonly simbriefClient: SimbriefClient,
     private readonly flightsRepository: FlightsRepository,
+    private readonly loadsheetsRepository: FlightLoadsheetsRepository,
     private readonly domainEvents: DomainEventEmitter,
     private readonly waypointsRepository: WaypointsRepository,
   ) {}
@@ -120,6 +122,21 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       this.resolveAlternateAirports(alternateCandidates),
     ]);
 
+    const loadsheet: Loadsheet = {
+      flightCrew: {
+        pilots: 2,
+        reliefPilots: 0,
+        cabinCrew: this.countCabinCrew(ofp.crew),
+      },
+      passengers: Number(ofp.weights.pax_count),
+      passengerMass: this.plannedPassengerMass(ofp),
+      cargo: this.ofpWeightToTons(ofp.weights.cargo),
+      blockFuel: this.ofpWeightToTons(ofp.fuel.plan_ramp),
+      payload: this.ofpWeightToTons(ofp.weights.payload),
+      zeroFuelWeight: this.ofpWeightToTons(ofp.weights.est_zfw),
+      fuel: this.mapFuelBreakdown(ofp),
+    };
+
     const flightData = {
       id: flightId,
       flightNumber: `${operator.iataCode}${ofp.general.flight_number}`,
@@ -140,28 +157,18 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
           onBlockTime: this.ofpTimeToDate(ofp.times.sched_in),
         },
       },
-      loadsheets: {
-        preliminary: {
-          flightCrew: {
-            pilots: 2,
-            reliefPilots: 0,
-            cabinCrew: this.countCabinCrew(ofp.crew),
-          },
-          passengers: Number(ofp.weights.pax_count),
-          passengerMass: this.plannedPassengerMass(ofp),
-          cargo: this.ofpWeightToTons(ofp.weights.cargo),
-          blockFuel: this.ofpWeightToTons(ofp.fuel.plan_ramp),
-          payload: this.ofpWeightToTons(ofp.weights.payload),
-          zeroFuelWeight: this.ofpWeightToTons(ofp.weights.est_zfw),
-          fuel: this.mapFuelBreakdown(ofp),
-        },
-      },
+      loadsheet,
       alternateAirports: alternateAirports.map(
         ({ airportId, type }): AlternateAirportRequest => ({ airportId, type }),
       ),
     } as CreateFlightRequest;
 
     await this.flightsRepository.create(flightId, flightData, initiatorId);
+    await this.loadsheetsRepository.issuePreliminary(
+      flightId,
+      loadsheet,
+      initiatorId,
+    );
     await this.flightsRepository.updateSimbriefData(
       flightId,
       {

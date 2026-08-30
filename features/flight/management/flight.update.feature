@@ -28,46 +28,6 @@ Feature: Update flight
             "onBlockTime": "2025-01-01T16:18:00.000Z"
           }
         },
-        "loadsheets": {
-          "final": {
-            "cargo": 8.2,
-            "payload": 39.1,
-            "blockFuel": 12.5,
-            "flightCrew": {
-              "pilots": 2,
-              "cabinCrew": 6,
-              "reliefPilots": 0
-            },
-            "passengers": 294,
-            "zeroFuelWeight": 207.7
-          },
-          "preliminary": {
-            "fuel": {
-              "atc": 0,
-              "mel": 0,
-              "wxx": 0,
-              "taxi": 0.3,
-              "trip": 10.4,
-              "block": 12.7,
-              "extra": 0,
-              "reserve": 0.6,
-              "alternate": 0.9,
-              "tankering": 0,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5
-            },
-            "cargo": 8.5,
-            "payload": 40.3,
-            "blockFuel": 12.7,
-            "flightCrew": {
-              "pilots": 2,
-              "cabinCrew": 6,
-              "reliefPilots": 0
-            },
-            "passengers": 296,
-            "zeroFuelWeight": 208.9
-          }
-        },
         "source": "manual",
         "tracking": "public",
         "serviceType": "cargo",
@@ -227,46 +187,6 @@ Feature: Update flight
             "takeoffTime": "2025-01-01T13:15:00.000Z",
             "arrivalTime": "2025-01-01T16:00:00.000Z",
             "onBlockTime": "2025-01-01T16:18:00.000Z"
-          }
-        },
-        "loadsheets": {
-          "final": {
-            "cargo": 8.2,
-            "payload": 39.1,
-            "blockFuel": 12.5,
-            "flightCrew": {
-              "pilots": 2,
-              "cabinCrew": 6,
-              "reliefPilots": 0
-            },
-            "passengers": 294,
-            "zeroFuelWeight": 207.7
-          },
-          "preliminary": {
-            "fuel": {
-              "atc": 0,
-              "mel": 0,
-              "wxx": 0,
-              "taxi": 0.3,
-              "trip": 10.4,
-              "block": 12.7,
-              "extra": 0,
-              "reserve": 0.6,
-              "alternate": 0.9,
-              "tankering": 0,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5
-            },
-            "cargo": 8.5,
-            "payload": 40.3,
-            "blockFuel": 12.7,
-            "flightCrew": {
-              "pilots": 2,
-              "cabinCrew": 6,
-              "reliefPilots": 0
-            },
-            "passengers": 296,
-            "zeroFuelWeight": 208.9
           }
         },
         "source": "manual",

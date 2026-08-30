@@ -13,6 +13,8 @@ import { DiscordNotification } from '../../../../users/model/discord-settings.mo
 import { ListFlightCrewQuery } from '../../../../crew/application/query/list-flight-crew.query';
 import { FlightsRepository } from '../../../infra/database/repository/flights.repository';
 import { GetFlightQuery } from '../../query/get-flight.query';
+import { GetCurrentLoadsheetQuery } from '../../query/get-current-loadsheet.query';
+import { LoadsheetKind } from '../../../model/loadsheet.model';
 import { formatLoadsheet } from '../../../model/discord-message.formatter';
 
 @Injectable()
@@ -54,7 +56,11 @@ export class SendFinalLoadsheetListener {
 
       const flightQuery = new GetFlightQuery(flightId);
       const flight = await this.queryBus.execute(flightQuery);
-      const loadsheet = flight.loadsheets.final;
+      const loadsheetQuery = new GetCurrentLoadsheetQuery(
+        flightId,
+        LoadsheetKind.Final,
+      );
+      const loadsheet = await this.queryBus.execute(loadsheetQuery);
 
       if (!loadsheet) {
         return;

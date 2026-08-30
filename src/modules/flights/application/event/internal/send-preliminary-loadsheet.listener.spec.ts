@@ -1,5 +1,7 @@
 import { SendPreliminaryLoadsheetListener } from './send-preliminary-loadsheet.listener';
 import { GetFlightQuery } from '../../query/get-flight.query';
+import { GetCurrentLoadsheetQuery } from '../../query/get-current-loadsheet.query';
+import { LoadsheetKind } from '../../../model/loadsheet.model';
 import { GetDiscordRecipientQuery } from '../../../../users/application/query/get-discord-recipient.query';
 import { DiscordNotification } from '../../../../users/model/discord-settings.model';
 import { ListFlightCrewQuery } from '../../../../crew/application/query/list-flight-crew.query';
@@ -59,11 +61,13 @@ describe('SendPreliminaryLoadsheetListener', () => {
         }
 
         if (query instanceof GetFlightQuery) {
-          return Promise.resolve({
-            id: FLIGHT_ID,
-            flightNumber: 'LH81',
-            loadsheets: { preliminary, final: null },
-          });
+          return Promise.resolve({ id: FLIGHT_ID, flightNumber: 'LH81' });
+        }
+
+        if (query instanceof GetCurrentLoadsheetQuery) {
+          expect(query.kind).toBe(LoadsheetKind.Preliminary);
+
+          return Promise.resolve(preliminary);
         }
 
         if (query instanceof ListFlightCrewQuery) {

@@ -17,7 +17,6 @@ import {
   FlightListFilters,
 } from '../../http/request/flight.dto';
 import { FilledTimesheet, FullTimesheet } from '../../../model/timesheet.model';
-import { Loadsheets } from '../../../model/loadsheet.model';
 import {
   AdsbFlightTrack,
   AdsbPositionReportApiInput,
@@ -47,7 +46,6 @@ export const flightWithAircraftAndAirportsFields = {
   isEtops: true,
   status: true,
   timesheet: true,
-  loadsheets: true,
   captainId: true,
   source: true,
   tracking: true,
@@ -307,11 +305,6 @@ export class FlightsRepository {
       }
     }
 
-    const loadsheets = {
-      preliminary: flightData.loadsheets.preliminary,
-      final: null,
-    };
-
     await this.prisma.flight.create({
       data: {
         id: flightId,
@@ -326,7 +319,6 @@ export class FlightsRepository {
         serviceType: flightData.serviceType,
         status: FlightStatus.Created,
         timesheet: JSON.parse(JSON.stringify(flightData.timesheet)),
-        loadsheets: JSON.parse(JSON.stringify(loadsheets)),
       },
     });
 
@@ -615,15 +607,6 @@ export class FlightsRepository {
     await this.prisma.flight.update({
       where: { id },
       data: { status: FlightStatus.Closed, actualFuelBurned },
-    });
-  }
-
-  async updateLoadsheets(id: string, loadsheets: Loadsheets): Promise<void> {
-    await this.prisma.flight.update({
-      where: { id },
-      data: {
-        loadsheets: JSON.parse(JSON.stringify(loadsheets)),
-      },
     });
   }
 

@@ -27,6 +27,7 @@ function buildHandler(): CreateFlightFromSimbriefHandler {
     undefined as never,
     undefined as never,
     undefined as never,
+    undefined as never,
   );
 }
 

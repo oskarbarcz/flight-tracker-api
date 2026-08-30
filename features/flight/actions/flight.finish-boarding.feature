@@ -87,60 +87,6 @@ Feature: Finish flight boarding
             "offBlockTime": "2025-01-01T13:00:00.000Z"
           }
         },
-        "loadsheets": {
-          "preliminary": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 6
-            },
-            "passengers": 296,
-            "payload": 40.3,
-            "cargo": 8.5,
-            "zeroFuelWeight": 208.9,
-            "blockFuel": 12.7,
-            "fuel": {
-              "block": 12.7,
-              "taxi": 0.3,
-              "trip": 10.4,
-              "alternate": 0.9,
-              "reserve": 0.6,
-              "contingencyType": "5%",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
-          },
-          "final": {
-            "flightCrew": {
-              "pilots": 2,
-              "reliefPilots": 0,
-              "cabinCrew": 6
-            },
-            "passengers": 292,
-            "payload": 37.808,
-            "cargo": 8.9,
-            "zeroFuelWeight": 212.408,
-            "blockFuel": 11.9,
-            "fuel": {
-              "block": 11.9,
-              "taxi": 0.3,
-              "trip": 9.6,
-              "alternate": 0.9,
-              "reserve": 0.6,
-              "contingencyType": "5% of trip",
-              "contingencyAmount": 0.5,
-              "mel": 0,
-              "atc": 0,
-              "wxx": 0,
-              "extra": 0,
-              "tankering": 0
-            }
-          }
-        },
         "aircraft": {
           "id": "a2f425e0-2db0-4d8f-8c4c-b3a95d51eb24",
           "airframe": {
@@ -1889,22 +1835,31 @@ Feature: Finish flight boarding
       }
       """
     Then the response status should be 204
-    When I send a "GET" request to "/api/v1/flight/7e2b8d5c-a6f3-4049-98b1-d4f9a2e35b67"
+    When I send a "GET" request to "/api/v1/flight/7e2b8d5c-a6f3-4049-98b1-d4f9a2e35b67/loadsheet?type=final"
     Then the response status should be 200
-    And the response body property "loadsheets.final" should contain:
+    And the response body should contain:
       """json
-      {
-        "flightCrew": {
-          "pilots": 2,
-          "cabinCrew": 12,
-          "reliefPilots": 1
-        },
-        "passengers": 348,
-        "passengerMass": 80,
-        "payload": 35.844,
-        "cargo": 8.004,
-        "zeroFuelWeight": 204.435,
-        "blockFuel": 71.636
-      }
+      [
+        {
+          "id": "@uuid",
+          "kind": "final",
+          "revision": 1,
+          "issuedById": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "issuedAt": "@date('within 1 minute from now')",
+          "flightCrew": {
+            "pilots": 2,
+            "cabinCrew": 12,
+            "reliefPilots": 1
+          },
+          "passengers": 348,
+          "passengersByCabin": null,
+          "passengerMass": 80,
+          "payload": 35.844,
+          "cargo": 8.004,
+          "zeroFuelWeight": 204.435,
+          "blockFuel": 71.636,
+          "fuel": null
+        }
+      ]
       """
     And I set database to initial state

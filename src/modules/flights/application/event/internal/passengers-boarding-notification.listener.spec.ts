@@ -1,5 +1,6 @@
 import { PassengersBoardingNotificationListener } from './passengers-boarding-notification.listener';
 import { GetFlightQuery } from '../../query/get-flight.query';
+import { GetCurrentLoadsheetQuery } from '../../query/get-current-loadsheet.query';
 import { AirportType } from '../../../../airports/model/airport.model';
 import { BoardingWasStartedEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../../model/event.model';
@@ -32,7 +33,6 @@ function flight() {
         onBlockTime: new Date('2025-01-05T17:25:00.000Z'),
       },
     },
-    loadsheets: { preliminary: { passengers: 293 } },
   };
 }
 
@@ -55,6 +55,10 @@ describe('PassengersBoardingNotificationListener', () => {
       execute: jest.fn().mockImplementation((query: unknown) => {
         if (query instanceof GetFlightQuery) {
           return Promise.resolve(flight());
+        }
+
+        if (query instanceof GetCurrentLoadsheetQuery) {
+          return Promise.resolve({ passengers: 293 });
         }
 
         return Promise.reject(new Error('unexpected query'));
