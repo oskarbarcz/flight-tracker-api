@@ -19,6 +19,7 @@ import {
   assertFuelBreakdownConsistent,
   assertPassengerBreakdownConsistent,
   assertPayloadAccountsForLoad,
+  withPlannedPassengerMass,
 } from '../../model/loadsheet.policy';
 import { ReconcileFlightManifestCommand } from '../../../manifest/application/command/reconcile-flight-manifest.command';
 import { ReconcileFlightCargoManifestCommand } from '../../../manifest/application/command/reconcile-flight-cargo-manifest.command';
@@ -58,14 +59,19 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
       throw new InvalidStatusToFinishBoardingError();
     }
 
-    assertFuelBreakdownConsistent(finalLoadsheet);
-    assertPassengerBreakdownConsistent(finalLoadsheet);
-    assertPayloadAccountsForLoad(finalLoadsheet);
+    const planned = withPlannedPassengerMass(
+      finalLoadsheet,
+      flight.loadsheets.preliminary?.passengerMass,
+    );
+
+    assertFuelBreakdownConsistent(planned);
+    assertPassengerBreakdownConsistent(planned);
+    assertPayloadAccountsForLoad(planned);
 
     const reconcileManifest = new ReconcileFlightManifestCommand(
       flightId,
-      finalLoadsheet.passengers,
-      finalLoadsheet.passengersByCabin,
+      planned.passengers,
+      planned.passengersByCabin,
     );
     await this.commandBus.execute(reconcileManifest);
 
@@ -81,8 +87,8 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
         flightId,
         flight.aircraft.id,
         flight.operator.iataCode,
-        finalLoadsheet.cargo,
-        finalLoadsheet.passengers,
+        planned.cargo,
+        planned.passengers,
         {
           iataCode: departure.iataCode,
           country: departure.country.code,
@@ -121,7 +127,7 @@ export class FinishBoardingHandler implements ICommandHandler<FinishBoardingComm
     await Promise.all([
       await this.flightsRepository.updateLoadsheets(flightId, {
         preliminary: flight.loadsheets.preliminary,
-        final: finalLoadsheet,
+        final: planned,
       }),
       await this.flightsRepository.updateStatus(
         flightId,

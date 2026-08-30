@@ -20,11 +20,31 @@ export function assertFuelBreakdownConsistent(loadsheet: Loadsheet): void {
   }
 }
 
+export function plannedPassengerMass(loadsheet: Loadsheet): number {
+  return loadsheet.passengerMass ?? STANDARD_ADULT_KG;
+}
+
+export function withPlannedPassengerMass(
+  loadsheet: Loadsheet,
+  mass: number | null | undefined,
+): Loadsheet {
+  const planned: Loadsheet = { ...loadsheet };
+
+  if (mass === null || mass === undefined) {
+    delete planned.passengerMass;
+  } else {
+    planned.passengerMass = mass;
+  }
+
+  return planned;
+}
+
 export function assertPayloadAccountsForLoad(loadsheet: Loadsheet): void {
   const payloadKg = Math.round(loadsheet.payload * 1000);
-  const requiredKg =
-    Math.round(loadsheet.cargo * 1000) +
-    loadsheet.passengers * STANDARD_ADULT_KG;
+  const requiredKg = Math.round(
+    loadsheet.cargo * 1000 +
+      loadsheet.passengers * plannedPassengerMass(loadsheet),
+  );
 
   if (payloadKg < requiredKg) {
     throw new PayloadBelowLoadError(payloadKg, requiredKg);

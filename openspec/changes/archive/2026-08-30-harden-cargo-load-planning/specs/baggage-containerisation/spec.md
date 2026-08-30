@@ -50,11 +50,9 @@ that cannot be placed SHALL NOT be carried as a unit without a compartment.
 ### Requirement: Baggage falls back to the passenger count when the payload cannot account for it
 
 The system SHALL derive the baggage weight from the passenger count instead of the payload residual
-where that residual implies an implausible mass per passenger, and SHALL report which of the two
-sources it used. A payload smaller than its passengers at the standard mass plus its cargo SHALL be
-refused when the loadsheet is written rather than reaching this fallback, so the residual reaching
-it is never negative. A loadsheet SHALL NOT be rejected for leaving no baggage allowance, because a
-payload stated as passengers plus cargo alone is a legitimate way to fill one.
+where the residual is negative or implies an implausible mass per passenger, and SHALL report which
+of the two sources it used. A loadsheet SHALL NOT be rejected for leaving no baggage allowance,
+because a payload stated as passengers plus cargo alone is a legitimate way to fill one.
 
 #### Scenario: A payload that accounts for baggage is reconciled
 
@@ -62,6 +60,13 @@ payload stated as passengers plus cargo alone is a legitimate way to fill one.
 - **WHEN** its cargo manifest is generated
 - **THEN** the baggage weight equals that residual
 - **AND** the manifest reports the baggage as reconciled from the payload
+
+#### Scenario: A payload smaller than its passengers and cargo falls back
+
+- **GIVEN** a loadsheet whose payload is less than its passengers at the standard mass plus its cargo
+- **WHEN** its cargo manifest is generated
+- **THEN** the baggage weight is derived from the passenger count
+- **AND** the manifest reports the baggage as derived
 
 #### Scenario: An implausible residual falls back
 

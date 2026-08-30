@@ -13,21 +13,16 @@ added, and rejecting a final tonnage the hold cannot take.
 ### Requirement: Finishing boarding reconciles the cargo manifest against the final loadsheet
 
 The system SHALL reconcile a flight's cargo manifest when boarding is finished, comparing the
-final loadsheet's cargo tonnage against the manifest generated at release. Where the final
-tonnage is lower, shipments SHALL be offloaded; where it is higher, shipments SHALL be added. The
-reconciled manifest SHALL again sum exactly to the final loadsheet's cargo tonnage.
+final loadsheet's cargo tonnage against the manifest generated from the preliminary loadsheet.
+Where the final tonnage is lower, shipments SHALL be offloaded; where it is higher, shipments
+SHALL be added. The reconciled manifest SHALL again sum exactly to the final loadsheet's cargo
+tonnage.
 
 #### Scenario: A lower final tonnage offloads shipments
 
-- **GIVEN** a released flight whose cargo manifest carries more cargo than its final loadsheet reports
+- **GIVEN** a flight whose cargo manifest carries more cargo than its final loadsheet reports
 - **WHEN** boarding is finished
-- **THEN** shipments are offloaded until the loaded cargo equals the final tonnage
-
-#### Scenario: A higher final tonnage adds shipments
-
-- **GIVEN** a released flight whose cargo manifest carries less cargo than its final loadsheet reports
-- **WHEN** boarding is finished
-- **THEN** shipments are added until the loaded cargo equals the final tonnage
+- **THEN** shipments are offloaded until the loaded weight equals the final tonnage
 
 #### Scenario: An unchanged tonnage changes nothing
 
@@ -45,6 +40,12 @@ reconciled manifest SHALL again sum exactly to the final loadsheet's cargo tonna
 
 - **WHEN** a cargo manifest has been reconciled
 - **THEN** the loaded shipment gross weights and unit tare weights equal the final loadsheet's cargo tonnage
+
+#### Scenario: A higher final tonnage adds shipments
+
+- **GIVEN** a flight whose cargo manifest carries less cargo than its final loadsheet reports
+- **WHEN** boarding is finished
+- **THEN** shipments are added until the loaded weight equals the final tonnage
 
 ### Requirement: Reconciliation preserves the shipments that remain
 

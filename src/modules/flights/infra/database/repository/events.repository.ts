@@ -1,11 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import { FlightWithIdDoesNotExistError } from '../../../model/error/flight.error';
-import { OnEvent } from '@nestjs/event-emitter';
-import {
-  FlightEventType,
-  FlightLifecycleEvent,
-} from '../../../../../core/domain/events/dto/flight.events';
+import { FlightLifecycleEvent } from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope, Prisma } from 'prisma/client/client';
 
 const flightEventWithActor = {
@@ -45,37 +41,9 @@ export class EventsRepository {
     });
   }
 
-  @OnEvent(FlightEventType.FlightWasReleased)
-  @OnEvent(FlightEventType.PilotCheckedIn)
-  @OnEvent(FlightEventType.BoardingWasStarted)
-  @OnEvent(FlightEventType.BoardingWasFinished)
-  @OnEvent(FlightEventType.OffBlockWasReported)
-  @OnEvent(FlightEventType.TakeoffWasReported)
-  @OnEvent(FlightEventType.ArrivalWasReported)
-  @OnEvent(FlightEventType.OnBlockWasReported)
-  @OnEvent(FlightEventType.OffboardingWasStarted)
-  @OnEvent(FlightEventType.OffboardingWasFinished)
-  @OnEvent(FlightEventType.FlightWasClosed)
-  @OnEvent(FlightEventType.FlightTrackWasSaved)
-  @OnEvent(FlightEventType.LivePositionReceived)
-  @OnEvent(FlightEventType.PreliminaryLoadsheetWasUpdated)
-  @OnEvent(FlightEventType.ScheduledTimesheetWasUpdated)
-  @OnEvent(FlightEventType.PredictedTimesheetWasUpdated)
-  @OnEvent(FlightEventType.DepartureParkingPositionWasChanged)
-  @OnEvent(FlightEventType.DepartureRunwayWasChanged)
-  @OnEvent(FlightEventType.ArrivalParkingPositionWasChanged)
-  @OnEvent(FlightEventType.ArrivalRunwayWasChanged)
-  @OnEvent(FlightEventType.EmergencyWasDeclared)
-  @OnEvent(FlightEventType.EmergencyWasUpdated)
-  @OnEvent(FlightEventType.EmergencyWasResolved)
-  @OnEvent(FlightEventType.DiversionWasReported)
-  @OnEvent(FlightEventType.DiversionWasUpdated)
-  @OnEvent(FlightEventType.DelayRequestWasCreated)
-  @OnEvent(FlightEventType.DelayReportWasFiled)
-  @OnEvent(FlightEventType.DelayReportWasAccepted)
-  @OnEvent(FlightEventType.DelayReportWasRejected)
-  async saveEvent(event: FlightLifecycleEvent): Promise<void> {
-    await this.prisma.flightEvent.create({
+  async create(event: FlightLifecycleEvent): Promise<FlightEventWithActor> {
+    return this.prisma.flightEvent.create({
+      select: flightEventWithActor,
       data: {
         flightId: event.payload.flightId,
         scope: event.payload.scope,

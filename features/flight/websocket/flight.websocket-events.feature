@@ -34,6 +34,32 @@ Feature: Subscribe to flight events over WebSocket
       ]
       """
 
+  Scenario: As a cabin crew I receive a live flight event carrying its recorded identity
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
+    Then I should receive flight event history within 2000ms
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05/departure-parking-position" with body:
+      """json
+      { "departureParkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9" }
+      """
+    Then the response status should be 200
+    And I should receive a live flight event of type "flight.departure-parking-position-changed" within 2000ms
+    And the received live flight events should contain:
+      """json
+      [
+        {
+          "id": "@uuid",
+          "scope": "operations",
+          "type": "flight.departure-parking-position-changed",
+          "payload": {},
+          "actor": { "id": "721ab705-8608-4386-86b4-2f391a3655a7", "name": "Alice Doe" },
+          "createdAt": "@date('within 1 minute from now')"
+        }
+      ]
+      """
+    And I set database to initial state
+
   Scenario: As a cabin crew I stop receiving events after unsubscribing
     Given I open a WebSocket connection as "cabin crew"
     When I subscribe to flight events for "3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"

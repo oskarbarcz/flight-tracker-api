@@ -66,7 +66,7 @@ describe('ReportTakeoffHandler', () => {
     expect(event.payload.payload).toEqual({ automaticallyDetected: false });
   });
 
-  it('reports an automatic takeoff as an operations-scoped event with no actor and the backdated time', async () => {
+  it('reports an automatic takeoff as a user-scoped event with no actor and the backdated time', async () => {
     const takeoffTime = new Date('2025-01-01T13:14:00.000Z');
     const command = new ReportTakeoffCommand(
       FLIGHT_ID,
@@ -82,7 +82,7 @@ describe('ReportTakeoffHandler', () => {
 
     const event = domainEvents.emitAsync.mock
       .calls[0][0] as TakeoffWasReportedEvent;
-    expect(event.payload.scope).toBe(FlightEventScope.Operations);
+    expect(event.payload.scope).toBe(FlightEventScope.User);
     expect(event.payload.actorId).toBeNull();
     expect(event.payload.payload).toEqual({ automaticallyDetected: true });
   });

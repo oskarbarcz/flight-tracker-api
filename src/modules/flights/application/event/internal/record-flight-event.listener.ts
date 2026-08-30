@@ -4,11 +4,16 @@ import {
   FlightEventType,
   FlightLifecycleEvent,
 } from '../../../../../core/domain/events/dto/flight.events';
+import { EventsRepository } from '../../../infra/database/repository/events.repository';
 import { FlightEventsGateway } from '../../../infra/gateway/flight-events.gateway';
+import { toFlightEventResponse } from '../../../infra/http/request/event.dto';
 
 @Injectable()
-export class BroadcastFlightEventListener {
-  constructor(private readonly gateway: FlightEventsGateway) {}
+export class RecordFlightEventListener {
+  constructor(
+    private readonly events: EventsRepository,
+    private readonly gateway: FlightEventsGateway,
+  ) {}
 
   @OnEvent(FlightEventType.FlightWasReleased)
   @OnEvent(FlightEventType.PilotCheckedIn)
@@ -40,6 +45,11 @@ export class BroadcastFlightEventListener {
   @OnEvent(FlightEventType.DelayReportWasAccepted)
   @OnEvent(FlightEventType.DelayReportWasRejected)
   async onFlightEvent(event: FlightLifecycleEvent): Promise<void> {
-    await this.gateway.publishToFlight({ type: event.type, ...event.payload });
+    const recorded = await this.events.create(event);
+
+    await this.gateway.publishToFlight(
+      event.payload.flightId,
+      toFlightEventResponse(recorded),
+    );
   }
 }

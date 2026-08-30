@@ -13,6 +13,12 @@ shortfall SHALL be filled with newly generated passengers seated in free seats.
 - **WHEN** boarding is finished
 - **THEN** the surplus passengers are recorded as no-shows keeping their seats
 
+#### Scenario: An unchanged count changes nothing
+
+- **GIVEN** a released flight whose final loadsheet reports the same count as its manifest
+- **WHEN** boarding is finished
+- **THEN** no passenger is added and none becomes a no-show
+
 #### Scenario: A higher final count seats the shortfall
 
 - **GIVEN** a flight whose manifest holds fewer passengers than its final loadsheet reports
