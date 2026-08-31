@@ -1,3 +1,9 @@
+## Purpose
+
+The oceanic track message published with a flight's plan, kept per flight as published, and the
+three-state record of how the flight relates to it: cleared on a track, following a track's
+geometry, or randomly routed.
+
 ## ADDED Requirements
 
 ### Requirement: A flight snapshots the oceanic track message it was planned against

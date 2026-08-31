@@ -1,3 +1,9 @@
+## Purpose
+
+A catalogue of named waypoints and navaids with their positions, accumulated from every flight
+plan imported, so the system builds its own navigation data from the plans it already reads
+rather than depending on a navigation database it does not have.
+
 ## ADDED Requirements
 
 ### Requirement: Waypoints are accumulated from every imported flight plan

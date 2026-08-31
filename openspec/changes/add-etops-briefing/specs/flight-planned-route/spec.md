@@ -1,3 +1,9 @@
+## Purpose
+
+The line a flight is planned to fly, stored as ordered fixes with their positions, altitudes and
+elapsed times, so the route can be drawn from airport to airport and the ETOPS points placed
+along it. What was planned, distinct from the positions the aircraft actually reports.
+
 ## ADDED Requirements
 
 ### Requirement: A flight stores the planned route as positioned fixes

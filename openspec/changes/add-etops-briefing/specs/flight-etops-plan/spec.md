@@ -1,3 +1,10 @@
+## Purpose
+
+The ETOPS plan a flight was built against: the diversion rule it is certified to, the entry,
+exit, equal-time and critical points it passes, the airports each point would turn toward, and
+the range rings that make the constraint drawable. A snapshot taken when the plan is imported,
+so a briefing read later shows what the flight was planned against.
+
 ## ADDED Requirements
 
 ### Requirement: An ETOPS flight records the rule it is planned against

@@ -41,7 +41,11 @@ import { Airframe } from '../../../../airframes/model/airframe.model';
 import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
 import { AirportType } from '../../../../airports/model/airport.model';
-import { EtopsSnapshot } from '../../../model/etops.model';
+import {
+  EtopsPointKind,
+  EtopsSnapshot,
+  StoredEtopsSnapshot,
+} from '../../../model/etops.model';
 import {
   PlannedRoute,
   PlannedRouteFix,
@@ -802,6 +806,71 @@ export class FlightsRepository {
         trackMag: fix.trackMag,
         viaAirway: fix.viaAirway,
         stage: fix.stage,
+      })),
+    };
+  }
+
+  async findEtopsSnapshot(id: string): Promise<StoredEtopsSnapshot | null> {
+    const flight = await this.prisma.flight.findUnique({
+      where: { id },
+      select: {
+        isEtops: true,
+        ofpContent: true,
+        etopsRuleMinutes: true,
+        etopsRuleDistanceNm: true,
+        etopsThresholdMinutes: true,
+        etopsPoints: {
+          orderBy: [
+            { elapsedSeconds: 'asc' },
+            { kind: 'asc' },
+            { ordinal: 'asc' },
+          ],
+          include: { diversionAirports: { orderBy: { ordinal: 'asc' } } },
+        },
+        etopsAirports: { orderBy: { airportId: 'asc' } },
+      },
+    });
+
+    if (!flight) {
+      return null;
+    }
+
+    return {
+      isEtops: flight.isEtops,
+      hasPlan: flight.ofpContent !== null,
+      rings: {
+        ruleMinutes: flight.etopsRuleMinutes,
+        ruleDistanceNm:
+          flight.etopsRuleDistanceNm === null
+            ? null
+            : flight.etopsRuleDistanceNm.toNumber(),
+        thresholdMinutes: flight.etopsThresholdMinutes,
+      },
+      points: flight.etopsPoints.map((point) => ({
+        kind: point.kind as EtopsPointKind,
+        ordinal: point.ordinal,
+        isCritical: point.isCritical,
+        adequateAirportId: point.adequateAirportId,
+        position: {
+          latitude: point.posLat.toNumber(),
+          longitude: point.posLong.toNumber(),
+        },
+        elapsedSeconds: point.elapsedSeconds,
+        condition: point.condition,
+        diversionAirports: point.diversionAirports.map((airport) => ({
+          airportId: airport.airportId,
+          ordinal: airport.ordinal,
+        })),
+      })),
+      airports: flight.etopsAirports.map((airport) => ({
+        airportId: airport.airportId,
+        suitabilityStart: airport.suitabilityStart,
+        suitabilityEnd: airport.suitabilityEnd,
+        plannedRunway: airport.plannedRunway,
+        forecastCeiling: airport.forecastCeiling,
+        forecastVisibility: airport.forecastVisibility,
+        transitionAltitude: airport.transitionAltitude,
+        transitionLevel: airport.transitionLevel,
       })),
     };
   }

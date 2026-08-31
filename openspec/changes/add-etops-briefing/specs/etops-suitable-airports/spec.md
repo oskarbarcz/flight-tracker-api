@@ -1,3 +1,9 @@
+## Purpose
+
+The airports an ETOPS flight could divert to, each with the window it must remain usable for and
+the conditions forecast for that window. Planning data as the dispatcher saw it, reported
+without asserting that an airport is legally usable.
+
 ## ADDED Requirements
 
 ### Requirement: An ETOPS flight records the airports it could divert to

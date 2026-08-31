@@ -137,6 +137,69 @@ const DLH82_TRACKS = [
   },
 ];
 
+const CYYR = 'fa8ee2e9-fb94-4416-9ed0-4811efd488ae';
+const CYYT = '6cf1fcd8-d072-46b5-8132-bd885b43dd97';
+const BIKF = '523b2d2f-9b60-405a-bd5a-90eed1b58e9a';
+
+const DLH82_ETOPS_POINTS = [
+  {
+    kind: 'entry' as const,
+    ordinal: 1,
+    isCritical: false,
+    adequateAirportId: CYYT,
+    posLat: 51.7549,
+    posLong: -43.4583,
+    elapsedSeconds: 9720,
+    condition: 'DC',
+    diversions: [CYYR],
+  },
+  {
+    kind: 'equal_time' as const,
+    ordinal: 1,
+    isCritical: true,
+    adequateAirportId: null,
+    posLat: 52.0967,
+    posLong: -33.4667,
+    elapsedSeconds: 11940,
+    condition: 'DC',
+    diversions: [CYYR, BIKF],
+  },
+  {
+    kind: 'exit' as const,
+    ordinal: 1,
+    isCritical: false,
+    adequateAirportId: BIKF,
+    posLat: 52.9433,
+    posLong: -20.9317,
+    elapsedSeconds: 14160,
+    condition: 'DC',
+    diversions: [BIKF],
+  },
+];
+
+const DLH82_ETOPS_AIRPORTS = [
+  {
+    airportId: CYYR,
+    suitabilityStart: new Date('2025-01-05 23:01'),
+    suitabilityEnd: new Date('2025-01-06 02:52'),
+    plannedRunway: '13',
+    forecastCeiling: 900,
+    forecastVisibility: 8050,
+    transitionAltitude: 18000,
+    transitionLevel: 18000,
+  },
+  {
+    airportId: BIKF,
+    suitabilityStart: new Date('2025-01-06 00:52'),
+    suitabilityEnd: new Date('2025-01-06 04:10'),
+    plannedRunway: '28',
+    forecastCeiling: 1500,
+    forecastVisibility: 9999,
+    transitionAltitude: 7000,
+    transitionLevel: 7500,
+  },
+];
+
 export async function loadPlannedRoutes(
   tx: Prisma.TransactionClient,
 ): Promise<void> {
@@ -155,6 +218,30 @@ export async function loadPlannedRoutes(
       flightId: DLH82,
       ...track,
       fixes: track.fixes as unknown as Prisma.InputJsonValue,
+    })),
+  });
+
+  for (const point of DLH82_ETOPS_POINTS) {
+    const { diversions, ...data } = point;
+
+    await tx.flightEtopsPoint.create({
+      data: {
+        flightId: DLH82,
+        ...data,
+        diversionAirports: {
+          create: diversions.map((airportId, ordinal) => ({
+            airportId,
+            ordinal: ordinal + 1,
+          })),
+        },
+      },
+    });
+  }
+
+  await tx.flightEtopsAirport.createMany({
+    data: DLH82_ETOPS_AIRPORTS.map((airport) => ({
+      flightId: DLH82,
+      ...airport,
     })),
   });
 
