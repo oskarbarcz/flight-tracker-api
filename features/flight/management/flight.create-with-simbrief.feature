@@ -237,7 +237,7 @@ Feature: Create a flight with Simbrief
               "id": "@uuid",
               "name": "Gander"
             },
-            "name": "Gander International Airport",
+            "name": "Gander Intl",
             "country": {
               "code": "CA",
               "name": "Canada"
@@ -675,7 +675,7 @@ Feature: Create a flight with Simbrief
               "id": "@uuid",
               "name": "London"
             },
-            "name": "London Heathrow Airport",
+            "name": "London Heathrow",
             "country": {
               "code": "GB",
               "name": "United Kingdom"
@@ -963,7 +963,7 @@ Feature: Create a flight with Simbrief
             "id": "@uuid",
             "name": "London"
           },
-          "name": "London Heathrow Airport",
+          "name": "London Heathrow",
           "country": {
             "code": "GB",
             "name": "United Kingdom"
