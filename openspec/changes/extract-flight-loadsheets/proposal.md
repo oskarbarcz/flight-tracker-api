@@ -44,12 +44,12 @@ flight's cargo figure change between planning and departure".
   import replace the `loadsheets: { preliminary }` envelope with an optional `loadsheet`, which
   becomes revision 1 when supplied.
 - **The schema migration only creates the tables; the data is moved by hand.** The migration
-  adds `flight_loadsheet` and nothing else. `flight.loadsheets`
-  and every row in it stay exactly where they are, read by nothing, to be dropped in a later
-  change once the copy is trusted. Two scripts ship beside the migration: `data.sql`, which
-  copies the stored loadsheets across and is safe to re-run, and `test.sql`, which reports what
-  the copy recognises and — run afterwards — reconciles every migrated figure against the JSON
-  it came from.
+  adds `flight_loadsheet` and nothing else, so `flight.loadsheets` and every row in it survive
+  the deploy untouched. Two scripts run by hand afterwards: `data.sql`, which copies the stored
+  loadsheets across and is safe to re-run, and `test.sql`, which reports what the copy recognises
+  and — run again after — reconciles every migrated figure against the JSON it came from. Only
+  once that copy is confirmed does a second migration drop the column, and it refuses to run
+  where the copy never happened.
 - **A stored loadsheet missing any figure the domain requires is not copied**: that flight ends
   up with no loadsheet rather than with an invented one, which the new read reports honestly as
   an empty array. `test.sql` names those flights and the figures that disqualified them.
@@ -84,9 +84,9 @@ flight's cargo figure change between planning and departure".
   the system's business, not the caller's.
 - **Schema**: one table, `flight_loadsheet` (kind, revision, the crew and weight figures, the
   fuel breakdown, a nullable passenger count per cabin, issuer and issue time), cascade-deleted
-  with the flight. `flight.loadsheets` is left in place and unread; it
-  keeps its `NOT NULL DEFAULT`, so flights created after this change still satisfy it without
-  the application knowing it exists.
+  with the flight. `flight.loadsheets` survives the first migration unread — keeping its
+  `NOT NULL DEFAULT`, so flights created in between still satisfy it without the application
+  knowing it exists — and is dropped by a second migration once the copy has been made.
 - **Domain**: a `LoadsheetKind` domain enum (`Preliminary`, `Final`), PascalCase keys, cast at
   the boundary. The `Loadsheets` wrapper class disappears; `Loadsheet` stays as the write model
   and gains a read model carrying its revision metadata. `loadsheet.policy` is unchanged — it

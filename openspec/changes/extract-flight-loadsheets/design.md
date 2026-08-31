@@ -55,7 +55,8 @@ representative data by hand.
 - Changing validation. `loadsheet.policy` compares a loadsheet's figures against each other and
   knows nothing about storage; it is untouched.
 - Dropping `flight.loadsheets`. The column and its rows stay, unread, so the copy can be
-  re-run and the previous release can still be rolled back to. Removing it is a later change.
+  re-run and the previous release can still be rolled back to, until a second migration drops it
+  once the copy has been confirmed.
 
 ## Decisions
 
@@ -182,13 +183,14 @@ loadsheet at all. It gets an explicit unprocessable error naming the missing loa
 
 The schema migration creates the table and stops there. The data is copied by a separate
 script the operator runs by hand, and `flight.loadsheets` keeps every row it has — nothing in
-this change reads it, and dropping it is a later change made once the copy is trusted. Three
-files, then:
+this change reads it, and a second migration drops it only once the copy has been confirmed.
+Four files, then:
 
 ```
 prisma/migrations/20260830120000_extract_flight_loadsheets/migration.sql   the table, its indexes and keys
 prisma/data/20260830120000_extract_flight_loadsheets/data.sql              copies the loadsheets
 prisma/data/20260830120000_extract_flight_loadsheets/test.sql              says whether it worked
+prisma/migrations/20260830130000_drop_flight_loadsheets/migration.sql      drops the old column
 ```
 
 Splitting them this way costs nothing and buys the thing a one-shot migration cannot give: the
@@ -393,5 +395,8 @@ helpers so it stands on its own:
 6. Rollback, if needed: redeploy the previous release. `flight.loadsheets` still holds every
    original figure, so the old code reads exactly what it did before. The new tables can be
    emptied with `TRUNCATE "flight_loadsheet" CASCADE` and the copy re-run later.
-7. Dropping `flight.loadsheets` is a later change, made once the copy has been trusted in
-   production for a while.
+7. Deploy `20260830130000_drop_flight_loadsheets` once the copy is confirmed. It drops the
+   column and the helper functions, and refuses to run where `flight_loadsheet` is empty while
+   the old column still holds loadsheets — the check and the `ALTER` share one statement, so no
+   client can carry on past the refusal. On a fresh database there is nothing to lose and it
+   drops the column as normal.

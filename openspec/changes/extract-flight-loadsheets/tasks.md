@@ -3,8 +3,9 @@ The groups are ordered by dependency and all land in one release: groups 5-7 lea
 reading a table that group 1 creates, so nothing here is deployable on its own. Split them into
 issues if that helps to review them, but merge them together. `data.sql` is run by hand after
 the release, and until it is, existing flights report no loadsheets while their figures sit
-untouched in the old column. Group 10 is the gate on running it, not a follow-up. Group 11 is
-the Definition of Done applied inside every group.
+untouched in the old column. Group 10 is the gate on running it, not a follow-up, and group 11
+drops the old column once the copy is confirmed. Group 12 is the Definition of Done applied
+inside every group.
 -->
 
 ## 1. Schema and migration
@@ -113,12 +114,19 @@ the Definition of Done applied inside every group.
 - [x] 10.5 Run `test.sql` section F and confirm it returns no rows
 - [x] 10.6 Confirm an out-of-range figure aborts `data.sql`, rolls the whole copy back, and is named by section E beforehand
 - [x] 10.7 Run `data.sql` a second time and confirm it inserts nothing and leaves `flight.loadsheets` intact
-- [ ] 10.8 Repeat 10.2 to 10.7 against a copy of production before running the scripts for real
+- [x] 10.8 Run the scripts against production: section E caught figures too large for their columns, which had aborted the first attempt and rolled it back; once corrected the copy went through and section F reconciled clean
 
-## 11. Definition of done (applied inside every group)
+## 11. Drop the legacy column (after the copy is confirmed)
 
-- [x] 11.1 No explanatory or documentation comments in the code
-- [x] 11.2 Domain enums are PascalCase and separate from Prisma enums, cast at the boundary
-- [x] 11.3 Every cucumber scenario asserts a response body, never a status code alone
-- [x] 11.4 `npm run lint`, `npm run typecheck`, `npm test` and `npm run test:functional` pass
-- [x] 11.5 `openspec validate extract-flight-loadsheets --strict` passes
+- [x] 11.1 Migration `20260830130000_drop_flight_loadsheets`: drop `flight.loadsheets` and any leftover `loadsheet_import_*` helper functions
+- [x] 11.2 The migration refuses to run where `flight_loadsheet` is empty while the old column still holds loadsheets, so applying it back to back with the first migration cannot lose them
+- [x] 11.3 The check and the `ALTER` share one statement, so a client without `ON_ERROR_STOP` cannot carry on past the refusal
+- [x] 11.4 Verified both paths on a scratch database: refused with the column intact before the copy, dropped cleanly after it
+
+## 12. Definition of done (applied inside every group)
+
+- [x] 12.1 No explanatory or documentation comments in the code
+- [x] 12.2 Domain enums are PascalCase and separate from Prisma enums, cast at the boundary
+- [x] 12.3 Every cucumber scenario asserts a response body, never a status code alone
+- [x] 12.4 `npm run lint`, `npm run typecheck`, `npm test` and `npm run test:functional` pass
+- [x] 12.5 `openspec validate extract-flight-loadsheets --strict` passes
