@@ -94,19 +94,19 @@ separate issue.
 
 ## 8. The briefing endpoint (needs 3, 4, 6, 7)
 
-- [ ] 8.1 `GetEtopsBriefingQuery` assembling the ETOPS plan, points, diversion legs, airports, planned route, tracks, hazards and charts into one document
-- [ ] 8.2 Report the rule and threshold radii alongside the airports they centre on, so the rings can be drawn without recomputation
-- [ ] 8.3 Every position in the response — points, diversion airports, route fixes, track fixes — reported in the same terms, so the whole briefing can be drawn without further derivation
-- [ ] 8.4 `GET /api/v1/flight/:flightId/etops-briefing` with the role set already governing `GET /flight/:flightId/ofp`
-- [ ] 8.5 A flight with no imported plan returns 404 reusing the OFP endpoint's existing error and message
-- [ ] 8.6 A non-ETOPS flight reports its route, tracks, hazards and charts and no ETOPS section
-- [ ] 8.7 Feature: the briefing read across every role that can read the OFP, plus 401 unauthenticated, 400 on a malformed id and 404 for a flight with no plan
-- [ ] 8.8 Feature: the briefing never labels an airport suitable as a verdict — the forecast and window are reported without a legality claim
+- [x] 8.1 `GetEtopsBriefingQuery` assembling the ETOPS plan, points, diversion legs, airports, planned route and oceanic crossing into one document — hazards and charts are deliberately absent, per the design
+- [x] 8.2 Report the rule and threshold radii alongside the airports they centre on, so the rings can be drawn without recomputation
+- [x] 8.3 Every position in the response — points, diversion airports, route fixes, track fixes — reported in the same terms, so the whole briefing can be drawn without further derivation
+- [x] 8.4 `GET /api/v1/flight/:flightId/etops-briefing` with the role set already governing `GET /flight/:flightId/ofp`
+- [x] 8.5 A flight with no imported plan returns 404 reusing the OFP endpoint's existing error and message
+- [x] 8.6 A non-ETOPS flight reports its route and oceanic crossing and no ETOPS section
+- [x] 8.7 Feature: the briefing read across every role that can read the OFP, plus 401 unauthenticated, 400 on a malformed id and 404 for a flight with no plan
+- [x] 8.8 Feature: the briefing never labels an airport suitable as a verdict — the forecast and window are reported without a legality claim
 
 ## 9. Definition of done (applied inside every group)
 
-- [ ] 9.1 No explanatory or documentation comments in the code
-- [ ] 9.2 Domain enums are PascalCase and separate from Prisma enums, cast at the boundary
-- [ ] 9.3 Every cucumber scenario asserts a response body, never a status code alone
-- [ ] 9.4 Seed data covers an ETOPS flight so the briefing is reachable in a fresh environment
-- [ ] 9.5 `openspec validate add-etops-briefing --strict` passes
+- [x] 9.1 No explanatory or documentation comments in the code
+- [x] 9.2 Domain enums are PascalCase and separate from Prisma enums, cast at the boundary
+- [x] 9.3 Every cucumber scenario asserts a response body, never a status code alone
+- [x] 9.4 Seed data covers an ETOPS flight so the briefing is reachable in a fresh environment
+- [x] 9.5 `openspec validate add-etops-briefing --strict` passes

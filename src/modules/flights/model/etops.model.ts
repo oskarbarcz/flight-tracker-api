@@ -187,3 +187,8 @@ export class EtopsAirportResponse {
   })
   transitionLevel!: number | null;
 }
+
+export type StoredEtopsSnapshot = EtopsSnapshot & {
+  isEtops: boolean;
+  hasPlan: boolean;
+};
