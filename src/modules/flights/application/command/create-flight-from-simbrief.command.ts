@@ -50,6 +50,8 @@ import {
 } from '../../model/etops-snapshot.mapper';
 import { harvestWaypoints } from '../../model/waypoint-harvester';
 import { mapPlannedRoute } from '../../model/planned-route.mapper';
+import { resolveOceanicRouting } from '../../model/oceanic-routing';
+import { mapOceanicTracks } from '../../model/oceanic-track.mapper';
 import { WaypointsRepository } from '../../../waypoints/infra/database/waypoints.repository';
 
 export type AlternateAirportCandidate = {
@@ -191,6 +193,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     );
 
     await this.storeEtopsSnapshot(flightId, ofp, alternateAirports);
+    await this.storeOceanicSnapshot(flightId, ofp);
     await this.flightsRepository.replacePlannedRoute(
       flightId,
       mapPlannedRoute(ofp),
@@ -532,6 +535,18 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       rings: mapEtopsRings(ofp.etops, mapData),
       points: mapEtopsPoints(ofp.etops, resolveAirportId),
       airports: mapEtopsAirports(ofp.etops, resolveAirportId),
+    });
+  }
+
+  private async storeOceanicSnapshot(
+    flightId: string,
+    ofp: OperationalFlightPlan,
+  ): Promise<void> {
+    const mapData = await this.resolveRouteMapData(ofp);
+
+    await this.flightsRepository.replaceOceanicSnapshot(flightId, {
+      ...resolveOceanicRouting(ofp, mapData),
+      tracks: mapOceanicTracks(ofp),
     });
   }
 

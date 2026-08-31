@@ -82,15 +82,15 @@ separate issue.
 
 ## 7. Oceanic tracks (needs 1; 6 for the segment marker)
 
-- [ ] 7.1 Migration: `flight.oceanicRouting`, `flight.oceanicTrackId`, `flight.oceanicTrackDirection`, `flight_oceanic_track` with `fixes` as JSON, cascade-deleted with the flight
-- [ ] 7.2 `OceanicRouting` (`Track`, `TrackGeometry`, `Random`) and `TrackDirection` domain enums, PascalCase keys
-- [ ] 7.3 Take the flight's applicable track direction from the companion file's `natsdir` rather than inferring it from geography
-- [ ] 7.4 Store every published track from both directions, with identifier, direction from `group`, TMI, issuing OCA from `addr`, route, levels, validity window and fixes
-- [ ] 7.5 `model/oceanic-routing.ts`: classify from `navlog.fix[].via_airway` matching `NAT<id>`, then whether `atc.route` contains that token — no match at all is `Random`, matched and filed is `Track`, matched and not filed is `TrackGeometry`
-- [ ] 7.6 Unit spec for the classifier: the reference plan resolves to `TrackGeometry` on Track W; a plan filing `NATW` in its ATC route resolves to `Track`; a plan with no `NAT` airway resolves to `Random`
-- [ ] 7.7 Feature: an ETOPS oceanic flight reports its tracks split by direction, with the selected track identified and the routing status distinguishing planned-along from cleared-on
-- [ ] 7.8 Feature: the route fixes belonging to the selected track are identifiable by their airway, so the track segment can be drawn distinctly
-- [ ] 7.9 Feature: a flight whose plan publishes no tracks reports none and a `Random` routing status
+- [x] 7.1 Migration: `flight.oceanicRouting`, `flight.oceanicTrackId`, `flight.oceanicTrackDirection`, `flight_oceanic_track` with `fixes` as JSON, cascade-deleted with the flight
+- [x] 7.2 `OceanicRouting` (`Track`, `TrackGeometry`, `Random`) and `TrackDirection` domain enums, PascalCase keys
+- [x] 7.3 Take the flight's applicable track direction from the companion file's `natsdir` rather than inferring it from geography
+- [x] 7.4 Store every published track from both directions, with identifier, direction from `group`, TMI, issuing OCA from `addr`, route, levels, validity window and fixes
+- [x] 7.5 `model/oceanic-routing.ts`: classify from `navlog.fix[].via_airway` matching `NAT<id>`, then whether `atc.route` contains that token — no match at all is `Random`, matched and filed is `Track`, matched and not filed is `TrackGeometry`
+- [x] 7.6 Unit spec for the classifier: the reference plan resolves to `TrackGeometry` on Track W; a plan filing `NATW` in its ATC route resolves to `Track`; a plan with no `NAT` airway resolves to `Random`
+- [x] 7.7 Feature: an ETOPS oceanic flight reports its tracks split by direction, with the selected track identified and the routing status distinguishing planned-along from cleared-on, read from `GET /api/v1/flight/:flightId/oceanic-crossing`
+- [x] 7.8 Feature: the route fixes belonging to the selected track are identifiable by their airway, so the track segment can be drawn distinctly
+- [x] 7.9 Feature: a flight whose plan publishes no tracks reports none and a `Random` routing status
 
 ## 8. The briefing endpoint (needs 3, 4, 6, 7)
 

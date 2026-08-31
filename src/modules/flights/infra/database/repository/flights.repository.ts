@@ -31,7 +31,12 @@ import {
   FlightOfpNotFoundError,
 } from '../../../model/error/flight.error';
 import { UnresolvedEmergencyCannotCloseFlightError } from '../../../model/error/emergency.error';
-import { Continent, Prisma } from '../../../../../../prisma/client/client';
+import {
+  Continent,
+  OceanicRouting,
+  Prisma,
+  TrackDirection,
+} from '../../../../../../prisma/client/client';
 import { Airframe } from '../../../../airframes/model/airframe.model';
 import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
@@ -41,6 +46,13 @@ import {
   PlannedRoute,
   PlannedRouteFix,
 } from '../../../model/planned-route.model';
+import {
+  FlightOceanicCrossing,
+  OceanicSnapshot,
+  OceanicTrackFixSnapshot,
+  OceanicRouting as Routing,
+  TrackDirection as Direction,
+} from '../../../model/oceanic.model';
 
 export const flightWithAircraftAndAirportsFields = {
   id: true,
@@ -657,6 +669,78 @@ export class FlightsRepository {
         greatCircleDistance,
         totalFuelBurned,
       },
+    });
+  }
+
+  async findOceanicCrossing(id: string): Promise<FlightOceanicCrossing | null> {
+    const flight = await this.prisma.flight.findUnique({
+      where: { id },
+      select: {
+        oceanicRouting: true,
+        oceanicTrackId: true,
+        oceanicTrackDirection: true,
+        oceanicTracks: {
+          orderBy: [{ direction: 'asc' }, { identifier: 'asc' }],
+        },
+      },
+    });
+
+    if (!flight) {
+      return null;
+    }
+
+    return {
+      routing: (flight.oceanicRouting ?? OceanicRouting.random) as Routing,
+      trackId: flight.oceanicTrackId,
+      direction: flight.oceanicTrackDirection as Direction | null,
+      tracks: flight.oceanicTracks.map((track) => ({
+        identifier: track.identifier,
+        direction: track.direction as Direction,
+        tmi: track.tmi,
+        issuingOca: track.issuingOca,
+        route: track.route,
+        levels: track.levels,
+        validFrom: track.validFrom,
+        validTo: track.validTo,
+        fixes: track.fixes as unknown as OceanicTrackFixSnapshot[],
+      })),
+    };
+  }
+
+  async replaceOceanicSnapshot(
+    id: string,
+    snapshot: OceanicSnapshot,
+  ): Promise<void> {
+    await this.prisma.$transaction(async (tx) => {
+      await tx.flightOceanicTrack.deleteMany({ where: { flightId: id } });
+
+      await tx.flight.update({
+        where: { id },
+        data: {
+          oceanicRouting: snapshot.routing as OceanicRouting,
+          oceanicTrackId: snapshot.trackId,
+          oceanicTrackDirection: snapshot.direction as TrackDirection | null,
+        },
+      });
+
+      if (snapshot.tracks.length === 0) {
+        return;
+      }
+
+      await tx.flightOceanicTrack.createMany({
+        data: snapshot.tracks.map((track) => ({
+          flightId: id,
+          identifier: track.identifier,
+          direction: track.direction as TrackDirection,
+          tmi: track.tmi,
+          issuingOca: track.issuingOca,
+          route: track.route,
+          levels: track.levels,
+          validFrom: track.validFrom,
+          validTo: track.validTo,
+          fixes: track.fixes as unknown as Prisma.InputJsonValue,
+        })),
+      });
     });
   }
 
