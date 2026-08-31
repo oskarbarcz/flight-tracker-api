@@ -2,12 +2,11 @@
 
 ## Purpose
 
-Capture the structured planned fuel breakdown carried inside a flight's loadsheet (in
-tons) and the rules for entering it through the loadsheet write flows. Fuel figures reach
-a flight two ways — populated from the SimBrief OFP when a flight is created, and entered
-manually by operations on the preliminary loadsheet and by cabin crew on the final
-loadsheet. The `blockFuel` summary must reconcile with the breakdown, and editing the
-preliminary loadsheet must not destroy an existing final loadsheet.
+Capture the structured planned fuel breakdown a flight's loadsheet carries (in tons) and the
+rules for entering it through the loadsheet write flows. Fuel figures reach a flight two ways —
+populated from the SimBrief OFP when a flight is created, and entered manually by operations on
+the preliminary loadsheet and by cabin crew on the final loadsheet. The `blockFuel` summary must
+reconcile with the breakdown.
 ## Requirements
 ### Requirement: Fuel breakdown is enterable in the preliminary loadsheet
 
