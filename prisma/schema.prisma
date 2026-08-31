@@ -266,6 +266,9 @@ model Flight {
   etopsRuleMinutes           Int?
   etopsRuleDistanceNm        Decimal?          @db.Decimal(8, 2)
   etopsThresholdMinutes      Int?
+  oceanicRouting             OceanicRouting?
+  oceanicTrackId             String?           @db.VarChar(8)
+  oceanicTrackDirection      TrackDirection?
   greatCircleDistance        Int               @default(1)
   totalFuelBurned            Int               @default(1)
   actualFuelBurned           Decimal?          @db.Decimal(7, 3)
@@ -290,6 +293,7 @@ model Flight {
   airports                 AirportsOnFlights[]
   etopsPoints              FlightEtopsPoint[]
   routeFixes               FlightRouteFix[]
+  oceanicTracks            FlightOceanicTrack[]
   etopsAirports            FlightEtopsAirport[]
   flightEvent              FlightEvent[]
   diversion                Diversion[]
@@ -442,6 +446,37 @@ model FlightEtopsPoint {
 
   @@unique([flightId, kind, ordinal])
   @@map("flight_etops_point")
+}
+
+enum OceanicRouting {
+  track
+  track_geometry
+  random
+}
+
+enum TrackDirection {
+  east
+  west
+}
+
+model FlightOceanicTrack {
+  id         String         @id @default(uuid()) @db.Uuid
+  flightId   String         @db.Uuid
+  identifier String         @db.VarChar(8)
+  direction  TrackDirection
+  tmi        String         @db.VarChar(8)
+  issuingOca String?        @db.VarChar(8)
+  route      String?
+  levels     Int[]
+  validFrom  DateTime?
+  validTo    DateTime?
+  fixes      Json           @default("[]")
+
+  flight Flight @relation(fields: [flightId], references: [id], onDelete: Cascade)
+
+  @@unique([flightId, identifier, tmi])
+  @@index([flightId])
+  @@map("flight_oceanic_track")
 }
 
 model FlightRouteFix {

@@ -53,6 +53,7 @@ import { ListEmergenciesAction } from './infra/http/action/emergency/list-emerge
 import { ListEventsAction } from './infra/http/action/events/list-events.action';
 import { GetOfpAction } from './infra/http/action/ofp/get-ofp.action';
 import { GetPlannedRouteAction } from './infra/http/action/route/get-planned-route.action';
+import { GetOceanicCrossingAction } from './infra/http/action/oceanic/get-oceanic-crossing.action';
 import { GetPathAction } from './infra/http/action/path/get-path.action';
 import { DeclareEmergencyHandler } from './application/command/emergency/declare-emergency.command';
 import { UpdateEmergencyHandler } from './application/command/emergency/update-emergency.command';
@@ -82,6 +83,7 @@ import { CreateFlightHandler } from './application/command/create-flight.command
 import { CreateFlightFromSimbriefHandler } from './application/command/create-flight-from-simbrief.command';
 import { GetOfpHandler } from './application/query/get-ofp.query';
 import { GetPlannedRouteHandler } from './application/query/get-planned-route.query';
+import { GetOceanicCrossingHandler } from './application/query/get-oceanic-crossing.query';
 import { ListFlightLoadsheetsHandler } from './application/query/list-flight-loadsheets.query';
 import { GetCurrentLoadsheetHandler } from './application/query/get-current-loadsheet.query';
 import { GetPathHandler } from './application/query/path/get-path.query';
@@ -168,6 +170,7 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     ListEventsAction,
     GetOfpAction,
     GetPlannedRouteAction,
+    GetOceanicCrossingAction,
     GetPathAction,
     GetDelayRequestAction,
     ReportDelayAction,
@@ -217,6 +220,7 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     CreateFlightFromSimbriefHandler,
     GetOfpHandler,
     GetPlannedRouteHandler,
+    GetOceanicCrossingHandler,
     ListFlightLoadsheetsHandler,
     GetCurrentLoadsheetHandler,
     GetPathHandler,

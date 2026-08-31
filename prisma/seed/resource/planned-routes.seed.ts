@@ -105,12 +105,57 @@ const DLH82_FIXES: SeededRouteFix[] = [
   },
 ];
 
+const DLH82_TRACKS = [
+  {
+    identifier: 'A',
+    direction: 'west' as const,
+    tmi: '241',
+    issuingOca: 'EGGX',
+    route: 'MALOT 5620N 5730N 5740N 5650N JANJO',
+    levels: [340, 350, 360, 370, 380, 390, 400],
+    validFrom: new Date('2025-01-05 11:00'),
+    validTo: new Date('2025-01-05 18:30'),
+    fixes: [
+      { ident: 'MALOT', latitude: 54, longitude: -15 },
+      { ident: '5620N', latitude: 56, longitude: -20 },
+      { ident: 'JANJO', latitude: 55.5, longitude: -53 },
+    ],
+  },
+  {
+    identifier: 'X',
+    direction: 'east' as const,
+    tmi: '241',
+    issuingOca: 'CZQX',
+    route: 'RESNO 5540N 5450N DOGAL',
+    levels: [320, 330, 340, 350],
+    validFrom: new Date('2025-01-05 23:00'),
+    validTo: new Date('2025-01-06 06:30'),
+    fixes: [
+      { ident: 'RESNO', latitude: 55, longitude: -15 },
+      { ident: 'DOGAL', latitude: 54.5, longitude: -50 },
+    ],
+  },
+];
+
 export async function loadPlannedRoutes(
   tx: Prisma.TransactionClient,
 ): Promise<void> {
   await tx.flight.update({
     where: { id: DLH82 },
-    data: { route: DLH82_ROUTE },
+    data: {
+      route: DLH82_ROUTE,
+      oceanicRouting: 'track',
+      oceanicTrackId: 'A',
+      oceanicTrackDirection: 'west',
+    },
+  });
+
+  await tx.flightOceanicTrack.createMany({
+    data: DLH82_TRACKS.map((track) => ({
+      flightId: DLH82,
+      ...track,
+      fixes: track.fixes as unknown as Prisma.InputJsonValue,
+    })),
   });
 
   await tx.flightRouteFix.createMany({
