@@ -49,6 +49,7 @@ import {
   mapEtopsRings,
 } from '../../model/etops-snapshot.mapper';
 import { harvestWaypoints } from '../../model/waypoint-harvester';
+import { mapPlannedRoute } from '../../model/planned-route.mapper';
 import { WaypointsRepository } from '../../../waypoints/infra/database/waypoints.repository';
 
 export type AlternateAirportCandidate = {
@@ -190,6 +191,11 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     );
 
     await this.storeEtopsSnapshot(flightId, ofp, alternateAirports);
+    await this.flightsRepository.replacePlannedRoute(
+      flightId,
+      mapPlannedRoute(ofp),
+      this.readOfpText(ofp.general.route) || null,
+    );
     await this.waypointsRepository.record(harvestWaypoints(ofp));
 
     const crewMembers = this.collectCrewMembers(ofp);

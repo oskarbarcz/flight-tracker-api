@@ -8,6 +8,7 @@ import { loadPostcards } from './resource/postcards.seed';
 import { loadPostcardAwards } from './resource/postcard-awards.seed';
 import { loadAirports } from './resource/airports.seed';
 import { loadFlights } from './resource/flights.seed';
+import { loadPlannedRoutes } from './resource/planned-routes.seed';
 import { loadManifestFlights } from './resource/manifest-flights.seed';
 import { loadCargoFlights } from './resource/cargo-flights.seed';
 import { loadCargoManifests } from './resource/cargo-manifests.seed';
@@ -59,6 +60,7 @@ export async function loadResources() {
         await loadCargoManifests(tx);
         await loadFlightManifests(tx);
         await loadGeneratedManifests(tx);
+        await loadPlannedRoutes(tx);
         await loadFlightCrew(tx);
         await loadRotations(tx);
         await loadDelay(tx);

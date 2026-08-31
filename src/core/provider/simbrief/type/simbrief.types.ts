@@ -16,6 +16,7 @@ type General = {
   gc_distance: string;
   total_burn: string;
   cont_rule: string;
+  route?: string | EmptyElement;
 };
 
 export type EmptyElement = Record<string, never>;
@@ -43,6 +44,9 @@ type Airport = {
   iata_code?: string | EmptyElement;
   name?: string | EmptyElement;
   plan_rwy?: string;
+  pos_lat?: string | EmptyElement;
+  pos_long?: string | EmptyElement;
+  elevation?: string | EmptyElement;
   notam?: SimbriefNotam[] | SimbriefNotam;
 };
 
@@ -123,6 +127,9 @@ export type NavlogFix = {
   pos_lat?: string;
   pos_long?: string;
   altitude_feet?: string;
+  distance?: string | EmptyElement;
+  track_true?: string | EmptyElement;
+  track_mag?: string | EmptyElement;
   time_total?: string;
   via_airway?: string | EmptyElement;
   stage?: string | EmptyElement;
