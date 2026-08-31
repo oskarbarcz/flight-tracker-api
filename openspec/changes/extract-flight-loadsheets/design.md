@@ -346,7 +346,12 @@ helpers so it stands on its own:
 - **C** — recognised loadsheets whose fuel breakdown is too incomplete to copy, and which
   figures are missing from it.
 - **D** — recognised loadsheets whose per-cabin breakdown cannot be read as a map of counts.
-- **E** — the reconciliation, run straight after `data.sql`: every stored figure compared
+- **E** — figures that are readable but will not fit the column they are copied into: a tonnage
+  at or above 10000 for `decimal(7,3)`, a passenger mass at or above 1000, a count beyond a
+  32-bit integer, a contingency type longer than 64 characters. Any one of them raises inside
+  `data.sql`, and because the script is one transaction, that rolls the entire copy back and
+  leaves nothing migrated. This section must be empty **before** running the copy.
+- **F** — the reconciliation, run straight after `data.sql`: every stored figure compared
   against the column it landed in, rounded to that column's scale, plus the contingency type,
   the cabin breakdown as a whole, and loadsheets that should have been copied and were not.
   Every row it returns is a defect, so an empty result is the pass.
@@ -380,10 +385,13 @@ helpers so it stands on its own:
    and their foreign keys, and changes no existing row.
 2. Run `test.sql` and read sections A to D: how many loadsheets will be copied, and which ones
    will not be, with the reason for each.
-3. Run `data.sql`. It is transactional, so it either copies everything it recognises or nothing.
-4. Run `test.sql` again and read section E. It must return no rows.
-5. Rollback, if needed: redeploy the previous release. `flight.loadsheets` still holds every
+3. Read section E, and do not run the copy while it returns rows. Each one names a figure that
+   will raise on insert and roll the whole transaction back. Correct the stored value, or accept
+   losing that loadsheet by clearing the offending figure so the loadsheet stops being complete.
+4. Run `data.sql`. It is transactional, so it either copies everything it recognises or nothing.
+5. Run `test.sql` again and read section F. It must return no rows.
+6. Rollback, if needed: redeploy the previous release. `flight.loadsheets` still holds every
    original figure, so the old code reads exactly what it did before. The new tables can be
    emptied with `TRUNCATE "flight_loadsheet" CASCADE` and the copy re-run later.
-6. Dropping `flight.loadsheets` is a later change, made once the copy has been trusted in
+7. Dropping `flight.loadsheets` is a later change, made once the copy has been trusted in
    production for a while.

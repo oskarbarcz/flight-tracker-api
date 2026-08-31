@@ -23,7 +23,8 @@ the Definition of Done applied inside every group.
 - [x] 1.12 `data.sql`: copy the per-cabin counts from `passengersByCabin`, whole or not at all, through a helper that yields NULL for anything that is not a map of numbers
 - [x] 1.13 `data.sql`: wrapped in a transaction, guarded so a second run inserts nothing, dropping its helper functions at the end and leaving `flight.loadsheets` untouched
 - [x] 1.14 `prisma/data/20260830120000_extract_flight_loadsheets/test.sql`: sections A-D report what is stored, what is recognised, and every loadsheet left behind with the figures that disqualified it
-- [x] 1.15 `test.sql` section E: reconcile every copied figure against the JSON it came from, rounded to each column's scale, returning no rows when the copy is intact
+- [x] 1.15 `test.sql` section E: figures that are readable but will not fit their target column, which would raise inside `data.sql` and roll the whole copy back — must be empty before running it
+- [x] 1.16 `test.sql` section F: reconcile every copied figure against the JSON it came from, rounded to each column's scale, returning no rows when the copy is intact
 
 ## 2. Domain model
 
@@ -107,11 +108,12 @@ the Definition of Done applied inside every group.
 
 - [x] 10.1 Build a scratch database at the pre-migration schema and load flights covering every stored shape: a modern loadsheet with a final one, a pre-`fuel` loadsheet, one with no loadsheet, one missing a required figure, one carrying a numeric string, one with a partial fuel breakdown, and breakdowns that are a scalar, empty, and mixed-typed
 - [x] 10.2 Apply `migration.sql` and confirm it creates the tables and leaves `flight.loadsheets` in place
-- [x] 10.3 Run `test.sql` before `data.sql` and confirm sections A-D name exactly the loadsheets that will be left behind and the figures that disqualify each
+- [x] 10.3 Run `test.sql` before `data.sql` and confirm sections A-D name exactly the loadsheets that will be left behind and the figures that disqualify each, and that section E names any figure that would not fit its column
 - [x] 10.4 Run `data.sql` and confirm the recognised loadsheets arrive, with the issuer taken from the latest loadsheet event, the partial fuel breakdown dropped whole, and the mixed-typed cabin breakdown dropped whole
-- [x] 10.5 Run `test.sql` section E and confirm it returns no rows
-- [x] 10.6 Run `data.sql` a second time and confirm it inserts nothing and leaves `flight.loadsheets` intact
-- [ ] 10.7 Repeat 10.2 to 10.6 against a copy of production before running the scripts for real
+- [x] 10.5 Run `test.sql` section F and confirm it returns no rows
+- [x] 10.6 Confirm an out-of-range figure aborts `data.sql`, rolls the whole copy back, and is named by section E beforehand
+- [x] 10.7 Run `data.sql` a second time and confirm it inserts nothing and leaves `flight.loadsheets` intact
+- [ ] 10.8 Repeat 10.2 to 10.7 against a copy of production before running the scripts for real
 
 ## 11. Definition of done (applied inside every group)
 

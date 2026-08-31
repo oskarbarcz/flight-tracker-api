@@ -8,6 +8,7 @@ import { Continent, Coordinates } from '../../model/airport.model';
 import { CitiesRepository } from '../../infra/database/cities.repository';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
 import { CityWasCreatedEvent } from '../../../../core/domain/events/dto/city.event';
+import { shortAirportName } from '../../model/short-name';
 
 export class ImportAirportByIcaoCommand {
   constructor(public readonly icaoCode: string) {}
@@ -115,7 +116,7 @@ export class ImportAirportByIcaoHandler implements ICommandHandler<
     return {
       icaoCode: airport.icao,
       iataCode: airport.iata,
-      name: airport.name,
+      name: shortAirportName(airport.name),
       city: airport.city,
       country: airport.country,
       timezone: airport.timezone,
