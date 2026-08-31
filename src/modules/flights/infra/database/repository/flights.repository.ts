@@ -37,6 +37,10 @@ import { findAirframeByType } from '../../../../airframes/data/airframes';
 import { AirframeNotFoundError } from '../../../../airframes/model/error/airframe.error';
 import { AirportType } from '../../../../airports/model/airport.model';
 import { EtopsSnapshot } from '../../../model/etops.model';
+import {
+  PlannedRoute,
+  PlannedRouteFix,
+} from '../../../model/planned-route.model';
 
 export const flightWithAircraftAndAirportsFields = {
   id: true,
@@ -654,6 +658,68 @@ export class FlightsRepository {
         totalFuelBurned,
       },
     });
+  }
+
+  async replacePlannedRoute(
+    id: string,
+    fixes: PlannedRouteFix[],
+    route: string | null,
+  ): Promise<void> {
+    await this.prisma.$transaction(async (tx) => {
+      await tx.flightRouteFix.deleteMany({ where: { flightId: id } });
+
+      if (fixes.length > 0) {
+        await tx.flightRouteFix.createMany({
+          data: fixes.map((fix) => ({
+            flightId: id,
+            ordinal: fix.ordinal,
+            ident: fix.ident,
+            posLat: fix.latitude,
+            posLong: fix.longitude,
+            altitude: fix.altitude,
+            elapsedSeconds: fix.elapsedSeconds,
+            distanceNm: fix.distanceNm,
+            trackTrue: fix.trackTrue,
+            trackMag: fix.trackMag,
+            viaAirway: fix.viaAirway,
+            stage: fix.stage,
+          })),
+        });
+      }
+
+      await tx.flight.update({ where: { id }, data: { route } });
+    });
+  }
+
+  async findPlannedRoute(id: string): Promise<PlannedRoute | null> {
+    const flight = await this.prisma.flight.findUnique({
+      where: { id },
+      select: {
+        route: true,
+        routeFixes: { orderBy: { ordinal: 'asc' } },
+      },
+    });
+
+    if (!flight) {
+      return null;
+    }
+
+    return {
+      route: flight.route,
+      fixes: flight.routeFixes.map((fix) => ({
+        ordinal: fix.ordinal,
+        ident: fix.ident,
+        latitude: fix.posLat.toNumber(),
+        longitude: fix.posLong.toNumber(),
+        altitude: fix.altitude,
+        elapsedSeconds: fix.elapsedSeconds,
+        distanceNm: fix.distanceNm,
+        trackTrue: fix.trackTrue,
+        trackMag: fix.trackMag,
+        viaAirway: fix.viaAirway,
+        stage: fix.stage,
+      })),
+    };
   }
 
   async replaceEtopsSnapshot(

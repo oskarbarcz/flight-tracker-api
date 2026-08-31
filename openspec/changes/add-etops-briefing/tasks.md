@@ -68,17 +68,17 @@ separate issue.
      carries the leg distance and track angles SimBrief publishes per fix, and the plan's
      route string is stored alongside it. -->
 
-- [ ] 6.1 Migration: `flight_route_fix`, cascade-deleted with the flight
-- [ ] 6.2 Map `navlog.fix[]` in order — ident, position, altitude, elapsed time, airway, stage — plus the leg `distance` and the `track_true`/`track_mag` angles the plan publishes per fix, leaving wind, temperature, Mach, ground speed and fuel unmapped
-- [ ] 6.3 Keep the `TOC` and `TOD` pseudo-fixes — they carry real positions and mark where the planned altitude changes character
-- [ ] 6.4 Write the departure airport as the route's first fix — the airport's own position, field elevation, zero elapsed time — since the navlog omits the origin but includes the destination
-- [ ] 6.5 Unit spec: order is preserved, every fix has a position, the first fix is the departure airport at zero elapsed time and the last is the destination, and the route is independent of `positionReports`
-- [ ] 6.6 Feature: a flight reports its planned route before departure, every fix positioned, running airport to airport with no gap before the first plan fix
-- [ ] 6.7 Feature: the planned altitude of every fix is reported, so the vertical profile is drawable from the same rows
-- [ ] 6.8 Store the plan's route string on `flight.route`, which the import has never populated
-- [ ] 6.9 `GET /api/v1/flight/:flightId/route` returning the route as ordered positioned points with their distances and angles, plus the route string
-- [ ] 6.10 Feature: the route endpoint reports every point positioned, airport to airport, with leg distances and track angles
-- [ ] 6.11 Feature: a flight created without a plan reports no planned route
+- [x] 6.1 Migration: `flight_route_fix`, cascade-deleted with the flight
+- [x] 6.2 Map `navlog.fix[]` in order — ident, position, altitude, elapsed time, airway, stage — plus the leg `distance` and the `track_true`/`track_mag` angles the plan publishes per fix, leaving wind, temperature, Mach, ground speed and fuel unmapped
+- [x] 6.3 Keep the `TOC` and `TOD` pseudo-fixes — they carry real positions and mark where the planned altitude changes character
+- [x] 6.4 Write the departure airport as the route's first fix — the airport's own position, field elevation, zero elapsed time — since the navlog omits the origin but includes the destination
+- [x] 6.5 Unit spec: order is preserved, every fix has a position, the first fix is the departure airport at zero elapsed time and the last is the destination, and the route is independent of `positionReports`
+- [x] 6.6 Feature: a flight reports its planned route before departure, every fix positioned, running airport to airport with no gap before the first plan fix
+- [x] 6.7 Feature: the planned altitude of every fix is reported, so the vertical profile is drawable from the same rows
+- [x] 6.8 Store the plan's route string on `flight.route`, which the import has never populated
+- [x] 6.9 `GET /api/v1/flight/:flightId/route` returning the route as ordered positioned points with their distances and angles, plus the route string
+- [x] 6.10 Feature: the route endpoint reports every point positioned, airport to airport, with leg distances and track angles
+- [x] 6.11 Feature: a flight created without a plan reports no planned route
 
 ## 7. Oceanic tracks (needs 1; 6 for the segment marker)
 

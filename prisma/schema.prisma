@@ -289,6 +289,7 @@ model Flight {
   aircraft                 Aircraft               @relation(fields: [aircraftId], references: [id])
   airports                 AirportsOnFlights[]
   etopsPoints              FlightEtopsPoint[]
+  routeFixes               FlightRouteFix[]
   etopsAirports            FlightEtopsAirport[]
   flightEvent              FlightEvent[]
   diversion                Diversion[]
@@ -441,6 +442,27 @@ model FlightEtopsPoint {
 
   @@unique([flightId, kind, ordinal])
   @@map("flight_etops_point")
+}
+
+model FlightRouteFix {
+  id             String  @id @default(uuid()) @db.Uuid
+  flightId       String  @db.Uuid
+  ordinal        Int
+  ident          String  @db.VarChar(16)
+  posLat         Decimal @db.Decimal(9, 6)
+  posLong        Decimal @db.Decimal(9, 6)
+  altitude       Int
+  elapsedSeconds Int
+  distanceNm     Int?
+  trackTrue      Int?
+  trackMag       Int?
+  viaAirway      String? @db.VarChar(16)
+  stage          String  @db.VarChar(3)
+
+  flight Flight @relation(fields: [flightId], references: [id], onDelete: Cascade)
+
+  @@unique([flightId, ordinal])
+  @@map("flight_route_fix")
 }
 
 model FlightEtopsDiversionAirport {
