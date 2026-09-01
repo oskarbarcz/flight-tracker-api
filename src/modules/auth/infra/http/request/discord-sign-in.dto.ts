@@ -19,7 +19,7 @@ export class DiscordAuthorizationRequest {
     description:
       'Redirect URI the code was issued for. Must be one of the URIs this ' +
       'deployment allows, matched exactly.',
-    example: 'https://mypreflight.io/auth/discord/callback',
+    example: 'https://app.mypreflight.io/auth/discord/callback',
   })
   @IsNotEmpty()
   @IsString()
