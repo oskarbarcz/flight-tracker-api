@@ -2,6 +2,7 @@ type Params = {
   request_id: string;
   sequence_id: string;
   time_generated?: string;
+  units?: string;
 };
 
 export type Fetch = {
@@ -119,6 +120,17 @@ export type Etops = {
   suitable_airport?: EtopsSuitableAirport[] | EtopsSuitableAirport;
 };
 
+export type NavlogWindLevel = {
+  altitude?: string;
+  wind_dir?: string;
+  wind_spd?: string;
+  oat?: string;
+};
+
+export type NavlogWindData = {
+  level?: NavlogWindLevel[] | NavlogWindLevel;
+};
+
 export type NavlogFix = {
   ident: string;
   type?: string | EmptyElement;
@@ -133,6 +145,19 @@ export type NavlogFix = {
   time_total?: string;
   via_airway?: string | EmptyElement;
   stage?: string | EmptyElement;
+  fuel_flow?: string | EmptyElement;
+  fuel_leg?: string | EmptyElement;
+  fuel_totalused?: string | EmptyElement;
+  fuel_min_onboard?: string | EmptyElement;
+  fuel_plan_onboard?: string | EmptyElement;
+  oat?: string | EmptyElement;
+  oat_isa_dev?: string | EmptyElement;
+  wind_dir?: string | EmptyElement;
+  wind_spd?: string | EmptyElement;
+  tropopause_feet?: string | EmptyElement;
+  mora?: string | EmptyElement;
+  fir?: string | EmptyElement;
+  wind_data?: NavlogWindData | EmptyElement;
 };
 
 export type Navlog = {

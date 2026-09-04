@@ -63,6 +63,24 @@ Feature: Get every postcard and its art
             "heldBy": 1
           },
           {
+            "id": "6e2d9b58-4a17-4c63-b8f5-2d1a7e6c9b34",
+            "city": {
+              "id": "7d1b4f96-2a58-4c67-b3e9-8f5c1a7d2e64",
+              "name": "Gander"
+            },
+            "country": {
+              "code": "CA",
+              "name": "Canada"
+            },
+            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/e51a8d27-3f64-4b92-a7c5-1d8f6b3e9a52.png",
+            "width": 1152,
+            "height": 1536,
+            "status": "ready",
+            "statusChangedAt": null,
+            "failureReason": null,
+            "heldBy": 0
+          },
+          {
             "id": "2b470e7f-4d91-42e9-bb9f-1e0a9b997ccf",
             "city": {
               "id": "4670768b-9029-4de4-a078-19284031b8c5",
@@ -73,6 +91,24 @@ Feature: Get every postcard and its art
               "name": "Canada"
             },
             "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/213b197b-b74a-4ae0-84ff-be37190c00d9.png",
+            "width": 1152,
+            "height": 1536,
+            "status": "ready",
+            "statusChangedAt": null,
+            "failureReason": null,
+            "heldBy": 0
+          },
+          {
+            "id": "9a5c3e71-8d24-4fab-9b17-5c8e2a4d6f19",
+            "city": {
+              "id": "b6e3a827-4d19-4f52-9c7a-3e8b5d1f6a94",
+              "name": "Knock"
+            },
+            "country": {
+              "code": "IE",
+              "name": "Ireland"
+            },
+            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/4f9b6c13-7e28-45da-8f61-3a5d2b7e9c64.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -145,6 +181,24 @@ Feature: Get every postcard and its art
               "name": "Iceland"
             },
             "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/63ed849d-2865-418c-8d4c-059aab2096bb.png",
+            "width": 1152,
+            "height": 1536,
+            "status": "ready",
+            "statusChangedAt": null,
+            "failureReason": null,
+            "heldBy": 0
+          },
+          {
+            "id": "1c8f4a26-5b73-4e91-a2d6-7f3b9c5e8d40",
+            "city": {
+              "id": "5a2e8c17-9b64-4d3f-8e71-2c6a9f4b1d83",
+              "name": "Shannon"
+            },
+            "country": {
+              "code": "IE",
+              "name": "Ireland"
+            },
+            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/b74e1f38-9c52-4a67-8d13-6e2b5f9a3c48.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",

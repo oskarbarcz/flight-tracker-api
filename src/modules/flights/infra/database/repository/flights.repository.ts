@@ -48,7 +48,7 @@ import {
 } from '../../../model/etops.model';
 import {
   PlannedRoute,
-  PlannedRouteFix,
+  PlannedRouteWindLevel,
 } from '../../../model/planned-route.model';
 import {
   FlightOceanicCrossing,
@@ -748,17 +748,13 @@ export class FlightsRepository {
     });
   }
 
-  async replacePlannedRoute(
-    id: string,
-    fixes: PlannedRouteFix[],
-    route: string | null,
-  ): Promise<void> {
+  async replacePlannedRoute(id: string, plan: PlannedRoute): Promise<void> {
     await this.prisma.$transaction(async (tx) => {
       await tx.flightRouteFix.deleteMany({ where: { flightId: id } });
 
-      if (fixes.length > 0) {
+      if (plan.fixes.length > 0) {
         await tx.flightRouteFix.createMany({
-          data: fixes.map((fix) => ({
+          data: plan.fixes.map((fix) => ({
             flightId: id,
             ordinal: fix.ordinal,
             ident: fix.ident,
@@ -771,11 +767,27 @@ export class FlightsRepository {
             trackMag: fix.trackMag,
             viaAirway: fix.viaAirway,
             stage: fix.stage,
+            fuelFlow: fix.fuel.flow,
+            fuelLeg: fix.fuel.leg,
+            fuelUsed: fix.fuel.used,
+            fuelMinimumOnBoard: fix.fuel.minimumOnBoard,
+            fuelPlannedOnBoard: fix.fuel.plannedOnBoard,
+            oat: fix.oat,
+            isaDeviation: fix.isaDeviation,
+            tropopause: fix.tropopause,
+            mora: fix.mora,
+            fir: fix.fir,
+            windDirection: fix.wind.direction,
+            windSpeed: fix.wind.speed,
+            windLevels: fix.wind.levels as unknown as Prisma.InputJsonValue,
           })),
         });
       }
 
-      await tx.flight.update({ where: { id }, data: { route } });
+      await tx.flight.update({
+        where: { id },
+        data: { route: plan.route, atcRoute: plan.atcRoute },
+      });
     });
   }
 
@@ -784,6 +796,7 @@ export class FlightsRepository {
       where: { id },
       select: {
         route: true,
+        atcRoute: true,
         routeFixes: { orderBy: { ordinal: 'asc' } },
       },
     });
@@ -794,6 +807,7 @@ export class FlightsRepository {
 
     return {
       route: flight.route,
+      atcRoute: flight.atcRoute,
       fixes: flight.routeFixes.map((fix) => ({
         ordinal: fix.ordinal,
         ident: fix.ident,
@@ -806,6 +820,23 @@ export class FlightsRepository {
         trackMag: fix.trackMag,
         viaAirway: fix.viaAirway,
         stage: fix.stage,
+        fuel: {
+          flow: fix.fuelFlow,
+          leg: fix.fuelLeg,
+          used: fix.fuelUsed,
+          minimumOnBoard: fix.fuelMinimumOnBoard,
+          plannedOnBoard: fix.fuelPlannedOnBoard,
+        },
+        oat: fix.oat,
+        isaDeviation: fix.isaDeviation,
+        tropopause: fix.tropopause,
+        mora: fix.mora,
+        fir: fix.fir,
+        wind: {
+          direction: fix.windDirection,
+          speed: fix.windSpeed,
+          levels: fix.windLevels as unknown as PlannedRouteWindLevel[],
+        },
       })),
     };
   }

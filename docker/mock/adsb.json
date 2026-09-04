@@ -7,10 +7,18 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"],
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ],
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       },
       "body": [
         {
@@ -84,10 +92,18 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"],
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ],
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       },
       "body": [
         {
@@ -95,9 +111,9 @@
           "date": "2025-01-01T13:10:00.000Z",
           "latitude": 42.3656,
           "longitude": -71.0096,
-          "altitude": 8500,
+          "altitude": 2500,
           "verticalRate": 1800,
-          "groundSpeed": 285,
+          "groundSpeed": 240,
           "track": 225,
           "isOnGround": false,
           "squawk": "2453",
@@ -107,13 +123,13 @@
         },
         {
           "callsign": "AAL4912",
-          "date": "2025-01-01T13:40:00.000Z",
-          "latitude": 41.7,
-          "longitude": -72.3,
-          "altitude": 24000,
-          "verticalRate": 1500,
-          "groundSpeed": 140,
-          "track": 236,
+          "date": "2025-01-01T13:10:00.000Z",
+          "latitude": 42.2,
+          "longitude": -71.45,
+          "altitude": 14000,
+          "verticalRate": 1800,
+          "groundSpeed": 330,
+          "track": 232,
           "isOnGround": false,
           "squawk": "2453",
           "alert": false,
@@ -122,12 +138,12 @@
         },
         {
           "callsign": "AAL4912",
-          "date": "2025-01-01T14:10:00.000Z",
-          "latitude": 40.7,
-          "longitude": -74.0,
-          "altitude": 35000,
-          "verticalRate": 0,
-          "groundSpeed": 195,
+          "date": "2025-01-01T13:10:00.000Z",
+          "latitude": 41.85,
+          "longitude": -72.05,
+          "altitude": 24000,
+          "verticalRate": 1800,
+          "groundSpeed": 400,
           "track": 233,
           "isOnGround": false,
           "squawk": "2453",
@@ -137,13 +153,43 @@
         },
         {
           "callsign": "AAL4912",
-          "date": "2025-01-01T14:40:00.000Z",
-          "latitude": 39.8729,
-          "longitude": -75.2437,
-          "altitude": 12000,
-          "verticalRate": -1200,
-          "groundSpeed": 151,
-          "track": 229,
+          "date": "2025-01-01T13:10:00.000Z",
+          "latitude": 41.6,
+          "longitude": -72.45,
+          "altitude": 28000,
+          "verticalRate": 1800,
+          "groundSpeed": 420,
+          "track": 233,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        },
+        {
+          "callsign": "AAL4912",
+          "date": "2025-01-01T13:10:00.000Z",
+          "latitude": 41.4,
+          "longitude": -72.75,
+          "altitude": 28000,
+          "verticalRate": 1800,
+          "groundSpeed": 420,
+          "track": 233,
+          "isOnGround": false,
+          "squawk": "2453",
+          "alert": false,
+          "emergency": false,
+          "spi": false
+        },
+        {
+          "callsign": "AAL4912",
+          "date": "2025-01-01T13:10:00.000Z",
+          "latitude": 41.2,
+          "longitude": -73.05,
+          "altitude": 28000,
+          "verticalRate": 1800,
+          "groundSpeed": 420,
+          "track": 233,
           "isOnGround": false,
           "squawk": "2453",
           "alert": false,
@@ -161,7 +207,9 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ]
       },
       "body": [
         {
@@ -235,10 +283,18 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"],
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ],
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       },
       "body": [
         {
@@ -327,10 +383,18 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"],
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ],
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       },
       "body": [
         {
@@ -359,10 +423,18 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"],
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ],
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       },
       "body": [
         {
@@ -391,10 +463,18 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"],
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ],
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       },
       "body": [
         {
@@ -423,10 +503,18 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"],
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ],
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       },
       "body": [
         {
@@ -455,10 +543,18 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"],
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ],
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       },
       "body": [
         {
@@ -487,10 +583,18 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"],
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ],
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       },
       "body": [
         {
@@ -519,10 +623,18 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"],
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ],
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       },
       "body": [
         {
@@ -551,10 +663,18 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"],
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ],
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       },
       "body": [
         {
@@ -583,10 +703,18 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Content-Type": ["application/json; charset=utf-8"],
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Content-Type": [
+          "application/json; charset=utf-8"
+        ],
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       },
       "body": [
         {
@@ -615,9 +743,15 @@
     "httpResponse": {
       "statusCode": 200,
       "headers": {
-        "Access-Control-Allow-Origin": ["*"],
-        "Access-Control-Allow-Methods": ["GET, POST, OPTIONS"],
-        "Access-Control-Allow-Headers": ["Content-Type, Authorization"]
+        "Access-Control-Allow-Origin": [
+          "*"
+        ],
+        "Access-Control-Allow-Methods": [
+          "GET, POST, OPTIONS"
+        ],
+        "Access-Control-Allow-Headers": [
+          "Content-Type, Authorization"
+        ]
       }
     }
   }

@@ -60,7 +60,7 @@ Feature: Get the postcards I have collected
             "seenAt": null
           }
         ],
-        "total": 10
+        "total": 13
       }
       """
 
@@ -72,7 +72,7 @@ Feature: Get the postcards I have collected
       """json
       {
         "postcards": [],
-        "total": 10
+        "total": 13
       }
       """
 
@@ -84,7 +84,7 @@ Feature: Get the postcards I have collected
       """json
       {
         "postcards": [],
-        "total": 10
+        "total": 13
       }
       """
 
