@@ -11,6 +11,9 @@ export const CITY_IDS = {
   philadelphia: 'e30d5e72-29ca-4f01-8e75-fdc55e3b296a',
   boston: '19364a7d-3982-43e5-9630-9ce7c3a44e98',
   bremen: '11fe7e0d-ef97-4a1d-9a87-8ad9da64fd91',
+  shannon: '5a2e8c17-9b64-4d3f-8e71-2c6a9f4b1d83',
+  gander: '7d1b4f96-2a58-4c67-b3e9-8f5c1a7d2e64',
+  knock: 'b6e3a827-4d19-4f52-9c7a-3e8b5d1f6a94',
 } as const;
 
 export async function loadCities(tx: Prisma.TransactionClient): Promise<void> {
@@ -26,6 +29,9 @@ export async function loadCities(tx: Prisma.TransactionClient): Promise<void> {
       { id: CITY_IDS.philadelphia, name: 'Philadelphia', country: 'US' },
       { id: CITY_IDS.boston, name: 'Boston', country: 'US' },
       { id: CITY_IDS.bremen, name: 'Bremen', country: 'DE' },
+      { id: CITY_IDS.shannon, name: 'Shannon', country: 'IE' },
+      { id: CITY_IDS.gander, name: 'Gander', country: 'CA' },
+      { id: CITY_IDS.knock, name: 'Knock', country: 'IE' },
     ],
   });
 }

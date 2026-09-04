@@ -1,9 +1,11 @@
 import {
   NavlogFix,
+  NavlogWindLevel,
   OperationalFlightPlan,
 } from '../../../core/provider/simbrief/type/simbrief.types';
 import { toOfpArray } from './etops-snapshot.mapper';
-import { PlannedRouteFix } from './planned-route.model';
+import { PlannedRouteFix, PlannedRouteWindLevel } from './planned-route.model';
+import { OfpMassUnit, readOfpMassUnit, toKilograms } from './ofp-units';
 
 const DEPARTURE_STAGE = 'CLB';
 
@@ -23,7 +25,43 @@ function readText(value: unknown): string | null {
   return typeof value === 'string' && value.length > 0 ? value : null;
 }
 
-function toFix(fix: NavlogFix): UnorderedFix | null {
+function toWindLevel(level: NavlogWindLevel): PlannedRouteWindLevel | null {
+  const altitude = readNumber(level.altitude);
+  const direction = readNumber(level.wind_dir);
+  const speed = readNumber(level.wind_spd);
+  const oat = readNumber(level.oat);
+
+  if (
+    altitude === null ||
+    direction === null ||
+    speed === null ||
+    oat === null
+  ) {
+    return null;
+  }
+
+  return { altitude, direction, speed, oat };
+}
+
+function toWindLevels(fix: NavlogFix): PlannedRouteWindLevel[] {
+  const windData = fix.wind_data;
+
+  if (windData === undefined || !('level' in windData)) {
+    return [];
+  }
+
+  return toOfpArray(windData.level)
+    .map(toWindLevel)
+    .filter((level): level is PlannedRouteWindLevel => level !== null);
+}
+
+function readMass(value: unknown, unit: OfpMassUnit): number | null {
+  const mass = readNumber(value);
+
+  return mass === null ? null : toKilograms(mass, unit);
+}
+
+function toFix(fix: NavlogFix, unit: OfpMassUnit): UnorderedFix | null {
   const latitude = readNumber(fix.pos_lat);
   const longitude = readNumber(fix.pos_long);
 
@@ -42,6 +80,23 @@ function toFix(fix: NavlogFix): UnorderedFix | null {
     trackMag: readNumber(fix.track_mag),
     viaAirway: readText(fix.via_airway),
     stage: readText(fix.stage) ?? DEPARTURE_STAGE,
+    fuel: {
+      flow: readMass(fix.fuel_flow, unit),
+      leg: readMass(fix.fuel_leg, unit),
+      used: readMass(fix.fuel_totalused, unit),
+      minimumOnBoard: readMass(fix.fuel_min_onboard, unit),
+      plannedOnBoard: readMass(fix.fuel_plan_onboard, unit),
+    },
+    oat: readNumber(fix.oat),
+    isaDeviation: readNumber(fix.oat_isa_dev),
+    tropopause: readNumber(fix.tropopause_feet),
+    mora: readNumber(fix.mora),
+    fir: readText(fix.fir),
+    wind: {
+      direction: readNumber(fix.wind_dir),
+      speed: readNumber(fix.wind_spd),
+      levels: toWindLevels(fix),
+    },
   };
 }
 
@@ -66,12 +121,26 @@ function departureFix(
     trackMag: null,
     viaAirway: null,
     stage: DEPARTURE_STAGE,
+    fuel: {
+      flow: null,
+      leg: null,
+      used: null,
+      minimumOnBoard: null,
+      plannedOnBoard: null,
+    },
+    oat: null,
+    isaDeviation: null,
+    tropopause: null,
+    mora: null,
+    fir: null,
+    wind: { direction: null, speed: null, levels: [] },
   };
 }
 
 export function mapPlannedRoute(ofp: OperationalFlightPlan): PlannedRouteFix[] {
+  const unit = readOfpMassUnit(ofp);
   const fixes = toOfpArray(ofp.navlog?.fix)
-    .map(toFix)
+    .map((fix) => toFix(fix, unit))
     .filter((fix): fix is UnorderedFix => fix !== null);
 
   if (fixes.length === 0) {

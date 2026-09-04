@@ -50,6 +50,12 @@ import {
 } from '../../model/etops-snapshot.mapper';
 import { harvestWaypoints } from '../../model/waypoint-harvester';
 import { mapPlannedRoute } from '../../model/planned-route.mapper';
+import {
+  OfpMassUnit,
+  readOfpMassUnit,
+  toKilograms,
+  toTons,
+} from '../../model/ofp-units';
 import { resolveOceanicRouting } from '../../model/oceanic-routing';
 import { mapOceanicTracks } from '../../model/oceanic-track.mapper';
 import { WaypointsRepository } from '../../../waypoints/infra/database/waypoints.repository';
@@ -125,6 +131,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       this.resolveAlternateAirports(alternateCandidates),
     ]);
 
+    const unit = readOfpMassUnit(ofp);
     const loadsheet: Loadsheet = {
       flightCrew: {
         pilots: 2,
@@ -132,12 +139,12 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
         cabinCrew: this.countCabinCrew(ofp.crew),
       },
       passengers: Number(ofp.weights.pax_count),
-      passengerMass: this.plannedPassengerMass(ofp),
-      cargo: this.ofpWeightToTons(ofp.weights.cargo),
-      blockFuel: this.ofpWeightToTons(ofp.fuel.plan_ramp),
-      payload: this.ofpWeightToTons(ofp.weights.payload),
-      zeroFuelWeight: this.ofpWeightToTons(ofp.weights.est_zfw),
-      fuel: this.mapFuelBreakdown(ofp),
+      passengerMass: this.plannedPassengerMass(ofp, unit),
+      cargo: this.ofpWeightToTons(ofp.weights.cargo, unit),
+      blockFuel: this.ofpWeightToTons(ofp.fuel.plan_ramp, unit),
+      payload: this.ofpWeightToTons(ofp.weights.payload, unit),
+      zeroFuelWeight: this.ofpWeightToTons(ofp.weights.est_zfw, unit),
+      fuel: this.mapFuelBreakdown(ofp, unit),
     };
 
     const flightData = {
@@ -182,7 +189,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       Number(ofp.params.request_id),
       ofp.params.sequence_id,
       Number(ofp.general.gc_distance),
-      Number(ofp.general.total_burn),
+      toKilograms(Number(ofp.general.total_burn), unit),
     );
 
     await this.assignImportedRunways(
@@ -194,11 +201,11 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
 
     await this.storeEtopsSnapshot(flightId, ofp, alternateAirports);
     await this.storeOceanicSnapshot(flightId, ofp);
-    await this.flightsRepository.replacePlannedRoute(
-      flightId,
-      mapPlannedRoute(ofp),
-      this.readOfpText(ofp.general.route) || null,
-    );
+    await this.flightsRepository.replacePlannedRoute(flightId, {
+      route: this.readOfpText(ofp.general.route) || null,
+      atcRoute: this.readOfpText(ofp.atc?.route) || null,
+      fixes: mapPlannedRoute(ofp),
+    });
     await this.waypointsRepository.record(harvestWaypoints(ofp));
 
     const crewMembers = this.collectCrewMembers(ofp);
@@ -578,44 +585,51 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     );
   }
 
-  private mapFuelBreakdown(ofp: OperationalFlightPlan): FuelBreakdown {
+  private mapFuelBreakdown(
+    ofp: OperationalFlightPlan,
+    unit: OfpMassUnit,
+  ): FuelBreakdown {
     // MEL/ATC/WXX/EXTRA/TANKERING come from the OFP's additional-fuel buckets
     // (fuel_extra.bucket); `block` stays consistent with the `blockFuel` summary.
     return {
-      block: this.ofpWeightToTons(ofp.fuel.plan_ramp),
-      taxi: this.ofpWeightToTons(ofp.fuel.taxi),
-      trip: this.ofpWeightToTons(ofp.fuel.enroute_burn),
-      alternate: this.ofpWeightToTons(ofp.fuel.alternate_burn),
-      reserve: this.ofpWeightToTons(ofp.fuel.reserve),
+      block: this.ofpWeightToTons(ofp.fuel.plan_ramp, unit),
+      taxi: this.ofpWeightToTons(ofp.fuel.taxi, unit),
+      trip: this.ofpWeightToTons(ofp.fuel.enroute_burn, unit),
+      alternate: this.ofpWeightToTons(ofp.fuel.alternate_burn, unit),
+      reserve: this.ofpWeightToTons(ofp.fuel.reserve, unit),
       contingencyType: ofp.general.cont_rule,
-      contingencyAmount: this.ofpWeightToTons(ofp.fuel.contingency),
-      mel: this.additionalFuelTons(ofp, 'MEL'),
-      atc: this.additionalFuelTons(ofp, 'ATC'),
-      wxx: this.additionalFuelTons(ofp, 'WXX'),
-      extra: this.additionalFuelTons(ofp, 'EXTRA'),
-      tankering: this.additionalFuelTons(ofp, 'TANKERING'),
-      etops: this.ofpWeightToTons(ofp.fuel.etops),
-      minTakeoff: this.ofpWeightToTons(ofp.fuel.min_takeoff),
-      planTakeoff: this.ofpWeightToTons(ofp.fuel.plan_takeoff),
-      planLanding: this.ofpWeightToTons(ofp.fuel.plan_landing),
-      averageFuelFlow: this.ofpWeightToTons(ofp.fuel.avg_fuel_flow),
-      maxTanks: this.ofpWeightToTons(ofp.fuel.max_tanks),
+      contingencyAmount: this.ofpWeightToTons(ofp.fuel.contingency, unit),
+      mel: this.additionalFuelTons(ofp, 'MEL', unit),
+      atc: this.additionalFuelTons(ofp, 'ATC', unit),
+      wxx: this.additionalFuelTons(ofp, 'WXX', unit),
+      extra: this.additionalFuelTons(ofp, 'EXTRA', unit),
+      tankering: this.additionalFuelTons(ofp, 'TANKERING', unit),
+      etops: this.ofpWeightToTons(ofp.fuel.etops, unit),
+      minTakeoff: this.ofpWeightToTons(ofp.fuel.min_takeoff, unit),
+      planTakeoff: this.ofpWeightToTons(ofp.fuel.plan_takeoff, unit),
+      planLanding: this.ofpWeightToTons(ofp.fuel.plan_landing, unit),
+      averageFuelFlow: this.ofpWeightToTons(ofp.fuel.avg_fuel_flow, unit),
+      maxTanks: this.ofpWeightToTons(ofp.fuel.max_tanks, unit),
     };
   }
 
   private additionalFuelTons(
     ofp: OperationalFlightPlan,
     label: string,
+    unit: OfpMassUnit,
   ): number {
     const bucket = ofp.fuel_extra?.bucket?.find((b) => b.label === label);
-    return bucket ? this.ofpWeightToTons(bucket.fuel) : 0;
+    return bucket ? this.ofpWeightToTons(bucket.fuel, unit) : 0;
   }
 
-  private ofpWeightToTons(input: string): number {
-    return Math.round(Number(input)) / 1000;
+  private ofpWeightToTons(input: string, unit: OfpMassUnit): number {
+    return toTons(Number(input), unit);
   }
 
-  private plannedPassengerMass(ofp: OperationalFlightPlan): number | null {
+  private plannedPassengerMass(
+    ofp: OperationalFlightPlan,
+    unit: OfpMassUnit,
+  ): number | null {
     const passengers = Number(ofp.weights.pax_count);
 
     if (!Number.isFinite(passengers) || passengers <= 0) {
@@ -623,8 +637,8 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     }
 
     const allowanceKg =
-      (this.ofpWeightToTons(ofp.weights.payload) -
-        this.ofpWeightToTons(ofp.weights.cargo)) *
+      (this.ofpWeightToTons(ofp.weights.payload, unit) -
+        this.ofpWeightToTons(ofp.weights.cargo, unit)) *
       1000;
 
     if (!Number.isFinite(allowanceKg) || allowanceKg <= 0) {

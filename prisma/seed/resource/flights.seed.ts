@@ -5305,8 +5305,8 @@ async function loadDLH82(tx: Prisma.TransactionClient): Promise<void> {
     ofpDocumentUrl:
       'https://www.simbrief.com/ofp/flightplans/EDDFKJFK_PDF_1769431275.pdf',
     runwayAnalysis: 'TAKEOFF AND LANDING REPORT DLH82',
-    etopsRuleMinutes: 370,
-    etopsRuleDistanceNm: 2694.83,
+    etopsRuleMinutes: 180,
+    etopsRuleDistanceNm: 1311,
     etopsThresholdMinutes: 60,
   };
 

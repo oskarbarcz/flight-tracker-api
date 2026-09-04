@@ -250,7 +250,7 @@ Feature: Create a flight with Simbrief
               "longitude": -54.5681
             },
             "type": "etops_suitable",
-            "shape": null
+            "shape": "@coordinates"
           }
         ],
         "departureParkingPositionId": null,
@@ -727,12 +727,12 @@ Feature: Create a flight with Simbrief
             "name": "Germany"
           },
           "timezone": "Europe/Berlin",
+          "location": {
+            "latitude": 50.04693,
+            "longitude": 8.57397
+          },
           "continent": "europe",
           "dataQuality": "low",
-          "location": {
-            "longitude": 8.57397,
-            "latitude": 50.04693
-          },
           "shape": "@coordinates"
         },
         {
@@ -749,12 +749,12 @@ Feature: Create a flight with Simbrief
             "name": "Poland"
           },
           "timezone": "Europe/Warsaw",
+          "location": {
+            "latitude": 52.16575,
+            "longitude": 20.967123
+          },
           "continent": "europe",
           "dataQuality": "low",
-          "location": {
-            "longitude": 20.967123,
-            "latitude": 52.16575
-          },
           "shape": "@coordinates"
         },
         {
@@ -771,12 +771,12 @@ Feature: Create a flight with Simbrief
             "name": "United States of America"
           },
           "timezone": "America/New_York",
+          "location": {
+            "latitude": 40.6413,
+            "longitude": -73.7781
+          },
           "continent": "north_america",
           "dataQuality": "low",
-          "location": {
-            "longitude": -73.7781,
-            "latitude": 40.6413
-          },
           "shape": "@coordinates"
         },
         {
@@ -793,12 +793,12 @@ Feature: Create a flight with Simbrief
             "name": "France"
           },
           "timezone": "Europe/Paris",
+          "location": {
+            "latitude": 49.00896,
+            "longitude": 2.55412
+          },
           "continent": "europe",
           "dataQuality": "low",
-          "location": {
-            "longitude": 2.55412,
-            "latitude": 49.00896
-          },
           "shape": "@coordinates"
         },
         {
@@ -815,12 +815,12 @@ Feature: Create a flight with Simbrief
             "name": "Canada"
           },
           "timezone": "America/Goose_Bay",
+          "location": {
+            "latitude": 53.319168,
+            "longitude": -60.409444
+          },
           "continent": "north_america",
           "dataQuality": "low",
-          "location": {
-            "longitude": -60.409444,
-            "latitude": 53.319168
-          },
           "shape": "@coordinates"
         },
         {
@@ -837,12 +837,12 @@ Feature: Create a flight with Simbrief
             "name": "Iceland"
           },
           "timezone": "Atlantic/Reykjavik",
+          "location": {
+            "latitude": 63.985,
+            "longitude": -22.6056
+          },
           "continent": "europe",
           "dataQuality": "low",
-          "location": {
-            "longitude": -22.6056,
-            "latitude": 63.985
-          },
           "shape": "@coordinates"
         },
         {
@@ -859,12 +859,12 @@ Feature: Create a flight with Simbrief
             "name": "Canada"
           },
           "timezone": "America/St_Johns",
+          "location": {
+            "latitude": 47.61861,
+            "longitude": -52.751945
+          },
           "continent": "north_america",
           "dataQuality": "low",
-          "location": {
-            "longitude": -52.751945,
-            "latitude": 47.61861
-          },
           "shape": "@coordinates"
         },
         {
@@ -881,12 +881,12 @@ Feature: Create a flight with Simbrief
             "name": "United States of America"
           },
           "timezone": "America/New_York",
+          "location": {
+            "latitude": 39.87113,
+            "longitude": -75.24349
+          },
           "continent": "north_america",
           "dataQuality": "low",
-          "location": {
-            "longitude": -75.24349,
-            "latitude": 39.87113
-          },
           "shape": "@coordinates"
         },
         {
@@ -903,12 +903,12 @@ Feature: Create a flight with Simbrief
             "name": "United States of America"
           },
           "timezone": "America/New_York",
+          "location": {
+            "latitude": 42.36454,
+            "longitude": -71.01663
+          },
           "continent": "north_america",
           "dataQuality": "low",
-          "location": {
-            "longitude": -71.01663,
-            "latitude": 42.36454
-          },
           "shape": "@coordinates"
         },
         {
@@ -925,12 +925,12 @@ Feature: Create a flight with Simbrief
             "name": "Germany"
           },
           "timezone": "Europe/Berlin",
+          "location": {
+            "latitude": 53.0475,
+            "longitude": 8.786667
+          },
           "continent": "europe",
           "dataQuality": "low",
-          "location": {
-            "longitude": 8.786667,
-            "latitude": 53.0475
-          },
           "shape": "@coordinates"
         },
         {
@@ -947,13 +947,79 @@ Feature: Create a flight with Simbrief
             "name": "France"
           },
           "timezone": "Europe/Paris",
+          "location": {
+            "latitude": 48.7233,
+            "longitude": 2.35944
+          },
           "continent": "europe",
           "dataQuality": "low",
-          "location": {
-            "longitude": 2.35944,
-            "latitude": 48.7233
-          },
           "shape": null
+        },
+        {
+          "id": "2f1c5a84-6d3b-4e77-9a12-8c5b3e9d4f60",
+          "icaoCode": "EINN",
+          "iataCode": "SNN",
+          "city": {
+            "id": "5a2e8c17-9b64-4d3f-8e71-2c6a9f4b1d83",
+            "name": "Shannon"
+          },
+          "name": "Shannon Intl",
+          "country": {
+            "code": "IE",
+            "name": "Ireland"
+          },
+          "timezone": "Europe/Dublin",
+          "location": {
+            "latitude": 52.701978,
+            "longitude": -8.924817
+          },
+          "continent": "europe",
+          "dataQuality": "low",
+          "shape": "@coordinates"
+        },
+        {
+          "id": "8b47e2d1-3f96-4c58-b0a7-6d2e9f1c4a83",
+          "icaoCode": "CYQX",
+          "iataCode": "YQX",
+          "city": {
+            "id": "7d1b4f96-2a58-4c67-b3e9-8f5c1a7d2e64",
+            "name": "Gander"
+          },
+          "name": "Gander Intl",
+          "country": {
+            "code": "CA",
+            "name": "Canada"
+          },
+          "timezone": "America/St_Johns",
+          "location": {
+            "latitude": 48.936901,
+            "longitude": -54.5681
+          },
+          "continent": "north_america",
+          "dataQuality": "low",
+          "shape": "@coordinates"
+        },
+        {
+          "id": "c39d6f52-84a1-4b73-9e6c-1f8a3d7b5e29",
+          "icaoCode": "EIKN",
+          "iataCode": "NOC",
+          "city": {
+            "id": "b6e3a827-4d19-4f52-9c7a-3e8b5d1f6a94",
+            "name": "Knock"
+          },
+          "name": "Ireland West Knock",
+          "country": {
+            "code": "IE",
+            "name": "Ireland"
+          },
+          "timezone": "Europe/Dublin",
+          "location": {
+            "latitude": 53.910278,
+            "longitude": -8.818611
+          },
+          "continent": "europe",
+          "dataQuality": "low",
+          "shape": "@coordinates"
         },
         {
           "id": "@uuid",
@@ -969,12 +1035,12 @@ Feature: Create a flight with Simbrief
             "name": "United Kingdom"
           },
           "timezone": "Europe/London",
+          "location": {
+            "latitude": 51.47060013,
+            "longitude": -0.461941
+          },
           "continent": "europe",
           "dataQuality": "low",
-          "location": {
-            "longitude": -0.461941,
-            "latitude": 51.47060013
-          },
           "shape": null
         }
       ]

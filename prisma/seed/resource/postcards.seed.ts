@@ -12,6 +12,9 @@ export const POSTCARD_IDS = {
   philadelphia: '6b1b8e82-b9fb-4501-8716-b039c22e5c08',
   boston: 'edf2c8d8-5cc6-433c-a291-b99886c2736a',
   bremen: '6bae6830-8794-434e-89ca-2aa118fc9335',
+  shannon: '1c8f4a26-5b73-4e91-a2d6-7f3b9c5e8d40',
+  gander: '6e2d9b58-4a17-4c63-b8f5-2d1a7e6c9b34',
+  knock: '9a5c3e71-8d24-4fab-9b17-5c8e2a4d6f19',
 } as const;
 
 const ART_UUIDS = {
@@ -25,6 +28,9 @@ const ART_UUIDS = {
   philadelphia: 'f57fbaa1-4332-4dba-9d10-931cc053111f',
   boston: 'a13b60a0-9253-4c77-a8fa-68bfb07c5971',
   bremen: 'cefddab1-b5dc-4764-bb7d-43bf1f606208',
+  shannon: 'b74e1f38-9c52-4a67-8d13-6e2b5f9a3c48',
+  gander: 'e51a8d27-3f64-4b92-a7c5-1d8f6b3e9a52',
+  knock: '4f9b6c13-7e28-45da-8f61-3a5d2b7e9c64',
 } as const;
 
 const ART_BASE_URL = 'http://functions-mock:1080/mypreflight-files/postcards';

@@ -742,7 +742,7 @@ Feature: Report on-block
             "seenAt": null
           }
         ],
-        "total": 10
+        "total": 13
       }
       """
     And I clear Discord messages directory

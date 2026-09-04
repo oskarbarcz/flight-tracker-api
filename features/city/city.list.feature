@@ -36,11 +36,29 @@ Feature: Get every city an airport serves
             "hasPostcard": true
           },
           {
+            "id": "7d1b4f96-2a58-4c67-b3e9-8f5c1a7d2e64",
+            "name": "Gander",
+            "country": {
+              "code": "CA",
+              "name": "Canada"
+            },
+            "hasPostcard": true
+          },
+          {
             "id": "4670768b-9029-4de4-a078-19284031b8c5",
             "name": "Goose Bay",
             "country": {
               "code": "CA",
               "name": "Canada"
+            },
+            "hasPostcard": true
+          },
+          {
+            "id": "b6e3a827-4d19-4f52-9c7a-3e8b5d1f6a94",
+            "name": "Knock",
+            "country": {
+              "code": "IE",
+              "name": "Ireland"
             },
             "hasPostcard": true
           },
@@ -77,6 +95,15 @@ Feature: Get every city an airport serves
             "country": {
               "code": "IS",
               "name": "Iceland"
+            },
+            "hasPostcard": true
+          },
+          {
+            "id": "5a2e8c17-9b64-4d3f-8e71-2c6a9f4b1d83",
+            "name": "Shannon",
+            "country": {
+              "code": "IE",
+              "name": "Ireland"
             },
             "hasPostcard": true
           },
@@ -149,11 +176,29 @@ Feature: Get every city an airport serves
             "hasPostcard": true
           },
           {
+            "id": "7d1b4f96-2a58-4c67-b3e9-8f5c1a7d2e64",
+            "name": "Gander",
+            "country": {
+              "code": "CA",
+              "name": "Canada"
+            },
+            "hasPostcard": true
+          },
+          {
             "id": "4670768b-9029-4de4-a078-19284031b8c5",
             "name": "Goose Bay",
             "country": {
               "code": "CA",
               "name": "Canada"
+            },
+            "hasPostcard": true
+          },
+          {
+            "id": "b6e3a827-4d19-4f52-9c7a-3e8b5d1f6a94",
+            "name": "Knock",
+            "country": {
+              "code": "IE",
+              "name": "Ireland"
             },
             "hasPostcard": true
           },
@@ -190,6 +235,15 @@ Feature: Get every city an airport serves
             "country": {
               "code": "IS",
               "name": "Iceland"
+            },
+            "hasPostcard": true
+          },
+          {
+            "id": "5a2e8c17-9b64-4d3f-8e71-2c6a9f4b1d83",
+            "name": "Shannon",
+            "country": {
+              "code": "IE",
+              "name": "Ireland"
             },
             "hasPostcard": true
           },

@@ -273,6 +273,7 @@ model Flight {
   totalFuelBurned            Int               @default(1)
   actualFuelBurned           Decimal?          @db.Decimal(7, 3)
   route                      String?
+  atcRoute                   String?
   departureParkingPositionId String?           @db.Uuid
   departureRunwayId          String?           @db.Uuid
   arrivalParkingPositionId   String?           @db.Uuid
@@ -480,19 +481,32 @@ model FlightOceanicTrack {
 }
 
 model FlightRouteFix {
-  id             String  @id @default(uuid()) @db.Uuid
-  flightId       String  @db.Uuid
-  ordinal        Int
-  ident          String  @db.VarChar(16)
-  posLat         Decimal @db.Decimal(9, 6)
-  posLong        Decimal @db.Decimal(9, 6)
-  altitude       Int
-  elapsedSeconds Int
-  distanceNm     Int?
-  trackTrue      Int?
-  trackMag       Int?
-  viaAirway      String? @db.VarChar(16)
-  stage          String  @db.VarChar(3)
+  id                 String  @id @default(uuid()) @db.Uuid
+  flightId           String  @db.Uuid
+  ordinal            Int
+  ident              String  @db.VarChar(16)
+  posLat             Decimal @db.Decimal(9, 6)
+  posLong            Decimal @db.Decimal(9, 6)
+  altitude           Int
+  elapsedSeconds     Int
+  distanceNm         Int?
+  trackTrue          Int?
+  trackMag           Int?
+  viaAirway          String? @db.VarChar(16)
+  stage              String  @db.VarChar(3)
+  fuelFlow           Int?
+  fuelLeg            Int?
+  fuelUsed           Int?
+  fuelMinimumOnBoard Int?
+  fuelPlannedOnBoard Int?
+  oat                Int?
+  isaDeviation       Int?
+  windDirection      Int?
+  windSpeed          Int?
+  windLevels         Json    @default("[]")
+  tropopause         Int?
+  mora               Int?
+  fir                String? @db.VarChar(4)
 
   flight Flight @relation(fields: [flightId], references: [id], onDelete: Cascade)
 
