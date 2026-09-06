@@ -18,6 +18,7 @@ import {
   IsUUID,
   Max,
   Min,
+  ValidateIf,
   ValidateNested,
 } from 'class-validator';
 import { Loadsheet } from '../../../model/loadsheet.model';
@@ -175,6 +176,20 @@ export class UpdateFlightVisibilityRequest extends PickType(Flight, [
 export class UpdateFlightRequest extends PartialType(
   PickType(Flight, ['serviceType']),
 ) {}
+
+export class UpdateAtcCallsignRequest {
+  @ApiProperty({
+    description:
+      'Callsign used by air traffic services. Send null to clear it and fall back to no ATC callsign.',
+    example: 'DLH5PJ',
+    type: String,
+    nullable: true,
+  })
+  @ValidateIf((_, value) => value !== null)
+  @IsString()
+  @IsNotEmpty()
+  atcCallsign!: string | null;
+}
 
 export class UpdateDepartureParkingPositionRequest {
   @ApiProperty({

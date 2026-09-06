@@ -23,6 +23,7 @@ export class FlightCacheListener {
   @OnEvent(FlightEventType.DepartureRunwayWasChanged)
   @OnEvent(FlightEventType.ArrivalParkingPositionWasChanged)
   @OnEvent(FlightEventType.ArrivalRunwayWasChanged)
+  @OnEvent(FlightEventType.AtcCallsignWasChanged)
   @OnEvent(FlightEventType.FlightWasReleased)
   @OnEvent(FlightEventType.PilotCheckedIn)
   @OnEvent(FlightEventType.BoardingWasStarted)

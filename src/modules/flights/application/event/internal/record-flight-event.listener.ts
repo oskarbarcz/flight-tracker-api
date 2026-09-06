@@ -35,6 +35,7 @@ export class RecordFlightEventListener {
   @OnEvent(FlightEventType.DepartureRunwayWasChanged)
   @OnEvent(FlightEventType.ArrivalParkingPositionWasChanged)
   @OnEvent(FlightEventType.ArrivalRunwayWasChanged)
+  @OnEvent(FlightEventType.AtcCallsignWasChanged)
   @OnEvent(FlightEventType.EmergencyWasDeclared)
   @OnEvent(FlightEventType.EmergencyWasUpdated)
   @OnEvent(FlightEventType.EmergencyWasResolved)

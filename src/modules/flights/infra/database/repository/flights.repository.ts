@@ -1024,6 +1024,16 @@ export class FlightsRepository {
     });
   }
 
+  async updateAtcCallsign(
+    flightId: string,
+    atcCallsign: string | null,
+  ): Promise<void> {
+    await this.prisma.flight.update({
+      where: { id: flightId },
+      data: { atcCallsign },
+    });
+  }
+
   async updateDepartureRunway(
     flightId: string,
     departureRunwayId: string,
