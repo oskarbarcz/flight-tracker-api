@@ -28,6 +28,7 @@ import { UpdateScheduledTimesheetAction } from './infra/http/action/timesheet/up
 import { UpdatePredictedTimesheetAction } from './infra/http/action/timesheet/update-predicted-timesheet.action';
 import { ChangeFlightVisibilityAction } from './infra/http/action/tracking/change-flight-visibility.action';
 import { UpdateFlightAction } from './infra/http/action/flight/update-flight.action';
+import { UpdateAtcCallsignAction } from './infra/http/action/flight/update-atc-callsign.action';
 import { UpdateDepartureParkingPositionAction } from './infra/http/action/parking-position/update-departure-parking-position.action';
 import { UpdateArrivalParkingPositionAction } from './infra/http/action/parking-position/update-arrival-parking-position.action';
 import { UpdateDepartureRunwayAction } from './infra/http/action/runway/update-departure-runway.action';
@@ -92,6 +93,7 @@ import { GetPathHandler } from './application/query/path/get-path.query';
 import { GetFlightTrackingHandler } from './application/query/get-flight-tracking.query';
 import { ChangeFlightVisibilityHandler } from './application/command/change-flight-visibility.command';
 import { UpdateFlightHandler } from './application/command/update-flight.command';
+import { UpdateAtcCallsignHandler } from './application/command/update-atc-callsign.command';
 import { UpdateDepartureParkingPositionHandler } from './application/command/update-departure-parking-position.command';
 import { UpdateDepartureRunwayHandler } from './application/command/update-departure-runway.command';
 import { UpdateArrivalParkingPositionHandler } from './application/command/update-arrival-parking-position.command';
@@ -141,6 +143,7 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     ListDelayReportsAction,
     GetFlightAction,
     UpdateFlightAction,
+    UpdateAtcCallsignAction,
     RemoveFlightAction,
     UpdatePreliminaryLoadsheetAction,
     ListFlightLoadsheetsAction,
@@ -231,6 +234,7 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     GetFlightTrackingHandler,
     ChangeFlightVisibilityHandler,
     UpdateFlightHandler,
+    UpdateAtcCallsignHandler,
     UpdateDepartureParkingPositionHandler,
     UpdateDepartureRunwayHandler,
     UpdateArrivalParkingPositionHandler,

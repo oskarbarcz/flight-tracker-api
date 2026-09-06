@@ -147,11 +147,14 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       fuel: this.mapFuelBreakdown(ofp, unit),
     };
 
+    const callsign = `${operator.icaoCode}${ofp.general.flight_number}`;
+    const filedAtcCallsign = this.readOfpText(ofp.atc?.callsign).trim();
+
     const flightData = {
       id: flightId,
       flightNumber: `${operator.iataCode}${ofp.general.flight_number}`,
-      callsign: `${operator.icaoCode}${ofp.general.flight_number}`,
-      atcCallsign: `${operator.icaoCode}${ofp.general.flight_number}`,
+      callsign,
+      atcCallsign: filedAtcCallsign.length > 0 ? filedAtcCallsign : callsign,
       isEtops: ofp.general.is_etops === '1',
       aircraftId: aircraft.id,
       operatorId: operator.id,

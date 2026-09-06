@@ -43,6 +43,12 @@ export class InvalidStatusToUpdateDepartureRunwayError extends UnprocessableErro
   }
 }
 
+export class InvalidStatusToUpdateAtcCallsignError extends UnprocessableError {
+  constructor() {
+    super('Cannot update ATC callsign after takeoff.');
+  }
+}
+
 export class InvalidStatusToUpdateArrivalParkingPositionError extends UnprocessableError {
   constructor() {
     super(

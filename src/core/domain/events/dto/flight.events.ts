@@ -16,6 +16,7 @@ export enum FlightEventType {
   DepartureRunwayWasChanged = 'flight.departure-runway-changed',
   ArrivalParkingPositionWasChanged = 'flight.arrival-parking-position-changed',
   ArrivalRunwayWasChanged = 'flight.arrival-runway-changed',
+  AtcCallsignWasChanged = 'flight.atc-callsign-changed',
   FlightWasReleased = 'flight.released',
   PilotCheckedIn = 'flight.pilot-checked-in',
   BoardingWasStarted = 'flight.boarding-started',
@@ -120,6 +121,10 @@ export class ArrivalParkingPositionWasChangedEvent extends FlightLifecycleEvent 
 
 export class ArrivalRunwayWasChangedEvent extends FlightLifecycleEvent {
   static readonly name = FlightEventType.ArrivalRunwayWasChanged;
+}
+
+export class AtcCallsignWasChangedEvent extends FlightLifecycleEvent {
+  static readonly name = FlightEventType.AtcCallsignWasChanged;
 }
 
 export class FlightWasReleasedEvent extends FlightLifecycleEvent {

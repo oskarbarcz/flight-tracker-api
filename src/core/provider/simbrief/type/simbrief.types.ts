@@ -193,6 +193,7 @@ export type Tracks = {
 };
 
 export type Atc = {
+  callsign?: string | EmptyElement;
   fir_etops?: string[] | string | EmptyElement;
   route?: string | EmptyElement;
 };
