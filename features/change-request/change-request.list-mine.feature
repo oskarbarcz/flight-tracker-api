@@ -8,6 +8,47 @@ Feature: List the change requests I proposed
       """json
       [
         {
+          "id": "e553f881-364c-42a1-99e5-cf49272bffb1",
+          "resource": "parkingPosition",
+          "targetId": "5537f377-dc35-41a9-9eda-c4db2f9a6431",
+          "changes": {
+            "location": "remote"
+          },
+          "status": "rejected",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": {
+            "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
+            "name": "John Doe"
+          },
+          "rejectionReason": "Stand 4 is a contact stand.",
+          "decidedAt": "2026-09-07T11:00:00.000Z",
+          "createdAt": "2026-09-07T10:00:00.000Z"
+        },
+        {
+          "id": "5893d122-729a-4074-a336-db81dfe9122a",
+          "resource": "parkingPosition",
+          "targetId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+          "changes": {
+            "gpu": "both",
+            "coordinates": {
+              "latitude": 50.04891,
+              "longitude": 8.57031
+            }
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-04T08:00:00.000Z"
+        },
+        {
           "id": "c751e610-c091-4b05-ae1e-9b1ad86d6f61",
           "resource": "airport",
           "targetId": "93a9db1c-5047-489c-a018-178c3abd8a02",
@@ -109,6 +150,27 @@ Feature: List the change requests I proposed
     And the response body should contain:
       """json
       [
+        {
+          "id": "5893d122-729a-4074-a336-db81dfe9122a",
+          "resource": "parkingPosition",
+          "targetId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+          "changes": {
+            "gpu": "both",
+            "coordinates": {
+              "latitude": 50.04891,
+              "longitude": 8.57031
+            }
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-04T08:00:00.000Z"
+        },
         {
           "id": "c751e610-c091-4b05-ae1e-9b1ad86d6f61",
           "resource": "airport",

@@ -356,6 +356,78 @@ Feature: Accept a change request
       """
     And I set database to initial state
 
+  Scenario: As an operations I can accept a parking position change request, applying its name and terminal
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/user-data-change-request/b0c0a3c7-c369-45ca-8306-8a434cfeac9c/accept"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "b0c0a3c7-c369-45ca-8306-8a434cfeac9c",
+        "resource": "parkingPosition",
+        "targetId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+        "changes": {
+          "name": "B42",
+          "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+        },
+        "status": "accepted",
+        "requestedBy": {
+          "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+          "name": "Alan Doe"
+        },
+        "decidedBy": {
+          "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+          "name": "Alice Doe"
+        },
+        "rejectionReason": null,
+        "decidedAt": "@date('within 1 minute from now')",
+        "createdAt": "2026-09-05T08:00:00.000Z",
+        "fields": [
+          {
+            "field": "name",
+            "current": "B42",
+            "proposed": "B42"
+          },
+          {
+            "field": "terminalId",
+            "current": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+            "proposed": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+          }
+        ]
+      }
+      """
+    When I send a "GET" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/parking-position/ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+        "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+        "name": "B42",
+        "bridge": "yes",
+        "stairs": "no",
+        "deicing": "possible",
+        "deicingDescription": null,
+        "gpu": "bridge",
+        "pca": "bridge",
+        "type": "straight-in",
+        "spotType": "passenger",
+        "assistance": "vdgs",
+        "location": "gate",
+        "noiseSensitivity": "no",
+        "noiseSensitivityText": null,
+        "noiseSensitivityStartTime": null,
+        "noiseSensitivityEndTime": null,
+        "fuelingOptions": "hydrant",
+        "coordinates": {
+          "latitude": 50.047131,
+          "longitude": 8.574266
+        }
+      }
+      """
+    And I set database to initial state
+
   Scenario: As an operations I cannot accept a change request that is already rejected
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/user-data-change-request/11fd5e75-3857-424e-ab48-310a29f0d7ce/accept"

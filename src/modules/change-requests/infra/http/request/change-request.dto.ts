@@ -10,6 +10,8 @@ import {
 import { Type } from 'class-transformer';
 import { CreateAirportRequest } from '../../../../airports/infra/http/request/airport.dto';
 import { Coordinates } from '../../../../airports/model/airport.model';
+import { ParkingPosition } from '../../../../airports/model/parking-position.model';
+import { PARKING_POSITION_FIELDS } from '../../../model/parking-position-change.model';
 import {
   ChangeRequestResource,
   ChangeRequestStatus,
@@ -72,3 +74,7 @@ export class RequestAirportChangeRequest extends PartialType(
   @IsUUID()
   cityId?: string;
 }
+
+export class RequestParkingPositionChangeRequest extends PartialType(
+  PickType(ParkingPosition, PARKING_POSITION_FIELDS),
+) {}

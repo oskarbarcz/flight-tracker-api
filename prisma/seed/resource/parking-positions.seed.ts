@@ -1,5 +1,12 @@
 import { Prisma } from '../../client/client';
 
+export const PARKING_POSITION_IDS = {
+  frankfurtB42: 'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9',
+  frankfurtA11: 'ae098e8f-b088-41a6-a566-880c7dd5e931',
+  warsaw4: '5537f377-dc35-41a9-9eda-c4db2f9a6431',
+  warsaw10L: '3254f9a2-7680-41bb-89f1-962aa8065fa4',
+} as const;
+
 // Most names/coordinates below are real `aeroway=parking_position` refs sourced
 // from OpenStreetMap via Overpass, matched to each gate's real position by nearest
 // distance (OSM has no explicit gate<->stand relation). A few gates (CYYR's only
@@ -33,7 +40,7 @@ export async function loadParkingPositions(
     },
 
     {
-      id: 'ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9',
+      id: PARKING_POSITION_IDS.frankfurtB42,
       airportId: 'f35c094a-bec5-4803-be32-bd80a14b441a',
       terminalId: 'd7fd7a84-1589-4a4f-9072-a9773f66e2b5',
       name: 'B 42',
@@ -52,7 +59,7 @@ export async function loadParkingPositions(
     },
 
     {
-      id: 'ae098e8f-b088-41a6-a566-880c7dd5e931',
+      id: PARKING_POSITION_IDS.frankfurtA11,
       airportId: 'f35c094a-bec5-4803-be32-bd80a14b441a',
       terminalId: 'd7fd7a84-1589-4a4f-9072-a9773f66e2b5',
       name: 'A11',
@@ -117,7 +124,7 @@ export async function loadParkingPositions(
     },
 
     {
-      id: '5537f377-dc35-41a9-9eda-c4db2f9a6431',
+      id: PARKING_POSITION_IDS.warsaw4,
       airportId: '616cbdd7-ccfc-4687-8cf6-1e7236435046',
       terminalId: '104014ec-110e-483d-9f3c-8f6909fe4823',
       name: '4',
@@ -195,7 +202,7 @@ export async function loadParkingPositions(
     },
 
     {
-      id: '3254f9a2-7680-41bb-89f1-962aa8065fa4',
+      id: PARKING_POSITION_IDS.warsaw10L,
       airportId: '616cbdd7-ccfc-4687-8cf6-1e7236435046',
       terminalId: '104014ec-110e-483d-9f3c-8f6909fe4823',
       name: '10L',

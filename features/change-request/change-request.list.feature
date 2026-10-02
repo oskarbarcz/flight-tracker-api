@@ -153,6 +153,85 @@ Feature: List the change request review queue
           "rejectionReason": null,
           "decidedAt": null,
           "createdAt": "2026-09-03T08:00:00.000Z"
+        },
+        {
+          "id": "5893d122-729a-4074-a336-db81dfe9122a",
+          "resource": "parkingPosition",
+          "targetId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+          "changes": {
+            "gpu": "both",
+            "coordinates": {
+              "latitude": 50.04891,
+              "longitude": 8.57031
+            }
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-04T08:00:00.000Z"
+        },
+        {
+          "id": "b0c0a3c7-c369-45ca-8306-8a434cfeac9c",
+          "resource": "parkingPosition",
+          "targetId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+          "changes": {
+            "name": "B42",
+            "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-05T08:00:00.000Z"
+        },
+        {
+          "id": "bc9a705d-8fe9-4ee6-b7d3-01f2b9a0bfe2",
+          "resource": "parkingPosition",
+          "targetId": "3254f9a2-7680-41bb-89f1-962aa8065fa4",
+          "changes": {
+            "gpu": "both"
+          },
+          "status": "accepted",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "rejectionReason": null,
+          "decidedAt": "2026-09-06T10:00:00.000Z",
+          "createdAt": "2026-09-06T09:00:00.000Z"
+        },
+        {
+          "id": "e553f881-364c-42a1-99e5-cf49272bffb1",
+          "resource": "parkingPosition",
+          "targetId": "5537f377-dc35-41a9-9eda-c4db2f9a6431",
+          "changes": {
+            "location": "remote"
+          },
+          "status": "rejected",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": {
+            "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
+            "name": "John Doe"
+          },
+          "rejectionReason": "Stand 4 is a contact stand.",
+          "decidedAt": "2026-09-07T11:00:00.000Z",
+          "createdAt": "2026-09-07T10:00:00.000Z"
         }
       ]
       """
@@ -253,6 +332,45 @@ Feature: List the change request review queue
           "rejectionReason": null,
           "decidedAt": null,
           "createdAt": "2026-09-03T08:00:00.000Z"
+        },
+        {
+          "id": "5893d122-729a-4074-a336-db81dfe9122a",
+          "resource": "parkingPosition",
+          "targetId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+          "changes": {
+            "gpu": "both",
+            "coordinates": {
+              "latitude": 50.04891,
+              "longitude": 8.57031
+            }
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-04T08:00:00.000Z"
+        },
+        {
+          "id": "b0c0a3c7-c369-45ca-8306-8a434cfeac9c",
+          "resource": "parkingPosition",
+          "targetId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+          "changes": {
+            "name": "B42",
+            "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-05T08:00:00.000Z"
         }
       ]
       """
@@ -440,6 +558,174 @@ Feature: List the change request review queue
           "rejectionReason": null,
           "decidedAt": null,
           "createdAt": "2026-09-03T08:00:00.000Z"
+        },
+        {
+          "id": "5893d122-729a-4074-a336-db81dfe9122a",
+          "resource": "parkingPosition",
+          "targetId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+          "changes": {
+            "gpu": "both",
+            "coordinates": {
+              "latitude": 50.04891,
+              "longitude": 8.57031
+            }
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-04T08:00:00.000Z"
+        },
+        {
+          "id": "b0c0a3c7-c369-45ca-8306-8a434cfeac9c",
+          "resource": "parkingPosition",
+          "targetId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+          "changes": {
+            "name": "B42",
+            "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-05T08:00:00.000Z"
+        },
+        {
+          "id": "bc9a705d-8fe9-4ee6-b7d3-01f2b9a0bfe2",
+          "resource": "parkingPosition",
+          "targetId": "3254f9a2-7680-41bb-89f1-962aa8065fa4",
+          "changes": {
+            "gpu": "both"
+          },
+          "status": "accepted",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "rejectionReason": null,
+          "decidedAt": "2026-09-06T10:00:00.000Z",
+          "createdAt": "2026-09-06T09:00:00.000Z"
+        },
+        {
+          "id": "e553f881-364c-42a1-99e5-cf49272bffb1",
+          "resource": "parkingPosition",
+          "targetId": "5537f377-dc35-41a9-9eda-c4db2f9a6431",
+          "changes": {
+            "location": "remote"
+          },
+          "status": "rejected",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": {
+            "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
+            "name": "John Doe"
+          },
+          "rejectionReason": "Stand 4 is a contact stand.",
+          "decidedAt": "2026-09-07T11:00:00.000Z",
+          "createdAt": "2026-09-07T10:00:00.000Z"
+        }
+      ]
+      """
+
+  Scenario: As an operations I can list parking position change requests only
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/user-data-change-request?resource=parkingPosition"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "5893d122-729a-4074-a336-db81dfe9122a",
+          "resource": "parkingPosition",
+          "targetId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+          "changes": {
+            "gpu": "both",
+            "coordinates": {
+              "latitude": 50.04891,
+              "longitude": 8.57031
+            }
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-04T08:00:00.000Z"
+        },
+        {
+          "id": "b0c0a3c7-c369-45ca-8306-8a434cfeac9c",
+          "resource": "parkingPosition",
+          "targetId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+          "changes": {
+            "name": "B42",
+            "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-05T08:00:00.000Z"
+        },
+        {
+          "id": "bc9a705d-8fe9-4ee6-b7d3-01f2b9a0bfe2",
+          "resource": "parkingPosition",
+          "targetId": "3254f9a2-7680-41bb-89f1-962aa8065fa4",
+          "changes": {
+            "gpu": "both"
+          },
+          "status": "accepted",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "rejectionReason": null,
+          "decidedAt": "2026-09-06T10:00:00.000Z",
+          "createdAt": "2026-09-06T09:00:00.000Z"
+        },
+        {
+          "id": "e553f881-364c-42a1-99e5-cf49272bffb1",
+          "resource": "parkingPosition",
+          "targetId": "5537f377-dc35-41a9-9eda-c4db2f9a6431",
+          "changes": {
+            "location": "remote"
+          },
+          "status": "rejected",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": {
+            "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
+            "name": "John Doe"
+          },
+          "rejectionReason": "Stand 4 is a contact stand.",
+          "decidedAt": "2026-09-07T11:00:00.000Z",
+          "createdAt": "2026-09-07T10:00:00.000Z"
         }
       ]
       """
@@ -455,7 +741,7 @@ Feature: List the change request review queue
         "message": "Request validation failed.",
         "error": "Bad Request",
         "violations": {
-          "resource": ["resource must be one of the following values: airport"]
+          "resource": ["resource must be one of the following values: airport, parkingPosition"]
         }
       }
       """

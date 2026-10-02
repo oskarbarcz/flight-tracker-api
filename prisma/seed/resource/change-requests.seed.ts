@@ -5,6 +5,8 @@ import {
 } from '../../client/client';
 import { AIRPORT_IDS } from './airports.seed';
 import { CITY_IDS } from './cities.seed';
+import { PARKING_POSITION_IDS } from './parking-positions.seed';
+import { TERMINAL_IDS } from './terminals.seed';
 import { USER_IDS } from './users.seed';
 
 export async function loadChangeRequests(
@@ -94,6 +96,51 @@ export async function loadChangeRequests(
         status: ChangeRequestStatus.pending,
         requestedById: USER_IDS.rick,
         createdAt: new Date('2026-09-03T08:00:00.000Z'),
+      },
+      {
+        id: '5893d122-729a-4074-a336-db81dfe9122a',
+        resource: ChangeRequestResource.parkingPosition,
+        targetId: PARKING_POSITION_IDS.frankfurtA11,
+        payload: {
+          gpu: 'both',
+          coordinates: { latitude: 50.04891, longitude: 8.57031 },
+        },
+        status: ChangeRequestStatus.pending,
+        requestedById: USER_IDS.rick,
+        createdAt: new Date('2026-09-04T08:00:00.000Z'),
+      },
+      {
+        id: 'b0c0a3c7-c369-45ca-8306-8a434cfeac9c',
+        resource: ChangeRequestResource.parkingPosition,
+        targetId: PARKING_POSITION_IDS.frankfurtB42,
+        payload: { name: 'B42', terminalId: TERMINAL_IDS.frankfurtT2 },
+        status: ChangeRequestStatus.pending,
+        requestedById: USER_IDS.alan,
+        createdAt: new Date('2026-09-05T08:00:00.000Z'),
+      },
+      {
+        id: 'bc9a705d-8fe9-4ee6-b7d3-01f2b9a0bfe2',
+        resource: ChangeRequestResource.parkingPosition,
+        targetId: PARKING_POSITION_IDS.warsaw10L,
+        payload: { gpu: 'both' },
+        status: ChangeRequestStatus.accepted,
+        requestedById: USER_IDS.alan,
+        decidedById: USER_IDS.alice,
+        appliedSnapshot: { gpu: 'bridge' },
+        decidedAt: new Date('2026-09-06T10:00:00.000Z'),
+        createdAt: new Date('2026-09-06T09:00:00.000Z'),
+      },
+      {
+        id: 'e553f881-364c-42a1-99e5-cf49272bffb1',
+        resource: ChangeRequestResource.parkingPosition,
+        targetId: PARKING_POSITION_IDS.warsaw4,
+        payload: { location: 'remote' },
+        status: ChangeRequestStatus.rejected,
+        requestedById: USER_IDS.rick,
+        decidedById: USER_IDS.john,
+        rejectionReason: 'Stand 4 is a contact stand.',
+        decidedAt: new Date('2026-09-07T11:00:00.000Z'),
+        createdAt: new Date('2026-09-07T10:00:00.000Z'),
       },
     ],
   });
