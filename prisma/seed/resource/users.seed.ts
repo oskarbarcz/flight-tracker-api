@@ -5,9 +5,22 @@ import { WeatherSource } from '../../../src/modules/airports/model/airport-weath
 // the email-confirmation migration applies to rows that predate it.
 const CONFIRMED_AT = new Date('2025-01-01T00:00:00.000Z');
 
+export const USER_IDS = {
+  john: 'e181d983-3b69-4be2-864e-2a7596217ddf',
+  alice: '721ab705-8608-4386-86b4-2f391a3655a7',
+  abby: '381334df-1e3c-41f5-8513-0e2de3c1662f',
+  claudia: '49731efd-2d37-4fcc-8221-8575cba5b722',
+  rick: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+  alan: '725f5df2-0c78-4fe8-89a2-52566c89cf7f',
+  michael: '629be07f-5e65-429a-9d69-d34b99185f50',
+  diana: '3e6903a8-f4ab-484a-98f6-c3b45d6c64bb',
+  emma: 'c341231b-7aa0-47a1-ad23-636cbd959442',
+  grace: '59bd52f0-6523-4a04-b1f7-96098db05fd0',
+} as const;
+
 export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
   const john: User = {
-    id: 'e181d983-3b69-4be2-864e-2a7596217ddf',
+    id: USER_IDS.john,
     name: 'John Doe',
     email: 'admin@example.com',
     emailConfirmedAt: CONFIRMED_AT,
@@ -35,7 +48,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
   };
 
   const alice: User = {
-    id: '721ab705-8608-4386-86b4-2f391a3655a7',
+    id: USER_IDS.alice,
     name: 'Alice Doe',
     email: 'operations@example.com',
     emailConfirmedAt: CONFIRMED_AT,
@@ -63,7 +76,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
   };
 
   const abby: User = {
-    id: '381334df-1e3c-41f5-8513-0e2de3c1662f',
+    id: USER_IDS.abby,
     name: 'Abby Doe',
     email: 'abby.doe@example.com',
     emailConfirmedAt: CONFIRMED_AT,
@@ -91,7 +104,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
   };
 
   const claudia: User = {
-    id: '49731efd-2d37-4fcc-8221-8575cba5b722',
+    id: USER_IDS.claudia,
     name: 'Claudia Doe',
     email: 'claudia.doe@example.com',
     emailConfirmedAt: CONFIRMED_AT,
@@ -119,7 +132,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
   };
 
   const rick: User = {
-    id: 'fcf6f4bc-290d-43a9-843c-409cd47e143d',
+    id: USER_IDS.rick,
     name: 'Rick Doe',
     email: 'cabin-crew@example.com',
     emailConfirmedAt: CONFIRMED_AT,
@@ -149,7 +162,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
   };
 
   const alan: User = {
-    id: '725f5df2-0c78-4fe8-89a2-52566c89cf7f',
+    id: USER_IDS.alan,
     name: 'Alan Doe',
     email: 'alan.doe@example.com',
     emailConfirmedAt: CONFIRMED_AT,
@@ -180,7 +193,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
   };
 
   const michael: User = {
-    id: '629be07f-5e65-429a-9d69-d34b99185f50',
+    id: USER_IDS.michael,
     name: 'Michael Doe',
     email: 'michael.doe@example.com',
     emailConfirmedAt: CONFIRMED_AT,
@@ -211,7 +224,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
   };
 
   const diana: User = {
-    id: '3e6903a8-f4ab-484a-98f6-c3b45d6c64bb',
+    id: USER_IDS.diana,
     name: 'Diana Doe',
     email: 'diana.doe@example.com',
     emailConfirmedAt: CONFIRMED_AT,
@@ -240,7 +253,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
 
   // Address was never proven — the unconfirmed fixture
   const emma: User = {
-    id: 'c341231b-7aa0-47a1-ad23-636cbd959442',
+    id: USER_IDS.emma,
     name: 'Emma Doe',
     email: 'emma.doe@example.com',
     emailConfirmedAt: null,
@@ -269,7 +282,7 @@ export async function loadUsers(tx: Prisma.TransactionClient): Promise<void> {
 
   // Signs in with Google only — no password to verify, reset or change
   const grace: User = {
-    id: '59bd52f0-6523-4a04-b1f7-96098db05fd0',
+    id: USER_IDS.grace,
     name: 'Grace Doe',
     email: 'grace.doe@example.com',
     emailConfirmedAt: CONFIRMED_AT,

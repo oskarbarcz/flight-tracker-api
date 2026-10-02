@@ -30,6 +30,7 @@ import { loadNotams } from './resource/notams.seed';
 import { loadCrew, loadFlightCrew } from './resource/crew.seed';
 import { loadRotations } from './resource/rotations.seed';
 import { loadStatistics } from './resource/statistics.seed';
+import { loadChangeRequests } from './resource/change-requests.seed';
 
 export async function loadResources() {
   const prisma = new PrismaService();
@@ -69,6 +70,7 @@ export async function loadResources() {
         await loadAircraftReposition(tx);
         await loadStatistics(tx);
         await loadPostcardAwards(tx);
+        await loadChangeRequests(tx);
       },
       { maxWait: 15_000, timeout: 120_000 },
     );

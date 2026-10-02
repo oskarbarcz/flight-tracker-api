@@ -2,11 +2,28 @@ import { Prisma } from '../../client/client';
 import { Continent } from '../../../src/modules/airports/model/airport.model';
 import { CITY_IDS } from './cities.seed';
 
+export const AIRPORT_IDS = {
+  frankfurt: 'f35c094a-bec5-4803-be32-bd80a14b441a',
+  warsaw: '616cbdd7-ccfc-4687-8cf6-1e7236435046',
+  newYork: '3c721cc6-c653-4fad-be43-dc9d6a149383',
+  paris: '79b8f884-f67d-4585-b540-36b0be7f551e',
+  gooseBay: 'fa8ee2e9-fb94-4416-9ed0-4811efd488ae',
+  reykjavik: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a',
+  stJohns: '6cf1fcd8-d072-46b5-8132-bd885b43dd97',
+  philadelphia: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
+  boston: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
+  bremen: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf',
+  orly: '93a9db1c-5047-489c-a018-178c3abd8a02',
+  shannon: '2f1c5a84-6d3b-4e77-9a12-8c5b3e9d4f60',
+  gander: '8b47e2d1-3f96-4c58-b0a7-6d2e9f1c4a83',
+  knock: 'c39d6f52-84a1-4b73-9e6c-1f8a3d7b5e29',
+} as const;
+
 export async function loadAirports(
   tx: Prisma.TransactionClient,
 ): Promise<void> {
   const frankfurt: Prisma.AirportCreateManyInput = {
-    id: 'f35c094a-bec5-4803-be32-bd80a14b441a',
+    id: AIRPORT_IDS.frankfurt,
     icaoCode: 'EDDF',
     iataCode: 'FRA',
     cityId: CITY_IDS.frankfurt,
@@ -70,7 +87,7 @@ export async function loadAirports(
   };
 
   const warsaw: Prisma.AirportCreateManyInput = {
-    id: '616cbdd7-ccfc-4687-8cf6-1e7236435046',
+    id: AIRPORT_IDS.warsaw,
     icaoCode: 'EPWA',
     iataCode: 'WAW',
     cityId: CITY_IDS.warsaw,
@@ -125,7 +142,7 @@ export async function loadAirports(
   };
 
   const newYork: Prisma.AirportCreateManyInput = {
-    id: '3c721cc6-c653-4fad-be43-dc9d6a149383',
+    id: AIRPORT_IDS.newYork,
     icaoCode: 'KJFK',
     iataCode: 'JFK',
     cityId: CITY_IDS.newYork,
@@ -186,7 +203,7 @@ export async function loadAirports(
   };
 
   const paris: Prisma.AirportCreateManyInput = {
-    id: '79b8f884-f67d-4585-b540-36b0be7f551e',
+    id: AIRPORT_IDS.paris,
     icaoCode: 'LFPG',
     iataCode: 'CDG',
     cityId: CITY_IDS.paris,
@@ -257,7 +274,7 @@ export async function loadAirports(
   };
 
   const gooseBay: Prisma.AirportCreateManyInput = {
-    id: 'fa8ee2e9-fb94-4416-9ed0-4811efd488ae',
+    id: AIRPORT_IDS.gooseBay,
     icaoCode: 'CYYR',
     iataCode: 'YYR',
     cityId: CITY_IDS.gooseBay,
@@ -321,7 +338,7 @@ export async function loadAirports(
   };
 
   const reykjavik: Prisma.AirportCreateManyInput = {
-    id: '523b2d2f-9b60-405a-bd5a-90eed1b58e9a',
+    id: AIRPORT_IDS.reykjavik,
     icaoCode: 'BIKF',
     iataCode: 'KEF',
     cityId: CITY_IDS.reykjavik,
@@ -387,7 +404,7 @@ export async function loadAirports(
   };
 
   const stJohns: Prisma.AirportCreateManyInput = {
-    id: '6cf1fcd8-d072-46b5-8132-bd885b43dd97',
+    id: AIRPORT_IDS.stJohns,
     icaoCode: 'CYYT',
     iataCode: 'YYT',
     cityId: CITY_IDS.stJohns,
@@ -440,7 +457,7 @@ export async function loadAirports(
   };
 
   const philadelphia: Prisma.AirportCreateManyInput = {
-    id: 'e764251b-bb25-4e8b-8cc7-11b0397b4554',
+    id: AIRPORT_IDS.philadelphia,
     icaoCode: 'KPHL',
     iataCode: 'PHL',
     cityId: CITY_IDS.philadelphia,
@@ -504,7 +521,7 @@ export async function loadAirports(
   };
 
   const boston: Prisma.AirportCreateManyInput = {
-    id: 'c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3',
+    id: AIRPORT_IDS.boston,
     icaoCode: 'KBOS',
     iataCode: 'BOS',
     cityId: CITY_IDS.boston,
@@ -567,7 +584,7 @@ export async function loadAirports(
   };
 
   const bremen: Prisma.AirportCreateManyInput = {
-    id: '5c88ea21-f482-47ff-8b1f-3d0c9bbd6caf',
+    id: AIRPORT_IDS.bremen,
     icaoCode: 'EDDW',
     iataCode: 'BRE',
     cityId: CITY_IDS.bremen,
@@ -627,7 +644,7 @@ export async function loadAirports(
   };
 
   const orly: Prisma.AirportCreateManyInput = {
-    id: '93a9db1c-5047-489c-a018-178c3abd8a02',
+    id: AIRPORT_IDS.orly,
     icaoCode: 'LFPO',
     iataCode: 'ORY',
     cityId: CITY_IDS.paris,
@@ -642,7 +659,7 @@ export async function loadAirports(
   };
 
   const shannon: Prisma.AirportCreateManyInput = {
-    id: '2f1c5a84-6d3b-4e77-9a12-8c5b3e9d4f60',
+    id: AIRPORT_IDS.shannon,
     icaoCode: 'EINN',
     iataCode: 'SNN',
     cityId: CITY_IDS.shannon,
@@ -704,7 +721,7 @@ export async function loadAirports(
   };
 
   const gander: Prisma.AirportCreateManyInput = {
-    id: '8b47e2d1-3f96-4c58-b0a7-6d2e9f1c4a83',
+    id: AIRPORT_IDS.gander,
     icaoCode: 'CYQX',
     iataCode: 'YQX',
     cityId: CITY_IDS.gander,
@@ -764,7 +781,7 @@ export async function loadAirports(
   };
 
   const knock: Prisma.AirportCreateManyInput = {
-    id: 'c39d6f52-84a1-4b73-9e6c-1f8a3d7b5e29',
+    id: AIRPORT_IDS.knock,
     icaoCode: 'EIKN',
     iataCode: 'NOC',
     cityId: CITY_IDS.knock,

@@ -31,7 +31,7 @@ The system SHALL allow an Operations user to create a rotation with a user-reada
 
 ### Requirement: Build legs while draft
 
-The system SHALL allow Operations to add, update, and remove legs while the rotation is in the `draft` state, where each leg defines a mandatory planned flight number, a departure airport, an arrival airport, a planned off-block time, and a planned on-block time.
+The system SHALL allow Operations to add, update, and remove legs while the rotation is in the `draft` state, where each leg defines a mandatory planned flight number, a departure airport, an arrival airport, a planned off-block time, and a planned on-block time, and SHALL refuse to remove a leg whose attached flight has already checked in.
 
 #### Scenario: Add a leg to a draft rotation
 
@@ -42,6 +42,11 @@ The system SHALL allow Operations to add, update, and remove legs while the rota
 
 - **WHEN** Operations removes an existing leg from a `draft` rotation
 - **THEN** the leg no longer belongs to the rotation
+
+#### Scenario: Reject removing a leg whose flight has checked in
+
+- **WHEN** Operations attempts to remove a leg of a `draft` rotation whose attached flight has already checked in
+- **THEN** the request is rejected with a conflict error
 
 ### Requirement: Order legs by off-block time
 
@@ -120,7 +125,7 @@ The system SHALL allow Operations to edit the planned off-block and on-block tim
 
 ### Requirement: Attach a flight to a leg
 
-The system SHALL allow Operations to attach a flight to a leg only when the flight has not yet checked in — that is, while the flight is in the `created` or `ready` state — the flight's departure and arrival airports match the leg's planned departure and arrival, the flight's number matches the leg's planned flight number, the flight's operator matches the rotation's operator, and the flight is not already attached to any other leg. Attaching a flight SHALL NOT change the flight's own state and SHALL NOT advance the rotation: a rotation with an attached `ready` flight stays `ready` until the pilot checks in.
+The system SHALL allow Operations to attach a flight to a leg only when the flight has not yet checked in — that is, while the flight is in the `created` or `ready` state — the flight's departure and arrival airports match the leg's planned departure and arrival, the flight's number matches the leg's planned flight number, the flight's operator matches the rotation's operator, and the flight is not already attached to any other leg. The rotation's own state SHALL gate attachment only at its terminal states: a flight may be attached while the rotation is `draft`, `ready`, or `in_progress`, and attachment SHALL be rejected with a conflict error once the rotation is `finished` or `canceled`. Attaching a flight SHALL NOT change the flight's own state and SHALL NOT advance the rotation: a rotation with an attached `ready` flight stays `ready` until the pilot checks in.
 
 #### Scenario: Reject a flight whose number does not match
 
@@ -138,10 +143,21 @@ The system SHALL allow Operations to attach a flight to a leg only when the flig
 - **THEN** the leg references the flight
 - **AND** the flight remains `ready` and the rotation remains in its current state
 
+#### Scenario: Attach a flight to a leg of a draft rotation
+
+- **WHEN** Operations attaches a matching flight that has not yet checked in to a leg of a `draft` rotation
+- **THEN** the leg references the flight
+- **AND** the rotation remains `draft`
+
 #### Scenario: Reject a flight that has already checked in
 
 - **WHEN** Operations attempts to attach a flight that has progressed beyond `ready` — checked in or later, up to and including `closed`
 - **THEN** the request is rejected with a validation error
+
+#### Scenario: Reject attaching to a rotation in a terminal state
+
+- **WHEN** Operations attempts to attach a flight to a leg of a `finished` or `canceled` rotation
+- **THEN** the request is rejected with a conflict error
 
 #### Scenario: Reject a flight whose airports do not match
 
@@ -160,7 +176,7 @@ The system SHALL allow Operations to attach a flight to a leg only when the flig
 
 ### Requirement: Detach a flight from a leg
 
-The system SHALL allow Operations to detach a flight from a leg while that flight has not yet checked in — that is, while the flight is in the `created` or `ready` state — reverting the leg to plan-only, and SHALL reject detaching once the flight has checked in. Detaching SHALL leave the flight itself untouched, so a detached flight remains eligible for attachment to another matching leg.
+The system SHALL allow Operations to detach a flight from a leg while that flight has not yet checked in — that is, while the flight is in the `created` or `ready` state — reverting the leg to plan-only, and SHALL reject detaching once the flight has checked in. Detaching SHALL be available while the rotation is `draft`, `ready`, or `in_progress` and SHALL be rejected with a conflict error once the rotation is `finished` or `canceled`. Detaching SHALL leave the flight itself untouched, so a detached flight remains eligible for attachment to another matching leg.
 
 #### Scenario: Detach a created flight
 
@@ -176,6 +192,11 @@ The system SHALL allow Operations to detach a flight from a leg while that fligh
 #### Scenario: Reject detaching a checked-in flight
 
 - **WHEN** Operations attempts to detach a flight that has already checked in
+- **THEN** the request is rejected with a conflict error
+
+#### Scenario: Reject detaching from a rotation in a terminal state
+
+- **WHEN** Operations attempts to detach a flight from a leg of a `finished` or `canceled` rotation
 - **THEN** the request is rejected with a conflict error
 
 ### Requirement: Advance to in-progress on first check-in

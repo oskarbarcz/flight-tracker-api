@@ -1,5 +1,6 @@
-import { isFlightPreCheckIn } from './rotation.rules';
+import { acceptsFlightChanges, isFlightPreCheckIn } from './rotation.rules';
 import { FlightStatus } from '../../flights/model/flight.model';
+import { RotationStatus } from './rotation.model';
 
 describe('isFlightPreCheckIn', () => {
   it.each([FlightStatus.Created, FlightStatus.Ready])(
@@ -30,5 +31,34 @@ describe('isFlightPreCheckIn', () => {
 
     expect(statuses).toHaveLength(12);
     expect(accepted).toEqual([FlightStatus.Created, FlightStatus.Ready]);
+  });
+});
+
+describe('acceptsFlightChanges', () => {
+  it.each([
+    RotationStatus.Draft,
+    RotationStatus.Ready,
+    RotationStatus.InProgress,
+  ])('accepts a rotation that is still running: %s', (status) => {
+    expect(acceptsFlightChanges(status)).toBe(true);
+  });
+
+  it.each([RotationStatus.Finished, RotationStatus.Canceled])(
+    'rejects a rotation in a terminal state: %s',
+    (status) => {
+      expect(acceptsFlightChanges(status)).toBe(false);
+    },
+  );
+
+  it('covers every rotation status exactly once', () => {
+    const statuses = Object.values(RotationStatus);
+    const accepted = statuses.filter(acceptsFlightChanges);
+
+    expect(statuses).toHaveLength(5);
+    expect(accepted).toEqual([
+      RotationStatus.Draft,
+      RotationStatus.Ready,
+      RotationStatus.InProgress,
+    ]);
   });
 });
