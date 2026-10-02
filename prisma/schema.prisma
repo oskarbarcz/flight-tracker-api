@@ -409,6 +409,28 @@ model DelayReport {
   @@map("delay_report")
 }
 
+model ChangeRequest {
+  id              String                @id @default(uuid()) @db.Uuid
+  resource        ChangeRequestResource
+  targetId        String                @db.Uuid
+  payload         Json
+  status          ChangeRequestStatus   @default(pending)
+  requestedById   String                @db.Uuid
+  decidedById     String?               @db.Uuid
+  rejectionReason String?
+  appliedSnapshot Json?
+  decidedAt       DateTime?
+  createdAt       DateTime              @default(now())
+
+  requestedBy User  @relation("ChangeRequestRequester", fields: [requestedById], references: [id], onDelete: Cascade)
+  decidedBy   User? @relation("ChangeRequestDecider", fields: [decidedById], references: [id], onDelete: SetNull)
+
+  @@index([status, resource])
+  @@index([resource, targetId])
+  @@index([requestedById])
+  @@map("change_request")
+}
+
 model Waypoint {
   id         String       @id @default(uuid()) @db.Uuid
   ident      String       @db.VarChar(16)
@@ -645,34 +667,36 @@ model User {
   discordDelayUpdatesEnabled         Boolean @default(true)
   discordRichPresenceEnabled         Boolean @default(false)
 
-  homeAirport          Airport?               @relation("UserHomeAirport", fields: [homeAirportId], references: [id], onDelete: SetNull)
-  lastAirport          Airport?               @relation("UserLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
-  jwtRefreshToken      JwtRefreshToken[]
-  currentFlight        Flight?                @relation("UserCurrentFlight", fields: [currentFlightId], references: [id])
-  flightEvent          FlightEvent[]
-  diversion            Diversion[]
-  emergenciesReported  EmergencyDeclaration[] @relation("EmergencyReporter")
-  emergenciesResolved  EmergencyDeclaration[] @relation("EmergencyResolver")
-  allFlights           Flight[]               @relation("FlightCaptain")
-  createdFlights       Flight[]               @relation("FlightCreatedBy")
-  notocsAcknowledged   FlightNotoc[]          @relation("NotocAcknowledger")
-  loadsheetsIssued     FlightLoadsheet[]      @relation("LoadsheetIssuer")
-  delayReportsReported DelayReport[]          @relation("DelayReportReporter")
-  delayReportsDecided  DelayReport[]          @relation("DelayReportDecider")
-  travels              UserTravel[]
-  userAircraft         UserAircraft[]
-  countryVisits        UserCountryVisit[]
-  cityVisits           UserCityVisit[]
-  postcards            UserPostcard[]
-  rotations            Rotation[]             @relation("PilotRotations")
-  createdRotations     Rotation[]             @relation("RotationCreatedBy")
-  updatedRotations     Rotation[]             @relation("RotationUpdatedBy")
-  canceledRotations    Rotation[]             @relation("RotationCanceledBy")
-  statsTotal           UserStatsTotal?
-  statsByType          UserStatsByType[]
-  statsByAirport       UserStatsByAirport[]
-  statsDaily           UserStatsDaily[]
-  tokens               UserToken[]
+  homeAirport           Airport?               @relation("UserHomeAirport", fields: [homeAirportId], references: [id], onDelete: SetNull)
+  lastAirport           Airport?               @relation("UserLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
+  jwtRefreshToken       JwtRefreshToken[]
+  currentFlight         Flight?                @relation("UserCurrentFlight", fields: [currentFlightId], references: [id])
+  flightEvent           FlightEvent[]
+  diversion             Diversion[]
+  emergenciesReported   EmergencyDeclaration[] @relation("EmergencyReporter")
+  emergenciesResolved   EmergencyDeclaration[] @relation("EmergencyResolver")
+  allFlights            Flight[]               @relation("FlightCaptain")
+  createdFlights        Flight[]               @relation("FlightCreatedBy")
+  notocsAcknowledged    FlightNotoc[]          @relation("NotocAcknowledger")
+  loadsheetsIssued      FlightLoadsheet[]      @relation("LoadsheetIssuer")
+  delayReportsReported  DelayReport[]          @relation("DelayReportReporter")
+  delayReportsDecided   DelayReport[]          @relation("DelayReportDecider")
+  changeRequestsMade    ChangeRequest[]        @relation("ChangeRequestRequester")
+  changeRequestsDecided ChangeRequest[]        @relation("ChangeRequestDecider")
+  travels               UserTravel[]
+  userAircraft          UserAircraft[]
+  countryVisits         UserCountryVisit[]
+  cityVisits            UserCityVisit[]
+  postcards             UserPostcard[]
+  rotations             Rotation[]             @relation("PilotRotations")
+  createdRotations      Rotation[]             @relation("RotationCreatedBy")
+  updatedRotations      Rotation[]             @relation("RotationUpdatedBy")
+  canceledRotations     Rotation[]             @relation("RotationCanceledBy")
+  statsTotal            UserStatsTotal?
+  statsByType           UserStatsByType[]
+  statsByAirport        UserStatsByAirport[]
+  statsDaily            UserStatsDaily[]
+  tokens                UserToken[]
 
   @@map("user")
 }
@@ -952,6 +976,21 @@ enum DelayReportStatus {
   rejected
 
   @@map("delay_report_status")
+}
+
+enum ChangeRequestResource {
+  airport
+
+  @@map("change_request_resource")
+}
+
+enum ChangeRequestStatus {
+  pending
+  accepted
+  rejected
+  withdrawn
+
+  @@map("change_request_status")
 }
 
 enum Continent {

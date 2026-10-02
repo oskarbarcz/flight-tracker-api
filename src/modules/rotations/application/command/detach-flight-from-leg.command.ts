@@ -1,6 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RotationsRepository } from '../../infra/database/repository/rotations.repository';
-import { RotationStatus } from '../../model/rotation.model';
 import {
   FlightNotAttachableError,
   LegLockedError,
@@ -8,7 +7,10 @@ import {
   RotationNotActiveError,
   RotationNotFoundError,
 } from '../../model/error/rotation.error';
-import { isFlightPreCheckIn } from '../../model/rotation.rules';
+import {
+  acceptsFlightChanges,
+  isFlightPreCheckIn,
+} from '../../model/rotation.rules';
 
 export class DetachFlightFromLegCommand {
   constructor(
@@ -30,10 +32,7 @@ export class DetachFlightFromLegHandler implements ICommandHandler<DetachFlightF
       throw new RotationNotFoundError();
     }
 
-    if (
-      rotation.status !== RotationStatus.Ready &&
-      rotation.status !== RotationStatus.InProgress
-    ) {
+    if (!acceptsFlightChanges(rotation.status)) {
       throw new RotationNotActiveError();
     }
 

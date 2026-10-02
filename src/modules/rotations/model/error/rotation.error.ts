@@ -67,7 +67,7 @@ export class FlightAlreadyAttachedError extends ConflictError {
 export class RotationNotActiveError extends ConflictError {
   constructor() {
     super(
-      'Flights can only be attached or detached while the rotation is ready or in progress.',
+      'Flights cannot be attached or detached once the rotation is finished or canceled.',
     );
   }
 }

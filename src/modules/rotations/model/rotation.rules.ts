@@ -1,13 +1,24 @@
 import { InvalidLegError, RotationChainError } from './error/rotation.error';
 import { FlightStatus } from '../../flights/model/flight.model';
+import { RotationStatus } from './rotation.model';
 
 const PRE_CHECK_IN_STATUSES: FlightStatus[] = [
   FlightStatus.Created,
   FlightStatus.Ready,
 ];
 
+const FLIGHT_ATTACHABLE_ROTATION_STATUSES: RotationStatus[] = [
+  RotationStatus.Draft,
+  RotationStatus.Ready,
+  RotationStatus.InProgress,
+];
+
 export function isFlightPreCheckIn(status: FlightStatus): boolean {
   return PRE_CHECK_IN_STATUSES.includes(status);
+}
+
+export function acceptsFlightChanges(status: RotationStatus): boolean {
+  return FLIGHT_ATTACHABLE_ROTATION_STATUSES.includes(status);
 }
 
 export type LegShape = {

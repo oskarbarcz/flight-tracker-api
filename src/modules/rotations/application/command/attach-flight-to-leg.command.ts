@@ -1,6 +1,5 @@
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { RotationsRepository } from '../../infra/database/repository/rotations.repository';
-import { RotationStatus } from '../../model/rotation.model';
 import {
   FlightAlreadyAttachedError,
   FlightNotAttachableError,
@@ -10,7 +9,10 @@ import {
 } from '../../model/error/rotation.error';
 import { GetFlightQuery } from '../../../flights/application/query/get-flight.query';
 import { AirportType } from '../../../airports/model/airport.model';
-import { isFlightPreCheckIn } from '../../model/rotation.rules';
+import {
+  acceptsFlightChanges,
+  isFlightPreCheckIn,
+} from '../../model/rotation.rules';
 
 export class AttachFlightToLegCommand {
   constructor(
@@ -36,10 +38,7 @@ export class AttachFlightToLegHandler implements ICommandHandler<AttachFlightToL
       throw new RotationNotFoundError();
     }
 
-    if (
-      rotation.status !== RotationStatus.Ready &&
-      rotation.status !== RotationStatus.InProgress
-    ) {
+    if (!acceptsFlightChanges(rotation.status)) {
       throw new RotationNotActiveError();
     }
 

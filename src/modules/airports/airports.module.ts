@@ -66,6 +66,8 @@ import { ListRunwaysByAirportHandler } from './application/query/runway/list-run
 import { AssertParkingPositionBelongsToAirportHandler } from './application/assert/assert-parking-position-belongs-to-airport.command';
 import { AssertRunwayBelongsToAirportHandler } from './application/assert/assert-runway-belongs-to-airport.command';
 import { AssertAirportExistsHandler } from './application/assert/assert-airport-exists.query';
+import { AssertCityExistsHandler } from './application/assert/assert-city-exists.query';
+import { ReassignAirportCityHandler } from './application/command/reassign-airport-city.command';
 import { WeatherModule } from '../../core/provider/weather/weather.module';
 import { SayIntentionsModule } from '../../core/provider/sayintentions/say-intentions.module';
 import { AirportWeatherRepository } from './infra/database/airport-weather.repository';
@@ -138,6 +140,7 @@ import { PushAirportOsmDataHandler } from './application/command/osm/push-airpor
     CreateAirportHandler,
     ImportAirportByIcaoHandler,
     UpdateAirportHandler,
+    ReassignAirportCityHandler,
     RemoveAirportHandler,
     GetAirportByIdHandler,
     GetAirportByIcaoCodeHandler,
@@ -168,6 +171,7 @@ import { PushAirportOsmDataHandler } from './application/command/osm/push-airpor
     AssertParkingPositionBelongsToAirportHandler,
     AssertRunwayBelongsToAirportHandler,
     AssertAirportExistsHandler,
+    AssertCityExistsHandler,
     AirportWeatherRepository,
     GetAirportWeatherHandler,
     GetLatestMetarHandler,

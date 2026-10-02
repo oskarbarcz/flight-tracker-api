@@ -2,10 +2,12 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RotationsRepository } from '../../infra/database/repository/rotations.repository';
 import { RotationStatus } from '../../model/rotation.model';
 import {
+  LegLockedError,
   LegSetFrozenError,
   RotationLegNotFoundError,
   RotationNotFoundError,
 } from '../../model/error/rotation.error';
+import { isFlightPreCheckIn } from '../../model/rotation.rules';
 
 export class RemoveLegCommand {
   constructor(
@@ -34,6 +36,10 @@ export class RemoveLegHandler implements ICommandHandler<RemoveLegCommand> {
 
     if (rotation.status !== RotationStatus.Draft) {
       throw new LegSetFrozenError();
+    }
+
+    if (leg.flight && !isFlightPreCheckIn(leg.flight.status)) {
+      throw new LegLockedError();
     }
 
     await this.repository.removeLeg(rotationId, legId, command.actorId);

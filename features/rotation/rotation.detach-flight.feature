@@ -182,6 +182,32 @@ Feature: Detach a flight from a rotation leg
       }
       """
 
+  Scenario: A flight cannot be detached from a finished rotation
+    Given I am signed in as "operations"
+    When I send a "DELETE" request to "/api/v1/rotation/7f5f13b1-5f14-4418-af23-8128ff4f6410/leg/2fff235c-17c3-4286-9682-2877fcf13eb5/flight"
+    Then the response status should be 409
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 409,
+        "message": "Flights cannot be attached or detached once the rotation is finished or canceled.",
+        "error": "Conflict"
+      }
+      """
+
+  Scenario: A flight cannot be detached from a canceled rotation
+    Given I am signed in as "operations"
+    When I send a "DELETE" request to "/api/v1/rotation/4a2b2d48-798f-4260-a12e-5fa51ff0e900/leg/52bda472-6044-4f60-acae-e9d66aa4cb7f/flight"
+    Then the response status should be 409
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 409,
+        "message": "Flights cannot be attached or detached once the rotation is finished or canceled.",
+        "error": "Conflict"
+      }
+      """
+
   Scenario: As an unauthorized user I cannot detach a flight
     When I send a "DELETE" request to "/api/v1/rotation/de76f066-23a6-4a49-aa5e-e9d524f4efb8/leg/9c347301-fa9e-4c26-aa29-0295415053c8/flight"
     Then the response status should be 401
