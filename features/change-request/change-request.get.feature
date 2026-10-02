@@ -137,6 +137,44 @@ Feature: Retrieve one change request
       """
     And I set database to initial state
 
+  Scenario: As an operations I can see the current and proposed values of a parking position change request
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/user-data-change-request/b0c0a3c7-c369-45ca-8306-8a434cfeac9c"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "b0c0a3c7-c369-45ca-8306-8a434cfeac9c",
+        "resource": "parkingPosition",
+        "targetId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+        "changes": {
+          "name": "B42",
+          "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+        },
+        "status": "pending",
+        "requestedBy": {
+          "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+          "name": "Alan Doe"
+        },
+        "decidedBy": null,
+        "rejectionReason": null,
+        "decidedAt": null,
+        "createdAt": "2026-09-05T08:00:00.000Z",
+        "fields": [
+          {
+            "field": "name",
+            "current": "B 42",
+            "proposed": "B42"
+          },
+          {
+            "field": "terminalId",
+            "current": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+            "proposed": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+          }
+        ]
+      }
+      """
+
   Scenario: As an operations I cannot see a change request that does not exist
     Given I am signed in as "operations"
     When I send a "GET" request to "/api/v1/user-data-change-request/0c9b7a3e-2f1d-4e8a-9b6c-5d4e3f2a1b0c"
