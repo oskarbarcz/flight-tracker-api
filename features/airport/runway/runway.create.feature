@@ -250,6 +250,40 @@ Feature: Create runway
       }
       """
 
+  Scenario: As operations I cannot create runway with malformed end coordinates
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/runway" with body:
+      """json
+      {
+        "designator": "05",
+        "length": 2000,
+        "width": 45,
+        "magneticHeading": 47,
+        "surfaceType": "asphalt",
+        "lightingType": "MIRL",
+        "coordinates": {
+          "latitude": "north",
+          "longitude": 20.99
+        }
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "coordinates.latitude": [
+            "latitude must not be greater than 90",
+            "latitude must not be less than -90",
+            "latitude must be a number conforming to the specified constraints"
+          ]
+        }
+      }
+      """
+
   Scenario: As an unauthorized user I cannot create runway
     When I send a "POST" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/runway" with body:
       """json

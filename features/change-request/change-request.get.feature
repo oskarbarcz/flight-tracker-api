@@ -175,6 +175,70 @@ Feature: Retrieve one change request
       }
       """
 
+  Scenario: As an operations I can see the current and proposed values of a gate change request
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/user-data-change-request/a39dfa76-d9ed-4b1c-8767-767f5a27c634"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
+        "resource": "gate",
+        "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "changes": {
+          "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
+        },
+        "status": "pending",
+        "requestedBy": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe"
+        },
+        "decidedBy": null,
+        "rejectionReason": null,
+        "decidedAt": null,
+        "createdAt": "2026-09-08T08:00:00.000Z",
+        "fields": [
+          {
+            "field": "parkingPositionId",
+            "current": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+            "proposed": "77646d11-415c-4090-bc2b-e85cd1814b64"
+          }
+        ]
+      }
+      """
+
+  Scenario: As an operations I can see the current and proposed values of a runway change request
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/user-data-change-request/8326750a-99ad-413e-8d9f-01f3974f05ef"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "8326750a-99ad-413e-8d9f-01f3974f05ef",
+        "resource": "runway",
+        "targetId": "32121288-2550-4b81-a558-9a7193ef6c97",
+        "changes": {
+          "lightingType": "ALS"
+        },
+        "status": "pending",
+        "requestedBy": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe"
+        },
+        "decidedBy": null,
+        "rejectionReason": null,
+        "decidedAt": null,
+        "createdAt": "2026-09-12T08:00:00.000Z",
+        "fields": [
+          {
+            "field": "lightingType",
+            "current": "HIRL",
+            "proposed": "ALS"
+          }
+        ]
+      }
+      """
+
   Scenario: As an operations I cannot see a change request that does not exist
     Given I am signed in as "operations"
     When I send a "GET" request to "/api/v1/user-data-change-request/0c9b7a3e-2f1d-4e8a-9b6c-5d4e3f2a1b0c"

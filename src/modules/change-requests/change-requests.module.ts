@@ -4,7 +4,13 @@ import { ChangeRequestsRepository } from './infra/database/change-requests.repos
 import { ChangeRequestTargets } from './application/target/change-request-targets';
 import { AirportChangeRequestTarget } from './application/target/airport-change-request.target';
 import { ParkingPositionChangeRequestTarget } from './application/target/parking-position-change-request.target';
+import { GateChangeRequestTarget } from './application/target/gate-change-request.target';
+import { TerminalChangeRequestTarget } from './application/target/terminal-change-request.target';
+import { RunwayChangeRequestTarget } from './application/target/runway-change-request.target';
 import { RequestParkingPositionChangeAction } from './infra/http/action/parking-position/request-parking-position-change.action';
+import { RequestGateChangeAction } from './infra/http/action/gate/request-gate-change.action';
+import { RequestTerminalChangeAction } from './infra/http/action/terminal/request-terminal-change.action';
+import { RequestRunwayChangeAction } from './infra/http/action/runway/request-runway-change.action';
 import { SubmitChangeRequestHandler } from './application/command/submit-change-request.command';
 import { AcceptChangeRequestHandler } from './application/command/accept-change-request.command';
 import { RejectChangeRequestHandler } from './application/command/reject-change-request.command';
@@ -25,6 +31,9 @@ import { WithdrawChangeRequestAction } from './infra/http/action/mine/withdraw-c
   controllers: [
     RequestAirportChangeAction,
     RequestParkingPositionChangeAction,
+    RequestGateChangeAction,
+    RequestTerminalChangeAction,
+    RequestRunwayChangeAction,
     ListChangeRequestsAction,
     GetChangeRequestAction,
     AcceptChangeRequestAction,
@@ -36,6 +45,9 @@ import { WithdrawChangeRequestAction } from './infra/http/action/mine/withdraw-c
     ChangeRequestsRepository,
     AirportChangeRequestTarget,
     ParkingPositionChangeRequestTarget,
+    GateChangeRequestTarget,
+    TerminalChangeRequestTarget,
+    RunwayChangeRequestTarget,
     ChangeRequestTargets,
     SubmitChangeRequestHandler,
     AcceptChangeRequestHandler,

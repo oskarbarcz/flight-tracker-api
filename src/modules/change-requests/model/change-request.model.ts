@@ -5,6 +5,9 @@ import {
 } from 'prisma/client/client';
 import { AirportValues } from './airport-change.model';
 import { ParkingPositionValues } from './parking-position-change.model';
+import { GateValues } from './gate-change.model';
+import { TerminalValues } from './terminal-change.model';
+import { RunwayValues } from './runway-change.model';
 
 export { ChangeRequestResource, ChangeRequestStatus };
 
@@ -13,6 +16,9 @@ type EveryResource<T extends Record<ChangeRequestResource, object>> = T;
 export type ChangeRequestValues = EveryResource<{
   airport: AirportValues;
   parkingPosition: ParkingPositionValues;
+  gate: GateValues;
+  terminal: TerminalValues;
+  runway: RunwayValues;
 }>;
 
 export type ChangeRequestChanges<

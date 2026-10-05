@@ -202,6 +202,67 @@ Feature: Propose a change to a parking position
       }
       """
 
+  Scenario: As a cabin crew I cannot propose empty ground power or terminal
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/parking-position/ae098e8f-b088-41a6-a566-880c7dd5e931/request-data-change" with body:
+      """json
+      {
+        "gpu": null,
+        "terminalId": null
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 400,
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "violations": {
+          "gpu": ["gpu must be one of the following values: no, bridge, standalone, both"],
+          "terminalId": ["terminalId must be a UUID"]
+        }
+      }
+      """
+
+  Scenario: As a cabin crew I can propose removing the noise sensitivity notes of a parking position
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/parking-position/ae098e8f-b088-41a6-a566-880c7dd5e931/request-data-change" with body:
+      """json
+      {
+        "noiseSensitivityText": null
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "resource": "parkingPosition",
+        "targetId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+        "changes": {
+          "noiseSensitivityText": null
+        },
+        "status": "pending",
+        "requestedBy": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe"
+        },
+        "decidedBy": null,
+        "rejectionReason": null,
+        "decidedAt": null,
+        "createdAt": "@date('within 1 minute from now')",
+        "fields": [
+          {
+            "field": "noiseSensitivityText",
+            "current": "Night curfew: no engine runs or pushbacks permitted.",
+            "proposed": null
+          }
+        ]
+      }
+      """
+    And I set database to initial state
+
   Scenario: As a cabin crew I cannot propose a change that names no field
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/parking-position/ae098e8f-b088-41a6-a566-880c7dd5e931/request-data-change" with body:

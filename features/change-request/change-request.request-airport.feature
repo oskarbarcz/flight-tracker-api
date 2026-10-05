@@ -202,6 +202,106 @@ Feature: Propose a change to an airport
       }
       """
 
+  Scenario: As a cabin crew I cannot propose an empty name, city or location
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/request-data-change" with body:
+      """json
+      {
+        "name": null,
+        "cityId": null,
+        "location": null
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 400,
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "violations": {
+          "name": ["name should not be empty", "name must be a string"],
+          "cityId": ["cityId must be a UUID"],
+          "location": ["location should not be empty", "nested property location must be either object or array"]
+        }
+      }
+      """
+
+  Scenario: As a cabin crew I can propose removing an airport shape
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/airport/6cf1fcd8-d072-46b5-8132-bd885b43dd97/request-data-change" with body:
+      """json
+      {
+        "shape": null
+      }
+      """
+    Then the response status should be 201
+    And the response body should contain:
+      """json
+      {
+        "id": "@uuid",
+        "resource": "airport",
+        "targetId": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
+        "changes": {
+          "shape": null
+        },
+        "status": "pending",
+        "requestedBy": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe"
+        },
+        "decidedBy": null,
+        "rejectionReason": null,
+        "decidedAt": null,
+        "createdAt": "@date('within 1 minute from now')",
+        "fields": [
+          {
+            "field": "shape",
+            "current": [
+              { "latitude": 47.620606, "longitude": -52.779227 },
+              { "latitude": 47.622187, "longitude": -52.779477 },
+              { "latitude": 47.626312, "longitude": -52.771574 },
+              { "latitude": 47.626607, "longitude": -52.7648 },
+              { "latitude": 47.628939, "longitude": -52.758845 },
+              { "latitude": 47.630924, "longitude": -52.755441 },
+              { "latitude": 47.628507, "longitude": -52.746031 },
+              { "latitude": 47.627425, "longitude": -52.740925 },
+              { "latitude": 47.627728, "longitude": -52.740124 },
+              { "latitude": 47.627973, "longitude": -52.737993 },
+              { "latitude": 47.628387, "longitude": -52.738049 },
+              { "latitude": 47.62848, "longitude": -52.736842 },
+              { "latitude": 47.627197, "longitude": -52.736796 },
+              { "latitude": 47.627846, "longitude": -52.724076 },
+              { "latitude": 47.62468, "longitude": -52.724025 },
+              { "latitude": 47.620856, "longitude": -52.72355 },
+              { "latitude": 47.617539, "longitude": -52.732557 },
+              { "latitude": 47.615522, "longitude": -52.733603 },
+              { "latitude": 47.609632, "longitude": -52.72905 },
+              { "latitude": 47.608912, "longitude": -52.731284 },
+              { "latitude": 47.607847, "longitude": -52.732529 },
+              { "latitude": 47.609109, "longitude": -52.733756 },
+              { "latitude": 47.607745, "longitude": -52.739871 },
+              { "latitude": 47.608726, "longitude": -52.741591 },
+              { "latitude": 47.60965, "longitude": -52.741695 },
+              { "latitude": 47.60929, "longitude": -52.742508 },
+              { "latitude": 47.612637, "longitude": -52.748901 },
+              { "latitude": 47.612632, "longitude": -52.749379 },
+              { "latitude": 47.612029, "longitude": -52.749646 },
+              { "latitude": 47.612121, "longitude": -52.749889 },
+              { "latitude": 47.612597, "longitude": -52.750194 },
+              { "latitude": 47.61486, "longitude": -52.753552 },
+              { "latitude": 47.613637, "longitude": -52.756212 },
+              { "latitude": 47.614889, "longitude": -52.757625 },
+              { "latitude": 47.615796, "longitude": -52.756218 },
+              { "latitude": 47.621206, "longitude": -52.766021 }
+            ],
+            "proposed": null
+          }
+        ]
+      }
+      """
+    And I set database to initial state
+
   Scenario: As a cabin crew I cannot propose fields that are not open to proposals
     Given I am signed in as "cabin crew"
     When I send a "POST" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/request-data-change" with body:

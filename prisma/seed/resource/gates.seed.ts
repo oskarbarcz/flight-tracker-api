@@ -1,5 +1,11 @@
 import { Prisma } from '../../client/client';
 
+export const GATE_IDS = {
+  frankfurtA10: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
+  frankfurtA11: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102',
+  warsaw11: 'd0758a79-052d-41ca-a2e6-63646b6aa08e',
+} as const;
+
 // Most coordinates below are real `aeroway=gate` nodes sourced from OpenStreetMap
 // via Overpass, matched to each seeded gate by ref (falling back to nearest terminal
 // when a ref like KJFK's "A2" is reused across terminals). Where no OSM gate node
@@ -10,7 +16,7 @@ export async function loadGates(tx: Prisma.TransactionClient): Promise<void> {
   const gates: Prisma.GateCreateManyInput[] = [
     // EDDF — Frankfurt T1
     {
-      id: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101',
+      id: GATE_IDS.frankfurtA10,
       airportId: 'f35c094a-bec5-4803-be32-bd80a14b441a',
       terminalId: 'd7fd7a84-1589-4a4f-9072-a9773f66e2b5',
       name: 'A10',
@@ -20,7 +26,7 @@ export async function loadGates(tx: Prisma.TransactionClient): Promise<void> {
     },
 
     {
-      id: '4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102',
+      id: GATE_IDS.frankfurtA11,
       airportId: 'f35c094a-bec5-4803-be32-bd80a14b441a',
       terminalId: 'd7fd7a84-1589-4a4f-9072-a9773f66e2b5',
       name: 'A11',
@@ -62,7 +68,7 @@ export async function loadGates(tx: Prisma.TransactionClient): Promise<void> {
     },
 
     {
-      id: 'd0758a79-052d-41ca-a2e6-63646b6aa08e',
+      id: GATE_IDS.warsaw11,
       airportId: '616cbdd7-ccfc-4687-8cf6-1e7236435046',
       terminalId: '104014ec-110e-483d-9f3c-8f6909fe4823',
       name: '11',

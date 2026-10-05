@@ -47,6 +47,7 @@ export function changesAnything(
   diff: readonly { current: unknown; proposed: unknown }[],
 ): boolean {
   return diff.some(
-    ({ current, proposed }) => !isDeepStrictEqual(current, proposed),
+    ({ current, proposed }) =>
+      !isDeepStrictEqual(structuredClone(current), structuredClone(proposed)),
   );
 }
