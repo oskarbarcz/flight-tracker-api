@@ -1,5 +1,8 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { RunwaysRepository } from '../../../infra/database/runways.repository';
+import {
+  RunwaysRepository,
+  RunwayView,
+} from '../../../infra/database/runways.repository';
 import { AirportsRepository } from '../../../infra/database/airports.repository';
 import { GetRunwayResponse } from '../../../infra/http/request/runway.dto';
 import { AirportNotFoundError } from '../../../model/error/airport.error';
@@ -39,11 +42,15 @@ export class GetRunwayByIdHandler implements IQueryHandler<GetRunwayByIdQuery> {
       throw new RunwayNotFoundError();
     }
 
-    return {
-      ...runway,
-      surfaceType: runway.surfaceType as SurfaceType,
-      lightingType: runway.lightingType as LightingType,
-      coordinates: runway.coordinates as unknown as Coordinates,
-    };
+    return toRunwayResponse(runway);
   }
+}
+
+export function toRunwayResponse(runway: RunwayView): GetRunwayResponse {
+  return {
+    ...runway,
+    surfaceType: runway.surfaceType as SurfaceType,
+    lightingType: runway.lightingType as LightingType,
+    coordinates: runway.coordinates as unknown as Coordinates,
+  };
 }

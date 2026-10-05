@@ -1,3 +1,5 @@
+import { plainToInstance } from 'class-transformer';
+import { Coordinates } from '../../airports/model/airport.model';
 import { changesAnything, diffChangeRequest } from './change-request.diff';
 
 type Values = {
@@ -90,6 +92,17 @@ describe('changesAnything', () => {
     });
 
     expect(changesAnything(diff)).toBe(true);
+  });
+
+  it('compares geometry by value whatever class the proposed value is', () => {
+    const diff = diffChangeRequest(fields, current, {
+      location: plainToInstance(Coordinates, {
+        latitude: 52.16575,
+        longitude: 20.967123,
+      }),
+    });
+
+    expect(changesAnything(diff)).toBe(false);
   });
 
   it('is true when one of several fields differs', () => {

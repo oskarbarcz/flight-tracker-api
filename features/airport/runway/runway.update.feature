@@ -105,6 +105,29 @@ Feature: Update runway
       }
       """
 
+  Scenario: As operations I cannot update runway with malformed end coordinates
+    Given I am signed in as "operations"
+    When I send a "PATCH" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/runway/0aaaf26f-29df-45d3-8330-f85f9838de2f" with body:
+      """json
+      { "coordinates": { "latitude": "north", "longitude": 20.9467 } }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "coordinates.latitude": [
+            "latitude must not be greater than 90",
+            "latitude must not be less than -90",
+            "latitude must be a number conforming to the specified constraints"
+          ]
+        }
+      }
+      """
+
   Scenario: As an unauthorized user I cannot update runway
     When I send a "PATCH" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/runway/0aaaf26f-29df-45d3-8330-f85f9838de2f" with body:
       """json

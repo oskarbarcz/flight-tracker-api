@@ -1,10 +1,15 @@
 import { Prisma } from '../../client/client';
 
+export const RUNWAY_IDS = {
+  frankfurt07C: '32121288-2550-4b81-a558-9a7193ef6c97',
+  warsaw11: '0aaaf26f-29df-45d3-8330-f85f9838de2f',
+} as const;
+
 export async function loadRunways(tx: Prisma.TransactionClient): Promise<void> {
   const runways: Prisma.RunwayCreateManyInput[] = [
     // EDDF — Frankfurt am Main (elevation ~111m)
     {
-      id: '32121288-2550-4b81-a558-9a7193ef6c97',
+      id: RUNWAY_IDS.frankfurt07C,
       airportId: 'f35c094a-bec5-4803-be32-bd80a14b441a',
       designator: '07C',
       length: 4000,
@@ -104,7 +109,7 @@ export async function loadRunways(tx: Prisma.TransactionClient): Promise<void> {
 
     // EPWA — Warsaw Chopin (elevation ~110m)
     {
-      id: '0aaaf26f-29df-45d3-8330-f85f9838de2f',
+      id: RUNWAY_IDS.warsaw11,
       airportId: '616cbdd7-ccfc-4687-8cf6-1e7236435046',
       designator: '11',
       length: 2800,

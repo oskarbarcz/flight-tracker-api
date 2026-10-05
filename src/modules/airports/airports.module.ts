@@ -70,6 +70,12 @@ import { AssertCityExistsHandler } from './application/assert/assert-city-exists
 import { AssertParkingPositionExistsHandler } from './application/assert/assert-parking-position-exists.query';
 import { AssertTerminalBelongsToAirportHandler } from './application/assert/assert-terminal-belongs-to-airport.query';
 import { FindParkingPositionHandler } from './application/query/parking-position/find-parking-position.query';
+import { FindGateHandler } from './application/query/gate/find-gate.query';
+import { FindTerminalHandler } from './application/query/terminal/find-terminal.query';
+import { FindRunwayHandler } from './application/query/runway/find-runway.query';
+import { AssertGateExistsHandler } from './application/assert/assert-gate-exists.query';
+import { AssertTerminalExistsHandler } from './application/assert/assert-terminal-exists.query';
+import { AssertRunwayExistsHandler } from './application/assert/assert-runway-exists.query';
 import { ReassignAirportCityHandler } from './application/command/reassign-airport-city.command';
 import { WeatherModule } from '../../core/provider/weather/weather.module';
 import { SayIntentionsModule } from '../../core/provider/sayintentions/say-intentions.module';
@@ -165,6 +171,9 @@ import { PushAirportOsmDataHandler } from './application/command/osm/push-airpor
     RemoveParkingPositionHandler,
     GetParkingPositionByIdHandler,
     FindParkingPositionHandler,
+    FindGateHandler,
+    FindTerminalHandler,
+    FindRunwayHandler,
     ListParkingPositionsByAirportHandler,
     CreateRunwayHandler,
     UpdateRunwayHandler,
@@ -178,6 +187,9 @@ import { PushAirportOsmDataHandler } from './application/command/osm/push-airpor
     AssertCityExistsHandler,
     AssertParkingPositionExistsHandler,
     AssertTerminalBelongsToAirportHandler,
+    AssertGateExistsHandler,
+    AssertTerminalExistsHandler,
+    AssertRunwayExistsHandler,
     AirportWeatherRepository,
     GetAirportWeatherHandler,
     GetLatestMetarHandler,

@@ -21,7 +21,7 @@ const selectRunway = {
   coordinates: true,
 } as const satisfies Prisma.RunwaySelect;
 
-type RunwayView = Prisma.RunwayGetPayload<{
+export type RunwayView = Prisma.RunwayGetPayload<{
   select: typeof selectRunway;
 }>;
 

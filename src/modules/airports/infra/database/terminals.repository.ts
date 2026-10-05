@@ -17,7 +17,7 @@ const selectTerminal = {
   shape: true,
 } as const satisfies Prisma.TerminalSelect;
 
-type TerminalView = Prisma.TerminalGetPayload<{
+export type TerminalView = Prisma.TerminalGetPayload<{
   select: typeof selectTerminal;
 }>;
 

@@ -981,6 +981,9 @@ enum DelayReportStatus {
 enum ChangeRequestResource {
   airport
   parkingPosition
+  gate
+  terminal
+  runway
 
   @@map("change_request_resource")
 }

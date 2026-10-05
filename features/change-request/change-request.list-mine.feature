@@ -8,6 +8,60 @@ Feature: List the change requests I proposed
       """json
       [
         {
+          "id": "8326750a-99ad-413e-8d9f-01f3974f05ef",
+          "resource": "runway",
+          "targetId": "32121288-2550-4b81-a558-9a7193ef6c97",
+          "changes": {
+            "lightingType": "ALS"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-12T08:00:00.000Z"
+        },
+        {
+          "id": "5f18eb02-d70f-4108-b057-80d0a5e6d078",
+          "resource": "terminal",
+          "targetId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+          "changes": {
+            "operatorCodes": ["BAW", "AFR", "KLM"]
+          },
+          "status": "rejected",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": {
+            "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
+            "name": "John Doe"
+          },
+          "rejectionReason": "KLM operates from Terminal 1.",
+          "decidedAt": "2026-09-11T11:00:00.000Z",
+          "createdAt": "2026-09-11T10:00:00.000Z"
+        },
+        {
+          "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
+          "resource": "gate",
+          "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+          "changes": {
+            "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-08T08:00:00.000Z"
+        },
+        {
           "id": "e553f881-364c-42a1-99e5-cf49272bffb1",
           "resource": "parkingPosition",
           "targetId": "5537f377-dc35-41a9-9eda-c4db2f9a6431",
@@ -150,6 +204,40 @@ Feature: List the change requests I proposed
     And the response body should contain:
       """json
       [
+        {
+          "id": "8326750a-99ad-413e-8d9f-01f3974f05ef",
+          "resource": "runway",
+          "targetId": "32121288-2550-4b81-a558-9a7193ef6c97",
+          "changes": {
+            "lightingType": "ALS"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-12T08:00:00.000Z"
+        },
+        {
+          "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
+          "resource": "gate",
+          "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+          "changes": {
+            "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-08T08:00:00.000Z"
+        },
         {
           "id": "5893d122-729a-4074-a336-db81dfe9122a",
           "resource": "parkingPosition",

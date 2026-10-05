@@ -5,7 +5,9 @@ import {
 } from '../../client/client';
 import { AIRPORT_IDS } from './airports.seed';
 import { CITY_IDS } from './cities.seed';
+import { GATE_IDS } from './gates.seed';
 import { PARKING_POSITION_IDS } from './parking-positions.seed';
+import { RUNWAY_IDS } from './runways.seed';
 import { TERMINAL_IDS } from './terminals.seed';
 import { USER_IDS } from './users.seed';
 
@@ -141,6 +143,75 @@ export async function loadChangeRequests(
         rejectionReason: 'Stand 4 is a contact stand.',
         decidedAt: new Date('2026-09-07T11:00:00.000Z'),
         createdAt: new Date('2026-09-07T10:00:00.000Z'),
+      },
+      {
+        id: 'a39dfa76-d9ed-4b1c-8767-767f5a27c634',
+        resource: ChangeRequestResource.gate,
+        targetId: GATE_IDS.frankfurtA10,
+        payload: { parkingPositionId: PARKING_POSITION_IDS.frankfurt445 },
+        status: ChangeRequestStatus.pending,
+        requestedById: USER_IDS.rick,
+        createdAt: new Date('2026-09-08T08:00:00.000Z'),
+      },
+      {
+        id: '9a908879-48c0-4981-9d82-d891ec54bbef',
+        resource: ChangeRequestResource.gate,
+        targetId: GATE_IDS.warsaw11,
+        payload: { category: 'schengen' },
+        status: ChangeRequestStatus.accepted,
+        requestedById: USER_IDS.alan,
+        decidedById: USER_IDS.alice,
+        appliedSnapshot: { category: 'non-schengen' },
+        decidedAt: new Date('2026-09-09T10:00:00.000Z'),
+        createdAt: new Date('2026-09-09T09:00:00.000Z'),
+      },
+      {
+        id: '583fc05f-9aa1-465e-ac0e-96ad7f65d008',
+        resource: ChangeRequestResource.terminal,
+        targetId: TERMINAL_IDS.warsawA,
+        payload: { averageTaxiTime: 11 },
+        status: ChangeRequestStatus.pending,
+        requestedById: USER_IDS.alan,
+        createdAt: new Date('2026-09-10T08:00:00.000Z'),
+      },
+      {
+        id: '5f18eb02-d70f-4108-b057-80d0a5e6d078',
+        resource: ChangeRequestResource.terminal,
+        targetId: TERMINAL_IDS.frankfurtT2,
+        payload: { operatorCodes: ['BAW', 'AFR', 'KLM'] },
+        status: ChangeRequestStatus.rejected,
+        requestedById: USER_IDS.rick,
+        decidedById: USER_IDS.john,
+        rejectionReason: 'KLM operates from Terminal 1.',
+        decidedAt: new Date('2026-09-11T11:00:00.000Z'),
+        createdAt: new Date('2026-09-11T10:00:00.000Z'),
+      },
+      {
+        id: '8326750a-99ad-413e-8d9f-01f3974f05ef',
+        resource: ChangeRequestResource.runway,
+        targetId: RUNWAY_IDS.frankfurt07C,
+        payload: { lightingType: 'ALS' },
+        status: ChangeRequestStatus.pending,
+        requestedById: USER_IDS.rick,
+        createdAt: new Date('2026-09-12T08:00:00.000Z'),
+      },
+      {
+        id: '35e5d34d-97bf-468f-bf12-dcb836835f9d',
+        resource: ChangeRequestResource.runway,
+        targetId: RUNWAY_IDS.warsaw11,
+        payload: { magneticHeading: 106 },
+        status: ChangeRequestStatus.pending,
+        requestedById: USER_IDS.alan,
+        createdAt: new Date('2026-09-13T08:00:00.000Z'),
+      },
+      {
+        id: '68dbe9f1-fed8-4e71-b052-9911511afb5e',
+        resource: ChangeRequestResource.gate,
+        targetId: GATE_IDS.frankfurtA11,
+        payload: { terminalId: TERMINAL_IDS.frankfurtT2 },
+        status: ChangeRequestStatus.pending,
+        requestedById: USER_IDS.alan,
+        createdAt: new Date('2026-09-14T08:00:00.000Z'),
       },
     ],
   });

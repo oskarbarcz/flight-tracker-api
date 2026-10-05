@@ -428,6 +428,313 @@ Feature: Accept a change request
       """
     And I set database to initial state
 
+  Scenario: As an operations I can accept a gate change request, applying its parking position
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/user-data-change-request/a39dfa76-d9ed-4b1c-8767-767f5a27c634/accept"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
+        "resource": "gate",
+        "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "changes": {
+          "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
+        },
+        "status": "accepted",
+        "requestedBy": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe"
+        },
+        "decidedBy": {
+          "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+          "name": "Alice Doe"
+        },
+        "rejectionReason": null,
+        "decidedAt": "@date('within 1 minute from now')",
+        "createdAt": "2026-09-08T08:00:00.000Z",
+        "fields": [
+          {
+            "field": "parkingPositionId",
+            "current": "77646d11-415c-4090-bc2b-e85cd1814b64",
+            "proposed": "77646d11-415c-4090-bc2b-e85cd1814b64"
+          }
+        ]
+      }
+      """
+    When I send a "GET" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+        "name": "A10",
+        "category": "schengen",
+        "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64",
+        "coordinates": {
+          "latitude": 50.047131,
+          "longitude": 8.574266
+        }
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As an operations I cannot accept a gate change request whose parking position was removed
+    Given I am signed in as "operations"
+    When I send a "DELETE" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/parking-position/77646d11-415c-4090-bc2b-e85cd1814b64"
+    Then the response status should be 204
+    When I send a "POST" request to "/api/v1/user-data-change-request/a39dfa76-d9ed-4b1c-8767-767f5a27c634/accept"
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 404,
+        "error": "Not Found",
+        "message": "Parking position with given id does not exist."
+      }
+      """
+    When I send a "GET" request to "/api/v1/user-data-change-request/a39dfa76-d9ed-4b1c-8767-767f5a27c634"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
+        "resource": "gate",
+        "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "changes": {
+          "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
+        },
+        "status": "pending",
+        "requestedBy": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe"
+        },
+        "decidedBy": null,
+        "rejectionReason": null,
+        "decidedAt": null,
+        "createdAt": "2026-09-08T08:00:00.000Z",
+        "fields": [
+          {
+            "field": "parkingPositionId",
+            "current": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+            "proposed": "77646d11-415c-4090-bc2b-e85cd1814b64"
+          }
+        ]
+      }
+      """
+    When I send a "GET" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+        "name": "A10",
+        "category": "schengen",
+        "parkingPositionId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+        "coordinates": {
+          "latitude": 50.047131,
+          "longitude": 8.574266
+        }
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As an operations I cannot accept a gate change request whose terminal was removed
+    Given I am signed in as "operations"
+    When I send a "DELETE" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/terminal/26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+    Then the response status should be 204
+    When I send a "POST" request to "/api/v1/user-data-change-request/68dbe9f1-fed8-4e71-b052-9911511afb5e/accept"
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 404,
+        "error": "Not Found",
+        "message": "Terminal with given id does not exist."
+      }
+      """
+    When I send a "GET" request to "/api/v1/user-data-change-request/68dbe9f1-fed8-4e71-b052-9911511afb5e"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "68dbe9f1-fed8-4e71-b052-9911511afb5e",
+        "resource": "gate",
+        "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
+        "changes": {
+          "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+        },
+        "status": "pending",
+        "requestedBy": {
+          "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+          "name": "Alan Doe"
+        },
+        "decidedBy": null,
+        "rejectionReason": null,
+        "decidedAt": null,
+        "createdAt": "2026-09-14T08:00:00.000Z",
+        "fields": [
+          {
+            "field": "terminalId",
+            "current": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+            "proposed": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+          }
+        ]
+      }
+      """
+    When I send a "GET" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/gate/4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
+        "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "terminalId": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
+        "name": "A11",
+        "category": "schengen",
+        "parkingPositionId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+        "coordinates": {
+          "latitude": 50.048797,
+          "longitude": 8.569462
+        }
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As an admin I can accept a terminal change request, applying its taxi time
+    Given I am signed in as "admin"
+    When I send a "POST" request to "/api/v1/user-data-change-request/583fc05f-9aa1-465e-ac0e-96ad7f65d008/accept"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "583fc05f-9aa1-465e-ac0e-96ad7f65d008",
+        "resource": "terminal",
+        "targetId": "104014ec-110e-483d-9f3c-8f6909fe4823",
+        "changes": {
+          "averageTaxiTime": 11
+        },
+        "status": "accepted",
+        "requestedBy": {
+          "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+          "name": "Alan Doe"
+        },
+        "decidedBy": {
+          "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
+          "name": "John Doe"
+        },
+        "rejectionReason": null,
+        "decidedAt": "@date('within 1 minute from now')",
+        "createdAt": "2026-09-10T08:00:00.000Z",
+        "fields": [
+          {
+            "field": "averageTaxiTime",
+            "current": 11,
+            "proposed": 11
+          }
+        ]
+      }
+      """
+    When I send a "GET" request to "/api/v1/airport/616cbdd7-ccfc-4687-8cf6-1e7236435046/terminal/104014ec-110e-483d-9f3c-8f6909fe4823"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "104014ec-110e-483d-9f3c-8f6909fe4823",
+        "airportId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+        "shortName": "TA",
+        "fullName": "Terminal A",
+        "averageTaxiTime": 11,
+        "operatorCodes": ["LOT"],
+        "text": null,
+        "shape": [
+          { "latitude": 52.174117, "longitude": 20.968171 },
+          { "latitude": 52.174661, "longitude": 20.968454 },
+          { "latitude": 52.174471, "longitude": 20.969416 },
+          { "latitude": 52.174285, "longitude": 20.968993 },
+          { "latitude": 52.174073, "longitude": 20.969785 },
+          { "latitude": 52.173697, "longitude": 20.969503 },
+          { "latitude": 52.173771, "longitude": 20.970048 },
+          { "latitude": 52.173374, "longitude": 20.969782 },
+          { "latitude": 52.173447, "longitude": 20.970336 },
+          { "latitude": 52.173031, "longitude": 20.970079 },
+          { "latitude": 52.173107, "longitude": 20.970639 },
+          { "latitude": 52.172979, "longitude": 20.970124 },
+          { "latitude": 52.172837, "longitude": 20.970864 },
+          { "latitude": 52.172392, "longitude": 20.970633 },
+          { "latitude": 52.172859, "longitude": 20.972046 },
+          { "latitude": 52.171834, "longitude": 20.97294 },
+          { "latitude": 52.171234, "longitude": 20.970438 },
+          { "latitude": 52.171346, "longitude": 20.970923 },
+          { "latitude": 52.171744, "longitude": 20.969994 },
+          { "latitude": 52.171857, "longitude": 20.970476 }
+        ]
+      }
+      """
+    And I set database to initial state
+
+  Scenario: As an operations I can accept a runway change request, applying its lighting type
+    Given I am signed in as "operations"
+    When I send a "POST" request to "/api/v1/user-data-change-request/8326750a-99ad-413e-8d9f-01f3974f05ef/accept"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "8326750a-99ad-413e-8d9f-01f3974f05ef",
+        "resource": "runway",
+        "targetId": "32121288-2550-4b81-a558-9a7193ef6c97",
+        "changes": {
+          "lightingType": "ALS"
+        },
+        "status": "accepted",
+        "requestedBy": {
+          "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+          "name": "Rick Doe"
+        },
+        "decidedBy": {
+          "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+          "name": "Alice Doe"
+        },
+        "rejectionReason": null,
+        "decidedAt": "@date('within 1 minute from now')",
+        "createdAt": "2026-09-12T08:00:00.000Z",
+        "fields": [
+          {
+            "field": "lightingType",
+            "current": "ALS",
+            "proposed": "ALS"
+          }
+        ]
+      }
+      """
+    When I send a "GET" request to "/api/v1/airport/f35c094a-bec5-4803-be32-bd80a14b441a/runway/32121288-2550-4b81-a558-9a7193ef6c97"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "id": "32121288-2550-4b81-a558-9a7193ef6c97",
+        "airportId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+        "designator": "07C",
+        "length": 4000,
+        "width": 60,
+        "displace": null,
+        "trueHeading": 70,
+        "magneticHeading": 72,
+        "elevation": 111,
+        "surfaceType": "asphalt",
+        "lightingType": "ALS",
+        "coordinates": {
+          "latitude": 50.0326,
+          "longitude": 8.53463
+        }
+      }
+      """
+    And I set database to initial state
+
   Scenario: As an operations I cannot accept a change request that is already rejected
     Given I am signed in as "operations"
     When I send a "POST" request to "/api/v1/user-data-change-request/11fd5e75-3857-424e-ab48-310a29f0d7ce/accept"

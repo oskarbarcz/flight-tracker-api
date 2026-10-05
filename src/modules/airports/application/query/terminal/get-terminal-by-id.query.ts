@@ -1,5 +1,8 @@
 import { Query, QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { TerminalsRepository } from '../../../infra/database/terminals.repository';
+import {
+  TerminalsRepository,
+  TerminalView,
+} from '../../../infra/database/terminals.repository';
 import { GetTerminalResponse } from '../../../infra/http/request/terminal.dto';
 import { AirportsRepository } from '../../../infra/database/airports.repository';
 import { AirportNotFoundError } from '../../../model/error/airport.error';
@@ -38,10 +41,16 @@ export class GetTerminalByIdHandler implements IQueryHandler<GetTerminalByIdQuer
       throw new TerminalNotFoundError();
     }
 
-    return {
-      ...terminal,
-      operatorCodes: terminal.operatorCodes as string[],
-      shape: terminal.shape as unknown as Coordinates[] | null,
-    };
+    return toTerminalResponse(terminal);
   }
+}
+
+export function toTerminalResponse(
+  terminal: TerminalView,
+): GetTerminalResponse {
+  return {
+    ...terminal,
+    operatorCodes: terminal.operatorCodes as string[],
+    shape: terminal.shape as unknown as Coordinates[] | null,
+  };
 }

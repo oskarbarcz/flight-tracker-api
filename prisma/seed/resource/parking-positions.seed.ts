@@ -5,6 +5,7 @@ export const PARKING_POSITION_IDS = {
   frankfurtA11: 'ae098e8f-b088-41a6-a566-880c7dd5e931',
   warsaw4: '5537f377-dc35-41a9-9eda-c4db2f9a6431',
   warsaw10L: '3254f9a2-7680-41bb-89f1-962aa8065fa4',
+  frankfurt445: '77646d11-415c-4090-bc2b-e85cd1814b64',
 } as const;
 
 // Most names/coordinates below are real `aeroway=parking_position` refs sourced
@@ -21,7 +22,7 @@ export async function loadParkingPositions(
     // Spare stand, not yet linked to any gate — used to test linking a gate
     // to an existing parking position.
     {
-      id: '77646d11-415c-4090-bc2b-e85cd1814b64',
+      id: PARKING_POSITION_IDS.frankfurt445,
       airportId: 'f35c094a-bec5-4803-be32-bd80a14b441a',
       terminalId: 'd7fd7a84-1589-4a4f-9072-a9773f66e2b5',
       name: '445',

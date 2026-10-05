@@ -232,6 +232,131 @@ Feature: List the change request review queue
           "rejectionReason": "Stand 4 is a contact stand.",
           "decidedAt": "2026-09-07T11:00:00.000Z",
           "createdAt": "2026-09-07T10:00:00.000Z"
+        },
+        {
+          "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
+          "resource": "gate",
+          "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+          "changes": {
+            "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-08T08:00:00.000Z"
+        },
+        {
+          "id": "9a908879-48c0-4981-9d82-d891ec54bbef",
+          "resource": "gate",
+          "targetId": "d0758a79-052d-41ca-a2e6-63646b6aa08e",
+          "changes": {
+            "category": "schengen"
+          },
+          "status": "accepted",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "rejectionReason": null,
+          "decidedAt": "2026-09-09T10:00:00.000Z",
+          "createdAt": "2026-09-09T09:00:00.000Z"
+        },
+        {
+          "id": "583fc05f-9aa1-465e-ac0e-96ad7f65d008",
+          "resource": "terminal",
+          "targetId": "104014ec-110e-483d-9f3c-8f6909fe4823",
+          "changes": {
+            "averageTaxiTime": 11
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-10T08:00:00.000Z"
+        },
+        {
+          "id": "5f18eb02-d70f-4108-b057-80d0a5e6d078",
+          "resource": "terminal",
+          "targetId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+          "changes": {
+            "operatorCodes": ["BAW", "AFR", "KLM"]
+          },
+          "status": "rejected",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": {
+            "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
+            "name": "John Doe"
+          },
+          "rejectionReason": "KLM operates from Terminal 1.",
+          "decidedAt": "2026-09-11T11:00:00.000Z",
+          "createdAt": "2026-09-11T10:00:00.000Z"
+        },
+        {
+          "id": "8326750a-99ad-413e-8d9f-01f3974f05ef",
+          "resource": "runway",
+          "targetId": "32121288-2550-4b81-a558-9a7193ef6c97",
+          "changes": {
+            "lightingType": "ALS"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-12T08:00:00.000Z"
+        },
+        {
+          "id": "35e5d34d-97bf-468f-bf12-dcb836835f9d",
+          "resource": "runway",
+          "targetId": "0aaaf26f-29df-45d3-8330-f85f9838de2f",
+          "changes": {
+            "magneticHeading": 106
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-13T08:00:00.000Z"
+        },
+        {
+          "id": "68dbe9f1-fed8-4e71-b052-9911511afb5e",
+          "resource": "gate",
+          "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
+          "changes": {
+            "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-14T08:00:00.000Z"
         }
       ]
       """
@@ -371,6 +496,91 @@ Feature: List the change request review queue
           "rejectionReason": null,
           "decidedAt": null,
           "createdAt": "2026-09-05T08:00:00.000Z"
+        },
+        {
+          "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
+          "resource": "gate",
+          "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+          "changes": {
+            "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-08T08:00:00.000Z"
+        },
+        {
+          "id": "583fc05f-9aa1-465e-ac0e-96ad7f65d008",
+          "resource": "terminal",
+          "targetId": "104014ec-110e-483d-9f3c-8f6909fe4823",
+          "changes": {
+            "averageTaxiTime": 11
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-10T08:00:00.000Z"
+        },
+        {
+          "id": "8326750a-99ad-413e-8d9f-01f3974f05ef",
+          "resource": "runway",
+          "targetId": "32121288-2550-4b81-a558-9a7193ef6c97",
+          "changes": {
+            "lightingType": "ALS"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-12T08:00:00.000Z"
+        },
+        {
+          "id": "35e5d34d-97bf-468f-bf12-dcb836835f9d",
+          "resource": "runway",
+          "targetId": "0aaaf26f-29df-45d3-8330-f85f9838de2f",
+          "changes": {
+            "magneticHeading": 106
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-13T08:00:00.000Z"
+        },
+        {
+          "id": "68dbe9f1-fed8-4e71-b052-9911511afb5e",
+          "resource": "gate",
+          "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
+          "changes": {
+            "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-14T08:00:00.000Z"
         }
       ]
       """
@@ -637,6 +847,131 @@ Feature: List the change request review queue
           "rejectionReason": "Stand 4 is a contact stand.",
           "decidedAt": "2026-09-07T11:00:00.000Z",
           "createdAt": "2026-09-07T10:00:00.000Z"
+        },
+        {
+          "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
+          "resource": "gate",
+          "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+          "changes": {
+            "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-08T08:00:00.000Z"
+        },
+        {
+          "id": "9a908879-48c0-4981-9d82-d891ec54bbef",
+          "resource": "gate",
+          "targetId": "d0758a79-052d-41ca-a2e6-63646b6aa08e",
+          "changes": {
+            "category": "schengen"
+          },
+          "status": "accepted",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "rejectionReason": null,
+          "decidedAt": "2026-09-09T10:00:00.000Z",
+          "createdAt": "2026-09-09T09:00:00.000Z"
+        },
+        {
+          "id": "583fc05f-9aa1-465e-ac0e-96ad7f65d008",
+          "resource": "terminal",
+          "targetId": "104014ec-110e-483d-9f3c-8f6909fe4823",
+          "changes": {
+            "averageTaxiTime": 11
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-10T08:00:00.000Z"
+        },
+        {
+          "id": "5f18eb02-d70f-4108-b057-80d0a5e6d078",
+          "resource": "terminal",
+          "targetId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+          "changes": {
+            "operatorCodes": ["BAW", "AFR", "KLM"]
+          },
+          "status": "rejected",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": {
+            "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
+            "name": "John Doe"
+          },
+          "rejectionReason": "KLM operates from Terminal 1.",
+          "decidedAt": "2026-09-11T11:00:00.000Z",
+          "createdAt": "2026-09-11T10:00:00.000Z"
+        },
+        {
+          "id": "8326750a-99ad-413e-8d9f-01f3974f05ef",
+          "resource": "runway",
+          "targetId": "32121288-2550-4b81-a558-9a7193ef6c97",
+          "changes": {
+            "lightingType": "ALS"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-12T08:00:00.000Z"
+        },
+        {
+          "id": "35e5d34d-97bf-468f-bf12-dcb836835f9d",
+          "resource": "runway",
+          "targetId": "0aaaf26f-29df-45d3-8330-f85f9838de2f",
+          "changes": {
+            "magneticHeading": 106
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-13T08:00:00.000Z"
+        },
+        {
+          "id": "68dbe9f1-fed8-4e71-b052-9911511afb5e",
+          "resource": "gate",
+          "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
+          "changes": {
+            "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-14T08:00:00.000Z"
         }
       ]
       """
@@ -730,9 +1065,164 @@ Feature: List the change request review queue
       ]
       """
 
-  Scenario: As an operations I cannot filter by a kind of data that is not supported
+  Scenario: As an operations I can list gate change requests only
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/user-data-change-request?resource=gate"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
+          "resource": "gate",
+          "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+          "changes": {
+            "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-08T08:00:00.000Z"
+        },
+        {
+          "id": "9a908879-48c0-4981-9d82-d891ec54bbef",
+          "resource": "gate",
+          "targetId": "d0758a79-052d-41ca-a2e6-63646b6aa08e",
+          "changes": {
+            "category": "schengen"
+          },
+          "status": "accepted",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": {
+            "id": "721ab705-8608-4386-86b4-2f391a3655a7",
+            "name": "Alice Doe"
+          },
+          "rejectionReason": null,
+          "decidedAt": "2026-09-09T10:00:00.000Z",
+          "createdAt": "2026-09-09T09:00:00.000Z"
+        },
+        {
+          "id": "68dbe9f1-fed8-4e71-b052-9911511afb5e",
+          "resource": "gate",
+          "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
+          "changes": {
+            "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-14T08:00:00.000Z"
+        }
+      ]
+      """
+
+  Scenario: As an operations I can list terminal change requests only
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/user-data-change-request?resource=terminal"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "583fc05f-9aa1-465e-ac0e-96ad7f65d008",
+          "resource": "terminal",
+          "targetId": "104014ec-110e-483d-9f3c-8f6909fe4823",
+          "changes": {
+            "averageTaxiTime": 11
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-10T08:00:00.000Z"
+        },
+        {
+          "id": "5f18eb02-d70f-4108-b057-80d0a5e6d078",
+          "resource": "terminal",
+          "targetId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+          "changes": {
+            "operatorCodes": ["BAW", "AFR", "KLM"]
+          },
+          "status": "rejected",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": {
+            "id": "e181d983-3b69-4be2-864e-2a7596217ddf",
+            "name": "John Doe"
+          },
+          "rejectionReason": "KLM operates from Terminal 1.",
+          "decidedAt": "2026-09-11T11:00:00.000Z",
+          "createdAt": "2026-09-11T10:00:00.000Z"
+        }
+      ]
+      """
+
+  Scenario: As an operations I can list runway change requests only
     Given I am signed in as "operations"
     When I send a "GET" request to "/api/v1/user-data-change-request?resource=runway"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      [
+        {
+          "id": "8326750a-99ad-413e-8d9f-01f3974f05ef",
+          "resource": "runway",
+          "targetId": "32121288-2550-4b81-a558-9a7193ef6c97",
+          "changes": {
+            "lightingType": "ALS"
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
+            "name": "Rick Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-12T08:00:00.000Z"
+        },
+        {
+          "id": "35e5d34d-97bf-468f-bf12-dcb836835f9d",
+          "resource": "runway",
+          "targetId": "0aaaf26f-29df-45d3-8330-f85f9838de2f",
+          "changes": {
+            "magneticHeading": 106
+          },
+          "status": "pending",
+          "requestedBy": {
+            "id": "725f5df2-0c78-4fe8-89a2-52566c89cf7f",
+            "name": "Alan Doe"
+          },
+          "decidedBy": null,
+          "rejectionReason": null,
+          "decidedAt": null,
+          "createdAt": "2026-09-13T08:00:00.000Z"
+        }
+      ]
+      """
+
+  Scenario: As an operations I cannot filter by a kind of data that is not supported
+    Given I am signed in as "operations"
+    When I send a "GET" request to "/api/v1/user-data-change-request?resource=aircraft"
     Then the response status should be 400
     And the response body should contain:
       """json
@@ -741,7 +1231,7 @@ Feature: List the change request review queue
         "message": "Request validation failed.",
         "error": "Bad Request",
         "violations": {
-          "resource": ["resource must be one of the following values: airport, parkingPosition"]
+          "resource": ["resource must be one of the following values: airport, parkingPosition, gate, terminal, runway"]
         }
       }
       """
