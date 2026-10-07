@@ -6,13 +6,20 @@ import { AssertCityExistsQuery } from '../../../airports/application/assert/asse
 import { GetAirportByIdQuery } from '../../../airports/application/query/get-airport-by-id.query';
 import { UpdateAirportCommand } from '../../../airports/application/command/update-airport.command';
 import { ReassignAirportCityCommand } from '../../../airports/application/command/reassign-airport-city.command';
-import { ChangeRequestTarget } from '../../model/change-request-target';
+import { FindCityQuery } from '../../../airports/application/query/city/find-city.query';
+import {
+  AirportSummaries,
+  ChangeRequestTarget,
+} from '../../model/change-request-target';
 import {
   ChangeRequestChanges,
   ChangeRequestResource,
+  ChangeRequestTargetSummary,
 } from '../../model/change-request.model';
 import { AirportValues } from '../../model/airport-change.model';
+import { FieldReferences } from '../../model/change-request.diff';
 import { ChangeRequestTargetNotFoundError } from '../../model/error/change-request.error';
+import { nullWhenNotFound } from './target-summary';
 
 type AirportResource = typeof ChangeRequestResource.airport;
 
@@ -28,6 +35,9 @@ export class AirportChangeRequestTarget implements ChangeRequestTarget<AirportRe
     'location',
     'shape',
   ] as const satisfies readonly (keyof AirportValues)[];
+  readonly references: FieldReferences<AirportValues> = {
+    cityId: (cityId) => this.cityName(cityId),
+  };
 
   constructor(
     private readonly queryBus: QueryBus,
@@ -67,6 +77,15 @@ export class AirportChangeRequestTarget implements ChangeRequestTarget<AirportRe
     };
   }
 
+  async describe(
+    targetId: string,
+    airports: AirportSummaries,
+  ): Promise<ChangeRequestTargetSummary | null> {
+    const airport = await airports(targetId);
+
+    return airport && { label: airport.name, airport };
+  }
+
   async apply(
     targetId: string,
     changes: ChangeRequestChanges<AirportResource>,
@@ -82,5 +101,12 @@ export class AirportChangeRequestTarget implements ChangeRequestTarget<AirportRe
       const command = new ReassignAirportCityCommand(targetId, cityId);
       await this.commandBus.execute(command);
     }
+  }
+
+  private async cityName(cityId: string): Promise<string | null> {
+    const query = new FindCityQuery(cityId);
+    const city = await nullWhenNotFound(this.queryBus.execute(query));
+
+    return city?.name ?? null;
   }
 }

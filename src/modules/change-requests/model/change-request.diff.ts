@@ -51,3 +51,37 @@ export function changesAnything(
       !isDeepStrictEqual(structuredClone(current), structuredClone(proposed)),
   );
 }
+
+export type ReferenceResolver = (id: string) => Promise<string | null>;
+
+export type FieldReferences<T> = Partial<Record<FieldOf<T>, ReferenceResolver>>;
+
+export type LabelledFieldChange<T> = FieldChange<T> & {
+  currentLabel?: string | null;
+  proposedLabel?: string | null;
+};
+
+function labelOf(resolve: ReferenceResolver, value: unknown) {
+  return typeof value === 'string' ? resolve(value) : Promise.resolve(null);
+}
+
+export function labelFieldChanges<T extends object>(
+  diff: readonly FieldChange<T>[],
+  references: FieldReferences<T>,
+): Promise<LabelledFieldChange<T>[]> {
+  return Promise.all(
+    diff.map(async (change): Promise<LabelledFieldChange<T>> => {
+      const resolve = references[change.field];
+      if (!resolve) {
+        return change;
+      }
+
+      const [currentLabel, proposedLabel] = await Promise.all([
+        labelOf(resolve, change.current),
+        labelOf(resolve, change.proposed),
+      ]);
+
+      return { ...change, currentLabel, proposedLabel };
+    }),
+  );
+}

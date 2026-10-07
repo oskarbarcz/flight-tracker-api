@@ -39,6 +39,48 @@ export class ChangeRequestParticipant {
   name!: string;
 }
 
+export class ChangeRequestTargetAirport {
+  @ApiProperty({
+    description: 'Airport unique system identifier.',
+    example: '616cbdd7-ccfc-4687-8cf6-1e7236435046',
+  })
+  id!: string;
+
+  @ApiProperty({
+    description: 'Airport ICAO code.',
+    example: 'EPWA',
+  })
+  icaoCode!: string;
+
+  @ApiProperty({
+    description: 'Airport IATA code.',
+    example: 'WAW',
+  })
+  iataCode!: string;
+
+  @ApiProperty({
+    description: 'Airport name.',
+    example: 'Warsaw Chopin',
+  })
+  name!: string;
+}
+
+export class ChangeRequestTargetSummary {
+  @ApiProperty({
+    description:
+      'Name of the targeted record as it reads now: the airport name, the stand or gate name, the terminal short name or the runway designator.',
+    example: 'Warsaw Chopin',
+  })
+  label!: string;
+
+  @ApiProperty({
+    description:
+      'Airport the targeted record belongs to; for an airport change request, the airport itself.',
+    type: ChangeRequestTargetAirport,
+  })
+  airport!: ChangeRequestTargetAirport;
+}
+
 export class ChangedField {
   @ApiProperty({
     description: 'Name of the field the user data change request touches.',
@@ -71,6 +113,26 @@ export class ChangedField {
     nullable: true,
   })
   proposed!: unknown;
+
+  @ApiProperty({
+    description:
+      'Name of the record `current` refers to, present only on fields holding an id (`cityId`, `terminalId`, `parkingPositionId`). `null` when `current` is `null` or the record no longer exists.',
+    example: 'Terminal 1',
+    required: false,
+    nullable: true,
+    type: String,
+  })
+  currentLabel?: string | null;
+
+  @ApiProperty({
+    description:
+      'Name of the record `proposed` refers to, present only on fields holding an id (`cityId`, `terminalId`, `parkingPositionId`). `null` when `proposed` is `null` or the record no longer exists.',
+    example: 'Terminal 2',
+    required: false,
+    nullable: true,
+    type: String,
+  })
+  proposedLabel?: string | null;
 }
 
 export class ChangeRequest {
@@ -92,6 +154,14 @@ export class ChangeRequest {
     example: '616cbdd7-ccfc-4687-8cf6-1e7236435046',
   })
   targetId!: string;
+
+  @ApiProperty({
+    description:
+      'The targeted record as it reads now, with the airport it belongs to. `null` once the record no longer exists.',
+    type: ChangeRequestTargetSummary,
+    nullable: true,
+  })
+  target!: ChangeRequestTargetSummary | null;
 
   @ApiProperty({
     description:
@@ -160,7 +230,7 @@ export class ChangeRequestWithFields extends ChangeRequest {
 
 export type TypedChangeRequest<R extends ChangeRequestResource> = Omit<
   ChangeRequest,
-  'resource' | 'changes'
+  'resource' | 'changes' | 'target'
 > & {
   resource: R;
   changes: ChangeRequestChanges<R>;

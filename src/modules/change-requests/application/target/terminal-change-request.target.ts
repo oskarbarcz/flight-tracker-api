@@ -4,16 +4,22 @@ import { NotFoundError } from '../../../../core/errors/domain-error';
 import { FindTerminalQuery } from '../../../airports/application/query/terminal/find-terminal.query';
 import { UpdateTerminalCommand } from '../../../airports/application/command/terminals/update-terminal.command';
 import { GetTerminalResponse } from '../../../airports/infra/http/request/terminal.dto';
-import { ChangeRequestTarget } from '../../model/change-request-target';
+import {
+  AirportSummaries,
+  ChangeRequestTarget,
+} from '../../model/change-request-target';
 import {
   ChangeRequestChanges,
   ChangeRequestResource,
+  ChangeRequestTargetSummary,
 } from '../../model/change-request.model';
 import {
   TERMINAL_FIELDS,
   TerminalValues,
 } from '../../model/terminal-change.model';
+import { FieldReferences } from '../../model/change-request.diff';
 import { ChangeRequestTargetNotFoundError } from '../../model/error/change-request.error';
+import { nullWhenNotFound, summarizeTarget } from './target-summary';
 
 type TerminalResource = typeof ChangeRequestResource.terminal;
 
@@ -21,6 +27,7 @@ type TerminalResource = typeof ChangeRequestResource.terminal;
 export class TerminalChangeRequestTarget implements ChangeRequestTarget<TerminalResource> {
   readonly resource = ChangeRequestResource.terminal;
   readonly fields = TERMINAL_FIELDS;
+  readonly references: FieldReferences<TerminalValues> = {};
 
   constructor(
     private readonly queryBus: QueryBus,
@@ -47,6 +54,18 @@ export class TerminalChangeRequestTarget implements ChangeRequestTarget<Terminal
       text: terminal.text ?? null,
       shape: terminal.shape ?? null,
     };
+  }
+
+  async describe(
+    targetId: string,
+    airports: AirportSummaries,
+  ): Promise<ChangeRequestTargetSummary | null> {
+    const terminal = await nullWhenNotFound(this.find(targetId));
+
+    return (
+      terminal &&
+      summarizeTarget(airports, terminal.airportId, terminal.shortName)
+    );
   }
 
   async apply(

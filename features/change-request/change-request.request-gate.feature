@@ -19,6 +19,15 @@ Feature: Propose a change to a gate
         "id": "@uuid",
         "resource": "gate",
         "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "target": {
+          "label": "A10",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64",
           "coordinates": {
@@ -39,7 +48,9 @@ Feature: Propose a change to a gate
           {
             "field": "parkingPositionId",
             "current": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
-            "proposed": "77646d11-415c-4090-bc2b-e85cd1814b64"
+            "currentLabel": "B 42",
+            "proposed": "77646d11-415c-4090-bc2b-e85cd1814b64",
+            "proposedLabel": "445"
           },
           {
             "field": "coordinates",
@@ -89,6 +100,15 @@ Feature: Propose a change to a gate
         "id": "@uuid",
         "resource": "gate",
         "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "target": {
+          "label": "A10",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "parkingPositionId": null
         },
@@ -105,7 +125,9 @@ Feature: Propose a change to a gate
           {
             "field": "parkingPositionId",
             "current": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
-            "proposed": null
+            "currentLabel": "B 42",
+            "proposed": null,
+            "proposedLabel": null
           }
         ]
       }

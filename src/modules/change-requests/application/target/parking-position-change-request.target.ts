@@ -5,16 +5,23 @@ import { FindParkingPositionQuery } from '../../../airports/application/query/pa
 import { AssertTerminalBelongsToAirportQuery } from '../../../airports/application/assert/assert-terminal-belongs-to-airport.query';
 import { UpdateParkingPositionCommand } from '../../../airports/application/command/parking-positions/update-parking-position.command';
 import { GetParkingPositionResponse } from '../../../airports/infra/http/request/parking-position.dto';
-import { ChangeRequestTarget } from '../../model/change-request-target';
+import {
+  AirportSummaries,
+  ChangeRequestTarget,
+} from '../../model/change-request-target';
 import {
   ChangeRequestChanges,
   ChangeRequestResource,
+  ChangeRequestTargetSummary,
 } from '../../model/change-request.model';
 import {
   PARKING_POSITION_FIELDS,
   ParkingPositionValues,
 } from '../../model/parking-position-change.model';
+import { FieldReferences } from '../../model/change-request.diff';
 import { ChangeRequestTargetNotFoundError } from '../../model/error/change-request.error';
+import { nullWhenNotFound, summarizeTarget } from './target-summary';
+import { terminalShortName } from './reference-labels';
 
 type ParkingPositionResource = typeof ChangeRequestResource.parkingPosition;
 
@@ -22,6 +29,9 @@ type ParkingPositionResource = typeof ChangeRequestResource.parkingPosition;
 export class ParkingPositionChangeRequestTarget implements ChangeRequestTarget<ParkingPositionResource> {
   readonly resource = ChangeRequestResource.parkingPosition;
   readonly fields = PARKING_POSITION_FIELDS;
+  readonly references: FieldReferences<ParkingPositionValues> = {
+    terminalId: (terminalId) => terminalShortName(this.queryBus, terminalId),
+  };
 
   constructor(
     private readonly queryBus: QueryBus,
@@ -72,6 +82,18 @@ export class ParkingPositionChangeRequestTarget implements ChangeRequestTarget<P
       fuelingOptions: parkingPosition.fuelingOptions,
       coordinates: parkingPosition.coordinates ?? null,
     };
+  }
+
+  async describe(
+    targetId: string,
+    airports: AirportSummaries,
+  ): Promise<ChangeRequestTargetSummary | null> {
+    const parkingPosition = await nullWhenNotFound(this.find(targetId));
+
+    return (
+      parkingPosition &&
+      summarizeTarget(airports, parkingPosition.airportId, parkingPosition.name)
+    );
   }
 
   async apply(

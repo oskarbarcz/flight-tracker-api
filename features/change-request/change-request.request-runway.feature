@@ -16,6 +16,15 @@ Feature: Propose a change to a runway
         "id": "@uuid",
         "resource": "runway",
         "targetId": "32121288-2550-4b81-a558-9a7193ef6c97",
+        "target": {
+          "label": "07C",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "lightingType": "ALS",
           "magneticHeading": 73

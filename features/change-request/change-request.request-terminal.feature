@@ -16,6 +16,15 @@ Feature: Propose a change to a terminal
         "id": "@uuid",
         "resource": "terminal",
         "targetId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+        "target": {
+          "label": "T2",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "averageTaxiTime": 16,
           "operatorCodes": ["BAW", "AFR", "UAE"]
@@ -90,6 +99,15 @@ Feature: Propose a change to a terminal
         "id": "@uuid",
         "resource": "terminal",
         "targetId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+        "target": {
+          "label": "T2",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "shape": [
             { "latitude": 50.0515, "longitude": 8.5846 },

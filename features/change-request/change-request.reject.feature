@@ -15,6 +15,15 @@ Feature: Reject a change request
         "id": "acd93eae-b731-4794-9060-b7652bbc9905",
         "resource": "airport",
         "targetId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+        "target": {
+          "label": "Warsaw Chopin",
+          "airport": {
+            "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+            "icaoCode": "EPWA",
+            "iataCode": "WAW",
+            "name": "Warsaw Chopin"
+          }
+        },
         "changes": {
           "name": "Warsaw Chopin Airport",
           "location": {
@@ -98,6 +107,15 @@ Feature: Reject a change request
         "id": "c751e610-c091-4b05-ae1e-9b1ad86d6f61",
         "resource": "airport",
         "targetId": "93a9db1c-5047-489c-a018-178c3abd8a02",
+        "target": {
+          "label": "Paris Orly",
+          "airport": {
+            "id": "93a9db1c-5047-489c-a018-178c3abd8a02",
+            "icaoCode": "LFPO",
+            "iataCode": "ORY",
+            "name": "Paris Orly"
+          }
+        },
         "changes": {
           "shape": [
             {

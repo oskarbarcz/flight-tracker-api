@@ -4,13 +4,19 @@ import { NotFoundError } from '../../../../core/errors/domain-error';
 import { FindRunwayQuery } from '../../../airports/application/query/runway/find-runway.query';
 import { UpdateRunwayCommand } from '../../../airports/application/command/runways/update-runway.command';
 import { GetRunwayResponse } from '../../../airports/infra/http/request/runway.dto';
-import { ChangeRequestTarget } from '../../model/change-request-target';
+import {
+  AirportSummaries,
+  ChangeRequestTarget,
+} from '../../model/change-request-target';
 import {
   ChangeRequestChanges,
   ChangeRequestResource,
+  ChangeRequestTargetSummary,
 } from '../../model/change-request.model';
 import { RUNWAY_FIELDS, RunwayValues } from '../../model/runway-change.model';
+import { FieldReferences } from '../../model/change-request.diff';
 import { ChangeRequestTargetNotFoundError } from '../../model/error/change-request.error';
+import { nullWhenNotFound, summarizeTarget } from './target-summary';
 
 type RunwayResource = typeof ChangeRequestResource.runway;
 
@@ -18,6 +24,7 @@ type RunwayResource = typeof ChangeRequestResource.runway;
 export class RunwayChangeRequestTarget implements ChangeRequestTarget<RunwayResource> {
   readonly resource = ChangeRequestResource.runway;
   readonly fields = RUNWAY_FIELDS;
+  readonly references: FieldReferences<RunwayValues> = {};
 
   constructor(
     private readonly queryBus: QueryBus,
@@ -48,6 +55,17 @@ export class RunwayChangeRequestTarget implements ChangeRequestTarget<RunwayReso
       lightingType: runway.lightingType,
       coordinates: runway.coordinates,
     };
+  }
+
+  async describe(
+    targetId: string,
+    airports: AirportSummaries,
+  ): Promise<ChangeRequestTargetSummary | null> {
+    const runway = await nullWhenNotFound(this.find(targetId));
+
+    return (
+      runway && summarizeTarget(airports, runway.airportId, runway.designator)
+    );
   }
 
   async apply(

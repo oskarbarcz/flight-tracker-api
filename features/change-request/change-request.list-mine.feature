@@ -11,6 +11,15 @@ Feature: List the change requests I proposed
           "id": "8326750a-99ad-413e-8d9f-01f3974f05ef",
           "resource": "runway",
           "targetId": "32121288-2550-4b81-a558-9a7193ef6c97",
+          "target": {
+            "label": "07C",
+            "airport": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "icaoCode": "EDDF",
+              "iataCode": "FRA",
+              "name": "Frankfurt Rhein/Main"
+            }
+          },
           "changes": {
             "lightingType": "ALS"
           },
@@ -28,6 +37,15 @@ Feature: List the change requests I proposed
           "id": "5f18eb02-d70f-4108-b057-80d0a5e6d078",
           "resource": "terminal",
           "targetId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+          "target": {
+            "label": "T2",
+            "airport": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "icaoCode": "EDDF",
+              "iataCode": "FRA",
+              "name": "Frankfurt Rhein/Main"
+            }
+          },
           "changes": {
             "operatorCodes": ["BAW", "AFR", "KLM"]
           },
@@ -48,6 +66,15 @@ Feature: List the change requests I proposed
           "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
           "resource": "gate",
           "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+          "target": {
+            "label": "A10",
+            "airport": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "icaoCode": "EDDF",
+              "iataCode": "FRA",
+              "name": "Frankfurt Rhein/Main"
+            }
+          },
           "changes": {
             "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
           },
@@ -65,6 +92,15 @@ Feature: List the change requests I proposed
           "id": "e553f881-364c-42a1-99e5-cf49272bffb1",
           "resource": "parkingPosition",
           "targetId": "5537f377-dc35-41a9-9eda-c4db2f9a6431",
+          "target": {
+            "label": "4",
+            "airport": {
+              "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+              "icaoCode": "EPWA",
+              "iataCode": "WAW",
+              "name": "Warsaw Chopin"
+            }
+          },
           "changes": {
             "location": "remote"
           },
@@ -85,6 +121,15 @@ Feature: List the change requests I proposed
           "id": "5893d122-729a-4074-a336-db81dfe9122a",
           "resource": "parkingPosition",
           "targetId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+          "target": {
+            "label": "A11",
+            "airport": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "icaoCode": "EDDF",
+              "iataCode": "FRA",
+              "name": "Frankfurt Rhein/Main"
+            }
+          },
           "changes": {
             "gpu": "both",
             "coordinates": {
@@ -106,6 +151,15 @@ Feature: List the change requests I proposed
           "id": "c751e610-c091-4b05-ae1e-9b1ad86d6f61",
           "resource": "airport",
           "targetId": "93a9db1c-5047-489c-a018-178c3abd8a02",
+          "target": {
+            "label": "Paris Orly",
+            "airport": {
+              "id": "93a9db1c-5047-489c-a018-178c3abd8a02",
+              "icaoCode": "LFPO",
+              "iataCode": "ORY",
+              "name": "Paris Orly"
+            }
+          },
           "changes": {
             "shape": [
               {
@@ -140,6 +194,15 @@ Feature: List the change requests I proposed
           "id": "acd93eae-b731-4794-9060-b7652bbc9905",
           "resource": "airport",
           "targetId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+          "target": {
+            "label": "Warsaw Chopin",
+            "airport": {
+              "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+              "icaoCode": "EPWA",
+              "iataCode": "WAW",
+              "name": "Warsaw Chopin"
+            }
+          },
           "changes": {
             "name": "Warsaw Chopin Airport",
             "location": {
@@ -161,6 +224,15 @@ Feature: List the change requests I proposed
           "id": "683772a9-4b12-40d5-b7f4-33854fd93d3a",
           "resource": "airport",
           "targetId": "8b47e2d1-3f96-4c58-b0a7-6d2e9f1c4a83",
+          "target": {
+            "label": "Gander Intl",
+            "airport": {
+              "id": "8b47e2d1-3f96-4c58-b0a7-6d2e9f1c4a83",
+              "icaoCode": "CYQX",
+              "iataCode": "YQX",
+              "name": "Gander Intl"
+            }
+          },
           "changes": {
             "name": "Gander International"
           },
@@ -178,6 +250,15 @@ Feature: List the change requests I proposed
           "id": "61c109eb-1d4c-41b5-b25c-a2be96984793",
           "resource": "airport",
           "targetId": "f35c094a-bec5-4803-be32-bd80a14b441a",
+          "target": {
+            "label": "Frankfurt Rhein/Main",
+            "airport": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "icaoCode": "EDDF",
+              "iataCode": "FRA",
+              "name": "Frankfurt Rhein/Main"
+            }
+          },
           "changes": {
             "timezone": "Europe/Berlin"
           },
@@ -208,6 +289,15 @@ Feature: List the change requests I proposed
           "id": "8326750a-99ad-413e-8d9f-01f3974f05ef",
           "resource": "runway",
           "targetId": "32121288-2550-4b81-a558-9a7193ef6c97",
+          "target": {
+            "label": "07C",
+            "airport": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "icaoCode": "EDDF",
+              "iataCode": "FRA",
+              "name": "Frankfurt Rhein/Main"
+            }
+          },
           "changes": {
             "lightingType": "ALS"
           },
@@ -225,6 +315,15 @@ Feature: List the change requests I proposed
           "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
           "resource": "gate",
           "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+          "target": {
+            "label": "A10",
+            "airport": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "icaoCode": "EDDF",
+              "iataCode": "FRA",
+              "name": "Frankfurt Rhein/Main"
+            }
+          },
           "changes": {
             "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
           },
@@ -242,6 +341,15 @@ Feature: List the change requests I proposed
           "id": "5893d122-729a-4074-a336-db81dfe9122a",
           "resource": "parkingPosition",
           "targetId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+          "target": {
+            "label": "A11",
+            "airport": {
+              "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+              "icaoCode": "EDDF",
+              "iataCode": "FRA",
+              "name": "Frankfurt Rhein/Main"
+            }
+          },
           "changes": {
             "gpu": "both",
             "coordinates": {
@@ -263,6 +371,15 @@ Feature: List the change requests I proposed
           "id": "c751e610-c091-4b05-ae1e-9b1ad86d6f61",
           "resource": "airport",
           "targetId": "93a9db1c-5047-489c-a018-178c3abd8a02",
+          "target": {
+            "label": "Paris Orly",
+            "airport": {
+              "id": "93a9db1c-5047-489c-a018-178c3abd8a02",
+              "icaoCode": "LFPO",
+              "iataCode": "ORY",
+              "name": "Paris Orly"
+            }
+          },
           "changes": {
             "shape": [
               {
@@ -297,6 +414,15 @@ Feature: List the change requests I proposed
           "id": "acd93eae-b731-4794-9060-b7652bbc9905",
           "resource": "airport",
           "targetId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+          "target": {
+            "label": "Warsaw Chopin",
+            "airport": {
+              "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+              "icaoCode": "EPWA",
+              "iataCode": "WAW",
+              "name": "Warsaw Chopin"
+            }
+          },
           "changes": {
             "name": "Warsaw Chopin Airport",
             "location": {
@@ -328,6 +454,15 @@ Feature: List the change requests I proposed
           "id": "11fd5e75-3857-424e-ab48-310a29f0d7ce",
           "resource": "airport",
           "targetId": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+          "target": {
+            "label": "Boston Logan Intl",
+            "airport": {
+              "id": "c03a79fb-c5ae-46c3-95fe-f3b5dc7b85f3",
+              "icaoCode": "KBOS",
+              "iataCode": "BOS",
+              "name": "Boston Logan Intl"
+            }
+          },
           "changes": {
             "continent": "europe"
           },
