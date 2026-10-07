@@ -10,6 +10,15 @@ Feature: Accept a change request
         "id": "18b07434-9994-451c-aa41-bb45b8386c65",
         "resource": "airport",
         "targetId": "c39d6f52-84a1-4b73-9e6c-1f8a3d7b5e29",
+        "target": {
+          "label": "Ireland West Airport Knock",
+          "airport": {
+            "id": "c39d6f52-84a1-4b73-9e6c-1f8a3d7b5e29",
+            "icaoCode": "EIKN",
+            "iataCode": "NOC",
+            "name": "Ireland West Airport Knock"
+          }
+        },
         "changes": {
           "name": "Ireland West Airport Knock",
           "cityId": "5a2e8c17-9b64-4d3f-8e71-2c6a9f4b1d83"
@@ -35,7 +44,9 @@ Feature: Accept a change request
           {
             "field": "cityId",
             "current": "5a2e8c17-9b64-4d3f-8e71-2c6a9f4b1d83",
-            "proposed": "5a2e8c17-9b64-4d3f-8e71-2c6a9f4b1d83"
+            "currentLabel": "Shannon",
+            "proposed": "5a2e8c17-9b64-4d3f-8e71-2c6a9f4b1d83",
+            "proposedLabel": "Shannon"
           }
         ]
       }
@@ -79,6 +90,15 @@ Feature: Accept a change request
         "id": "c751e610-c091-4b05-ae1e-9b1ad86d6f61",
         "resource": "airport",
         "targetId": "93a9db1c-5047-489c-a018-178c3abd8a02",
+        "target": {
+          "label": "Paris Orly",
+          "airport": {
+            "id": "93a9db1c-5047-489c-a018-178c3abd8a02",
+            "icaoCode": "LFPO",
+            "iataCode": "ORY",
+            "name": "Paris Orly"
+          }
+        },
         "changes": {
           "shape": [
             {
@@ -217,6 +237,15 @@ Feature: Accept a change request
         "id": "acd93eae-b731-4794-9060-b7652bbc9905",
         "resource": "airport",
         "targetId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+        "target": {
+          "label": "Warsaw Chopin Airport",
+          "airport": {
+            "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+            "icaoCode": "EPWA",
+            "iataCode": "WAW",
+            "name": "Warsaw Chopin Airport"
+          }
+        },
         "changes": {
           "name": "Warsaw Chopin Airport",
           "location": {
@@ -303,6 +332,15 @@ Feature: Accept a change request
         "id": "6fb17bfe-1836-4aaa-b68c-ce72f5440871",
         "resource": "airport",
         "targetId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+        "target": {
+          "label": "Lotnisko Chopina",
+          "airport": {
+            "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+            "icaoCode": "EPWA",
+            "iataCode": "WAW",
+            "name": "Lotnisko Chopina"
+          }
+        },
         "changes": {
           "name": "Lotnisko Chopina"
         },
@@ -366,6 +404,15 @@ Feature: Accept a change request
         "id": "b0c0a3c7-c369-45ca-8306-8a434cfeac9c",
         "resource": "parkingPosition",
         "targetId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+        "target": {
+          "label": "B42",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "name": "B42",
           "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
@@ -391,7 +438,9 @@ Feature: Accept a change request
           {
             "field": "terminalId",
             "current": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
-            "proposed": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+            "currentLabel": "T2",
+            "proposed": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+            "proposedLabel": "T2"
           }
         ]
       }
@@ -438,6 +487,15 @@ Feature: Accept a change request
         "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
         "resource": "gate",
         "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "target": {
+          "label": "A10",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
         },
@@ -457,7 +515,9 @@ Feature: Accept a change request
           {
             "field": "parkingPositionId",
             "current": "77646d11-415c-4090-bc2b-e85cd1814b64",
-            "proposed": "77646d11-415c-4090-bc2b-e85cd1814b64"
+            "currentLabel": "445",
+            "proposed": "77646d11-415c-4090-bc2b-e85cd1814b64",
+            "proposedLabel": "445"
           }
         ]
       }
@@ -503,6 +563,15 @@ Feature: Accept a change request
         "id": "a39dfa76-d9ed-4b1c-8767-767f5a27c634",
         "resource": "gate",
         "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2101",
+        "target": {
+          "label": "A10",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "parkingPositionId": "77646d11-415c-4090-bc2b-e85cd1814b64"
         },
@@ -519,7 +588,9 @@ Feature: Accept a change request
           {
             "field": "parkingPositionId",
             "current": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
-            "proposed": "77646d11-415c-4090-bc2b-e85cd1814b64"
+            "currentLabel": "B 42",
+            "proposed": "77646d11-415c-4090-bc2b-e85cd1814b64",
+            "proposedLabel": null
           }
         ]
       }
@@ -565,6 +636,15 @@ Feature: Accept a change request
         "id": "68dbe9f1-fed8-4e71-b052-9911511afb5e",
         "resource": "gate",
         "targetId": "4c2d3df4-3b5a-4f3c-9a21-7f1e9cbd2102",
+        "target": {
+          "label": "A11",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
         },
@@ -581,7 +661,9 @@ Feature: Accept a change request
           {
             "field": "terminalId",
             "current": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
-            "proposed": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+            "currentLabel": "T1",
+            "proposed": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+            "proposedLabel": null
           }
         ]
       }
@@ -615,6 +697,15 @@ Feature: Accept a change request
         "id": "583fc05f-9aa1-465e-ac0e-96ad7f65d008",
         "resource": "terminal",
         "targetId": "104014ec-110e-483d-9f3c-8f6909fe4823",
+        "target": {
+          "label": "TA",
+          "airport": {
+            "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+            "icaoCode": "EPWA",
+            "iataCode": "WAW",
+            "name": "Warsaw Chopin"
+          }
+        },
         "changes": {
           "averageTaxiTime": 11
         },
@@ -687,6 +778,15 @@ Feature: Accept a change request
         "id": "8326750a-99ad-413e-8d9f-01f3974f05ef",
         "resource": "runway",
         "targetId": "32121288-2550-4b81-a558-9a7193ef6c97",
+        "target": {
+          "label": "07C",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "lightingType": "ALS"
         },

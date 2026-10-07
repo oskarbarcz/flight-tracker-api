@@ -1,6 +1,10 @@
 import { plainToInstance } from 'class-transformer';
 import { Coordinates } from '../../airports/model/airport.model';
-import { changesAnything, diffChangeRequest } from './change-request.diff';
+import {
+  changesAnything,
+  diffChangeRequest,
+  labelFieldChanges,
+} from './change-request.diff';
 
 type Values = {
   name: string;
@@ -116,5 +120,65 @@ describe('changesAnything', () => {
 
   it('is false for an empty diff', () => {
     expect(changesAnything([])).toBe(false);
+  });
+});
+
+describe('labelFieldChanges', () => {
+  const cities: Record<string, string> = {
+    'ec2d2121-804b-4f8f-a9d7-991ebd8465e8': 'Warsaw',
+    '5a2e8c17-9b64-4d3f-8e71-2c6a9f4b1d83': 'Shannon',
+  };
+  const cityName = (id: string) => Promise.resolve(cities[id] ?? null);
+
+  it('labels both sides of a field that holds an id', async () => {
+    const diff = diffChangeRequest(fields, current, {
+      cityId: '5a2e8c17-9b64-4d3f-8e71-2c6a9f4b1d83',
+    });
+
+    const labelled = await labelFieldChanges(diff, { cityId: cityName });
+
+    expect(labelled).toEqual([
+      {
+        field: 'cityId',
+        current: 'ec2d2121-804b-4f8f-a9d7-991ebd8465e8',
+        currentLabel: 'Warsaw',
+        proposed: '5a2e8c17-9b64-4d3f-8e71-2c6a9f4b1d83',
+        proposedLabel: 'Shannon',
+      },
+    ]);
+  });
+
+  it('leaves fields without a reference unlabelled', async () => {
+    const diff = diffChangeRequest(fields, current, {
+      name: 'Warsaw Chopin Airport',
+    });
+
+    const labelled = await labelFieldChanges(diff, { cityId: cityName });
+
+    expect(labelled).toEqual([
+      {
+        field: 'name',
+        current: 'Warsaw Chopin',
+        proposed: 'Warsaw Chopin Airport',
+      },
+    ]);
+  });
+
+  it('labels a null side or an unknown record as null', async () => {
+    const diff = diffChangeRequest<Values>(fields, null, {
+      cityId: '0b8f8c29-6a0e-4d55-9a3a-77f1d1e2c3b4',
+    });
+
+    const labelled = await labelFieldChanges(diff, { cityId: cityName });
+
+    expect(labelled).toEqual([
+      {
+        field: 'cityId',
+        current: null,
+        currentLabel: null,
+        proposed: '0b8f8c29-6a0e-4d55-9a3a-77f1d1e2c3b4',
+        proposedLabel: null,
+      },
+    ]);
   });
 });

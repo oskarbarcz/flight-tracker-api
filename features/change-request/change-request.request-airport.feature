@@ -19,6 +19,15 @@ Feature: Propose a change to an airport
         "id": "@uuid",
         "resource": "airport",
         "targetId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+        "target": {
+          "label": "Warsaw Chopin",
+          "airport": {
+            "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+            "icaoCode": "EPWA",
+            "iataCode": "WAW",
+            "name": "Warsaw Chopin"
+          }
+        },
         "changes": {
           "timezone": "Europe/Berlin",
           "location": {
@@ -99,6 +108,15 @@ Feature: Propose a change to an airport
         "id": "@uuid",
         "resource": "airport",
         "targetId": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+        "target": {
+          "label": "Philadelphia Intl",
+          "airport": {
+            "id": "e764251b-bb25-4e8b-8cc7-11b0397b4554",
+            "icaoCode": "KPHL",
+            "iataCode": "PHL",
+            "name": "Philadelphia Intl"
+          }
+        },
         "changes": {
           "cityId": "6ef8953e-7c45-417a-b850-7e3c53de54cd"
         },
@@ -115,7 +133,9 @@ Feature: Propose a change to an airport
           {
             "field": "cityId",
             "current": "e30d5e72-29ca-4f01-8e75-fdc55e3b296a",
-            "proposed": "6ef8953e-7c45-417a-b850-7e3c53de54cd"
+            "currentLabel": "Philadelphia",
+            "proposed": "6ef8953e-7c45-417a-b850-7e3c53de54cd",
+            "proposedLabel": "New York"
           }
         ]
       }
@@ -137,6 +157,15 @@ Feature: Propose a change to an airport
         "id": "@uuid",
         "resource": "airport",
         "targetId": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+        "target": {
+          "label": "Warsaw Chopin",
+          "airport": {
+            "id": "616cbdd7-ccfc-4687-8cf6-1e7236435046",
+            "icaoCode": "EPWA",
+            "iataCode": "WAW",
+            "name": "Warsaw Chopin"
+          }
+        },
         "changes": {
           "continent": "asia"
         },
@@ -242,6 +271,15 @@ Feature: Propose a change to an airport
         "id": "@uuid",
         "resource": "airport",
         "targetId": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
+        "target": {
+          "label": "St. Johns Intl",
+          "airport": {
+            "id": "6cf1fcd8-d072-46b5-8132-bd885b43dd97",
+            "icaoCode": "CYYT",
+            "iataCode": "YYT",
+            "name": "St. Johns Intl"
+          }
+        },
         "changes": {
           "shape": null
         },

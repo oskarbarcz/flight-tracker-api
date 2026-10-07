@@ -1,7 +1,10 @@
 import { IQueryHandler, Query, QueryHandler } from '@nestjs/cqrs';
 import { ChangeRequestsRepository } from '../../infra/database/change-requests.repository';
 import { ChangeRequestTargets } from '../target/change-request-targets';
-import { diffChangeRequest } from '../../model/change-request.diff';
+import {
+  diffChangeRequest,
+  labelFieldChanges,
+} from '../../model/change-request.diff';
 import {
   ChangeRequestResource,
   ChangeRequestWithFields,
@@ -43,16 +46,22 @@ export class GetChangeRequestByIdHandler implements IQueryHandler<
     request: TypedChangeRequest<R>,
   ): Promise<ChangeRequestWithFields> {
     const target = this.targets.for(request.resource);
-    const current = await target.read(request.targetId).catch((error) => {
-      if (error instanceof ChangeRequestTargetNotFoundError) {
-        return null;
-      }
-      throw error;
-    });
+    const [current, summary] = await Promise.all([
+      target.read(request.targetId).catch((error) => {
+        if (error instanceof ChangeRequestTargetNotFoundError) {
+          return null;
+        }
+        throw error;
+      }),
+      target.describe(request.targetId, this.targets.airportSummaries()),
+    ]);
+
+    const diff = diffChangeRequest(target.fields, current, request.changes);
 
     return {
       ...request,
-      fields: diffChangeRequest(target.fields, current, request.changes),
+      target: summary,
+      fields: await labelFieldChanges(diff, target.references),
     };
   }
 }

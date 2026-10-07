@@ -6,13 +6,20 @@ import { AssertTerminalBelongsToAirportQuery } from '../../../airports/applicati
 import { AssertParkingPositionExistsQuery } from '../../../airports/application/assert/assert-parking-position-exists.query';
 import { UpdateGateCommand } from '../../../airports/application/command/gates/update-gate.command';
 import { GetGateResponse } from '../../../airports/infra/http/request/gate.dto';
-import { ChangeRequestTarget } from '../../model/change-request-target';
+import {
+  AirportSummaries,
+  ChangeRequestTarget,
+} from '../../model/change-request-target';
 import {
   ChangeRequestChanges,
   ChangeRequestResource,
+  ChangeRequestTargetSummary,
 } from '../../model/change-request.model';
 import { GATE_FIELDS, GateValues } from '../../model/gate-change.model';
+import { FieldReferences } from '../../model/change-request.diff';
 import { ChangeRequestTargetNotFoundError } from '../../model/error/change-request.error';
+import { nullWhenNotFound, summarizeTarget } from './target-summary';
+import { parkingPositionName, terminalShortName } from './reference-labels';
 
 type GateResource = typeof ChangeRequestResource.gate;
 
@@ -20,6 +27,11 @@ type GateResource = typeof ChangeRequestResource.gate;
 export class GateChangeRequestTarget implements ChangeRequestTarget<GateResource> {
   readonly resource = ChangeRequestResource.gate;
   readonly fields = GATE_FIELDS;
+  readonly references: FieldReferences<GateValues> = {
+    terminalId: (terminalId) => terminalShortName(this.queryBus, terminalId),
+    parkingPositionId: (parkingPositionId) =>
+      parkingPositionName(this.queryBus, parkingPositionId),
+  };
 
   constructor(
     private readonly queryBus: QueryBus,
@@ -64,6 +76,15 @@ export class GateChangeRequestTarget implements ChangeRequestTarget<GateResource
       parkingPositionId: gate.parkingPositionId ?? null,
       coordinates: gate.coordinates ?? null,
     };
+  }
+
+  async describe(
+    targetId: string,
+    airports: AirportSummaries,
+  ): Promise<ChangeRequestTargetSummary | null> {
+    const gate = await nullWhenNotFound(this.find(targetId));
+
+    return gate && summarizeTarget(airports, gate.airportId, gate.name);
   }
 
   async apply(

@@ -19,6 +19,15 @@ Feature: Propose a change to a parking position
         "id": "@uuid",
         "resource": "parkingPosition",
         "targetId": "ad5a6ebd-dad8-4400-8bb4-b7cee3b00fa9",
+        "target": {
+          "label": "B 42",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "gpu": "both",
           "coordinates": {
@@ -102,6 +111,15 @@ Feature: Propose a change to a parking position
         "id": "@uuid",
         "resource": "parkingPosition",
         "targetId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+        "target": {
+          "label": "A11",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "terminalId": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
         },
@@ -118,7 +136,9 @@ Feature: Propose a change to a parking position
           {
             "field": "terminalId",
             "current": "d7fd7a84-1589-4a4f-9072-a9773f66e2b5",
-            "proposed": "26106c8a-aaee-4b84-bb6c-b5af3389e22f"
+            "currentLabel": "T1",
+            "proposed": "26106c8a-aaee-4b84-bb6c-b5af3389e22f",
+            "proposedLabel": "T2"
           }
         ]
       }
@@ -240,6 +260,15 @@ Feature: Propose a change to a parking position
         "id": "@uuid",
         "resource": "parkingPosition",
         "targetId": "ae098e8f-b088-41a6-a566-880c7dd5e931",
+        "target": {
+          "label": "A11",
+          "airport": {
+            "id": "f35c094a-bec5-4803-be32-bd80a14b441a",
+            "icaoCode": "EDDF",
+            "iataCode": "FRA",
+            "name": "Frankfurt Rhein/Main"
+          }
+        },
         "changes": {
           "noiseSensitivityText": null
         },

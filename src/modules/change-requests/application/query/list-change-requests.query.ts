@@ -3,9 +3,10 @@ import {
   ChangeRequestFilters,
   ChangeRequestsRepository,
 } from '../../infra/database/change-requests.repository';
-import { AnyChangeRequest } from '../../model/change-request.model';
+import { ChangeRequestTargets } from '../target/change-request-targets';
+import { ChangeRequest } from '../../model/change-request.model';
 
-export class ListChangeRequestsQuery extends Query<AnyChangeRequest[]> {
+export class ListChangeRequestsQuery extends Query<ChangeRequest[]> {
   constructor(public readonly filters: ChangeRequestFilters) {
     super();
   }
@@ -14,11 +15,16 @@ export class ListChangeRequestsQuery extends Query<AnyChangeRequest[]> {
 @QueryHandler(ListChangeRequestsQuery)
 export class ListChangeRequestsHandler implements IQueryHandler<
   ListChangeRequestsQuery,
-  AnyChangeRequest[]
+  ChangeRequest[]
 > {
-  constructor(private readonly repository: ChangeRequestsRepository) {}
+  constructor(
+    private readonly repository: ChangeRequestsRepository,
+    private readonly targets: ChangeRequestTargets,
+  ) {}
 
-  async execute(query: ListChangeRequestsQuery): Promise<AnyChangeRequest[]> {
-    return this.repository.list(query.filters);
+  async execute(query: ListChangeRequestsQuery): Promise<ChangeRequest[]> {
+    const requests = await this.repository.list(query.filters);
+
+    return this.targets.describeAll(requests);
   }
 }
