@@ -19,6 +19,7 @@ test-data
 .claude
 openspec
 CLAUDE.md
+AGENTS.md
 
 # Docker's own inputs
 Dockerfile
