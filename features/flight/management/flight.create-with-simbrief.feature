@@ -1388,3 +1388,86 @@ Feature: Create a flight with Simbrief
       ]
       """
     And I set database to initial state
+
+  Scenario: Importing a plan for an aircraft without a cabin layout still builds the load and the notification to captain
+    Given I am signed in as "operations with valid Simbrief ID"
+    When I send a "POST" request to "/api/v1/flight/create-with-simbrief"
+    Then the response status should be 201
+    And I remember the response body property "id" as "flightId"
+    When I send a "GET" request to "/api/v1/flight/{{flightId}}/manifest"
+    Then the response status should be 404
+    And the response body should contain:
+      """json
+      {
+        "statusCode": 404,
+        "error": "Not Found",
+        "message": "Aircraft flying this flight has no cabin layout assigned, so the flight has no manifest."
+      }
+      """
+    When I send a "GET" request to "/api/v1/flight/{{flightId}}/cargo-manifest"
+    Then the response status should be 200
+    When I send a "GET" request to "/api/v1/flight/{{flightId}}/notoc"
+    Then the response status should be 200
+    And I set database to initial state
+
+  Scenario: Importing a plan for an aircraft with a cabin layout seats its passengers straight away
+    Given I am signed in as "operations with valid Simbrief ID"
+    When I send a "PUT" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f/cabin-layout" with body:
+      """json
+      {
+        "cabinLayout": "lh-74h"
+      }
+      """
+    Then the response status should be 200
+    When I send a "POST" request to "/api/v1/flight/create-with-simbrief"
+    Then the response status should be 201
+    And I remember the response body property "id" as "flightId"
+    When I send a "GET" request to "/api/v1/flight/{{flightId}}/manifest"
+    Then the response status should be 200
+    And the response body property "passengerCount" should contain:
+      """json
+      348
+      """
+    When I send a "GET" request to "/api/v1/flight/{{flightId}}/cargo-manifest"
+    Then the response status should be 200
+    When I send a "GET" request to "/api/v1/flight/{{flightId}}/notoc"
+    Then the response status should be 200
+    And I set database to initial state
+
+  Scenario: Importing a plan with more passengers than the cabin has seats fills the cabin and takes the rest off the load
+    Given I am signed in as "operations with valid Simbrief ID"
+    When I send a "PUT" request to "/api/v1/operator/40b1b34e-aea1-4cec-acbe-f2bf97c06d7d/aircraft/9f5da1a4-f09e-4961-8299-82d688337d1f/cabin-layout" with body:
+      """json
+      {
+        "cabinLayout": "de-321"
+      }
+      """
+    Then the response status should be 200
+    When I send a "POST" request to "/api/v1/flight/create-with-simbrief"
+    Then the response status should be 201
+    And I remember the response body property "id" as "flightId"
+    When I send a "GET" request to "/api/v1/flight/{{flightId}}/loadsheet"
+    Then the response status should be 200
+    And the response body property "0.passengers" should contain:
+      """json
+      220
+      """
+    And the response body property "0.payload" should contain:
+      """json
+      26.924
+      """
+    And the response body property "0.zeroFuelWeight" should contain:
+      """json
+      195.515
+      """
+    When I send a "GET" request to "/api/v1/flight/{{flightId}}/manifest"
+    Then the response status should be 200
+    And the response body property "passengerCount" should contain:
+      """json
+      220
+      """
+    When I send a "GET" request to "/api/v1/flight/{{flightId}}/cargo-manifest"
+    Then the response status should be 200
+    When I send a "GET" request to "/api/v1/flight/{{flightId}}/notoc"
+    Then the response status should be 200
+    And I set database to initial state

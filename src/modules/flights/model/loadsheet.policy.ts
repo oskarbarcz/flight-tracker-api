@@ -39,6 +39,27 @@ export function withPlannedPassengerMass(
   return planned;
 }
 
+export function capPassengersAtSeatCapacity(
+  loadsheet: Loadsheet,
+  totalSeats: number | null,
+): Loadsheet {
+  if (totalSeats === null || loadsheet.passengers <= totalSeats) {
+    return loadsheet;
+  }
+
+  const offloadedTons =
+    ((loadsheet.passengers - totalSeats) * plannedPassengerMass(loadsheet)) /
+    1000;
+
+  return {
+    ...loadsheet,
+    passengers: totalSeats,
+    passengersByCabin: null,
+    payload: roundToTons(loadsheet.payload - offloadedTons),
+    zeroFuelWeight: roundToTons(loadsheet.zeroFuelWeight - offloadedTons),
+  };
+}
+
 export function assertPayloadAccountsForLoad(loadsheet: Loadsheet): void {
   const payloadKg = Math.round(loadsheet.payload * 1000);
   const requiredKg = Math.round(

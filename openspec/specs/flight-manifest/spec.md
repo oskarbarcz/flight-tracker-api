@@ -110,9 +110,10 @@ manifest.
 
 ### Requirement: A passenger count exceeding seat capacity is rejected
 
-The system SHALL reject as unprocessable an attempt to write a preliminary loadsheet reporting more
-passengers than the aircraft's layout has seats. The check SHALL apply only when the aircraft has
-an assigned layout, and the loadsheet SHALL NOT be stored when it is refused.
+The system SHALL reject as unprocessable an attempt by operations to write a preliminary loadsheet
+reporting more passengers than the aircraft's layout has seats. The check SHALL apply only when the
+aircraft has an assigned layout, and the loadsheet SHALL NOT be stored when it is refused. A loadsheet
+imported from a flight plan SHALL be capped at the seat count instead of refused.
 
 #### Scenario: An over-capacity loadsheet is refused
 
@@ -125,6 +126,21 @@ an assigned layout, and the loadsheet SHALL NOT be stored when it is refused.
 
 - **WHEN** a loadsheet reports exactly as many passengers as the layout has seats
 - **THEN** the loadsheet is accepted
+
+### Requirement: An imported plan is seated up to the cabin's capacity
+
+The system SHALL seat a flight imported from a flight plan whose passenger count exceeds the seats of
+the aircraft's assigned layout with as many passengers as the layout has seats, because the import
+caps its preliminary loadsheet at that count. The import SHALL NOT be refused for it, and the
+manifest SHALL be generated at import like any other.
+
+#### Scenario: A plan larger than the cabin fills every seat
+
+- **GIVEN** an operations user whose SimBrief plan reports 348 passengers
+- **AND** the plan's aircraft has a layout of 220 seats
+- **WHEN** they create the flight from that plan
+- **THEN** the import succeeds
+- **AND** the manifest holds 220 passengers
 
 ### Requirement: The manifest is read through its own endpoint
 

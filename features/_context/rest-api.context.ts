@@ -67,6 +67,20 @@ const accessTokens = new Map<ApiUserType, MintedAccessToken>();
 let bearerToken: string | null = null;
 let apiResponse: AxiosResponse;
 
+const rememberedValues = new Map<string, string>();
+
+function withRememberedValues(path: string): string {
+  return path.replace(/\{\{(\w+)\}\}/g, (_, name: string) => {
+    const value = rememberedValues.get(name);
+
+    if (value === undefined) {
+      throw new Error(`Nothing was remembered as "${name}"`);
+    }
+
+    return value;
+  });
+}
+
 const httpAgent = new http.Agent({ keepAlive: true });
 const httpsAgent = new https.Agent({ keepAlive: true });
 const apiClient = axios.create({
@@ -106,7 +120,7 @@ export async function sendApiRequest(
 ): Promise<void> {
   apiResponse = await apiClient.request({
     method: method,
-    url: `${apiBaseUrl}${path}`,
+    url: `${apiBaseUrl}${withRememberedValues(path)}`,
     data: body,
     validateStatus: () => true,
     headers:
@@ -305,6 +319,18 @@ Then('I dump response', () => {
   console.log(JSON.stringify(apiResponse.data));
 });
 
+Then(
+  'I remember the response body property {string} as {string}',
+  (property: string, name: string) => {
+    const value = valueAt(property);
+
+    expect(typeof value).toBe('string');
+
+    rememberedValues.set(name, value as string);
+  },
+);
+
 After(() => {
   bearerToken = null;
+  rememberedValues.clear();
 });
