@@ -13,7 +13,11 @@ import { FlightListFilters, GetFlightResponse } from '../../request/flight.dto';
 import { UnauthorizedResponse } from '../../../../../../core/http/response/unauthorized.response';
 import { SkipAuth } from '../../../../../../core/http/auth/decorator/skip-auth.decorator';
 import { AuthorizedRequest } from '../../../../../../core/http/request/authorized.request';
-import { FlightPhase } from '../../../../model/flight.model';
+import {
+  FlightListOrder,
+  FlightListSort,
+  FlightPhase,
+} from '../../../../model/flight.model';
 import { ListAllFlightsQuery } from '../../../../application/query/list-all-flights.query';
 
 @ApiTags('flight')
@@ -44,6 +48,23 @@ export class ListFlightsAction {
     minimum: 1,
     maximum: 100,
     default: 10,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'sort',
+    description:
+      'Field the list is ordered by: when the flight was created, its scheduled off-block time or its actual on-block time. Flights without the chosen time come last.',
+    type: 'string',
+    enum: FlightListSort,
+    default: FlightListSort.CreatedAt,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'order',
+    description: 'Direction of the ordering',
+    type: 'string',
+    enum: FlightListOrder,
+    default: FlightListOrder.Descending,
     required: false,
   })
   @ApiBearerAuth('jwt')
