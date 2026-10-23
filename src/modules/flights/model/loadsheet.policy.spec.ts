@@ -1,4 +1,7 @@
-import { assertPayloadAccountsForLoad } from './loadsheet.policy';
+import {
+  assertPayloadAccountsForLoad,
+  capPassengersAtSeatCapacity,
+} from './loadsheet.policy';
 import { PayloadBelowLoadError } from './error/flight.error';
 import { Loadsheet } from './loadsheet.model';
 import { STANDARD_ADULT_KG } from '../../manifest/model/baggage';
@@ -97,5 +100,73 @@ describe('assertPayloadAccountsForLoad', () => {
     const sheet = loadsheet({ payload: 7, cargo: 7, passengers: 0 });
 
     expect(() => assertPayloadAccountsForLoad(sheet)).not.toThrow();
+  });
+});
+
+describe('capPassengersAtSeatCapacity', () => {
+  const planned = loadsheet({
+    passengers: 348,
+    passengerMass: 86,
+    cargo: 8.004,
+    payload: 37.932,
+    zeroFuelWeight: 206.523,
+  });
+
+  it('keeps a load that fits the cabin', () => {
+    expect(capPassengersAtSeatCapacity(planned, 364)).toBe(planned);
+  });
+
+  it('keeps a load that fills the cabin exactly', () => {
+    expect(capPassengersAtSeatCapacity(planned, 348)).toBe(planned);
+  });
+
+  it('keeps the load when the aircraft has no cabin layout', () => {
+    expect(capPassengersAtSeatCapacity(planned, null)).toBe(planned);
+  });
+
+  it('seats no more passengers than the cabin has seats', () => {
+    expect(capPassengersAtSeatCapacity(planned, 220).passengers).toBe(220);
+  });
+
+  it('takes the mass of every passenger left behind off the payload and the zero fuel weight', () => {
+    const capped = capPassengersAtSeatCapacity(planned, 220);
+
+    expect(capped.payload).toBe(26.924);
+    expect(capped.zeroFuelWeight).toBe(195.515);
+  });
+
+  it('keeps the cargo, the fuel and the planned passenger mass', () => {
+    const capped = capPassengersAtSeatCapacity(planned, 220);
+
+    expect(capped.cargo).toBe(8.004);
+    expect(capped.blockFuel).toBe(10);
+    expect(capped.passengerMass).toBe(86);
+  });
+
+  it('leaves a payload that still accounts for the load it carries', () => {
+    const capped = capPassengersAtSeatCapacity(planned, 220);
+
+    expect(() => assertPayloadAccountsForLoad(capped)).not.toThrow();
+  });
+
+  it('drops a cabin breakdown it can no longer honour', () => {
+    const withBreakdown = loadsheet({
+      passengers: 300,
+      passengersByCabin: { business: 40, economy: 260 },
+      payload: 40,
+    });
+
+    expect(
+      capPassengersAtSeatCapacity(withBreakdown, 220).passengersByCabin,
+    ).toBeNull();
+  });
+
+  it('weighs the passengers left behind at the standard adult when no mass is recorded', () => {
+    const unplanned = loadsheet({ passengers: 230, payload: 30 });
+    const capped = capPassengersAtSeatCapacity(unplanned, 220);
+
+    expect(capped.payload).toBe(
+      Math.round((30 - (10 * STANDARD_ADULT_KG) / 1000) * 1000) / 1000,
+    );
   });
 });

@@ -59,6 +59,9 @@ import {
 import { resolveOceanicRouting } from '../../model/oceanic-routing';
 import { mapOceanicTracks } from '../../model/oceanic-track.mapper';
 import { WaypointsRepository } from '../../../waypoints/infra/database/waypoints.repository';
+import { GetSeatCapacityQuery } from '../../../manifest/application/query/get-seat-capacity.query';
+import { CabinCapacity } from '../../../cabin-layouts/model/cabin-capacity.model';
+import { capPassengersAtSeatCapacity } from '../../model/loadsheet.policy';
 
 export type AlternateAirportCandidate = {
   icaoCode: string;
@@ -132,7 +135,7 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
     ]);
 
     const unit = readOfpMassUnit(ofp);
-    const loadsheet: Loadsheet = {
+    const plannedLoadsheet: Loadsheet = {
       flightCrew: {
         pilots: 2,
         reliefPilots: 0,
@@ -146,6 +149,14 @@ export class CreateFlightFromSimbriefHandler implements ICommandHandler<CreateFl
       zeroFuelWeight: this.ofpWeightToTons(ofp.weights.est_zfw, unit),
       fuel: this.mapFuelBreakdown(ofp, unit),
     };
+
+    const capacityQuery = new GetSeatCapacityQuery(aircraft.id);
+    const capacity: CabinCapacity | null =
+      await this.queryBus.execute(capacityQuery);
+    const loadsheet = capPassengersAtSeatCapacity(
+      plannedLoadsheet,
+      capacity?.totalSeats ?? null,
+    );
 
     const callsign = `${operator.icaoCode}${ofp.general.flight_number}`;
     const filedAtcCallsign = this.readOfpText(ofp.atc?.callsign).trim();
