@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import {
   Flight,
+  FlightListOrder,
+  FlightListSort,
   FlightOfpDetails,
   FlightPathElement,
   FlightPhase,
@@ -9,6 +11,10 @@ import {
   FlightStatus,
   FlightTracking,
 } from '../../../model/flight.model';
+import {
+  compareFlightsByTimesheet,
+  TimesheetSort,
+} from '../../../model/flight-list-order';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import { AircraftCabinLayout } from '../../../../aircraft/model/cabin-layout.model';
 import { toAircraftCabinLayout } from '../../../../aircraft/model/cabin-layout-assignment';
@@ -295,6 +301,21 @@ function expandAircraftAirframe(aircraft: RawAircraft): AircraftWithAirframe {
   };
 }
 
+function toFlightResponse({
+  isDiversionDeclared,
+  isPathAvailable,
+  delayRequest,
+  ...rest
+}: FlightWithRawAircraft): FlightResponse {
+  return {
+    ...rest,
+    aircraft: expandAircraftAirframe(rest.aircraft),
+    isFlightDiverted: isDiversionDeclared,
+    hasFlightPath: isPathAvailable,
+    isOffBlockDelayed: delayRequest !== null,
+  };
+}
+
 type FlightsWithCount = {
   flights: FlightResponse[];
   totalCount: number;
@@ -517,28 +538,56 @@ export class FlightsRepository {
       where.tracking = FlightTracking.Public;
     }
 
+    if (filters && filters.sort !== FlightListSort.CreatedAt) {
+      return this.findAllOrderedByTimesheet(where, filters, filters.sort);
+    }
+
     const [flights, totalCount] = await Promise.all([
       this.prisma.flight.findMany({
         where,
         select: flightWithAircraftAndAirportsFields,
         skip: filters ? (filters.page - 1) * filters.limit : undefined,
         take: filters ? filters.limit : undefined,
-        orderBy: { createdAt: 'desc' },
+        orderBy: {
+          createdAt:
+            filters?.order === FlightListOrder.Ascending ? 'asc' : 'desc',
+        },
       }),
       this.prisma.flight.count({ where }),
     ]);
 
+    return { flights: flights.map(toFlightResponse), totalCount };
+  }
+
+  private async findAllOrderedByTimesheet(
+    where: Prisma.FlightWhereInput,
+    filters: FlightListFilters,
+    sort: TimesheetSort,
+  ): Promise<FlightsWithCount> {
+    const candidates = await this.prisma.flight.findMany({
+      where,
+      select: { id: true, createdAt: true, timesheet: true },
+    });
+
+    const start = (filters.page - 1) * filters.limit;
+    const pageIds = candidates
+      .sort(compareFlightsByTimesheet(sort, filters.order))
+      .slice(start, start + filters.limit)
+      .map(({ id }) => id);
+
+    const flights = await this.prisma.flight.findMany({
+      where: { id: { in: pageIds } },
+      select: flightWithAircraftAndAirportsFields,
+    });
+    const flightsById = new Map(flights.map((flight) => [flight.id, flight]));
+
     return {
-      flights: flights.map(
-        ({ isDiversionDeclared, isPathAvailable, delayRequest, ...rest }) => ({
-          ...rest,
-          aircraft: expandAircraftAirframe(rest.aircraft),
-          isFlightDiverted: isDiversionDeclared,
-          hasFlightPath: isPathAvailable,
-          isOffBlockDelayed: delayRequest !== null,
-        }),
-      ),
-      totalCount,
+      flights: pageIds.flatMap((id) => {
+        const flight = flightsById.get(id);
+
+        return flight ? [toFlightResponse(flight)] : [];
+      }),
+      totalCount: candidates.length,
     };
   }
 

@@ -23,7 +23,12 @@ import {
 } from 'class-validator';
 import { Loadsheet } from '../../../model/loadsheet.model';
 import { Type } from 'class-transformer';
-import { Flight, FlightPhase } from '../../../model/flight.model';
+import {
+  Flight,
+  FlightListOrder,
+  FlightListSort,
+  FlightPhase,
+} from '../../../model/flight.model';
 import { AirportType } from '../../../../airports/model/airport.model';
 import { FlightPilotDto } from '../../../../users/infra/http/request/get-user.dto';
 
@@ -167,6 +172,14 @@ export class FlightListFilters {
   @Min(1)
   @Max(100)
   limit: number = 10;
+
+  @IsOptional()
+  @IsEnum(FlightListSort)
+  sort: FlightListSort = FlightListSort.CreatedAt;
+
+  @IsOptional()
+  @IsEnum(FlightListOrder)
+  order: FlightListOrder = FlightListOrder.Descending;
 }
 
 export class UpdateFlightVisibilityRequest extends PickType(Flight, [

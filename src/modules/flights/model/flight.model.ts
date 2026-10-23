@@ -35,6 +35,17 @@ export enum FlightPhase {
   Emergency = 'emergency',
 }
 
+export enum FlightListSort {
+  CreatedAt = 'createdAt',
+  ScheduledOffBlockTime = 'scheduledOffBlockTime',
+  ActualOnBlockTime = 'actualOnBlockTime',
+}
+
+export enum FlightListOrder {
+  Ascending = 'asc',
+  Descending = 'desc',
+}
+
 export enum FlightSource {
   Manual = 'manual',
   Simbrief = 'simbrief',
