@@ -9,11 +9,14 @@ import { FlightsRepository } from '../../infra/database/repository/flights.repos
 import { OffboardingWasStartedEvent } from '../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../model/event.model';
 import { DomainEventEmitter } from '../../../../core/domain/events/domain-event-emitter';
+import { GetUserGsxSettingsQuery } from '../../../users/application/query/get-user-gsx-settings.query';
+import { resolveGroundServiceSource } from '../../model/ground-service-source';
 
 export class StartOffboardingCommand {
   constructor(
     public readonly flightId: string,
     public readonly initiatorId: string,
+    public readonly requestedByGsx: boolean = false,
   ) {}
 }
 
@@ -26,7 +29,7 @@ export class StartOffboardingHandler implements ICommandHandler<StartOffboarding
   ) {}
 
   async execute(command: StartOffboardingCommand): Promise<void> {
-    const { flightId, initiatorId } = command;
+    const { flightId, initiatorId, requestedByGsx } = command;
     const query = new GetFlightQuery(flightId);
     const flight = await this.queryBus.execute(query);
 
@@ -38,6 +41,13 @@ export class StartOffboardingHandler implements ICommandHandler<StartOffboarding
       throw new InvalidStatusToStartOffboardingError();
     }
 
+    const settingsQuery = new GetUserGsxSettingsQuery(initiatorId);
+    const settings = await this.queryBus.execute(settingsQuery);
+    const source = resolveGroundServiceSource(
+      requestedByGsx,
+      settings.integrationEnabled && settings.autoDeboardingEnabled,
+    );
+
     await this.flightsRepository.updateStatus(
       flightId,
       FlightStatus.OffboardingStarted,
@@ -48,6 +58,7 @@ export class StartOffboardingHandler implements ICommandHandler<StartOffboarding
         flightId,
         scope: FlightEventScope.User,
         actorId: initiatorId,
+        payload: { source },
       }),
     );
   }

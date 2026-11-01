@@ -7,6 +7,12 @@ export enum FlightEventScope {
   User = 'user',
 }
 
+export enum GroundServiceSource {
+  Manual = 'manual',
+  Override = 'override',
+  Gsx = 'gsx',
+}
+
 export enum FlightEventType {
   FlightWasCreated = 'flight.created',
   PreliminaryLoadsheetWasUpdated = 'flight.preliminary-loadsheet-updated',
@@ -77,6 +83,10 @@ export type ArrivalReportedEventPayload = FlightEventPayload & {
   payload: { automaticallyDetected: boolean };
 };
 
+export type GroundServiceStartedEventPayload = FlightEventPayload & {
+  payload: { source: GroundServiceSource };
+};
+
 export abstract class FlightLifecycleEvent<
   P extends FlightEventPayload = FlightEventPayload,
 > extends DomainEvent {
@@ -135,7 +145,7 @@ export class PilotCheckedInEvent extends FlightLifecycleEvent<PilotCheckedInEven
   static readonly name = FlightEventType.PilotCheckedIn;
 }
 
-export class BoardingWasStartedEvent extends FlightLifecycleEvent {
+export class BoardingWasStartedEvent extends FlightLifecycleEvent<GroundServiceStartedEventPayload> {
   static readonly name = FlightEventType.BoardingWasStarted;
 }
 
@@ -159,7 +169,7 @@ export class OnBlockWasReportedEvent extends FlightLifecycleEvent<OnBlockReporte
   static readonly name = FlightEventType.OnBlockWasReported;
 }
 
-export class OffboardingWasStartedEvent extends FlightLifecycleEvent {
+export class OffboardingWasStartedEvent extends FlightLifecycleEvent<GroundServiceStartedEventPayload> {
   static readonly name = FlightEventType.OffboardingWasStarted;
 }
 
