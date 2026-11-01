@@ -53,6 +53,10 @@ import { GetUserDiscordSettingsHandler } from './application/query/get-user-disc
 import { GetDiscordPresenceHandler } from './application/query/get-discord-presence.query';
 import { GetDiscordRecipientHandler } from './application/query/get-discord-recipient.query';
 import { UpdateDiscordSettingsHandler } from './application/command/update-discord-settings.command';
+import { GetGsxSettingsAction } from './infra/http/action/get-gsx-settings.action';
+import { UpdateGsxSettingsAction } from './infra/http/action/update-gsx-settings.action';
+import { GetUserGsxSettingsHandler } from './application/query/get-user-gsx-settings.query';
+import { UpdateGsxSettingsHandler } from './application/command/update-gsx-settings.command';
 import { VerifySimbriefUserAction } from './infra/http/action/verify-simbrief-user.action';
 import { VerifySimbriefUserHandler } from './application/query/verify-simbrief-user.query';
 import { AssertSimbriefUserExistsHandler } from './application/assert/assert-simbrief-user-exists.query';
@@ -79,6 +83,8 @@ import { SimbriefModule } from '../../core/provider/simbrief/simbrief.module';
     GetDiscordSettingsAction,
     GetDiscordPresenceAction,
     UpdateDiscordSettingsAction,
+    GetGsxSettingsAction,
+    UpdateGsxSettingsAction,
   ],
   providers: [
     UsersRepository,
@@ -89,6 +95,7 @@ import { SimbriefModule } from '../../core/provider/simbrief/simbrief.module';
     GetUserSimbriefIdHandler,
     GetUserDiscordIdHandler,
     GetUserDiscordSettingsHandler,
+    GetUserGsxSettingsHandler,
     GetDiscordPresenceHandler,
     GetDiscordRecipientHandler,
     GetUserWeatherSourceHandler,
@@ -117,6 +124,7 @@ import { SimbriefModule } from '../../core/provider/simbrief/simbrief.module';
     ConfirmPasswordResetHandler,
     PasswordResetMailListener,
     UpdateDiscordSettingsHandler,
+    UpdateGsxSettingsHandler,
   ],
   imports: [PrismaModule, MailgunModule, SimbriefModule],
   exports: [UsersRepository, UserTokenRepository],

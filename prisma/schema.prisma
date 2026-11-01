@@ -667,7 +667,11 @@ model User {
   discordDelayUpdatesEnabled         Boolean @default(true)
   discordRichPresenceEnabled         Boolean @default(false)
 
-  homeAirport           Airport?               @relation("UserHomeAirport", fields: [homeAirportId], references: [id], onDelete: SetNull)
+  gsxIntegrationEnabled    Boolean @default(false)
+  gsxAutoBoardingEnabled   Boolean @default(true)
+  gsxAutoDeboardingEnabled Boolean @default(true)
+
+  homeAirport          Airport?               @relation("UserHomeAirport", fields: [homeAirportId], references: [id], onDelete: SetNull)
   lastAirport           Airport?               @relation("UserLastAirport", fields: [lastAirportId], references: [id], onDelete: SetNull)
   jwtRefreshToken       JwtRefreshToken[]
   currentFlight         Flight?                @relation("UserCurrentFlight", fields: [currentFlightId], references: [id])
