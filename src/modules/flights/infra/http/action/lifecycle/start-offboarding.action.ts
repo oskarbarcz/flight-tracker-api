@@ -28,7 +28,7 @@ import { Role } from '../../../../../../core/http/auth/decorator/role.decorator'
 import { UuidParam } from '../../../../../../core/validation/uuid.param';
 import { AuthorizedRequest } from '../../../../../../core/http/request/authorized.request';
 import { StartOffboardingCommand } from '../../../../application/command/start-offboarding.command';
-import { StartGroundServiceDto } from '../../request/ground-service.dto';
+import { GroundServiceActionDto } from '../../request/ground-service.dto';
 import { GroundServiceSource } from '../../../../model/ground-service-source';
 
 @ApiTags('flight actions')
@@ -48,7 +48,7 @@ export class StartOffboardingAction {
     name: 'id',
     description: 'Flight unique identifier',
   })
-  @ApiBody({ type: StartGroundServiceDto, required: false })
+  @ApiBody({ type: GroundServiceActionDto, required: false })
   @ApiNoContentResponse()
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
@@ -59,7 +59,7 @@ export class StartOffboardingAction {
   @Role(UserRole.CabinCrew)
   async run(
     @UuidParam('id') id: string,
-    @Body() body: StartGroundServiceDto,
+    @Body() body: GroundServiceActionDto,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
     const command = new StartOffboardingCommand(

@@ -83,7 +83,7 @@ export type ArrivalReportedEventPayload = FlightEventPayload & {
   payload: { automaticallyDetected: boolean };
 };
 
-export type GroundServiceStartedEventPayload = FlightEventPayload & {
+export type GroundServiceEventPayload = FlightEventPayload & {
   payload: { source: GroundServiceSource };
 };
 
@@ -145,7 +145,7 @@ export class PilotCheckedInEvent extends FlightLifecycleEvent<PilotCheckedInEven
   static readonly name = FlightEventType.PilotCheckedIn;
 }
 
-export class BoardingWasStartedEvent extends FlightLifecycleEvent<GroundServiceStartedEventPayload> {
+export class BoardingWasStartedEvent extends FlightLifecycleEvent<GroundServiceEventPayload> {
   static readonly name = FlightEventType.BoardingWasStarted;
 }
 
@@ -169,11 +169,11 @@ export class OnBlockWasReportedEvent extends FlightLifecycleEvent<OnBlockReporte
   static readonly name = FlightEventType.OnBlockWasReported;
 }
 
-export class OffboardingWasStartedEvent extends FlightLifecycleEvent<GroundServiceStartedEventPayload> {
+export class OffboardingWasStartedEvent extends FlightLifecycleEvent<GroundServiceEventPayload> {
   static readonly name = FlightEventType.OffboardingWasStarted;
 }
 
-export class OffboardingWasFinishedEvent extends FlightLifecycleEvent {
+export class OffboardingWasFinishedEvent extends FlightLifecycleEvent<GroundServiceEventPayload> {
   static readonly name = FlightEventType.OffboardingWasFinished;
 }
 

@@ -229,7 +229,7 @@ export class InvalidStatusToCheckInError extends UnprocessableError {
 
 export class GsxAutomationDisabledError extends UnprocessableError {
   constructor() {
-    super('Cannot start this from GSX, because its GSX setting is off.');
+    super('GSX cannot do this, because its GSX setting is off.');
   }
 }
 
