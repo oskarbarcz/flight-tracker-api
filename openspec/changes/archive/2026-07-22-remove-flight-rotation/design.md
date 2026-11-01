@@ -56,7 +56,7 @@ The 7 rotation-only Cucumber features are deleted. The ~25 remaining flight/user
 3. Strip `rotationId` from the event payload type and all producers; remove the two events and their subscribers; rewrite the users lifecycle listener.
 4. Remove rotation seed data and update user/flight seed fixtures.
 5. Delete rotation features; edit remaining feature files and unit fixtures.
-6. Update `CLAUDE.md`, `README.md`, Swagger description.
+6. Update `AGENTS.md`, `README.md`, Swagger description.
 7. Build, lint, run unit + functional suites.
 
 Rollback: revert the branch; no data migration to reverse (rotation data is discarded on the forward migration only).

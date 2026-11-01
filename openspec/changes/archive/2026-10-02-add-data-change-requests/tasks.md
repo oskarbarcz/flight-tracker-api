@@ -52,5 +52,5 @@
 
 ## 7. Wrap-up
 
-- [x] 7.1 Update `CLAUDE.md` (architecture section) with a short paragraph on the change-requests module and its adapter seam
+- [x] 7.1 Update `AGENTS.md` (architecture section) with a short paragraph on the change-requests module and its adapter seam
 - [x] 7.2 `openspec validate add-data-change-requests --strict`

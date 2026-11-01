@@ -25,5 +25,5 @@
 
 ## 5. Wrap-up
 
-- [x] 5.1 Mention parking stands in the `CLAUDE.md` change-requests paragraph
+- [x] 5.1 Mention parking stands in the `AGENTS.md` change-requests paragraph
 - [x] 5.2 `openspec validate add-parking-stand-change-requests --strict`

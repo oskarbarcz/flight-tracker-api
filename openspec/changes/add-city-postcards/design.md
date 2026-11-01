@@ -13,7 +13,7 @@ getting an image made and stored, and deciding who may look at it.
 
 Two constraints shape the rest. Nothing external and slow may run near the flight
 lifecycle — an `@OnEvent` listener swallows throws, so a failure there is invisible. And
-the API must not grow storage credentials: `CLAUDE.md` states twice that the provider side
+the API must not grow storage credentials: `AGENTS.md` states twice that the provider side
 is an HTTP client and nothing else.
 
 ## Goals / Non-Goals

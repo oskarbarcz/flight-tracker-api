@@ -91,7 +91,7 @@ The unfiltered list keeps its existing untimed entry and its existing listener, 
 
 `OperatorsRepository.countFlights()` already reads `prisma.flight` directly, so the operators module has established precedent for aggregating over flights locally rather than dispatching a query to the flights module. Adding a second flight aggregation next to it keeps the two together instead of splitting one concern across two modules.
 
-This is knowingly at odds with CLAUDE.md's "cross-module reads go through the bus, never `prisma.*` directly". The rule is right in general; the exception was taken deliberately here because the alternative — a `GetRecentOperatorIdsByCaptainQuery` in the flights module returning ids that the operators module then hydrates — spreads one aggregate across two modules and a bus hop to satisfy a boundary that `countFlights` already crosses in the same file. If `countFlights` is ever moved behind the bus, this should move with it.
+This is knowingly at odds with AGENTS.md's "cross-module reads go through the bus, never `prisma.*` directly". The rule is right in general; the exception was taken deliberately here because the alternative — a `GetRecentOperatorIdsByCaptainQuery` in the flights module returning ids that the operators module then hydrates — spreads one aggregate across two modules and a bus hop to satisfy a boundary that `countFlights` already crosses in the same file. If `countFlights` is ever moved behind the bus, this should move with it.
 
 The query is one `groupBy`, served by the two new composite indexes:
 

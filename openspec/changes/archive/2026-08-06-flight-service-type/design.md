@@ -41,7 +41,7 @@ _Consequence:_ the action must tolerate a body with no fields set. Nest's global
 
 `schema.prisma` gains `enum FlightServiceType { passenger cargo }` and `Flight.serviceType FlightServiceType @default(passenger)`. No `@@map` — the sibling flight enums `FlightSource` and `FlightTracking` declare none, so the generated type name is used as-is.
 
-_Why:_ the database rejects invalid values, and the default backfills every existing row as `passenger` in the same migration — no data-migration step. The domain-side enum stays hand-written in `model/flight.model.ts`, mirroring the Prisma enum's shape the way `UserRole` does, because `CLAUDE.md` forbids importing enums from `prisma/client/*` into domain code.
+_Why:_ the database rejects invalid values, and the default backfills every existing row as `passenger` in the same migration — no data-migration step. The domain-side enum stays hand-written in `model/flight.model.ts`, mirroring the Prisma enum's shape the way `UserRole` does, because `AGENTS.md` forbids importing enums from `prisma/client/*` into domain code.
 
 _Alternative considered:_ a plain `String` column, matching how `Flight.status`, `Flight.source`, and `Flight.tracking` are stored. Rejected: those are legacy shapes, and `FlightSource` / `FlightTracking` already exist as real Prisma enums used elsewhere in the schema, so an enum is not novel here. The cost is a cast-free read at the price of a migration when values are ever added — acceptable for a closed two-value set.
 

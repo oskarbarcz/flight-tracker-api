@@ -49,5 +49,5 @@
 - [x] 8.2 Add feature scenarios for attachment validation failures (wrong status, airport mismatch, operator mismatch, already-attached) and ready validation failures (<2 legs, broken chain, overlap)
 - [x] 8.3 Add RBAC scenarios: writes 403 for non-ops / 401 unauthenticated; reads 200 while unauthenticated (public)
 - [x] 8.4 Colocated Jest `*.spec.ts` for the flight-lifecycle listener transitions (first check-in → in_progress; last close → finished; earlier close no-op; idempotency)
-- [x] 8.5 Update Swagger API description and `CLAUDE.md` module list to include `rotations`; align tests and seed statically before running the functional suite
+- [x] 8.5 Update Swagger API description and `AGENTS.md` module list to include `rotations`; align tests and seed statically before running the functional suite
 - [x] 8.6 Run `npm run lint`, `npm test`, and `npm run test:functional` inside the `app` container until green
