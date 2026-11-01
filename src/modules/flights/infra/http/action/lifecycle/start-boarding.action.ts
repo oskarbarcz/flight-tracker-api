@@ -1,7 +1,15 @@
-import { Controller, HttpCode, HttpStatus, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Req,
+} from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
+  ApiBody,
   ApiForbiddenResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -20,6 +28,8 @@ import { Role } from '../../../../../../core/http/auth/decorator/role.decorator'
 import { UuidParam } from '../../../../../../core/validation/uuid.param';
 import { AuthorizedRequest } from '../../../../../../core/http/request/authorized.request';
 import { StartBoardingCommand } from '../../../../application/command/start-boarding.command';
+import { StartGroundServiceDto } from '../../request/ground-service.dto';
+import { GroundServiceSource } from '../../../../model/ground-service-source';
 
 @ApiTags('flight actions')
 @Controller('api/v1/flight')
@@ -30,13 +40,15 @@ export class StartBoardingAction {
     summary: 'Report flight boarding has started',
     description:
       '**NOTE:** This action is only allowed for flights in checked-in status. <br />' +
-      '**NOTE:** This endpoint is only available for users with `cabin crew` role.',
+      '**NOTE:** This endpoint is only available for users with `cabin crew` role. <br />' +
+      "**NOTE:** The `flight.boarding-started` event names its source in `payload.source`: `gsx`, `override` or `manual`. A `gsx` request answers `422` when the user's GSX settings don't allow it.",
   })
   @ApiBearerAuth('jwt')
   @ApiParam({
     name: 'id',
     description: 'Flight unique identifier',
   })
+  @ApiBody({ type: StartGroundServiceDto, required: false })
   @ApiNoContentResponse()
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
@@ -47,9 +59,14 @@ export class StartBoardingAction {
   @Role(UserRole.CabinCrew)
   async run(
     @UuidParam('id') id: string,
+    @Body() body: StartGroundServiceDto,
     @Req() request: AuthorizedRequest,
   ): Promise<void> {
-    const command = new StartBoardingCommand(id, request.user.sub);
+    const command = new StartBoardingCommand(
+      id,
+      request.user.sub,
+      body.source === GroundServiceSource.Gsx,
+    );
     await this.commandBus.execute(command);
   }
 }

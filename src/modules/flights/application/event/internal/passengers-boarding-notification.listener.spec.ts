@@ -2,7 +2,10 @@ import { PassengersBoardingNotificationListener } from './passengers-boarding-no
 import { GetFlightQuery } from '../../query/get-flight.query';
 import { GetCurrentLoadsheetQuery } from '../../query/get-current-loadsheet.query';
 import { AirportType } from '../../../../airports/model/airport.model';
-import { BoardingWasStartedEvent } from '../../../../../core/domain/events/dto/flight.events';
+import {
+  BoardingWasStartedEvent,
+  GroundServiceSource,
+} from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../../model/event.model';
 
 const FLIGHT_ID = 'b3899775-278e-4496-add1-21385a13d93e';
@@ -41,6 +44,7 @@ function boardingStarted() {
     flightId: FLIGHT_ID,
     scope: FlightEventScope.User,
     actorId: PILOT_ID,
+    payload: { source: GroundServiceSource.Manual },
   });
 }
 

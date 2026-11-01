@@ -5,7 +5,10 @@ import { LoadsheetKind } from '../../../model/loadsheet.model';
 import { GetDiscordRecipientQuery } from '../../../../users/application/query/get-discord-recipient.query';
 import { DiscordNotification } from '../../../../users/model/discord-settings.model';
 import { ListFlightCrewQuery } from '../../../../crew/application/query/list-flight-crew.query';
-import { BoardingWasStartedEvent } from '../../../../../core/domain/events/dto/flight.events';
+import {
+  BoardingWasStartedEvent,
+  GroundServiceSource,
+} from '../../../../../core/domain/events/dto/flight.events';
 import { FlightEventScope } from '../../../model/event.model';
 
 const FLIGHT_ID = 'b3899775-278e-4496-add1-21385a13d93e';
@@ -27,6 +30,7 @@ function boardingStarted() {
     flightId: FLIGHT_ID,
     scope: FlightEventScope.User,
     actorId: CAPTAIN_ID,
+    payload: { source: GroundServiceSource.Manual },
   });
 }
 

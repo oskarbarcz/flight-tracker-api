@@ -253,7 +253,7 @@ Feature: Start boarding
           "id": "@uuid",
           "scope": "user",
           "type": "flight.boarding-started",
-          "payload": {},
+          "payload": { "source": "manual" },
           "actor": {
             "id": "fcf6f4bc-290d-43a9-843c-409cd47e143d",
             "name": "Rick Doe"

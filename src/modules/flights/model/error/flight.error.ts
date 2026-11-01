@@ -227,6 +227,12 @@ export class InvalidStatusToCheckInError extends UnprocessableError {
   }
 }
 
+export class GsxAutomationDisabledError extends UnprocessableError {
+  constructor() {
+    super('Cannot start this from GSX, because its GSX setting is off.');
+  }
+}
+
 export class InvalidStatusToStartBoardingError extends UnprocessableError {
   constructor() {
     super('Cannot start boarding for flight, because flight is checked in.');
