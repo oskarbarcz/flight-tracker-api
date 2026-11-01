@@ -16,6 +16,7 @@ import { loadFlightManifests } from './resource/flight-manifests.seed';
 import { loadGeneratedManifests } from './resource/generated-manifests.seed';
 import { loadUsers } from './resource/users.seed';
 import { loadSessions } from './resource/session.seed';
+import { loadDeviceAuthorizations } from './resource/device-authorizations.seed';
 import { loadUserTokens } from './resource/user-token.seed';
 import { loadTerminals } from './resource/terminals.seed';
 import { loadParkingPositions } from './resource/parking-positions.seed';
@@ -54,6 +55,7 @@ export async function loadResources() {
         await loadAircraft(tx);
         await loadUsers(tx);
         await loadSessions(tx);
+        await loadDeviceAuthorizations(tx);
         await loadUserTokens(tx);
         await loadFlights(tx);
         await loadManifestFlights(tx);

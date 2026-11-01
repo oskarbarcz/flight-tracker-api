@@ -1,6 +1,7 @@
 import {
   BadRequestError,
   ConflictError,
+  ForbiddenError,
   NotFoundError,
   UnprocessableError,
 } from '../../../../core/errors/domain-error';
@@ -224,6 +225,12 @@ export class InvalidStatusToUpdateLoadsheetError extends UnprocessableError {
 export class InvalidStatusToCheckInError extends UnprocessableError {
   constructor() {
     super('Cannot check in for flight, because flight is not ready.');
+  }
+}
+
+export class GsxSourceRequiresTransponderError extends ForbiddenError {
+  constructor() {
+    super('Only the Transponder can report GSX as the source.');
   }
 }
 

@@ -9,6 +9,8 @@ import {
 } from '@nestjs/swagger';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
+import { AllowClient } from '../../../../../core/http/auth/decorator/allow-client.decorator';
+import { SessionClient } from '../../../model/session-client';
 
 @ApiTags('auth')
 @Controller('/api/v1/auth')
@@ -23,6 +25,7 @@ export class SignOutAction {
     description: 'User is not authorized (token is missing)',
     type: UnauthorizedResponse,
   })
+  @AllowClient(SessionClient.Transponder)
   @Post('/sign-out')
   @HttpCode(HttpStatus.NO_CONTENT)
   async signOut(@Req() req: AuthorizedRequest): Promise<void> {

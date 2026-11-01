@@ -13,6 +13,8 @@ import { DiscordPresence } from '../../../model/discord-presence.model';
 import { GetDiscordPresenceQuery } from '../../../application/query/get-discord-presence.query';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
+import { AllowClient } from '../../../../../core/http/auth/decorator/allow-client.decorator';
+import { SessionClient } from '../../../../auth/model/session-client';
 
 @ApiTags('user')
 @Controller('/api/v1/user')
@@ -31,6 +33,7 @@ export class GetDiscordPresenceAction {
     description: 'User is not authorized (token is missing)',
     type: UnauthorizedResponse,
   })
+  @AllowClient(SessionClient.Transponder)
   @Get('/me/discord-presence')
   async run(
     @Req() request: AuthorizedRequest,

@@ -1,31 +1,24 @@
-import { GsxAutomationDisabledError } from './error/flight.error';
-import {
-  GroundServiceSource,
-  resolveGroundServiceSource,
-} from './ground-service-source';
+import { SessionClient } from '../../auth/model/session-client';
+import { GsxSourceRequiresTransponderError } from './error/flight.error';
+import { GroundServiceSource, isRequestedByGsx } from './ground-service-source';
 
-describe('resolveGroundServiceSource', () => {
-  it('is manual when the pilot starts it and GSX is not set to', () => {
-    expect(resolveGroundServiceSource(false, false)).toBe(
-      GroundServiceSource.Manual,
-    );
+describe('isRequestedByGsx', () => {
+  it('reports GSX when the Transponder names it', () => {
+    expect(
+      isRequestedByGsx(GroundServiceSource.Gsx, SessionClient.Transponder),
+    ).toBe(true);
   });
 
-  it('is an override when the pilot starts it while GSX is set to', () => {
-    expect(resolveGroundServiceSource(false, true)).toBe(
-      GroundServiceSource.Override,
-    );
-  });
+  it.each([SessionClient.Web, SessionClient.Transponder])(
+    'reports no GSX when %p names no source',
+    (client) => {
+      expect(isRequestedByGsx(undefined, client)).toBe(false);
+    },
+  );
 
-  it('is GSX when GSX requested it and is allowed to', () => {
-    expect(resolveGroundServiceSource(true, true)).toBe(
-      GroundServiceSource.Gsx,
-    );
-  });
-
-  it('refuses GSX when its setting is off', () => {
-    expect(() => resolveGroundServiceSource(true, false)).toThrow(
-      GsxAutomationDisabledError,
-    );
+  it('refuses GSX named by the browser', () => {
+    expect(() =>
+      isRequestedByGsx(GroundServiceSource.Gsx, SessionClient.Web),
+    ).toThrow(GsxSourceRequiresTransponderError);
   });
 });

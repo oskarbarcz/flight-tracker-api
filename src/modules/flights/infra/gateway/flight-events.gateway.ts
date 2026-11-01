@@ -20,6 +20,7 @@ import {
 import { FlightEventResponse } from '../http/request/event.dto';
 import { ListEventsQuery } from '../../application/query/events/list-events.query';
 import { FlightSubscriptionDto } from './request/flight-subscription.dto';
+import { SessionClient } from '../../../auth/model/session-client';
 
 export type AuthedSocket = Socket & {
   data: {
@@ -71,6 +72,11 @@ export class FlightEventsGateway implements OnGatewayConnection {
       }
 
       if (!allowedRoles.has(payload.role)) {
+        socket.disconnect(true);
+        return;
+      }
+
+      if ((payload.client ?? SessionClient.Web) !== SessionClient.Web) {
         socket.disconnect(true);
         return;
       }

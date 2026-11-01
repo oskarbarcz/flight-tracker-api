@@ -24,6 +24,31 @@ Feature: Read own Discord rich presence
       """
     And I set database to initial state
 
+  Scenario: The Transponder gets the activity of the flight of the pilot it signed in as
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me/discord-settings" with body:
+      """json
+      {
+        "richPresenceEnabled": true
+      }
+      """
+    Then the response status should be 200
+    Given I am signed in to the Transponder as "cabin crew"
+    When I send a "GET" request to "/api/v1/user/me/discord-presence"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "state": "Checked in, takeoff at 13:15 UTC",
+        "details": "Boston (BOS) -> Philadelphia (PHL)",
+        "startTimestamp": "2025-01-01T13:00:00.000Z",
+        "endTimestamp": "2025-01-01T15:50:00.000Z",
+        "smallImageKey": "flight-tracker",
+        "largeImageKey": "msfs 2024"
+      }
+      """
+    And I set database to initial state
+
   Scenario: As a cabin crew on a flight with no crew estimate the scheduled times are published
     Given I am signed in as "Alan Doe"
     When I send a "PATCH" request to "/api/v1/user/me/discord-settings" with body:

@@ -14,6 +14,8 @@ import { UnauthorizedResponse } from '../../../../../core/http/response/unauthor
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
 import { UserAwareCacheInterceptor } from '../../../../../core/cache/user-aware-cache.interceptor';
 import { CACHE_KEYS, CACHE_TTL_MS } from '../../../../../core/cache/cache.key';
+import { AllowClient } from '../../../../../core/http/auth/decorator/allow-client.decorator';
+import { SessionClient } from '../../../../auth/model/session-client';
 
 @ApiTags('user')
 @Controller('/api/v1/user')
@@ -34,6 +36,7 @@ export class GetCurrentUserAction {
   })
   @CacheKey(CACHE_KEYS.USER_ME)
   @CacheTTL(CACHE_TTL_MS.USER_ME)
+  @AllowClient(SessionClient.Transponder)
   @Get('/me')
   run(@Req() request: AuthorizedRequest): Promise<GetOwnUserDto> {
     const query = new GetOwnUserQuery(request.user.sub);

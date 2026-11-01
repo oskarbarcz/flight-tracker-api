@@ -29,7 +29,9 @@ import { UuidParam } from '../../../../../../core/validation/uuid.param';
 import { AuthorizedRequest } from '../../../../../../core/http/request/authorized.request';
 import { StartBoardingCommand } from '../../../../application/command/start-boarding.command';
 import { GroundServiceActionDto } from '../../request/ground-service.dto';
-import { GroundServiceSource } from '../../../../model/ground-service-source';
+import { isRequestedByGsx } from '../../../../model/ground-service-source';
+import { AllowClient } from '../../../../../../core/http/auth/decorator/allow-client.decorator';
+import { SessionClient } from '../../../../../auth/model/session-client';
 
 @ApiTags('flight actions')
 @Controller('api/v1/flight')
@@ -41,7 +43,7 @@ export class StartBoardingAction {
     description:
       '**NOTE:** This action is only allowed for flights in checked-in status. <br />' +
       '**NOTE:** This endpoint is only available for users with `cabin crew` role. <br />' +
-      "**NOTE:** The `flight.boarding-started` event names its source in `payload.source`: `gsx`, `override` or `manual`. A `gsx` request answers `422` when the user's GSX settings don't allow it.",
+      "**NOTE:** The `flight.boarding-started` event names its source in `payload.source`: `gsx`, `override` or `manual`. A `gsx` request answers `422` when the user's GSX settings don't allow it, and `403` when it does not come from the Transponder.",
   })
   @ApiBearerAuth('jwt')
   @ApiParam({
@@ -54,6 +56,7 @@ export class StartBoardingAction {
   @ApiUnauthorizedResponse({ type: UnauthorizedResponse })
   @ApiForbiddenResponse({ type: ForbiddenResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @AllowClient(SessionClient.Transponder)
   @Post('/:id/start-boarding')
   @HttpCode(HttpStatus.NO_CONTENT)
   @Role(UserRole.CabinCrew)
@@ -65,7 +68,7 @@ export class StartBoardingAction {
     const command = new StartBoardingCommand(
       id,
       request.user.sub,
-      body.source === GroundServiceSource.Gsx,
+      isRequestedByGsx(body.source, request.user.client),
     );
     await this.commandBus.execute(command);
   }

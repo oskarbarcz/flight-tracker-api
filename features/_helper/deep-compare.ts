@@ -26,6 +26,16 @@ export const deepCompare = (actual: any, expected: any) => {
     return;
   }
 
+  if (expected === '@jwt_transponder_access_token') {
+    validateJwtAccessToken(actual, 'transponder');
+    return;
+  }
+
+  if (expected === '@jwt_transponder_refresh_token') {
+    validateJwtRefreshToken(actual, 'transponder', 90);
+    return;
+  }
+
   const defaultLiveryMatch =
     typeof expected === 'string' &&
     expected.match(/^@defaultLivery\('(.*)'\)$/);
@@ -105,6 +115,7 @@ function validateJwtToken(payload: any) {
   expect(Object.keys(payload)).toContain('exp');
   expect(Object.keys(payload)).toContain('session');
   expect(Object.keys(payload)).toContain('type');
+  expect(Object.keys(payload)).toContain('client');
   expect(typeof payload.sub).toBe('string');
   expect(typeof payload.name).toBe('string');
   expect(typeof payload.email).toBe('string');
@@ -115,7 +126,7 @@ function validateJwtToken(payload: any) {
   expect(typeof payload.type).toBe('string');
 }
 
-function validateJwtAccessToken(actual: any) {
+function validateJwtAccessToken(actual: any, client = 'web') {
   expect(typeof actual).toBe('string');
   expect(actual.split('.').length).toBe(3);
 
@@ -123,10 +134,11 @@ function validateJwtAccessToken(actual: any) {
   validateJwtToken(payload);
 
   expect(payload.type).toBe('access');
+  expect(payload.client).toBe(client);
   expect(Number(payload.exp) - Number(payload.iat)).toBe(15 * 60);
 }
 
-function validateJwtRefreshToken(actual: any) {
+function validateJwtRefreshToken(actual: any, client = 'web', days = 7) {
   expect(typeof actual).toBe('string');
   expect(actual.split('.').length).toBe(3);
 
@@ -134,5 +146,6 @@ function validateJwtRefreshToken(actual: any) {
   validateJwtToken(payload);
 
   expect(payload.type).toBe('refresh');
-  expect(Number(payload.exp) - Number(payload.iat)).toBe(7 * 24 * 60 * 60);
+  expect(payload.client).toBe(client);
+  expect(Number(payload.exp) - Number(payload.iat)).toBe(days * 24 * 60 * 60);
 }

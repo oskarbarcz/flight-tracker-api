@@ -32,6 +32,21 @@ import { RefreshTokenHandler } from './application/command/refresh-token.command
 import { SignOutHandler } from './application/command/sign-out.command';
 import { SignOutEverywhereHandler } from './application/command/sign-out-everywhere.command';
 import { SignOutOtherSessionsHandler } from './application/command/sign-out-other-sessions.command';
+import { ClientGuard } from '../../core/http/auth/guard/client.guard';
+import { DeviceAuthorizationRepository } from './infra/database/repository/device-authorization.repository';
+import { StartDeviceAuthorizationAction } from './infra/http/action/start-device-authorization.action';
+import { RedeemDeviceAuthorizationAction } from './infra/http/action/redeem-device-authorization.action';
+import { GetDeviceAuthorizationAction } from './infra/http/action/get-device-authorization.action';
+import { ApproveDeviceAuthorizationAction } from './infra/http/action/approve-device-authorization.action';
+import { DenyDeviceAuthorizationAction } from './infra/http/action/deny-device-authorization.action';
+import { ListSessionsAction } from './infra/http/action/list-sessions.action';
+import { RevokeSessionAction } from './infra/http/action/revoke-session.action';
+import { StartDeviceAuthorizationHandler } from './application/command/start-device-authorization.command';
+import { RedeemDeviceAuthorizationHandler } from './application/command/redeem-device-authorization.command';
+import { DecideDeviceAuthorizationHandler } from './application/command/decide-device-authorization.command';
+import { GetDeviceAuthorizationHandler } from './application/query/get-device-authorization.query';
+import { ListSessionsHandler } from './application/query/list-sessions.query';
+import { RevokeSessionHandler } from './application/command/revoke-session.command';
 
 @Module({
   controllers: [
@@ -45,9 +60,17 @@ import { SignOutOtherSessionsHandler } from './application/command/sign-out-othe
     GetDiscordServerMembershipAction,
     RefreshTokenAction,
     SignOutAction,
+    StartDeviceAuthorizationAction,
+    RedeemDeviceAuthorizationAction,
+    GetDeviceAuthorizationAction,
+    ApproveDeviceAuthorizationAction,
+    DenyDeviceAuthorizationAction,
+    ListSessionsAction,
+    RevokeSessionAction,
   ],
   providers: [
     SessionRepository,
+    DeviceAuthorizationRepository,
     SessionService,
     SignInHandler,
     SignInWithGoogleHandler,
@@ -61,7 +84,14 @@ import { SignOutOtherSessionsHandler } from './application/command/sign-out-othe
     SignOutHandler,
     SignOutEverywhereHandler,
     SignOutOtherSessionsHandler,
+    StartDeviceAuthorizationHandler,
+    RedeemDeviceAuthorizationHandler,
+    DecideDeviceAuthorizationHandler,
+    GetDeviceAuthorizationHandler,
+    ListSessionsHandler,
+    RevokeSessionHandler,
     { provide: APP_GUARD, useClass: JwtTokenGuard },
+    { provide: APP_GUARD, useClass: ClientGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
   ],
   imports: [

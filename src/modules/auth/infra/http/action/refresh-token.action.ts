@@ -11,6 +11,8 @@ import {
 } from '@nestjs/swagger';
 import { UnauthorizedResponse } from '../../../../../core/http/response/unauthorized.response';
 import { AuthorizedRequest } from '../../../../../core/http/request/authorized.request';
+import { AllowClient } from '../../../../../core/http/auth/decorator/allow-client.decorator';
+import { SessionClient } from '../../../model/session-client';
 
 @ApiTags('auth')
 @Controller('/api/v1/auth')
@@ -27,6 +29,7 @@ export class RefreshTokenAction {
     description: 'JWT refresh token is invalid, outdated or missing',
     type: UnauthorizedResponse,
   })
+  @AllowClient(SessionClient.Transponder)
   @Post('/refresh')
   @HttpCode(HttpStatus.OK)
   async refreshToken(@Req() req: AuthorizedRequest): Promise<SignInResponse> {
