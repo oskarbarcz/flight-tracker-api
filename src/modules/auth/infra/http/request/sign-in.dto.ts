@@ -28,7 +28,8 @@ export class SignInResponse {
       '`session` - session unique system identifier,<br />' +
       '`name` - user name and surname,<br />' +
       '`email` - user email address,<br />' +
-      '`role` — a role that is assigned to a user.',
+      '`role` — a role that is assigned to a user,<br />' +
+      '`client` — `web` for the browser, `transponder` for the Transponder.',
     example: 'eyJhbGci...',
   })
   accessToken!: string;

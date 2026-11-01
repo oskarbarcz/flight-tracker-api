@@ -6,9 +6,18 @@ import { SignInResponse } from '../http/request/sign-in.dto';
 import { JwtTokenType, JwtUser } from '../http/request/jwt-user.dto';
 import { SessionRepository } from '../database/repository/session.repository';
 import { SessionNoLongerValidError } from '../../model/error/auth.error';
+import { SessionClient } from '../../model/session-client';
 
-const ACCESS_TOKEN_TTL = '15m';
-const REFRESH_TOKEN_TTL = '7d';
+const DAY_IN_SECONDS = 24 * 60 * 60;
+
+const ACCESS_TOKEN_TTL_SECONDS = 15 * 60;
+
+const REFRESH_TOKEN_TTL_SECONDS: Record<SessionClient, number> = {
+  [SessionClient.Web]: 7 * DAY_IN_SECONDS,
+  [SessionClient.Transponder]: 90 * DAY_IN_SECONDS,
+};
+
+type IssuedTokens = SignInResponse & { expiresAt: Date };
 
 @Injectable()
 export class SessionService {
@@ -17,24 +26,46 @@ export class SessionService {
     private readonly sessionRepository: SessionRepository,
   ) {}
 
-  async open(user: GetUserDto): Promise<SignInResponse> {
+  async open(
+    user: GetUserDto,
+    client: SessionClient = SessionClient.Web,
+    deviceName: string | null = null,
+  ): Promise<SignInResponse> {
     const sessionId = v4();
 
-    const tokens = await this.issueTokens(user, sessionId);
-    await this.sessionRepository.create(
-      user.id,
+    const { expiresAt, ...tokens } = await this.issueTokens(
+      user,
       sessionId,
-      tokens.refreshToken,
+      client,
     );
+    await this.sessionRepository.create({
+      id: sessionId,
+      userId: user.id,
+      token: tokens.refreshToken,
+      client,
+      deviceName,
+      expiresAt,
+    });
 
     return tokens;
   }
 
   async renew(user: GetUserDto, sessionId: string): Promise<SignInResponse> {
-    const tokens = await this.issueTokens(user, sessionId);
+    const session = await this.sessionRepository.findById(sessionId);
+
+    if (session === null || session.userId !== user.id) {
+      throw new SessionNoLongerValidError();
+    }
+
+    const { expiresAt, ...tokens } = await this.issueTokens(
+      user,
+      sessionId,
+      session.client,
+    );
     const updated = await this.sessionRepository.update(
       sessionId,
       tokens.refreshToken,
+      expiresAt,
     );
 
     if (updated === 0) {
@@ -65,13 +96,15 @@ export class SessionService {
   private async issueTokens(
     user: GetUserDto,
     sessionId: string,
-  ): Promise<SignInResponse> {
+    client: SessionClient,
+  ): Promise<IssuedTokens> {
     const basePayload = {
       sub: user.id,
       session: sessionId,
       name: user.name,
       email: user.email,
       role: user.role.toLowerCase(),
+      client,
     };
 
     const accessTokenPayload: JwtUser = {
@@ -84,15 +117,18 @@ export class SessionService {
       type: JwtTokenType.Refresh,
     };
 
+    const refreshTokenTtl = REFRESH_TOKEN_TTL_SECONDS[client];
+    const expiresAt = new Date(Date.now() + refreshTokenTtl * 1000);
+
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(accessTokenPayload, {
-        expiresIn: ACCESS_TOKEN_TTL,
+        expiresIn: ACCESS_TOKEN_TTL_SECONDS,
       }),
       this.jwtService.signAsync(refreshTokenPayload, {
-        expiresIn: REFRESH_TOKEN_TTL,
+        expiresIn: refreshTokenTtl,
       }),
     ]);
 
-    return { accessToken, refreshToken };
+    return { accessToken, refreshToken, expiresAt };
   }
 }

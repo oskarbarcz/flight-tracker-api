@@ -1,29 +1,75 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
+import { SessionClient } from '../../../model/session-client';
+import { SessionRecord } from '../../../model/session.model';
+
+export type NewSession = {
+  id: string;
+  userId: string;
+  token: string;
+  client: SessionClient;
+  deviceName: string | null;
+  expiresAt: Date;
+};
+
+const SESSION_FIELDS = {
+  id: true,
+  userId: true,
+  client: true,
+  deviceName: true,
+  createdAt: true,
+  lastUsedAt: true,
+  expiresAt: true,
+} as const;
 
 @Injectable()
 export class SessionRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(userId: string, sessionId: string, token: string) {
+  async create(session: NewSession): Promise<void> {
+    const now = new Date();
+
     await this.prisma.jwtRefreshToken.create({
       data: {
-        id: sessionId,
-        token: await this.hash(token),
-        createdAt: new Date(),
-        userId: userId,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+        id: session.id,
+        token: await this.hash(session.token),
+        userId: session.userId,
+        client: session.client,
+        deviceName: session.deviceName,
+        createdAt: now,
+        lastUsedAt: now,
+        expiresAt: session.expiresAt,
       },
     });
   }
 
-  async update(id: string, token: string): Promise<number> {
+  async findById(id: string): Promise<SessionRecord | null> {
+    const session = await this.prisma.jwtRefreshToken.findUnique({
+      where: { id },
+      select: SESSION_FIELDS,
+    });
+
+    return session as SessionRecord | null;
+  }
+
+  async findActiveForUser(userId: string): Promise<SessionRecord[]> {
+    const sessions = await this.prisma.jwtRefreshToken.findMany({
+      where: { userId, expiresAt: { gt: new Date() } },
+      select: SESSION_FIELDS,
+      orderBy: [{ lastUsedAt: 'desc' }, { createdAt: 'desc' }],
+    });
+
+    return sessions as SessionRecord[];
+  }
+
+  async update(id: string, token: string, expiresAt: Date): Promise<number> {
     const { count } = await this.prisma.jwtRefreshToken.updateMany({
       where: { id },
       data: {
         token: await this.hash(token),
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+        lastUsedAt: new Date(),
+        expiresAt,
       },
     });
 
@@ -32,6 +78,14 @@ export class SessionRepository {
 
   async removeSession(id: string): Promise<void> {
     await this.prisma.jwtRefreshToken.deleteMany({ where: { id } });
+  }
+
+  async removeSessionOfUser(id: string, userId: string): Promise<number> {
+    const { count } = await this.prisma.jwtRefreshToken.deleteMany({
+      where: { id, userId },
+    });
+
+    return count;
   }
 
   async removeAllSessionsForUser(userId: string) {

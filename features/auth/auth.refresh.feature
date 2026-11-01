@@ -39,6 +39,19 @@ Feature: As a user I can exchange a refresh token for fresh access and refresh t
       """
     And I set database to initial state
 
+  Scenario: The Transponder can refresh its session and stays a Transponder session
+    Given I hold a Transponder refresh token as "cabin crew"
+    When I send a "POST" request to "/api/v1/auth/refresh"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "accessToken": "@jwt_transponder_access_token",
+        "refreshToken": "@jwt_transponder_refresh_token"
+      }
+      """
+    And I set database to initial state
+
   Scenario: I cannot refresh using an access token
     Given I am signed in as "admin"
     When I send a "POST" request to "/api/v1/auth/refresh"

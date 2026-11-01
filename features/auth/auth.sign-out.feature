@@ -58,6 +58,12 @@ Feature: As a user I can sign out
     Then the response status should be 204
     And I set database to initial state
 
+  Scenario: The Transponder can sign out
+    Given I am signed in to the Transponder as "cabin crew"
+    When I send a "POST" request to "/api/v1/auth/sign-out"
+    Then the response status should be 204
+    And I set database to initial state
+
   Scenario: As unauthenticated user I cannot sign out
     When I send a "POST" request to "/api/v1/auth/sign-out"
     Then the response status should be 401

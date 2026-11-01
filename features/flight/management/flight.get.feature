@@ -199,6 +199,12 @@ Feature: Get flight
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
     Then the response status should be 200
 
+  Scenario: The Transponder can get flight
+    Given I am signed in to the Transponder as "cabin crew"
+    When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
+    Then the response status should be 200
+    And I set database to initial state
+
   Scenario: As an unauthorized user I can get private flight
     When I send a "GET" request to "/api/v1/flight/3c8ba7a7-1085-423c-8cc3-d51f5ab0cd05"
     Then the response status should be 200

@@ -88,6 +88,7 @@ Feature: Name the source of boarding and offboarding steps
     Given I open a WebSocket connection as "cabin crew"
     When I subscribe to flight events for "b3899775-278e-4496-add1-21385a13d93e"
     Then I should receive flight event history within 2000ms
+    Given I am signed in to the Transponder as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/start-boarding" with body:
       """json
       {
@@ -123,6 +124,7 @@ Feature: Name the source of boarding and offboarding steps
     Given I open a WebSocket connection as "cabin crew"
     When I subscribe to flight events for "17d2f703-957d-4ad1-a620-3c187a70c26a"
     Then I should receive flight event history within 2000ms
+    Given I am signed in to the Transponder as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/17d2f703-957d-4ad1-a620-3c187a70c26a/start-offboarding" with body:
       """json
       {
@@ -156,6 +158,7 @@ Feature: Name the source of boarding and offboarding steps
       }
       """
     Then the response status should be 200
+    Given I am signed in to the Transponder as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/start-boarding" with body:
       """json
       {
@@ -190,6 +193,7 @@ Feature: Name the source of boarding and offboarding steps
       }
       """
     Then the response status should be 200
+    Given I am signed in to the Transponder as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/17d2f703-957d-4ad1-a620-3c187a70c26a/start-offboarding" with body:
       """json
       {
@@ -218,6 +222,7 @@ Feature: Name the source of boarding and offboarding steps
     Then the response status should be 200
     When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/start-boarding"
     Then the response status should be 204
+    Given I am signed in to the Transponder as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/b3899775-278e-4496-add1-21385a13d93e/start-boarding" with body:
       """json
       {
@@ -313,6 +318,7 @@ Feature: Name the source of boarding and offboarding steps
     Given I open a WebSocket connection as "cabin crew"
     When I subscribe to flight events for "5aada8ba-60c1-4e93-bcee-b59a7c555fdd"
     Then I should receive flight event history within 2000ms
+    Given I am signed in to the Transponder as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding" with body:
       """json
       {
@@ -346,6 +352,7 @@ Feature: Name the source of boarding and offboarding steps
       }
       """
     Then the response status should be 200
+    Given I am signed in to the Transponder as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding" with body:
       """json
       {
@@ -381,6 +388,7 @@ Feature: Name the source of boarding and offboarding steps
     Then the response status should be 200
     When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding"
     Then the response status should be 204
+    Given I am signed in to the Transponder as "cabin crew"
     When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding" with body:
       """json
       {
@@ -410,3 +418,35 @@ Feature: Name the source of boarding and offboarding steps
         }
       }
       """
+
+  Scenario Outline: As a cabin crew in the browser I cannot claim GSX as the source of <action>
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me/gsx-settings" with body:
+      """json
+      {
+        "integrationEnabled": true
+      }
+      """
+    Then the response status should be 200
+    When I send a "POST" request to "/api/v1/flight/<flightId>/<action>" with body:
+      """json
+      {
+        "source": "gsx"
+      }
+      """
+    Then the response status should be 403
+    And the response body should contain:
+      """json
+      {
+        "message": "Only the Transponder can report GSX as the source.",
+        "error": "Forbidden",
+        "statusCode": 403
+      }
+      """
+    And I set database to initial state
+
+    Examples:
+      | action             | flightId                             |
+      | start-boarding     | b3899775-278e-4496-add1-21385a13d93e |
+      | start-offboarding  | 17d2f703-957d-4ad1-a620-3c187a70c26a |
+      | finish-offboarding | 5aada8ba-60c1-4e93-bcee-b59a7c555fdd |

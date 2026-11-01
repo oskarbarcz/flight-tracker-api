@@ -21,6 +21,8 @@ import { FlightTracking } from '../../../../model/flight.model';
 import { FlightDoesNotExistError } from '../../../../model/error/flight.error';
 import { GetFlightQuery } from '../../../../application/query/get-flight.query';
 import { GetFlightTrackingQuery } from '../../../../application/query/get-flight-tracking.query';
+import { AllowClient } from '../../../../../../core/http/auth/decorator/allow-client.decorator';
+import { SessionClient } from '../../../../../auth/model/session-client';
 
 @ApiTags('flight')
 @Controller('api/v1/flight')
@@ -35,6 +37,7 @@ export class GetFlightAction {
   @ApiOkResponse({ type: GetFlightResponse })
   @ApiBadRequestResponse({ type: GenericBadRequestResponse })
   @ApiNotFoundResponse({ type: GenericNotFoundResponse })
+  @AllowClient(SessionClient.Transponder)
   @Get(':id')
   @SkipAuth()
   @UseInterceptors(PerFlightCacheInterceptor)

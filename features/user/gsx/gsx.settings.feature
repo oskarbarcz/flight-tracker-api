@@ -26,6 +26,20 @@ Feature: Manage own GSX settings
       }
       """
 
+  Scenario: The Transponder can read the GSX settings of the pilot it signed in as
+    Given I am signed in to the Transponder as "cabin crew"
+    When I send a "GET" request to "/api/v1/user/me/gsx-settings"
+    Then the response status should be 200
+    And the response body should contain:
+      """json
+      {
+        "integrationEnabled": false,
+        "autoBoardingEnabled": true,
+        "autoDeboardingEnabled": true
+      }
+      """
+    And I set database to initial state
+
   Scenario: As an unauthorized user I cannot read GSX settings
     When I send a "GET" request to "/api/v1/user/me/gsx-settings"
     Then the response status should be 401
@@ -282,6 +296,25 @@ Feature: Manage own GSX settings
         }
       }
       """
+
+  Scenario: The Transponder cannot change GSX settings
+    Given I am signed in to the Transponder as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me/gsx-settings" with body:
+      """json
+      {
+        "integrationEnabled": true
+      }
+      """
+    Then the response status should be 403
+    And the response body should contain:
+      """json
+      {
+        "message": "This action is not available to the Transponder.",
+        "error": "Forbidden",
+        "statusCode": 403
+      }
+      """
+    And I set database to initial state
 
   Scenario: As an unauthorized user I cannot change GSX settings
     When I send a "PATCH" request to "/api/v1/user/me/gsx-settings" with body:

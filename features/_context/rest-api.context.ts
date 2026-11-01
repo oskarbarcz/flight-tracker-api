@@ -97,6 +97,28 @@ function signIn(user: ApiUserType): Promise<AxiosResponse<SignInResponse>> {
   );
 }
 
+async function signInToTransponder(user: ApiUserType): Promise<SignInResponse> {
+  const started = await apiClient.post('/api/v1/auth/device', {
+    deviceName: 'SIM-PC',
+  });
+  expect(started.status).toBe(201);
+
+  const approved = await apiClient.post(
+    `/api/v1/auth/device/${started.data.userCode}/approve`,
+    undefined,
+    { headers: { Authorization: `Bearer ${await accessTokenFor(user)}` } },
+  );
+  expect(approved.status).toBe(204);
+
+  const redeemed = await apiClient.post<SignInResponse>(
+    '/api/v1/auth/device/token',
+    { deviceCode: started.data.deviceCode },
+  );
+  expect(redeemed.status).toBe(200);
+
+  return redeemed.data;
+}
+
 export async function accessTokenFor(user: ApiUserType): Promise<string> {
   const minted = accessTokens.get(user);
 
@@ -141,6 +163,27 @@ Given(
     })) as AxiosResponse<SignInResponse>;
 
     bearerToken = (apiResponse.data as SignInResponse).accessToken;
+  },
+);
+
+Given(
+  'I am signed in with a new session as {string}',
+  async (user: ApiUserType) => {
+    bearerToken = (await signIn(user)).data.accessToken;
+  },
+);
+
+Given(
+  'I am signed in to the Transponder as {string}',
+  async (user: ApiUserType) => {
+    bearerToken = (await signInToTransponder(user)).accessToken;
+  },
+);
+
+Given(
+  'I hold a Transponder refresh token as {string}',
+  async (user: ApiUserType) => {
+    bearerToken = (await signInToTransponder(user)).refreshToken;
   },
 );
 

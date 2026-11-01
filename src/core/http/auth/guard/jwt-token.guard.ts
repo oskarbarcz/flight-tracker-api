@@ -14,6 +14,7 @@ import {
   JwtUser,
 } from '../../../../modules/auth/infra/http/request/jwt-user.dto';
 import { CannotUseTokenTypeError } from '../../../../modules/auth/model/error/auth.error';
+import { SessionClient } from '../../../../modules/auth/model/session-client';
 
 @Injectable()
 export class JwtTokenGuard implements CanActivate {
@@ -51,7 +52,10 @@ export class JwtTokenGuard implements CanActivate {
         throw new CannotUseTokenTypeError(payload.type);
       }
 
-      request['user'] = payload;
+      request['user'] = {
+        ...payload,
+        client: payload.client ?? SessionClient.Web,
+      };
     } catch (e: any) {
       if (e instanceof CannotUseTokenTypeError) {
         throw e;
