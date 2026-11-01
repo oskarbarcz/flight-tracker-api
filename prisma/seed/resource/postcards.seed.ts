@@ -33,7 +33,7 @@ const ART_UUIDS = {
   knock: '4f9b6c13-7e28-45da-8f61-3a5d2b7e9c64',
 } as const;
 
-const ART_BASE_URL = 'http://functions-mock:1080/mypreflight-files/postcards';
+const ART_BASE_URL = 'http://functions-mock:1089/mypreflight-files/postcards';
 
 export async function loadPostcards(
   tx: Prisma.TransactionClient,

@@ -1,0 +1,25 @@
+{
+  "count": 4,
+  "configurations": [
+    {
+      "slug": "lh-32n",
+      "airlineIata": "LH",
+      "aircraftIata": "32N"
+    },
+    {
+      "slug": "lo-7m8-1",
+      "airlineIata": "LO",
+      "aircraftIata": "7M8"
+    },
+    {
+      "slug": "lo-7m8-2",
+      "airlineIata": "LO",
+      "aircraftIata": "7M8"
+    },
+    {
+      "slug": "lo-7m8-3",
+      "airlineIata": "LO",
+      "aircraftIata": "7M8"
+    }
+  ]
+}

@@ -1,278 +1,662 @@
-[
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/mypreflight-files/postcards/cefddab1-b5dc-4764-bb7d-43bf1f606208.png"
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["image/png"]
-      },
-      "body": {
-        "type": "BINARY",
-        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwBfYFIYwryH8OITBAtzm7PV1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFYzaX4SOB0fUAAAAASUVORK5CYII="
-      }
-    },
-    "priority": 25
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/mypreflight-files/postcards/a13b60a0-9253-4c77-a8fa-68bfb07c5971.png"
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["image/png"]
-      },
-      "body": {
-        "type": "BINARY",
-        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PwQkAIBDAsBvSt1O4Pw7hIwiFDpDOPuvrhgsa0IIGtKABLWhACxrQgga0oAEtaEALGtCCBrSgAS1oQAsa0IIGtKABLWhACxrQgga0oAEtaEALGtCCBrSgAS1oQAsa0IIGtKABLWhACxrQgga0oAEtaEALGtCCBrSgAS1oQAsa0IIGtKABLWhACxrQgga04LEL/EWyaZEJK30AAAAASUVORK5CYII="
-      }
-    },
-    "priority": 25
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/mypreflight-files/postcards/f57fbaa1-4332-4dba-9d10-931cc053111f.png"
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["image/png"]
-      },
-      "body": {
-        "type": "BINARY",
-        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwBfUAKYwuyH8OITBAtzm7PV1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFFjIMlgY42NkAAAAASUVORK5CYII="
-      }
-    },
-    "priority": 25
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/mypreflight-files/postcards/8d8fc159-e5b1-4a3d-ac4d-1f0d1aae8f1d.png"
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["image/png"]
-      },
-      "body": {
-        "type": "BINARY",
-        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwJfPfMYxnCH8OITBAtzm7PV1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFpTdw/zeJgQ4AAAAASUVORK5CYII="
-      }
-    },
-    "priority": 25
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/mypreflight-files/postcards/63ed849d-2865-418c-8d4c-059aab2096bb.png"
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["image/png"]
-      },
-      "body": {
-        "type": "BINARY",
-        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwBfXSEYwpiH8OITBAtxm7fN1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFvDaeDq85X98AAAAASUVORK5CYII="
-      }
-    },
-    "priority": 25
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/mypreflight-files/postcards/213b197b-b74a-4ae0-84ff-be37190c00d9.png"
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["image/png"]
-      },
-      "body": {
-        "type": "BINARY",
-        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwJfSKAYwuSH8OITBAtxmnf11wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFSwoOpa+e+GUAAAAASUVORK5CYII="
-      }
-    },
-    "priority": 25
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/mypreflight-files/postcards/d7f1b070-69e5-46c5-8a9f-5c3fdd2b8a81.png"
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["image/png"]
-      },
-      "body": {
-        "type": "BINARY",
-        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwJfaFIYxoiH8OITBAtxmr/N1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFi9h1HeZBRLsAAAAASUVORK5CYII="
-      }
-    },
-    "priority": 25
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/mypreflight-files/postcards/aa25fe19-3d1b-48c7-919d-a0eab5eba254.png"
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["image/png"]
-      },
-      "body": {
-        "type": "BINARY",
-        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwBfPGIYysCH8OITBAtxm7fN1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgF+IOLh3dO/JwAAAAASUVORK5CYII="
-      }
-    },
-    "priority": 25
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/mypreflight-files/postcards/e1af9fef-d903-4f8d-8d23-b644b2b961c2.png"
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["image/png"]
-      },
-      "body": {
-        "type": "BINARY",
-        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwBfOBCY1oiH8OITBAtzmrP11wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFtdlilgol1XMAAAAASUVORK5CYII="
-      }
-    },
-    "priority": 25
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/mypreflight-files/postcards/dd8cd3b6-38bd-49b7-87f4-e03d8ec05147.png"
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["image/png"]
-      },
-      "body": {
-        "type": "BINARY",
-        "base64Bytes": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABWCAIAAADwhAcPAAAAmElEQVR4nO3PUQkAIBTAwJfNVCY0lyH8OITBAtzm7PV1wwUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa0IAWNKAFDWhBA1rQgBY0oAUNaEEDWtCAFjSgBQ1oQQNa8NgFXUNB4dQLNwkAAAAASUVORK5CYII="
-      }
-    },
-    "priority": 25
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/postcard-generator/postcard/city",
-      "headers": {
-        "X-Require-Whisk-Auth": ["very-secret-token"]
-      },
-      "queryStringParameters": {
-        "city": ["北京"]
-      }
-    },
-    "httpResponse": {
-      "statusCode": 400,
-      "headers": {
-        "Content-Type": ["application/json"]
-      },
-      "body": {
-        "error": {
-          "code": "BAD_REQUEST",
-          "message": "Parameter city may only contain Latin letters, digits, spaces, apostrophes and dots.",
-          "status": 400
+{
+  "uuid": "bdb75adb-811d-434d-af48-d1392c4f4a92",
+  "lastMigration": 33,
+  "name": "Postcard function",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 1089,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "4568158d-395f-4656-8954-b0deb4149c47",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "mypreflight-files/postcards/cefddab1-b5dc-4764-bb7d-43bf1f606208.png",
+      "responses": [
+        {
+          "uuid": "256261ea-be6c-46be-86d2-8a53fac3f6a5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "image/png"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "postcard/cefddab1-b5dc-4764-bb7d-43bf1f606208.png",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "priority": 15
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/postcard-generator/postcard/city",
-      "headers": {
-        "X-Require-Whisk-Auth": ["very-secret-token"]
-      },
-      "queryStringParameters": {
-        "uuid": ["0b5f2f18-9c3a-4b7e-8d21-6a4f0c9e7b53"]
-      }
+    {
+      "uuid": "20dbc7fb-2160-4879-a0f5-559da0227358",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "mypreflight-files/postcards/a13b60a0-9253-4c77-a8fa-68bfb07c5971.png",
+      "responses": [
+        {
+          "uuid": "fb6aa79a-5825-4918-8ec3-b51451182c4f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "image/png"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "postcard/a13b60a0-9253-4c77-a8fa-68bfb07c5971.png",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 202,
-      "headers": {
-        "Content-Type": ["application/json"]
-      },
-      "body": {
-        "code": "9dc953214622ec06d8db424c91245cee",
-        "error": "Response not yet ready."
-      }
+    {
+      "uuid": "05d00e1c-d13e-4b04-8fc5-cfb961341314",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "mypreflight-files/postcards/f57fbaa1-4332-4dba-9d10-931cc053111f.png",
+      "responses": [
+        {
+          "uuid": "ff2be2e5-ede2-4b87-af09-b3e1a57ac74a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "image/png"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "postcard/f57fbaa1-4332-4dba-9d10-931cc053111f.png",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "priority": 15
-  },
-  {
-    "httpRequest": {
-      "method": "HEAD",
-      "path": "/mypreflight-files/postcards/0b5f2f18-9c3a-4b7e-8d21-6a4f0c9e7b53.jpg"
+    {
+      "uuid": "321e50e1-95fd-48a6-8387-0e2bf39edd33",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "mypreflight-files/postcards/8d8fc159-e5b1-4a3d-ac4d-1f0d1aae8f1d.png",
+      "responses": [
+        {
+          "uuid": "58e280df-e3f3-40fe-ba32-47876771f43b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "image/png"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "postcard/8d8fc159-e5b1-4a3d-ac4d-1f0d1aae8f1d.png",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["image/jpeg"]
-      }
+    {
+      "uuid": "b6557a4f-5345-496b-be6a-8a696af1adcb",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "mypreflight-files/postcards/63ed849d-2865-418c-8d4c-059aab2096bb.png",
+      "responses": [
+        {
+          "uuid": "9298242c-3d08-4549-a093-a3a0a135254a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "image/png"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "postcard/63ed849d-2865-418c-8d4c-059aab2096bb.png",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "priority": 15
-  },
-  {
-    "httpRequest": {
-      "method": "HEAD",
-      "path": "/mypreflight-files/postcards/.*"
+    {
+      "uuid": "b12ec885-61c2-4b4c-870a-3a8c79f4e732",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "mypreflight-files/postcards/213b197b-b74a-4ae0-84ff-be37190c00d9.png",
+      "responses": [
+        {
+          "uuid": "f0f5d6a6-ac7b-408d-a4fe-679a0933afe2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "image/png"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "postcard/213b197b-b74a-4ae0-84ff-be37190c00d9.png",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["image/jpeg"]
-      }
+    {
+      "uuid": "58f44538-b68c-4e22-9acc-4841d68823c6",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "mypreflight-files/postcards/d7f1b070-69e5-46c5-8a9f-5c3fdd2b8a81.png",
+      "responses": [
+        {
+          "uuid": "7a5c63e2-a5e0-4b59-8cf6-d058a8cc04d3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "image/png"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "postcard/d7f1b070-69e5-46c5-8a9f-5c3fdd2b8a81.png",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "priority": 10
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/postcard-generator/postcard/city",
-      "headers": {
-        "X-Require-Whisk-Auth": ["very-secret-token"]
-      }
+    {
+      "uuid": "74d38a55-1c74-4906-b535-3010739d7eda",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "mypreflight-files/postcards/aa25fe19-3d1b-48c7-919d-a0eab5eba254.png",
+      "responses": [
+        {
+          "uuid": "96c00bc8-6138-49d1-b34f-3989325aa474",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "image/png"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "postcard/aa25fe19-3d1b-48c7-919d-a0eab5eba254.png",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "priority": 10,
-    "httpResponseTemplate": {
-      "templateType": "MUSTACHE",
-      "template": "{'statusCode': 200,'headers': { 'Content-Type': [ 'application/json' ] },'body': {'city': '{{ request.queryStringParameters.city.0 }}','country': '{{ request.queryStringParameters.country.0 }}','continent': '{{ request.queryStringParameters.continent.0 }}','uuid': '{{ request.queryStringParameters.uuid.0 }}','model': 'gpt-image-2','size': '1152x1536','quality': 'high','format': 'jpeg','contentType': 'image/jpeg','bytes': 312044,'prompt': 'TARGET_CITY = \"{{ request.queryStringParameters.city.0 }}\"','key': 'postcards/{{ request.queryStringParameters.uuid.0 }}.jpg','url': 'http://functions-mock:1080/mypreflight-files/postcards/{{ request.queryStringParameters.uuid.0 }}.jpg'}}"
+    {
+      "uuid": "939163ab-2f59-43ce-bb3e-5287faa86209",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "mypreflight-files/postcards/e1af9fef-d903-4f8d-8d23-b644b2b961c2.png",
+      "responses": [
+        {
+          "uuid": "abec4477-7d12-4ff8-bc81-4eaac9ca3c11",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "image/png"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "postcard/e1af9fef-d903-4f8d-8d23-b644b2b961c2.png",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "e15bf36b-eadb-4327-98d7-ad191d18a0fc",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "mypreflight-files/postcards/dd8cd3b6-38bd-49b7-87f4-e03d8ec05147.png",
+      "responses": [
+        {
+          "uuid": "bf73cff4-e95e-496c-bc9b-044e2d8ec1fc",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "image/png"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "postcard/dd8cd3b6-38bd-49b7-87f4-e03d8ec05147.png",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "59527a05-6f66-44fa-bf14-0c0ff3d59d30",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "postcard-generator/postcard/city",
+      "responses": [
+        {
+          "uuid": "538900af-625b-4516-8859-80ac96b3291c",
+          "body": "{\"error\":{\"code\":\"BAD_REQUEST\",\"message\":\"Parameter city may only contain Latin letters, digits, spaces, apostrophes and dots.\",\"status\":400}}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "city=北京, X-Require-Whisk-Auth: very-secret-token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "city",
+              "value": "北京",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "header",
+              "modifier": "X-Require-Whisk-Auth",
+              "value": "very-secret-token",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "4b07a321-4d3d-4e28-9fac-dd82d2d56f5a",
+          "body": "{\"code\":\"9dc953214622ec06d8db424c91245cee\",\"error\":\"Response not yet ready.\"}",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "uuid=0b5f2f18-9c3a-4b7e-8d21-6a4f0c9e7b53, X-Require-Whisk-Auth: very-secret-token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "uuid",
+              "value": "0b5f2f18-9c3a-4b7e-8d21-6a4f0c9e7b53",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "header",
+              "modifier": "X-Require-Whisk-Auth",
+              "value": "very-secret-token",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "7309cb41-a26e-49ac-b409-a927cbd6a349",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "X-Require-Whisk-Auth: very-secret-token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "postcard/city.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "X-Require-Whisk-Auth",
+              "value": "very-secret-token",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "d283de99-8634-4cec-b6be-31d07837a9b6",
+          "body": "{\"code\":\"1cbe74760de2d9cfb5f9a46129004695\",\"error\":\"Authentication is possible but has failed or not yet been provided.\"}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "6fd786f8-045d-47c5-a9ee-64aa69df089c",
+      "type": "http",
+      "documentation": "",
+      "method": "head",
+      "endpoint": "mypreflight-files/postcards/0b5f2f18-9c3a-4b7e-8d21-6a4f0c9e7b53.jpg",
+      "responses": [
+        {
+          "uuid": "70823e3e-7dc7-425e-bd13-85ff816e3c9a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "image/jpeg"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "1d5bff5e-2dc9-48b8-a5a9-31a560630601",
+      "type": "http",
+      "documentation": "",
+      "method": "head",
+      "endpoint": "mypreflight-files/postcards/:file",
+      "responses": [
+        {
+          "uuid": "39f5fbc4-d2ca-47da-a869-c7a94b9cbcef",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "image/jpeg"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "4568158d-395f-4656-8954-b0deb4149c47"
+    },
+    {
+      "type": "route",
+      "uuid": "20dbc7fb-2160-4879-a0f5-559da0227358"
+    },
+    {
+      "type": "route",
+      "uuid": "05d00e1c-d13e-4b04-8fc5-cfb961341314"
+    },
+    {
+      "type": "route",
+      "uuid": "321e50e1-95fd-48a6-8387-0e2bf39edd33"
+    },
+    {
+      "type": "route",
+      "uuid": "b6557a4f-5345-496b-be6a-8a696af1adcb"
+    },
+    {
+      "type": "route",
+      "uuid": "b12ec885-61c2-4b4c-870a-3a8c79f4e732"
+    },
+    {
+      "type": "route",
+      "uuid": "58f44538-b68c-4e22-9acc-4841d68823c6"
+    },
+    {
+      "type": "route",
+      "uuid": "74d38a55-1c74-4906-b535-3010739d7eda"
+    },
+    {
+      "type": "route",
+      "uuid": "939163ab-2f59-43ce-bb3e-5287faa86209"
+    },
+    {
+      "type": "route",
+      "uuid": "e15bf36b-eadb-4327-98d7-ad191d18a0fc"
+    },
+    {
+      "type": "route",
+      "uuid": "59527a05-6f66-44fa-bf14-0c0ff3d59d30"
+    },
+    {
+      "type": "route",
+      "uuid": "6fd786f8-045d-47c5-a9ee-64aa69df089c"
+    },
+    {
+      "type": "route",
+      "uuid": "1d5bff5e-2dc9-48b8-a5a9-31a560630601"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
   },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/postcard-generator/postcard/city"
-    },
-    "httpResponse": {
-      "statusCode": 401,
-      "headers": {
-        "Content-Type": ["application/json"]
-      },
-      "body": {
-        "code": "1cbe74760de2d9cfb5f9a46129004695",
-        "error": "Authentication is possible but has failed or not yet been provided."
-      }
-    },
-    "priority": -1
-  }
-]
+  "cors": false,
+  "headers": [],
+  "proxyReqHeaders": [],
+  "proxyResHeaders": [],
+  "data": [],
+  "callbacks": []
+}

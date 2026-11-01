@@ -1,758 +1,744 @@
-[
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/AAL4911"
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ],
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      },
-      "body": [
+{
+  "uuid": "c8c9700f-81b0-477b-9e64-65eb1215c34e",
+  "lastMigration": 33,
+  "name": "ADS-B",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 1080,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "70dcff3c-7684-4a66-80f4-176e7019742d",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/AAL4911",
+      "responses": [
         {
-          "callsign": "AAL4911",
-          "date": "2025-01-01T13:10:00.000Z",
-          "latitude": 42.3656,
-          "longitude": -71.0096,
-          "altitude": 8500,
-          "verticalRate": 1800,
-          "groundSpeed": 285,
-          "track": 225,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "AAL4911",
-          "date": "2025-01-01T13:40:00.000Z",
-          "latitude": 41.7,
-          "longitude": -72.3,
-          "altitude": 24000,
-          "verticalRate": 1500,
-          "groundSpeed": 140,
-          "track": 236,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "AAL4911",
-          "date": "2025-01-01T14:10:00.000Z",
-          "latitude": 40.7,
-          "longitude": -74.0,
-          "altitude": 35000,
-          "verticalRate": 0,
-          "groundSpeed": 195,
-          "track": 233,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "AAL4911",
-          "date": "2025-01-01T14:40:00.000Z",
-          "latitude": 39.8729,
-          "longitude": -75.2437,
-          "altitude": 12000,
-          "verticalRate": -1200,
-          "groundSpeed": 151,
-          "track": 229,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "20beffa0-6abb-4370-baa6-ebbb49f56be3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/AAL4911.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/AAL4912"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ],
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      },
-      "body": [
+    {
+      "uuid": "ea2e7860-8ee4-41ff-ac18-b8a8b3b79e19",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/AAL4912",
+      "responses": [
         {
-          "callsign": "AAL4912",
-          "date": "2025-01-01T13:10:00.000Z",
-          "latitude": 42.3656,
-          "longitude": -71.0096,
-          "altitude": 2500,
-          "verticalRate": 1800,
-          "groundSpeed": 240,
-          "track": 225,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "AAL4912",
-          "date": "2025-01-01T13:10:00.000Z",
-          "latitude": 42.2,
-          "longitude": -71.45,
-          "altitude": 14000,
-          "verticalRate": 1800,
-          "groundSpeed": 330,
-          "track": 232,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "AAL4912",
-          "date": "2025-01-01T13:10:00.000Z",
-          "latitude": 41.85,
-          "longitude": -72.05,
-          "altitude": 24000,
-          "verticalRate": 1800,
-          "groundSpeed": 400,
-          "track": 233,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "AAL4912",
-          "date": "2025-01-01T13:10:00.000Z",
-          "latitude": 41.6,
-          "longitude": -72.45,
-          "altitude": 28000,
-          "verticalRate": 1800,
-          "groundSpeed": 420,
-          "track": 233,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "AAL4912",
-          "date": "2025-01-01T13:10:00.000Z",
-          "latitude": 41.4,
-          "longitude": -72.75,
-          "altitude": 28000,
-          "verticalRate": 1800,
-          "groundSpeed": 420,
-          "track": 233,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "AAL4912",
-          "date": "2025-01-01T13:10:00.000Z",
-          "latitude": 41.2,
-          "longitude": -73.05,
-          "altitude": 28000,
-          "verticalRate": 1800,
-          "groundSpeed": 420,
-          "track": 233,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "026d480b-b157-4e5f-abb3-fc84d4fa7070",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/AAL4912.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/AAL4913"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ]
-      },
-      "body": [
+    {
+      "uuid": "1d6ae73a-91a6-4c59-bdd9-65dbc12eaf88",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/AAL4913",
+      "responses": [
         {
-          "callsign": "AAL4913",
-          "date": "2025-01-01T13:10:00.000Z",
-          "latitude": 42.3656,
-          "longitude": -71.0096,
-          "altitude": 8500,
-          "verticalRate": 1800,
-          "groundSpeed": 285,
-          "track": 225,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "AAL4913",
-          "date": "2025-01-01T13:40:00.000Z",
-          "latitude": 41.7,
-          "longitude": -72.3,
-          "altitude": 24000,
-          "verticalRate": 1500,
-          "groundSpeed": 140,
-          "track": 236,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "AAL4913",
-          "date": "2025-01-01T14:10:00.000Z",
-          "latitude": 40.7,
-          "longitude": -74.0,
-          "altitude": 35000,
-          "verticalRate": 0,
-          "groundSpeed": 195,
-          "track": 233,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "AAL4913",
-          "date": "2025-01-01T14:40:00.000Z",
-          "latitude": 39.8729,
-          "longitude": -75.2437,
-          "altitude": 12000,
-          "verticalRate": -1200,
-          "groundSpeed": 151,
-          "track": 229,
-          "isOnGround": false,
-          "squawk": "2453",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "f5d3c8d9-1abb-45f9-86f6-3e3f10dfdb52",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/AAL4913.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/DLH102"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ],
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      },
-      "body": [
+    {
+      "uuid": "3f696b03-9083-45e4-824a-55bae9785fc3",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/DLH102",
+      "responses": [
         {
-          "callsign": "DLH102",
-          "date": "2025-01-01T13:25:00.000Z",
-          "latitude": 40.6398,
-          "longitude": -73.7789,
-          "altitude": 0,
-          "verticalRate": 0,
-          "groundSpeed": 165,
-          "track": 49,
-          "isOnGround": true,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "DLH102",
-          "date": "2025-01-01T13:55:00.000Z",
-          "latitude": 42.8,
-          "longitude": -70.1,
-          "altitude": 22000,
-          "verticalRate": 1800,
-          "groundSpeed": 410,
-          "track": 52,
-          "isOnGround": false,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "DLH102",
-          "date": "2025-01-01T14:40:00.000Z",
-          "latitude": 45.6,
-          "longitude": -62.5,
-          "altitude": 36000,
-          "verticalRate": 0,
-          "groundSpeed": 470,
-          "track": 58,
-          "isOnGround": false,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "DLH102",
-          "date": "2025-01-01T15:40:00.000Z",
-          "latitude": 49.0,
-          "longitude": -52.0,
-          "altitude": 38000,
-          "verticalRate": 0,
-          "groundSpeed": 475,
-          "track": 64,
-          "isOnGround": false,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
-        },
-        {
-          "callsign": "DLH102",
-          "date": "2025-01-01T16:40:00.000Z",
-          "latitude": 52.5,
-          "longitude": -38.0,
-          "altitude": 38000,
-          "verticalRate": 0,
-          "groundSpeed": 480,
-          "track": 72,
-          "isOnGround": false,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "0aa6c46f-4c00-4973-b1a4-9dcd56839c6c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/DLH102.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/DLH450"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ],
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      },
-      "body": [
+    {
+      "uuid": "f7953926-f0f3-48e4-87dd-0a98354384fc",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/DLH450",
+      "responses": [
         {
-          "callsign": "DLH450",
-          "date": "2025-01-01T11:55:00.000Z",
-          "latitude": 50.04693,
-          "longitude": 8.57397,
-          "altitude": 0,
-          "verticalRate": 0,
-          "groundSpeed": 0,
-          "track": 0,
-          "isOnGround": true,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "c7b1d29f-025f-4c9a-bb99-bec36230a0c4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/DLH450.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/AAL4906"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ],
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      },
-      "body": [
+    {
+      "uuid": "5e1eea14-9f11-4e35-81e8-a05110844d81",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/AAL4906",
+      "responses": [
         {
-          "callsign": "AAL4906",
-          "date": "2025-01-01T12:55:00.000Z",
-          "latitude": 42.36454,
-          "longitude": -71.01663,
-          "altitude": 0,
-          "verticalRate": 0,
-          "groundSpeed": 0,
-          "track": 0,
-          "isOnGround": true,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "3c8ad5e2-3384-4ac9-90a1-7505862295d4",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/AAL4906.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/AAL4907"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ],
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      },
-      "body": [
+    {
+      "uuid": "f9299d0d-ebe5-4cb2-aa31-33871155cdd3",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/AAL4907",
+      "responses": [
         {
-          "callsign": "AAL4907",
-          "date": "2025-01-01T12:55:00.000Z",
-          "latitude": 42.36454,
-          "longitude": -71.01663,
-          "altitude": 0,
-          "verticalRate": 0,
-          "groundSpeed": 0,
-          "track": 0,
-          "isOnGround": true,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "a0316e67-64d8-4ab2-a401-af4267f4e9d9",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/AAL4907.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/AAL4908"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ],
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      },
-      "body": [
+    {
+      "uuid": "35d63c79-ec11-4f9f-ae89-1aa9c72d8958",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/AAL4908",
+      "responses": [
         {
-          "callsign": "AAL4908",
-          "date": "2025-01-01T12:55:00.000Z",
-          "latitude": 42.36454,
-          "longitude": -71.01663,
-          "altitude": 0,
-          "verticalRate": 0,
-          "groundSpeed": 0,
-          "track": 0,
-          "isOnGround": true,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "0d088d6e-01c0-47c6-8539-40b7d033cb04",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/AAL4908.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/AAL4909"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ],
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      },
-      "body": [
+    {
+      "uuid": "71e1cdec-8626-439c-98aa-076d3f5478c0",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/AAL4909",
+      "responses": [
         {
-          "callsign": "AAL4909",
-          "date": "2025-01-01T12:55:00.000Z",
-          "latitude": 42.36454,
-          "longitude": -71.01663,
-          "altitude": 0,
-          "verticalRate": 0,
-          "groundSpeed": 0,
-          "track": 0,
-          "isOnGround": true,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "db73f831-ea8d-4e4b-9506-2cdb75a9a5ba",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/AAL4909.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/AAL4910"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ],
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      },
-      "body": [
+    {
+      "uuid": "ecb324c7-de4e-4e0f-8aa3-74b02265c6c7",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/AAL4910",
+      "responses": [
         {
-          "callsign": "AAL4910",
-          "date": "2025-01-01T12:55:00.000Z",
-          "latitude": 42.36454,
-          "longitude": -71.01663,
-          "altitude": 0,
-          "verticalRate": 0,
-          "groundSpeed": 0,
-          "track": 0,
-          "isOnGround": true,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "26ed3f4a-53c9-40f1-89a2-788072462bc0",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/AAL4910.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/DLH41"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ],
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      },
-      "body": [
+    {
+      "uuid": "c967a45b-3ca1-4944-ba68-5edd2ac093b7",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/DLH41",
+      "responses": [
         {
-          "callsign": "DLH41",
-          "date": "2025-01-02T03:55:00.000Z",
-          "latitude": 40.6413,
-          "longitude": -73.7781,
-          "altitude": 0,
-          "verticalRate": 0,
-          "groundSpeed": 0,
-          "track": 0,
-          "isOnGround": true,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "8eb80520-9ac7-4a8f-b97e-547434d5c06e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/DLH41.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/DLH42"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ],
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      },
-      "body": [
+    {
+      "uuid": "0132cb8e-cce9-48c4-a9c6-a39783e4143c",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/DLH42",
+      "responses": [
         {
-          "callsign": "DLH42",
-          "date": "2025-01-02T17:35:00.000Z",
-          "latitude": 50.04693,
-          "longitude": 8.57397,
-          "altitude": 0,
-          "verticalRate": 0,
-          "groundSpeed": 0,
-          "track": 0,
-          "isOnGround": true,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "5a18ad73-e6ba-4102-9cd3-2a080fb6b948",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/DLH42.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/v1/position/DLH81"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": [
-          "application/json; charset=utf-8"
-        ],
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      },
-      "body": [
+    {
+      "uuid": "4a9218ce-7630-4995-977b-b8b5e2054aa1",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/position/DLH81",
+      "responses": [
         {
-          "callsign": "DLH81",
-          "date": "2025-01-05T08:55:00.000Z",
-          "latitude": 50.04693,
-          "longitude": 8.57397,
-          "altitude": 0,
-          "verticalRate": 0,
-          "groundSpeed": 0,
-          "track": 0,
-          "isOnGround": true,
-          "squawk": "1000",
-          "alert": false,
-          "emergency": false,
-          "spi": false
+          "uuid": "673d5381-8305-46a6-bbaa-8bbd55a8d072",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "adsb/DLH81.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "OPTIONS",
-      "path": "/api/v1/position/.*"
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Access-Control-Allow-Origin": [
-          "*"
-        ],
-        "Access-Control-Allow-Methods": [
-          "GET, POST, OPTIONS"
-        ],
-        "Access-Control-Allow-Headers": [
-          "Content-Type, Authorization"
-        ]
-      }
+    {
+      "uuid": "16dd9963-6286-4c2c-8400-4107ba438794",
+      "type": "http",
+      "documentation": "",
+      "method": "options",
+      "endpoint": "api/v1/position/:callsign",
+      "responses": [
+        {
+          "uuid": "51da53f4-ad35-43e5-bfc6-0929ef9a5ca6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     }
-  }
-]
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "70dcff3c-7684-4a66-80f4-176e7019742d"
+    },
+    {
+      "type": "route",
+      "uuid": "ea2e7860-8ee4-41ff-ac18-b8a8b3b79e19"
+    },
+    {
+      "type": "route",
+      "uuid": "1d6ae73a-91a6-4c59-bdd9-65dbc12eaf88"
+    },
+    {
+      "type": "route",
+      "uuid": "3f696b03-9083-45e4-824a-55bae9785fc3"
+    },
+    {
+      "type": "route",
+      "uuid": "f7953926-f0f3-48e4-87dd-0a98354384fc"
+    },
+    {
+      "type": "route",
+      "uuid": "5e1eea14-9f11-4e35-81e8-a05110844d81"
+    },
+    {
+      "type": "route",
+      "uuid": "f9299d0d-ebe5-4cb2-aa31-33871155cdd3"
+    },
+    {
+      "type": "route",
+      "uuid": "35d63c79-ec11-4f9f-ae89-1aa9c72d8958"
+    },
+    {
+      "type": "route",
+      "uuid": "71e1cdec-8626-439c-98aa-076d3f5478c0"
+    },
+    {
+      "type": "route",
+      "uuid": "ecb324c7-de4e-4e0f-8aa3-74b02265c6c7"
+    },
+    {
+      "type": "route",
+      "uuid": "c967a45b-3ca1-4944-ba68-5edd2ac093b7"
+    },
+    {
+      "type": "route",
+      "uuid": "0132cb8e-cce9-48c4-a9c6-a39783e4143c"
+    },
+    {
+      "type": "route",
+      "uuid": "4a9218ce-7630-4995-977b-b8b5e2054aa1"
+    },
+    {
+      "type": "route",
+      "uuid": "16dd9963-6286-4c2c-8400-4107ba438794"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": false,
+  "headers": [],
+  "proxyReqHeaders": [],
+  "proxyResHeaders": [],
+  "data": [],
+  "callbacks": []
+}

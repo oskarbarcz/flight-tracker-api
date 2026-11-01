@@ -1,0 +1,15 @@
+{
+  "city": "{{queryParam 'city'}}",
+  "country": "{{queryParam 'country'}}",
+  "continent": "{{queryParam 'continent'}}",
+  "uuid": "{{queryParam 'uuid'}}",
+  "model": "gpt-image-2",
+  "size": "1152x1536",
+  "quality": "high",
+  "format": "jpeg",
+  "contentType": "image/jpeg",
+  "bytes": 312044,
+  "prompt": "TARGET_CITY = \"{{queryParam 'city'}}\"",
+  "key": "postcards/{{queryParam 'uuid'}}.jpg",
+  "url": "http://functions-mock:1089/mypreflight-files/postcards/{{queryParam 'uuid'}}.jpg"
+}
