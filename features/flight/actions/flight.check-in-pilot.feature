@@ -669,7 +669,7 @@ Feature: Check in pilot for flight
     And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "Logan airport, information Delta."
     And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "METAR KBOS 081154Z 21009KT 10SM FEW040 24/16 A3000"
     And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "TAF KBOS 081120Z 0812/0918 21010KT P6SM FEW040"
-    And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "[**MyPreflight app**](http://localhost:5173/flight/23952e79-6b38-49ed-a1db-bd4d9b3cedab)."
+    And I see Discord "briefing" message for flight "23952e79-6b38-49ed-a1db-bd4d9b3cedab" containing "[**MyPreflight app**](http://localhost:5173/track/23952e79-6b38-49ed-a1db-bd4d9b3cedab/briefing)."
     And I set database to initial state
     And I clear Discord messages directory
 
