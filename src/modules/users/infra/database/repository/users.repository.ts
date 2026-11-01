@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../../http/request/create-user.dto';
 import { UpdateUserDto } from '../../http/request/update-user.dto';
 import { UpdateDiscordSettingsDto } from '../../http/request/update-discord-settings.dto';
+import { UpdateGsxSettingsDto } from '../../http/request/update-gsx-settings.dto';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../../../../core/provider/prisma/prisma.service';
 import {
@@ -14,6 +15,7 @@ import { User } from '../../../../../../prisma/client/client';
 import { UserRole } from '../../../model/user-role';
 import { WeatherSource } from '../../../../airports/model/airport-weather.model';
 import { DiscordSettings } from '../../../model/discord-settings.model';
+import { GsxSettings } from '../../../model/gsx-settings.model';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import type { Cache } from 'cache-manager';
 import { CACHE_KEYS, cacheByUser } from '../../../../../core/cache/cache.key';
@@ -563,6 +565,47 @@ export class UsersRepository {
         discordFinalLoadsheetEnabled: settings.finalLoadsheetEnabled,
         discordDelayUpdatesEnabled: settings.delayUpdatesEnabled,
         discordRichPresenceEnabled: settings.richPresenceEnabled,
+      },
+    });
+  }
+
+  async getGsxSettings(userId: string): Promise<GsxSettings> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        gsxIntegrationEnabled: true,
+        gsxAutoBoardingEnabled: true,
+        gsxAutoDeboardingEnabled: true,
+      },
+    });
+
+    if (!user) {
+      throw new UserWithGivenIdNotFoundError();
+    }
+
+    return {
+      integrationEnabled: user.gsxIntegrationEnabled,
+      autoBoardingEnabled: user.gsxAutoBoardingEnabled,
+      autoDeboardingEnabled: user.gsxAutoDeboardingEnabled,
+    };
+  }
+
+  async updateGsxSettings(
+    userId: string,
+    settings: UpdateGsxSettingsDto,
+  ): Promise<void> {
+    const user = await this.findOneBy({ id: userId });
+
+    if (!user) {
+      throw new UserWithGivenIdNotFoundError();
+    }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        gsxIntegrationEnabled: settings.integrationEnabled,
+        gsxAutoBoardingEnabled: settings.autoBoardingEnabled,
+        gsxAutoDeboardingEnabled: settings.autoDeboardingEnabled,
       },
     });
   }
