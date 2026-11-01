@@ -1,4 +1,4 @@
-Feature: Name the source of starting boarding and offboarding
+Feature: Name the source of boarding and offboarding steps
 
   Scenario Outline: As a cabin crew starting boarding myself is recorded as <source>
     Given I am signed in as "cabin crew"
@@ -166,7 +166,7 @@ Feature: Name the source of starting boarding and offboarding
     And the response body should contain:
       """json
       {
-        "message": "Cannot start this from GSX, because its GSX setting is off.",
+        "message": "GSX cannot do this, because its GSX setting is off.",
         "error": "Unprocessable Content",
         "statusCode": 422
       }
@@ -200,7 +200,7 @@ Feature: Name the source of starting boarding and offboarding
     And the response body should contain:
       """json
       {
-        "message": "Cannot start this from GSX, because its GSX setting is off.",
+        "message": "GSX cannot do this, because its GSX setting is off.",
         "error": "Unprocessable Content",
         "statusCode": 422
       }
@@ -262,3 +262,151 @@ Feature: Name the source of starting boarding and offboarding
       """
     Then the response status should be 204
     And I set database to initial state
+
+  Scenario Outline: As a cabin crew finishing offboarding myself is recorded as <source>
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me/gsx-settings" with body:
+      """json
+      {
+        "integrationEnabled": <integration>,
+        "autoBoardingEnabled": <boarding>,
+        "autoDeboardingEnabled": <deboarding>
+      }
+      """
+    Then the response status should be 200
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "5aada8ba-60c1-4e93-bcee-b59a7c555fdd"
+    Then I should receive flight event history within 2000ms
+    When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding"
+    Then the response status should be 204
+    And I should receive a live flight event of type "flight.offboarding-finished" within 2000ms
+    And the received live flight events should contain:
+      """json
+      [
+        {
+          "id": "@uuid",
+          "scope": "user",
+          "type": "flight.offboarding-finished",
+          "payload": { "source": "<source>" },
+          "actor": "@any",
+          "createdAt": "@any"
+        }
+      ]
+      """
+    And I set database to initial state
+
+    Examples:
+      | integration | boarding | deboarding | source   |
+      | false       | true     | true       | manual   |
+      | true        | true     | false      | manual   |
+      | true        | false    | true       | override |
+
+  Scenario: As a cabin crew finishing offboarding from GSX is recorded as gsx
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me/gsx-settings" with body:
+      """json
+      {
+        "integrationEnabled": true
+      }
+      """
+    Then the response status should be 200
+    Given I open a WebSocket connection as "cabin crew"
+    When I subscribe to flight events for "5aada8ba-60c1-4e93-bcee-b59a7c555fdd"
+    Then I should receive flight event history within 2000ms
+    When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding" with body:
+      """json
+      {
+        "source": "gsx"
+      }
+      """
+    Then the response status should be 204
+    And I should receive a live flight event of type "flight.offboarding-finished" within 2000ms
+    And the received live flight events should contain:
+      """json
+      [
+        {
+          "id": "@uuid",
+          "scope": "user",
+          "type": "flight.offboarding-finished",
+          "payload": { "source": "gsx" },
+          "actor": "@any",
+          "createdAt": "@any"
+        }
+      ]
+      """
+    And I set database to initial state
+
+  Scenario Outline: As a cabin crew GSX cannot finish offboarding while the settings do not allow it
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me/gsx-settings" with body:
+      """json
+      {
+        "integrationEnabled": <integration>,
+        "autoDeboardingEnabled": <automatic>
+      }
+      """
+    Then the response status should be 200
+    When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding" with body:
+      """json
+      {
+        "source": "gsx"
+      }
+      """
+    Then the response status should be 422
+    And the response body should contain:
+      """json
+      {
+        "message": "GSX cannot do this, because its GSX setting is off.",
+        "error": "Unprocessable Content",
+        "statusCode": 422
+      }
+      """
+    When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding"
+    Then the response status should be 204
+    And I set database to initial state
+
+    Examples:
+      | integration | automatic |
+      | false       | true      |
+      | true        | false     |
+
+  Scenario: As a cabin crew GSX cannot finish offboarding twice
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me/gsx-settings" with body:
+      """json
+      {
+        "integrationEnabled": true
+      }
+      """
+    Then the response status should be 200
+    When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding"
+    Then the response status should be 204
+    When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding" with body:
+      """json
+      {
+        "source": "gsx"
+      }
+      """
+    Then the response status should be 422
+    And I set database to initial state
+
+  Scenario: As a cabin crew I cannot claim any other source when finishing offboarding
+    Given I am signed in as "cabin crew"
+    When I send a "POST" request to "/api/v1/flight/5aada8ba-60c1-4e93-bcee-b59a7c555fdd/finish-offboarding" with body:
+      """json
+      {
+        "source": "override"
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "source": ["source must be one of the following values: gsx"]
+        }
+      }
+      """

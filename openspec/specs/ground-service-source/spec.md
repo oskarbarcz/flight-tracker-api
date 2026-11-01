@@ -2,16 +2,16 @@
 
 ## Purpose
 
-Records who started boarding or offboarding on a flight: GSX through the client running next
-to the simulator, or the pilot, and whether the pilot acted while GSX was set to do it for
-them. Events recorded before this existed carry no source, and all of them were started by
-the pilot.
+Records who started boarding or offboarding on a flight, and who finished offboarding: GSX
+through the client running next to the simulator, or the pilot, and whether the pilot acted
+while GSX was set to do it for them. Events recorded before this existed carry no source, and
+the pilot caused all of them.
 
 ## Requirements
 
-### Requirement: Starting boarding or offboarding names its source
+### Requirement: Starting boarding or offboarding, and finishing offboarding, names its source
 
-The system SHALL record a `source` in the payload of the `flight.boarding-started` and `flight.offboarding-started` events. It SHALL be `gsx` when the request says GSX started it, and otherwise SHALL be derived from the requesting user's GSX settings at that moment: `override` when the integration and the matching automatic setting are both on, and `manual` when either is off. Requests that do not name a source SHALL keep working as they did.
+The system SHALL record a `source` in the payload of the `flight.boarding-started`, `flight.offboarding-started` and `flight.offboarding-finished` events. It SHALL be `gsx` when the request says GSX is behind it, and otherwise SHALL be derived from the requesting user's GSX settings at that moment: `override` when the integration and the matching automatic setting are both on, and `manual` when either is off. Automatic deboarding is the matching setting for both offboarding steps. Requests that do not name a source SHALL keep working as they did. Finishing boarding names no source: it needs the final loadsheet from the pilot, so GSX cannot do it.
 
 #### Scenario: The pilot starts it with GSX not set to
 
@@ -33,7 +33,12 @@ The system SHALL record a `source` in the payload of the `flight.boarding-starte
 - **WHEN** a request naming GSX as its source starts boarding or offboarding while the settings allow it
 - **THEN** the event's source is `gsx`
 
-### Requirement: GSX can only start what the pilot's settings allow
+#### Scenario: GSX finishes offboarding
+
+- **WHEN** a request naming GSX as its source finishes offboarding while the settings allow it
+- **THEN** the event's source is `gsx`
+
+### Requirement: GSX can only do what the pilot's settings allow
 
 The system SHALL reject a request naming GSX as its source with an unprocessable error, changing nothing, when the requesting user's integration or matching automatic setting is off. The settings are checked on the API so that a change takes effect even for a client holding an older copy of them.
 

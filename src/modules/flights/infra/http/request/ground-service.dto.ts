@@ -2,10 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsIn, ValidateIf } from 'class-validator';
 import { GroundServiceSource } from '../../../model/ground-service-source';
 
-export class StartGroundServiceDto {
+export class GroundServiceActionDto {
   @ApiProperty({
     description:
-      'Sent by the Transponder when the pilot requested this through GSX. Leave it out otherwise: the API then records the event as `manual`, or as `override` if the GSX settings had this step set to start automatically',
+      'Sent by the Transponder when GSX is behind this step. Leave it out otherwise: the API then records the event as `manual`, or as `override` if the GSX settings had this step set to happen automatically',
     enum: [GroundServiceSource.Gsx],
     example: GroundServiceSource.Gsx,
     required: false,
