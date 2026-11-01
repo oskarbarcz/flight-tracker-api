@@ -1,0 +1,17 @@
+[
+  {
+    "callsign": "AAL4909",
+    "date": "2025-01-01T12:55:00.000Z",
+    "latitude": 42.36454,
+    "longitude": -71.01663,
+    "altitude": 0,
+    "verticalRate": 0,
+    "groundSpeed": 0,
+    "track": 0,
+    "isOnGround": true,
+    "squawk": "1000",
+    "alert": false,
+    "emergency": false,
+    "spi": false
+  }
+]

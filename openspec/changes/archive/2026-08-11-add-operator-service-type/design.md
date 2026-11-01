@@ -53,7 +53,7 @@ _Consequence:_ a client that filters "show me cargo carriers" must treat `both` 
 
 `Operator.serviceType OperatorServiceType @default(passenger)`, no `@@map`, mirroring how `OperatorType`, `OperatorAlliance`, and `OperatorGroup` are already declared on the same model.
 
-_Why:_ the database rejects invalid values, and the default backfills every existing row as `passenger` in the same `ALTER TABLE` — no nullable interim state and no data-migration step. The domain-side enum stays hand-written in `model/operator.model.ts` because `CLAUDE.md` forbids importing enums from `prisma/client/*` into domain code; `toDomain` in the repository casts the column, exactly as it already does for `type`, `continent`, `alliance`, and `group`.
+_Why:_ the database rejects invalid values, and the default backfills every existing row as `passenger` in the same `ALTER TABLE` — no nullable interim state and no data-migration step. The domain-side enum stays hand-written in `model/operator.model.ts` because `AGENTS.md` forbids importing enums from `prisma/client/*` into domain code; `toDomain` in the repository casts the column, exactly as it already does for `type`, `continent`, `alliance`, and `group`.
 
 _Why `passenger` and not a nullable "unknown":_ every operator carries something, and a null would push a tri-state into every consumer for no descriptive gain. The seed sets real values for the fixtures that need them.
 

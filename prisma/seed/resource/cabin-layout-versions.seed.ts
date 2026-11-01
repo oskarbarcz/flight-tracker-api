@@ -1,3 +1,5 @@
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { Prisma } from '../../client/client';
 import { AerolopaSeatMap } from '../../../src/core/provider/aerolopa/type/aerolopa.types';
 import {
@@ -5,7 +7,9 @@ import {
   assembleVersion,
   revisionDate,
 } from '../../../src/modules/cabin-layouts/model/layout-version';
-import expectations from '../../../docker/mock/functions/aerolopa.json';
+import mock from '../../../docker/mock/functions/aerolopa.json';
+
+const MOCK_DIR = path.join(__dirname, '../../../docker/mock/functions');
 
 const SEEDED_LAYOUTS: Record<string, string[]> = {
   'aa-77w': ['aa-77w'],
@@ -108,19 +112,24 @@ export async function loadCabinLayoutVersions(
 }
 
 function readSeatMap(slug: string): AerolopaSeatMap {
-  const expectation = expectations.find((candidate) => {
-    const request = candidate.httpRequest as {
-      path?: string;
-      queryStringParameters?: Record<string, string[]>;
-    };
-
-    return (
-      request.path?.endsWith('/aerolopa/seatmap') === true &&
-      request.queryStringParameters?.slug?.[0] === slug
+  const response = mock.routes
+    .filter((route) => route.endpoint.endsWith('/aerolopa/seatmap'))
+    .flatMap((route) => route.responses)
+    .find((candidate) =>
+      candidate.rules.some(
+        (rule) =>
+          rule.target === 'query' &&
+          rule.modifier === 'slug' &&
+          rule.value === slug,
+      ),
     );
-  });
 
-  const body = expectation?.httpResponse?.body as
+  const raw =
+    response?.bodyType === 'FILE'
+      ? fs.readFileSync(path.join(MOCK_DIR, response.filePath), 'utf8')
+      : response?.body;
+
+  const body = (raw ? JSON.parse(raw) : undefined) as
     | { seatMap?: unknown }
     | undefined;
 

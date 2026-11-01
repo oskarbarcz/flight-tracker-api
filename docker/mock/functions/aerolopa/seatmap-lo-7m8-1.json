@@ -1,0 +1,81 @@
+{
+  "seatMap": {
+    "slug": "lo-7m8-1",
+    "airlineIata": "LO",
+    "aircraftIata": "7M8",
+    "aircraftType": "Airbus A320-271N",
+    "aircraftTypeDisplayed": "Airbus A320neo",
+    "manufacturer": "Airbus",
+    "haulType": "Short Haul",
+    "isDualDeck": false,
+    "totalSeats": 2,
+    "lastUpdated": "2025-08-23",
+    "seatCounts": {
+      "first": 0,
+      "business": 0,
+      "premium_economy": 0,
+      "economy": 2,
+      "total": 2
+    },
+    "canvas": {
+      "width": 800,
+      "height": 3970
+    },
+    "assets": {
+      "image": "https://cdn.example/maptool/seatmaps/lo-7m8-1.webp",
+      "imageNeutral": "https://cdn.example/maptool/seatmaps/lo-7m8-1.neutral.webp",
+      "svg": "https://maptool.example/api/v1/aircraft/lo-7m8-1/svg",
+      "seatRects": "https://maptool.example/api/v1/aircraft/lo-7m8-1/seat-rects"
+    },
+    "cabins": [
+      {
+        "code": "M",
+        "name": "Economy seats",
+        "seatCount": 2,
+        "rows": "1 to 2",
+        "pitch": "30\"",
+        "width": "18\"",
+        "recline": "2\"",
+        "description": "Slimline seats"
+      }
+    ],
+    "seats": [
+      {
+        "designator": "10A",
+        "x": 240,
+        "y": 1294,
+        "width": 40,
+        "height": 58,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "10B",
+        "x": 284,
+        "y": 1294,
+        "width": 40,
+        "height": 58,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "none",
+        "seatProduct": null,
+        "comments": []
+      }
+    ]
+  }
+}

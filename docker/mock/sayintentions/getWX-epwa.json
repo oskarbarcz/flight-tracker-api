@@ -1,0 +1,17 @@
+{
+  "taf": "TAF EPWA 100830Z 1009/1109 17007KT CAVOK BECMG 1010/1013 26012KT",
+  "metar": "EPWA 101030Z 15009KT 130V190 CAVOK 29/12 Q1013 NOSIG",
+  "atis": "Warsaw Chopin airport, information Sierra. 1030 Zulu. Arriving runway 11. Departing runway 15. Wind 150 at 9. CAVOK. Temperature 29, dewpoint 12. QNH 1013. Transition level 80. Advise on initial contact you have information Sierra.",
+  "comms": [
+    {
+      "freq": "120.455",
+      "type": "ATIS",
+      "callsign": null
+    },
+    {
+      "freq": "118.305",
+      "type": "TWR",
+      "callsign": "OKECIE"
+    }
+  ]
+}

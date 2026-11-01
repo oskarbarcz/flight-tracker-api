@@ -18,7 +18,7 @@ Feature: Get every postcard and its art
               "code": "US",
               "name": "United States of America"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/a13b60a0-9253-4c77-a8fa-68bfb07c5971.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/a13b60a0-9253-4c77-a8fa-68bfb07c5971.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -36,7 +36,7 @@ Feature: Get every postcard and its art
               "code": "DE",
               "name": "Germany"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/cefddab1-b5dc-4764-bb7d-43bf1f606208.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/cefddab1-b5dc-4764-bb7d-43bf1f606208.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -54,7 +54,7 @@ Feature: Get every postcard and its art
               "code": "DE",
               "name": "Germany"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/dd8cd3b6-38bd-49b7-87f4-e03d8ec05147.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/dd8cd3b6-38bd-49b7-87f4-e03d8ec05147.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -72,7 +72,7 @@ Feature: Get every postcard and its art
               "code": "CA",
               "name": "Canada"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/e51a8d27-3f64-4b92-a7c5-1d8f6b3e9a52.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/e51a8d27-3f64-4b92-a7c5-1d8f6b3e9a52.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -90,7 +90,7 @@ Feature: Get every postcard and its art
               "code": "CA",
               "name": "Canada"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/213b197b-b74a-4ae0-84ff-be37190c00d9.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/213b197b-b74a-4ae0-84ff-be37190c00d9.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -108,7 +108,7 @@ Feature: Get every postcard and its art
               "code": "IE",
               "name": "Ireland"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/4f9b6c13-7e28-45da-8f61-3a5d2b7e9c64.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/4f9b6c13-7e28-45da-8f61-3a5d2b7e9c64.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -126,7 +126,7 @@ Feature: Get every postcard and its art
               "code": "US",
               "name": "United States of America"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/aa25fe19-3d1b-48c7-919d-a0eab5eba254.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/aa25fe19-3d1b-48c7-919d-a0eab5eba254.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -144,7 +144,7 @@ Feature: Get every postcard and its art
               "code": "FR",
               "name": "France"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/d7f1b070-69e5-46c5-8a9f-5c3fdd2b8a81.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/d7f1b070-69e5-46c5-8a9f-5c3fdd2b8a81.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -162,7 +162,7 @@ Feature: Get every postcard and its art
               "code": "US",
               "name": "United States of America"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/f57fbaa1-4332-4dba-9d10-931cc053111f.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/f57fbaa1-4332-4dba-9d10-931cc053111f.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -180,7 +180,7 @@ Feature: Get every postcard and its art
               "code": "IS",
               "name": "Iceland"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/63ed849d-2865-418c-8d4c-059aab2096bb.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/63ed849d-2865-418c-8d4c-059aab2096bb.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -198,7 +198,7 @@ Feature: Get every postcard and its art
               "code": "IE",
               "name": "Ireland"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/b74e1f38-9c52-4a67-8d13-6e2b5f9a3c48.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/b74e1f38-9c52-4a67-8d13-6e2b5f9a3c48.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -216,7 +216,7 @@ Feature: Get every postcard and its art
               "code": "CA",
               "name": "Canada"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/8d8fc159-e5b1-4a3d-ac4d-1f0d1aae8f1d.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/8d8fc159-e5b1-4a3d-ac4d-1f0d1aae8f1d.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",

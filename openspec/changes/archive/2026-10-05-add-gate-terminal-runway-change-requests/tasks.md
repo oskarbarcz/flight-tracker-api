@@ -62,5 +62,5 @@
 
 ## 5. Wrap-up
 
-- [x] 5.1 Update the `CLAUDE.md` change-requests paragraph: all five kinds are supported, plus the `skipNullProperties: false` rule for every proposal DTO, and a `ValidateIf` rather than `@IsOptional()` on any field a proposal DTO declares itself
+- [x] 5.1 Update the `AGENTS.md` change-requests paragraph: all five kinds are supported, plus the `skipNullProperties: false` rule for every proposal DTO, and a `ValidateIf` rather than `@IsOptional()` on any field a proposal DTO declares itself
 - [x] 5.2 `openspec validate add-gate-terminal-runway-change-requests --strict`

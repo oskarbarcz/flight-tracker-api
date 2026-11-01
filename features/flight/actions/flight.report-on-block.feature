@@ -700,7 +700,7 @@ Feature: Report on-block
               "code": "US",
               "name": "United States of America"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/f57fbaa1-4332-4dba-9d10-931cc053111f.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/f57fbaa1-4332-4dba-9d10-931cc053111f.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -717,7 +717,7 @@ Feature: Report on-block
               "code": "US",
               "name": "United States of America"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/aa25fe19-3d1b-48c7-919d-a0eab5eba254.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/aa25fe19-3d1b-48c7-919d-a0eab5eba254.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",
@@ -734,7 +734,7 @@ Feature: Report on-block
               "code": "DE",
               "name": "Germany"
             },
-            "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/dd8cd3b6-38bd-49b7-87f4-e03d8ec05147.png",
+            "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/dd8cd3b6-38bd-49b7-87f4-e03d8ec05147.png",
             "width": 1152,
             "height": 1536,
             "status": "ready",

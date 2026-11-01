@@ -1,0 +1,7203 @@
+{
+  "seatMap": {
+    "slug": "aa-77w",
+    "airlineIata": "AA",
+    "aircraftIata": "77W",
+    "aircraftType": "Boeing 777-323ER",
+    "aircraftTypeDisplayed": "Boeing 777-300ER",
+    "manufacturer": "Boeing",
+    "haulType": "Long Haul",
+    "isDualDeck": false,
+    "totalSeats": 304,
+    "lastUpdated": "2025-03-25",
+    "seatCounts": {
+      "first": 8,
+      "business": 52,
+      "premium_economy": 28,
+      "economy": 216,
+      "total": 304
+    },
+    "canvas": {
+      "width": 800,
+      "height": 4990
+    },
+    "assets": {
+      "image": "https://d9k46j35fmriq.cloudfront.net/maptool/seatmaps/aa-77w.webp?v=1786762064",
+      "imageNeutral": "https://d9k46j35fmriq.cloudfront.net/maptool/seatmaps/aa-77w.neutral.webp?v=1786762065",
+      "svg": "https://maptool.aerolopa.com/api/v1/aircraft/aa-77w/svg",
+      "seatRects": "https://maptool.aerolopa.com/api/v1/aircraft/aa-77w/seat-rects"
+    },
+    "cabins": [
+      {
+        "code": "F",
+        "name": "Flagship First Suites",
+        "seatCount": 8,
+        "rows": "1 to 2",
+        "pitch": "63\"",
+        "width": "21.5\"",
+        "recline": "180°",
+        "description": "Safran (formerly Zodiac) Flagship Suites designed to function as a work desk, a lounger and a 6'-10\" long fully-flat bed"
+      },
+      {
+        "code": "J",
+        "name": "Flagship Business seats",
+        "seatCount": 52,
+        "rows": "3 to 15",
+        "pitch": "43\"",
+        "width": "20\"",
+        "recline": "180°",
+        "description": "Fifty-two Safran Cirrus II seats configured 1-2-1 and arranged into two cabins. Each seat has direct access to the aisle and featured a retractable bi-folding table, and secure stowage for small personal items"
+      },
+      {
+        "code": "W",
+        "name": "Premium Economy seats",
+        "seatCount": 28,
+        "rows": "16 to 19",
+        "pitch": "38\"",
+        "width": "18.7\"",
+        "recline": "6\"",
+        "description": "Twenty-eight Collins Aerospace MiQ seats arranged in a 2-4-2 configuration, featuring lumbar support, footrest, and an individual goose-neck reading light"
+      },
+      {
+        "code": "M",
+        "name": "Economy seats",
+        "seatCount": 216,
+        "rows": "20 to 44",
+        "pitch": "31\" - 35\"",
+        "width": "17.3\"",
+        "recline": "3\"",
+        "description": "Safran (formerly Weber) 5751 slimline seats configured 3-4-3, each features a retractable bi-folding table"
+      }
+    ],
+    "seats": [
+      {
+        "designator": "01A",
+        "x": 211.7,
+        "y": 728.5,
+        "width": 42.4,
+        "height": 59.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "first",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "01D",
+        "x": 316.3,
+        "y": 692.8,
+        "width": 42.2,
+        "height": 57.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "first",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "01G",
+        "x": 440.5,
+        "y": 692.4,
+        "width": 42.2,
+        "height": 59.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "first",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "01J",
+        "x": 547.3,
+        "y": 727.4,
+        "width": 41.8,
+        "height": 60.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "first",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "02A",
+        "x": 211.9,
+        "y": 856.2,
+        "width": 42.1,
+        "height": 58,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "first",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "02D",
+        "x": 316.4,
+        "y": 819.5,
+        "width": 41.8,
+        "height": 57.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "first",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "02G",
+        "x": 440.4,
+        "y": 820.1,
+        "width": 42,
+        "height": 57.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "first",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "02J",
+        "x": 547.3,
+        "y": 854.3,
+        "width": 41.8,
+        "height": 61.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "first",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "03A",
+        "x": 204.6,
+        "y": 1013.5,
+        "width": 42.7,
+        "height": 54.3,
+        "rotation": -29.8,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "hvac_noise",
+            "comment": "Localised air-conditioning noise in this small forward cabin",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "mini_cabin",
+            "comment": "Small forward mini-cabin — just 8 business seats, quieter and more private than the main cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "03D",
+        "x": 319.8,
+        "y": 971.4,
+        "width": 42.3,
+        "height": 55.4,
+        "rotation": 29.5,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "hvac_noise",
+            "comment": "Localised air-conditioning noise in this small forward cabin",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "mini_cabin",
+            "comment": "Small forward mini-cabin — just 8 business seats, quieter and more private than the main cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "03G",
+        "x": 437.3,
+        "y": 971.3,
+        "width": 43.8,
+        "height": 56.2,
+        "rotation": -30.3,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "hvac_noise",
+            "comment": "Localised air-conditioning noise in this small forward cabin",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "mini_cabin",
+            "comment": "Small forward mini-cabin — just 8 business seats, quieter and more private than the main cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "03J",
+        "x": 553.3,
+        "y": 1012.9,
+        "width": 42.1,
+        "height": 56.7,
+        "rotation": 27.7,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "hvac_noise",
+            "comment": "Localised air-conditioning noise in this small forward cabin",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "mini_cabin",
+            "comment": "Small forward mini-cabin — just 8 business seats, quieter and more private than the main cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "04A",
+        "x": 205.2,
+        "y": 1100.3,
+        "width": 42.9,
+        "height": 54.2,
+        "rotation": -30.2,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "one_off",
+            "comment": "No separating curtain behind this seat — light and movement from the section behind",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "hvac_noise",
+            "comment": "Localised air-conditioning noise in this small forward cabin",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "mini_cabin",
+            "comment": "Small forward mini-cabin — just 8 business seats, quieter and more private than the main cabin",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "bathroom_door",
+            "comment": "Lavatory behind — usually curtain-separated with little queuing in this cabin",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "04D",
+        "x": 321.1,
+        "y": 1057.8,
+        "width": 41,
+        "height": 54.3,
+        "rotation": 29.4,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "hvac_noise",
+            "comment": "Localised air-conditioning noise in this small forward cabin",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "mini_cabin",
+            "comment": "Small forward mini-cabin — just 8 business seats, quieter and more private than the main cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "04G",
+        "x": 438.6,
+        "y": 1057.8,
+        "width": 41.9,
+        "height": 54.4,
+        "rotation": -29,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "hvac_noise",
+            "comment": "Localised air-conditioning noise in this small forward cabin",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "mini_cabin",
+            "comment": "Small forward mini-cabin — just 8 business seats, quieter and more private than the main cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "04J",
+        "x": 554.1,
+        "y": 1099.4,
+        "width": 41.6,
+        "height": 54.3,
+        "rotation": 29.3,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "one_off",
+            "comment": "No separating curtain behind this seat — light and movement from the section behind",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "hvac_noise",
+            "comment": "Localised air-conditioning noise in this small forward cabin",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "mini_cabin",
+            "comment": "Small forward mini-cabin — just 8 business seats, quieter and more private than the main cabin",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "bathroom_door",
+            "comment": "Lavatory behind — usually curtain-separated with little queuing in this cabin",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "05A",
+        "x": 204.1,
+        "y": 1528.3,
+        "width": 43.4,
+        "height": 56,
+        "rotation": -30.6,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "05D",
+        "x": 318.8,
+        "y": 1549.4,
+        "width": 43.6,
+        "height": 55.2,
+        "rotation": 32.8,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "05G",
+        "x": 438.2,
+        "y": 1549.7,
+        "width": 42.5,
+        "height": 55.6,
+        "rotation": -30.7,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "05J",
+        "x": 553.5,
+        "y": 1529,
+        "width": 41.6,
+        "height": 54.9,
+        "rotation": 29,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "06A",
+        "x": 204.8,
+        "y": 1615.5,
+        "width": 42.1,
+        "height": 54.6,
+        "rotation": -29.6,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "06D",
+        "x": 320.7,
+        "y": 1634.9,
+        "width": 41.2,
+        "height": 54.8,
+        "rotation": 30.5,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "06G",
+        "x": 438.6,
+        "y": 1635.2,
+        "width": 42.5,
+        "height": 55,
+        "rotation": -29.8,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "06J",
+        "x": 553.4,
+        "y": 1615.9,
+        "width": 41.5,
+        "height": 56.1,
+        "rotation": 29.9,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "07A",
+        "x": 204.7,
+        "y": 1702.3,
+        "width": 42,
+        "height": 54,
+        "rotation": -29.7,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "07D",
+        "x": 321.2,
+        "y": 1721.5,
+        "width": 40.7,
+        "height": 54.3,
+        "rotation": 30.3,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "07G",
+        "x": 439,
+        "y": 1721.3,
+        "width": 41.4,
+        "height": 54.6,
+        "rotation": -29.5,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "07J",
+        "x": 553.5,
+        "y": 1701.3,
+        "width": 42,
+        "height": 55.3,
+        "rotation": 30.5,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "08A",
+        "x": 204.2,
+        "y": 1789.1,
+        "width": 42.4,
+        "height": 53,
+        "rotation": -30.3,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "08D",
+        "x": 320.5,
+        "y": 1808.7,
+        "width": 41.5,
+        "height": 55.1,
+        "rotation": 30,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "08G",
+        "x": 439,
+        "y": 1808.2,
+        "width": 42.2,
+        "height": 55.4,
+        "rotation": -28.2,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "08J",
+        "x": 553.9,
+        "y": 1787,
+        "width": 41.2,
+        "height": 55.2,
+        "rotation": 31.3,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "09A",
+        "x": 204.3,
+        "y": 1875.6,
+        "width": 42.8,
+        "height": 53.7,
+        "rotation": -30.4,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "09D",
+        "x": 320.9,
+        "y": 1893.8,
+        "width": 41.3,
+        "height": 55.2,
+        "rotation": 30.4,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "09G",
+        "x": 438.8,
+        "y": 1894.8,
+        "width": 42.5,
+        "height": 55.6,
+        "rotation": -28.5,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "09J",
+        "x": 553.5,
+        "y": 1874.1,
+        "width": 41.4,
+        "height": 55.7,
+        "rotation": 31.2,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "10A",
+        "x": 205.1,
+        "y": 1961,
+        "width": 42.1,
+        "height": 55.6,
+        "rotation": -29.4,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "10D",
+        "x": 320.8,
+        "y": 1980,
+        "width": 41.1,
+        "height": 54.7,
+        "rotation": 31.3,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "10G",
+        "x": 438.6,
+        "y": 1980.7,
+        "width": 41.9,
+        "height": 54.7,
+        "rotation": -29.9,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "10J",
+        "x": 553.3,
+        "y": 1961.2,
+        "width": 41.4,
+        "height": 56.1,
+        "rotation": 29.7,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "11A",
+        "x": 204.8,
+        "y": 2047.6,
+        "width": 42,
+        "height": 54.5,
+        "rotation": -29.6,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "poor",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "11D",
+        "x": 321.1,
+        "y": 2066.5,
+        "width": 40.9,
+        "height": 54.6,
+        "rotation": 30.6,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "11G",
+        "x": 438.9,
+        "y": 2067.4,
+        "width": 41.8,
+        "height": 55.2,
+        "rotation": -29.1,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "11J",
+        "x": 553.8,
+        "y": 2047.7,
+        "width": 41.3,
+        "height": 54.8,
+        "rotation": 30.1,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "poor",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "12A",
+        "x": 204.6,
+        "y": 2134.4,
+        "width": 42,
+        "height": 53.6,
+        "rotation": -30,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "12D",
+        "x": 320.7,
+        "y": 2154,
+        "width": 41.4,
+        "height": 54.6,
+        "rotation": 30.7,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "12G",
+        "x": 438.6,
+        "y": 2153.9,
+        "width": 42.5,
+        "height": 54.7,
+        "rotation": -29,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "12J",
+        "x": 553.9,
+        "y": 2134,
+        "width": 41.2,
+        "height": 56.4,
+        "rotation": 30,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "13A",
+        "x": 204.3,
+        "y": 2221.5,
+        "width": 42.6,
+        "height": 52.8,
+        "rotation": -30.1,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "poor",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "missing_windows",
+            "comment": "No window at this seat — blank wall section",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "13D",
+        "x": 321.3,
+        "y": 2240.3,
+        "width": 40.7,
+        "height": 53.8,
+        "rotation": 29.8,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "13G",
+        "x": 439.2,
+        "y": 2239.8,
+        "width": 41.5,
+        "height": 55.6,
+        "rotation": -29.1,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "13J",
+        "x": 553,
+        "y": 2219.8,
+        "width": 42.4,
+        "height": 55.5,
+        "rotation": 30.7,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "poor",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "missing_windows",
+            "comment": "No window at this seat — blank wall section",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "14A",
+        "x": 204.5,
+        "y": 2307.8,
+        "width": 42.8,
+        "height": 53.8,
+        "rotation": -30.4,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "14D",
+        "x": 320.7,
+        "y": 2327.3,
+        "width": 41.1,
+        "height": 54.5,
+        "rotation": 30,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "14G",
+        "x": 438.9,
+        "y": 2326.8,
+        "width": 42.3,
+        "height": 55.6,
+        "rotation": -28.8,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "14J",
+        "x": 553.6,
+        "y": 2305.9,
+        "width": 41.3,
+        "height": 55.3,
+        "rotation": 31.4,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "15A",
+        "x": 203.8,
+        "y": 2391.8,
+        "width": 43.3,
+        "height": 57.9,
+        "rotation": -28,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "poor",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "missing_windows",
+            "comment": "Reduced window views — 1 plugged window nearby",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "bathroom_door",
+            "comment": "Lavatory behind — usually curtain-separated with little queuing in this cabin",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "15D",
+        "x": 320.1,
+        "y": 2412,
+        "width": 42.3,
+        "height": 56.2,
+        "rotation": 31,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "bathroom_door",
+            "comment": "Lavatory behind — usually curtain-separated with little queuing in this cabin",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "15G",
+        "x": 438.7,
+        "y": 2412.8,
+        "width": 42.6,
+        "height": 56.6,
+        "rotation": -27.9,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "bathroom_door",
+            "comment": "Lavatory behind — usually curtain-separated with little queuing in this cabin",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "15J",
+        "x": 552.8,
+        "y": 2392.9,
+        "width": 42.3,
+        "height": 56.4,
+        "rotation": 30.3,
+        "reversed": false,
+        "cabin": "business",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "poor",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "missing_windows",
+            "comment": "Reduced window views — 1 plugged window nearby",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "solo_throne",
+            "comment": "Direct aisle access with no one to climb over",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "bathroom_door",
+            "comment": "Lavatory behind — usually curtain-separated with little queuing in this cabin",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "16A",
+        "x": 174.1,
+        "y": 2663.5,
+        "width": 39.8,
+        "height": 53,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "none",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "missing_windows",
+            "comment": "No window at this seat position — wall only",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom at this seat",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (ahead) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "16C",
+        "x": 224.6,
+        "y": 2662.8,
+        "width": 39.3,
+        "height": 53.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom at this seat",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (ahead) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "16D",
+        "x": 305.6,
+        "y": 2613.4,
+        "width": 39.9,
+        "height": 52.9,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "no_underseat",
+            "comment": "No underseat storage — bulkhead in front",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom at this seat",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "partial_wall_legroom",
+            "comment": "Partial bulkhead (65% coverage) — some extra legroom on left side",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (ahead) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "16E",
+        "x": 355.6,
+        "y": 2613.6,
+        "width": 39.4,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "no_underseat",
+            "comment": "No underseat storage — bulkhead in front",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom at this seat",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (ahead) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "16G",
+        "x": 405.3,
+        "y": 2613.7,
+        "width": 39.8,
+        "height": 52.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "no_underseat",
+            "comment": "No underseat storage — bulkhead in front",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom at this seat",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (ahead) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "16H",
+        "x": 455.3,
+        "y": 2613.2,
+        "width": 39.2,
+        "height": 53.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "no_underseat",
+            "comment": "No underseat storage — bulkhead in front",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom at this seat",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "partial_wall_legroom",
+            "comment": "Partial bulkhead (65% coverage) — some extra legroom on right side",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (ahead) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "16J",
+        "x": 536.2,
+        "y": 2663,
+        "width": 40,
+        "height": 53.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom at this seat",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (ahead) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "16L",
+        "x": 586.6,
+        "y": 2663.3,
+        "width": 39.3,
+        "height": 53.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "none",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "missing_windows",
+            "comment": "No window at this seat position — wall only",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom at this seat",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (ahead) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "17A",
+        "x": 173.5,
+        "y": 2740.1,
+        "width": 40.6,
+        "height": 53.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "17C",
+        "x": 224.9,
+        "y": 2740.4,
+        "width": 39.4,
+        "height": 52.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "17D",
+        "x": 305.2,
+        "y": 2688.5,
+        "width": 40.2,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (ahead) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "17E",
+        "x": 355.7,
+        "y": 2687.8,
+        "width": 39.8,
+        "height": 52.9,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (ahead) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "17G",
+        "x": 405.4,
+        "y": 2688.4,
+        "width": 39.5,
+        "height": 52.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (ahead) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "17H",
+        "x": 455.2,
+        "y": 2688.5,
+        "width": 39.4,
+        "height": 52.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (ahead) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "17J",
+        "x": 536.1,
+        "y": 2740.2,
+        "width": 40.4,
+        "height": 53.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "17L",
+        "x": 586.4,
+        "y": 2740.5,
+        "width": 39.9,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "18A",
+        "x": 173.9,
+        "y": 2817.4,
+        "width": 40.1,
+        "height": 53.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (behind) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "18C",
+        "x": 224.7,
+        "y": 2817.7,
+        "width": 39.6,
+        "height": 53.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (behind) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "18D",
+        "x": 305.1,
+        "y": 2762.9,
+        "width": 40.2,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "18E",
+        "x": 355.9,
+        "y": 2762.7,
+        "width": 39.6,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "18G",
+        "x": 405.2,
+        "y": 2762.8,
+        "width": 39.7,
+        "height": 52.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "18H",
+        "x": 455.2,
+        "y": 2763.1,
+        "width": 39.3,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "18J",
+        "x": 536,
+        "y": 2817.2,
+        "width": 40.2,
+        "height": 53.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (behind) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "18L",
+        "x": 586.6,
+        "y": 2817.5,
+        "width": 39.6,
+        "height": 53.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (behind) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "19D",
+        "x": 305.4,
+        "y": 2837.9,
+        "width": 40.3,
+        "height": 54,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (behind) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "19E",
+        "x": 355.6,
+        "y": 2837.8,
+        "width": 39.8,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (behind) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "19G",
+        "x": 405.3,
+        "y": 2837.7,
+        "width": 39.8,
+        "height": 53.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (behind) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "19H",
+        "x": 455.4,
+        "y": 2838.6,
+        "width": 39.2,
+        "height": 53.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "premium_economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (behind) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "20A",
+        "x": 174,
+        "y": 2931.6,
+        "width": 34.8,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "no_underseat",
+            "comment": "No underseat storage — bulkhead in front",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "tray_in_armrest",
+            "comment": "Tray table and video screen in armrest — narrower effective seat width",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "bassinet_mount",
+            "comment": "Bassinet position at this seat — families with infants have priority and you may be asked to move",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "20C",
+        "x": 212.5,
+        "y": 2931.1,
+        "width": 34.8,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "no_underseat",
+            "comment": "No underseat storage — bulkhead in front",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "bulkhead_cramped",
+            "comment": "Less legroom than typical bulkhead — wall is closer than most (52cm (20in))",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "tray_in_armrest",
+            "comment": "Tray table and video screen in armrest — narrower effective seat width",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "20D",
+        "x": 325.1,
+        "y": 2958.1,
+        "width": 34.7,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "no_underseat",
+            "comment": "No underseat storage — bulkhead in front",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "tray_in_armrest",
+            "comment": "Tray table and video screen in armrest — narrower effective seat width",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "bassinet_mount",
+            "comment": "Bassinet position at this seat — families with infants have priority and you may be asked to move",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "20E",
+        "x": 363.4,
+        "y": 2957.9,
+        "width": 34.9,
+        "height": 52.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "no_underseat",
+            "comment": "No underseat storage — bulkhead in front",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "tray_in_armrest",
+            "comment": "Tray table and video screen in armrest — narrower effective seat width",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "20G",
+        "x": 402.3,
+        "y": 2958.3,
+        "width": 35.1,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "no_underseat",
+            "comment": "No underseat storage — bulkhead in front",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "tray_in_armrest",
+            "comment": "Tray table and video screen in armrest — narrower effective seat width",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "20H",
+        "x": 441.2,
+        "y": 2958.7,
+        "width": 35.1,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "no_underseat",
+            "comment": "No underseat storage — bulkhead in front",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "tray_in_armrest",
+            "comment": "Tray table and video screen in armrest — narrower effective seat width",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "bassinet_mount",
+            "comment": "Bassinet position at this seat — families with infants have priority and you may be asked to move",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "20J",
+        "x": 553.6,
+        "y": 2931.5,
+        "width": 35,
+        "height": 51.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "no_underseat",
+            "comment": "No underseat storage — bulkhead in front",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "tray_in_armrest",
+            "comment": "Tray table and video screen in armrest — narrower effective seat width",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "20L",
+        "x": 592.2,
+        "y": 2931.6,
+        "width": 34.8,
+        "height": 51.9,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "no_underseat",
+            "comment": "No underseat storage — bulkhead in front",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "tray_in_armrest",
+            "comment": "Tray table and video screen in armrest — narrower effective seat width",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "bassinet_mount",
+            "comment": "Bassinet position at this seat — families with infants have priority and you may be asked to move",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "21A",
+        "x": 174,
+        "y": 2993.8,
+        "width": 34.9,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "21C",
+        "x": 212.4,
+        "y": 2993.8,
+        "width": 34.9,
+        "height": 51.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "21D",
+        "x": 325,
+        "y": 3020.4,
+        "width": 34.7,
+        "height": 52.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "21E",
+        "x": 363.3,
+        "y": 3020.5,
+        "width": 35,
+        "height": 52.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "21G",
+        "x": 402.1,
+        "y": 3020.5,
+        "width": 35.4,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "21H",
+        "x": 441.1,
+        "y": 3021,
+        "width": 35.1,
+        "height": 51.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "21J",
+        "x": 553.6,
+        "y": 2993.6,
+        "width": 35,
+        "height": 51.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "21L",
+        "x": 592.2,
+        "y": 2993.6,
+        "width": 34.7,
+        "height": 51.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bassinet_nearby",
+            "comment": "Near bassinet position (ahead) — potential noise from infants",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "22A",
+        "x": 173.9,
+        "y": 3055.9,
+        "width": 34.7,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "22B",
+        "x": 212.6,
+        "y": 3055.6,
+        "width": 34.7,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "22C",
+        "x": 250.9,
+        "y": 3055.3,
+        "width": 34.9,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "22D",
+        "x": 324.9,
+        "y": 3082.8,
+        "width": 34.9,
+        "height": 52.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "22E",
+        "x": 363.2,
+        "y": 3082.8,
+        "width": 35.1,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "22G",
+        "x": 402.1,
+        "y": 3082.6,
+        "width": 35.3,
+        "height": 52.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "22H",
+        "x": 441.1,
+        "y": 3083,
+        "width": 35.1,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "22J",
+        "x": 515.1,
+        "y": 3055.4,
+        "width": 34.7,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "22K",
+        "x": 553.6,
+        "y": 3055.5,
+        "width": 35.1,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "22L",
+        "x": 592.4,
+        "y": 3055.8,
+        "width": 34.5,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "23A",
+        "x": 174,
+        "y": 3118,
+        "width": 34.9,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "23B",
+        "x": 212.6,
+        "y": 3117.7,
+        "width": 34.9,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "23C",
+        "x": 251,
+        "y": 3117.7,
+        "width": 34.8,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "23D",
+        "x": 324.8,
+        "y": 3145.4,
+        "width": 34.9,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "23E",
+        "x": 363.5,
+        "y": 3145.2,
+        "width": 35,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "23G",
+        "x": 402.1,
+        "y": 3145.2,
+        "width": 35.3,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "23H",
+        "x": 440.8,
+        "y": 3145.4,
+        "width": 35.7,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "23J",
+        "x": 515,
+        "y": 3117.6,
+        "width": 34.7,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "23K",
+        "x": 553.5,
+        "y": 3117.7,
+        "width": 35.3,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "23L",
+        "x": 592.4,
+        "y": 3118,
+        "width": 34.5,
+        "height": 51.9,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "24A",
+        "x": 174,
+        "y": 3180.4,
+        "width": 34.7,
+        "height": 51.9,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "24B",
+        "x": 212.3,
+        "y": 3179.8,
+        "width": 35.1,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "24C",
+        "x": 251.1,
+        "y": 3179.8,
+        "width": 34.7,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "24D",
+        "x": 324.9,
+        "y": 3207.8,
+        "width": 34.8,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "24E",
+        "x": 363.4,
+        "y": 3207.4,
+        "width": 35,
+        "height": 52.9,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "24G",
+        "x": 402.1,
+        "y": 3207.5,
+        "width": 35.4,
+        "height": 53,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "24H",
+        "x": 441,
+        "y": 3207.8,
+        "width": 35.1,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "24J",
+        "x": 515.1,
+        "y": 3179.7,
+        "width": 34.8,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "24K",
+        "x": 553.6,
+        "y": 3179.9,
+        "width": 34.9,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "24L",
+        "x": 592.3,
+        "y": 3180.2,
+        "width": 34.6,
+        "height": 51.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "25A",
+        "x": 174.1,
+        "y": 3242.4,
+        "width": 34.8,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "25B",
+        "x": 212.4,
+        "y": 3242.3,
+        "width": 35.1,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "25C",
+        "x": 251.2,
+        "y": 3242.2,
+        "width": 34.6,
+        "height": 51.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "25D",
+        "x": 325.1,
+        "y": 3269.9,
+        "width": 34.7,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "25E",
+        "x": 363.4,
+        "y": 3269.7,
+        "width": 34.9,
+        "height": 53.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "25G",
+        "x": 402.1,
+        "y": 3269.8,
+        "width": 35.6,
+        "height": 52.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "25H",
+        "x": 441.2,
+        "y": 3270,
+        "width": 34.9,
+        "height": 52.9,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "25J",
+        "x": 515.1,
+        "y": 3242,
+        "width": 34.8,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "25K",
+        "x": 553.6,
+        "y": 3242.1,
+        "width": 35,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "25L",
+        "x": 592.3,
+        "y": 3242.4,
+        "width": 34.5,
+        "height": 51.9,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "26A",
+        "x": 174.2,
+        "y": 3304.9,
+        "width": 34.6,
+        "height": 51.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "26B",
+        "x": 212.5,
+        "y": 3304.5,
+        "width": 34.9,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "26C",
+        "x": 251.1,
+        "y": 3304.1,
+        "width": 34.6,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "26D",
+        "x": 324.9,
+        "y": 3332.3,
+        "width": 34.8,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "26E",
+        "x": 363.2,
+        "y": 3332.3,
+        "width": 35.1,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "26G",
+        "x": 402,
+        "y": 3332.5,
+        "width": 35.4,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "26H",
+        "x": 441,
+        "y": 3332.9,
+        "width": 35.1,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "26J",
+        "x": 515.1,
+        "y": 3304.4,
+        "width": 34.8,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "26K",
+        "x": 553.5,
+        "y": 3304.4,
+        "width": 34.9,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "26L",
+        "x": 592.2,
+        "y": 3304.6,
+        "width": 34.6,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "27A",
+        "x": 174.1,
+        "y": 3366.9,
+        "width": 34.7,
+        "height": 51.9,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "27B",
+        "x": 212.6,
+        "y": 3366.4,
+        "width": 34.9,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "27C",
+        "x": 251.1,
+        "y": 3366.1,
+        "width": 34.6,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "27D",
+        "x": 324.9,
+        "y": 3394.6,
+        "width": 34.9,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "27E",
+        "x": 363.2,
+        "y": 3394.7,
+        "width": 35.1,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "27G",
+        "x": 401.9,
+        "y": 3394.7,
+        "width": 35.4,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "27H",
+        "x": 441,
+        "y": 3395.1,
+        "width": 35.2,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "27J",
+        "x": 515.1,
+        "y": 3366.3,
+        "width": 34.8,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "27K",
+        "x": 553.6,
+        "y": 3366.2,
+        "width": 35,
+        "height": 52.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "27L",
+        "x": 592.5,
+        "y": 3366.6,
+        "width": 34.4,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "28A",
+        "x": 173.9,
+        "y": 3429.3,
+        "width": 34.7,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "28B",
+        "x": 212.4,
+        "y": 3428.5,
+        "width": 35,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "28C",
+        "x": 250.9,
+        "y": 3428.5,
+        "width": 34.8,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (behind) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "28D",
+        "x": 324.9,
+        "y": 3457,
+        "width": 34.9,
+        "height": 52.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "28E",
+        "x": 363.2,
+        "y": 3457,
+        "width": 35.4,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "28G",
+        "x": 402,
+        "y": 3457.1,
+        "width": 35.2,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "28H",
+        "x": 440.9,
+        "y": 3457.4,
+        "width": 35.4,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "28J",
+        "x": 515,
+        "y": 3428.6,
+        "width": 34.8,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (behind) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "28K",
+        "x": 553.6,
+        "y": 3428.6,
+        "width": 34.9,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "28L",
+        "x": 592.4,
+        "y": 3429.1,
+        "width": 34.5,
+        "height": 51.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "29A",
+        "x": 173.9,
+        "y": 3491.3,
+        "width": 34.9,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "29B",
+        "x": 212.4,
+        "y": 3490.8,
+        "width": 35,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (behind) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "29C",
+        "x": 251,
+        "y": 3490.7,
+        "width": 34.9,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "29D",
+        "x": 324.8,
+        "y": 3519.8,
+        "width": 35.1,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "29E",
+        "x": 363.4,
+        "y": 3519.6,
+        "width": 35,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "29G",
+        "x": 402.1,
+        "y": 3519.5,
+        "width": 35,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "29H",
+        "x": 440.7,
+        "y": 3519.9,
+        "width": 35.2,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "29J",
+        "x": 515,
+        "y": 3490.7,
+        "width": 34.8,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "29K",
+        "x": 553.5,
+        "y": 3490.6,
+        "width": 35,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (behind) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "29L",
+        "x": 592.3,
+        "y": 3491.1,
+        "width": 34.6,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "30A",
+        "x": 174.1,
+        "y": 3553.2,
+        "width": 34.9,
+        "height": 51.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (behind) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "30C",
+        "x": 212.4,
+        "y": 3552.9,
+        "width": 34.9,
+        "height": 51.9,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "30J",
+        "x": 553.6,
+        "y": 3552.9,
+        "width": 35.1,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "30L",
+        "x": 592.2,
+        "y": 3553.1,
+        "width": 34.7,
+        "height": 51.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (behind) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "31A",
+        "x": 174.5,
+        "y": 3759.6,
+        "width": 34.7,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "poor",
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "tray_in_armrest",
+            "comment": "Tray table and video screen in armrest — no seatback ahead",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "door_intrusion",
+            "comment": "Exit door L4 curves into part of your legroom, starting 45cm (18in) ahead — legs extend at a diagonal, and no seat reclines into you",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "misaligned_window",
+            "comment": "Window set behind the seat — restricted view, lean back to see out",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "31C",
+        "x": 213.2,
+        "y": 3759.2,
+        "width": 34.4,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "tray_in_armrest",
+            "comment": "Tray table and video screen in armrest — no seatback ahead",
+            "sentiment": "bad",
+            "severity": "minor"
+          }
+        ]
+      },
+      {
+        "designator": "31J",
+        "x": 553.1,
+        "y": 3759.2,
+        "width": 34.6,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "tray_in_armrest",
+            "comment": "Tray table and video screen in armrest — no seatback ahead",
+            "sentiment": "bad",
+            "severity": "minor"
+          }
+        ]
+      },
+      {
+        "designator": "31L",
+        "x": 591.5,
+        "y": 3759.7,
+        "width": 35,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "poor",
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          },
+          {
+            "slug": "tray_in_armrest",
+            "comment": "Tray table and video screen in armrest — no seatback ahead",
+            "sentiment": "bad",
+            "severity": "minor"
+          },
+          {
+            "slug": "door_intrusion",
+            "comment": "Exit door R4 curves into part of your legroom, starting 45cm (18in) ahead — legs extend at a diagonal, and no seat reclines into you",
+            "sentiment": "bad",
+            "severity": "moderate"
+          },
+          {
+            "slug": "misaligned_window",
+            "comment": "Window set behind the seat — restricted view, lean back to see out",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "32A",
+        "x": 174.5,
+        "y": 3832,
+        "width": 34.7,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~91cm (36in) — 13cm more than typical for this cabin — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "32C",
+        "x": 213.1,
+        "y": 3831.8,
+        "width": 34.5,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~91cm (36in) — 13cm more than typical for this cabin — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "32J",
+        "x": 553.3,
+        "y": 3831.7,
+        "width": 34.5,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~91cm (36in) — 13cm more than typical for this cabin — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "32L",
+        "x": 591.8,
+        "y": 3832,
+        "width": 34.7,
+        "height": 52.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~91cm (36in) — 12cm more than typical for this cabin — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "33A",
+        "x": 174.5,
+        "y": 3897.3,
+        "width": 34.9,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "33B",
+        "x": 213.2,
+        "y": 3897.1,
+        "width": 34.7,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "33C",
+        "x": 251.8,
+        "y": 3897.2,
+        "width": 34.9,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom at this seat",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "33D",
+        "x": 324.8,
+        "y": 3877.5,
+        "width": 34.9,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "33E",
+        "x": 363.5,
+        "y": 3877.6,
+        "width": 35,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "33G",
+        "x": 402.3,
+        "y": 3877.6,
+        "width": 35.1,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "33H",
+        "x": 441,
+        "y": 3878,
+        "width": 35.4,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "33J",
+        "x": 514.3,
+        "y": 3897,
+        "width": 35.1,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "extra_legroom",
+            "comment": "Extra legroom at this seat",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "33K",
+        "x": 553.2,
+        "y": 3897,
+        "width": 34.7,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "33L",
+        "x": 591.9,
+        "y": 3897.1,
+        "width": 34.7,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "34A",
+        "x": 174.4,
+        "y": 3962.6,
+        "width": 35,
+        "height": 52.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "34B",
+        "x": 213,
+        "y": 3962.3,
+        "width": 34.9,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "34C",
+        "x": 251.6,
+        "y": 3962.2,
+        "width": 35.2,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "34D",
+        "x": 325,
+        "y": 3950,
+        "width": 34.7,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~91cm (36in) — 13cm more than typical for this cabin — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "34E",
+        "x": 363.5,
+        "y": 3950.1,
+        "width": 34.7,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~91cm (36in) — 13cm more than typical for this cabin — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "34G",
+        "x": 402.1,
+        "y": 3950.1,
+        "width": 35.3,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~91cm (36in) — 13cm more than typical for this cabin — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "34H",
+        "x": 441.1,
+        "y": 3950.4,
+        "width": 35,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~91cm (36in) — 13cm more than typical for this cabin — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "34J",
+        "x": 514.3,
+        "y": 3962.2,
+        "width": 35.2,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "34K",
+        "x": 553.3,
+        "y": 3962.3,
+        "width": 34.6,
+        "height": 51.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "34L",
+        "x": 591.7,
+        "y": 3962.4,
+        "width": 34.8,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "35A",
+        "x": 174.4,
+        "y": 4024.5,
+        "width": 34.9,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "35B",
+        "x": 213.1,
+        "y": 4024.2,
+        "width": 34.6,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "35C",
+        "x": 251.6,
+        "y": 4024.1,
+        "width": 35.1,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "35D",
+        "x": 325,
+        "y": 4023.2,
+        "width": 34.7,
+        "height": 52.9,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~92cm (36in) — 14cm more than typical for this cabin — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "35E",
+        "x": 363.4,
+        "y": 4023.2,
+        "width": 34.8,
+        "height": 52.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~92cm (36in) — 14cm more than typical for this cabin — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "35G",
+        "x": 402.1,
+        "y": 4023.2,
+        "width": 35.2,
+        "height": 52.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~92cm (36in) — 14cm more than typical for this cabin — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "35H",
+        "x": 441,
+        "y": 4023.6,
+        "width": 35.2,
+        "height": 52.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": "eplus",
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~92cm (36in) — 14cm more than typical for this cabin — Main Cabin Extra seat, typically extra cost or an elite benefit",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "35J",
+        "x": 514.4,
+        "y": 4024.2,
+        "width": 35,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "35K",
+        "x": 553.3,
+        "y": 4024.2,
+        "width": 34.6,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "35L",
+        "x": 591.8,
+        "y": 4024.6,
+        "width": 34.8,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "36A",
+        "x": 174.4,
+        "y": 4086.7,
+        "width": 34.9,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "36B",
+        "x": 213.1,
+        "y": 4086.4,
+        "width": 34.8,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "36C",
+        "x": 251.6,
+        "y": 4086.3,
+        "width": 35,
+        "height": 52.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "36D",
+        "x": 324.9,
+        "y": 4090.7,
+        "width": 34.8,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~85cm (33in) — 6cm more than typical for this cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "36E",
+        "x": 363.3,
+        "y": 4090.8,
+        "width": 35,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~85cm (33in) — 7cm more than typical for this cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "36G",
+        "x": 402.1,
+        "y": 4090.8,
+        "width": 35.2,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~85cm (33in) — 7cm more than typical for this cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "36H",
+        "x": 441.1,
+        "y": 4091.1,
+        "width": 35.2,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~85cm (33in) — 6cm more than typical for this cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "36J",
+        "x": 514.3,
+        "y": 4086.2,
+        "width": 35.4,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "36K",
+        "x": 553.3,
+        "y": 4086.4,
+        "width": 34.6,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "36L",
+        "x": 591.8,
+        "y": 4086.7,
+        "width": 34.8,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "37A",
+        "x": 174.4,
+        "y": 4149.1,
+        "width": 34.9,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "37B",
+        "x": 213,
+        "y": 4148.8,
+        "width": 34.8,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "37C",
+        "x": 251.5,
+        "y": 4148.6,
+        "width": 35.1,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "37D",
+        "x": 325.1,
+        "y": 4158.1,
+        "width": 34.6,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~84cm (33in) — 6cm more than typical for this cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "37E",
+        "x": 363.5,
+        "y": 4158.1,
+        "width": 34.8,
+        "height": 52.9,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~84cm (33in) — 6cm more than typical for this cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "37G",
+        "x": 402.2,
+        "y": 4158.1,
+        "width": 35.4,
+        "height": 52.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~84cm (33in) — 6cm more than typical for this cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "37H",
+        "x": 441.1,
+        "y": 4158.5,
+        "width": 35.1,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~84cm (33in) — 6cm more than typical for this cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "37J",
+        "x": 514.4,
+        "y": 4148.7,
+        "width": 35.1,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "37K",
+        "x": 553.3,
+        "y": 4148.7,
+        "width": 34.6,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "37L",
+        "x": 591.7,
+        "y": 4149,
+        "width": 34.8,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "38A",
+        "x": 174.4,
+        "y": 4211.1,
+        "width": 34.9,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "38B",
+        "x": 212.9,
+        "y": 4210.9,
+        "width": 34.9,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "38C",
+        "x": 251.6,
+        "y": 4210.9,
+        "width": 35,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "38D",
+        "x": 324.7,
+        "y": 4225.4,
+        "width": 35,
+        "height": 53,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~84cm (33in) — 6cm more than typical for this cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "38E",
+        "x": 363.4,
+        "y": 4225.6,
+        "width": 35,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~85cm (33in) — 6cm more than typical for this cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "38G",
+        "x": 402.1,
+        "y": 4225.6,
+        "width": 35.4,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~85cm (33in) — 6cm more than typical for this cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "38H",
+        "x": 441,
+        "y": 4225.8,
+        "width": 35.2,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "seat_pitch",
+            "comment": "Seat pitch ~84cm (33in) — 6cm more than typical for this cabin",
+            "sentiment": "good",
+            "severity": null
+          }
+        ]
+      },
+      {
+        "designator": "38J",
+        "x": 514.4,
+        "y": 4210.6,
+        "width": 35.3,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "38K",
+        "x": 553.3,
+        "y": 4211,
+        "width": 34.5,
+        "height": 51.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "38L",
+        "x": 591.8,
+        "y": 4211.3,
+        "width": 34.7,
+        "height": 51.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "39A",
+        "x": 174.5,
+        "y": 4273.3,
+        "width": 34.8,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "39B",
+        "x": 213,
+        "y": 4273.1,
+        "width": 34.8,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "39C",
+        "x": 251.6,
+        "y": 4273.1,
+        "width": 35.1,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "39D",
+        "x": 324.8,
+        "y": 4288.1,
+        "width": 34.9,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "39E",
+        "x": 363.5,
+        "y": 4287.9,
+        "width": 34.9,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "39G",
+        "x": 402.1,
+        "y": 4288,
+        "width": 35.3,
+        "height": 52.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "39H",
+        "x": 441,
+        "y": 4288.2,
+        "width": 35.1,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "39J",
+        "x": 514.4,
+        "y": 4273.1,
+        "width": 35.4,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "39K",
+        "x": 553.4,
+        "y": 4273.2,
+        "width": 34.5,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "39L",
+        "x": 591.8,
+        "y": 4273.3,
+        "width": 34.7,
+        "height": 52,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "40A",
+        "x": 174.4,
+        "y": 4337.1,
+        "width": 35,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "40B",
+        "x": 213,
+        "y": 4336.2,
+        "width": 35,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "40C",
+        "x": 251.6,
+        "y": 4335.4,
+        "width": 34.7,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "40D",
+        "x": 324.8,
+        "y": 4350.4,
+        "width": 34.9,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "40E",
+        "x": 363.4,
+        "y": 4350.3,
+        "width": 35,
+        "height": 52.8,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "40G",
+        "x": 402.1,
+        "y": 4350.4,
+        "width": 35.3,
+        "height": 52.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "40H",
+        "x": 441,
+        "y": 4350.7,
+        "width": 35.2,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "40J",
+        "x": 514.4,
+        "y": 4335.6,
+        "width": 35.1,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "40K",
+        "x": 553.1,
+        "y": 4336.2,
+        "width": 34.9,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "40L",
+        "x": 591.8,
+        "y": 4337.1,
+        "width": 34.6,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "green",
+        "color": "#3cb043",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "41A",
+        "x": 177.4,
+        "y": 4400.2,
+        "width": 34.9,
+        "height": 51.6,
+        "rotation": -2,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "41C",
+        "x": 216,
+        "y": 4398.9,
+        "width": 34.5,
+        "height": 51.8,
+        "rotation": -2,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "41D",
+        "x": 324.9,
+        "y": 4412.8,
+        "width": 34.9,
+        "height": 52.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "41E",
+        "x": 363.4,
+        "y": 4412.5,
+        "width": 34.9,
+        "height": 53.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "41G",
+        "x": 402.1,
+        "y": 4412.6,
+        "width": 35.4,
+        "height": 53.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "41H",
+        "x": 441.1,
+        "y": 4412.9,
+        "width": 35.1,
+        "height": 53.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "41J",
+        "x": 550.5,
+        "y": 4398.6,
+        "width": 34.6,
+        "height": 52.3,
+        "rotation": 2,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "41L",
+        "x": 589,
+        "y": 4400.1,
+        "width": 34.6,
+        "height": 52,
+        "rotation": 2,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": null,
+        "color": "",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": []
+      },
+      {
+        "designator": "42A",
+        "x": 180.4,
+        "y": 4463.7,
+        "width": 35,
+        "height": 51.6,
+        "rotation": -3,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "42C",
+        "x": 219,
+        "y": 4461.7,
+        "width": 34.9,
+        "height": 52.1,
+        "rotation": -3,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "42D",
+        "x": 324.9,
+        "y": 4475.2,
+        "width": 34.8,
+        "height": 52.6,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (behind) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "42E",
+        "x": 363.3,
+        "y": 4475.3,
+        "width": 35,
+        "height": 52.5,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (behind) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "42G",
+        "x": 402.2,
+        "y": 4475.4,
+        "width": 35.2,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (behind) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "42H",
+        "x": 441.1,
+        "y": 4475.5,
+        "width": 35.2,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (behind) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "42J",
+        "x": 547.2,
+        "y": 4461.8,
+        "width": 34.9,
+        "height": 52,
+        "rotation": 3,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "42L",
+        "x": 585.7,
+        "y": 4463.7,
+        "width": 34.9,
+        "height": 52.2,
+        "rotation": 3,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "great",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "43A",
+        "x": 185.5,
+        "y": 4527.2,
+        "width": 34.8,
+        "height": 51.7,
+        "rotation": -4,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "43C",
+        "x": 223.7,
+        "y": 4524.5,
+        "width": 35.2,
+        "height": 52,
+        "rotation": -4,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "43D",
+        "x": 324.8,
+        "y": 4537.5,
+        "width": 34.9,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "43E",
+        "x": 363.3,
+        "y": 4537.5,
+        "width": 35,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (behind) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "43G",
+        "x": 402.2,
+        "y": 4537.5,
+        "width": 35.1,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "yellow",
+        "color": "#f0c030",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "lav_traffic",
+            "comment": "Near lavatory (behind) — some queuing traffic and noise",
+            "sentiment": "bad",
+            "severity": "moderate"
+          }
+        ]
+      },
+      {
+        "designator": "43H",
+        "x": 441.1,
+        "y": 4537.9,
+        "width": 35.1,
+        "height": 51.7,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "43J",
+        "x": 542.6,
+        "y": 4524.3,
+        "width": 34.5,
+        "height": 52.5,
+        "rotation": 4,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "43L",
+        "x": 580.8,
+        "y": 4527.5,
+        "width": 34.8,
+        "height": 52,
+        "rotation": 4,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": "average",
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "44D",
+        "x": 324.9,
+        "y": 4599.8,
+        "width": 34.8,
+        "height": 52.1,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "44E",
+        "x": 363.3,
+        "y": 4599.9,
+        "width": 35.1,
+        "height": 52.2,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "44G",
+        "x": 402.1,
+        "y": 4599.9,
+        "width": 35.1,
+        "height": 52.4,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      },
+      {
+        "designator": "44H",
+        "x": 441.1,
+        "y": 4600.1,
+        "width": 35.2,
+        "height": 52.3,
+        "rotation": 0,
+        "reversed": false,
+        "cabin": "economy",
+        "rating": "red",
+        "color": "#dc3c3c",
+        "bookable": true,
+        "blocked": false,
+        "crewRest": false,
+        "windowStatus": null,
+        "seatProduct": null,
+        "comments": [
+          {
+            "slug": "bathroom_door",
+            "comment": "Immediately adjacent to lavatory (behind) — expect noise, odors, and queuing traffic",
+            "sentiment": "bad",
+            "severity": "major"
+          }
+        ]
+      }
+    ]
+  }
+}

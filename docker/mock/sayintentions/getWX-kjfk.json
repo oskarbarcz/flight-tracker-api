@@ -1,0 +1,12 @@
+{
+  "taf": "TAF KJFK 100820Z 1009/1109 18012KT P6SM FEW050 FM110000 21008KT P6SM SCT060",
+  "metar": "KJFK 101051Z 18010KT 10SM FEW050 27/18 A2998 RMK AO2",
+  "atis": "Kennedy airport, information Bravo. 1051 Zulu. ILS runway 4 right approach in use. Departing runway 4 left. Wind 180 at 10. Visibility 10. Few 5000. Temperature 27, dewpoint 18. Altimeter 2998. Advise on initial contact you have information Bravo.",
+  "comms": [
+    {
+      "freq": "128.725",
+      "type": "ATIS",
+      "callsign": null
+    }
+  ]
+}

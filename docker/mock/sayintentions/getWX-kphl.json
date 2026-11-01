@@ -1,0 +1,11 @@
+{
+  "metar": "KPHL 101054Z 20008KT 10SM SCT045 26/17 A2999",
+  "atis": "Philadelphia airport, information Yankee. 1054 Zulu. ILS runway 27 right approach in use. Departing runway 27 left. Wind 200 at 8. Visibility 10. Scattered 4500. Temperature 26, dewpoint 17. Altimeter 2999. Advise on initial contact you have information Yankee.",
+  "comms": [
+    {
+      "freq": "133.4",
+      "type": "ATIS",
+      "callsign": null
+    }
+  ]
+}

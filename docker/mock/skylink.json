@@ -1,105 +1,195 @@
-[
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/v1/airports",
-      "queryStringParameters": {
-        "iata": ["LHR"]
-      }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["application/json; charset=utf-8"]
-      },
-      "body": [
+{
+  "uuid": "4c3920fc-f28e-4395-b742-b5ef0f492f10",
+  "lastMigration": 33,
+  "name": "SkyLink",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 1081,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "13299ec7-28db-4f42-8166-f75810e62cfe",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v1/airports",
+      "responses": [
         {
-          "icao": "EGLL",
-          "iata": "LHR",
-          "name": "London Heathrow Airport",
-          "city": "London",
-          "region": "England",
-          "country": "GB",
-          "elevation_ft": "83",
-          "latitude": "51.47060013",
-          "longitude": "-0.461941",
-          "timezone": "Europe/London"
-        }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/v1/airports",
-      "queryStringParameters": {
-        "iata": ["XXX"]
-      }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["application/json; charset=utf-8"]
-      },
-      "body": []
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/v1/airports",
-      "queryStringParameters": {
-        "icao": ["EGLL"]
-      }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["application/json; charset=utf-8"]
-      },
-      "body": [
+          "uuid": "8dfaf0d7-87f3-40d2-bf46-200cfde9fd1a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "iata=LHR",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "skylink/airports-LHR.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "iata",
+              "value": "LHR",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
         {
-          "icao": "EGLL",
-          "iata": "LHR",
-          "name": "London Heathrow Airport",
-          "city": "London",
-          "region": "England",
-          "country": "GB",
-          "elevation_ft": "83",
-          "latitude": "51.47060013",
-          "longitude": "-0.461941",
-          "timezone": "Europe/London"
-        }
-      ]
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/v1/airports",
-      "queryStringParameters": {
-        "icao": ["CYQX"]
-      }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["application/json; charset=utf-8"]
-      },
-      "body": [
+          "uuid": "88175960-f5b1-480d-85a7-cdfd2fb01a71",
+          "body": "[]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "iata=XXX",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "iata",
+              "value": "XXX",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
         {
-          "icao": "CYQX",
-          "iata": "YQX",
-          "name": "Gander International Airport",
-          "city": "Gander",
-          "region": "Newfoundland and Labrador",
-          "country": "CA",
-          "elevation_ft": "496",
-          "latitude": "48.936901",
-          "longitude": "-54.568100",
-          "timezone": "America/St_Johns"
+          "uuid": "7a4822b9-f6ec-4655-9080-a3f346cf2e06",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "icao=EGLL",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "skylink/airports-EGLL.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "icao",
+              "value": "EGLL",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "69aa91dc-a1c9-4234-ac11-ceb89acb0d37",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "icao=CYQX",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "skylink/airports-CYQX.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "icao",
+              "value": "CYQX",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "52cccc1c-16f9-48a5-a437-bc51071ec1cb",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No matching fixture",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
         }
-      ]
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     }
-  }
-]
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "13299ec7-28db-4f42-8166-f75810e62cfe"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": false,
+  "headers": [],
+  "proxyReqHeaders": [],
+  "proxyResHeaders": [],
+  "data": [],
+  "callbacks": []
+}

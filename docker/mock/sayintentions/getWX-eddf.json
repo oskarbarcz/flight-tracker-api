@@ -1,0 +1,12 @@
+{
+  "taf": "TAF EDDF 100830Z 1009/1109 24010KT 9999 FEW035 BECMG 1015/1017 27012KT",
+  "metar": "EDDF 101030Z 24008KT 9999 FEW035 22/12 Q1018 NOSIG",
+  "atis": "Frankfurt airport, information Kilo. 1030 Zulu. Arriving runway 25 left. Departing runway 18. Wind 240 at 8. Visibility 10 kilometres. Few 3500 feet. Temperature 22, dewpoint 12. QNH 1018. Transition level 70. Advise on initial contact you have information Kilo.",
+  "comms": [
+    {
+      "freq": "118.025",
+      "type": "ATIS",
+      "callsign": null
+    }
+  ]
+}

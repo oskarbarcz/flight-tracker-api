@@ -1,28 +1,112 @@
-[
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/data/metar"
+{
+  "uuid": "fa558dc9-4d10-4349-9040-71ff263e919f",
+  "lastMigration": 33,
+  "name": "Aviation Weather",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 1083,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "04eb9524-d127-40a8-9cb9-12d5904565d5",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/data/metar",
+      "responses": [
+        {
+          "uuid": "e94b9b80-7aa1-4468-9469-60f4f4930bfd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain; charset=utf-8"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "weather/metar.txt",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["text/plain; charset=utf-8"]
-      },
-      "body": "METAR EDDF 081200Z 24008KT 9999 FEW035 22/12 Q1018 NOSIG\nMETAR EPWA 081200Z 20006KT 9999 SCT040 24/13 Q1016 NOSIG\nMETAR KJFK 081151Z 18010KT 10SM FEW050 27/18 A2998 RMK AO2\nMETAR LFPG 081200Z 23007KT 9999 BKN038 21/14 Q1017 NOSIG\nMETAR CYYR 081200Z 09005KT 15SM SCT060 14/07 A2990\nMETAR BIKF 081200Z 11015KT 9999 FEW025 09/05 Q1005\nMETAR CYYT 081200Z 14012KT 12SM OVC070 12/09 A2985\nMETAR KPHL 081154Z 20008KT 10SM SCT045 26/17 A2999\nMETAR KBOS 081154Z 21009KT 10SM FEW040 24/16 A3000\nMETAR EDDW 081200Z 25010KT 9999 BKN030 19/12 Q1016 NOSIG"
+    {
+      "uuid": "a600a8ae-e3b2-4381-9dc7-0deade852bbb",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/data/taf",
+      "responses": [
+        {
+          "uuid": "a03acb6e-c246-4e97-a7f1-c1a7a44b6aaa",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain; charset=utf-8"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "weather/taf.txt",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "04eb9524-d127-40a8-9cb9-12d5904565d5"
+    },
+    {
+      "type": "route",
+      "uuid": "a600a8ae-e3b2-4381-9dc7-0deade852bbb"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
   },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/api/data/taf"
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": {
-        "Content-Type": ["text/plain; charset=utf-8"]
-      },
-      "body": "TAF EDDF 081100Z 0812/0918 24010KT 9999 FEW035 BECMG 0815/0817 27012KT\nTAF EPWA 081100Z 0812/0918 20008KT 9999 SCT040 BECMG 0900/0902 24010KT\nTAF KJFK 081120Z 0812/0918 18012KT P6SM FEW050 FM090000 21008KT P6SM SCT060\nTAF LFPG 081100Z 0812/0918 23009KT 9999 BKN038\nTAF CYYR 081140Z 0812/0918 09006KT P6SM SCT060\nTAF BIKF 081100Z 0812/0918 11018KT 9999 FEW025\nTAF CYYT 081140Z 0812/0918 14014KT P6SM OVC070\nTAF KPHL 081120Z 0812/0918 20010KT P6SM SCT045\nTAF KBOS 081120Z 0812/0918 21010KT P6SM FEW040\nTAF EDDW 081100Z 0812/0918 25012KT 9999 BKN030"
-    }
-  }
-]
+  "cors": false,
+  "headers": [],
+  "proxyReqHeaders": [],
+  "proxyResHeaders": [],
+  "data": [],
+  "callbacks": []
+}

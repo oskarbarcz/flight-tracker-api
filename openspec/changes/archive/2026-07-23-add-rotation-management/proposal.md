@@ -31,4 +31,4 @@ Explicitly **out of scope for this change**: diversions, cancellation, and clean
 - **API (additive):** new operator-scoped rotation endpoints (create, leg CRUD, mark-ready, attach/detach flight) gated to Operations; public read endpoints for rotations.
 - **Cross-module contract:** rotations reads flight data via `GetFlightQuery` on the `QueryBus` and subscribes to `flight.pilot-checked-in` / `flight.closed` domain events. Dependency direction is one-way (`rotations → flights`).
 - **Tests:** new Cucumber features for the rotation lifecycle and attachment validation, plus seed fixtures with fixed UUIDs.
-- **Docs:** Swagger API description and `CLAUDE.md` module reference updated to list the `rotations` module.
+- **Docs:** Swagger API description and `AGENTS.md` module reference updated to list the `rotations` module.

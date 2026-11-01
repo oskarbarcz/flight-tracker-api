@@ -1,0 +1,17 @@
+[
+  {
+    "callsign": "DLH41",
+    "date": "2025-01-02T03:55:00.000Z",
+    "latitude": 40.6413,
+    "longitude": -73.7781,
+    "altitude": 0,
+    "verticalRate": 0,
+    "groundSpeed": 0,
+    "track": 0,
+    "isOnGround": true,
+    "squawk": "1000",
+    "alert": false,
+    "emergency": false,
+    "spi": false
+  }
+]

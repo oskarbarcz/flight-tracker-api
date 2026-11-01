@@ -1,277 +1,633 @@
-[
-  {
-    "httpRequest": {
-      "method": "POST",
-      "path": "/oauth2/token",
-      "body": {
-        "type": "STRING",
-        "string": "code=valid-michael-code",
-        "subString": true
-      }
+{
+  "uuid": "2a14cfbc-5619-4d54-823e-6fb2b7a0dfae",
+  "lastMigration": 33,
+  "name": "Discord",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 1086,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "457fb386-bda4-40d9-8751-677f60bd97f7",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "oauth2/token",
+      "responses": [
+        {
+          "uuid": "aad9627e-3087-41d5-b374-447e902d9965",
+          "body": "{\"access_token\":\"michael-token\",\"token_type\":\"Bearer\",\"expires_in\":604800,\"scope\":\"identify\"}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "code=valid-michael-code",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "code",
+              "value": "valid-michael-code",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "d5927ea8-560f-4034-a165-8131db590cb8",
+          "body": "{\"access_token\":\"stranger-token\",\"token_type\":\"Bearer\",\"expires_in\":604800,\"scope\":\"identify\"}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "code=valid-stranger-code",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "code",
+              "value": "valid-stranger-code",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c161bef1-a802-43ad-849f-e2d20a176c44",
+          "body": "{\"access_token\":\"join-token\",\"token_type\":\"Bearer\",\"expires_in\":604800,\"scope\":\"identify guilds.join\"}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "code=valid-join-code",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "code",
+              "value": "valid-join-code",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "2bfc1f79-75ce-4d20-a36a-d66e3c367a25",
+          "body": "{\"access_token\":\"nojoin-token\",\"token_type\":\"Bearer\",\"expires_in\":604800,\"scope\":\"identify\"}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "code=valid-nojoin-code",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "code",
+              "value": "valid-nojoin-code",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c3f0c995-adf4-4a8d-aaae-ab7c6efa985c",
+          "body": "{\"access_token\":\"joinfail-token\",\"token_type\":\"Bearer\",\"expires_in\":604800,\"scope\":\"identify guilds.join\"}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "code=valid-joinfail-code",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "code",
+              "value": "valid-joinfail-code",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "2b3a697a-2a2d-4211-8bd4-e7e6ec80c431",
+          "body": "{\"access_token\":\"member-token\",\"token_type\":\"Bearer\",\"expires_in\":604800,\"scope\":\"identify guilds.join\"}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "code=valid-member-code",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "code",
+              "value": "valid-member-code",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "a24e436f-7f76-4c78-a43e-4961bcd32a43",
+          "body": "{\"error\":\"invalid_grant\"}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "code=already-used-code",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "code",
+              "value": "already-used-code",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "1466eb48-aa4f-4316-9354-d4dd61d07bf5",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No matching fixture",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": {
-        "access_token": "michael-token",
-        "token_type": "Bearer",
-        "expires_in": 604800,
-        "scope": "identify"
-      }
+    {
+      "uuid": "370b4f36-0026-423e-bb86-54c03039f394",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "users/@me",
+      "responses": [
+        {
+          "uuid": "451cff11-f123-4e0b-9113-ab229584cfb1",
+          "body": "{\"id\":\"100000000000000100\",\"username\":\"michael.doe\",\"global_name\":\"Michael Doe\",\"avatar\":\"b1c2d3e4f5061728394a5b6c7d8e9f00\"}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Authorization: Bearer michael-token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "Bearer michael-token",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "e69e9b9a-bf39-404d-bfdb-db5b3226502e",
+          "body": "{\"id\":\"100000000000000001\",\"username\":\"stranger\",\"global_name\":null,\"avatar\":null}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Authorization: Bearer stranger-token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "Bearer stranger-token",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "86a6bed4-4ce9-4a36-a229-f1c23a4d87a1",
+          "body": "{\"id\":\"100000000000000002\",\"username\":\"newcomer\",\"global_name\":\"Newcomer\",\"avatar\":\"a_57e2f1cb90d4a3865fbb0e7cd2419a68\"}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Authorization: Bearer join-token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "Bearer join-token",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "1fab58b2-ee6b-454c-8a21-37797b87e957",
+          "body": "{\"id\":\"100000000000000003\",\"username\":\"loner\",\"global_name\":null,\"avatar\":null}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Authorization: Bearer nojoin-token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "Bearer nojoin-token",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "07596151-f1de-41db-8aa2-8dd152058fb3",
+          "body": "{\"id\":\"100000000000000004\",\"username\":\"unlucky\",\"global_name\":null,\"avatar\":null}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Authorization: Bearer joinfail-token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "Bearer joinfail-token",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "5b1215e5-2165-49b4-8dcb-2c36ec0e2d55",
+          "body": "{\"id\":\"100000000000000005\",\"username\":\"veteran\",\"global_name\":\"Veteran\",\"avatar\":\"cafe1f2e3d4c5b6a798877665544332211\"}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Authorization: Bearer member-token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "Bearer member-token",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "0f8f0cc0-d3f3-49a1-a56a-178c43389e35",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "No matching fixture",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "b8a848e1-87c2-41a3-9d57-0c1bd035f521",
+      "type": "http",
+      "documentation": "",
+      "method": "put",
+      "endpoint": "guilds/:guildId/members/100000000000000002",
+      "responses": [
+        {
+          "uuid": "ebde8b59-d933-4259-8978-bafe83daf212",
+          "body": "{\"user\":{\"id\":\"100000000000000002\"}}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "cd2a125c-0c4b-495f-82cc-27961dcf5c78",
+      "type": "http",
+      "documentation": "",
+      "method": "put",
+      "endpoint": "guilds/:guildId/members/100000000000000005",
+      "responses": [
+        {
+          "uuid": "40bc2f02-3850-4cc5-bb76-7636d2a18369",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Fallback",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "4217a3a6-0488-429f-b763-a52fff52f39a",
+      "type": "http",
+      "documentation": "",
+      "method": "put",
+      "endpoint": "guilds/:guildId/members/100000000000000004",
+      "responses": [
+        {
+          "uuid": "387fc8c7-f593-45f0-bbc8-614eb6dcbfb1",
+          "body": "{\"message\":\"Missing Permissions\",\"code\":50013}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "457fb386-bda4-40d9-8751-677f60bd97f7"
+    },
+    {
+      "type": "route",
+      "uuid": "370b4f36-0026-423e-bb86-54c03039f394"
+    },
+    {
+      "type": "route",
+      "uuid": "b8a848e1-87c2-41a3-9d57-0c1bd035f521"
+    },
+    {
+      "type": "route",
+      "uuid": "cd2a125c-0c4b-495f-82cc-27961dcf5c78"
+    },
+    {
+      "type": "route",
+      "uuid": "4217a3a6-0488-429f-b763-a52fff52f39a"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
   },
-  {
-    "httpRequest": {
-      "method": "POST",
-      "path": "/oauth2/token",
-      "body": {
-        "type": "STRING",
-        "string": "code=valid-stranger-code",
-        "subString": true
-      }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": {
-        "access_token": "stranger-token",
-        "token_type": "Bearer",
-        "expires_in": 604800,
-        "scope": "identify"
-      }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "POST",
-      "path": "/oauth2/token",
-      "body": {
-        "type": "STRING",
-        "string": "code=valid-join-code",
-        "subString": true
-      }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": {
-        "access_token": "join-token",
-        "token_type": "Bearer",
-        "expires_in": 604800,
-        "scope": "identify guilds.join"
-      }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "POST",
-      "path": "/oauth2/token",
-      "body": {
-        "type": "STRING",
-        "string": "code=valid-nojoin-code",
-        "subString": true
-      }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": {
-        "access_token": "nojoin-token",
-        "token_type": "Bearer",
-        "expires_in": 604800,
-        "scope": "identify"
-      }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "POST",
-      "path": "/oauth2/token",
-      "body": {
-        "type": "STRING",
-        "string": "code=valid-joinfail-code",
-        "subString": true
-      }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": {
-        "access_token": "joinfail-token",
-        "token_type": "Bearer",
-        "expires_in": 604800,
-        "scope": "identify guilds.join"
-      }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "POST",
-      "path": "/oauth2/token",
-      "body": {
-        "type": "STRING",
-        "string": "code=valid-member-code",
-        "subString": true
-      }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": {
-        "access_token": "member-token",
-        "token_type": "Bearer",
-        "expires_in": 604800,
-        "scope": "identify guilds.join"
-      }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "POST",
-      "path": "/oauth2/token",
-      "body": {
-        "type": "STRING",
-        "string": "code=already-used-code",
-        "subString": true
-      }
-    },
-    "httpResponse": {
-      "statusCode": 400,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": { "error": "invalid_grant" }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/users/@me",
-      "headers": { "Authorization": ["Bearer michael-token"] }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": {
-        "id": "100000000000000100",
-        "username": "michael.doe",
-        "global_name": "Michael Doe",
-        "avatar": "b1c2d3e4f5061728394a5b6c7d8e9f00"
-      }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/users/@me",
-      "headers": { "Authorization": ["Bearer stranger-token"] }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": {
-        "id": "100000000000000001",
-        "username": "stranger",
-        "global_name": null,
-        "avatar": null
-      }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/users/@me",
-      "headers": { "Authorization": ["Bearer join-token"] }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": {
-        "id": "100000000000000002",
-        "username": "newcomer",
-        "global_name": "Newcomer",
-        "avatar": "a_57e2f1cb90d4a3865fbb0e7cd2419a68"
-      }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/users/@me",
-      "headers": { "Authorization": ["Bearer nojoin-token"] }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": {
-        "id": "100000000000000003",
-        "username": "loner",
-        "global_name": null,
-        "avatar": null
-      }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/users/@me",
-      "headers": { "Authorization": ["Bearer joinfail-token"] }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": {
-        "id": "100000000000000004",
-        "username": "unlucky",
-        "global_name": null,
-        "avatar": null
-      }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "GET",
-      "path": "/users/@me",
-      "headers": { "Authorization": ["Bearer member-token"] }
-    },
-    "httpResponse": {
-      "statusCode": 200,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": {
-        "id": "100000000000000005",
-        "username": "veteran",
-        "global_name": "Veteran",
-        "avatar": "cafe1f2e3d4c5b6a798877665544332211"
-      }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "PUT",
-      "path": "/guilds/.*/members/100000000000000002"
-    },
-    "httpResponse": {
-      "statusCode": 201,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": { "user": { "id": "100000000000000002" } }
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "PUT",
-      "path": "/guilds/.*/members/100000000000000005"
-    },
-    "httpResponse": {
-      "statusCode": 204
-    }
-  },
-  {
-    "httpRequest": {
-      "method": "PUT",
-      "path": "/guilds/.*/members/100000000000000004"
-    },
-    "httpResponse": {
-      "statusCode": 403,
-      "headers": { "Content-Type": ["application/json; charset=utf-8"] },
-      "body": { "message": "Missing Permissions", "code": 50013 }
-    }
-  }
-]
+  "cors": false,
+  "headers": [],
+  "proxyReqHeaders": [],
+  "proxyResHeaders": [],
+  "data": [],
+  "callbacks": []
+}

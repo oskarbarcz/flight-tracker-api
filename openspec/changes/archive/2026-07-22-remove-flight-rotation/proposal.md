@@ -13,7 +13,7 @@ Flight rotation (grouping flights under a named rotation, tracking a pilot's "cu
 - Delete all rotation source files (models, errors, requests, repository methods, commands, queries, actions, assert handler) and their DI registrations in `operators.module.ts` and `flights.module.ts`.
 - Remove rotation seed data and update user/flight seed fixtures to drop the dropped fields.
 - Delete the dedicated rotation Cucumber features and strip rotation assertions from the remaining flight/user feature files and unit test fixtures.
-- Remove stale rotation mentions from `CLAUDE.md`, `README.md`, and the Swagger API description.
+- Remove stale rotation mentions from `AGENTS.md`, `README.md`, and the Swagger API description.
 
 ## Capabilities
 

@@ -18,7 +18,7 @@ Feature: Mark a postcard of mine as seen
           "code": "DE",
           "name": "Germany"
         },
-        "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/dd8cd3b6-38bd-49b7-87f4-e03d8ec05147.png",
+        "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/dd8cd3b6-38bd-49b7-87f4-e03d8ec05147.png",
         "width": 1152,
         "height": 1536,
         "status": "ready",
@@ -48,7 +48,7 @@ Feature: Mark a postcard of mine as seen
           "code": "DE",
           "name": "Germany"
         },
-        "imageUrl": "http://functions-mock:1080/mypreflight-files/postcards/dd8cd3b6-38bd-49b7-87f4-e03d8ec05147.png",
+        "imageUrl": "http://functions-mock:1089/mypreflight-files/postcards/dd8cd3b6-38bd-49b7-87f4-e03d8ec05147.png",
         "width": 1152,
         "height": 1536,
         "status": "ready",

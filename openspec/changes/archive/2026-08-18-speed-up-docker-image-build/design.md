@@ -87,7 +87,7 @@ invalidates cache on every local install.
 _Why exclude `.env`:_ it holds real local secrets, and `COPY . .` would bake them into a
 layer that is pushed to the registry.
 
-_Why exclude `openspec/`, `.claude/` and `CLAUDE.md`:_ planning and agent material has no
+_Why exclude `openspec/`, `.claude/` and `AGENTS.md`:_ planning and agent material has no
 runtime role, and it changes often — exactly the profile that ruins a build cache.
 
 ## Risks / Trade-offs

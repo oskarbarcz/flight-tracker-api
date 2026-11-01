@@ -51,6 +51,6 @@
 
 ## 8. Docs & final verification
 
-- [x] 8.1 Remove rotation mentions from `CLAUDE.md` (functional-test domains), `README.md`, and the Swagger API description in `swagger.config.ts`.
+- [x] 8.1 Remove rotation mentions from `AGENTS.md` (functional-test domains), `README.md`, and the Swagger API description in `swagger.config.ts`.
 - [x] 8.2 Run `docker compose exec app npm run build` and `npm run lint` — both clean, no dangling rotation references.
 - [x] 8.3 Run `docker compose exec app npm test` (unit) and `npm run test:functional` (Cucumber) — all green.
