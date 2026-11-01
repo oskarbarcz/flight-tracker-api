@@ -158,7 +158,7 @@ The system SHALL let a signed-in user enable or disable each Discord private-mes
 
 #### Scenario: Invalid setting value is rejected
 
-- **WHEN** a signed-in user submits a setting that is not a boolean
+- **WHEN** a signed-in user submits a setting that is not a boolean, including `null`
 - **THEN** the request is rejected as a validation failure
 
 #### Scenario: Unauthenticated change is rejected

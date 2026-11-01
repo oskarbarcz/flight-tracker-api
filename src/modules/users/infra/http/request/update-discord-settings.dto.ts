@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsOptional } from 'class-validator';
+import { IsBoolean, ValidateIf } from 'class-validator';
 
 export class UpdateDiscordSettingsDto {
   @ApiProperty({
@@ -8,8 +8,8 @@ export class UpdateDiscordSettingsDto {
     example: false,
     required: false,
   })
+  @ValidateIf((_, value) => value !== undefined)
   @IsBoolean()
-  @IsOptional()
   briefingsEnabled?: boolean;
 
   @ApiProperty({
@@ -18,8 +18,8 @@ export class UpdateDiscordSettingsDto {
     example: false,
     required: false,
   })
+  @ValidateIf((_, value) => value !== undefined)
   @IsBoolean()
-  @IsOptional()
   preliminaryLoadsheetEnabled?: boolean;
 
   @ApiProperty({
@@ -28,8 +28,8 @@ export class UpdateDiscordSettingsDto {
     example: false,
     required: false,
   })
+  @ValidateIf((_, value) => value !== undefined)
   @IsBoolean()
-  @IsOptional()
   finalLoadsheetEnabled?: boolean;
 
   @ApiProperty({
@@ -38,8 +38,8 @@ export class UpdateDiscordSettingsDto {
     example: false,
     required: false,
   })
+  @ValidateIf((_, value) => value !== undefined)
   @IsBoolean()
-  @IsOptional()
   delayUpdatesEnabled?: boolean;
 
   @ApiProperty({
@@ -48,7 +48,7 @@ export class UpdateDiscordSettingsDto {
     example: true,
     required: false,
   })
+  @ValidateIf((_, value) => value !== undefined)
   @IsBoolean()
-  @IsOptional()
   richPresenceEnabled?: boolean;
 }
