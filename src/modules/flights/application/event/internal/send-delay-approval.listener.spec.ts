@@ -67,6 +67,9 @@ describe('SendDelayApprovalListener', () => {
     expect(message.content).toContain(
       ':white_check_mark: **Flight LH 81 delay approved**',
     );
+    expect(message.content).toContain(
+      `[**MyPreflight app**](${FRONTEND_BASE_URL}/track/${FLIGHT_ID}/briefing/delays).`,
+    );
   });
 
   it('addresses the captain, not the operations user who approved', async () => {

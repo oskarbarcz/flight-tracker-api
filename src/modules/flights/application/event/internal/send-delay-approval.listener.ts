@@ -56,7 +56,7 @@ export class SendDelayApprovalListener {
 
       const content = formatDelayApproval({
         flightNumber: flight.flightNumber,
-        flightUrl: `${this.frontendBaseUrl}/flight/${flightId}/delay`,
+        flightUrl: `${this.frontendBaseUrl}/track/${flightId}/briefing/delays`,
       });
 
       await this.client.sendDirectMessage(discordId, {

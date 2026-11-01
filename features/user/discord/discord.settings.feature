@@ -305,6 +305,35 @@ Feature: Manage own Discord settings
       }
       """
 
+  Scenario: As a cabin crew I cannot clear a setting with null
+    Given I am signed in as "cabin crew"
+    When I send a "PATCH" request to "/api/v1/user/me/discord-settings" with body:
+      """json
+      {
+        "briefingsEnabled": null,
+        "preliminaryLoadsheetEnabled": null,
+        "finalLoadsheetEnabled": null,
+        "delayUpdatesEnabled": null,
+        "richPresenceEnabled": null
+      }
+      """
+    Then the response status should be 400
+    And the response body should contain:
+      """json
+      {
+        "message": "Request validation failed.",
+        "error": "Bad Request",
+        "statusCode": 400,
+        "violations": {
+          "briefingsEnabled": ["briefingsEnabled must be a boolean value"],
+          "preliminaryLoadsheetEnabled": ["preliminaryLoadsheetEnabled must be a boolean value"],
+          "finalLoadsheetEnabled": ["finalLoadsheetEnabled must be a boolean value"],
+          "delayUpdatesEnabled": ["delayUpdatesEnabled must be a boolean value"],
+          "richPresenceEnabled": ["richPresenceEnabled must be a boolean value"]
+        }
+      }
+      """
+
   Scenario: As an unauthorized user I cannot change Discord settings
     When I send a "PATCH" request to "/api/v1/user/me/discord-settings" with body:
       """json
