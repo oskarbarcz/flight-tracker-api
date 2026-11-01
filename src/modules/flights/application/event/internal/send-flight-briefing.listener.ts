@@ -84,7 +84,7 @@ export class SendFlightBriefingListener {
         schedule: flight.timesheet.estimated,
         weather: await this.resolveDepartureWeather(departure.id, actorId),
         specialLoad: await this.resolveSpecialLoad(flightId),
-        flightUrl: `${this.frontendBaseUrl}/flight/${flight.id}`,
+        flightUrl: `${this.frontendBaseUrl}/track/${flight.id}/briefing`,
       });
 
       await this.client.sendDirectMessage(discordId, {

@@ -61,7 +61,7 @@ export class SendDelayAllocationRequestListener {
       const content = formatDelayAllocationRequest({
         flightNumber: flight.flightNumber,
         delayMinutes: delay.totalDelayMinutes,
-        allocationUrl: `${this.frontendBaseUrl}/flight/${flightId}/delay`,
+        allocationUrl: `${this.frontendBaseUrl}/track/${flightId}/briefing/delays`,
       });
 
       await this.client.sendDirectMessage(discordId, {

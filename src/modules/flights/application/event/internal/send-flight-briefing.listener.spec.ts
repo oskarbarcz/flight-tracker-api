@@ -180,7 +180,7 @@ describe('SendFlightBriefingListener', () => {
     expect(message.content).toContain('in:  17:25z');
     expect(message.content).toContain('block: 8h 25m');
     expect(message.content).toContain(
-      `[**MyPreflight app**](${FRONTEND_BASE_URL}/flight/${FLIGHT_ID}).`,
+      `[**MyPreflight app**](${FRONTEND_BASE_URL}/track/${FLIGHT_ID}/briefing).`,
     );
   });
 

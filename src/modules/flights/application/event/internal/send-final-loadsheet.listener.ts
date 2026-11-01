@@ -77,7 +77,7 @@ export class SendFinalLoadsheetListener {
           role: member.role,
         })),
         loadsheet,
-        flightUrl: `${this.frontendBaseUrl}/flight/${flightId}`,
+        flightUrl: `${this.frontendBaseUrl}/track/${flightId}/briefing`,
       });
 
       await this.client.sendDirectMessage(discordId, {
