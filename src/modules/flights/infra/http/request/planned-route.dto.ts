@@ -1,4 +1,34 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsInt, Max, Min } from 'class-validator';
+
+const MAX_REPORTED_FUEL_KG = 999_999;
+
+export class ReportFixFuelRequest {
+  @ApiProperty({
+    description: 'Fuel on board over the fix in kilograms',
+    example: 47900,
+    minimum: 0,
+    maximum: MAX_REPORTED_FUEL_KG,
+  })
+  @IsInt()
+  @Min(0)
+  @Max(MAX_REPORTED_FUEL_KG)
+  actualOnBoard!: number;
+}
+
+export class PlannedRouteFuelReportResponse {
+  @ApiProperty({
+    description: 'Fuel the pilot reported on board over the fix in kilograms',
+    example: 47900,
+  })
+  actualOnBoard!: number;
+
+  @ApiProperty({
+    description: 'Time of the latest report for the fix',
+    example: '2026-11-02T14:05:00.000Z',
+  })
+  reportedAt!: Date;
+}
 
 export class PlannedRouteFuelResponse {
   @ApiProperty({
@@ -182,6 +212,14 @@ export class PlannedRouteFixResponse {
     type: PlannedRouteFuelResponse,
   })
   fuel!: PlannedRouteFuelResponse;
+
+  @ApiProperty({
+    description:
+      'Fuel the pilot reported over the fix, or null where no report was made',
+    type: PlannedRouteFuelReportResponse,
+    nullable: true,
+  })
+  fuelReport!: PlannedRouteFuelReportResponse | null;
 
   @ApiProperty({
     description:

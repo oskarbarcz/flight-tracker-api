@@ -118,6 +118,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": null
               },
               "oat": null,
+              "fuelReport": null,
               "isaDeviation": null,
               "tropopause": null,
               "mora": null,
@@ -148,6 +149,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 50170
               },
               "oat": 16,
+              "fuelReport": null,
               "isaDeviation": 7,
               "tropopause": 41700,
               "mora": 2400,
@@ -239,6 +241,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49942
               },
               "oat": 11,
+              "fuelReport": null,
               "isaDeviation": 7,
               "tropopause": 42100,
               "mora": 2800,
@@ -330,6 +333,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49751
               },
               "oat": 9,
+              "fuelReport": null,
               "isaDeviation": 9,
               "tropopause": 42100,
               "mora": 2400,
@@ -421,6 +425,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49513
               },
               "oat": 5,
+              "fuelReport": null,
               "isaDeviation": 10,
               "tropopause": 42100,
               "mora": 2400,
@@ -512,6 +517,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49263
               },
               "oat": 1,
+              "fuelReport": null,
               "isaDeviation": 10,
               "tropopause": 42100,
               "mora": 2400,
@@ -603,6 +609,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 48983
               },
               "oat": -2,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 42100,
               "mora": 2700,
@@ -694,6 +701,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 48679
               },
               "oat": -6,
+              "fuelReport": null,
               "isaDeviation": 12,
               "tropopause": 42100,
               "mora": 2900,
@@ -785,6 +793,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 48193
               },
               "oat": -15,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 42100,
               "mora": 4100,
@@ -876,6 +885,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 47950
               },
               "oat": -19,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 42200,
               "mora": 3800,
@@ -967,6 +977,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 47537
               },
               "oat": -28,
+              "fuelReport": null,
               "isaDeviation": 9,
               "tropopause": 41500,
               "mora": 3800,
@@ -1058,6 +1069,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 47233
               },
               "oat": -34,
+              "fuelReport": null,
               "isaDeviation": 8,
               "tropopause": 41800,
               "mora": 3400,
@@ -1149,6 +1161,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46918
               },
               "oat": -41,
+              "fuelReport": null,
               "isaDeviation": 6,
               "tropopause": 41900,
               "mora": 3100,
@@ -1240,6 +1253,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46304
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42500,
               "mora": 2500,
@@ -1331,6 +1345,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46276
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42500,
               "mora": 2300,
@@ -1422,6 +1437,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46136
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42500,
               "mora": 2300,
@@ -1513,6 +1529,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 45844
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42600,
               "mora": 2100,
@@ -1604,6 +1621,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 45533
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41800,
               "mora": 2100,
@@ -1695,6 +1713,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44661
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41500,
               "mora": 2100,
@@ -1786,6 +1805,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44407
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41600,
               "mora": 2000,
@@ -1877,6 +1897,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44328
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41600,
               "mora": 2000,
@@ -1968,6 +1989,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44125
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -2059,6 +2081,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44058
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -2150,6 +2173,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43991
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -2241,6 +2265,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43883
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -2332,6 +2357,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43642
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42800,
               "mora": 2000,
@@ -2423,6 +2449,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43562
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42800,
               "mora": 2000,
@@ -2514,6 +2541,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43264
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42900,
               "mora": 2300,
@@ -2605,6 +2633,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 42475
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42900,
               "mora": 2600,
@@ -2696,6 +2725,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 42217
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 43100,
               "mora": 2700,
@@ -2787,6 +2817,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 41824
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 43100,
               "mora": 2800,
@@ -2878,6 +2909,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 41359
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 43000,
               "mora": 3800,
@@ -2969,6 +3001,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 41251
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 42800,
               "mora": 4500,
@@ -3060,6 +3093,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 40404
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 42700,
               "mora": 4800,
@@ -3151,6 +3185,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 40075
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 42800,
               "mora": 2000,
@@ -3242,6 +3277,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 35153
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 41500,
               "mora": 5100,
@@ -3333,6 +3369,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 32468
               },
               "oat": -49,
+              "fuelReport": null,
               "isaDeviation": 8,
               "tropopause": 35800,
               "mora": 2000,
@@ -3424,6 +3461,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 27987
               },
               "oat": -46,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 31400,
               "mora": 2000,
@@ -3515,6 +3553,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 23822
               },
               "oat": -51,
+              "fuelReport": null,
               "isaDeviation": 6,
               "tropopause": 34100,
               "mora": 2000,
@@ -3606,6 +3645,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 19812
               },
               "oat": -57,
+              "fuelReport": null,
               "isaDeviation": 0,
               "tropopause": 39000,
               "mora": 2000,
@@ -3697,6 +3737,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 18436
               },
               "oat": -58,
+              "fuelReport": null,
               "isaDeviation": -1,
               "tropopause": 40500,
               "mora": 2000,
@@ -3788,6 +3829,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 11431
               },
               "oat": -58,
+              "fuelReport": null,
               "isaDeviation": -1,
               "tropopause": 39700,
               "mora": 4900,
@@ -3879,6 +3921,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 9734
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 39300,
               "mora": 3100,
@@ -3970,6 +4013,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 9372
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 40300,
               "mora": 2500,
@@ -4061,6 +4105,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8742
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 41100,
               "mora": 2600,
@@ -4152,6 +4197,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8723
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 41100,
               "mora": 2400,
@@ -4243,6 +4289,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8627
               },
               "oat": -36,
+              "fuelReport": null,
               "isaDeviation": 9,
               "tropopause": 44300,
               "mora": 2600,
@@ -4334,6 +4381,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8585
               },
               "oat": -25,
+              "fuelReport": null,
               "isaDeviation": 12,
               "tropopause": 44100,
               "mora": 2100,
@@ -4425,6 +4473,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8489
               },
               "oat": -2,
+              "fuelReport": null,
               "isaDeviation": 15,
               "tropopause": 43800,
               "mora": 2300,
@@ -4516,6 +4565,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8435
               },
               "oat": 8,
+              "fuelReport": null,
               "isaDeviation": 14,
               "tropopause": 43700,
               "mora": 2300,
@@ -4607,6 +4657,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8393
               },
               "oat": 15,
+              "fuelReport": null,
               "isaDeviation": 12,
               "tropopause": 43700,
               "mora": 2200,
@@ -4698,6 +4749,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8085
               },
               "oat": 23,
+              "fuelReport": null,
               "isaDeviation": 13,
               "tropopause": 45600,
               "mora": 2200,
@@ -5525,6 +5577,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": null
               },
               "oat": null,
+              "fuelReport": null,
               "isaDeviation": null,
               "tropopause": null,
               "mora": null,
@@ -5555,6 +5608,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 50170
               },
               "oat": 16,
+              "fuelReport": null,
               "isaDeviation": 7,
               "tropopause": 41700,
               "mora": 2400,
@@ -5646,6 +5700,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49942
               },
               "oat": 11,
+              "fuelReport": null,
               "isaDeviation": 7,
               "tropopause": 42100,
               "mora": 2800,
@@ -5737,6 +5792,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49751
               },
               "oat": 9,
+              "fuelReport": null,
               "isaDeviation": 9,
               "tropopause": 42100,
               "mora": 2400,
@@ -5828,6 +5884,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49513
               },
               "oat": 5,
+              "fuelReport": null,
               "isaDeviation": 10,
               "tropopause": 42100,
               "mora": 2400,
@@ -5919,6 +5976,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49263
               },
               "oat": 1,
+              "fuelReport": null,
               "isaDeviation": 10,
               "tropopause": 42100,
               "mora": 2400,
@@ -6010,6 +6068,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 48983
               },
               "oat": -2,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 42100,
               "mora": 2700,
@@ -6101,6 +6160,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 48679
               },
               "oat": -6,
+              "fuelReport": null,
               "isaDeviation": 12,
               "tropopause": 42100,
               "mora": 2900,
@@ -6192,6 +6252,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 48193
               },
               "oat": -15,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 42100,
               "mora": 4100,
@@ -6283,6 +6344,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 47950
               },
               "oat": -19,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 42200,
               "mora": 3800,
@@ -6374,6 +6436,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 47537
               },
               "oat": -28,
+              "fuelReport": null,
               "isaDeviation": 9,
               "tropopause": 41500,
               "mora": 3800,
@@ -6465,6 +6528,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 47233
               },
               "oat": -34,
+              "fuelReport": null,
               "isaDeviation": 8,
               "tropopause": 41800,
               "mora": 3400,
@@ -6556,6 +6620,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46918
               },
               "oat": -41,
+              "fuelReport": null,
               "isaDeviation": 6,
               "tropopause": 41900,
               "mora": 3100,
@@ -6647,6 +6712,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46304
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42500,
               "mora": 2500,
@@ -6738,6 +6804,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46276
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42500,
               "mora": 2300,
@@ -6829,6 +6896,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46136
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42500,
               "mora": 2300,
@@ -6920,6 +6988,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 45844
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42600,
               "mora": 2100,
@@ -7011,6 +7080,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 45533
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41800,
               "mora": 2100,
@@ -7102,6 +7172,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44661
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41500,
               "mora": 2100,
@@ -7193,6 +7264,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44407
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41600,
               "mora": 2000,
@@ -7284,6 +7356,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44328
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41600,
               "mora": 2000,
@@ -7375,6 +7448,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44125
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -7466,6 +7540,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44058
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -7557,6 +7632,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43991
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -7648,6 +7724,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43883
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -7739,6 +7816,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43642
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42800,
               "mora": 2000,
@@ -7830,6 +7908,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43562
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42800,
               "mora": 2000,
@@ -7921,6 +8000,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43264
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42900,
               "mora": 2300,
@@ -8012,6 +8092,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 42475
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42900,
               "mora": 2600,
@@ -8103,6 +8184,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 42217
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 43100,
               "mora": 2700,
@@ -8194,6 +8276,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 41824
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 43100,
               "mora": 2800,
@@ -8285,6 +8368,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 41359
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 43000,
               "mora": 3800,
@@ -8376,6 +8460,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 41251
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 42800,
               "mora": 4500,
@@ -8467,6 +8552,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 40404
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 42700,
               "mora": 4800,
@@ -8558,6 +8644,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 40075
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 42800,
               "mora": 2000,
@@ -8649,6 +8736,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 35153
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 41500,
               "mora": 5100,
@@ -8740,6 +8828,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 32468
               },
               "oat": -49,
+              "fuelReport": null,
               "isaDeviation": 8,
               "tropopause": 35800,
               "mora": 2000,
@@ -8831,6 +8920,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 27987
               },
               "oat": -46,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 31400,
               "mora": 2000,
@@ -8922,6 +9012,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 23822
               },
               "oat": -51,
+              "fuelReport": null,
               "isaDeviation": 6,
               "tropopause": 34100,
               "mora": 2000,
@@ -9013,6 +9104,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 19812
               },
               "oat": -57,
+              "fuelReport": null,
               "isaDeviation": 0,
               "tropopause": 39000,
               "mora": 2000,
@@ -9104,6 +9196,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 18436
               },
               "oat": -58,
+              "fuelReport": null,
               "isaDeviation": -1,
               "tropopause": 40500,
               "mora": 2000,
@@ -9195,6 +9288,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 11431
               },
               "oat": -58,
+              "fuelReport": null,
               "isaDeviation": -1,
               "tropopause": 39700,
               "mora": 4900,
@@ -9286,6 +9380,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 9734
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 39300,
               "mora": 3100,
@@ -9377,6 +9472,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 9372
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 40300,
               "mora": 2500,
@@ -9468,6 +9564,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8742
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 41100,
               "mora": 2600,
@@ -9559,6 +9656,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8723
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 41100,
               "mora": 2400,
@@ -9650,6 +9748,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8627
               },
               "oat": -36,
+              "fuelReport": null,
               "isaDeviation": 9,
               "tropopause": 44300,
               "mora": 2600,
@@ -9741,6 +9840,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8585
               },
               "oat": -25,
+              "fuelReport": null,
               "isaDeviation": 12,
               "tropopause": 44100,
               "mora": 2100,
@@ -9832,6 +9932,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8489
               },
               "oat": -2,
+              "fuelReport": null,
               "isaDeviation": 15,
               "tropopause": 43800,
               "mora": 2300,
@@ -9923,6 +10024,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8435
               },
               "oat": 8,
+              "fuelReport": null,
               "isaDeviation": 14,
               "tropopause": 43700,
               "mora": 2300,
@@ -10014,6 +10116,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8393
               },
               "oat": 15,
+              "fuelReport": null,
               "isaDeviation": 12,
               "tropopause": 43700,
               "mora": 2200,
@@ -10105,6 +10208,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8085
               },
               "oat": 23,
+              "fuelReport": null,
               "isaDeviation": 13,
               "tropopause": 45600,
               "mora": 2200,
@@ -10932,6 +11036,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": null
               },
               "oat": null,
+              "fuelReport": null,
               "isaDeviation": null,
               "tropopause": null,
               "mora": null,
@@ -10962,6 +11067,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 50170
               },
               "oat": 16,
+              "fuelReport": null,
               "isaDeviation": 7,
               "tropopause": 41700,
               "mora": 2400,
@@ -11053,6 +11159,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49942
               },
               "oat": 11,
+              "fuelReport": null,
               "isaDeviation": 7,
               "tropopause": 42100,
               "mora": 2800,
@@ -11144,6 +11251,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49751
               },
               "oat": 9,
+              "fuelReport": null,
               "isaDeviation": 9,
               "tropopause": 42100,
               "mora": 2400,
@@ -11235,6 +11343,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49513
               },
               "oat": 5,
+              "fuelReport": null,
               "isaDeviation": 10,
               "tropopause": 42100,
               "mora": 2400,
@@ -11326,6 +11435,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49263
               },
               "oat": 1,
+              "fuelReport": null,
               "isaDeviation": 10,
               "tropopause": 42100,
               "mora": 2400,
@@ -11417,6 +11527,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 48983
               },
               "oat": -2,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 42100,
               "mora": 2700,
@@ -11508,6 +11619,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 48679
               },
               "oat": -6,
+              "fuelReport": null,
               "isaDeviation": 12,
               "tropopause": 42100,
               "mora": 2900,
@@ -11599,6 +11711,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 48193
               },
               "oat": -15,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 42100,
               "mora": 4100,
@@ -11690,6 +11803,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 47950
               },
               "oat": -19,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 42200,
               "mora": 3800,
@@ -11781,6 +11895,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 47537
               },
               "oat": -28,
+              "fuelReport": null,
               "isaDeviation": 9,
               "tropopause": 41500,
               "mora": 3800,
@@ -11872,6 +11987,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 47233
               },
               "oat": -34,
+              "fuelReport": null,
               "isaDeviation": 8,
               "tropopause": 41800,
               "mora": 3400,
@@ -11963,6 +12079,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46918
               },
               "oat": -41,
+              "fuelReport": null,
               "isaDeviation": 6,
               "tropopause": 41900,
               "mora": 3100,
@@ -12054,6 +12171,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46304
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42500,
               "mora": 2500,
@@ -12145,6 +12263,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46276
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42500,
               "mora": 2300,
@@ -12236,6 +12355,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46136
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42500,
               "mora": 2300,
@@ -12327,6 +12447,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 45844
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42600,
               "mora": 2100,
@@ -12418,6 +12539,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 45533
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41800,
               "mora": 2100,
@@ -12509,6 +12631,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44661
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41500,
               "mora": 2100,
@@ -12600,6 +12723,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44407
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41600,
               "mora": 2000,
@@ -12691,6 +12815,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44328
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41600,
               "mora": 2000,
@@ -12782,6 +12907,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44125
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -12873,6 +12999,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44058
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -12964,6 +13091,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43991
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -13055,6 +13183,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43883
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -13146,6 +13275,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43642
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42800,
               "mora": 2000,
@@ -13237,6 +13367,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43562
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42800,
               "mora": 2000,
@@ -13328,6 +13459,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43264
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42900,
               "mora": 2300,
@@ -13419,6 +13551,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 42475
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42900,
               "mora": 2600,
@@ -13510,6 +13643,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 42217
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 43100,
               "mora": 2700,
@@ -13601,6 +13735,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 41824
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 43100,
               "mora": 2800,
@@ -13692,6 +13827,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 41359
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 43000,
               "mora": 3800,
@@ -13783,6 +13919,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 41251
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 42800,
               "mora": 4500,
@@ -13874,6 +14011,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 40404
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 42700,
               "mora": 4800,
@@ -13965,6 +14103,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 40075
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 42800,
               "mora": 2000,
@@ -14056,6 +14195,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 35153
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 41500,
               "mora": 5100,
@@ -14147,6 +14287,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 32468
               },
               "oat": -49,
+              "fuelReport": null,
               "isaDeviation": 8,
               "tropopause": 35800,
               "mora": 2000,
@@ -14238,6 +14379,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 27987
               },
               "oat": -46,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 31400,
               "mora": 2000,
@@ -14329,6 +14471,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 23822
               },
               "oat": -51,
+              "fuelReport": null,
               "isaDeviation": 6,
               "tropopause": 34100,
               "mora": 2000,
@@ -14420,6 +14563,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 19812
               },
               "oat": -57,
+              "fuelReport": null,
               "isaDeviation": 0,
               "tropopause": 39000,
               "mora": 2000,
@@ -14511,6 +14655,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 18436
               },
               "oat": -58,
+              "fuelReport": null,
               "isaDeviation": -1,
               "tropopause": 40500,
               "mora": 2000,
@@ -14602,6 +14747,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 11431
               },
               "oat": -58,
+              "fuelReport": null,
               "isaDeviation": -1,
               "tropopause": 39700,
               "mora": 4900,
@@ -14693,6 +14839,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 9734
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 39300,
               "mora": 3100,
@@ -14784,6 +14931,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 9372
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 40300,
               "mora": 2500,
@@ -14875,6 +15023,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8742
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 41100,
               "mora": 2600,
@@ -14966,6 +15115,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8723
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 41100,
               "mora": 2400,
@@ -15057,6 +15207,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8627
               },
               "oat": -36,
+              "fuelReport": null,
               "isaDeviation": 9,
               "tropopause": 44300,
               "mora": 2600,
@@ -15148,6 +15299,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8585
               },
               "oat": -25,
+              "fuelReport": null,
               "isaDeviation": 12,
               "tropopause": 44100,
               "mora": 2100,
@@ -15239,6 +15391,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8489
               },
               "oat": -2,
+              "fuelReport": null,
               "isaDeviation": 15,
               "tropopause": 43800,
               "mora": 2300,
@@ -15330,6 +15483,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8435
               },
               "oat": 8,
+              "fuelReport": null,
               "isaDeviation": 14,
               "tropopause": 43700,
               "mora": 2300,
@@ -15421,6 +15575,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8393
               },
               "oat": 15,
+              "fuelReport": null,
               "isaDeviation": 12,
               "tropopause": 43700,
               "mora": 2200,
@@ -15512,6 +15667,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8085
               },
               "oat": 23,
+              "fuelReport": null,
               "isaDeviation": 13,
               "tropopause": 45600,
               "mora": 2200,
@@ -16339,6 +16495,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": null
               },
               "oat": null,
+              "fuelReport": null,
               "isaDeviation": null,
               "tropopause": null,
               "mora": null,
@@ -16369,6 +16526,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 50170
               },
               "oat": 16,
+              "fuelReport": null,
               "isaDeviation": 7,
               "tropopause": 41700,
               "mora": 2400,
@@ -16460,6 +16618,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49942
               },
               "oat": 11,
+              "fuelReport": null,
               "isaDeviation": 7,
               "tropopause": 42100,
               "mora": 2800,
@@ -16551,6 +16710,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49751
               },
               "oat": 9,
+              "fuelReport": null,
               "isaDeviation": 9,
               "tropopause": 42100,
               "mora": 2400,
@@ -16642,6 +16802,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49513
               },
               "oat": 5,
+              "fuelReport": null,
               "isaDeviation": 10,
               "tropopause": 42100,
               "mora": 2400,
@@ -16733,6 +16894,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 49263
               },
               "oat": 1,
+              "fuelReport": null,
               "isaDeviation": 10,
               "tropopause": 42100,
               "mora": 2400,
@@ -16824,6 +16986,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 48983
               },
               "oat": -2,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 42100,
               "mora": 2700,
@@ -16915,6 +17078,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 48679
               },
               "oat": -6,
+              "fuelReport": null,
               "isaDeviation": 12,
               "tropopause": 42100,
               "mora": 2900,
@@ -17006,6 +17170,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 48193
               },
               "oat": -15,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 42100,
               "mora": 4100,
@@ -17097,6 +17262,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 47950
               },
               "oat": -19,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 42200,
               "mora": 3800,
@@ -17188,6 +17354,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 47537
               },
               "oat": -28,
+              "fuelReport": null,
               "isaDeviation": 9,
               "tropopause": 41500,
               "mora": 3800,
@@ -17279,6 +17446,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 47233
               },
               "oat": -34,
+              "fuelReport": null,
               "isaDeviation": 8,
               "tropopause": 41800,
               "mora": 3400,
@@ -17370,6 +17538,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46918
               },
               "oat": -41,
+              "fuelReport": null,
               "isaDeviation": 6,
               "tropopause": 41900,
               "mora": 3100,
@@ -17461,6 +17630,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46304
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42500,
               "mora": 2500,
@@ -17552,6 +17722,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46276
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42500,
               "mora": 2300,
@@ -17643,6 +17814,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 46136
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42500,
               "mora": 2300,
@@ -17734,6 +17906,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 45844
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42600,
               "mora": 2100,
@@ -17825,6 +17998,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 45533
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41800,
               "mora": 2100,
@@ -17916,6 +18090,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44661
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41500,
               "mora": 2100,
@@ -18007,6 +18182,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44407
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41600,
               "mora": 2000,
@@ -18098,6 +18274,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44328
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 41600,
               "mora": 2000,
@@ -18189,6 +18366,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44125
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -18280,6 +18458,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 44058
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -18371,6 +18550,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43991
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -18462,6 +18642,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43883
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42200,
               "mora": 2000,
@@ -18553,6 +18734,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43642
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42800,
               "mora": 2000,
@@ -18644,6 +18826,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43562
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42800,
               "mora": 2000,
@@ -18735,6 +18918,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 43264
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42900,
               "mora": 2300,
@@ -18826,6 +19010,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 42475
               },
               "oat": -53,
+              "fuelReport": null,
               "isaDeviation": 4,
               "tropopause": 42900,
               "mora": 2600,
@@ -18917,6 +19102,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 42217
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 43100,
               "mora": 2700,
@@ -19008,6 +19194,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 41824
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 43100,
               "mora": 2800,
@@ -19099,6 +19286,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 41359
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 43000,
               "mora": 3800,
@@ -19190,6 +19378,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 41251
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 42800,
               "mora": 4500,
@@ -19281,6 +19470,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 40404
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 42700,
               "mora": 4800,
@@ -19372,6 +19562,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 40075
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 42800,
               "mora": 2000,
@@ -19463,6 +19654,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 35153
               },
               "oat": -52,
+              "fuelReport": null,
               "isaDeviation": 5,
               "tropopause": 41500,
               "mora": 5100,
@@ -19554,6 +19746,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 32468
               },
               "oat": -49,
+              "fuelReport": null,
               "isaDeviation": 8,
               "tropopause": 35800,
               "mora": 2000,
@@ -19645,6 +19838,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 27987
               },
               "oat": -46,
+              "fuelReport": null,
               "isaDeviation": 11,
               "tropopause": 31400,
               "mora": 2000,
@@ -19736,6 +19930,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 23822
               },
               "oat": -51,
+              "fuelReport": null,
               "isaDeviation": 6,
               "tropopause": 34100,
               "mora": 2000,
@@ -19827,6 +20022,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 19812
               },
               "oat": -57,
+              "fuelReport": null,
               "isaDeviation": 0,
               "tropopause": 39000,
               "mora": 2000,
@@ -19918,6 +20114,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 18436
               },
               "oat": -58,
+              "fuelReport": null,
               "isaDeviation": -1,
               "tropopause": 40500,
               "mora": 2000,
@@ -20009,6 +20206,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 11431
               },
               "oat": -58,
+              "fuelReport": null,
               "isaDeviation": -1,
               "tropopause": 39700,
               "mora": 4900,
@@ -20100,6 +20298,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 9734
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 39300,
               "mora": 3100,
@@ -20191,6 +20390,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 9372
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 40300,
               "mora": 2500,
@@ -20282,6 +20482,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8742
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 41100,
               "mora": 2600,
@@ -20373,6 +20574,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8723
               },
               "oat": -54,
+              "fuelReport": null,
               "isaDeviation": 3,
               "tropopause": 41100,
               "mora": 2400,
@@ -20464,6 +20666,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8627
               },
               "oat": -36,
+              "fuelReport": null,
               "isaDeviation": 9,
               "tropopause": 44300,
               "mora": 2600,
@@ -20555,6 +20758,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8585
               },
               "oat": -25,
+              "fuelReport": null,
               "isaDeviation": 12,
               "tropopause": 44100,
               "mora": 2100,
@@ -20646,6 +20850,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8489
               },
               "oat": -2,
+              "fuelReport": null,
               "isaDeviation": 15,
               "tropopause": 43800,
               "mora": 2300,
@@ -20737,6 +20942,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8435
               },
               "oat": 8,
+              "fuelReport": null,
               "isaDeviation": 14,
               "tropopause": 43700,
               "mora": 2300,
@@ -20828,6 +21034,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8393
               },
               "oat": 15,
+              "fuelReport": null,
               "isaDeviation": 12,
               "tropopause": 43700,
               "mora": 2200,
@@ -20919,6 +21126,7 @@ Feature: Read the ETOPS briefing of a flight
                 "plannedOnBoard": 8085
               },
               "oat": 23,
+              "fuelReport": null,
               "isaDeviation": 13,
               "tropopause": 45600,
               "mora": 2200,

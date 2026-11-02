@@ -260,6 +260,18 @@ export class InvalidStatusToReportOffBlockError extends UnprocessableError {
   }
 }
 
+export class InvalidStatusToReportFixFuelError extends UnprocessableError {
+  constructor() {
+    super('Cannot report fuel for flight that is not in cruise.');
+  }
+}
+
+export class RouteFixDoesNotExistError extends NotFoundError {
+  constructor() {
+    super('Fix with given ordinal does not exist on the planned route.');
+  }
+}
+
 export class InvalidStatusToReportTakenOffError extends UnprocessableError {
   constructor() {
     super('Cannot report takeoff for flight that is not taxiing out.');

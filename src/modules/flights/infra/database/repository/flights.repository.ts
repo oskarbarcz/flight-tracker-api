@@ -840,6 +840,17 @@ export class FlightsRepository {
     });
   }
 
+  async saveFixFuelReport(
+    flightId: string,
+    ordinal: number,
+    actualOnBoard: number,
+  ): Promise<void> {
+    await this.prisma.flightRouteFix.update({
+      where: { flightId_ordinal: { flightId, ordinal } },
+      data: { fuelActualOnBoard: actualOnBoard, fuelReportedAt: new Date() },
+    });
+  }
+
   async findPlannedRoute(id: string): Promise<PlannedRoute | null> {
     const flight = await this.prisma.flight.findUnique({
       where: { id },
@@ -876,6 +887,13 @@ export class FlightsRepository {
           minimumOnBoard: fix.fuelMinimumOnBoard,
           plannedOnBoard: fix.fuelPlannedOnBoard,
         },
+        fuelReport:
+          fix.fuelActualOnBoard === null || fix.fuelReportedAt === null
+            ? null
+            : {
+                actualOnBoard: fix.fuelActualOnBoard,
+                reportedAt: fix.fuelReportedAt,
+              },
         oat: fix.oat,
         isaDeviation: fix.isaDeviation,
         tropopause: fix.tropopause,
