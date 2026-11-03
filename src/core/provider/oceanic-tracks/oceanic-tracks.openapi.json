@@ -1,0 +1,248 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "MyPreflight oceanic tracks provider",
+    "description": "A DigitalOcean Function returning today's organised oceanic tracks, with every fix placed on the map. It currently serves the Pacific tracks (PACOTS) from the FAA NOTAM Management Service.\n\nDeployed as a functions component of the `mypreflight` App Platform app. Every request must carry the `X-Require-Whisk-Auth` header declared as `webSecure` in project.yml; the platform rejects the request before the function runs otherwise.",
+    "version": "1.0.0",
+    "license": {
+      "name": "Unlicense",
+      "url": "https://opensource.org/licenses/Unlicense"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://<app-host>/oceanic-tracks-provider",
+      "description": "App Platform ingress route"
+    },
+    {
+      "url": "http://localhost:3020",
+      "description": "Local development server"
+    }
+  ],
+  "security": [
+    {
+      "whiskAuth": []
+    }
+  ],
+  "paths": {
+    "/oceanic-tracks/tracks": {
+      "get": {
+        "summary": "List today's oceanic tracks",
+        "description": "Returns every track currently published, westbound PACOTS from Oakland (KZAK) and eastbound PACOTS from Fukuoka (RJJJ), each with its validity, route, the fixes placed on the map and the raw message.\n\nPoints written as latitude and longitude are placed from their own text. Named fixes and navaids are placed from the FAA's published aeronautical data; a name that exists in more than one place takes the one nearest its neighbours on the track, and a fix nobody can place is listed in `unresolvedFixes` rather than guessed.\n\nThe function takes no arguments. The assembled tracks are cached in the function instance for 5 minutes, and fix positions for 24 hours, which keeps the function well inside the FAA's limit of one data pull every 3 minutes.",
+        "operationId": "listTracks",
+        "responses": {
+          "200": {
+            "description": "The current tracks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrackSet"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or wrong X-Require-Whisk-Auth header; rejected by the platform"
+          },
+          "500": {
+            "description": "The FAA credentials are not configured, or an unexpected failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "The FAA NOTAM service or the FAA fix directory is unreachable, refused the request or answered with something unreadable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "whiskAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Require-Whisk-Auth"
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": ["code", "message", "status"],
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "NMS_UNAVAILABLE",
+                  "FIX_DIRECTORY_UNAVAILABLE",
+                  "NMS_NOT_CONFIGURED",
+                  "INTERNAL_ERROR"
+                ]
+              },
+              "message": {
+                "type": "string"
+              },
+              "status": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "TrackSet": {
+        "type": "object",
+        "required": ["fetchedAt", "tracks", "unreadableMessages"],
+        "properties": {
+          "fetchedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the function read the tracks from the FAA.",
+            "examples": ["2026-11-03T22:02:47.722Z"]
+          },
+          "tracks": {
+            "type": "array",
+            "description": "Ordered by issuing authority, then track identifier.",
+            "items": {
+              "$ref": "#/components/schemas/Track"
+            }
+          },
+          "unreadableMessages": {
+            "type": "array",
+            "description": "NOTAM numbers of track messages the function found but could not read. Empty on a normal day; anything here means the published format changed.",
+            "items": {
+              "type": "string"
+            },
+            "examples": [[]]
+          }
+        }
+      },
+      "Track": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier",
+          "direction",
+          "issuingAuthority",
+          "notamNumber",
+          "validFrom",
+          "validTo",
+          "route",
+          "levels",
+          "fixes",
+          "unresolvedFixes",
+          "remarks",
+          "message"
+        ],
+        "properties": {
+          "system": {
+            "type": "string",
+            "enum": ["pacots"],
+            "description": "The organised track system the track belongs to."
+          },
+          "identifier": {
+            "type": "string",
+            "description": "The track's published name: a letter for Oakland's westbound tracks, a number for Fukuoka's eastbound ones.",
+            "examples": ["A", "11"]
+          },
+          "direction": {
+            "type": "string",
+            "enum": ["east", "west"]
+          },
+          "issuingAuthority": {
+            "type": "string",
+            "description": "ICAO location of the unit that published the track.",
+            "enum": ["KZAK", "RJJJ"]
+          },
+          "notamNumber": {
+            "type": "string",
+            "description": "The NOTAM carrying the track. A Fukuoka message carries several tracks, so they share it.",
+            "examples": ["A5313/26"]
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date-time",
+            "examples": ["2026-11-03T19:00:00.000Z"]
+          },
+          "validTo": {
+            "type": "string",
+            "format": "date-time",
+            "examples": ["2026-11-04T08:00:00.000Z"]
+          },
+          "route": {
+            "type": "string",
+            "description": "The oceanic part of the track as published, without the connecting routes.",
+            "examples": [
+              "PUPPI CRESP 23N170W 25N180E 27N170E 28N160E 31N150E TONIK"
+            ]
+          },
+          "levels": {
+            "type": "array",
+            "description": "Flight levels the track is published for. PACOTS messages publish none, so the list is empty.",
+            "items": {
+              "type": "integer"
+            },
+            "examples": [[]]
+          },
+          "fixes": {
+            "type": "array",
+            "description": "Every fix on the route that could be placed, in route order.",
+            "items": {
+              "$ref": "#/components/schemas/Fix"
+            }
+          },
+          "unresolvedFixes": {
+            "type": "array",
+            "description": "Fixes on the route that could not be placed, in route order. They are left out of `fixes` rather than guessed.",
+            "items": {
+              "type": "string"
+            },
+            "examples": [[]]
+          },
+          "remarks": {
+            "type": ["string", "null"],
+            "description": "The track's remarks, one per line. Null when the message publishes none.",
+            "examples": ["TRK B NOT AVAILABLE"]
+          },
+          "message": {
+            "type": "string",
+            "description": "The NOTAM text exactly as published, connecting routes included."
+          }
+        }
+      },
+      "Fix": {
+        "type": "object",
+        "required": ["ident", "latitude", "longitude"],
+        "properties": {
+          "ident": {
+            "type": "string",
+            "description": "The fix as written in the route: a name, or a point such as 52N140W.",
+            "examples": ["PUPPI", "23N170W"]
+          },
+          "latitude": {
+            "type": "number",
+            "examples": [21.921383]
+          },
+          "longitude": {
+            "type": "number",
+            "examples": [-161.679633]
+          }
+        }
+      }
+    }
+  }
+}

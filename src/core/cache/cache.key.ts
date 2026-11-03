@@ -15,6 +15,7 @@ export const CACHE_KEYS = {
   COUNTRIES_LIST: 'countries:list',
   CARGO_HOLDS_LIST: 'cargo-holds:list',
   PILOT_CARD: 'pilot-card',
+  OCEANIC_TRACKS: 'oceanic-tracks:current',
 };
 
 export const FLIGHT_CACHE_RESOURCE = {
@@ -35,6 +36,7 @@ export const CACHE_TTL_MS = {
   CARGO_HOLDS: 86_400_000,
   STATS_ACTIVITY: 60_000,
   OPERATORS_LIST_RECENT: 60_000,
+  OCEANIC_TRACKS: 900_000,
 };
 
 export function cacheByUser(key: string, userId: string): string {

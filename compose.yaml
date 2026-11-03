@@ -50,10 +50,11 @@ services:
       - '/data/functions/aerolopa.json'
       - '/data/functions/osm.json'
       - '/data/functions/postcard.json'
+      - '/data/functions/oceanic-tracks.json'
     volumes:
       - ./docker/mock:/data:ro
     ports:
-      - '1080-1089:1080-1089'
+      - '1080-1090:1080-1090'
     networks:
       default:
         aliases:

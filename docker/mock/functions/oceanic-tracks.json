@@ -1,0 +1,104 @@
+{
+  "uuid": "85e09f14-9b50-421f-833e-af0c459954ea",
+  "lastMigration": 33,
+  "name": "Oceanic tracks function",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 1090,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "d2613cc6-0aad-4542-8b2d-9b49709efe67",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "oceanic-tracks-provider/oceanic-tracks/tracks",
+      "responses": [
+        {
+          "uuid": "32143c9c-3902-4470-8706-808de73dc8e1",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "X-Require-Whisk-Auth: very-secret-token",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "oceanic-tracks/tracks.json",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "X-Require-Whisk-Auth",
+              "value": "very-secret-token",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "52a3af97-b10d-4d50-af70-d6ff225858e9",
+          "body": "{\"error\":\"Authentication is possible but has failed or not yet been provided.\"}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Fallback",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "AND",
+          "disableTemplating": true,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "d2613cc6-0aad-4542-8b2d-9b49709efe67"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": false,
+  "headers": [],
+  "proxyReqHeaders": [],
+  "proxyResHeaders": [],
+  "data": [],
+  "callbacks": []
+}
