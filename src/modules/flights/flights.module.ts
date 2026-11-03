@@ -33,6 +33,7 @@ import { UpdateDepartureParkingPositionAction } from './infra/http/action/parkin
 import { UpdateArrivalParkingPositionAction } from './infra/http/action/parking-position/update-arrival-parking-position.action';
 import { UpdateDepartureRunwayAction } from './infra/http/action/runway/update-departure-runway.action';
 import { UpdateArrivalRunwayAction } from './infra/http/action/runway/update-arrival-runway.action';
+import { ReportFixFuelAction } from './infra/http/action/route/report-fix-fuel.action';
 import { MarkFlightAsReadyAction } from './infra/http/action/lifecycle/mark-flight-as-ready.action';
 import { CheckInPilotAction } from './infra/http/action/lifecycle/check-in-pilot.action';
 import { StartBoardingAction } from './infra/http/action/lifecycle/start-boarding.action';
@@ -98,6 +99,7 @@ import { UpdateDepartureParkingPositionHandler } from './application/command/upd
 import { UpdateDepartureRunwayHandler } from './application/command/update-departure-runway.command';
 import { UpdateArrivalParkingPositionHandler } from './application/command/update-arrival-parking-position.command';
 import { UpdateArrivalRunwayHandler } from './application/command/update-arrival-runway.command';
+import { ReportFixFuelHandler } from './application/command/report-fix-fuel.command';
 import { ListEventsHandler } from './application/query/events/list-events.query';
 import { GetDiversionHandler } from './application/query/diversion/get-diversion.query';
 import { ReportFlightDiversionHandler } from './application/command/diversion/report-flight-diversion.command';
@@ -154,6 +156,7 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     UpdateArrivalParkingPositionAction,
     UpdateDepartureRunwayAction,
     UpdateArrivalRunwayAction,
+    ReportFixFuelAction,
     MarkFlightAsReadyAction,
     CheckInPilotAction,
     StartBoardingAction,
@@ -239,6 +242,7 @@ import { RejectDelayReportAction } from './infra/http/action/delay/reject-delay-
     UpdateDepartureRunwayHandler,
     UpdateArrivalParkingPositionHandler,
     UpdateArrivalRunwayHandler,
+    ReportFixFuelHandler,
     ListEventsHandler,
     GetDiversionHandler,
     ReportFlightDiversionHandler,

@@ -13,6 +13,11 @@ export type PlannedRouteFuel = {
   plannedOnBoard: number | null;
 };
 
+export type PlannedRouteFuelReport = {
+  actualOnBoard: number;
+  reportedAt: Date;
+};
+
 export type PlannedRouteWind = {
   direction: number | null;
   speed: number | null;
@@ -32,6 +37,7 @@ export type PlannedRouteFix = {
   viaAirway: string | null;
   stage: string;
   fuel: PlannedRouteFuel;
+  fuelReport: PlannedRouteFuelReport | null;
   oat: number | null;
   isaDeviation: number | null;
   tropopause: number | null;
