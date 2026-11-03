@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "https://<app-host>/oceanic-tracks",
+      "url": "https://<app-host>/oceanic-tracks-provider",
       "description": "App Platform ingress route"
     },
     {
