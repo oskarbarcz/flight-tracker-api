@@ -22,7 +22,7 @@ services:
       timeout: 500ms
 
   database:
-    image: postgres:16.2
+    image: postgres:16.2@sha256:4aea012537edfad80f98d870a36e6b90b4c09b27be7f4b4759d72db863baeebb
     environment:
       POSTGRES_USER: 'user'
       POSTGRES_PASSWORD: 'pass'
@@ -36,7 +36,7 @@ services:
       retries: 30
 
   mock:
-    image: mockoon/cli:9.9.0
+    image: mockoon/cli:9.9.0@sha256:c3b41126b87b22657a675574be9167a3d8d9f7f2cb21ec974c89c3631de56167
     command:
       - '--disable-admin-api'
       - '--data'
