@@ -1,6 +1,6 @@
 {
   "name": "flight-tracker-api",
-  "version": "3.78.0",
+  "version": "3.78.1",
   "private": true,
   "homepage": "https://mypreflight.io",
   "author": "oskarbarcz",
@@ -27,7 +27,7 @@
     "database:migrate": "npx prisma migrate deploy"
   },
   "dependencies": {
-    "@faker-js/faker": "^9.9.0",
+    "@faker-js/faker": "^10.6.0",
     "@nestjs/cache-manager": "^3.1.2",
     "@nestjs/common": "^11.1.19",
     "@nestjs/config": "^4.0.4",
@@ -42,7 +42,7 @@
     "@nestjs/swagger": "^11.4.2",
     "@nestjs/websockets": "^11.1.24",
     "@prisma/adapter-pg": "^7.8.0",
-    "@prisma/client": "^7.8.0",
+    "@prisma/client": "^7.10.1",
     "bcrypt": "^6.0.0",
     "cache-manager": "^7.2.8",
     "class-transformer": "^0.5.1",
@@ -77,7 +77,7 @@
     "prettier": "^3.8.3",
     "prettier-plugin-gherkin": "^3.1.4",
     "prettier-plugin-prisma": "^5.0.0",
-    "prisma": "^7.8.0",
+    "prisma": "^7.10.1",
     "socket.io-client": "^4.8.3",
     "source-map-support": "^0.5.21",
     "ts-jest": "^29.4.9",
@@ -91,17 +91,17 @@
     "seed": "ts-node --transpile-only prisma/seed/seed.ts"
   },
   "overrides": {
-    "minimatch": "^10.2.1",
+    "minimatch": "^11.0.4",
     "hono": "^4.12.25",
     "lodash": "^4.17.23",
-    "multer": "^2.2.0",
+    "multer": "^2.5.0",
     "ws": "^8.21.0",
     "form-data": "^4.0.6",
-    "js-yaml": "^4.2.0",
+    "js-yaml": "^4.3.2",
     "@babel/core": "^7.29.6",
     "serialize-javascript": "^7.0.3",
     "uuid": "^11.1.1",
-    "fast-uri": "^3.1.2",
+    "fast-uri": "^3.1.9",
     "@hono/node-server": "^1.19.13",
     "deepmerge-ts": "^8.0.1",
     "@angular-devkit/core": {
@@ -113,10 +113,10 @@
   },
   "allowScripts": {
     "@nestjs/core@11.1.19": true,
-    "@prisma/engines@7.9.1": true,
+    "@prisma/engines@7.10.1": true,
     "@scarf/scarf@1.4.0": true,
     "bcrypt@6.0.0": true,
-    "prisma@7.9.1": true,
+    "prisma@7.10.1": true,
     "unrs-resolver@1.11.1": true
   }
 }

@@ -8,22 +8,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout repository'
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
       - name: 'Check for CRLF line endings'
-        uses: gi-org-pl/check-crlf-action@v1
+        uses: gi-org-pl/check-crlf-action@464995c09f1659cd4b0f7e2bf7234994f0fd705e # v1.0.2
       - name: 'Check for file permission changes'
-        uses: gi-org-pl/check-file-permissions-action@v1
+        uses: gi-org-pl/check-file-permissions-action@1cec1b07fa817da3da98bd2da20992365d6b4da6 # v1.0.0
       - name: 'Check app version is unique'
-        uses: gi-org-pl/check-version-action@v1
+        uses: gi-org-pl/check-version-action@c884d1e92d3eef7b26d6277d49f18d0803009d73 # v1.0.0
         with:
           version: "$(jq -r '.version' package.json)"
   code:
     runs-on: 'ubuntu-latest'
     steps:
       - name: 'Checkout repository'
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: 'Copy environment variables'
         run: 'cp .env.dist .env'
       - name: 'Run docker compose environment'
