@@ -15,7 +15,7 @@ Anything about the product or business belongs in the knowledge base; this file 
 - Run locally: `cp .env.dist .env`, then `docker compose up -d --build`. Packages, database schema and seed data are set up automatically. API docs are at <http://localhost/api>.
 - Test: `docker compose exec app npm run format`, then `npm run lint` and `npm run test:functional` (cucumber-js, `features/`) the same way. These are the steps CI runs.
 - Deploy: bump `package.json` `version` in every PR. Merging to `main` tags the version, pushes the image to GitHub Container Registry and deploys it to DigitalOcean.
-- Links in Discord messages and emails are `FRONTEND_BASE_URL` plus a path from the web app's route table (`app/routes.ts` in `flight-tracker-app`). In production the variable lives only in the DigitalOcean app spec, and nothing here fails when the app renames a route, so check both when a link 404s.
+- Links in Discord messages and emails are `FRONTEND_BASE_URL` plus a path from the web app's route table (`app/routes.ts` in `mypreflight/app`). In production the variable lives only in the DigitalOcean app spec, and nothing here fails when the app renames a route, so check both when a link 404s.
 
 When your change alters product behaviour, also open a PR to the knowledge base updating the matching file.
 

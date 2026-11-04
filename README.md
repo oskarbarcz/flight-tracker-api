@@ -49,13 +49,13 @@ This app uses docker-based virtualization to run. To set up the project, follow 
 1. Clone the project by running:
 
    ```shell
-   git clone git@github.com:oskarbarcz/flight-tracker-api.git
+   git clone git@github.com:mypreflight/api.git
    ```
 
 2. Prepare an environment variable file by copying `.env.dist` to `.env` and fill it with your data.
 
    ```shell
-   cd flight-tracker-api
+   cd api
    cp .env.dist .env
    ```
 
@@ -141,13 +141,13 @@ not be used for real-world aviation operations.
 [web-url]: https://barcz.me
 [banner]: .github/image/background.png
 [homepage]: https://mypreflight.io
-[repo-app]: https://github.com/oskarbarcz/flight-tracker-app
-[repo-transponder]: https://github.com/oskarbarcz/flight-tracker-transponder-app
-[ci-badge]: https://img.shields.io/github/actions/workflow/status/oskarbarcz/flight-tracker-api/integrity.yaml?branch=main&style=for-the-badge&label=integrity
-[ci-url]: https://github.com/oskarbarcz/flight-tracker-api/actions/workflows/integrity.yaml
-[release-badge]: https://img.shields.io/github/v/release/oskarbarcz/flight-tracker-api?style=for-the-badge
-[release-url]: https://github.com/oskarbarcz/flight-tracker-api/releases/latest
-[license-badge]: https://img.shields.io/github/license/oskarbarcz/flight-tracker-api?style=for-the-badge
+[repo-app]: https://github.com/mypreflight/app
+[repo-transponder]: https://github.com/mypreflight/transponder-app
+[ci-badge]: https://img.shields.io/github/actions/workflow/status/mypreflight/api/integrity.yaml?branch=main&style=for-the-badge&label=integrity
+[ci-url]: https://github.com/mypreflight/api/actions/workflows/integrity.yaml
+[release-badge]: https://img.shields.io/github/v/release/mypreflight/api?style=for-the-badge
+[release-url]: https://github.com/mypreflight/api/releases/latest
+[license-badge]: https://img.shields.io/github/license/mypreflight/api?style=for-the-badge
 [license-url]: https://unlicense.org
 [node-shield]: https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white
 [node-url]: https://nodejs.org
