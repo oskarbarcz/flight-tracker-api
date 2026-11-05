@@ -17,7 +17,7 @@ Anything about the product or business belongs in the knowledge base; this file 
 - Deploy: bump `package.json` `version` in every PR. Merging to `main` tags the version, pushes the image to GitHub Container Registry and deploys it to DigitalOcean.
 - Links in Discord messages and emails are `FRONTEND_BASE_URL` plus a path from the web app's route table (`app/routes.ts` in `mypreflight/app`). In production the variable lives only in the DigitalOcean app spec, and nothing here fails when the app renames a route, so check both when a link 404s.
 
-When your change alters product behaviour, also open a PR to the knowledge base updating the matching file.
+When your change alters product behaviour, also open a PR to the knowledge base updating the matching file. When it ships something a pilot will notice, also open a PR to [mypreflight/landing](https://github.com/mypreflight/landing) adding a changelog entry with before and after screenshots; that repo's `AGENTS.md`, under "Changelog", says how.
 
 ## Commands
 
